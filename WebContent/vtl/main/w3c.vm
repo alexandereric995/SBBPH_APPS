@@ -1,0 +1,442 @@
+#if ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Gomen.css" )
+    <form name="themeChanger" method="post">
+    	<table cellpadding="5" cellspacing="0" border="0" width="100%" class="w3c_area">
+			<!-- <tr>
+				<td style="border-bottom: 1px solid #CCC;">
+					<span style="color: #000; font-weight: normal;">Ubahsuai Portal</span>
+				</td>
+			</tr> -->
+			<tr>
+				<td>
+                	<!--<span class="w3c_label">Pilih Bahasa :</span> 
+					&nbsp;-->
+                    #if ( $lang == "en" ) <a href="?lang=bm"><span class="lang" onclick="changeLanguage('bm')" />BM</a> 
+    				#elseif ( $lang == "bm" ) <a href="?lang=en"><span class="lang" onclick="changeLanguage('en')" />EN</a> #else <img src="../images/blank.gif" /> #end
+    			</td>
+    		<!-- </tr>
+    		<tr> -->
+				<td>
+    				<table cellpadding="0" cellspacing="0" border="0">
+    					<tr>
+                			<!--<td align="left" valign="middle" style="padding-right: 10px">
+            					<span class="w3c_label">#if ( $lang == "en" ) Font Size : #elseif ( $lang == "bm" ) Saiz Tulisan : #end</span>	
+            				</td>-->
+            				<td>
+                				<a href="#" onclick="setActiveStyleSheet('x-small'); return false;"><div class="font-sizing-small">&nbsp;A&nbsp;</div></a>
+            				</td>
+            				<td>
+                				<a href="#" onclick="setActiveStyleSheet('small'); return false;"><div class="font-sizing-medium">&nbsp;A&nbsp;</div></a>
+            				</td>
+            				<td>
+                				<a href="#" onclick="setActiveStyleSheet('medium'); return false;"><div class="font-sizing-large">&nbsp;A&nbsp;</div></a>
+            				</td>
+						</tr>
+					</table>
+				</td>
+			<!-- </tr>
+			<tr> -->
+				<td>
+					<table cellpadding="0" cellspacing="0" border="0" width="100%">
+						<!--<tr>
+							<td>
+								<span class="w3c_label">#if ( $lang == "en" ) Theme Color : #elseif ( $lang == "bm" ) Warna Tema : #end</span>			
+							</td>
+						</tr>-->
+						<tr>
+            				<td>
+								<a class="themeButton" style="background-color: #CC9555; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-Ori.css" title="Coklat Marmar"></a>
+								<a class="themeButton" style="background-color: #104C83; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-1.css" title="Biru Keemasan"></a>
+                				<a class="themeButton" style="background-color: #800000; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-2.css" title="Merah Kebiruan"></a>
+                				<a class="themeButton" style="background-color: #FFCB0E; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal.css" title="Emas Menarik"></a>
+								<a class="themeButton" style="background-color: #000000; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Tough.css" title="Hitam Anggun"></a>
+								##<a class="themeButton" style="background-color: #333794; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Real-Portal.css" title="Biru Putih"></a>
+                				##<a class="themeButton" style="background-color: #333794; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Hybrid.css" title="Biru Putih"></a>
+                				<a class="themeButton" style="background-color: #FFFFFF; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Modern.css" title="Putih"></a>
+                				<a class="themeButton" style="background-color: #FFA64E; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Modern-1.css" title="Oren"></a>
+                				<a class="themeButton" style="background-color: #DA0B0B; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Merah.css" title="Merah"></a>
+                				<a class="themeButton" style="background-color: #990099; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Ungu.css" title="Ungu"></a>
+                				<a class="themeButton" style="background-color: #C0C0C0; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Tough-1.css" title="Plain"></a>
+            				</td>
+            			</tr>
+					</table>
+				</td>
+			</tr>
+    	</table>
+    	
+    	<input type="hidden" id="bgColor" name="bgColor" />
+    </form>
+#elseif ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Gomen-Ori.css" )
+	<form name="themeChanger" method="post">
+    	<table cellpadding="0" cellspacing="0" border="0" width="100%">
+			<tr>
+				<td class="w3c_date" width="185px">
+					#if ( $lang == "en" )
+            			$dateFormatDAY.format($now)
+            			$dateFormatDATE.format($now)
+            			$dateFormatMONTH.format($now)
+            			$dateFormatYEAR.format($now)
+            			$dateFormatTIME.format($now)
+            		#elseif ( $lang == "bm" )
+            			#if ( $dateFormatDAY.format($now) == "Monday" ) Isnin #elseif ( $dateFormatDAY.format($now) == "Tuesday" ) Selasa #elseif ( $dateFormatDAY.format($now) == "Wednesday" ) Rabu #elseif ( $dateFormatDAY.format($now) == "Thursday" ) Khamis #elseif ( $dateFormatDAY.format($now) == "Friday" ) Jumaat #elseif ( $dateFormatDAY.format($now) == "Saturday" ) Sabtu #elseif ( $dateFormatDAY.format($now) == "Sunday" ) Ahad #end
+            			$dateFormatDATE.format($now)
+            			#if ( $dateFormatMONTH.format($now) == "January" ) Januari #elseif ( $dateFormatMONTH.format($now) == "February" ) Februari #elseif ( $dateFormatMONTH.format($now) == "March" ) Mac #elseif ( $dateFormatMONTH.format($now) == "April" ) April #elseif ( $dateFormatMONTH.format($now) == "May" ) Mei #elseif ( $dateFormatMONTH.format($now) == "June" ) Jun #elseif ( $dateFormatMONTH.format($now) == "July" ) Julai #elseif ( $dateFormatMONTH.format($now) == "August" ) Ogos #elseif ( $dateFormatMONTH.format($now) == "September" ) September #elseif ( $dateFormatMONTH.format($now) == "October" ) Oktober #elseif ( $dateFormatMONTH.format($now) == "November" ) November #elseif ( $dateFormatMONTH.format($now) == "December" ) Disember #end
+            			$dateFormatYEAR.format($now)	
+            			$dateFormatTIME.format($now)
+            		#end
+				</td>
+				<td width="10px">
+					&nbsp;
+				</td>
+				<td width="90px" align="center">
+					<a class="themeButton" style="background-color: #CC9555; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-Ori.css" title="Coklat Marmar"></a>
+								<a class="themeButton" style="background-color: #104C83; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-1.css" title="Biru Keemasan"></a>
+                				<a class="themeButton" style="background-color: #800000; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-2.css" title="Merah Kebiruan"></a>
+                				<a class="themeButton" style="background-color: #FFCB0E; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal.css" title="Emas Menarik"></a>
+								<a class="themeButton" style="background-color: #000000; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Tough.css" title="Hitam Anggun"></a>
+				</td>
+				<td width="10px">
+					&nbsp;
+				</td>
+				<td width="20px" align="center">
+					<a href="#" onclick="setActiveStyleSheet('x-small'); return false;"><div class="font-sizing-small"><img src="../images/font-sizing/decrease.png"></div></a>
+    			</td>
+				<td width="5px">
+					&nbsp;
+				</td>
+    			<td width="20px" align="center">
+					<a href="../" ><div class="font-sizing-small"><img src="../images/font-sizing/reset.png"></div></a>
+    			</td>
+				<td width="5px">
+					&nbsp;
+				</td>
+    			<td width="20px" align="center">
+					<a href="#" onclick="setActiveStyleSheet('medium'); return false;"><div class="font-sizing-small"><img src="../images/font-sizing/increase.png"></div></a>
+    			</td>
+				<td width="10px">
+					&nbsp;
+				</td>
+				<td width="150px" align="center"><span class="w3c_date">Pilihan Bahasa :</span> 
+                    #if ( $lang == "en" ) <a href="?lang=bm"><span class="lang" onclick="changeLanguage('bm')" />BM</a> 
+    				#elseif ( $lang == "bm" ) <a href="?lang=en"><span class="lang" onclick="changeLanguage('en')" />EN</a> #else <img src="../images/blank.gif" /> #end
+    			</td>
+				<td width="10px">
+					&nbsp;
+				</td>
+			</tr>
+		</table>
+	</form>	
+#elseif ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Gomen-1.css" || ${session.getAttribute("_portal_css")} == "BPH-Portal-Gomen-2.css" || ${session.getAttribute("_portal_css")} == "BPH-Portal-Gomen-3.css" || ${session.getAttribute("_portal_css")} == "BPH-Portal-Gomen-4.css" || ${session.getAttribute("_portal_css")} == "BPH-Portal-Gomen-5.css" )
+	<form name="themeChanger" method="post">
+    	<table cellpadding="0" cellspacing="0" border="0" width="100%">
+			<tr>
+				<td class="w3c_date" width="185px">
+					#if ( $lang == "en" )
+            			$dateFormatDAY.format($now)
+            			$dateFormatDATE.format($now)
+            			$dateFormatMONTH.format($now)
+            			$dateFormatYEAR.format($now)
+            			$dateFormatTIME.format($now)
+            		#elseif ( $lang == "bm" )
+            			#if ( $dateFormatDAY.format($now) == "Monday" ) Isnin #elseif ( $dateFormatDAY.format($now) == "Tuesday" ) Selasa #elseif ( $dateFormatDAY.format($now) == "Wednesday" ) Rabu #elseif ( $dateFormatDAY.format($now) == "Thursday" ) Khamis #elseif ( $dateFormatDAY.format($now) == "Friday" ) Jumaat #elseif ( $dateFormatDAY.format($now) == "Saturday" ) Sabtu #elseif ( $dateFormatDAY.format($now) == "Sunday" ) Ahad #end
+            			$dateFormatDATE.format($now)
+            			#if ( $dateFormatMONTH.format($now) == "January" ) Januari #elseif ( $dateFormatMONTH.format($now) == "February" ) Februari #elseif ( $dateFormatMONTH.format($now) == "March" ) Mac #elseif ( $dateFormatMONTH.format($now) == "April" ) April #elseif ( $dateFormatMONTH.format($now) == "May" ) Mei #elseif ( $dateFormatMONTH.format($now) == "June" ) Jun #elseif ( $dateFormatMONTH.format($now) == "July" ) Julai #elseif ( $dateFormatMONTH.format($now) == "August" ) Ogos #elseif ( $dateFormatMONTH.format($now) == "September" ) September #elseif ( $dateFormatMONTH.format($now) == "October" ) Oktober #elseif ( $dateFormatMONTH.format($now) == "November" ) November #elseif ( $dateFormatMONTH.format($now) == "December" ) Disember #end
+            			$dateFormatYEAR.format($now)	
+            			$dateFormatTIME.format($now)
+            		#end
+				</td>
+				<td width="10px">
+					&nbsp;
+				</td>
+				<td width="90px" align="center">
+					##<a class="themeButton" style="background-color: #CC9555; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-Ori.css" title="Coklat Marmar"></a>
+					<a class="themeButton" style="background-color: #104C83; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-1.css" title="Biru Keemasan"></a>
+    				<a class="themeButton" style="background-color: #800000; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-2.css" title="Merah Kebiruan"></a>
+    				<a class="themeButton" style="background-color: #FFCB0E; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-3.css" title="Emas Menarik"></a>
+					<a class="themeButton" style="background-color: #000000; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-4.css" title="Hitam Anggun"></a>
+					<a class="themeButton" style="background-color: #333794; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-5.css" title="Biru Putih"></a>
+					##<a class="themeButton" style="background-color: #333794; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Hybrid.css" title="Biru Putih"></a>
+				</td>
+				<td width="10px">
+					&nbsp;
+				</td>
+				<td width="20px" align="center">
+					<a href="#" onclick="setActiveStyleSheet('x-small'); return false;"><div class="font-sizing-small"><img src="../images/font-sizing/decrease.png"></div></a>
+    			</td>
+				<td width="5px">
+					&nbsp;
+				</td>
+    			<td width="20px" align="center">
+					<a href="../" ><div class="font-sizing-small"><img src="../images/font-sizing/reset.png"></div></a>
+    			</td>
+				<td width="5px">
+					&nbsp;
+				</td>
+    			<td width="20px" align="center">
+					<a href="#" onclick="setActiveStyleSheet('medium'); return false;"><div class="font-sizing-small"><img src="../images/font-sizing/increase.png"></div></a>
+    			</td>
+				<td width="10px">
+					&nbsp;
+				</td>
+				<td width="150px" align="center"><span class="w3c_date">Pilihan Bahasa :</span> 
+                    #if ( $lang == "en" ) <a href="?lang=bm"><span class="lang" onclick="changeLanguage('bm')" />BM</a> 
+    				#elseif ( $lang == "bm" ) <a href="?lang=en"><span class="lang" onclick="changeLanguage('en')" />EN</a> #else <img src="../images/blank.gif" /> #end
+    			</td>
+				<td width="10px">
+					&nbsp;
+				</td>
+			</tr>
+		</table>
+	</form>
+#elseif ( ${session.getAttribute("_portal_css")} == "BPH-Real-Portal.css" )
+	<form name="themeChanger" method="post">
+    	<table cellpadding="0" cellspacing="0" border="0" style="border:1px #888 dotted;">
+			<tr>
+				<td width="10px">
+					&nbsp;
+				</td>
+				<td class="w3c_date" width="200px">
+					#if ( $lang == "en" )
+            			$dateFormatDAY.format($now)
+            			$dateFormatDATE.format($now)
+            			$dateFormatMONTH.format($now)
+            			$dateFormatYEAR.format($now)
+            			$dateFormatTIME.format($now)
+            		#elseif ( $lang == "bm" )
+            			#if ( $dateFormatDAY.format($now) == "Monday" ) Isnin #elseif ( $dateFormatDAY.format($now) == "Tuesday" ) Selasa #elseif ( $dateFormatDAY.format($now) == "Wednesday" ) Rabu #elseif ( $dateFormatDAY.format($now) == "Thursday" ) Khamis #elseif ( $dateFormatDAY.format($now) == "Friday" ) Jumaat #elseif ( $dateFormatDAY.format($now) == "Saturday" ) Sabtu #elseif ( $dateFormatDAY.format($now) == "Sunday" ) Ahad #end
+            			$dateFormatDATE.format($now)
+            			#if ( $dateFormatMONTH.format($now) == "January" ) Januari #elseif ( $dateFormatMONTH.format($now) == "February" ) Februari #elseif ( $dateFormatMONTH.format($now) == "March" ) Mac #elseif ( $dateFormatMONTH.format($now) == "April" ) April #elseif ( $dateFormatMONTH.format($now) == "May" ) Mei #elseif ( $dateFormatMONTH.format($now) == "June" ) Jun #elseif ( $dateFormatMONTH.format($now) == "July" ) Julai #elseif ( $dateFormatMONTH.format($now) == "August" ) Ogos #elseif ( $dateFormatMONTH.format($now) == "September" ) September #elseif ( $dateFormatMONTH.format($now) == "October" ) Oktober #elseif ( $dateFormatMONTH.format($now) == "November" ) November #elseif ( $dateFormatMONTH.format($now) == "December" ) Disember #end
+            			$dateFormatYEAR.format($now)	
+            			$dateFormatTIME.format($now)
+            		#end
+				</td>
+				<td width="10px" style="border-left:1px #888 dotted;">
+					&nbsp;
+				</td>
+				<td width="125px" align="center">
+					<a class="themeButton" style="background-color: #CC9555; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-Ori.css" title="Coklat Marmar"></a>
+								<a class="themeButton" style="background-color: #104C83; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-1.css" title="Biru Keemasan"></a>
+                				<a class="themeButton" style="background-color: #800000; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-2.css" title="Merah Kebiruan"></a>
+                				<a class="themeButton" style="background-color: #FFCB0E; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal.css" title="Emas Menarik"></a>
+								<a class="themeButton" style="background-color: #000000; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Tough.css" title="Hitam Anggun"></a>
+    				##<a class="themeButton" style="background-color: #333794; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Real-Portal.css" title="Biru Putih"></a>
+                	##<a class="themeButton" style="background-color: #333794; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Hybrid.css" title="Biru Putih"></a>
+				</td>
+				<td width="10px" style="border-left:1px #888 dotted;">
+					&nbsp;
+				</td>
+				<td width="30px" align="center">
+					<a href="#" onclick="setActiveStyleSheet('x-small'); return false;"><div class="font-sizing-small"><img src="../images/font-sizing/decrease.png"></div></a>
+    			</td>
+				<td width="5px">
+					&nbsp;
+				</td>
+    			<td width="30px" align="center">
+					<a href="../" ><div class="font-sizing-small"><img src="../images/font-sizing/reset.png"></div></a>
+    			</td>
+				<td width="5px">
+					&nbsp;
+				</td>
+    			<td width="30px" align="center">
+					<a href="#" onclick="setActiveStyleSheet('medium'); return false;"><div class="font-sizing-small"><img src="../images/font-sizing/increase.png"></div></a>
+    			</td>
+				<td width="10px" style="border-right:1px #888 dotted;">
+					&nbsp;
+				</td>
+				<td width="150px" align="center">
+					<span class="w3c_date">Pilihan Bahasa : </span>
+					<a href="?lang=bm" class="lang">BM</a> 
+					<a href="?lang=en" class="lang">EN</a>
+    			</td>
+				<td width="10px">
+					&nbsp;
+				</td>
+			</tr>
+		</table>
+	</form>
+#elseif ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Tough-1.css" )
+    <form name="themeChanger" method="post">
+    	<table cellpadding="0" cellspacing="0" border="0" width="100%" class="w3c_area">
+    		<tr>
+    			<td align="left" class="w3c_date">
+            		#if ( $lang == "en" )
+            			$dateFormatDAY.format($now)
+            			$dateFormatDATE.format($now)
+            			$dateFormatMONTH.format($now)
+            			$dateFormatYEAR.format($now)
+            			$dateFormatTIME.format($now)
+            		#elseif ( $lang == "bm" )
+            			#if ( $dateFormatDAY.format($now) == "Monday" ) Isnin #elseif ( $dateFormatDAY.format($now) == "Tuesday" ) Selasa #elseif ( $dateFormatDAY.format($now) == "Wednesday" ) Rabu #elseif ( $dateFormatDAY.format($now) == "Thursday" ) Khamis #elseif ( $dateFormatDAY.format($now) == "Friday" ) Jumaat #elseif ( $dateFormatDAY.format($now) == "Saturday" ) Sabtu #elseif ( $dateFormatDAY.format($now) == "Sunday" ) Ahad #end
+            			$dateFormatDATE.format($now)
+            			#if ( $dateFormatMONTH.format($now) == "January" ) Januari #elseif ( $dateFormatMONTH.format($now) == "February" ) Februari #elseif ( $dateFormatMONTH.format($now) == "March" ) Mac #elseif ( $dateFormatMONTH.format($now) == "April" ) April #elseif ( $dateFormatMONTH.format($now) == "May" ) Mei #elseif ( $dateFormatMONTH.format($now) == "June" ) Jun #elseif ( $dateFormatMONTH.format($now) == "July" ) Julai #elseif ( $dateFormatMONTH.format($now) == "August" ) Ogos #elseif ( $dateFormatMONTH.format($now) == "September" ) September #elseif ( $dateFormatMONTH.format($now) == "October" ) Oktober #elseif ( $dateFormatMONTH.format($now) == "November" ) November #elseif ( $dateFormatMONTH.format($now) == "December" ) Disember #end
+            			$dateFormatYEAR.format($now)	
+            			$dateFormatTIME.format($now)
+            		#end
+    			</td>
+				<td width="12px">
+					#if ( $lang == "en" ) <a href="?lang=bm"><span class="lang"  />BM</a> 
+    				#elseif ( $lang == "bm" ) <a href="?lang=en"><span class="lang" onclick="changeLanguage('en')" />EN</a> #else <img src="../images/blank.gif" /> #end
+				</td>
+				<td>&nbsp;</td>
+    			<td width="20px" align="center" onclick="setActiveStyleSheet('x-small'); return false;" class="font-sizing-small">
+					A
+				</td>
+				<td>&nbsp;</td>
+				<td width="20px" align="center" onclick="setActiveStyleSheet('small'); return false;" class="font-sizing-medium">
+    				A
+				</td>
+				<td>&nbsp;</td>
+				<td width="20px" align="center" onclick="setActiveStyleSheet('medium'); return false;" class="font-sizing-large">
+    				A
+				</td>
+				<td>&nbsp;</td>
+				<td width="20px" style="padding: 0px 2px">
+    				<a class="themeButton" style="background-color: #CC9555; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-Ori.css" title="Coklat Marmar"></a>
+				</td>
+				<td width="20px" style="padding: 0px 2px">
+					<a class="themeButton" style="background-color: #104C83; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-1.css" title="Biru Keemasan"></a>
+				</td>
+				<td width="20px" style="padding: 0px 2px">
+    				<a class="themeButton" style="background-color: #800000; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-2.css" title="Merah Kebiruan"></a>
+				</td>
+				<td width="20px" style="padding: 0px 2px">
+    				<a class="themeButton" style="background-color: #FFCB0E; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal.css" title="Emas Menarik"></a>
+				</td>
+				<td width="20px" style="padding: 0px 2px">
+					<a class="themeButton" style="background-color: #000000; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Tough.css" title="Hitam Anggun"></a>
+    				##<a class="themeButton" style="background-color: #333794; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Real-Portal.css" title="Biru Putih"></a>
+    				##<a class="themeButton" style="background-color: #333794; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Hybrid.css" title="Biru Putih"></a>
+				</td>
+				<td width="20px" style="padding: 0px 2px">
+    				<a class="themeButton" style="background-color: #FFFFFF;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Modern.css" title="Putih">&nbsp;</a>
+				</td>
+				<td width="20px" style="padding: 0px 2px">
+    				<a class="themeButton" style="background-color: #FFA64E;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Modern-1.css" title="Oren">&nbsp;</a>
+				</td>
+				<td width="20px" style="padding: 0px 2px">
+    				<a class="themeButton" style="background-color: #DA0B0B;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Merah.css" title="Merah">&nbsp;</a>
+				</td>
+				<td width="20px" style="padding: 0px 2px">
+    				<a class="themeButton" style="background-color: #990099;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Ungu.css" title="Ungu">&nbsp;</a>
+				</td>
+				<td width="20px" style="padding: 0px 2px">
+    				<a class="themeButton" style="background-color: #C0C0C0;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Tough-1.css" title="Plain">&nbsp;</a>
+    			</td>
+    		</tr>
+    	</table>
+    	
+    	<!-- <input type="hidden" id="themeSelection" name="themeSelection" /> -->
+    	<input type="hidden" id="bgColor" name="bgColor" />
+    </form>	
+#elseif ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Main.css" )
+	
+#else
+    <form name="themeChanger" method="post">
+    	<table cellpadding="0" cellspacing="0" border="0" width="100%" class="w3c_area">
+    		<tr>
+    			<td align="left" class="w3c_date">
+            		#if ( $lang == "en" )
+            			$dateFormatDAY.format($now)
+            			$dateFormatDATE.format($now)
+            			$dateFormatMONTH.format($now)
+            			$dateFormatYEAR.format($now)
+            			$dateFormatTIME.format($now)
+            		#elseif ( $lang == "bm" )
+            			#if ( $dateFormatDAY.format($now) == "Monday" ) Isnin #elseif ( $dateFormatDAY.format($now) == "Tuesday" ) Selasa #elseif ( $dateFormatDAY.format($now) == "Wednesday" ) Rabu #elseif ( $dateFormatDAY.format($now) == "Thursday" ) Khamis #elseif ( $dateFormatDAY.format($now) == "Friday" ) Jumaat #elseif ( $dateFormatDAY.format($now) == "Saturday" ) Sabtu #elseif ( $dateFormatDAY.format($now) == "Sunday" ) Ahad #end
+            			$dateFormatDATE.format($now)
+            			#if ( $dateFormatMONTH.format($now) == "January" ) Januari #elseif ( $dateFormatMONTH.format($now) == "February" ) Februari #elseif ( $dateFormatMONTH.format($now) == "March" ) Mac #elseif ( $dateFormatMONTH.format($now) == "April" ) April #elseif ( $dateFormatMONTH.format($now) == "May" ) Mei #elseif ( $dateFormatMONTH.format($now) == "June" ) Jun #elseif ( $dateFormatMONTH.format($now) == "July" ) Julai #elseif ( $dateFormatMONTH.format($now) == "August" ) Ogos #elseif ( $dateFormatMONTH.format($now) == "September" ) September #elseif ( $dateFormatMONTH.format($now) == "October" ) Oktober #elseif ( $dateFormatMONTH.format($now) == "November" ) November #elseif ( $dateFormatMONTH.format($now) == "December" ) Disember #end
+            			$dateFormatYEAR.format($now)	
+            			$dateFormatTIME.format($now)
+            		#end
+    			</td>
+    		#if ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Hybrid.css" || ${session.getAttribute("_portal_css")} == "BPH-Portal-Modern.css" || ${session.getAttribute("_portal_css")} == "BPH-Portal-Modern-1.css" )
+    			<td align="left" valign="middle">
+    				<a href="#" onclick="setActiveStyleSheet('x-small'); return false;"><div class="font-sizing-small">&nbsp;A&nbsp;</div></a>
+    				<a href="#" onclick="setActiveStyleSheet('small'); return false;"><div class="font-sizing-medium">&nbsp;A&nbsp;</div></a>
+    				<a href="#" onclick="setActiveStyleSheet('medium'); return false;"><div class="font-sizing-large">&nbsp;A&nbsp;</div></a>
+    ##		#elseif ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Modern.css" )
+    ##		</tr>
+    ##		<tr>
+    ##			<td>
+    ##				&nbsp;
+    ##			</td>
+    ##		</tr>
+    ##		<tr>
+    ##			<td align="left" valign="middle">
+    ##				<span class="w3c_label" style="float: left; margin-top: 2px; margin-right: 7px;">#if ( $lang == "en" ) Font Size : #elseif ( $lang == "bm" ) Saiz Tulisan : #end</span>
+    ##				<a href="#" onclick="setActiveStyleSheet('x-small'); return false;"><div class="font-sizing-small">&nbsp;A&nbsp;</div></a>
+    ##				<a href="#" onclick="setActiveStyleSheet('small'); return false;"><div class="font-sizing-medium">&nbsp;A&nbsp;</div></a>
+    ##				<a href="#" onclick="setActiveStyleSheet('medium'); return false;"><div class="font-sizing-large">&nbsp;A&nbsp;</div></a>
+    		#else
+    			<td align="right" valign="middle">
+    				<a href="#" onclick="setActiveStyleSheet('x-small'); return false;"><span class="font-sizing-small">&nbsp;A&nbsp;</span></a>
+    				<a href="#" onclick="setActiveStyleSheet('small'); return false;"><span class="font-sizing-medium">&nbsp;A&nbsp;</span></a>
+    				<a href="#" onclick="setActiveStyleSheet('medium'); return false;"><span class="font-sizing-large">&nbsp;A&nbsp;</span></a>
+    		#end
+    ##		#if ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Modern.css" )
+    ##			</td>
+    ##		</tr>
+    ##		<tr>
+    ##			<td>
+    ##		#else
+    				&nbsp;&nbsp;&nbsp;
+    ##		#end
+    				<span class="w3c_label">#if ( $lang == "en" ) Theme Color : #elseif ( $lang == "bm" ) Warna Tema : #end</span>
+    				&nbsp;
+					<a class="themeButton" style="background-color: #000000; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-Ori.css" title="Hitam Menawan"></a>
+					<a class="themeButton" style="background-color: #FFD699; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-1.css" title="Krim Cair"></a>
+    				<a class="themeButton" style="background-color: #99BEE6; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Gomen-2.css" title="Hijau Muda"></a>
+    				<a class="themeButton" style="background-color: #FFCB0E; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal.css" title="Emas"></a>
+					<a class="themeButton" style="background-color: #333794; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Tough.css" title="Biru Putih"></a>
+					##<a class="themeButton" style="background-color: #333794; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Real-Portal.css" title="Biru Putih"></a>
+    				##<a class="themeButton" style="background-color: #333794; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Hybrid.css" title="Biru Putih"></a>
+    				<a class="themeButton" style="background-color: #FFFFFF; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Modern.css" title="Putih"></a>
+    				<a class="themeButton" style="background-color: #FFA64E; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Modern-1.css" title="Oren"></a>
+    				<a class="themeButton" style="background-color: #DA0B0B; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Merah.css" title="Merah"></a>
+    				<a class="themeButton" style="background-color: #990099; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Ungu.css" title="Ungu"></a>
+    				<a class="themeButton" style="background-color: #C0C0C0; border: 1px solid #CCC;" href="../x/${securityToken}/lebah.portal.XModule?command=changeTheme&theme=BPH-Portal-Tough-1.css" title="Plain"></a>
+    				<!-- <a class="themeButton" style="background-color: #6bc7e5;" href="#" title="Biru" onclick="submitTheme('Theme-Blue.css')"></a>
+    				<a class="themeButton" style="background-color: #70b447;" href="#" title="Hijau" onclick="submitTheme('Theme-Green.css')"></a>
+    				<a class="themeButton" style="background-color: #635c3f;" href="#" title="Coklat" onclick="submitTheme('Theme-Brown.css')"></a> -->
+    				<!-- &nbsp;&nbsp;&nbsp;
+    				<span style="color: #fff; font-weight: bold; ">#if ( $lang == "en" ) Background : #elseif ( $lang == "bm" ) Latarbelakang : #end</span>
+    				&nbsp;
+    				<a class="themeButton" style="background-color: #FFD700;" href="#" title="Emas" onclick="submitbgColor('FFD700')"></a>
+    				<a class="themeButton" style="background-color: #333794;" href="#" title="Biru" onclick="submitbgColor('333794')"></a>
+    				<a class="themeButton" style="background-color: #C0C0C0;" href="#" title="Kelabu" onclick="submitbgColor('C0C0C0')"></a>
+    				<a class="themeButton" style="background-color: #DA0B0B;" href="#" title="Merah" onclick="submitbgColor('DA0B0B')"></a>
+    				<a class="themeButton" style="background-color: #990099;" href="#" title="Ungu" onclick="submitbgColor('990099')"></a> -->
+    				&nbsp;&nbsp;&nbsp;
+    ##		#if ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Modern.css" )
+    ##			</td>
+    ##		</tr>
+    ##		<tr>
+    ##			<td>
+    ##		#end
+                	<span class="w3c_label">Pilih Bahasa :</span> 
+                    #if ( $lang == "en" ) <a href="?lang=bm"><span class="lang" onclick="changeLanguage('bm')" />BM</a> 
+    				#elseif ( $lang == "bm" ) <a href="?lang=en"><span class="lang" onclick="changeLanguage('en')" />EN</a> #else <img src="../images/blank.gif" /> #end
+    			</td>
+    		</tr>
+    	</table>
+    	
+    	<!-- <input type="hidden" id="themeSelection" name="themeSelection" /> -->
+    	<input type="hidden" id="bgColor" name="bgColor" />
+    </form>
+#end
+<script type="text/javascript">
+function submitTheme(themeColor) {
+	alert("Theme Color : " + themeColor);
+	var url = "../x/my.gov.epbt.module.FormLupaKataLaluan";
+	//document.themeChanger.action = "../x/${securityToken}/lebah.portal.XModule?command=changeTheme&themeSelection=" + themeColor;
+	//document.themeChanger.submit();
+}
+
+function submitbgColor(color) {
+	document.themeChanger.action = "../x/${securityToken}/lebah.portal.XModule?command=changebgColor&bgColor=" + color;
+	document.themeChanger.submit();
+}
+
+function changeLanguage(lang) {
+	session.setAttribute("_portal_language", lang)
+}
+</script>

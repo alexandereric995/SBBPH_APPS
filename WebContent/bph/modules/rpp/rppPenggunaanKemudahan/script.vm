@@ -1,0 +1,44 @@
+
+      _jq(document).ready(function () { 
+            _jq('#btnAddNewRecordTemplate').val('Daftar Penggunaan'); ##ubah nama kepada nama yang diperlukan
+      });
+
+function validate() {
+	var err_count = 0;
+	
+	var radio1 = document.${formname}.flagJenisPemohon[0].checked;
+	var radio2 = document.${formname}.flagJenisPemohon[1].checked;
+	
+	if ( radio1 == false && radio2 == false ) {$('err_flagJenisPemohon').innerHTML = "Pilihan Kategori Pemohon adalah mandatori!"; err_count++;  }
+	
+	if(radio1 == true){
+		var permohonan = $('permohonan').value;
+		if ( permohonan == "" ) {$('err_permohonan').innerHTML = "Pilihan No. Tempahan adalah mandatori!"; err_count++;  }
+	}
+	
+	if(radio2 == true){
+		var pemohon = $('pemohon').value;
+		if ( pemohon == "" ) {$('err_pemohon').innerHTML = "Pilihan Pemohon adalah mandatori!"; err_count++;  }
+	}
+	
+	var kemudahan = $('kemudahan').value;
+	if ( kemudahan == "" ) {$('err_kemudahan').innerHTML = "Pilihan Kemudahan adalah mandatori!"; err_count++;  }
+	
+	var tarikhMulaGuna = $('tarikhMulaGuna').value;
+	if ( tarikhMulaGuna == "" ) {$('err_tarikhMulaGuna').innerHTML = "Tarikh Mula Guna adalah mandatori!"; err_count++;  }
+	
+	var tarikhTamatGuna = $('tarikhTamatGuna').value;
+	if ( tarikhTamatGuna == "" ) {$('err_tarikhTamatGuna').innerHTML = "Tarikh Tamat Guna adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function doSelectKategori() {
+	doDivAjaxCall3$formname('divKategoriPemohon','filterKategoriPemohon','')
+}

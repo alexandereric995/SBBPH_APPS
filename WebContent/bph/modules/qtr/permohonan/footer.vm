@@ -1,0 +1,40 @@
+#if( !$Awam )
+	<input type="button" value="Cetak"  id="cmdCetak" align="right"/>
+#end
+
+<script>
+
+_jq('#cmdCetak').on('click', function(){
+		
+##		alert("Function cetak sedang dikemaskini");
+		var findNoPermohonan = $('findNoPermohonan').value;
+		var findNamaPemohon = $('findNamaPemohon').value;
+		var findNoKPPemohon = $('findNoKPPemohon').value;
+		var findLokasiPermohonan = $('findLokasiPermohonan').value;
+		var findTarikhPermohonan = $('findTarikhPermohonan').value;
+		
+		if(!findNoPermohonan){
+			findNoPermohonan = "";
+		}
+		if(!findNamaPemohon){
+			findNamaPemohon = "";
+		}
+		if(!findNoKPPemohon){
+			findNoKPPemohon = "";
+		}
+		if(!findLokasiPermohonan){
+			findLokasiPermohonan = "";
+		}
+		if(!findTarikhPermohonan){
+			findTarikhPermohonan = "";
+		}
+		
+		var url = "../servlet/bph.laporan.qtr.CetakSenaraiPermohonanBaru?findNoPermohonan="+findNoPermohonan+"&findNamaPemohon="+findNamaPemohon+"&findNoKPPemohon="+findNoKPPemohon+"&findLokasiPermohonan="+findLokasiPermohonan+"&findTarikhPermohonan="+findTarikhPermohonan;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+		hWnd.opener = document.window;
+		if (hWnd.focus != null) hWnd.focus();
+
+});
+
+</script>

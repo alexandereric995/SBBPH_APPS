@@ -1,0 +1,17 @@
+
+<td>
+	<a href="javascript:void()" style="color:blue" onclick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')">
+	$!r.bahagianUnit.toUpperCase()
+	</a>
+	<div style="font-size:9px">$!r.pemohon.userName</div>
+	<div style="font-size:9px">$!r.pemohon.noKP</div>
+##	<div style="font-size:9px">$!r.pemohon.agensi.keterangan</div>
+</td>
+<td>$!util.getDateTime($!r.tarikhPermohonan,'dd-MM-yyyy')</td>
+<td>$!r.rppPeranginan.namaPeranginan.toUpperCase()</td>
+<td>$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy') <br/>- $!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')</td>
+<td>$!r.status.keterangan.toUpperCase()</td>
+<td>
+	$!r.keteranganStatusBayaran()
+	#if($!r.reminderBayaranKelompok()==true) <div class="blinking" style="color:red;font-weight:bold">Tindakan segera</div> #end
+</td>

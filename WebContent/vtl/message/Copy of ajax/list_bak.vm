@@ -1,0 +1,112 @@
+<table width="100%" cellpadding="2" cellspacing="2" border="0">
+	<tr><td>
+		
+		<form name="${formname}" method="post">
+		
+		<table align="center" width="90%" border="0" cellpadding="1" cellspacing="1">
+			<tr>
+				<td  colspan="2" align="right">
+					#if ( $allowPost )
+						<input class="button" type="button" value="Add New Message" onclick="addNewTopic_${formname}()">
+					#end
+				</td>
+			</tr>	
+		</table>
+		
+
+			
+		<table align="center" width="90%" border="0" cellpadding="2" cellspacing="1" bgcolor="lightgrey">	
+			<tr class="table_header">
+				<td   align="center" width="60%">
+					Subject
+				</td>
+				<td   align="center" >
+					Author
+				</td>
+				<td   align="center">
+					Date
+				</td>
+			</tr>	
+			#set ( $cnt = 0 )	
+			#foreach ( $forum in $topic_items)
+				#set ( $cnt= $cnt + 1 )
+			<tr>
+				<td  class="table_row">
+					#set ($i = $topic_page_number - 1 )
+					#set ($k = (10 * $i) + $cnt )
+					<a href="javascript:openForum_${formname}('$forum.id', '$k')">
+					$forum.title
+					</a>
+				</td>
+				<td  class="table_row" align="center">
+					<a href="javascript:openForum_${formname}('$forum.id', '$k')">
+					$forum.postedBy
+					</a>
+				</td>
+				<td class="table_row"  align="center">
+					<a href="javascript:openForum_${formname}('$forum.id', '$k')">
+					$forum.getDatePosted().display()
+					</a>
+				</td>
+			</tr>
+		
+			#end
+		</table>
+		
+		<table width="100%">
+			<tr>
+				<td align="right">	
+				#if ( $topic_pages > 0 )
+					Page $topic_page_number of $topic_pages&nbsp;
+				#end
+				#if ( !$topic_bol )
+				<input class="button" type="button" value="&lt;" onclick="previous_${formname}()">
+				#end
+				#if ( !$topic_eol )
+				<input class="button" type="button" value="&gt;" onclick="next_${formname}()">
+				#end
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					#if ( $topic_pages > 0 )
+						#foreach ($num in [ 1..$topic_pages ])
+							#if ( $num == $topic_page_number )
+								<b>$num</b>
+							#else
+								<a href="javascript:goPage_${formname}($num)">
+								<u>$num</u>
+								</a>
+							#end
+						#end
+					#end
+				</td>
+			</tr>	
+		</table>
+				
+		<input type="hidden" name="$formname" value="$formname">
+		</form>
+	</td></tr>
+</table>
+<script>
+function addNewTopic_${formname}() {
+	document.${formname}.action = "?command=AddNewTopic";
+	document.${formname}.submit();	
+}
+function openForum_${formname}(id, item) {
+	document.${formname}.action = "?command=Open&forum_id=" + id + "&item=" + item;
+	document.${formname}.submit();	
+}
+function next_${formname}() {
+	document.${formname}.action = "?command=NextTopic";	
+	document.${formname}.submit();
+}
+function previous_${formname}() {
+	document.${formname}.action = "?command=PreviousTopic";	
+	document.${formname}.submit();
+}
+function goPage_${formname}(num) {
+	document.${formname}.action = "?command=GoTopicPage&pagenum=" + num;	
+	document.${formname}.submit();
+}
+</script>

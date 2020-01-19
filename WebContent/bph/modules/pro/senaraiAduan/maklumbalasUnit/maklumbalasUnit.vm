@@ -1,0 +1,42 @@
+<fieldset>
+<legend class="legend">MAKLUMBALAS UNIT</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:29%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+	  #if ($!command != 'maklumbalasUnit')
+	  	#input_normal("urusetiaMaklumbalasUnit" "Terima Oleh" "<b>$!r.urusetiaMaklumbalasUnit.userName.toUpperCase()</b>")
+	  	
+	  	#if ($!r.tarikhMaklumbalasUnit) 
+	    	#set ($dateMaklumbalasUnit = "$!util.getDateTime($!r.tarikhMaklumbalasUnit,'dd-MM-yyyy hh:mm:ss a')")
+	    #else 
+	    	#set ($dateMaklumbalasUnit = '-')
+	    #end
+	  	#input_normal("tarikhMaklumbalasUnit" "Tarikh" "<b>$dateMaklumbalasUnit</b>")
+	  	
+	  	#textarea_readonly("ulasanUnit" "Maklumbalas Unit" "$!r.ulasanUnit")
+	  	#textarea_readonly("catatanUnit" "Catatan" "$!r.catatanUnit")
+	  #else
+##	  	#textarea_required("ulasanUrusetia" "Maklumbalas kepada Pengadu" "")
+  	<tr>
+		<td class="label" valign="top">Maklumbalas Unit<span style="color:#FF2A00">*</span></td>
+		<td class="label" valign="top">:</td>
+		<td valign="top">
+			<textarea style="height:70px;" id="ulasanUnit" name="ulasanUnit"></textarea>
+			<div id="err_ulasanUnit" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	</tr>
+	##  	#textarea("catatanUrusetia" "Catatan" "")
+  	<tr>
+		<td class="label" valign="top">Catatan</td>
+		<td class="label" valign="top">:</td>
+		<td valign="top">
+			<textarea style="height:70px;" id="catatanUnit" name="catatanUnit"></textarea>
+			<div id="err_catatanUnit" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	</tr>
+#end
+</table>
+</fieldset>

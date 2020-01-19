@@ -1,0 +1,122 @@
+
+
+
+
+<fieldset style="height:200px;min-height:200px">
+	<legend class="legend">MAKLUMAT PEMBAYAR</legend>
+	
+	<table width="100%" cellpadding="1" cellspacing="1" border="0">
+		
+		<tr>
+			<td width="30%" valign="top">
+				<table width="100%">
+					<tr>
+            			<td colspan="3" style="padding-right:0.1cm" valign="top" align="left">
+            				
+            				<div style="width:100%;height:50px"> 
+            					<div style="float:right;padding:0.1cm">
+            						#if ($pembayar.profilePhoto)
+                                		#if ($!pembayar.profilePhoto != "") 
+											<img style="border:1px solid black;width:120px;height:120px;margin:4px 0 4px;" width="120px" height="120px" id="photoImg" src="../download?file=$!uploadDir$pembayar.profilePhoto" border="0" /> 
+                                		#else 
+											#set($photofilename = $!pembayar.photofilename.substring($!pembayar.photofilename.lastIndexOf('/'))) 
+                                			<span class="print">$!photofilename</span> 
+                                		#end 
+            						#else
+										<img style="border:1px solid black;width:110px;height:120px;margin:4px 0 4px;" width="120px" height="120px" id="photoImg" src="../img/nophoto.gif" border="0" />
+            						#end
+                    			</div>
+            				</div>
+            				
+            			</td>
+            		</tr>
+				</table>
+			</td>
+			
+			<td width="70%" valign="top">
+				<table width="100%" style="padding-top:0.2cm">
+					<tr>
+						<td width="25%"></td>
+						<td width="5%"></td>
+						<td width="70%"></td>
+					</tr>
+					
+					<tr>
+						<td valign="top">NO. KP</td>
+						<td valign="top">:</td>
+						<td valign="top">$!pembayar.noKP</td>
+					</tr>
+					
+					<tr>
+						<td valign="top">NAMA</td>
+						<td valign="top">:</td>
+						<td valign="top">$!pembayar.userName.toUpperCase()</td>
+					</tr>
+					
+					<tr>
+						<td valign="top">ALAMAT</td>
+						<td valign="top">:</td>
+						<td valign="top">
+							#if( $isEditPayee.equalsIgnoreCase("Y") )
+								<input type="text" name="alamat1" id="alamat1" value="$!pembayar.alamat1.toUpperCase()" /><br/>
+								<input type="text" name="alamat2" id="alamat2" value="$!pembayar.alamat2.toUpperCase()" /><br/>
+								<input type="text" name="alamat3" id="alamat3" value="$!pembayar.alamat3.toUpperCase()" />
+							#else
+								$!pembayar.alamat1.toUpperCase()<br/>
+    							$!pembayar.alamat2.toUpperCase()<br/>
+    							$!pembayar.alamat3.toUpperCase()
+							#end
+						</td>
+					</tr>
+					
+					<tr>
+						<td valign="top">POSKOD</td>
+						<td valign="top">:</td>
+						<td valign="top">
+							#if( $isEditPayee.equalsIgnoreCase("Y") )
+								<input type="text" name="poskod" id="poskod" value="$!pembayar.poskod.toUpperCase()" />
+							#else
+								$!pembayar.poskod
+							#end
+						</td>
+					</tr>
+					
+					<tr>
+						<td valign="top">BANDAR</td>
+						<td valign="top">:</td>
+						<td valign="top">
+							#if( $isEditPayee.equalsIgnoreCase("Y") )
+								<select class="texts" id="bandar" name="bandar" style="width:100%">
+                                    <option value="">SILA PILIH</option>
+                                    #foreach( $n in $listBandar)
+                                    	<option value="$n.id" #if($!pembayar.bandar.id == $n.id) selected #end>$n.keterangan.toUpperCase()</option>
+                                    #end
+                                </select>
+							#else
+								$!pembayar.bandar.keterangan.toUpperCase(), $!pembayar.bandar.negeri.keterangan.toUpperCase()
+							#end
+							
+						</td>
+					</tr>
+					
+					<tr>
+						<td valign="top">NO.TEL</td>
+						<td valign="top">:</td>
+						<td valign="top">
+							#if( $isEditPayee.equalsIgnoreCase("Y") )
+								<input type="text" name="noTelefonBimbit" id="noTelefonBimbit" value="$!pembayar.noTelefonBimbit" />
+							#else
+								$!pembayar.noTelefonBimbit
+							#end
+						</td>
+					</tr>
+					
+				</table>
+			</td>
+		</tr>
+		
+	</table>
+	
+</fieldset>
+	
+				  

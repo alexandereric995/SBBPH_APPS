@@ -1,0 +1,18 @@
+#parse("$path/notis.vm")
+<script>
+	var x = "$!disableAddNewRecordButton";
+	var y = "$!listPermohonan.size()";
+	var z = "$!currentRoleQTR";
+	
+	if ( x == "" ) {
+		if ( z == "" ) {
+			if ( y == 0 ) {
+        		_jq( document ).ready(function() {
+            		doDivAjaxCall3$formname('newPermohonan','newPermohonan','');
+                    jQuery('#newPermohonan').fadeIn();
+        		});
+			}
+		}
+	}
+</script>	
+<div id="newPermohonan" class="popup"></div>

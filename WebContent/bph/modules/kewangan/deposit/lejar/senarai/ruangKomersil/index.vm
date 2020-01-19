@@ -1,0 +1,99 @@
+
+<fieldset>
+
+	<legend class="legend">SENARAI PENDEPOSIT</legend>
+    <table width="100%" border="0" cellspacing="1" cellpadding="1">
+
+		<tr>
+			<td width="5%"></td>
+			<td width="30%"></td>
+			<td width="20%"></td>
+			<td width="15%"></td>
+			<td width="15%"></td>
+			<td width="15%"></td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" valign="middle" rowspan="2">BIL.</td>
+			<td class="row_header" style="text-align:left" valign="middle" rowspan="2">NAMA PENDEPOSIT</td>
+			<td class="row_header" valign="middle" rowspan="2">NO. K/P</td>
+			<td class="row_header" valign="middle" colspan="2">RESIT</td>
+			<td class="row_header" valign="middle" rowspan="2">AMAUN (RM)</td>
+		</tr>
+		
+		<tr>
+			<td class="row_header">NO</td>
+			<td class="row_header">TARIKH</td>
+		</tr>
+		
+		#if ( $listdep.size() > 0 )
+    		#set ( $count = 0 )
+    		#set ( $jumlaBesarDeposit = 0 )
+    		#foreach( $d in $listdep )
+    			#set($jumlaBesarDeposit = $jumlaBesarDeposit + $!d.jumlahDeposit)
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+					<td align="left">$!d.pendeposit.userName.toUpperCase()</td>
+            		<td align="center">$!d.pendeposit.noKP.toUpperCase()</td>
+            		<td align="center">$!d.noResit</td>
+					<td align="center">$!util.getDateTime($!d.tarikhBayaran,'dd-MM-yyyy')</td>
+					<td align="right">$!util.formatDecimal($!d.jumlahDeposit)</td>
+                </tr>
+			#end
+			<tr bgcolor="#D0CFCE">
+				<td colspan="5" align="right"><b>Jumlah</b></td>
+				<td align="right"><b>$!util.formatDecimal($jumlaBesarDeposit)</b></td>
+			</tr>
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="6">Tiada Rekod</td>
+			</tr>
+		#end
+
+	</table>
+</fieldset>
+<table width="100%">
+	<tr>
+		<td align="right">
+			<input type="button" value="Cetak"  id="cmdCetak"/>
+		</td>
+	</tr>
+</table>
+<fieldset id="tableReport" style="display:none;">
+<legend class="legend">SENARAI LAPORAN</legend>
+<table width="100%" >
+	<tr>
+		<td><a href="#" style="color:blue" id="cmdSenaraiPendeposit">Senarai Pendeposit</a></td>		
+	</tr>
+</table>
+</fieldset>	
+<br/>		
+##start Report
+<script>
+_jq('#cmdCetak').on('click', function(){
+
+			if(document.getElementById('tableReport').style.display=="none"){
+				document.getElementById('tableReport').style.display="block";
+				}
+			else if(document.getElementById('tableReport').style.display=="block"){
+				document.getElementById('tableReport').style.display="none";
+				}
+});
+
+_jq('#cmdSenaraiPendeposit').on('click', function(){
+	var tarikhBayar = $('tarikhBayar').value;
+	var url = "../servlet/bph.laporan.kewangan.LaporanSenaraiPendeposit?kodHasil='79503'&idJenisBayaran='04'&tarikhHingga="+tarikhBayar;
+	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	if ((document.window != null) && (!hWnd.opener))
+	hWnd.opener = document.window;
+	if (hWnd.focus != null) hWnd.focus();
+});
+##end Report
+</script>

@@ -1,0 +1,132 @@
+
+<fieldset style="width:90% !important">
+<legend class="legend">maklumat resit lain</legend>
+<table width="100%" border = "0">
+  <tr>
+    <td style="width:200px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td colspan="7"><span style="color:red;font-weight:bold;font-size:10px"><u>TABLE KEW_BAYARAN_RESIT</u><br/>
+      </span></td>
+  </tr>
+  <tr>
+    <td width="5%" align="center" class="row_header"><strong>BIL.</strong></td>
+    <td width="15%" class="row_header"><strong>ID</strong></td>
+    <td width="15%" class="row_header"><strong>FLAG JENIS BAYARAN</strong></td>
+    <td width="10%" class="row_header"><strong>NO. RESIT</strong></td>
+    <td width="10%" align="right" class="row_header"><strong>AMAUN BAYARAN</strong></td>
+    <td width="10%" align="center" class="row_header"><strong>TARIKH BAYARAN</strong></td>
+    <td width="10%" align="center" class="row_header"><strong>FLAG JENIS RESIT</strong></td>
+    <td width="10%" align="center" class="row_header"><strong>ID TRANSAKSI BANK</strong></td>
+    <td width="15%" align="center" class="row_header"><strong>ID PEMBAYAR</strong></td>
+  </tr>
+  #set ( $count = 0 )
+  #if($listResitLain.size() > 0)
+  #foreach($u in $listResitLain)
+  #set ( $count = $count + 1)
+  <tr>
+    <td align="center">$count</td>
+    <td>$!u.id</td>
+    <td>$!u.flagJenisBayaran</td>
+    <td><a href="javascript:void()" title="Papar Resit" onClick="javascript:cetakResit('$!u.id')">$!u.noResit</a></td>
+    <td align="right">$!util.formatDecimal($!u.jumlahAmaunBayaran)</td>
+    <td align="center">$!util.getDateTime($!u.tarikhBayaran,'dd/MM/yyyy')</td>
+    <td align="center">$!u.getKeteranganFlagJenisResit()</td>
+    <td align="center">$!u.idTransaksiBank</td>
+    <td align="center">$!u.pembayar.id</td>
+  </tr>
+  #end
+  #else
+  <tr>
+    <td colspan="7">TIADA REKOD KEW_BAYARAN_RESIT</td>
+  </tr>
+  #end
+</table>
+<br/>
+<table width="100%" border = "0">
+  <tr>
+    <td style="width:200px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td colspan="6"><span style="color:red;font-weight:bold;font-size:10px"><u>TABLE KEW_RESIT_SENARAI_INVOIS</u><br/>
+      </span></td>
+  </tr>
+  <tr>
+    <td width="5%" align="center" class="row_header"><strong>BIL.</strong></td>
+    <td width="15%" class="row_header"><strong>ID</strong></td>
+    <td width="20%" class="row_header"><strong>ID KEW_BAYARAN_RESIT</strong></td>
+    <td width="20%" class="row_header"><strong>ID KEW_INVOIS</strong></td>
+    <td width="20%" class="row_header"><strong>ID KEW_DEPOSIT</strong></td>
+    <td width="20%" align="center" class="row_header"><strong>FLAG JENIS RESIT</strong></td>
+  </tr>
+  #set ( $count = 0 )
+  #if($listResitSenaraiInvoisLain.size() > 0)
+  #foreach($u in $listResitSenaraiInvoisLain)
+  #set ( $count = $count + 1)
+  <tr>
+    <td align="center">$count</td>
+    <td>$!u.id</td>
+    <td>$!u.resit.id</td>
+    <td>$!util.replaceIfNull($!u.invois.id,'-')</td>
+    <td>$!util.replaceIfNull($!u.deposit.id,'-')</td>
+    <td align="center">$!u.flagJenisResit</td>
+  </tr>
+  #end
+  #else
+  <tr>
+    <td colspan="6">TIADA REKOD KEW_RESIT_SENARAI_INVOIS</td>
+  </tr>
+  #end
+</table>
+<br/>
+<table width="100%" border = "0">
+  <tr>
+    <td style="width:200px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td colspan="6"><span style="color:red;font-weight:bold;font-size:10px"><u>TABLE KEW_RESIT_KAEDAH_BAYARAN</u><br/>
+      </span></td>
+  </tr>
+  <tr>
+    <td width="5%" align="center" class="row_header"><strong>BIL.</strong></td>
+    <td width="15%" class="row_header"><strong>ID</strong></td>
+    <td width="20%" class="row_header"><strong>ID KEW_BAYARAN_RESIT</strong></td>
+    <td width="20%" class="row_header"><strong>MOD BAYARAN</strong></td>
+    <td width="10%" align="right" class="row_header"><strong>AMAUN</strong></td>
+  </tr>
+  #set ( $count = 0 )
+  #if($listKaedahBayaranLain.size() > 0)
+  #foreach($u in $listKaedahBayaranLain)
+  #set ( $count = $count + 1)
+  <tr>
+    <td align="center">$count</td>
+    <td>$!u.id</td>
+    <td>$!u.resit.id</td>
+    <td>$!u.modBayaran.keterangan.toUpperCase()</td>
+    <td align="right">$!util.formatDecimal($!u.amaunBayaran)</td>
+  </tr>
+  #end
+  #else
+  <tr>
+    <td colspan="6">TIADA REKOD KEW_RESIT_KAEDAH_BAYARAN</td>
+  </tr>
+  #end
+</table>
+<table width="100%">
+  <tr>
+    <td align="right"><input id="btnExit" type="button"  value="TUTUP" />
+    </td>
+  </tr>
+</table>
+</fieldset>
+<script>
+	_jq('#btnExit').on('click', function(){
+     	jQuery('#popupMaklumatResitLain').fadeOut();
+  	});
+</script>

@@ -1,0 +1,49 @@
+function kemaskiniMaklumatBPP() {
+
+	if ( validateKemaskiniMaklumatBPP() ){
+	
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+			doDivAjaxCall$formname('divTab','kemaskiniMaklumatBPP','');
+	}
+}
+
+
+function validateKemaskiniMaklumatBPP() {
+
+	var err_count = 0;	
+	
+	var tarikhTerima = $('tarikhTerima').value;
+	if ( tarikhTerima == "" ) {$('err_tarikhTerima').innerHTML = "Tarikh Terima adalah mandatori!"; err_count++;  }
+	
+	var flagJawapan = $('flagJawapan').value;
+	if ( flagJawapan == "" ) {$('err_flagJawapan').innerHTML = "Flag Jawapan adalah mandatori!"; err_count++;  }
+	
+	var mesej = $('mesej').value;
+	if ( mesej == "" ) {$('err_mesej').innerHTML = "Mesej adalah mandatori!"; err_count++;  }
+	
+	var kodJenisPinjaman = $('kodJenisPinjaman').value;
+	if ( kodJenisPinjaman == "" ) {$('err_kodJenisPinjaman').innerHTML = "Kod Jeni Pinjaman adalah mandatori!"; err_count++;  }
+	
+	var nama = $('nama').value;
+	if ( nama == "" ) {$('err_nama').innerHTML = "Nama adalah mandatori!"; err_count++;  }
+	
+	var findNegeri = $('findNegeri').value;
+	if ( findNegeri == "" ) {$('err_negeri').innerHTML = "Negeri adalah mandatori!"; err_count++;  }
+	
+	var findDaerah = $('findDaerah').value;
+	if ( findDaerah == "" ) {$('err_daerah').innerHTML = "Daerah adalah mandatori!"; err_count++;  }
+	
+	var findMukim = $('findMukim').value;
+	if ( findMukim == "" ) {$('err_mukim').innerHTML = "Mukim adalah mandatori!"; err_count++;  }
+	
+	var noAkaun = $('noAkaun').value;
+	if ( noAkaun == "" ) {$('err_noAkaun').innerHTML = "No. Akaun adalah mandatori!"; err_count++;  }
+	
+	var statusPinjaman = $('statusPinjaman').value;
+	if ( statusPinjaman == "" ) {$('err_statusPinjaman').innerHTML = "Status Pinjaman adalah mandatori!"; err_count++;  }
+	
+	return err_count == 0;
+
+}

@@ -1,0 +1,54 @@
+<style>
+.print {
+	color:blue;
+}
+.print:hover {
+	color:blue;
+	text-decoration:underline;
+}
+</style>
+
+
+#if ($listGambar.size() > 0)
+<table width="100%" style="font-size:13px;" cellpadding="1" cellspacing="1">
+  <tr>
+    <td class="record_header" width="5%" height="25px" align="center">Bil.</td>
+    <td class="record_header" width="30%">Tajuk</td>
+    <td class="record_header" width="30%">Keterangan</td>
+    <td class="record_header" width="30%">Dokumen</td>
+    <td class="record_header" width="5%" align="center">Hapus</td>
+  </tr>
+  #set ($count=0)
+  #foreach ($i in $listGambar)
+  #set ($count=$count+1)
+  
+  #if ( ($count % 2) != 1 )
+  #set( $row = "row2" )
+  #else
+  #set( $row = "row1" )
+  #end
+  <tr>
+    <td class="$row" align="center">$count</td>
+    <td class="$row">$!i.tajuk</td>
+    <td class="$row">$!i.keterangan</td>
+    <td class="$row" align="left">
+		<a href="../download?file=$!uploadDir$!i.photofilename"> 
+			#if ($i.thumbfilename != "") 
+				<img style="margin:4px 0 4px;" id="photoImg" src="../download?file=$!uploadDir$i.thumbfilename" border="0" /> 
+			#else 
+				#set($photofilename = $!i.photofilename.substring($!i.photofilename.lastIndexOf('/'))) 
+				<span class="print">$!photofilename</span> 
+			#end 
+		</a> 
+	</td>
+    <td class="$row" align="center">
+		<span id="hapusDoc"> 
+			<a href="javascript:void()" onClick="doDivAjaxCall$formname('refreshListGambar','deleteDokumen','dokumenId=$!i.id')" ><img src="../img/delete.gif" border="0"></a> 
+		</span> 
+	</td>
+  </tr>
+  #end
+</table>
+#end
+
+

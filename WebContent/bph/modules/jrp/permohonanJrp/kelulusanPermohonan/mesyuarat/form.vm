@@ -1,0 +1,193 @@
+
+###parse("$path/kelulusanPermohonan/senaraiSubTab.vm")
+<input name="flagJenis" type="hidden" id="cetakFlagKeputusan" value="$!km.flagKeputusan"/>
+<input name="flagJenis1" type="hidden" id="flagJenis1" value="$!r.getKategoriPermohonan()"/>
+<fieldset>
+<legend class="legend">Keputusan Mesyuarat</legend>
+	
+	<table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+		#date_input("tarikhMesyuarat" "Tarikh mesyuarat" "$!util.getDateTime($!km.tarikhMesyuarat,'dd-MM-yyyy')")
+		<tr>
+			<td class="label" valign="top">Keputusan</td>##&nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<select id="flagKeputusan" name="flagKeputusan" onChange=" $('err_flagKeputusan').innerHTML=''; at(this, event);" >
+					<option value="">SILA PILIH</option>
+					<option value="L" #if($!km.flagKeputusan=='L')selected#end >LULUS</option>
+					<option value="TL" #if($!km.flagKeputusan=='TL')selected#end >TOLAK</option>
+					<option value="TG" #if($!km.flagKeputusan=='TG')selected#end >TANGGUH</option>
+					<option value="LB" #if($!km.flagKeputusan=='LB')selected#end >LULUS BERSYARAT</option>
+				</select>
+				<div id="err_flagKeputusan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		#if($!km.ulasan.length() > 0)
+        		#set($totalAksara1 = 512 - $!km.ulasan.length())
+        	#else
+        		#set($totalAksara1 = 512)
+	        #end
+		<tr>
+        	<td class="label" valign="top">Ulasan</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<textarea id="ulasan" maxlength="512" style="width:40% !important" class="uppercasefont" name="ulasan" onKeyUp=" $('err_ulasan').innerHTML=''; at(this, event);calculateJumlahAksara(this.value, 'jumlahAksara1')" onBlur="this.value=this.value.toUpperCase();">$!km.ulasan</textarea>
+				<div id="err_ulasan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			<span style="color:#FF2A00" id="jumlahAksara1">Baki Aksara: $totalAksara1</span></td>
+        </tr>
+##        </tr>
+		#if(!$!km.urusetiaPenyedia) 
+        	#set($urusetiaPenyedia = $users.userName) #set($idUrusetia = $users.id) 
+        #else 
+        	#set($urusetiaPenyedia = $km.urusetiaPenyedia.userName) #set($idUrusetia = $km.urusetiaPenyedia.id) 
+        #end
+        #input_readonly_all_label("sedia" "Disediakan oleh" "$!urusetiaPenyedia")
+		<input type="hidden" id="urusetiaPenyedia" name="urusetiaPenyedia" value="$!idUrusetia"/>
+	</table>
+
+</fieldset>
+<table width="100%">
+	<tr>
+		<td align="right">
+			
+			#if($!r.status.id == "1424860634490")
+##				#if($km.id != "" && $km.id)
+##					<input type="button" value="Cetak"  id="cmdCetak"/>
+##				#else
+				<input type="button" value="Cetak Surat"  id="cmdCetak" disabled="disabled"/>
+##				#end
+				#if(($!km.urusetiaPenyedia) && $!r.status.id == "1424860634490")
+    			<input type="button" value="Hantar Kelulusan" id="cmdHantarPengesahanMesyuarat"/>
+    			#end
+				
+				<input type="button" value="Simpan" id="cmdSaveMesyuarat" />
+				<input type="button" value="Kosongkan" id="cmdKosongkanMesyuarat" />
+				<input id="cmdKembali" type="button" value="Kembali" onclick="document.location = '$!tabIdAndClassName'" />
+			#end
+						
+		</td>
+	</tr>
+</table>
+#if($!r.status.id == "1438356583116" || $!r.status.id == "1424860634493" || $!r.status.id == "1424860634496" || $!r.status.id == "1424860634499" || $!r.status.id == "1424924558493" || $!r.status.id == "1424860634502")
+<fieldset>
+<legend class="legend">pengesahan keputusan mesyuarat</legend>
+	<table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+		#if($!km.ulasanUrusetiaPengesah.length() > 0)
+        		#set($totalAksara2 = 512 - $!km.ulasanUrusetiaPengesah.length())
+        	#else
+        		#set($totalAksara2 = 512)
+	        #end
+		<tr>
+        	<td class="label" valign="top">Ulasan</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<textarea id="ulasanUrusetiaPengesah" maxlength="512" style="width:40% !important" class="uppercasefont" name="ulasanUrusetiaPengesah" onKeyUp="calculateJumlahAksara(this.value, 'jumlahAksara2')" onBlur="this.value=this.value.toUpperCase();">$!km.ulasanUrusetiaPengesah</textarea>
+			<br><span style="color:#FF2A00" id="jumlahAksara2">Baki Aksara: $totalAksara2</span></td>
+        </tr>
+		#if(!$!km.urusetiaPengesah) 
+        	#set($urusetiaPengesah = $users.userName) #set($idUrusetiaPengesah = $users.id) 
+        #else 
+        	#set($urusetiaPengesah = $!km.urusetiaPengesah.userName) #set($idUrusetiaPengesah = $km.disediakanOleh.id) 
+        #end
+        #input_readonly_all_label("sah" "Disahkan oleh" "$!urusetiaPengesah")
+		<input type="hidden" id="urusetiaPengesah" name="urusetiaPengesah" value="$!idUrusetiaPengesah"/>
+		<tr>
+        	<td  valign="top" class="label">Tarikh pengesahan</td>
+        	<td  valign="top" class="label">:</td>
+        	<td valign="top"> $!util.getDateTime($!tarikhPengesahan,'dd-MM-yyyy')<input type="hidden" id="tarikhSah" name="tarikhSah" value="$!util.getDateTime($!tarikhPengesahan,'dd-MM-yyyy')"/>
+        	</td>
+        </tr>
+  	</table>
+</fieldset>
+<table width="100%">
+	<tr>
+		<td align="right">
+			
+			#if($!r.status.id == "1438356583116" || $!r.status.id == "1424860634493" || $!r.status.id == "1424860634496" || $!r.status.id == "1424860634499" || $!r.status.id == "1424924558493" || $!r.status.id == "1424860634502")
+				#if($km.id != "" && $km.id)
+					<input type="button" value="Cetak Surat"  id="cmdCetak"/>
+				#else
+				<input type="button" value="Cetak Surat"  id="cmdCetak" disabled="disabled"/>
+				#end
+				#if($!r.status.id == "1438356583116" && $userRole.equalsIgnoreCase("(JRP) Pelulus"))
+				<input type="button" value="Simpan" id="cmdSavePengesahanMesyuarat" />
+				#end
+				<input id="cmdKembali" type="button" value="Kembali" onclick="document.location = '$!tabIdAndClassName'" />
+			#end
+						
+		</td>
+	</tr>
+</table>
+#end
+<div id="statusMesyuarat"></div>
+
+<script>
+_jq('#cmdKosongkanMesyuarat').on('click', function(){
+	<!--NOT USE $('bilMesyuarat').value = ""; -->
+	$('tarikhMesyuarat').value = "";
+	$('ulasan').value = "";
+	$('urusetiaPenyedia').value = "";
+	$('tarikhSah').value = "";
+	$('urusetiaPengesah').value = "";
+	$('flagKeputusan').value = "";
+});
+_jq('#cmdSaveMesyuarat').on('click', function(){
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = $!r.id;
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('statusMesyuarat','saveMesyuarat','idPermohonan='+idPermohonan+'&selectedSubTab='+tabNo+'','divTab','getKeputusanMesyuarat','selectedSubTab=2');
+		alert("Sila Hantar Pengesahan ke Pelulus");
+	}
+});
+_jq('#cmdHantarPengesahanMesyuarat').on('click', function(){
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = '$!r.id';
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('statusMesyuarat','hantarPengesahanMesyuarat','idPermohonan='+idPermohonan+'&selectedSubTab='+tabNo+'','divTab','getKeputusanMesyuarat','selectedSubTab=2');
+	}
+});
+
+_jq('#cmdSavePengesahanMesyuarat').on('click', function(){
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = '$!r.id';
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('statusMesyuarat','savePengesahanMesyuarat','idPermohonan='+idPermohonan+'&selectedSubTab='+tabNo+'','divTab','getKeputusanMesyuarat','selectedSubTab=2');
+	}
+});
+_jq('#cmdCetak').on('click', function(){
+	
+	var idPermohonan = $!r.id;
+	var cetakFlagKeputusan = document.${formName}.cetakFlagKeputusan.value;
+	var jenis = document.${formName}.flagJenis1.value;
+	if(cetakFlagKeputusan == "L" || cetakFlagKeputusan == "LB" ){
+			var url = "../servlet/bph.laporan.jrp.JRPSuratLulusRuangPejabat?idPermohonan="+idPermohonan+"&flag_lewat=&jenis_permohonan="+jenis;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		} else if(cetakFlagKeputusan == "TL"){
+			var url = "../servlet/bph.laporan.jrp.JRPSuratTolakRuangPejabat?idPermohonan="+idPermohonan+"&flag_lewat=&jenis_permohonan="+jenis;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		} else{
+			var url = "../servlet/bph.laporan.jrp.JRPSuratTangguhRuangPejabat?idPermohonan="+idPermohonan+"&flag_lewat=&jenis_permohonan="+jenis;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+
+		}
+});
+</script>
+	

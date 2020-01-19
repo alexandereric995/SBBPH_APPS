@@ -1,0 +1,66 @@
+function validate() {
+	var err_count = 0;
+		
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function kemaskiniMaklumat() {
+	var err_count = 0;
+		
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( window.confirm("Anda pasti?") ){
+		    doDivAjaxCall3$formname('divMaklumat','kemaskiniMaklumat','')
+		}
+	}
+}
+
+function uploadVideo() {
+	var id = $('id').value;	
+	$('err_video').innerHTML = '';
+	
+	var err_count = 0;
+	if ($('video').value != "" && !checkDoc($('video').value)) {
+		err_count++;
+    	$('video').value = "";
+    	$('err_video').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (mp4)';
+    }
+    
+    if (err_count == 0) {
+    	if ( window.confirm("Anda pasti?") ){
+	    	$('videoMuatnaik').style.display = "";
+	    	document.${formName}.enctype='multipart/form-data';
+	    	document.${formName}.encoding ='multipart/form-data';
+	    	document.${formName}.target='upload_video';
+	    	document.${formName}.action='?command=uploadVideo&id='+id;
+	    	document.${formName}.submit();
+	    	$('video').value = "";
+	    }
+    }
+}
+
+function checkDoc(val){
+	var arr = val.split(".");
+    var arr1 = val.split("\\");
+    if (arr[1] == "mp4") {
+    	return true;
+    } else {
+    	return false;
+    }
+}

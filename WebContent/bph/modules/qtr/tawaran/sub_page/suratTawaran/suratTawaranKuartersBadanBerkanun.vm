@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Surat Setuju Terima</title>
+        <style type="text/css" media="print">
+            @page {
+                size: 8.27in 11.69in;
+                margin: 1.25in 0.5in 0.5in 0.5in;
+                -fs-flow-top: "header";
+                -fs-flow-bottom: "footer";
+                padding: 1em;
+            }
+            body {
+                font-size: 12px;
+                font-family: arial;
+            }
+			td {
+				line-height: 15.5px;
+			}
+        </style>
+    </head>
+	<body>
+		<table cellpadding="5" cellspacing="0" border="0" style="width: 95%" align="center">
+			<tr>
+				<td align="right">
+					Rujukan Kami<br />
+					Tarikh
+				</td>
+				<td width="5px">
+					:<br />
+					:
+				</td>
+				<td width="125px" align="right" style="font-weight: bold">
+					$!p.noFail (&nbsp;$!p.bil&nbsp;)<br />
+					&nbsp;&nbsp;&nbsp;$util.getDateTime($!p.tarikhSurat, "MMMM yyyy")
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="text-transform: uppercase">
+					<strong>
+						$!p.agihan.pemohon.gelaran.keterangan $!p.agihan.pemohon.userName<br />
+						No. MyKad : $!p.agihan.pemohon.noKP
+					</strong>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					Melalui dan salinan:
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					$!p.kepada<br />
+					$!uj.agensi.kementerian.keterangan<br />
+					$!uj.agensi.keterangan<br />
+					$!uj.bahagian<br />
+					$!uj.alamat1<br />
+                    #if ( $!uj.alamat2!="" ) $!uj.alamat2<br /> #end
+                    #if ( $!uj.alamat3!="" ) $!uj.alamat3<br /> #end
+					<u style="font-weight: bold">$!uj.poskod $!uj.bandar.negeri.keterangan</u>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					$!p.titleDalamSurat.keterangan,
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" align="justify">
+					<strong>
+						PERUNTUKAN KUARTERS KERAJAAN 
+						
+						#if ($!p.agihan.kuarters.noUnit!="") $!p.agihan.kuarters.noUnit.trim().replaceAll(",", ""), #end 
+						#if ($!p.agihan.kuarters.alamat1!="") $!p.agihan.kuarters.alamat1.toUpperCase().trim().replaceAll(",", ""), #end  
+						#if ($!p.agihan.kuarters.alamat2!="") $!p.agihan.kuarters.alamat2.toUpperCase().trim().replaceAll(",", ""), #end  
+						#if ($!p.agihan.kuarters.alamat3!="") $!p.agihan.kuarters.alamat3.toUpperCase().trim().replaceAll(",", ""), #end
+						#if ($!p.agihan.kuarters.poskod!="") $!p.agihan.kuarters.poskod.trim().toUpperCase().replaceAll(",", ""), #end  
+						#if ($!p.agihan.kuarters.bandar.keterangan!="") $!p.agihan.kuarters.bandar.keterangan.toUpperCase().trim().replaceAll(",", ""), #end  
+						#if ($!p.agihan.kuarters.bandar.negeri.keterangan!="") $!p.agihan.kuarters.bandar.negeri.keterangan.toUpperCase().trim().replaceAll(",", "") #end  
+						
+						( KELAS $!p.agihan.kuarters.kelas.id )
+					</strong>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					Dengan hormatnya saya diarah merujuk  kepada perkara di atas.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" align="justify">
+					2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dimaklumkan $!p.titleDalamSurat.keterangan ditawarkan kuarters seperti alamat di atas. Sila lengkapkan dan kembalikan semula Surat Setuju Terima seperti di <strong>Lampiran A</strong> dalam tempoh <strong>tujuh (7) hari bekerja</strong> dari tarikh surat ini. Tawaran ini adalah terbatal sekiranya tiada maklum balas diterima dalam tempoh tersebut.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" align="justify">
+					3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dengan peruntukan kuarters ini, pihak jabatan adalah bertanggungjawab untuk membuat potongan Imbuhan Tetap Perumahan (ITP) dan separuh Elaun Bantuan Sara Hidup (COLA). Jumlah ITP dan separuh COLA adalah nilai sewaan yang perlu dibayar kepada Kerjaan oleh jabatan. Bayaran hendaklah dibuat melalui wang pos atau bank deraf di atas nama &quot;Ketua Setiausaha Negara.&quot;. Kegagalan bayaran sewa diterima selama tiga (3) bulan berturut-turut boleh menyebabkan kemudahan kuarters ini ditarik balik.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" align="justify">
+					4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sekiranya bersetuju dengan tawaran ini, $!p.titleDalamSurat.keterangan perlu membuat bayaran deposit kuarters sebanyak <strong>RM$util.formatDecimal($!p.agihan.kuarters.deposit)</strong>. Caj pembetungan akan ditolak melalui gaji bulanan sebanyak <strong>RM2.00</strong> sebulan. Proses melengkapkan dokumen dan memasuki kuarters adalah <strong>empat belas (14) hari</strong> daripada tarikh surat ini. Rujuk senarai semak seperti di <strong>Lampiran B</strong>.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" align="justify">
+					5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tawaran ini dibuat berdasarkan maklumat di dalam data permohonan yang diisi. Bahagian ini berhak membatalkan tawaran sekiranya didapati maklumat yang dikemukakan adalah tidak benar.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					Sekian, terima kasih.
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<strong>&quot;BERKHIDMAT UNTUK NEGARA&quot;<br />
+					&quot;BERILTIZAM PENUHI HASRAT&quot;</strong>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					Saya yang menurut perintah,
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<strong>( $!a.pengagih.userName )</strong>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					b.p Ketua Setiausaha Negara
+				</td>
+			</tr>
+			<!-- <tr>
+				<td>
+					Nota: Surat ini dijana oleh komputer, tandatangan tidak diperlukan.
+					<hr style="border:dashed 1px #000;"></hr>
+				</td>
+			</tr> -->
+		</table>
+	</body>
+</html>

@@ -1,0 +1,34 @@
+<input type="hidden" id="idTempahan" name="idTempahan" value="$!r.id">
+
+#if ($!command == "add_new_record")
+	#parse("$path/maklumatTempahan.vm")
+#else
+<div id="divTab">	
+	#parse("$path/senaraiTab.vm")
+</div>
+#end
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+  
+  window.onload=new function Window_Onload() 
+  {
+	if(document.getElementById('flagPenghuni').checked && document.getElementById('flagKenduri').checked)
+ 	{
+ 		document.getElementById("masaMula").disabled=true;
+ 		document.getElementById("masaTamat").disabled=true;
+ 	}
+ 	else
+ 	{
+ 		document.getElementById("masaMula").disabled=false;
+ 		document.getElementById("masaTamat").disabled=false;
+ 	}
+  }
+
+
+</script>

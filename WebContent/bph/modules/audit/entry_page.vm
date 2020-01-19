@@ -1,0 +1,79 @@
+<fieldset>
+<legend class="legend">Maklumat Aduan</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  #if ($!r.tarikhAduan)
+  #set ($dateAduan = "$!util.getDateTime($!r.tarikhAduan,'dd-MM-yyyy')")
+  #else #set ($dateAduan = "") #end
+  #input_readonly_all_label("tarikhAduan" "Tarikh Aduan" "$dateAduan")  
+  #input_required("noTelefon" "No Telefon" "$!r.noTelefon")
+  #input_required("noPengenalan" "No Pengenalan" "$!r.noPengenalan")
+  
+ #if ($!command == "add_new_record") 
+   <tr>
+  	<td class= "label" valign"top">Tajuk &nbsp;<span style="colour:#FF2A00">*</span></td>
+  	<td valign="top">:</td>
+  	<td>#parse("$path/selectTajuk.vm")
+  	<div id ="err_tajuk" style="colour:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  #else
+       #input("idTajuk" "Tajuk" "$!r.tajuk")
+  #end
+  
+  #input_readonly_all_label("idMasuk" "Daftar Oleh" "$!r.idMasuk.userName")
+  
+  
+  #input_normal("status" "Status" "$!r.status")
+  
+  
+  #textarea_required ("butiran" "Butiran" "$!r.butiran")
+  
+ 
+  
+    
+  
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">Status Aduan</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  #if ($!r.tarikhSelesai)
+  #set ($dateAduan = "$!util.getDateTime($!r.tarikhSelesai,'dd-MM-yyyy')")
+  #else #set ($dateAduan = "") #end
+  #input_readonly_all_label("tarikhSelesai" "Tarikh Selesai" "$dateAduan")  
+  #input_normal("selesaiOleh" "Selesai Oleh" "$!r.idSelesai.userName")
+  #textarea ("catatan" "Catatan" "$!r.catatan")
+  #input_normal("status" "Status" "$!r.status")
+ 
+  
+    
+  
+</table>
+</fieldset>
+
+
+<script>
+  _jq(function($) {
+      $('.id').autoNumeric('init'); 
+ 	  $('.tarikh_aduan').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.no_pengenalan').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.tajuk').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.butiran').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+ 	  $('.id_masuk').autoNumeric('init');
+ 	  $('.id_selesai').autoNumeric('init');  
+ 	  $('.status').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.no_telefon').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.tarikh_selesai').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.catatan').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

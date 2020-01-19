@@ -1,0 +1,10 @@
+<select id="idNegeriAgensi" name="idNegeriAgensi" style="width:100%" onChange="doDivAjaxCall3$formname('selectBandarAgensi','selectBandarAgensi','');$('err_idNegeriAgensi').innerHTML='';">
+    <option value="">SILA PILIH</option>
+    #foreach( $n in $selectNegeriAgensi )
+    	#if ($!command == 'getMaklumatAgensiBerdaftar')
+    	<option #if ( $n.id == $agensi.bandarAgensi.negeri.id ) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+    	#else
+    	<option #if ( $n.id == $!r.bandarAgensi.negeri.id ) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+    	#end
+    #end
+</select>

@@ -1,0 +1,50 @@
+
+#if ($!selectedSubTab == '')
+	#set ($selectedSubTab = "1")
+#end
+
+<br>
+<hr/>
+<br>
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedSubTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatPermohonan','')" #end >Maklumat Pemohon</a></li>
+	<li #if($!selectedSubTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='2') onClick="doDivAjaxCall3$formname('divTab','getMaklumatRuangSediaAda','')" #end >Maklumat Tempat/Lokasi Ruang Sedia Ada</a></li>
+    <li #if($!selectedSubTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='3') onClick="doDivAjaxCall3$formname('divTab','getMaklumatRuangBaru','')" #end >
+    	#if($!r.jenisPermohonanJrp.id == 'JRP1' || $!r.jenisPermohonanJrp.id == 'JRP2') Maklumat Tempat/Lokasi Ruang Baru
+		#elseif($!r.jenisPermohonanJrp.id == 'JRP3' || $!r.jenisPermohonanJrp.id == 'JRP4') Maklumat Tempat/Lokasi Ruang Tambahan
+		#elseif($!r.jenisPermohonanJrp.id == 'JRP5' || $!r.jenisPermohonanJrp.id == 'JRP6') Maklumat Tempat/Lokasi Ruang Pindah
+		#else Maklumat Tempat/Lokasi Ruang Lanjutan
+		#end
+    	</a></li>
+    <li #if($!selectedSubTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='4') onClick="doDivAjaxCall3$formname('divTab','getPerakuanKSU','')" #end >Perakuan Ketua Jabatan</a></li>
+	<li #if($!selectedSubTab=='5') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='5') onClick="doDivAjaxCall3$formname('divTab','getMaklumatKakitangan','')" #end >Maklumat Kakitangan</a></li>
+	<li #if($!selectedSubTab=='6') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='6') onClick="doDivAjaxCall3$formname('divTab','getMaklumatKeluasanRuang','')" #end >Maklumat Keluasan Ruang</a></li>
+  </ul>
+</nav>
+	
+<br/>
+
+#if ($!selectedSubTab=='1')
+	#parse("$path/maklumatPermohonan/maklumatPemohon.vm")
+#end
+
+#if ($!selectedSubTab=='2')
+	#parse("$path/maklumatPermohonan/maklumatRuangSediaAda.vm")
+#end
+
+#if ($!selectedSubTab=='3')
+	#parse("$path/maklumatPermohonan/maklumatRuangBaru.vm")
+#end
+
+#if ($!selectedSubTab=='4')
+	#parse("$path/maklumatPermohonan/perakuanKSU.vm")
+#end
+
+#if ($!selectedSubTab=='5')
+	#parse("$path/maklumatPermohonan/maklumatKakitangan.vm")
+#end
+
+#if ($!selectedSubTab=='6')
+	#parse("$path/maklumatPermohonan/maklumatKeluasanRuang.vm")
+#end

@@ -1,0 +1,75 @@
+
+
+<fieldset>
+<legend class="legend">pilihan unit untuk diselenggara</legend>
+	
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+    		<td style="width:150px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+    	</tr>
+    	<tr>
+    		<td valign="top">Lokasi Peranginan</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				$!selectPeranginan
+				<div id="err_peranginan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+    	</tr>
+		
+		<tr>
+    		<td colspan="3">
+				
+				<table width="100%" cellpadding="2" cellspacing="2">
+	
+            		<tr>
+                        <td colspan="8">&nbsp;</td>
+            		</tr>
+            		
+            		<tr>
+            			<td class="row_header" width="10%">Bil.</td>
+            			<td class="row_header" width="30%">No. Unit</td>
+            			<td class="row_header" width="30%">Nama Unit</td>
+            			<td class="row_header" width="20%">Jenis Unit</td>
+            			<td class="row_header" width="10%">Pilih</td>
+            		</tr>
+            		
+            		#if ( $listUnit.size() > 0 )
+            			
+                		#set ( $count = 0 )
+                		#foreach( $d in $listUnit )
+                			
+                			#set ( $count = $count + 1)
+                        	#if ( $count % 2 == 0 ) 
+                    			#set ( $rowcolor = "#D0CFCE" ) 
+                    		#else 
+                    			#set ( $rowcolor = "#F0F0F0" ) 
+            				#end
+            				
+                    		<tr bgcolor="$rowcolor">
+                    			<td align="center">$count</td>
+                        		<td align="center">$!d.noUnit.toUpperCase()</td>
+                                <td align="center">$!d.namaUnit.toUpperCase()</td>
+            					<td align="center">$!d.jenisUnit.keterangan.toUpperCase()</td>
+            					<td align="center"><input type="checkbox" id="cbPilihan$!d.id" name="cbPilihan" value="$!d.id" onclick="$('err_cbPilihan').innerHTML=''; at(this, event);" /></td>
+                            </tr>
+            			#end
+            		#else
+            			<tr bgcolor="#F0F0F0">
+            				<td colspan="5">Tiada Rekod</td>
+            			</tr>
+            		#end
+            	
+            	</table>
+				
+				<div id="err_cbPilihan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+				
+			</td>
+    	</tr>
+		
+	</table>
+
+</fieldset>
+
+

@@ -1,0 +1,24 @@
+function doResetBilCetak() {
+	var err_count = 0;
+	
+	var idResit = $('id').value;
+	
+	if (err_count == 0) {		
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('div_main_entry','resetBilanganCetak','$r.id');
+	}
+	
+	return err_count == 0;
+}
+function doCetakResit() {
+
+	var idResit = $('id').value;
+	var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	if ((document.window != null) && (!hWnd.opener))
+	hWnd.opener = document.window;
+	if (hWnd.focus != null) hWnd.focus();
+}
+

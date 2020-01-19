@@ -1,0 +1,331 @@
+
+
+function doKosongkanDaftarMasuk() {
+	$('tarikhDaftarMasuk').value = "";
+	$('catatanMasuk').value = "";
+}
+
+function doKosongkanDaftarKeluar() {
+	$('tarikhDaftarKeluar').value = "";
+	$('catatanKeluar').value = "";
+}
+
+function validateDaftarMasuk(dateIn,dateOut) {
+	var err_count = 0;
+	
+	var dateFrom = dateIn;
+    var dateTo = dateOut;
+    var tarikhDaftarMasuk = $('tarikhDaftarMasuk').value;
+    
+	var totalBilik = $('sizeListBilik').value;
+	var totalConfirm = $('totalConfirm').value;
+	
+    var d1 = dateFrom.split("-");
+    var d2 = dateTo.split("-");
+    var c = tarikhDaftarMasuk.split("-");
+    
+    var from = new Date(d1[2], d1[1]-1, d1[0]); 
+    var to   = new Date(d2[2], d2[1]-1, d2[0]);
+    var check = new Date(c[2], c[1]-1, c[0]);
+	
+	if ( tarikhDaftarMasuk == "" ) {
+		$('err_tarikhDaftarMasuk').innerHTML = "Tarikh Daftar Masuk adalah mandatori!"; err_count++;  
+	}else{
+		if ( check >= from && check < to ){
+			##Within stay
+    	}else{
+    		$('err_tarikhDaftarMasuk').innerHTML = "Maaf, tarikh menginap adalah pada "+dateIn+". Sila semak semula maklumat tempah "; err_count++;  
+    	}
+	}
+	
+	if ( parseInt(totalConfirm) < parseInt(totalBilik) ) {
+		$('err_roomselect').innerHTML = "* Sila pastikan kesemua bilik dipilih sebelum daftar masuk"; err_count++;  
+	}
+	
+	var masaDaftarJam = $('masaDaftarJam').value;
+	var masaDaftarMinit = $('masaDaftarMinit').value;
+	var masaDaftarAmPm = $('masaDaftarAmPm').value;
+	if ( masaDaftarJam == "" || masaDaftarMinit == "" || masaDaftarAmPm == "" ) {
+		$('err_masaDaftarMasuk').innerHTML = "Sila lengkapkan masa daftar masuk"; err_count++;  
+	}
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function doDaftarMasuk(idRppPermohonan,dateIn,dateOut) {
+	if (validateDaftarMasuk(dateIn,dateOut)){
+		doDivAjaxCall3$formname('divForm','daftarMasuk','idRppPermohonan='+idRppPermohonan)
+	}
+}
+
+function doDaftarKeluar(idRppPermohonan) {
+	if (validateDaftarKeluar()){
+		doDivAjaxCall3$formname('divForm','daftarKeluar','idRppPermohonan='+idRppPermohonan)
+	}
+}
+
+function doKosongkanMaklumBalas() {
+	$('noMaklumbalas').value = "";
+	$('selectJenisMaklumBalas').value = "";
+	$('keteranganMaklumbalas').value = "";
+	$('ulasanMaklumbalas').value = "";
+	$('tarikhMaklumbalas').value = "";
+}
+
+function validateMaklumbalas(dateIn) {
+	var err_count = 0;
+	
+	var dateFrom = dateIn;
+    var tarikhMaklumbalas = $('tarikhMaklumbalas').value;
+    
+    var d1 = dateFrom.split("-");
+    var c = tarikhMaklumbalas.split("-");
+    
+    var from = new Date(d1[2], d1[1]-1, d1[0]); 
+    var check = new Date(c[2], c[1]-1, c[0]);
+	
+	var noMaklumbalas = $('noMaklumbalas').value;
+	if ( noMaklumbalas == "" ) {$('err_noMaklumbalas').innerHTML = "No. Maklumbalas adalah mandatori!"; err_count++;  }
+	
+	var ulasanMaklumbalas = $('ulasanMaklumbalas').value;
+	if ( ulasanMaklumbalas == "" ) {$('err_ulasanMaklumbalas').innerHTML = "Ulasan adalah mandatori!"; err_count++;  }
+	
+	if ( tarikhMaklumbalas == "" ) {
+		$('err_tarikhMaklumbalas').innerHTML = "Tarikh Maklumbalas adalah mandatori!"; err_count++;  
+	}else{
+		if ( check >= from ){
+			##Within stay
+    	}else{
+    		$('err_tarikhMaklumbalas').innerHTML = "Sila pastikan maklumbalas didaftarkan pada hari daftar masuk atau selepas"; err_count++;  
+    	}
+	}
+	
+	var keteranganMaklumbalas = $('keteranganMaklumbalas').value;
+	if ( keteranganMaklumbalas == "" ) {$('err_keteranganMaklumbalas').innerHTML = "Keterangan adalah mandatori!"; err_count++;  }
+	
+	var selectJenisMaklumBalas = $('selectJenisMaklumBalas').value;
+	if ( selectJenisMaklumBalas == "" ) {$('err_selectJenisMaklumBalas').innerHTML = "Jenis Maklumbalas adalah mandatori!"; err_count++;  }
+	
+	
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function doSimpanMaklumbalas(dateIn) {
+	if (validateMaklumbalas(dateIn)){
+		doDivAjaxCall3$formname('divForm','saveMaklumBalas','')
+	}
+}
+
+function kosongkanAduan() {
+	$('noAduan').value = "";
+	$('keterangan').value = "";
+	$('ulasanAduan').value = "";
+	$('tarikhAduan').value = "";
+}
+
+function validateAduan() {
+	var err_count = 0;
+	
+	var tarikhAduan = $('tarikhAduan').value;
+	if ( tarikhAduan == "" ) {$('err_tarikhAduan').innerHTML = "Tarikh Aduan adalah mandatori!"; err_count++;  }
+	
+	var barangDeposit = $('barangDeposit').value;
+	if ( barangDeposit == "" ) {$('err_barangDeposit').innerHTML = "Jenis Kerosakan adalah mandatori!"; err_count++;  }
+	
+	var kuantiti = $('kuantiti').value;
+	if ( kuantiti == "" ) {$('err_kuantiti').innerHTML = "Kuantiti adalah mandatori!"; err_count++;  }
+	
+	var harga = $('harga').value;
+	if ( harga == "" ) {$('err_harga').innerHTML = "Harga adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doSimpanAduan() {
+	if (validateAduan()){
+		doDivAjaxCall3$formname('divForm','saveAduan','')
+	}
+}
+
+function checkUpload() {
+	
+	$('err_dokumen').innerHTML = '';
+	var idAduanKerosakan = $('idAduanKerosakan').value;
+	var error = 0;
+	var err_count = 0;
+	
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {
+		$('err_tajuk').innerHTML = "Tajuk dokumen adalah mandatori!"; 
+		$('dokumen').value = "";
+		err_count++;  
+	}
+
+	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+		error++;
+		$('dokumen').value = "";
+		$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg atau jpg)';
+	}
+	if ($('dokumen').value != "" && $('dokumen').files[0].size > 2097152) {
+		error++;
+		$('err_dokumen').innerHTML = "Saiz fail adalah "+($('dokumen').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumen').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('dokumenMuatnaik').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_doc';
+		document.${formName}.action='?command=uploadDoc&idAduanKerosakan='+idAduanKerosakan+'&tajuk='+$('tajuk').value+'&keteranganDokumen='+$('keteranganDokumen').value;
+		document.${formName}.submit();
+		$('tajuk').value = "";
+		$('keteranganDokumen').value = "";
+		$('dokumen').value = "";
+	}
+	
+	return err_count == 0;	
+}
+
+##CHECK IF ONLY PICTURE/IMAGE
+function checkDoc(val) {
+	var arr = val.split(".");
+	var arr1 = val.split("\\");
+	if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function kosongkanSenaraiHitam() {
+	$('tarikhPermohonan').value = "";
+	$('sebab').value = "";
+	$('catatan').value = "";
+}
+
+function validateSenaraiHitam() {
+	var err_count = 0;
+	
+	var tarikhPermohonan = $('tarikhPermohonan').value;
+	if ( tarikhPermohonan == "" ) {$('err_tarikhPermohonan').innerHTML = "Tarikh Permohonan adalah mandatori!"; err_count++;  }
+	
+	var sebab = $('sebab').value;
+	if ( sebab == "" ) {$('err_sebab').innerHTML = "Sebab adalah mandatori!"; err_count++;  }
+	
+	##var catatan = $('catatan').value;
+	##if ( catatan == "" ) {$('err_catatan').innerHTML = "Catatan adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doSimpanSenaraiHitam() {
+	if (validateSenaraiHitam()){
+		doDivAjaxCall3$formname('divFormAduan','saveSenaraiHitam','')
+	}
+}
+
+function batalPermohonanSenaraiHitam() {
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall3$formname('divFormAduan','batalSenaraiHitam','')
+	}
+}
+
+function doCallPopup(idUnit){
+	doDivAjaxCall3$formname('divPopupPilihBilik','callPopupPilihBilik','idUnit='+idUnit);
+    jQuery('#divPopupPilihBilik').fadeIn();
+}
+
+function doGetHarga(val){
+	doDivAjaxCall$formname('divFieldHarga','getHargaJenisKerosakan','idBarangDeposit='+val);
+	$('kuantiti').value = "1";
+	$('err_harga').innerHTML="";
+	$('err_kuantiti').innerHTML="";
+	
+}
+
+function multiplyHarga(val){
+	if(val!=""){
+    	var hargaseunitVal = $('hargaseunitVal').value;
+    	var total = parseInt(val) * parseFloat(hargaseunitVal);
+    	$('harga').value = total.toFixed(2);
+	}
+}
+
+function simpanPulanganDeposit(){
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall$formname('divForm','simpanPulanganDeposit','');
+	}
+}
+
+function validateDaftarKeluar() {
+	var err_count = 0;
+	
+	var tarikhDaftarKeluar = $('tarikhDaftarKeluar').value;
+	if ( tarikhDaftarKeluar == "" ) {$('err_tarikhDaftarKeluar').innerHTML = "Tarikh Daftar Keluar adalah mandatori!"; err_count++;  }
+	
+	var masaKeluarJam = $('masaKeluarJam').value;
+	var masaKeluarMinit = $('masaKeluarMinit').value;
+	var masaKeluarAmPm = $('masaKeluarAmPm').value;
+	if ( masaKeluarJam == "" || masaKeluarMinit == "" || masaKeluarAmPm == "" ) {
+		$('err_masaDaftarKeluar').innerHTML = "Sila lengkapkan masa daftar keluar"; err_count++;  
+	}
+	
+	if (err_count == 0) {
+		##if ( !window.confirm("Anda pasti?") ){
+		##	return;
+		##}
+	}
+	
+	return err_count == 0;
+}
+
+function doCallPopupKeluar(){
+	if (validateDaftarKeluar()){
+		doDivAjaxCall3$formname('divPopupDaftarKeluar','callPopupDaftarKeluar','');
+		jQuery('#divPopupDaftarKeluar').fadeIn();
+	}
+}
+
+function cetakResitSewa(idresit) {
+     var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idresit;
+     var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+     if ((document.window != null) && (!hWnd.opener))
+     hWnd.opener = document.window;
+     if (hWnd.focus != null) hWnd.focus();	
+}
+
+function cetakResitDeposit(idresit) {
+	 var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idresit;
+     var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+     if ((document.window != null) && (!hWnd.opener))
+     hWnd.opener = document.window;
+     if (hWnd.focus != null) hWnd.focus();	
+}
+
+
+
+
+

@@ -1,0 +1,390 @@
+function validate() {
+	var err_count = 0;
+	
+	var negeri = $('idNegeri').value;
+	if ( negeri == "" ) {$('err_idNegeri').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var daerah = $('idDaerah').value;
+	if ( daerah == "" ) {$('err_idBandar').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var mukim = $('idMukim').value;
+	if ( mukim == "" ) {$('err_idMukim').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var idJenisHakmilik = $('idJenisHakmilik').value;
+	if ( idJenisHakmilik == "" ) {$('err_idJenisHakmilik').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var noHakmilik = $('noHakmilik').value;
+	if ( noHakmilik == "" ) {$('err_noHakmilik').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+## MAKLUMAT HAKMILIK
+function saveKemaskiniHakmilik() {
+	var err_count = 0;
+	
+	var negeri = $('idNegeri').value;
+	if ( negeri == "" ) {$('err_idNegeri').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var daerah = $('idDaerah').value;
+	if ( daerah == "" ) {$('err_idBandar').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var mukim = $('idMukim').value;
+	if ( mukim == "" ) {$('err_idMukim').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var idJenisHakmilik = $('idJenisHakmilik').value;
+	if ( idJenisHakmilik == "" ) {$('err_idJenisHakmilik').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var noHakmilik = $('noHakmilik').value;
+	if ( noHakmilik == "" ) {$('err_noHakmilik').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('divTab','saveKemaskiniHakmilik','');
+	}
+}
+
+function deleteHakmilik(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	$('div_main_entry').style.display='none';
+	$('div_main').style.display='block';
+	doDivAjaxChainCall$formname('divTab','deleteHakmilik','idHakmilik='+id,'div_list','list_page','page_num=$!current_page_num');
+}
+
+function doSaveProjek() {
+	var err_count = 0;
+	
+	var namaProjek = $('namaProjek').value;
+	if ( namaProjek == "" ) {$('err_namaProjek').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var kontraktor = $('kontraktor').value;
+	if ( kontraktor == "" ) {$('err_kontraktor').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var hargaKontrak = $('hargaKontrak').value;
+	if ( hargaKontrak == "" ) {$('err_hargaKontrak').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('divCadanganPembangunan','doSaveProjek','');
+	}
+}
+
+## CADANGAN PEMBANGUNAN
+function doSaveCadanganPembangunan() {
+	var err_count = 0;
+	
+	var namaProjek = $('namaProjek').value;
+	if ( namaProjek == "" ) {$('err_namaProjek').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var kontraktor = $('kontraktor').value;
+	if ( kontraktor == "" ) {$('err_kontraktor').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var hargaKontrak = $('hargaKontrak').value;
+	if ( hargaKontrak == "" ) {$('err_hargaKontrak').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('divCadanganPembangunan','doSaveCadanganPembangunan','');
+	}
+}
+
+function doHapusCadanganPembangunan(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','doHapusCadanganPembangunan','idCadanganPembangunan=' + id);
+}
+
+function doSaveSkop() {
+	var err_count = 0;
+	
+	var item = $('item').value;
+	if ( item == "" ) {$('err_item').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('divCadanganPembangunan','doSaveSkop','');
+		jQuery('#popupMaklumatSkop').fadeOut();
+	}
+}
+
+function doHapusSkop(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divCadanganPembangunan','doHapusSkop','idSkop=' + id);
+}
+
+function doSaveEOT() {
+	var err_count = 0;
+	
+	var tarikhMohon = $('tarikhMohon').value;
+	if ( tarikhMohon == "" ) {$('err_tarikhMohon').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var tarikhEOTMohon = $('tarikhEOTMohon').value;
+	if ( tarikhEOTMohon == "" ) {$('err_tarikhEOTMohon').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var tempohEOTMohon = $('tempohEOTMohon').value;
+	if ( tempohEOTMohon == "" ) {$('err_tempohEOTMohon').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var tarikhEOTLulus = $('tarikhEOTLulus').value;
+	if ( tarikhEOTLulus == "" ) {$('err_tarikhEOTLulus').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var tempohEOTLulus = $('tempohEOTLulus').value;
+	if ( tempohEOTLulus == "" ) {$('err_tempohEOTLulus').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('divCadanganPembangunan','doSaveEOT','');
+		jQuery('#popupMaklumatEOT').fadeOut();
+	}
+}
+
+function doHapusEOT(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divCadanganPembangunan','doHapusEOT','idEOT=' + id);
+}
+
+## REKOD URUSAN
+function doSaveRekodUrusan() {
+	var err_count = 0;
+	
+	var noFail = $('noFail').value;
+	if ( noFail == "" ) {$('err_noFail').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('divTab','doSaveRekodUrusan','');
+		jQuery('#popupMaklumatUrusan').fadeOut();
+	}
+}
+
+function doHapusUrusan(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','doHapusUrusan','idUrusan=' + id);
+}
+
+## MAKLUMAT PENGUATKUASAAN
+function doSaveMaklumatPenguatkuasaan() {
+	var err_count = 0;
+	
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('divPenguatkuasaan','doSaveMaklumatPenguatkuasaan','');
+	}
+}
+
+function doHapusMaklumatPenguatkuasaan(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','doHapusMaklumatPenguatkuasaan','idMaklumatPenguatkuasaan=' + id);
+}
+
+function doBatalMaklumatPenguatkuasaan() {
+	doDivAjaxCall3$formname('divTab','getPenguatkuasaan','');
+}
+
+function doCetakLaporanPenguatkuasaan() {
+	var idMaklumatPenguatkuasaan = $('idMaklumatPenguatkuasaan').value;
+	var url = "../servlet/bph.laporan.pembangunan.LaporanTanah?ID_MAKLUMATPENGUATKUASAAN="+idMaklumatPenguatkuasaan;
+	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	if ((document.window != null) && (!hWnd.opener))
+		hWnd.opener = document.window;
+	if (hWnd.focus != null) hWnd.focus();
+}
+
+function checkUploadPenguatkuasaan() {
+	$('err_dokumen').innerHTML = '';
+	var idMaklumatPenguatkuasaan = $('idMaklumatPenguatkuasaan').value;
+	var error = 0;
+	var err_count = 0;
+	
+	var idJenisDokumen = $('idJenisDokumen').value;
+	if ( idJenisDokumen == "" ) {$('err_idJenisDokumen').innerHTML = "Jenis Dokumen adalah mandatori!"; err_count++;  }
+	
+	var tajukDokumen = $('tajukDokumen').value;
+	if ( tajukDokumen == "" ) {$('err_tajukDokumen').innerHTML = "Tajuk adalah mandatori!"; err_count++;  }
+
+	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+		error++;
+		$('dokumen').value = "";
+		$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+	}
+	if ($('dokumen').value != "" && $('dokumen').files[0].size > 2097152) {
+		error++;
+		$('err_dokumen').innerHTML = "Saiz fail adalah "+($('dokumen').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumen').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('dokumenMuatnaik').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_doc';
+		document.${formName}.action='?command=uploadDocPenguatkuasaan&idMaklumatPenguatkuasaan='+idMaklumatPenguatkuasaan+'&tajukDokumen='+$('tajukDokumen').value+'&idJenisDokumen='+$('idJenisDokumen').value+'&keteranganDokumen='+$('keteranganDokumen').value;
+		document.${formName}.submit();
+		$('tajukDokumen').value = "";
+		$('idJenisDokumen').value = "";
+		$('keteranganDokumen').value = "";
+		$('dokumen').value = "";
+	}
+	
+	return err_count == 0;
+}
+
+function deleteDokumenPenguatkuasaan(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divPenguatkuasaan','deleteDokumenPenguatkuasaan','idDokumen='+id);
+}
+
+## DOKUMEN SOKONGAN
+function checkUpload() {
+	$('err_dokumen').innerHTML = '';
+	var idHakmilik = $('idHakmilik').value;
+	var error = 0;
+	var err_count = 0;
+	
+	var idJenisDokumen = $('idJenisDokumen').value;
+	if ( idJenisDokumen == "" ) {$('err_idJenisDokumen').innerHTML = "Jenis Dokumen adalah mandatori!"; err_count++;  }
+	
+	var tajukDokumen = $('tajukDokumen').value;
+	if ( tajukDokumen == "" ) {$('err_tajukDokumen').innerHTML = "Tajuk adalah mandatori!"; err_count++;  }
+
+	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+		error++;
+		$('dokumen').value = "";
+		$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+	}
+	if ($('dokumen').value != "" && $('dokumen').files[0].size > 2097152) {
+		error++;
+		$('err_dokumen').innerHTML = "Saiz fail adalah "+($('dokumen').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumen').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('dokumenMuatnaik').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_doc';
+		document.${formName}.action='?command=uploadDoc&idHakmilik='+idHakmilik+'&tajukDokumen='+$('tajukDokumen').value+'&idJenisDokumen='+$('idJenisDokumen').value+'&keteranganDokumen='+$('keteranganDokumen').value;
+		document.${formName}.submit();
+		$('tajukDokumen').value = "";
+		$('idJenisDokumen').value = "";
+		$('keteranganDokumen').value = "";
+		$('dokumen').value = "";
+	}
+	
+	return err_count == 0;
+}
+
+function checkDoc(val) {
+	var arr = val.split(".");
+	var arr1 = val.split("\\");
+	if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" || arr[1] == "PDF" || arr[1] == "pdf" || arr[1] == "doc" || arr[1] == "DOC" || arr[1] == "docx" || arr[1] == "DOCX" ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function deleteDokumen(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','deleteDokumen','idDokumen='+id);
+}
+
+## LOG SEMAKAN
+function doHantarMaklumatSemakan() {
+	var err_count = 0;
+	
+	var perkara = $('perkara').value;
+	if ( perkara == "" ) {$('err_perkara').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var keterangan = $('keterangan').value;
+	if ( keterangan == "" ) {$('err_keterangan').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var idPenyemak = $('idPenyemak').value;
+	if ( idPenyemak == "" ) {$('err_idPenyemak').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('divSemakan','doHantarMaklumatSemakan','');
+	}
+}
+
+function doHantarPindaanSemakan() {
+	var err_count = 0;
+	
+	var catatan = $('catatan').value;
+	if ( catatan == "" ) {$('err_catatan').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('divSemakan','doHantarPindaanSemakan','');
+	}
+}
+
+function doSelesaiSemakan() {
+	var err_count = 0;
+	
+	var catatan = $('catatan').value;
+	if ( catatan == "" ) {$('err_catatan').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('divSemakan','doSelesaiSemakan','');
+	}
+}
+
+function doHantarSemakanSemula() {
+	var err_count = 0;
+	
+	var catatan = $('catatan').value;
+	if ( catatan == "" ) {$('err_catatan').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	var idPenyemak = $('idPenyemak').value;
+	if ( idPenyemak == "" ) {$('err_idPenyemak').innerHTML = "adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('divSemakan','doHantarSemakanSemula','');
+	}
+}

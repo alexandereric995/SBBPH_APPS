@@ -1,0 +1,58 @@
+<fieldset>
+	<legend class="legend">maklumat pembayar</legend>
+    <table width="100%">
+		<tr>
+			<td style="width:150px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		
+		<tr>
+        	<td valign="top">KATEGORI PEMBAYAR &nbsp;<span style='color:#FF2A00'>*</span></td>
+        	<td valign="top">:</td>
+        	<td valign="top">
+        		<input type="radio" id="flagJenisPembayarLain1" #if($!r.getMaklumatPembayarLain().flagJenisPembayarLain == "INDIVIDU") checked #end name="flagJenisPembayarLain" value="INDIVIDU" onclick="$('err_flagJenisPembayarLain').innerHTML=''; at(this, event);" />
+                <label for="flagJenisPembayarLain1" >INDIVIDU</label>
+        		<input type="radio" id="flagJenisPembayarLain2" #if($!r.getMaklumatPembayarLain().flagJenisPembayarLain == "SYARIKAT") checked #end name="flagJenisPembayarLain" value="SYARIKAT" onclick="$('err_flagJenisPembayarLain').innerHTML=''; at(this, event);" />
+        		<label for="flagJenisPembayarLain2" >SYARIKAT</label>
+        		<div id="err_flagJenisPembayarLain" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+  
+		#input_required("id" "NO. PENGENALAN / SSM" "$!r.getMaklumatPembayarLain().nokpsm")
+		#input_required("nama" "NAMA" "$!r.getMaklumatPembayarLain().nama")
+		#input_required("alamat1" "ALAMAT" "$!r.getMaklumatPembayarLain().alamat1")
+		#input("alamat2" "" "$!r.getMaklumatPembayarLain().alamat2")
+		#input("alamat3" "" "$!r.getMaklumatPembayarLain().alamat3")
+		#postcode_required("poskod" "POSKOD" "$!r.getMaklumatPembayarLain().poskod")
+
+		<tr>
+			<td>NEGERI &nbsp;<span style='color:#FF2A00'>*</span></td>
+			<td>:</td>
+			<td>
+				<select class="texts" id="negeri" name="negeri" style="width:100%" onChange="doDivAjaxCall3$formname('divFilterBandar','filterBandar',''); $('err_negeri').innerHTML=''; at(this, event);">
+                    <option value="">SILA PILIH</option>
+                    #foreach( $n in $listNegeri)
+    					<option value="$n.id" #if($!n.id == $!r.getMaklumatPembayarLain().negeri) selected #end >$n.keterangan.toUpperCase()</option>
+                    #end
+                </select>
+				<div id="err_negeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>BANDAR &nbsp;<span style='color:#FF2A00'>*</span></td>
+			<td>:</td>
+			<td>
+				<div id="divFilterBandar">#parse("$path/bandar.vm")</div>
+				<div id="err_bandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			#set ( $queryParam = "record_id=$!r.id" )
+			<td align="right" colspan="2"><input type="button" value="Simpan" onClick="if ( validatePembayar() ) doDivAjaxCall$formname('div_main_entry','simpanPembayar','$queryParam')">
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')"></td>
+		</tr>
+    </table>
+</fieldset>

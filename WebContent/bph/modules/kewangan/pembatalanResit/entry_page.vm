@@ -1,0 +1,83 @@
+
+<input type="hidden" name="id" id="id" value="$!r.id" />
+
+<style>
+	.uppercasefont{
+		text-transform: uppercase !important;
+	}
+</style>	
+<input type="hidden" id="id" name="id" value="$!r.id"/>
+<fieldset>
+<legend class="legend">MAKLUMAT BAYARAN</legend>
+	<table width="100%" style="padding-bottom:0.2cm">
+	<tr>
+        <td class="label" width="20%" valign="top">NAMA</td>
+        <td class="label" width="2%" valign="top">:</td>
+        <td width="78%" valign="top">#if($!r.pembayar) $!r.pembayar.userName #else $!r.getMaklumatPembayarLain().nama #end</td>
+	</tr>
+	<tr>
+    	<td class="label" valign="top">NO. KP</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">#if($!r.pembayar) $!r.pembayar.noKP #else $!r.getMaklumatPembayarLain().nokpsm #end</td>
+    </tr>
+
+	<tr>
+    	<td class="label" valign="top">JUMLAH BAYARAN (RM)</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">$!r.jumlahAmaunBayaran</td>
+    </tr>
+	
+	<tr>
+    	<td class="label" valign="top">NO. RESIT</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">$!r.noResit</td>
+    </tr>
+	
+	<tr>
+    	<td class="label" valign="top">TARIKH RESIT</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">$!util.getDateTime($!r.tarikhBayaran,'dd-MM-yyyy')</td>
+    </tr>
+
+</table>
+</fieldset>
+
+#if($!showButtonBatal.equalsIgnoreCase("true"))
+    <fieldset>
+    <legend class="legend">MAKLUMAT PEMBATALAN</legend>
+    
+    <table width="100%" style="padding-top:0.2cm">
+        <tr>
+        	<td class="label" valign="top" width="20%">CATATAN PEMBATALAN <span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top" width="2%">:</td>
+        	<td valign="top" width="78%"><textarea #if($!r.flagVoid=="Y")disabled #end id="catatanBatalResit" name="catatanBatalResit" onKeyUp="this.value=this.value.toUpperCase();" onBlur="this.value=this.value.toUpperCase();">$!r.catatanBatalResit</textarea>
+        	<div id="err_catatanBatalResit" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+    </table>
+    </fieldset>
+#elseif($!showButtonBatal.equalsIgnoreCase("false"))
+    <br/>
+	<div style="color:#CC0000;font-weight:bold;border:2px #000">* Pembatalan resit hanya boleh dibuat pada hari resit dikeluarkan. </div>
+#end
+
+<table width="100%" style="padding-top:0.4cm">	
+	<tr>
+		<td align="right">
+			#if($!showButtonBatal.equalsIgnoreCase("true"))
+				<input type="button" id="batal" name="batal" #if($!r.flagVoid=="Y")disabled #end  value="Batal Resit" onclick="doSimpanBatalResit()" />
+			#end
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

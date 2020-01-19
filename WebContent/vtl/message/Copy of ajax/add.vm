@@ -1,0 +1,82 @@
+#set ( $subject = $session.getAttribute("subject"))
+#set ( $message = $session.getAttribute("message"))
+
+<form name="${formname}" method="post" action="?command=Add&subjectId=$!subjectId">
+
+<table width="100%" border="0" cellspacing="1" cellpadding="1">
+	<tr>
+		<td>
+
+			<table width="100%" align="center" border="0" cellspacing="1" cellpadding="1">
+				<tr>
+					<td>
+<b>						Subject:</b><br>
+						<input class="text" name="title" value="$!subject" style="font-weight:bold;width:625px;height:25px">
+					</td>
+				</tr>
+								<tr>
+				<td>
+				<b>Message:</b>
+				</td>
+				</tr>
+				<tr>
+					<td>
+					#parse("vtl/editor/fck.vm")
+##						<textarea id="message" name="message"  rows="20" cols="80">$!{message}</textarea>
+						<textarea name="message" style="visibility:hidden">$!{message}</textarea>
+
+					</td>
+				</tr>
+				#if ( $allowAttachment )
+				<tr>
+					<td class="table_row" >
+						<b>File(s):</b>&nbsp;
+						#foreach ( $file in $attachments )
+							[$file]
+							&nbsp
+						#end
+					</td>
+				</tr>	
+				#end			
+				<tr>
+					<td>
+						<input class="button" type="button" value="SAVE" onclick="add_${formname}()">
+						#if ( $allowAttachment )
+							<input class="button" type="button" value="FILE ATTACHMENTS" onclick="attachment_${formname}()">
+						#end
+						<input class="button" type="button" value="CANCEL" onclick="cancel_${formname}()">
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<input type="hidden" name="$formname" value="$formname">
+##<script type="text/javascript">
+##initEditor();
+##</script>
+</form>
+
+<script>
+function add_${formname}() {
+##	document.${formname}.onsubmit(); //workaround browser bugzzz
+	document.${formname}.action = "?command=Add&subjectId=$!subjectId";
+	if ( document.${formname}.title.value == "" ) {
+	alert("Please enter the subject.");
+	return;
+	}	
+	document.${formname}.submit();	
+}
+
+function cancel_${formname}() {
+	document.${formname}.action = "?";	
+	document.${formname}.submit();
+}
+function attachment_${formname}() {
+##	document.${formname}.onsubmit(); //workaround browser bugzzz
+	document.${formname}.action = "?command=AttachmentTopic&subjectId=$!subjectId";
+	document.${formname}.submit();
+}
+
+</script>

@@ -1,0 +1,77 @@
+
+<script>
+	_jq('#btnAddKemudahan').on('click', function(){
+		doDivAjaxCall3$formname('popupKemudahan','openPopupKemudahan','');
+        jQuery('#popupKemudahan').fadeIn();
+   	});
+</script>
+
+<fieldset>
+<legend class="legend">SENARAI KEMUDAHAN</legend>
+    
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+            <td colspan="7">
+				<br/>
+				<input type="button" id="btnAddKemudahan" name="btnAddKemudahan" value="Tambah Kemudahan">
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="30%">Nama</td>
+			<td class="row_header" width="15%">Bilangan/Kuantiti</td>
+			<td class="row_header" width="15%">Status Untuk Disewa</td>
+			<td class="row_header" width="15%">Kadar Sewa (RM)</td>
+			<td class="row_header" width="10%">Papar</td>
+			<td class="row_header" width="10%">Hapus</td>
+			
+		</tr>
+		
+		#if ( $listKemudahan.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listKemudahan )
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+					<td align="left"><a href="javascript:void()" id="link$d.id" style="color:blue">$!d.nama.toUpperCase()</a></td>
+            		<td align="center">$!d.bilangan</td>
+            		<td align="center">$!d.getKeteranganFlagSewa()</td>
+        			<td align="center">$!util.formatDecimal($!d.kadarSewa)</td>
+					<td align="center"><a href="javascript:void()" id="xlink$d.id"><img alt="edit" src="../img/edit_bak.gif" border="0"></a></td>
+					<td align="center"><a href="javascript:void()" onClick="deleteKemudahan('$d.id')"><img alt="hapus" src="../img/delete.gif" border="0"></a></td>
+                </tr>
+				
+				<script>
+                    _jq('#link$d.id').on('click', function(){
+						doDivAjaxCall3$formname('popupKemudahan','openPopupKemudahan','idKemudahan=$d.id');
+                        jQuery('#popupKemudahan').fadeIn();
+                    });
+					 _jq('#xlink$d.id').on('click', function(){
+						doDivAjaxCall3$formname('popupKemudahan','openPopupKemudahan','idKemudahan=$d.id');
+                        jQuery('#popupKemudahan').fadeIn();
+                    });
+                </script>	
+				
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="7">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+	
+</fieldset>	
+
+<div id="popupKemudahan" class="popup"></div>
+	
+
+

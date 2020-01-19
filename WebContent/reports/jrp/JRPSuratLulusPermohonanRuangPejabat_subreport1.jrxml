@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="JRPSuratLulusPermohonanRuangPejabat_subreport1"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="451"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idPermohonan" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT B.alamat_1, B.alamat_2, B.alamat_3, B.poskod, C.keterangan BANDAR, D.keterangan NEGERI, F.luas_mp, F.luas_kp, F.perakuan_sewa_bulanan sewa, F.nilaian_mp sewa_mp, F.nilaian_kp sewa_kp, F.luas_jpph_mp, F.luas_jpph_kp, F.nilaian_jpph_mp, F.nilaian_jpph_kp,F.flag_keputusan,F.tempoh_sewa, 
+CASE F.flag_jenis_sewa 
+WHEN 'B' THEN 'Bulan'
+WHEN 'T' THEN 'Tahun'
+END as jenis_sewa,
+B.tarikh_mula_mohon, B.tarikh_tamat_mohon, sum(E.bilangan_baru)bilangan_baru, F.tarikh_ulasan
+FROM jrp_permohonan A
+LEFT JOIN jrp_permohonan_lokasi B ON A.id = B.id_permohonan
+LEFT JOIN ruj_bandar C ON B.id_bandar = C.id
+LEFT JOIN ruj_negeri D ON C.id_negeri = D.id
+LEFT JOIN jrp_kakitangan E ON A.id = E.id_permohonan
+LEFT JOIN jrp_ulasan_teknikal F ON A.id = F.id_permohonan
+WHERE A.id = $P{idPermohonan}
+AND B.flag_lokasi = "B"
+AND F.id_agensi = 1306
+;]]></queryString>
+
+	<field name="alamat_1" class="java.lang.String"/>
+	<field name="alamat_2" class="java.lang.String"/>
+	<field name="alamat_3" class="java.lang.String"/>
+	<field name="poskod" class="java.lang.String"/>
+	<field name="BANDAR" class="java.lang.String"/>
+	<field name="NEGERI" class="java.lang.String"/>
+	<field name="luas_mp" class="java.lang.String"/>
+	<field name="luas_kp" class="java.lang.String"/>
+	<field name="sewa" class="java.lang.Double"/>
+	<field name="sewa_mp" class="java.lang.Double"/>
+	<field name="sewa_kp" class="java.lang.Double"/>
+	<field name="luas_jpph_mp" class="java.lang.String"/>
+	<field name="luas_jpph_kp" class="java.lang.String"/>
+	<field name="nilaian_jpph_mp" class="java.lang.Double"/>
+	<field name="nilaian_jpph_kp" class="java.lang.Double"/>
+	<field name="flag_keputusan" class="java.lang.String"/>
+	<field name="tempoh_sewa" class="java.lang.Integer"/>
+	<field name="jenis_sewa" class="java.lang.String"/>
+	<field name="tarikh_mula_mohon" class="java.sql.Date"/>
+	<field name="tarikh_tamat_mohon" class="java.sql.Date"/>
+	<field name="bilangan_baru" class="java.lang.String"/>
+	<field name="tarikh_ulasan" class="java.sql.Date"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="218"  isSplitAllowed="false" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="446"
+						height="203"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[(a)   Alamat           :
+(b)   Keluasan       :
+(c)   Kadar Sewa   :
+
+
+(d)   Tempoh          :
+(e)   Bilangan Kakitangan       :
+(f)   Bayaran kadar sewa bulanan termasuk       :
+
+      i)      Bayaran cukai pintu dan cukai tanah;
+      ii)     Insuran kebakaran bangunan;
+      iii)    Alat pencegah kebakaran;
+      iv)     Memperbaiki ruang gunasama;
+      v)      Penyediaan tempat letak kereta percuma;
+      vi)     Bayaran elektrik dan pembersihan ruang gunasama.
+(seperti laporan Jabatan Penilaian dan Perkhidmatan Harta)]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="102"
+						y="0"
+						width="343"
+						height="20"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{alamat_1} == null ? "" : " " + $F{alamat_1}) + ($F{alamat_2} == null ? "" : " " + $F{alamat_2}) + ($F{alamat_3} == null ? "" : " " + $F{alamat_3}) + ($F{poskod} == null ? "" : " " + $F{poskod}) + ($F{BANDAR} == null ? "" : " " + $F{BANDAR}) + ($F{NEGERI} == null ? "" : " " + $F{NEGERI})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="102"
+						y="13"
+						width="96"
+						height="20"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{flag_keputusan}.equals("S") ? ($F{luas_mp} == null ?"0.00" : $F{luas_mp}) : ($F{luas_jpph_mp} == null ?"0.00" : $F{luas_jpph_mp})) + " smp"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="213"
+						y="13"
+						width="197"
+						height="20"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[" / " + ($F{flag_keputusan}.equals("S") ? ($F{luas_kp} == null ? "0.00" : $F{luas_kp}) : ($F{luas_jpph_kp} == null ? "0.00" : $F{luas_jpph_kp})) + " skp"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="102"
+						y="24"
+						width="281"
+						height="20"
+						key="textField-4"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{sewa} == null ? "" : "RM " + new DecimalFormat("#,###,##0.00").format($F{sewa}.doubleValue()).toString()) + " sebulan"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="102"
+						y="63"
+						width="150"
+						height="20"
+						key="textField-5"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{tempoh_sewa} == null ? "" : $F{tempoh_sewa}.toString()) +" "+ $F{jenis_sewa}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="155"
+						y="76"
+						width="150"
+						height="20"
+						key="textField-6"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{bilangan_baru} == null ? "" : $F{bilangan_baru}) + " Orang"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="135"
+						y="38"
+						width="78"
+						height="20"
+						key="textField-7"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[($F{flag_keputusan}.equals("S") ? $F{sewa_mp} : $F{nilaian_jpph_mp})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="102"
+						y="38"
+						width="33"
+						height="20"
+						key="textField-8"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["@RM"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="252"
+						y="38"
+						width="183"
+						height="20"
+						key="textField-9"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[($F{flag_keputusan}.equals("S") ? $F{sewa_kp}  : $F{nilaian_jpph_kp})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="213"
+						y="38"
+						width="39"
+						height="20"
+						key="textField-10"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[" / @RM"]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

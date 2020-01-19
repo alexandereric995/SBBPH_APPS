@@ -1,0 +1,110 @@
+<fieldset>
+<legend class="legend">Maklumat Ruang</legend>
+#if ($!command == 'getPilihanRuang')
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        <tr>
+          <td class="label">ID Ruang &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td >:</td>
+          <td ><b>$!ruang.idRuang</b> &nbsp;&nbsp;&nbsp;
+          <input type="hidden" id="idRuang" name="idRuang" value="$!ruang.id">	
+          <input type="button" tabindex="4" value="CARI RUANG" id="btnSenaraiRuang"/>
+          <div id="err_idRuang" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #input_normal("" "Nama Ruang" "$!ruang.namaRuang")
+        #input_normal("" "Jenis Meter Air" "$!ruang.getKeteranganJenisMeterAir()")
+        #input_normal("" "Jenis Meter Elektrik" "$!ruang.getKeteranganJenisMeterElektrik()")
+        #input_normal("" "Jenis Perkhidmatan" "$!ruang.jenisKegunaanRuang.keterangan")
+        #if ($!ruang.jenisKegunaanRuang.id == '10')
+        	#input_normal("" "Lain - Lain " "$!ruang.jenisKegunaanRuang.jenisKegunaanLain")
+        #end
+        #input_normal("" "Kadar Sewa (RM)" "$!util.formatDecimal($!ruang.kadarSewa)")
+        #input_normal("" "Jenis Sewaan" "$!ruang.getKeteranganIdJenisSewa()")        
+        #input_normal("" "Luas" "$!util.formatDecimal($!ruang.luasMps) Mps / $!util.formatDecimal($!ruang.luasKps) Kps")
+        #input_normal("" "Catatan" "$!ruang.catatan") 
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("" "Lokasi" "$!ruang.lokasi")        
+        #input_normal("" "Alamat" "$!ruang.alamat1")
+        #input_normal("" "" "$!ruang.alamat2")
+        #input_normal("" "" "$!ruang.alamat3")
+        #input_normal("" "Poskod" "$!ruang.poskod")
+        #input_normal("" "Bandar" "$!ruang.bandar.keterangan")
+        #input_normal("" "Negeri" "$!ruang.bandar.negeri.keterangan")
+		#input_normal("" "Nama Pegawai" "$!ruang.namaPegawai")
+        #input_normal("" "No. Telefon Pegawai" "$!ruang.noTelefonPegawai")
+      </table></td>
+  </tr>
+</table>
+#else
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        <tr>
+          <td class="label">ID Ruang &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td >:</td>
+          <td ><b>$!r.fail.ruang.idRuang</b> &nbsp;&nbsp;&nbsp;
+          <input type="hidden" id="idRuang" name="idRuang" value="$!r.fail.ruang.id">	
+          #if ($!command == 'add_new_record')
+          	<input type="button" tabindex="4" value="CARI RUANG" id="btnSenaraiRuang"/>
+    	  #elseif ($!r.idJenisPermohonan == '1' && $!allowUpdatePermohonan == 'Y')
+    	  	<input type="button" tabindex="4" value="CARI RUANG" id="btnSenaraiRuang"/>
+          #end
+          <div id="err_idRuang" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #input_normal("" "Nama Ruang" "$!r.fail.ruang.namaRuang")
+        #input_normal("" "Jenis Meter Air" "$!r.fail.ruang.getKeteranganJenisMeterAir()")
+        #input_normal("" "Jenis Meter Elektrik" "$!r.fail.ruang.getKeteranganJenisMeterElektrik()")
+        #input_normal("" "Jenis Perkhidmatan" "$!r.fail.ruang.jenisKegunaanRuang.keterangan")
+        #if ($!r.fail.ruang.jenisKegunaanRuang.id == '10')
+        	#input_normal("" "Lain - Lain " "$!r.fail.ruang.jenisKegunaanRuang.keterangan")
+        #end
+        #input_normal("" "Kadar Sewa JPPH (RM)" "$!util.formatDecimal($!r.fail.ruang.kadarSewa)")
+        #input_normal("" "Jenis Sewaan" "$!r.fail.ruang.getKeteranganIdJenisSewa()")        
+        #input_normal("" "Luas" "$!util.formatDecimal($!r.fail.ruang.luasMps) Mps / $!util.formatDecimal($!r.fail.ruang.luasKps) Kps")
+        #input_normal("" "Catatan" "$!r.fail.ruang.catatan") 
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("" "Lokasi" "$!r.fail.ruang.lokasi")        
+        #input_normal("" "Alamat" "$!r.fail.ruang.alamat1")
+        #input_normal("" "" "$!r.fail.ruang.alamat2")
+        #input_normal("" "" "$!r.fail.ruang.alamat3")
+        #input_normal("" "Poskod" "$!r.fail.ruang.poskod")
+        #input_normal("" "Bandar" "$!r.fail.ruang.bandar.keterangan")
+        #input_normal("" "Negeri" "$!r.fail.ruang.bandar.negeri.keterangan")
+		#input_normal("" "Nama Pegawai" "$!r.fail.ruang.namaPegawai")
+        #input_normal("" "No. Telefon Pegawai" "$!r.fail.ruang.noTelefonPegawai")
+      </table></td>
+  </tr>
+</table>
+#end
+</fieldset>
+
+<div id="popupSenaraiRuang" class="popup"></div>
+<script>
+	_jq('#btnSenaraiRuang').on('click', function(){
+		doDivAjaxCall3$formname('popupSenaraiRuang','getSenaraiRuang','');
+	    jQuery('#popupSenaraiRuang').fadeIn();
+	});
+</script>

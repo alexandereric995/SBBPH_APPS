@@ -1,0 +1,37 @@
+#if ($jenisLaporan != "")
+<h2>LAPORAN EIS</h2>
+<hr>
+<input type="hidden" id="selectedTab" name="selectedTab" value="$!selectedTab">
+
+<nav class="breadcrumbs">
+  <ul>
+  	<li #if($!selectedTab=='0') class="active" #end><a href="javascript:void()" #if($!selectedTab!='0') onClick="doDivAjaxCall3$formname('divTab','getStatistik','')" #end >Statistik</a></li>
+    <li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getBar','')" #end >Bar Chart</a></li>
+    <li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divTab','getDoughnut','')" #end >Doughnut Chart</a></li>    
+    <li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('divTab','getLine','')" #end >Line Chart</a></li>
+    <li #if($!selectedTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedTab!='4') onClick="doDivAjaxCall3$formname('divTab','getPie','')" #end >Pie Chart</a></li>  
+  </ul>
+</nav>
+
+<br/>
+
+	#if ($!selectedTab=='0')
+		#parse("$path/statistik.vm")
+	#end
+	
+	#if ($!selectedTab=='1')
+		#parse("$path/barChart.vm")
+	#end
+	
+	#if ($!selectedTab=='2')
+		#parse("$path/doughnutChart.vm")
+	#end
+	
+	#if ($!selectedTab=='3')
+		#parse("$path/lineChart.vm")
+	#end
+	
+	#if ($!selectedTab=='4')
+		#parse("$path/pieChart.vm")
+	#end
+#end

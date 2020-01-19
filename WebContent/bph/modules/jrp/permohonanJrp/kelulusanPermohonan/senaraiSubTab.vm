@@ -1,0 +1,26 @@
+<br>
+<hr/>
+<br>
+<nav class="breadcrumbs">
+  <ul>
+##  	<li #if($!selectedSubTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='3') onClick="doDivAjaxCall3$formname('divTab','getKuiri','')" #end >Kuiri</a></li>
+		#if(!$!userRole.equalsIgnoreCase("(JRP) Pemohon") && $r.status.id != '1438356583122')
+		<li #if($!selectedSubTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='1') onClick="doDivAjaxCall3$formname('divTab','getSenaraiKelulusanPermohonan','')" #end >Kertas Pertimbangan</a></li>
+		#if(!$!userRole.equalsIgnoreCase("(JRP) Pemohon") && ($r.status.id != '1424860634478' && $r.status.id != '1424860634481' && $r.status.id != '1424860634484' && $r.status.id != '1436921583144' && $r.status.id != '1424860634487' && $r.status.id != '471300128898077'))
+		<li #if($!selectedSubTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='2') onClick="doDivAjaxCall3$formname('divTab','getKeputusanMesyuarat','')" #end >Keputusan Mesyuarat</a></li>
+		#end
+	#end
+  </ul>
+</nav>
+	
+<br/>
+
+#if($!selectedSubTab=='1')
+		#parse("$path/kelulusanPermohonan/kertasPertimbangan/start.vm")
+#end
+#if($!selectedSubTab=='2')
+		#parse("$path/kelulusanPermohonan/mesyuarat/start.vm")
+#end
+###if($!selectedSubTab=='3')
+##		#parse("$path/kelulusanPermohonan/kuiri/start.vm")
+###end

@@ -1,0 +1,94 @@
+<style>
+.scrollitpopup {
+	##width:100%; overflow-x: hidden; max-height: 150px; border:#000 solid 1px;
+	height:200px; width: 100%; overflow: auto;
+}
+</style>
+<fieldset>
+<legend class="legend">Kesalahan</legend>
+<br/>
+<div class="scrollitpopup">
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+##	#input_required("namaPegawai" "Nama Pegawai" "$!rekod.namaPegawai")
+##	#input_required("jawatan" "Jawatan" "$!rekod.jawatan")
+##	<tr>
+##		<td class="label" valign="top">Ketua Operasi</td>
+##		<td valign="top">:</td>
+##		<td><select style="width:30%" class="texts" id="flagKetuaOperasi" name="flagKetuaOperasi" style="width:100%">
+##		<option value="">SILA PILIH</option>
+##		<option value="Y" #if ( $!rekod.flagKetuaOperasi == "Y" ) selected #end>YA</option>
+##		<option value="T" #if ( $!rekod.flagKetuaOperasi  == "T" ) selected #end>TIDAK</option>
+##		</select><div id="err_flagKetuaOperasi" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##      	</td>
+##	</tr>
+<tr>
+			<td class="row_header" width="10%">BIL.</td>
+			<td class="row_header" width="25%">NO. KP</td>
+			<td class="row_header" width="45%">NAMA</td>
+			<td class="row_header" width="45%">NO UNIT</td>
+			<td class="row_header" width="20%">PILIH</td>
+		</tr>
+		
+		#set ( $count = 0 )
+		#if($pesalahList.size() > 0)
+    		#foreach($u in $pesalahList)
+    		<input type="hidden" id="idKuarters" name="idKuarters" value="$!u.kuarters.id"/>
+    		#set ( $count = $count + 1)
+    		<tr>
+    			<td align="center">$count</td>
+				<td align="center">$util.replaceIfNull("$!u.pemohon.noKP","-")</td>
+    			<td align="center">$u.pemohon.userName.toUpperCase()</td>
+    			<td align="center">$u.kuarters.noUnit</td>
+    			<td align="center">
+    				<input type="checkbox" name="pesalah" id="radPesalah$u.id" value="$u.id"/>       
+    			</td>
+    		</tr>
+    		#end
+		#else
+			<tr><td colspan="4">TIADA REKOD</td></tr>
+		#end
+
+</table>
+</div>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td>
+      <input type="button" id="savePesalah" name="savePesalah" value="Simpan">
+      <input type="button" id="batalKesalahan" name="batalKesalahan" value="Keluar">
+      </td>
+  </tr>
+<input type="hidden" id="idPegawai" name="idPegawai" value="$rekod.id">
+<div id="statusMaklumatKesalahan"></div>
+</fieldset>
+
+<script>
+_jq('#batalKesalahan').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getMaklumatKesalahan','');
+    jQuery('#editMaklumatKesalahan').fadeOut();
+});
+
+_jq('#savePesalah').on('click', function(){
+    savePesalah();
+});
+
+</script>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

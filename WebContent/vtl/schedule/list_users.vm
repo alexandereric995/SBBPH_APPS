@@ -1,0 +1,100 @@
+<form name="list_users" method="post">
+
+	<table class="table_row" width="100%" cellpadding="2" cellspacing="0">
+		<tr class="table_header">
+			<td width="2">
+
+			</td>		
+			<td width="2">
+
+			</td>	
+			<td width="50">
+				
+			</td>				
+			<td>
+				Name
+			</td>			
+		</tr>	
+		#set ( $cnt = 0 )
+		#foreach ( $user in $users )
+			#set ( $cnt = $cnt + 1 )
+			#set ( $bg = "table_row")
+			#if ( $cnt % 2 == 0 )
+				#set ( $bg = "table_row2")
+			#end
+		<tr class="$bg" width="2">
+			<td align="right">
+				$cnt.
+			</td>	
+			<td width="2">
+				<input type="checkbox" name="userids" value="$user.id">
+			</td>	
+			<td width="50">
+				$user.id
+			</td>				
+			<td>
+				$user.name
+			</td>	
+		</tr>
+		#end
+	<tr>
+		<td colspan="5" align="right">
+			&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5" align="right">
+		<b>Page</b>
+			#if ( $pages > 0 )
+				#foreach ($num in [ 1..$pages ])
+					#if ( $num == $page_number )
+						<b>$num</b>
+					#else
+						<a href="javascript:goPage($num)">
+						<u>$num</u>
+						</a>
+					#end
+				#end
+			#end
+		</td>
+	</tr>		
+	</table>
+	<table class="table_row" width="100%" cellpadding="2" cellspacing="0">
+		<tr>
+			<td align="right">
+				<input type="button" value="Select" onclick="selectNames()">
+				<input type="button" value="Cancel" onclick="back()">
+			</td>		
+
+		</tr>	
+	</table>	
+	
+<input type="hidden" name="planner_action">
+<input type="hidden" name="user_id">
+<input type="hidden" name="pagenum" value="$page_number">
+</form>
+
+
+
+<script>
+function open_data(id) {
+	document.list_users.command.value = "open";
+	document.list_users.enquiry_id.value = id;
+	document.list_users.action = "";
+	document.list_users.submit();
+	
+}
+function goPage(num) {
+	document.list_users.planner_action.value = "goPage";
+	document.list_users.pagenum.value = num;
+	document.list_users.submit();
+}
+function back() {
+	document.list_users.planner_action.value = "back";
+	document.list_users.submit();
+}
+function selectNames() {
+	document.list_users.planner_action.value = "selectNames";
+	document.list_users.submit();
+}
+</script>

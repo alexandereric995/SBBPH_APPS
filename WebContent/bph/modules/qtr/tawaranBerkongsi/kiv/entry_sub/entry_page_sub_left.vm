@@ -1,0 +1,25 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%" id="entryLeft">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+    #input_readonly_label("noPermohonan" "No. Daftar" "$!r.permohonan.noPermohonan")
+	#input_readonly_label("lokasiPermohonan" "Lokasi Kuarters" "$!r.permohonan.lokasi.lokasi")
+	#if ( $r.permohonan.tarikhPermohonan )
+		#set( $tarikhPermohonan = $util.getDateTime($r.permohonan.tarikhPermohonan, 'dd-MM-yyyy'))
+	#else
+		#set( $tarikhPermohonan = "-" )
+	#end
+    #date_input_readonly_label("tarikhPermohonan" "TarikhPermohonan" "$tarikhPermohonan")
+	#if ( $!kelas2 != "" )
+		#input_readonly_label("kelasLayak" "Kelas Layak" "$!kelas1")
+		#input_readonly_label("kelasDowngrade" "Kelas Downgrade" "$!kelas2")
+	#else
+		#if ( $r.jenisKelasKuarters == "D" )
+			#input_readonly_label("kelasDowngrade" "Kelas Downgrade" "$!kelas1")
+		#else
+			#input_readonly_label("kelasLayak" "Kelas Layak" "$!kelas1")
+		#end
+	#end
+</table>

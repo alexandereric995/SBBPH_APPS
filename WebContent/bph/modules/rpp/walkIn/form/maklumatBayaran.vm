@@ -1,0 +1,84 @@
+
+<input type="hidden" id="hdjenisUnitId" name="hdjenisUnitId" value="$!objJenisUnit.id" />
+
+<style>
+	.uppercasefont{
+		text-transform: uppercase !important;
+	}
+</style>
+
+
+<fieldset>
+<legend class="legend" style="font-size:12px">MAKLUMAT BAYARAN</legend>
+
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr>
+			<td width="48%" valign="top">
+				<table width="100%">
+					<tr>
+						<td width="30%">NO. RUJUKAN</td>
+						<td width="2%">:</td>
+						<td width="68%"><b>-</b></td>
+					</tr>
+					<tr>
+						<td>BIL. MALAM</td>
+						<td>:</td>
+						<td>$!bilNight MALAM</tD>
+					</tr>
+				</table>
+			</td>
+			
+			<td width="2%">&nbsp;</td>
+			
+			<td width="50%" valign="top">
+				
+            	#set ( $jumlahBayaran = ($!objJenisUnit.kadarSewa * $!bilNight) + $deposit + $!jumlahHargaTambahanDewasa + $!jumlahHargaTambahanKanakKanak)
+				
+				<table width="100%" border="0">
+					<tr>
+						<td width="40%">KADAR SEWA (RM)</td>
+						<td width="2%">:</td>
+						<td width="15%" align="right">$!util.formatDecimal($!objJenisUnit.kadarSewa)</td>
+						<td width="43%">&nbsp;</td>
+					</tr>
+					<tr>
+						<td>DEPOSIT (RM)</td>
+						<td>:</td>
+						<td align="right">$!util.formatDecimal($!deposit)</td>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td>TAMBAHAN DEWASA (RM)</td>
+						<td>:</td>
+						<td align="right">$!util.formatDecimal($!jumlahHargaTambahanDewasa)</td>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td>TAMBAHAN KANAK-KANAK (RM)</td>
+						<td>:</td>
+						<td align="right">$!util.formatDecimal($!jumlahHargaTambahanKanakKanak)</td>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td><b>JUMLAH BAYARAN (RM)</b></td>
+						<td><b>:</b></td>
+						<td align="right"><b>$!util.formatDecimal($!jumlahBayaran)</b></td>
+						<td>&nbsp;</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	
+</fieldset>
+	
+
+	</br>
+	
+	<table width="100%">
+    	<tr>
+    		<td align="center">
+    			<input type="button" #if($listUnit.size() < 1) disabled #end style="font-weight:bold;height:30px;width:30%" id="btnDaftarMasuk" value="BAYAR DAN DAFTAR MASUK" onclick="daftarMasuk($count)">
+    		</td>
+    	</tr>
+    </table>

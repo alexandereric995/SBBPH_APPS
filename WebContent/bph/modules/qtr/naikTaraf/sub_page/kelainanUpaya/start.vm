@@ -1,0 +1,51 @@
+<table cellpadding="5" cellspacing="0" border="0" width="75%">
+	<tr>
+        <td style="width:150px"></td>
+        <td style="width:5px"></td>
+        <td></td>
+    </tr>
+	#mykad_required("kelainanUpayaNoKP" "No. MyKad" "")
+	#input_required("kelainanUpayaNoKad" "No. Kad" "")
+	<tr>
+		<td>Muatnaik Dokumen</td>
+		<td>:</td>
+		<td>
+			<input class="texts" type="file" id="dokumen" name="dokumen" onfocus="$('err_dokumen').innerHTML = '';" onChange="checkUpload()">
+			<div id="dokumenMuatnaik" style="display:none">
+				<img src="../img/indicator.gif">
+				<span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span>
+			</div>
+			<div id="err_dokumen" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    	</td>
+    </tr>
+	<tr>
+        <td class="label" valign="middle">Hubungan&nbsp;<span style="color:#FF2A00">*</span>
+        </td>
+        <td valign="middle">:</td>
+        <td>
+            <span id="listHubunganKelainanUpaya">
+                #parse("$path/sub_page/kelainanUpaya/selectHubunganKelainanUpaya.vm")
+            </span>
+            <div id="err_idHubunganKelainanUpaya" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+	<tr>
+		<td colspan="2"></td>
+		<td>
+			<input type="button" id="btnTambahKelainanUpaya" name="btnTambahKelainanUpaya" value="Kembali" onclick="doDivAjaxCall3$formname('divKelainanUpaya','getRecordKelainanUpaya','')" />
+			<input type="button" id="btnSimpanKelainanUpaya" name="btnSimpanKelainanUpaya" value="Simpan" onclick="doDivAjaxCall3$formname('resultKelainanUpaya','simpanKelainanUpaya','')" />
+		</td>
+	</tr>
+</table>
+<iframe id="upload_doc" name="upload_doc" width="0px" height="0px" style="visibility:hidden"></iframe>
+<div id="refreshList"></div>
+<div id="resultKelainanUpaya"></div>
+	
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

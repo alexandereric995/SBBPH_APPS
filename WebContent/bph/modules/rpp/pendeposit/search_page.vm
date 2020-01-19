@@ -1,0 +1,73 @@
+
+
+<table width="80%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+  
+  #input("findNoKP" "No. Pengenalan" "")
+  #input("findUserName" "Nama" "")
+  
+  <tr>
+	<td class="label">Rumah Peranginan</td>
+	<td>:</td>
+    <td>
+		<div id="divCarianPeranginan">
+			#parse("$path/divCarianPeranginan.vm")
+    	</div>
+    </td>
+  </tr>
+
+    <tr>
+    	<td class="label" valign="top">Tarikh Masuk</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">
+    		<div>
+        		<input type="text" id="findTarikhMasukRpp" name="findTarikhMasukRpp" value="">
+    			<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+        		<script>
+                	_jq("#findTarikhMasukRpp").Zebra_DatePicker({ 
+    		    		format: 'd-m-Y',
+    					readonly_element: false
+    		        });
+        		</script>
+    		</div>
+    	</td>
+    </tr>
+	
+      <tr>
+    	<td class="label" valign="top">Tarikh Keluar</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">
+    		<div>
+        		<input type="text" id="findTarikhKeluarRpp" name="findTarikhKeluarRpp" value="">
+    			<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+        		<script>
+                	_jq("#findTarikhKeluarRpp").Zebra_DatePicker({ 
+    		    		format: 'd-m-Y',
+    					readonly_element: false
+    		        });
+        		</script>
+    		</div>
+    	</td>
+      </tr>
+	  
+	  
+	  <!--
+	  <tr>
+    	<td class="label" valign="top">Status</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">
+    		<select class="texts" id="findStatus" name="findStatus" style="width:100%">
+        		<option value="">SILA PILIH</option>
+        		#foreach( $n in $listStatus)
+        			<option value="$n.id">$n.keterangan.toUpperCase()</option>
+        		#end
+        	</select>
+    	</td>
+      </tr>
+	  -->
+	  
+</table>

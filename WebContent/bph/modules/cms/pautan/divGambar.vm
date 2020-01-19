@@ -1,0 +1,22 @@
+
+<iframe id="upload_gambar" name="upload_gambar" width="0px" height="0px" style="visibility:hidden"></iframe>
+<div id="refreshGambar"> </div>
+<table width="100%">
+  #if ( $!r.fileName ) 
+  <tr>
+    <td align="left"> 
+    	#if ( $!r.fileName != "") 
+    		<a href="../download?file=$!uploadDir$!r.fileName" ><img src="../download?file=$!uploadDir$!r.fileName" border="0"></a>
+    	#end
+    </td>
+  </tr>
+  #end
+  <tr>
+    <td align="left">
+    	<input type="file" id="gambar" name="gambar" onChange="uploadGambar()">
+      	<div id="err_gambar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      	<div id="gambarMuatnaik" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+    </td>
+  </tr>
+</table>
+

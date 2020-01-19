@@ -1,0 +1,71 @@
+<style type="text/css">
+
+.blink {
+	animation: blink 1s steps(5, start) infinite;
+}
+@keyframes blink {
+ to {
+ visibility: hidden;
+}
+</style>
+
+<fieldset>
+<legend class="legend">Maklumat Senarai Hitam</legend>
+<table width="100%">
+  <tr>
+    <td style="width:200px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  #input_readonly_all_label("noPendaftaran" "No. Pendaftaran" "$!r.kontraktor.id")
+  #input_readonly_all_label("namaKontraktor" "Nama Kontraktor" "$!r.kontraktor.namaKontraktor")
+  #input_readonly_all_label("namaPemilik" "Nama Pemilik" "$!r.kontraktor.namaPemilik")  
+  #if ($!r.tarikhMula) 
+  	#set ($dateMula = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+  #else #set ($dateMula="") #end  
+  #input_readonly_all_label("tarikhMula" "Tarikh Mula Senarai Hitam" "$dateMula")  
+  #if ($!r.tarikhTamat) 
+  	#set ($dateTamat = "$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')")
+  #else #set ($dateTamat="") #end
+  #input_readonly_all_label("tarikhTamat" "Tarikh Tamat Senarai Hitam" "$dateTamat") 
+  #input_readonly_all_label("sebab" "Sebab" "$!r.sebab")
+  #input_readonly_all_label("gredPrestasi" "Gred Prestasi" "$!r.gredPrestasi")
+  #if ($!r.tarikhBebas) 
+	#set ($dateBebas = "$!util.getDateTime($!r.tarikhBebas,'dd-MM-yyyy')")
+  #else #set ($dateBebas="") #end
+  #input_readonly_all_label("tarikhBebas" "Tarikh Dibebaskan" "$dateBebas")
+  #input_readonly_all_label("bebasOleh" "Bebas Oleh" "$!r.pegawaiBebas.userName")
+  #input_readonly_all_label("catatan" "Catatan" "$!r.catatan")
+  #input_readonly_all_label("flag" "Status Senarai Hitam" "<b>$!r.getKeteranganFlagAktif()</b>")
+</table>
+</fieldset>
+
+#if ($!command == 'daftarBebasSenaraiHitam')
+<fieldset>
+<legend class="legend">CATATAN BEBAS SENARAI HITAM</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #textarea_required("catatanBebasSenaraiHitam" "Catatan" "")
+</table>
+</fieldset>
+#end
+
+<table width="100%">
+  <tr>
+    <td align="right">
+    	#if ($!command == 'daftarBebasSenaraiHitam')
+    		<input type="button" value="Simpan" onclick="javascript:simpanBebasSenaraiHitam();">
+	      	<input type="button" value="Batal" onclick="doDivAjaxCall$formname('divMaklumatSenaraiHitam','paparMaklumatSenaraiHitam','');">
+    	#else
+    		#if ($!r.flagAktif == 'Y')
+    			<input type="button" value="Bebas Senarai Hitam" onclick="doDivAjaxCall$formname('divMaklumatSenaraiHitam','daftarBebasSenaraiHitam','');">
+    		#end
+    	#end
+    	<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,100 @@
+#foreach ( $item in $forum_items )
+
+	<table width="100%" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+			#foreach ( $i in [1..$item.level])
+			<td width="8">
+				&nbsp;
+			</td>
+			#end
+			
+			<td>
+				<table width="100%" cellpadding="0" cellspacing="0" border="0">
+
+						<tr>
+						
+							<td>
+
+					<table width="100%" cellpadding="0" cellspacing="0" border="0">
+					
+<tr>
+					<td style="width:48px; height:6px; background: url(../img/forum/top_left.png)"></td>
+										<td style="height:6px; background: url(../img/forum/top.png)"></td>
+					<td style="width:7px; height:6px; background: url(../img/forum/top_right.png)"></td>
+</tr>
+
+<tr>
+					<td style="width:48px; height:6px; background: url(../img/forum/left.png)"  align="center" valign="top">
+																			#**
+																			<a href="javascript:doAjaxCall$formname('Open', 'category_id=$!forum_category&forum_id=$!item.id&parent_id=$!forum.id')">
+																									<img src="../img/forum/folder.png" border="0">
+						</a>
+						**#
+					</td>
+					<td>
+
+							$item.displayMessage()
+		</td>
+							<td style="width:7px; background: url(../img/forum/right.png)"></td>
+			</tr>
+				<tr>
+					<td style="height:28px; background: url(../img/forum/bottom_left.png)"></td>
+					<td style="height:6px; background: url(../img/forum/bottom.png)"></td>
+					<td style="height:28px; background: url(../img/forum/bottom_right.png)"></td>
+</tr>
+
+<tr>
+		<td></td>
+		<td valign="top">
+		<table cellpadding="0" cellspacing="0">
+		<tr><td>
+												<a href="javascript:doAjaxCall$formname('Open', 'category_id=$!forum_category&forum_id=$!item.id&parent_id=$!forum.id')">
+						#if ( $item.avatar == "" )
+<img src="../img/forum/noavatar.png" border="0">
+			#else
+<img src="../download?file=${item.avatar}" border="0">
+			#end
+			</a>
+			</td><td style="font-weight:bold">
+										#if ( $item.title != "" )
+$item.title<br>
+										#end
+$item.postedBy 										<br>($item.getDatePosted().display())
+	
+				</td></tr>
+										
+		</td>
+		</tr>
+</table>
+
+
+</td>
+
+					#if ( $userid == "anon" )
+					
+					#else
+					<tr>
+						<td colspan="2" align="right">
+							#if ( $allowReply )
+
+							<input class="button" type="button" value="Reply to this thread" 
+							onclick="doAjaxCall$formname('Reply', 'forum_id=$item.id')">
+
+							#end
+						</td>
+					</tr>
+					#end
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
+	</table>
+	
+	
+
+			
+#end

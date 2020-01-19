@@ -1,0 +1,29 @@
+##<td align="left">$!r.penghuni.id</td>
+<td align="left">$!r.penghuni.kuarters.noUnit</td>
+<td>
+	<b>No. Pengenalan : </b>$!r.penghuni.pemohon.noKP.toUpperCase()<br/>
+	<b>Nama : </b>$!r.penghuni.pemohon.userName.toUpperCase()<br/>
+</td>
+
+<td>$util.getDateTime($!r.tarikhKeputusan, "dd-MM-yyyy")</td>
+
+#if($!c.flagKeputusan == '0')
+	#set($flagKeputusan = 'SILA PILIH')
+#elseif($!r.flagKeputusan == '1')
+	#set($flagKeputusan = 'SELESAI')
+#elseif($!r.flagKeputusan == '2')
+	#set($flagKeputusan = 'TIDAK SELESAI')
+#end
+<td>$!flagKeputusan</td>
+
+#if($!r.statusJenisKes == '0')
+	#set($statusJenisKes = 'SILA PILIH')
+#elseif($!r.statusJenisKes == '1')
+	#set($statusJenisKes = 'TUNTUTAN TUNGGAKAN')
+#elseif($!r.statusJenisKes == '2')
+	#set($statusJenisKes = 'PENGUSIRAN')
+#end
+<td align="center" >$!statusJenisKes</td>
+
+<td>$!r.catatan</td>
+

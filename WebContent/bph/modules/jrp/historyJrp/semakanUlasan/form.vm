@@ -1,0 +1,63 @@
+
+
+<fieldset>
+<legend class="legend">Semakan Ulasan JRP</legend>
+	<table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:200px"></td>
+			<td style="width:20px"></td>
+    		<td style="width:20px"></td>
+    		<td></td>
+  		</tr>
+  		 
+		 <tr>
+		 	<td></td>
+			<td><input type="checkbox" name="ulasanJPPH" disabled="true" id="ulasanJPPH" value="Y" #foreach( $s in $listSemakanUlasan ) #if($!s.agensi.id == '1306') #set($jpph = $!s.agensi.id) checked #end #end/></td>
+			<td></td>
+			<td>&nbsp; Ulasan JPPH</td>
+  		</tr>
+		<tr>
+			<td></td>
+			<td><input type="checkbox" name="ulasanKPKK" disabled="disabled" id="ulasanKPKK" value="Y" #foreach( $s in $listSemakanUlasan ) #if($!s.agensi.id == '1262') #set($kpkk= $!s.agensi.id) checked  #end #end /></td>
+			<td></td>
+			<td>&nbsp; Ulasan KPKK</td>
+  		</tr>
+  		<tr>
+  			<td></td>
+			<td><input type="checkbox" name="ulasanJBPM" disabled="disabled" id="ulasanJBPM" value="Y" #foreach( $s in $listSemakanUlasan ) #if($!s.agensi.id == '2005') #set($jbpm = $!s.agensi.id) checked  #end #end /></td>
+			<td></td>
+			<td>&nbsp; Ulasan JBPM</td>
+  		</tr>
+  		<tr>
+  			<td></td>
+			<td><input type="checkbox" name="ulasanJKPTG" disabled="disabled" id="ulasanJKPTG" value="Y" #foreach( $s in $listSemakanUlasan ) #if($!s.agensi.id == '1804') #set($jkptg = $!s.agensi.id) checked  #end #end /></td>
+			<td></td>
+			<td>&nbsp; Ulasan JKPTG</td>
+  		</tr>
+##  		<tr>
+##  			<td></td>
+##			<td><input type="checkbox" name="ulasanEUP" disabled="disabled" id="ulasanEUP" value="Y" #foreach( $s in $listSemakanUlasan ) #if($!s.agensi.id == '1216' && $!s.flagKeputusan == 'S') checked  #end #end /></td>
+##			<td></td>
+##			<td>&nbsp; Ulasan EUP</td>
+##  		</tr>
+##  		<tr>
+##  			<td></td>
+##			<td><input type="checkbox" name="ulasanMOF" disabled="disabled" id="ulasanMOF" value="Y" #foreach( $s in $listSemakanUlasan ) #if($!s.agensi.id == '1301' && $!s.flagKeputusan == 'S'	) checked  #end #end /></td>
+##			<td></td>
+##			<td>&nbsp; Ulasan MOF</td>
+##  		</tr>
+	</table>
+</fieldset>	
+
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if ($!r.status.id == '1424860634475' && $jpph == '1306' && $kpkk == '1262' && $jbpm == '2005' && $jkptg == '1804') ##ULASAN JRP
+			<input type="button" value="Hantar Permohonan Ke BPH" onclick="javascript:doHantarPermohonan('$!r.id');">
+			#end
+			<input id="cmdKembali" type="button" value="Kembali" onclick="document.location = '$!tabIdAndClassName'" />
+		</td>
+	</tr>
+</table>
+	

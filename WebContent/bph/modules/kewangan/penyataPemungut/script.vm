@@ -1,0 +1,63 @@
+function validate() {
+	var err_count = 0;
+	return err_count == 0;
+}
+
+function doFilterModBayaranByDate() {
+	doDivAjaxCall3$formname('divKaedahBayaran','filterModBayaranByDate','');
+}
+
+function doGetMaklumatPenyataPemungutByModAndDate() {
+	var err_count = 0;
+
+	var tarikhPenyataPemungut = $('tarikhPenyataPemungut').value;
+	if ( tarikhPenyataPemungut == "" ) {$('err_tarikhPenyataPemungut').innerHTML = "Tarikh Penyata Pemungut adalah mandatori!"; err_count++;  }
+	
+	var kaedahBayaran = $('kaedahBayaran').value;
+	if ( kaedahBayaran == "" ) {$('err_kaedahBayaran').innerHTML = "Mod / Kaedah Bayaran adalah mandatori!"; err_count++;  }
+
+	if (err_count == 0) {
+		doDivAjaxCall3$formname('divMaklumatPenyataPemungut','getMaklumatPenyataPemungutByModAndDate','');
+	}
+	return err_count == 0;
+}
+
+function validateMaklumat() {
+	var err_count = 0;
+	
+	var tarikhPenyataPemungut = $('tarikhPenyataPemungut').value;
+	if ( tarikhPenyataPemungut == "" ) {$('err_tarikhPenyataPemungut').innerHTML = "Tarikh Penyata Pemungut adalah mandatori!"; err_count++;  }
+	
+	var kaedahBayaran = $('kaedahBayaran').value;
+	if ( kaedahBayaran == "" ) {$('err_kaedahBayaran').innerHTML = "Mod / Kaedah Bayaran adalah mandatori!"; err_count++;  }
+	
+	var noAkaun = $('noAkaun').value;
+	if ( noAkaun == "" ) {$('err_noAkaun').innerHTML = "No. Akaun adalah mandatori!"; err_count++;  }
+	
+	var namaAkaun = $('namaAkaun').value;
+	if ( namaAkaun == "" ) {$('err_namaAkaun').innerHTML = "Nama Akaun adalah mandatori!"; err_count++;  }
+	
+	var kodJabatan = $('kodJabatan').value;
+	if ( kodJabatan == "" ) {$('err_kodJabatan').innerHTML = "Kod Jabatan adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doSaveUpdate() {
+	if (validateMaklumat()){
+		doDivAjaxCall3$formname('div_main_entry','saveUpdate','');
+	}
+}
+
+function doUpdatePerakuan() {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('div_main_entry','updatePerakuan','');
+}
+

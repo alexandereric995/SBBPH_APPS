@@ -1,0 +1,35 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%" id="pemohonPasangan">
+	<h3>LAIN-LAIN (SELEPAS)</h3>
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+    #input_normal("reason" "Catatan" "$!pilihan.reason")
+    #input_normal("message" "Mesej" "$!pilihan.message")
+    #if ($!pilihan.tarikhKemaskini)
+        #set($tarikhKemaskini = $util.getDateTime($!pilihan.tarikhKemaskini,"dd-MM-yyyy"))
+    #else
+        #set($tarikhKemaskini = "")
+    #end
+    #input_normal("tarikhKemaskini" "Tarikh Kemaskini" "$tarikhKemaskini")
+    
+    #if ($!pilihan.tarikhPermohonan)
+        #set($tarikhPermohonan = $util.getDateTime($!pilihan.tarikhPermohonan,"dd-MM-yyyy"))
+    #else
+        #set($tarikhPermohonan = "")
+    #end
+    #input_normal("tarikhPermohonan" "Tarikh Permohonan" "$tarikhPermohonan")
+	#input_normal("flagDowngrade" "Flag Downgrade" "$!pilihan.flagDowngrade")
+	#input_normal("flagTuntutan" "Flag Tuntutan" "$!pilihan.flagTuntutan")
+	#input_normal("lokasiPermohonan" "Lokasi Permohonan" "$!pilihan.lokasiPermohonan.lokasi")
+	#input_normal("status" "Status" "$!pilihan.status.keterangan")
+</table>
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

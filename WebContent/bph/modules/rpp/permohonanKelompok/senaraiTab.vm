@@ -1,0 +1,86 @@
+
+
+#if( $!r && $!r.status.id.equalsIgnoreCase("1439694210108") && $!listDokumen.size() == 0 )
+	<fieldset id="makluman" style="font-weight:bold;background-color:#E6B2B2">
+    <table cellpadding="5" cellspacing="0" border="0" width="100%">
+        <tr>
+			<td>
+				<div style="font-weight:bold;color:red;font-size:14px" id="blinkUpload">
+					SILA PASTIKAN SURAT RASMI JABATAN DIMUATNAIK SEBELUM KLIK [HANTAR]
+				</div>
+			</td>
+		</tr>
+	</table>
+	<script>
+   		function blinker() {
+        	_jq('#blinkUpload').fadeOut(750);
+            _jq('#blinkUpload').fadeIn(750);
+      	}
+   		setInterval(blinker, 100);
+  	</script>
+</fieldset>
+<br/>
+#end
+
+#if( $!r && $!r.status.id.equalsIgnoreCase("1425259713412") && $!userRole.equalsIgnoreCase("(AWAM) Penjawat Awam") )
+	<fieldset id="makluman" style="font-weight:bold;background-color:#E6B2B2">
+    <table cellpadding="5" cellspacing="0" border="0" width="100%">
+        <tr>
+			<td>
+				<div style="font-weight:bold;color:red;font-size:14px" id="blinkBaru">
+					* PERMOHONAN TELAH DIHANTAR UNTUK DIPROSES </br>
+					* TUAN/PUAN DINASIHATKAN AGAR MENDAPATKAN KELULUSAN PERMOHONAN SEBELUM MELAKUKAN SEBARANG PERANCANGAN SELANJUTNYA.
+				</div>
+			</td>
+		</tr>
+	</table>
+	<script>
+   		function blinker() {
+        	_jq('#blinkBaru').fadeOut(750);
+            _jq('#blinkBaru').fadeIn(750);
+      	}
+   		setInterval(blinker, 100);
+  	</script>
+</fieldset>
+<br/>
+#end
+	
+
+#if( $!r && $!r.status.id.equalsIgnoreCase("2155884463563036"))
+<fieldset id="makluman" style="font-weight:bold;background-color:#E6B2B2">
+    <table cellpadding="5" cellspacing="0" border="0" width="100%">
+        <tr>
+			<td>
+				<div style="font-weight:bold;color:red;font-size:14px" id="blinkTidakLulus">
+					PERMOHONAN TIDAK DILULUSKAN : <br/>
+					$!r.catatanKelompokTidakLulus 
+				</div>
+			</td>
+		</tr>
+	</table>
+	##<script>
+   	##	function blinker() {
+    ##    	_jq('#blinkTidakLulus').fadeOut(750);
+    ##        _jq('#blinkTidakLulus').fadeIn(750);
+    ##  	}
+   	##	setInterval(blinker, 100);
+  	##</script>
+</fieldset>
+<br/>
+#end
+
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('mainform','maklumatPermohonan','')" #end >Maklumat Permohonan</a></li>
+	<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('mainform','getDokumenKelompok','')" #end >Dokumen Sokongan</a></li>
+	
+	#if(!$userRole.equalsIgnoreCase("(AWAM) Penjawat Awam"))
+    	#if( $r.status.id=="1433097397170" || $r.status.id=="1425259713415" )
+    		<li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('mainform','getMaklumatLO','')" #end >Maklumat LO Tempahan</a></li>
+    		##if( $r.statusBayaran=='Y' )
+    		##<li #if($!selectedTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedTab!='4') onClick="doDivAjaxCall3$formname('mainform','getPilihanBilik','')" #end >Pilihan Bilik</a></li>
+    		###end
+    	#end
+	#end
+  </ul>
+</nav>

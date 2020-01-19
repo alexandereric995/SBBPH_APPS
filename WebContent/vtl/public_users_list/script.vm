@@ -1,0 +1,57 @@
+function validate() {
+	var err_count = 0;
+	var command = $('command').value;
+
+	var userName = $('userName').value;
+	if ( userName == "" ) {
+		$('err_userName').innerHTML = "Nama Pengguna adalah mandatori!"; err_count++;  
+	}
+	
+	
+##	var selectRole = $('selectRole').value;
+##	if ( selectRole == "" ) {
+##		$('err_selectRole').innerHTML = "Peranan Pengguna adalah mandatori!"; err_count++;  
+##	}
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function doResetPassword() {
+if ( window.confirm("Anda pasti?") )
+{
+	doDivAjaxCall$formname('divTab','resetPassword','');
+	}
+}
+
+function doSavePengesahan() {
+if ( window.confirm("Anda pasti?") )
+{
+	doDivAjaxCall$formname('divTab','savePengesahan','');
+	}
+}
+
+function selectGroupName() {
+	//$('module_group').value = $('groupList').value;
+	document.${formname}.module_group.value = document.${formname}.groupList.value;
+} 
+
+function selectAll(source) {
+    checkboxes = document.getElementsByName('cbroles');
+    for(var i=0, n=checkboxes.length;i<n;i++) {
+    	checkboxes[i].checked = source.checked;
+    }
+}
+
+function uploadPhoto(photoId) {
+	document.${formName}.enctype='multipart/form-data';
+	document.${formName}.encoding ='multipart/form-data';
+	document.${formName}.target='upload_photo';
+	document.${formName}.action='?command=uploadPhoto&photoId=' + photoId;
+	document.${formName}.submit();
+}

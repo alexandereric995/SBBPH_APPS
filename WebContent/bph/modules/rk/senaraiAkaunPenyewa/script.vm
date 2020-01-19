@@ -1,0 +1,112 @@
+function validate() {
+	var err_count = 0;
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function doKemaskiniMaklumatIndividu(){
+	var err_count = 0;
+	
+	var noPengenalan = $('noPengenalan').value;
+	if ( noPengenalan == "" ) {$('err_noPengenalan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var nama = $('nama').value;
+	if ( nama == "" ) {$('err_nama').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var alamat1 = $('alamat1').value;
+	if ( alamat1 == "" ) {$('err_alamat1').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var poskod = $('poskod').value;
+	if ( poskod == "" ) {$('err_poskod').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idNegeri = $('idNegeri').value;
+	if ( idNegeri == "" ) {$('err_idNegeri').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idBandar = $('idBandar').value;
+	if ( idBandar == "" ) {$('err_idBandar').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var noTelefon = $('noTelefon').value;
+	if ( noTelefon == "" ) {$('err_noTelefon').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var noTelefonBimbit = $('noTelefonBimbit').value;
+	if ( noTelefonBimbit == "" ) {$('err_noTelefonBimbit').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','doKemaskiniMaklumatIndividu','');
+	}
+}
+
+function doKemaskiniMaklumatSyarikat(){
+	var err_count = 0;
+	
+	var noPendaftaran = $('noPendaftaran').value;
+	if ( noPendaftaran == "" ) {$('err_noPendaftaran').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var nama = $('nama').value;
+	if ( nama == "" ) {$('err_nama').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var alamat1 = $('alamat1').value;
+	if ( alamat1 == "" ) {$('err_alamat1').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var poskod = $('poskod').value;
+	if ( poskod == "" ) {$('err_poskod').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idNegeri = $('idNegeri').value;
+	if ( idNegeri == "" ) {$('err_idNegeri').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idBandar = $('idBandar').value;
+	if ( idBandar == "" ) {$('err_idBandar').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','doKemaskiniMaklumatSyarikat','');
+	}
+}
+
+function deletePerjanjian(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divTab','deletePerjanjian','perjanjianId='+id);
+}
+
+function doCetakLejarPenyewa(idFail) {
+	var url = "../servlet/bph.laporan.rk.LejarPenyewa?ID_FAIL="+idFail;
+	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	if ((document.window != null) && (!hWnd.opener))
+	hWnd.opener = document.window;
+	if (hWnd.focus != null) hWnd.focus();
+}
+
+function doCetakInvoisTerkini() {
+	doDivAjaxCall3$formname('divResit','doCetakInvoisTerkini','');
+}
+
+function doEmelInvoisTerkini() {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divResit','doEmelInvoisTerkini','');
+}
+
+function doCetakInvoisIWKTerkini() {
+	doDivAjaxCall3$formname('divResit','doCetakInvoisIWKTerkini','');
+}
+
+function doEmelInvoisIWKTerkini() {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divResit','doEmelInvoisIWKTerkini','');
+}

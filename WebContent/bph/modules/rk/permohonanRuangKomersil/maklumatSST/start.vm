@@ -1,0 +1,263 @@
+<input type="hidden" id="idSST" name="idSST" value="$!sst.id">	
+
+#if ($!r.status.id == '1434441177868' || $!r.status.id == '326867100304436') ## LULUS || LULUS BERSYARAT 
+<fieldset>
+<legend class="legend">MAKLUMAT SST</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        #input_required("noRujukanSST" "No. Rujukan SST" "$!sst.noRujukanSST") 
+        #if ($!sst.tarikhMulaSST) #set ($dateMulaSST = "$!util.getDateTime($!sst.tarikhMulaSST,'dd-MM-yyyy')")
+        #else #set ($dateMulaSST = "") #end
+        <tr>
+			<td class="label" valign="top">Tarikh Mula &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top">
+				<div>
+		    		<input type="text" id="tarikhMulaSST" name="tarikhMulaSST" value="$dateMulaSST" onChange="doDivAjaxCall3$formname('divTab','doChangeMaklumatSST','');">
+		    		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+					<script>
+		            	_jq("#tarikhMulaSST").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+							readonly_element: false,
+							onSelect: function(view, elements) {
+								doDivAjaxCall3$formname('divTab','doChangeMaklumatSST','');
+								$('err_tarikhMulaSST').innerHTML='';							
+							}
+		            	});
+						_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+		    		</script>
+		    		<div id="err_tarikhMulaSST" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+				</div>
+			</td>
+		</tr>
+		#if ($!sst.tarikhTamatSST) #set ($dateTamatSST = "$!util.getDateTime($!sst.tarikhTamatSST,'dd-MM-yyyy')")
+        #else #set ($dateTamatSST = "") #end
+        #date_input_required("tarikhTamatSST" "Tarikh Tamat" "$dateTamatSST")
+	   	#if ($!sst.tarikhAkuanTerimaSST)
+	   		#set ($dateAkuanTerimaSST = "$!util.getDateTime($!sst.tarikhAkuanTerimaSST,'dd-MM-yyyy')")
+	   	#else 
+	   		#set ($dateAkuanTerimaSST = "") 
+	   	#end
+	   	#date_input("tarikhAkuanTerimaSST" "Tarikh Akuan Terima SST" "$dateAkuanTerimaSST")
+        	  
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Jenis Sewaan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatSST/selectJenisSewaan.vm")
+            <div id="err_idJenisSewa" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #set ($labelKadarSewa = '')
+        #set ($labelTempoh = '')
+        #if ($!sst.idJenisSewa == 'H')
+        	#set ($labelKadarSewa = ' / HARI')
+        	#set ($labelTempoh = ' HARI')
+        #elseif ($!sst.idJenisSewa == 'B')
+        	#set ($labelKadarSewa = ' / BULAN')
+        	#set ($labelTempoh = ' BULAN')
+        #elseif ($!sst.idJenisSewa == 'T')
+        	#set ($labelKadarSewa = ' / TAHUN')
+        	#set ($labelTempoh = ' TAHUN')
+        #end
+        #if ($!sst.tarikhMula) #set ($dateMula = "$!util.getDateTime($!sst.tarikhMula,'dd-MM-yyyy')")
+        #else #set ($dateMula = "") #end
+        <tr>
+			<td class="label" valign="top">Tarikh Mula &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top">
+				<div>
+		    		<input type="text" id="tarikhMula" name="tarikhMula" value="$dateMula" onChange="doDivAjaxCall3$formname('divTab','doChangeMaklumatSST','');">
+		    		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+					<script>
+		            	_jq("#tarikhMula").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+							readonly_element: false,
+							onSelect: function(view, elements) {
+								doDivAjaxCall3$formname('divTab','doChangeMaklumatSST','');
+								$('err_tarikhMula').innerHTML='';							
+							}
+		            	});
+						_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+		    		</script>
+		    		<div id="err_tarikhMula" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+				</div>
+			</td>
+		</tr>
+        <tr>
+			<td class="label" valign="top">Tempoh &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top"><input name="tempoh" class="number" id="tempoh" onKeyUp=" $('err_tempoh').innerHTML=''; at(this, event);" onChange="doDivAjaxCall3$formname('divTab','doChangeMaklumatSST','');" value="$!sst.tempoh" maxlength="3" size="3">
+			$labelTempoh
+			<div id="err_tempoh" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>   
+		#if ($!sst.tarikhTamat) #set ($dateTamat = "$!util.getDateTime($!sst.tarikhTamat,'dd-MM-yyyy')")
+        #else #set ($dateTamat = "") #end
+        #date_input_required("tarikhTamat" "Tarikh Tamat" "$dateTamat")
+        <tr>
+			<td class="label" valign="top">Kadar Sewa (RM) &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top"><input name="kadarSewa" class="currency" id="kadarSewa" onKeyUp=" $('err_kadarSewa').innerHTML=''; at(this, event);" value="$!util.formatDecimal($!sst.kadarSewa)" maxlength="11" size="11">
+			$labelKadarSewa
+			<div id="err_kadarSewa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr> 
+	   	#currency_required("deposit" "Deposit (RM)" "$!util.formatDecimal($!sst.deposit)")	  	  
+        <tr>
+          <td class="label" valign="top">Caj IWK Pukal ? &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatSST/selectCajIWKPukal.vm")
+            <div id="err_flagCajIWK" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #if ($!sst.flagCajIWK == 'Y')
+	   		#currency_required("kadarBayaranIWK" "Kadar Bayaran IWK (RM)" "$!util.formatDecimal($!sst.kadarBayaranIWK)")	
+	   	#end
+        #textarea("catatan" "Catatan" "$!sst.catatan")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+#else
+
+<fieldset>
+<legend class="legend">MAKLUMAT SST</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        #input_normal("noRujukanSST" "No. Rujukan SST" "<b>$!sst.noRujukanSST</b>") 
+        #if ($!sst.tarikhMulaSST) #set ($dateMulaSST = "$!util.getDateTime($!sst.tarikhMulaSST,'dd-MM-yyyy')")
+        #else #set ($dateMulaSST = "") #end
+        #input_normal("tarikhMulaSST" "Tarikh Mula" "<b>$dateMulaSST</b>") 
+		#if ($!sst.tarikhTamatSST) #set ($dateTamatSST = "$!util.getDateTime($!sst.tarikhTamatSST,'dd-MM-yyyy')")
+        #else #set ($dateTamatSST = "") #end
+        #input_normal("tarikhTamatSST" "Tarikh Tamat" "<b>$dateTamatSST</b>")
+	   	#if ($!sst.tarikhAkuanTerimaSST)
+	   		#set ($dateAkuanTerimaSST = "$!util.getDateTime($!sst.tarikhAkuanTerimaSST,'dd-MM-yyyy')")
+	   	#else #set ($dateAkuanTerimaSST = "") #end
+	   	#date_input_required("tarikhAkuanTerimaSST" "Tarikh Akuan Terima SST" "$dateAkuanTerimaSST")
+       
+       <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        #if ($akaun)
+        <tr>
+          <td style="width:34%">Bayaran Deposit</td>
+          <td style="width:1%">:</td>
+          <td ><a href="javascript:void()" onClick="javascript:doCetakResitDeposit($!akaun.resit.id)"><font color="#0000FF"><strong>$!akaun.resit.noResit</strong></font></a>
+        </tr>
+        #else
+        #if ($!sst.deposit != 0)
+        <tr>
+          <td style="width:34%">Bayaran Deposit</td>
+          <td style="width:1%">:</td>
+          <td>
+          	## TOLAK || SELESAI || BATAL
+	    	#if ($!r.status.id != '1434079231886' && $!r.status.id != '22803475845632' && $!r.status.id != '22803475845641')
+	    		<span id="blinkDepositBelumTerima"> <font color="red"><b>BAYARAN DEPOSIT BELUM DITERIMA</b></font></span>
+	    	#end
+		</td>
+        </tr>
+        #end
+        #end
+      </table>
+      <input type="hidden" id="idResit" name="idResit" value="$!akaun.resit.id">	
+      </td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        #input_normal("idJenisSewa" "Jenis Sewaan" "<b>$!sst.getKeteranganIdJenisSewa()</b>")
+        #set ($labelKadarSewa = '')
+        #set ($labelTempoh = '')
+        #if ($!sst.idJenisSewa == 'H')
+        	#set ($labelKadarSewa = ' / HARI')
+        	#set ($labelTempoh = ' HARI')
+        #elseif ($!sst.idJenisSewa == 'B')
+        	#set ($labelKadarSewa = ' / BULAN')
+        	#set ($labelTempoh = ' BULAN')
+        #elseif ($!sst.idJenisSewa == 'T')
+        	#set ($labelKadarSewa = ' / TAHUN')
+        	#set ($labelTempoh = ' TAHUN')
+        #end
+        #if ($!sst.tarikhMula) #set ($dateMula = "$!util.getDateTime($!sst.tarikhMula,'dd-MM-yyyy')")
+        #else #set ($dateMula = "") #end
+        #input_normal("tarikhMula" "Tarikh Mula Sewa" "<b>$dateMula</b>")
+        #input_normal("tempoh" "Tempoh" "<b>$!sst.tempoh $labelTempoh</b>") 
+		#if ($!sst.tarikhTamat) #set ($dateTamat = "$!util.getDateTime($!sst.tarikhTamat,'dd-MM-yyyy')")
+        #else #set ($dateTamat = "") #end
+        #input_normal("tarikhTamat" "Tarikh Tamat" "<b>$dateTamat</b>")
+        #input_normal("kadarSewa" "Kadar Sewa (RM)" "<b>$!util.formatDecimal($!sst.kadarSewa) $labelKadarSewa</b>") 
+	   	#input_normal("" "Deposit (RM)" "<b>$!util.formatDecimal($!sst.deposit)</b>")
+	   	<input type="hidden" id="deposit" name="deposit" value="$!sst.deposit">	
+	   	#set ($keteranganFlagCajIWK = '')
+	   	#if ($!sst.flagCajIWK == 'Y')
+        	#set ($keteranganFlagCajIWK = 'YA')
+        #elseif ($!sst.flagCajIWK == 'T')
+        	#set ($keteranganFlagCajIWK = 'TIDAK')
+        #end
+	   	#input_normal("flagCajIWK" "Caj IWK Pukal ?" "<b>$keteranganFlagCajIWK</b>")  	  
+        #if ($!sst.flagCajIWK == 'Y')
+	   		#input_normal("kadarBayaranIWK" "Kadar Bayaran IWK (RM)" "<b>$!util.formatDecimal($!sst.kadarBayaranIWK)</b>")	
+	   	#end
+        #input_normal("catatan" "Catatan" "<b>$!sst.catatan</b>")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+#end
+
+<script>  
+	_jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+	});
+  
+	_jq('#kadarSewa').on('blur', function(){
+		var kadarSewa = $('kadarSewa').value;
+		var parseKadarSewa = parseFloat(kadarSewa.replace(/,/g, ''));
+		var deposit = parseKadarSewa * 3;
+		$('deposit').value = deposit;
+		$('err_deposit').innerHTML='';
+	});
+</script>
+
+<script>
+## START BLINK NOTIFICATION
+function blinker() {
+	_jq('#blinkDepositBelumTerima').fadeOut(1000);
+    _jq('#blinkDepositBelumTerima').fadeIn(1000);   
+}
+setInterval(blinker, 1000);
+## END BLINK NOTIFICATION
+</script>

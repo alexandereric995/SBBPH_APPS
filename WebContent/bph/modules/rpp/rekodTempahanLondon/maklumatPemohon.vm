@@ -1,0 +1,52 @@
+
+
+<fieldset>
+<legend class="legend">maklumat pemohon</legend>
+	
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr>
+			<td style="width:160px" class="label" valign="top">No. Kad Pengenalan</td>
+            <td style="width:10px" class="label" valign="top">:</td>
+            <td valign="top">
+				#if( $!r )
+					$!r.getMaklumatPemohon().nokp
+					<input type="hidden" name="nokp" id="nokp" value="$!r.getMaklumatPemohon().nokp" />
+				#else
+					<input style="width:60%" maxlength="12" type="text" id="nokp" name="nokp" value="$!r.getMaklumatPemohon().nokp" onKeyUp="checkingExistUser(this.value)">
+				#end
+			</td>
+        </tr>
+		<tr><td colspan="3"><hr/></td></tr>
+	</table>
+	
+	<div id="divDetailPemohon">
+		#parse("$path/detailPemohon.vm")
+	</div>
+	
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr><td colspan="3"><hr/></td></tr>
+		<tr>
+			<td style="width:160px" class="label" valign="top">Catatan</td>
+            <td style="width:10px" class="label" valign="top">:</td>
+            <td valign="top">
+				#if( $!r && ($!r.status.id.equalsIgnoreCase("1430809277102") || $!r.status.id.equalsIgnoreCase("1430809277099") || $!r.status.id.equalsIgnoreCase("1435093978588")  ) )
+					$!util.replaceIfNull($!r.catatanHq,"TIADA")
+				#else
+					<textarea style="width:60%;height:80px" id="catatanHq" name="catatanHq" onBlur="this.value=this.value.toUpperCase();">$!r.catatanHq</textarea>
+				#end
+			</td>
+        </tr>
+	</table>
+	
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>
+	  

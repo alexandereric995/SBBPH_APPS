@@ -1,0 +1,15 @@
+#if($!qualifyLondon)
+	<select class="texts" id="jenisUnit" name="jenisUnit" style="width:100%" onChange="$('err_jenisUnit').innerHTML=''; at(this, event);">
+	  <option value="">SILA PILIH</option>
+	  #foreach( $n in $listJenisUnitRpp)
+		<option value="$n.id" #if($!n.id == $!r.jenisUnitRpp.id) selected #end >$n.keterangan.toUpperCase() - RM$!util.formatDecimal($n.kadarSewa)</option>
+	  #end 
+	</select>
+
+#else
+	<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+	  <p> <strong>* MAAF, KELAYAKAN ANDA TIDAK MENCUKUPI.</strong> </p>
+	</div>
+#end
+
+

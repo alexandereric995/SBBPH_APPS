@@ -1,0 +1,43 @@
+
+<td>$!r.noPermohonan</td>
+#if ( $currentRoleQTR )
+	<td>$!r.pemohon.userName</td>
+	<td>$!r.pemohon.id</td>
+#end
+#if ($r.tarikhPermohonan)
+    #set($tarikhPermohonan = $util.getDateTime($r.tarikhPermohonan, "dd-MM-yyyy"))
+    #set($masaPermohonan = $util.getDateTime($r.tarikhPermohonan, "hh:mm:ss a"))
+    <td>$tarikhPermohonan<br />( $masaPermohonan )</td>
+#else
+   <td>-</td>
+#end
+
+#if ($r.tarikhKemaskini)
+    #set($tarikhKemaskini = $util.getDateTime($r.tarikhKemaskini, "dd-MM-yyyy"))
+	#set($masaKemaskini = $util.getDateTime($r.tarikhKemaskini, "hh:mm:ss a"))
+	<td>$tarikhKemaskini<br />( $masaKemaskini )</td>
+#else
+	<td>-</td>
+#end
+<td>$!r.lokasi.lokasi</td>
+
+#if ( $currentRoleQTR )
+	#if ( $!r.status.id == "1419483289678" )
+		<td>
+			<i id='$r.id' style='color: #FF0000'>$!r.status.keterangan</i>
+			<script>
+            	function blinker() {
+                    _jq('#$r.id').fadeOut(750);
+                    _jq('#$r.id').fadeIn(750);
+                }
+                setInterval(blinker, 1500);
+            </script>
+		</td>
+		
+	#else
+		<td>$!r.status.keterangan</td>
+	#end
+#else
+	<td><b>$!r.status.keterangan</b></td>
+#end
+	

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="CetakMaklumbalasUnitProPengguna_Subreport1"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="550"
+		 pageHeight="840"
+		 columnWidth="550"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="idAduan" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[select pro_aduan.no_aduan,ruj_sumber_aduan.keterangan, ruj_jenis_aduan.keterangan as jenis_aduan, pro_aduan.tarikh_aduan,   
+ruj_sumber_aduan.keterangan as sumber_aduan, pro_aduan.nama, pro_aduan.no_pengenalan,pro_aduan.alamat1, pro_aduan.no_pengenalan,pro_aduan.alamat2, pro_aduan.poskod, 
+ruj_bandar.keterangan as bandar,ruj_negeri.keterangan as negeri, pro_aduan.emel, pro_aduan.no_telefon, pro_aduan.tajuk,pro_aduan.butiran,
+users.user_name,pro_aduan.tarikh_terima_aduan,users2.user_name as userUnit, users3.user_name as userFm,
+pro_aduan.ulasan_urusetia, pro_aduan.catatan_urusetia, pro_aduan.tarikh_maklumbalas_unit,pro_aduan.ulasan_unit, pro_aduan.catatan_unit,
+pro_aduan.tarikh_maklumbalas_fm, pro_aduan.email_fm, pro_aduan.email_cc, pro_aduan.keterangan_teknikal
+from pro_aduan
+left outer join ruj_bandar on pro_aduan.id_bandar = ruj_bandar.id
+left outer join ruj_negeri on ruj_bandar.id_negeri = ruj_negeri.id
+left outer join ruj_sumber_aduan on pro_aduan.id_sumber_aduan = ruj_sumber_aduan.id
+left outer join ruj_jenis_aduan on pro_aduan.id_jenis_aduan = ruj_jenis_aduan.id
+left outer join users on pro_aduan.id_urusetia = users.user_login
+left outer join users users2 on pro_aduan.id_urusetia_maklumbalas_unit = users2.user_login
+left outer join users users3 on pro_aduan.id_urusetia_fm = users3.user_login
+where pro_aduan.id = "$P!{idAduan}"]]></queryString>
+
+	<field name="no_aduan" class="java.lang.String"/>
+	<field name="keterangan" class="java.lang.String"/>
+	<field name="jenis_aduan" class="java.lang.String"/>
+	<field name="tarikh_aduan" class="java.sql.Date"/>
+	<field name="sumber_aduan" class="java.lang.String"/>
+	<field name="nama" class="java.lang.String"/>
+	<field name="no_pengenalan" class="java.lang.String"/>
+	<field name="alamat1" class="java.lang.String"/>
+	<field name="alamat2" class="java.lang.String"/>
+	<field name="poskod" class="java.lang.String"/>
+	<field name="bandar" class="java.lang.String"/>
+	<field name="negeri" class="java.lang.String"/>
+	<field name="emel" class="java.lang.String"/>
+	<field name="no_telefon" class="java.lang.String"/>
+	<field name="tajuk" class="java.lang.String"/>
+	<field name="butiran" class="java.lang.String"/>
+	<field name="user_name" class="java.lang.String"/>
+	<field name="tarikh_terima_aduan" class="java.sql.Timestamp"/>
+	<field name="userUnit" class="java.lang.String"/>
+	<field name="userFm" class="java.lang.String"/>
+	<field name="ulasan_urusetia" class="java.lang.String"/>
+	<field name="catatan_urusetia" class="java.lang.String"/>
+	<field name="tarikh_maklumbalas_unit" class="java.sql.Timestamp"/>
+	<field name="ulasan_unit" class="java.lang.String"/>
+	<field name="catatan_unit" class="java.lang.String"/>
+	<field name="tarikh_maklumbalas_fm" class="java.sql.Timestamp"/>
+	<field name="email_fm" class="java.lang.String"/>
+	<field name="email_cc" class="java.lang.String"/>
+	<field name="keterangan_teknikal" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="200"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="110"
+						y="0"
+						width="430"
+						height="20"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{tajuk}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="110"
+						y="20"
+						width="430"
+						height="180"
+						key="textField-2"
+						stretchType="RelativeToBandHeight"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="10" isItalic="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{butiran}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="0"
+						width="90"
+						height="20"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Tajuk "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="20"
+						width="90"
+						height="20"
+						key="textField-4"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Butiran "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="100"
+						y="0"
+						width="10"
+						height="20"
+						key="textField-5"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="100"
+						y="20"
+						width="10"
+						height="20"
+						key="textField-6"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

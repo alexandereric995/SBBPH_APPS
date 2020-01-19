@@ -1,0 +1,109 @@
+
+
+#set ( $parent_id = "0" )
+#if ( $hasParent )
+	#set ( $parent_id = $forum_parent.id )
+#end
+
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+	<tr>
+		<td align="right">
+
+					<input class="button" type="button" value="Back" 
+					onclick="doAjaxCall${formname}('')">
+		</td>
+	</tr>
+</table>
+
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+
+	<tr>
+	
+		
+		<td valign="top">
+<b>$forum.title</b><br>
+			<b>$forum.postedBy</b><br>
+			$forum.getDatePosted().display()<br><br>
+			$forum.displayMessage()
+		</td>
+	</tr>
+	</table>
+	
+	
+	<table>	
+	#if ( $allowAttachment )
+	<tr>
+		<td>
+		</td>
+		<td class="table_row" >
+			#if ($forum.hasAttachment())
+				<b>File(s):</b>&nbsp;
+				#foreach ( $file in $attachments )
+					<a href="javascript:download_${formname}('${files_dir}${file}')">
+					<u>$file</u>
+					&nbsp
+				#end
+			#end
+		</td>
+	</tr>	
+	#end
+	<tr>
+		<td>
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+	#if ( $userid == "anon" )
+	
+	#else	
+	<tr>
+		<td colspan="2" align="left">
+##if ( $allowReply )
+				##<input class="button" type="button" value="Reply to this topic" 
+				##onclick="				doAjaxCall$formname('Reply', 'forum_id=$forum.id')">
+##end
+			#if ( $allowUpdate )
+				<input class="button" type="button" value="Modify" 
+				onclick="doAjaxCall$formname('Update', 'forum_id=$forum.id')">
+##				onclick="goUpdate_${formname}()">
+			#end
+			#if ( $allowDelete )
+				<input class="button" type="button" value="Delete" 
+				onclick="doAjaxCall$formname('Delete', 'forum_id=$forum.id&parent_id=$parent_id')">
+				##onclick="goDelete_${formname}()">
+			#end
+		</td>
+	</tr>
+	<tr>
+		<td>
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>		
+	#end
+
+
+</table>
+
+
+
+
+<table>
+<tr>
+		<td align="left">
+		
+
+		
+		<input class="button" type="button" value="Back" 
+		onclick="doAjaxCall${formname}('')">
+		</td>
+	</tr>
+
+	</table>
+
+
+<input type="hidden" name="subjectId" value="$!subjectId">
+<input type="hidden" name="$formname" value="$formname">
+

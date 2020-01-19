@@ -1,0 +1,18 @@
+<select id="idGredJawatan" name="idGredJawatan" style="width:100%" onChange="$('err_idGredJawatan').innerHTML=''; at(this, event);">
+    <option value="">SILA PILIH</option>
+    #foreach( $gj in $selectGredJawatan )
+        <option #if ( $gj.id ==  $!uj.gredJawatan.id) selected #end value="$gj.id">$gj.keterangan.toUpperCase()</option>
+    #end
+</select>
+
+<script>
+	_jq("#idGredJawatan").change(function() {
+    	if ( this.value < 22 ) {
+			_jq("#divPerakuan").children().prop("disabled", true);
+			_jq("input[name='perakuan'][value='0']").prop("checked",true);
+		} else {
+			_jq("#divPerakuan").children().prop("disabled", false);
+			_jq("input[name='perakuan'][value='1']").prop("checked",true);
+		}
+    });
+</script>

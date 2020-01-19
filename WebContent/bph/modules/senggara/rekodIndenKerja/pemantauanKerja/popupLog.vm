@@ -1,0 +1,45 @@
+<fieldset>
+<legend class="legend">MAKLUMAT PEMANTAUAN KERJA</legend>
+<table cellpadding="5" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td class="label" style="width:39%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:60%">&nbsp;</td>
+  </tr>
+  #if ($!rekod.tarikh) 
+  #set ($dateLog = "$!util.getDateTime($!rekod.tarikh,'dd-MM-yyyy')")
+  #else #set ($dateLog = "") #end
+  #date_input_required("tarikh" "Tarikh" "$dateLog")  
+  #textarea_required("catatan" "Catatan" "$!rekod.catatan")
+  #currency_required("peratusanKerja" "Peratusan Siap Kerja (%)" "$!util.formatDecimal($!rekod.peratusanKerja)")
+  <tr>
+    <td></td>
+    <td></td>
+    <td> 
+    	<input type="button" id="simpanKemaskiniLogPemantauanKerja" name="simpanKemaskiniLogPemantauanKerja" value="Simpan">
+      	<input type="button" id="batalLog" name="batalLog" value="Keluar"> </td>
+  </tr>
+</table>
+<input type="hidden" id="idLog" name="idLog" value="$rekod.id">
+<div id="statusLog"></div>
+</fieldset>
+<script>
+_jq('#batalLog').on('click', function(){
+	doDivAjaxCall3$formname('divPemantauanKerjaRecordModule','getLogPemantauanKerja','');
+    jQuery('#editSenaraiLog').fadeOut();
+});
+
+_jq('#simpanKemaskiniLogPemantauanKerja').on('click', function(){
+	simpanKemaskiniLogPemantauanKerja();
+});
+
+</script>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+      $('.luas').autoNumeric('init', {aSep: '', vMin: '0.00000', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

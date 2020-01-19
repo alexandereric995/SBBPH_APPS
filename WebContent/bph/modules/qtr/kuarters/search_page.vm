@@ -1,0 +1,97 @@
+<table width="100%" cellpadding="5" cellspacing="0">
+	<tr>
+		<td colspan="3">
+			<table width="100%" cellpadding="5" cellspacing="0">
+				<tr>
+					<td width="45%" align="center" valign="top">
+            			<table width="95%" cellpadding="5" cellspacing="0">
+            				<tr>
+                                <td style="width:150px"></td>
+                                <td style="width:10px"></td>
+                                <td></td>
+                            </tr>
+							<tr>
+                                <td class="label">Negeri</td>
+                                <td>:</td>
+                                <td>
+                        			##<span id="findNegeri">
+                        				#parse("$path/find/findNegeri.vm")
+                        			##</span>
+                                </td>
+                            </tr>
+							<tr>
+                                <td class="label">Lokasi Kuarters</td>
+                                <td>:</td>
+                                <td>
+                                	<span id="selectFindLokasiKuarters">
+                        				 #parse("$path/find/findLokasiKuarters.vm")
+                        			</span>
+                                </td>
+                            </tr>
+                        	<tr>
+                                <td class="label">Jalan</td>
+                                <td>:</td>
+                                <td>
+                        			<span id="selectFindJalan">
+                        				#parse("$path/find/findJalan.vm")
+                        			</span>
+                                </td>
+                            </tr>
+							<tr>
+                                <td class="label">Fasa</td>
+                                <td>:</td>
+                                <td>
+                        			<span id="findFasa">
+                        				#parse("$path/find/findFasa.vm")
+                        			</span>
+                                </td>
+                            </tr>
+                            
+            			</table>			
+					</td>
+					<td width="45%" valign="top">
+						<table width="95%" cellpadding="5" cellspacing="0">
+            				<tr>
+                                <td style="width:150px"></td>
+                                <td style="width:10px"></td>
+                                <td></td>
+                            </tr>
+							#input("findNoUnit" "No. Unit" "")
+							#input("findNoRujukan" "No. ID Kuarters" "")
+							<tr>
+                                <td class="label">Kelas</td>
+                                <td>:</td>
+                                <td>
+                                    #parse("$path/find/findKelasKuarters.vm")
+                                </td>
+                            </tr>
+                            <tr>
+							    <td class="label">Status Kuarters</td>
+							    <td>:</td>
+							    <td>
+							    #set($status_kuarters = ["AKTIF", "TIDAK AKTIF"])
+								<select id="status_kuarters" name="status_kuarters" style="width:100%" onChange="doDivAjaxCall3$formname('findDetailKuarters','findDetailKuarters','')">
+								<option value="" >SILA PILIH</option>
+								#foreach($l in $status_kuarters)
+								<option value="$l">$l</option>
+								#end
+								</select>
+							    	</td>
+							  </tr>
+
+                            <tr>
+                                <td class="label">Perincian Kuarters</td>
+                                <td>:</td>
+                                <td>
+                                	<div id="findDetailKuarters">
+                                    #parse("$path/find/findDetailKuarters.vm")
+                                    </div>
+                                </td>
+                            </tr>
+            			</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>

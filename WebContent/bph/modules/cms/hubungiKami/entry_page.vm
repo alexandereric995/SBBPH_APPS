@@ -1,0 +1,56 @@
+<div id="divMaklumat">
+<fieldset>
+<legend class="legend">HUBUNGI KAMI</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  <input type="hidden" id="idHubungiKami" name="idHubungiKami" value="$!r.id">
+  #input_required_no_case("bahagian" "Bahagian" "$!r.bahagian")
+  #input_no_case("jabatan" "Jabatan" "$!r.jabatan")
+  #input_required_no_case("alamat1" "Alamat" "$!r.alamat1")
+  #input_no_case("alamat2" "" "$!r.alamat2")
+  #input_no_case("alamat3" "" "$!r.alamat3")
+  #postcode_required("poskod" "Poskod" "$!r.poskod")
+  <tr>
+    <td class="label">Negeri &nbsp;<span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td>#parse("$path/selectNegeri.vm")
+      <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Bandar &nbsp;<span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td><div id="selectBandar"> #parse("$path/selectBandar.vm") </div>
+      <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #input_required_no_case("noTelefon" "No. Telefon" "$!r.noTelefon")
+  #input_required_no_case("noFaks" "No. Faks" "$!r.noFaks")
+  #input_email_required("emel" "E-mel" "$!r.emel")
+    
+</table>
+</fieldset>
+
+#if ($!command != 'add_new_record')
+<table width="100%">
+  <tr>
+    <td align="right"><input id="btnKemaskini" name="btnKemaskini" type="button" value="Simpan" onclick="javascript:kemaskiniMaklumat();"/>
+      <input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>	
+#end
+
+</div>	
+
+<script>	
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

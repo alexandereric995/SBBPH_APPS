@@ -1,0 +1,89 @@
+<fieldset>
+<legend class="legend">MAKLUMAT KERTAS PERTIMBANGAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  <input type="hidden" id="idKertasPertimbangan" name="idKertasPertimbangan" value="$!kertasPertimbangan.id">
+  #input_required("tujuan" "Tujuan" "$!kertasPertimbangan.tujuan")
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">MAKLUMAT RUANG YANG DIMOHON</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #textarea_required_no_case("lokasiRuangDipohon" "Lokasi Ruang" "$!kertasPertimbangan.lokasiRuangDipohon")
+  #textarea_required_no_case("keluasanRuangDipohon" "Keluasan Ruang" "$!kertasPertimbangan.keluasanRuangDipohon")
+  #textarea_no_case("lampiranA" "Lampiran A" "$!kertasPertimbangan.lampiranA")
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">MAKLUMAT PERMOHONAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #textarea_required_no_case("namaJabatan" "Nama Jabatan" "$!kertasPertimbangan.namaJabatan")
+  #number_required("bilKakitangan" "Bil. Kakitangan" "$!kertasPertimbangan.bilKakitangan")
+  #textarea_required_no_case("pejabatSediaada" "Ruang Pejabat Sediaada" "$!kertasPertimbangan.pejabatSediaada")
+  #textarea_required_no_case("cadanganRuang" "Cadangan Ruang" "$!kertasPertimbangan.cadanganRuang")
+  #textarea_required_no_case("alasan1" "Alasan Permohonan (1)" "$!kertasPertimbangan.alasan1")
+  #textarea_no_case("alasan2" "Alasan Permohonan (2)" "$!kertasPertimbangan.alasan2")
+  #textarea_no_case("alasan3" "Alasan Permohonan (3)" "$!kertasPertimbangan.alasan3")
+  #textarea_no_case("lampiranB" "Lampiran B" "$!kertasPertimbangan.lampiranB")
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">ULASAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #textarea_required_no_case("namaPengerusiBangunan" "Nama Pengerusi Bangunan" "$!kertasPertimbangan.namaPengerusiBangunan")
+  #textarea_required_no_case("ulasanPengerusiBangunan" "Ulasan Pengerusi Bangunan" "$!kertasPertimbangan.ulasanPengerusiBangunan")
+  #textarea_no_case("lampiranC" "Lampiran C" "$!kertasPertimbangan.lampiranC")
+  
+  #textarea_required_no_case("namaPengurusBangunan" "Nama Pengurus Bangunan" "$!kertasPertimbangan.namaPengurusBangunan")
+  #textarea_required_no_case("ulasanPengurusBangunan" "Ulasan Pengurus Bangunan" "$!kertasPertimbangan.ulasanPengurusBangunan")
+  #textarea_no_case("lampiranD" "Lampiran D" "$!kertasPertimbangan.lampiranD")
+</table>
+</fieldset>
+
+<table width="100%">
+  <tr>
+    <td align="right">
+    	#if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441688' || $!r.status.id == '1423568441694')) ## PENYEDIAAN KERTAS PERTIMBANGAN || PINDAAN KERTAS PERTIMBANGAN
+    		<input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:simpanKertasPertimbangan();"/>	
+    	#end
+    	<input id="cetakKertasPertimbangan" name="cetakKertasPertimbangan" type="button" value="Cetak Kertas Pertimbangan"/>
+      	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+
+<script>
+	_jq('#cetakKertasPertimbangan').on('click', function(){
+    	var idPermohonan = '$!r.id';
+        		    
+		var url = "../servlet/bph.laporan.bgs.BGSKertasPertimbangan?idPermohonan="+idPermohonan;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();	
+    	});
+</script>
+
+#parse("$path/status.vm")

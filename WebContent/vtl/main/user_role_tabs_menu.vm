@@ -1,0 +1,74 @@
+#if ( $userIsLogged )
+
+#set ( $current_role = "" )
+
+#if ( $myrole == "" || $myrole == "$myrole" )
+	#set ( $current_role = $primaryRole.description )
+#else
+	#if ( $myrole == $primaryRole.name )
+		##set ( $current_role = $myrole )
+		#set ( $current_role = $primaryRole.description )
+	#end
+#end
+
+#foreach( $secondaryRole in $secondaryRoles )
+	#if ( $myrole == $secondaryRole.name )
+		#set ( $current_role = $secondaryRole.description )
+	#end
+#end
+
+<form name="fRole" method="post">
+	
+<table cellpadding="0" cellspacing="0" border="0" align="left">
+	<tr>
+		<td align="right" valign="middle" width="150px">
+			<font class="font_role">Peranan Semasa&nbsp;:&nbsp;</span>
+		</td>
+		<td align="left" valign="middle">	
+			<select id="role" name="role" onChange="changeRole()">
+        		##<option value="0">- SILA PILIH -</option>
+				##<option value="$!primaryRole.id" onClick="changeRole('$!primaryRole.name')" $selected>$!primaryRole.description</option>
+				<option value="$!primaryRole.name" $selected>$!primaryRole.description</option>
+    			#foreach( $secondaryRole in $secondaryRoles )
+    				#if ( $secondaryRole.description != "" )
+    					#if ( $current_role == $secondaryRole.description ) 
+    						#set ( $selected = "selected" )
+    					#else
+    						#set ( $selected = "" )
+    					#end
+						##<option value="$!secondaryRole.id" onClick="changeRole('$!secondaryRole.name')" $selected>$!secondaryRole.description</option>
+						<option value="$!secondaryRole.name" $selected>$!secondaryRole.description</option>
+    				#end
+    			#end 
+        	</select>
+		</td>
+	</tr>
+</table>
+
+<input type="hidden" id="roleName" name="roleName">
+</form>
+
+
+<script>
+ _jq(document).ready(function() {
+   _jq('#menu_parent_roles').hover( function() {
+     _jq('div.menu_child_roles').stop().animate({
+    	height:'toggle'
+     });
+   });
+ });
+</script>
+
+<script type="text/javascript">
+function changeRole() {
+	var x = document.getElementById('role').value;
+	
+	//alert("ROLE :: " + x);
+	
+	document.fRole.action = "../x/${securityToken}/lebah.portal.XModule?command=changeRole&roleName=" + x;
+	document.fRole.submit();
+	//document.location = "?myrole="+role;
+}
+</script>
+
+#end

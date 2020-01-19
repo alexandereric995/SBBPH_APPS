@@ -1,0 +1,44 @@
+<fieldset>
+   <legend class="legend">Maklumat Perlanjutan</legend>
+   <table width="100%">
+      <tr>
+         <td style="width:180px"></td>
+         <td style="width:10px"></td>
+         <td></td>
+      </tr>
+      ##input_required("noSiri" " No Notis / Surat" "$!rekod.noSiri")
+   </table>
+   
+   <table width="100%">
+      <tr>
+         <td style="width:180px"></td>
+         <td style="width:10px"></td>
+         <td></td>
+      </tr>
+      ##input("tempoh" "Tempoh Lanjutan" "$!rekod.tempoh")
+      #date_input_required("tarikhMula" "Tarikh Mula" "$!util.getDateTime($rekod.tarikhMula,'dd-MM-yyyy')")
+      #date_input_required("tarikhTamat" "Tarikh Tamat" "$!util.getDateTime($rekod.tarikhTamat,'dd-MM-yyyy')")
+      ##date_input_required("tarikhHantar" "Tarikh Hantar" "$!util.getDateTime($rekod.tarikhHantar,'dd-MM-yyyy')")
+      #textarea("catatan" "Catatan" "$!rekod.catatan")
+   </table>
+   
+   <input type="hidden" id="idLanjutan" name="idLanjutan" value="$rekod.id">
+   
+   <p align="center">
+      <input type="button" value="Simpan" align='left' id="cmdSimpanNotis">
+      <input type="button" value="Kembali" align='left' id="cmdKembali">
+   </p>
+   
+</fieldset>
+
+
+
+<script>
+_jq('#cmdKembali').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getPerlanjutan','');
+    jQuery('#cmdKembali').fadeOut();
+});
+_jq('#cmdSimpanNotis').on('click', function(){
+	saveLanjutan();
+});
+</script>

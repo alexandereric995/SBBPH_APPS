@@ -1,0 +1,90 @@
+<fieldset>
+<legend class="legend">MAKLUMAT REKOD</legend>
+<table width="100%" cellspacing="1" cellpadding="1">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  
+  <tr>
+	<td class="label" valign="top">Aktif &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td valign="top">
+		<select class="texts" name="flagAktif" id="flagAktif" style="width:100%" onChange="$('err_flagAktif').innerHTML=''" >
+			<option value="" selected="selected">SILA PILIH</option>
+            <option value="Y" #if ( $r.flagAktif == "Y" ) selected #end>YA</option>
+            <option value="T" #if ( $r.flagAktif == "T" ) selected #end>TIDAK</option>
+		</select>
+        <div id="err_flagAktif" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+  </tr>
+        
+  #input_required("perkara" "Perkara / Tajuk" "$!r.perkara")
+  #date_input_required("tarikhBukaTempahan" "Tarikh Buka Tempahan" "$!util.getDateTime($!r.tarikhBukaTempahan,'dd-MM-yyyy')")
+  #textarea("catatan" "Catatan" "$!r.catatan")
+  #date_input_required("tarikhMenginapDari" "Tarikh Menginap Dari" "$!util.getDateTime($!r.tarikhMenginapDari,'dd-MM-yyyy')")
+  #date_input_required("tarikhMenginapHingga" "Tarikh Menginap Hingga" "$!util.getDateTime($!r.tarikhMenginapHingga,'dd-MM-yyyy')")
+  
+</table>
+</fieldset>
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+				<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+					
+    			#if(!$!userRole.equalsIgnoreCase("(RPP) Penyedia"))
+				#set ( $queryParam = "record_id=$!r.id" )
+				<input type="button" id="btnSave" value="Simpan">
+				#end	
+					
+        		<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>
+
+<div id="popupCheckingTetapan" class="popup"></div>
+	
+<script>
+    function validateSave() {
+    	var err_count = 0;
+    	
+    	var flagAktif = $('flagAktif').value;
+    	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "Flag Aktif adalah mandatori!"; err_count++;  }
+    	
+    	var perkara = $('perkara').value;
+    	if ( perkara == "" ) {$('err_perkara').innerHTML = "Perkara adalah mandatori!"; err_count++;  }
+    	
+    	var tarikhBukaTempahan = $('tarikhBukaTempahan').value;
+    	if ( tarikhBukaTempahan == "" ) {$('err_tarikhBukaTempahan').innerHTML = "Tarikh Buka Tempahan adalah mandatori!"; err_count++;  }
+    	
+    	var tarikhMenginapDari = $('tarikhMenginapDari').value;
+    	if ( tarikhMenginapDari == "" ) {$('err_tarikhMenginapDari').innerHTML = "Tarikh Menginap Dari adalah mandatori!"; err_count++;  }
+    	
+    	var tarikhMenginapHingga = $('tarikhMenginapHingga').value;
+    	if ( tarikhMenginapHingga == "" ) {$('err_tarikhMenginapHingga').innerHTML = "Tarikh Menginap Hingga adalah mandatori!"; err_count++;  }
+    	
+    	if (err_count == 0) {
+    	}
+    	
+    	return err_count == 0;
+    }
+	
+	_jq('#btnSave').on('click', function(){
+		if ( validateSave() ){
+			doDivAjaxCall3$formname('popupCheckingTetapan','openPopupCheckingTempahan','record_id=$!r.id');
+     		jQuery('#popupCheckingTetapan').fadeIn();
+		}
+  	});
+	
+</script>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

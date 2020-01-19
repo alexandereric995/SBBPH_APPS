@@ -1,0 +1,90 @@
+<fieldset>
+<legend class="legend">Maklumat Sewaan</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Jenis Sewaan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectJenisSewaan.vm")
+            <div id="err_idJenisSewa" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr> 
+        #set ($labelKadarSewa = '')
+        #set ($labelTempoh = '')
+        #if ($!r.idJenisSewa == 'H')
+        	#set ($labelKadarSewa = ' / HARI')
+        	#set ($labelTempoh = ' HARI')
+        #elseif ($!r.idJenisSewa == 'B')
+        	#set ($labelKadarSewa = ' / BULAN')
+        	#set ($labelTempoh = ' BULAN')
+        #elseif ($!r.idJenisSewa == 'T')
+        	#set ($labelKadarSewa = ' / TAHUN')
+        	#set ($labelTempoh = ' TAHUN')
+        #end
+        <tr>
+			<td class="label" valign="top">Kadar Sewa JPPH (RM) &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top"><input name="kadarSewaJPPH" class="currency" id="kadarSewaJPPH" onKeyUp=" $('err_kadarSewaJPPH').innerHTML=''; at(this, event);" value="$!util.formatDecimal($!r.kadarSewaJPPH)" maxlength="11" size="11">
+			$labelKadarSewa
+			<div id="err_kadarSewaJPPH" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>     
+        <tr>
+			<td class="label" valign="top">Harga Tawaran (RM) &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top"><input name="hargaTawaranSewa" class="currency" id="hargaTawaranSewa" onKeyUp=" $('err_hargaTawaranSewa').innerHTML=''; at(this, event);" value="$!util.formatDecimal($!r.hargaTawaranSewa)" maxlength="11" size="11">
+			$labelKadarSewa
+			<div id="err_hargaTawaranSewa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>      
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>        
+		#if ($!r.tarikhMulaOperasi) #set ($dateMulaOperasi = "$!util.getDateTime($!r.tarikhMulaOperasi,'dd-MM-yyyy')")
+        #else #set ($dateMulaOperasi = "") #end
+        <tr>
+			<td class="label" valign="top">Tarikh Mula &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top">
+				<div>
+		    		<input type="text" id="tarikhMulaOperasi" name="tarikhMulaOperasi" value="$dateMulaOperasi" onChange="doDivAjaxCall3$formname('divMaklumatSewaan','doChangeJenisSewaan','');">
+		    		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+					<script>
+		            	_jq("#tarikhMulaOperasi").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+							readonly_element: false,
+							onSelect: function(view, elements) {
+								doDivAjaxCall3$formname('divMaklumatSewaan','doChangeJenisSewaan','');
+								$('err_tarikhMulaOperasi').innerHTML='';							
+							}
+		            	});
+						_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+		    		</script>
+		    		<div id="err_tarikhMulaOperasi" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+				</div>
+			</td>
+		</tr>
+        <tr>
+			<td class="label" valign="top">Tempoh &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top"><input name="tempoh" class="number" id="tempoh" onKeyUp=" $('err_tempoh').innerHTML=''; at(this, event);" onChange="doDivAjaxCall3$formname('divMaklumatSewaan','doChangeJenisSewaan','');" value="$!r.tempoh" maxlength="3" size="3">
+			$labelTempoh
+			<div id="err_tempoh" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>   
+		#if ($!r.tarikhTamatOperasi) #set ($dateTamatOperasi = "$!util.getDateTime($!r.tarikhTamatOperasi,'dd-MM-yyyy')")
+        #else #set ($dateTamatOperasi = "") #end
+        #date_input_required("tarikhTamatOperasi" "Tarikh Tamat" "$dateTamatOperasi")
+      </table></td>
+  </tr>
+</table>
+</fieldset>

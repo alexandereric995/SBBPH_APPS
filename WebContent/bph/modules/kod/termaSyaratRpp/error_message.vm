@@ -1,0 +1,34 @@
+<style>
+	.div_error{
+	display:none;
+	}
+</style>
+
+<script>
+	_jq( document ).ready(function() {
+		#if ( $error_flag == "record_delete_failed" )
+			hapusGagal ();
+		#end
+		
+		#if ( $error_flag == "record_delete_success" )
+			hapusBerjaya ();
+		#end
+			
+     });
+     
+	function hapusBerjaya () {
+    swal({
+		title: "Makluman",
+		text: "Telah berjaya dihapuskan!",
+		type: "success"
+		});
+    }
+    
+    function hapusGagal () {
+    swal({
+		title: "Perhatian",
+		text: "Tidak berjaya dihapuskan!",
+		type: "error"
+		});
+    }
+</script>

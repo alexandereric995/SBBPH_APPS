@@ -1,0 +1,108 @@
+#if ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Main.css" )
+	
+#else
+    <table class="tab" cellspacing="0" cellpadding="0" border="0">
+    	<tr>
+    	#set ( $td_class = "" )
+    	#set ( $td_left_class = "" )
+    	#set ( $td_right_class = "" )
+    	#set ( $a_class = "" )
+    	#set ( $tabC = 0 )
+    	
+    		<td style="width: 5px">&nbsp;</td>
+    		#foreach ($tab in $tabs)
+    			<td width="1"></td>
+    			#set ( $tabC = $tabC + 1 )
+    			
+    			#if (${session.getAttribute("_portal_action")} == ${tab.command})
+    				#set ( $td_class = "tab_background_active" )
+    				#set ( $a_class = "tab_link_active" )
+    			#else
+    				#set ( $td_class = "tab_background" )
+    				#set ( $a_class = "tab_link" )							
+    			#end
+    			
+    			##set ( $td_class = "tab_background" )
+    			##set ( $a_class = "tab_link" )
+    			##set ( $td_class_special = "tab_background_special" )
+    			##set ( $a_class_special = "tab_link_special" )
+    			
+    			#if ( $tab.displayType == "pulldown_menu" )
+    				<td id="menu_parent${tabC}" class="$td_class" style="cursor:hand; cursor:pointer;" nowrap>
+    					#if ( $label.get("${tab.title}") )
+    						$label.get("${tab.title}")
+    					#else							
+    						${tab.title}
+    					#end
+    					<div id="menu_child${tabC}" class="tab_pulldown">
+                			#set ( $menus = $tab.modules )
+            				#foreach ( $menu in $menus )
+    							<a class="pulldown_menu" href="$tab.id?_portal_module=$menu.id">
+    								#if ( $label.get("$menu.moduleTitle") )
+    									$label.get("$menu.moduleTitle")
+    								#else							
+    									$menu.moduleTitle
+    								#end
+    							</a>
+            				#end	
+                		</div>
+    					<script>
+                         _jq(document).ready(function() {
+                           _jq('#menu_parent${tabC}').hover( function() {
+                             _jq('#menu_child${tabC}').stop().animate({
+                            	height:'toggle'
+                             }, {
+    						  	duration: "fast",
+    							easing: "swing"							
+    						 });
+                           });
+                         });
+                        </script>
+    				</td>
+    			#elseif ( $tab.displayType == "special_menu" )
+    				<td id="menu_parent${tabC}" class="$td_class" style="cursor:hand; cursor:pointer;" nowrap>
+    					#if ( $label.get("${tab.title}") )
+    						$label.get("${tab.title}")
+    					#else							
+    						${tab.title}
+    					#end
+    					<div id="menu_child${tabC}" class="tab_pulldown_special">
+                			#set ( $menus = $tab.modules )
+            				#foreach ( $menu in $menus )
+    							<a class="pulldown_menu_special" href="$tab.id?_portal_module=$menu.id">
+    								#if ( $label.get("$menu.moduleTitle") )
+    									$label.get("$menu.moduleTitle")
+    								#else							
+    									$menu.moduleTitle
+    								#end
+    							</a>
+            				#end	
+                		</div>
+    					<script>
+                         _jq(document).ready(function() {
+                           _jq('#menu_parent${tabC}').hover( function() {
+                             _jq('#menu_child${tabC}').stop().animate({
+                            	height:'toggle'
+                             }, {
+    						  	duration: "fast",
+    							easing: "swing"							
+    						 });
+                           });
+                         });
+                        </script>
+    				</td>
+    			#else
+    				<td class="$td_class" style="cursor:hand; cursor:pointer;" onclick="document.location='${tab.command}'" nowrap>
+    					#if ( $label.get("${tab.title}") )
+    						$label.get("${tab.title}")
+    					#else							
+    						${tab.title}
+    					#end
+    				</td>
+    			#end
+    			<td width="1"></td>
+    		#end
+    		<td style="width: 100%">&nbsp;</td>
+    	</tr>
+    </table>
+#end

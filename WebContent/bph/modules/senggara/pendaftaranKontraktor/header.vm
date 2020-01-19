@@ -1,0 +1,46 @@
+<fieldset>
+<legend class="legend">MAKLUMAT KONTRAKTOR</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td style="width:150px">No. Pendaftaran</td>
+          <td style="width:10px">:</td>
+          <td><b>$!r.kontraktor.id</b> &nbsp;&nbsp; #if ($!r.kontraktor.getStatusSenaraiHitam() == 'Y') <font class="blink" color="red"><b>( SENARAI HITAM ) </b></font><br/> #end</td>
+        </tr>        
+        #input_normal("" "Nama Kontraktor" "<b>$!r.kontraktor.namaKontraktor</b>")       
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #set ($flagAwam = '-')
+        #set ($flagElektrik = '-')
+        #if ($!r.kontraktor.flagAwam == 'Y')
+        	#set ($flagAwam = 'Y')
+        #end
+        #if ($!r.kontraktor.flagElektrik == 'Y')
+        	#set ($flagElektrik = 'Y')
+        #end
+
+        #if ($!flagElektrik == 'Y' && $!flagAwam == 'Y')
+        	#input_normal("" "Bidang" "<b>AWAM / ELEKTRIK</b>")
+        #elseif ($!flagElektrik == 'Y' && $!flagAwam != 'Y')
+        	#input_normal("" "Bidang" "<b>ELEKTRIK</b>")
+        #elseif ($!flagElektrik != 'Y' && $!flagAwam == 'Y')
+        	#input_normal("" "Bidang" "<b>AWAM</b>")
+        #else
+        	#input_normal("" "Bidang" "")
+        #end
+        #input_normal("" "Kawasan" "<b>$!r.kontraktor.kawasan.keterangan</b>")       
+      </table></td>
+  </tr>
+</table>
+</fieldset>

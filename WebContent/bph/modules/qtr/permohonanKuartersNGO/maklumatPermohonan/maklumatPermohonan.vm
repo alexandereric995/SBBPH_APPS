@@ -1,0 +1,32 @@
+<fieldset>
+<legend class="legend">Maklumat Permohonan</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        #if ($!r.tarikhPermohonan) #set ($datePermohonan = "$!util.getDateTime($!r.tarikhPermohonan,'dd-MM-yyyy')")
+        #else #set ($datePermohonan = "") #end
+        #date_input_required("tarikhPermohonan" "Tarikh Mohon" "$datePermohonan")
+        #input_required("noRujukanPermohonan" "No. Rujukan Surat / Permohonan" "$!r.noRujukanPermohonan")     
+        #if ($!r.tarikhTerimaPermohonan) #set ($dateTerimaPermohonan = "$!util.getDateTime($!r.tarikhTerimaPermohonan,'dd-MM-yyyy')")
+        #else #set ($dateTerimaPermohonan = "") #end
+        #date_input_required("tarikhTerimaPermohonan" "Tarikh Terima" "$dateTerimaPermohonan")                                  
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        #if ($!command == "add_new_record")
+        	#input_normal("" "Jenis Permohonan" "<b>PERMOHONAN BARU</b>")
+        #end
+        #textarea("catatan" "Catatan" "$!r.catatan")
+      </table></td>
+  </tr>
+</table>
+</fieldset>

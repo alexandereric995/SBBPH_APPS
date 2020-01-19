@@ -1,0 +1,102 @@
+$dateFormat.applyPattern("dd-MM-yyyy")
+<input type="hidden" name="eventDate" value="$dateFormat.format($eventDate)">
+#if ( $events.size() > 0 )
+<table style="width:100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+#foreach( $events in $calendarEvents )
+<td>
+<table border="0" style="width:100%" cellpadding="0" cellspacing="0">
+
+#set ( $in_event = "no" )
+#set ( $cnt = 0 )
+#set ( $next_event = "yes" )
+#set ( $eventCnt = -1 )
+
+
+#foreach ( $t in $times )
+
+#set ( $bgcolor = "#CCCCCC")
+
+#if ( $next_event == "yes" && $eventCnt < $events.size())
+#set ( $eventCnt = $eventCnt + 1 )
+#end
+
+#if ( $next_event == "yes" && $eventCnt < $events.size() )
+#set ( $eventTimeStart = $timeFormat.format($events.get($eventCnt).startDateTime) )
+#set ( $eventTimeEnd = $timeFormat.format($events.get($eventCnt).endDateTime) )
+#set ( $eventTimeEnd2 = $timeFormat.format($events.get($eventCnt).endDateTime2) )
+#set ( $next_event = "no" )
+#set ( $cnt = 0 )
+#end
+
+#if ( $eventTimeStart == $timeFormat.format($t) ) 
+#set ( $in_event = "yes" )
+#end
+
+##INSIDE EVENT
+#if ( $in_event == "yes" )
+#set ( $cnt = $cnt + 1 )
+
+#if ( $eventCnt < $events.size() )
+#set ( $bgcolor = $events.get($eventCnt).displayColor )
+#end
+
+<tr><td class="event" style="background-color:$bgcolor" align="center" nowrap>
+#if ( $cnt == 1 ) 
+	#if ( $eventCnt < $events.size() )
+	<a href="javascript:void()" onclick="$('event_entry').className='event_entry';$('event_entry').style.visibility='visible';doDivAjaxCall3$formname('event_entry','edit_activity_event','editEventId=${events.get($eventCnt).id}')">
+	$events.get($eventCnt).description
+	</a>
+	#end
+	</td>
+	<td class="event" style="background-color:$bgcolor" align="right">
+	#if ( $eventCnt < $events.size() )
+	
+	#if ( ${events.get($eventCnt).userActivityEvent.userLogin} == $userId )
+	<a href="javascript:void()" style="text-decoration:none" onclick="if ( !confirm('Delete Event?') ) return; doDivAjaxCall3$formname('calendar_events','delete_activity_event','deleteEventId=${events.get($eventCnt).id}')"><img src="../img/x.gif" border="0"></a>
+	#end
+	
+	#end
+	</td></tr>
+#elseif ( $cnt == 2 )
+	#if ( $eventCnt < $events.size() )
+	<a href="javascript:void()" style="text-decoration:none" onclick="$('event_entry').className='event_entry';$('event_entry').style.visibility='visible';doDivAjaxCall3$formname('event_entry','edit_activity_event','editEventId=${events.get($eventCnt).id}')"> 
+	($eventTimeStart - $eventTimeEnd)
+	</a>
+	#end
+	</td><td class="event" style="background-color:$bgcolor"></td></tr>
+#elseif ( $cnt == 3 )
+	#if ( $eventCnt < $events.size() )
+		#if ( $events.get($eventCnt).remark ) 
+			#set ( $remark = $events.get($eventCnt).remark )
+			##<div style="position:absolute;width:100px;background:#fff"><table width="100%"><tr><td>$remark</td></tr></table></div>
+		#else 
+			#set ( $remark = "" ) 
+		#end
+	#end
+	</td><td class="event" style="background-color:$bgcolor"></td></tr>
+#else
+	&nbsp;</td><td class="event" style="background-color:$bgcolor"></td></tr>
+#end
+##END IN EVENT
+#elseif ( $in_event == "no" )
+<tr><td class="no_event">&nbsp;</td><td class="no_event"></td></tr>
+#end
+
+#if ( $eventTimeEnd2 == $timeFormat.format($t) ) 
+#set ( $in_event = "no" ) 
+#set ( $next_event = "yes" )
+#end
+
+#end
+</table>
+</td>
+#end
+</tr>
+</table>
+#end
+
+<script>
+$dateFormat.applyPattern("EEEE, dd MMM yyyy")
+$('displayDate').innerHTML = "$dateFormat.format($eventDate)";
+</script>

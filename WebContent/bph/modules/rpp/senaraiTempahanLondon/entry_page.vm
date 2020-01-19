@@ -1,0 +1,30 @@
+
+
+	<input type="hidden" name="idrekod" id="idrekod" value="$!r.id" />
+
+	#parse("$path/maklumatPemohon.vm")
+	
+	<br/>
+
+	#parse("$path/maklumatPermohonan.vm")
+	
+	<br/>
+	
+	#set ( $queryParam = "id=$!r.id" )
+	
+	<table width="100%">
+		<tr>
+			<td align="right">
+				#if( !$!r.status.id.equalsIgnoreCase("1430809277102") && !$!r.status.id.equalsIgnoreCase("1430809277099") )
+    			<input type="button" id="btnLulus" value="Luluskan Permohonan" onclick="doLulusPermohonanDetail('$!queryParam')">
+				<input type="button" id="btnTidakLulus" value="Tidak Lulus" onclick="doTidakLulusPermohonanDetail('$!queryParam')">
+				#end
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+			</td>
+       </tr>
+	</table>
+	
+
+
+
+

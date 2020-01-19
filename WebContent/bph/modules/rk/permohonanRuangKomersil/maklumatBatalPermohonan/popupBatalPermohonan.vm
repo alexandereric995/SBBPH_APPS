@@ -1,0 +1,47 @@
+<fieldset>
+	<legend class="legend">BATAL PERMOHONAN</legend>
+	<table width="100%">
+	   <tr>
+          <td style="width:39%"></td>
+          <td style="width:1%"></td>
+          <td style="width:60%"></td>
+        </tr>		   		   	 
+	   	#textarea_required("catatanBatal" "Catatan" "")  
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        <tr>
+        	<td style="width:29%"></td>
+          	<td style="width:1%"></td>
+          	<td style="width:70%">
+          		<input id="btnSimpanBatalPermohonan" type="button" value="Simpan" />
+				<input id="btnTutup" type="button"  value="Tutup" />
+			</td>
+	  </tr>
+	</table>
+</fieldset>
+
+<script>  
+	
+	_jq('#btnTutup').on('click', function(){
+     	jQuery('#popupBatalPermohonan').fadeOut();
+  	});
+  	
+	_jq('#btnSimpanBatalPermohonan').on('click', function(){
+		var err_count = 0;
+		
+		var catatanBatal = $('catatanBatal').value;
+		if ( catatanBatal == "" ) {$('err_catatanBatal').innerHTML = "** mandatori!"; err_count++;  }		
+
+		if (err_count == 0) {
+			if ( !window.confirm("Anda pasti?") ){
+				return;
+			}
+			doDivAjaxCall$formname('divTab','doSimpanBatalPermohonan','');
+			jQuery('#popupBatalPermohonan').fadeOut();
+		}
+		
+  	});
+</script>

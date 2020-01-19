@@ -1,0 +1,21 @@
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #input_readonly_all_label("ulasanPenyemak" "Ulasan" "$!r.ulasanPenyemak")
+  
+  #if ($!r.tarikhSemakan) 
+  #set ($dateSemakan = "$!util.getDateTime($!r.tarikhSemakan,'dd-MM-yyyy')")
+  #else #set ($dateSemakan = "-") #end
+  #input_readonly_all_label("tarikhSemakan" "Tarikh Semakan" "$dateSemakan")
+  #input_readonly_all_label("penyemak" "Semakan Oleh" "$!r.penyemak.userName")	
+  
+  #if ($!r.flagKeputusanPenyemak == 'Y') 
+  	#set ($keputusanPenyemak = "SOKONG")
+  #elseif ($!r.flagKeputusanPenyemak == 'T') 
+  	#set ($keputusanPenyemak = "TIDAK SOKONG")
+  #else #set ($keputusanPenyemak = "") #end
+  #input_readonly_all_label("flagKeputusanPenyemak" "Keputusan" "$keputusanPenyemak")	
+</table>

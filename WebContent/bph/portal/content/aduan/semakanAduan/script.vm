@@ -1,0 +1,27 @@
+_jq("#btnHantarSemakAduan").click(function() {
+	validate();
+});
+	
+function validate() {
+	
+	var err_count = 0;
+	
+	var noKadPengenalan = $('noKadPengenalan').value;
+	if ( noKadPengenalan == "" ) { 
+		$('err_noKadPengenalan').innerHTML = "No Kad Pengenalan adalah mandatori!"; err_count++;  
+	}
+	
+	var noAduan = $('noAduan').value;
+	if ( noAduan == "" ) { 
+		$('err_noAduan').innerHTML = "No Aduan adalah mandatori!"; err_count++;  
+	}
+
+	if (err_count == 0) {
+		if ( window.confirm("Anda pasti?") ){
+			doDivAjaxCall3$formname('hantarSemakAduan','hantarSemakAduan','')
+		}
+		return;	
+	}
+	return err_count == 0;
+}
+	

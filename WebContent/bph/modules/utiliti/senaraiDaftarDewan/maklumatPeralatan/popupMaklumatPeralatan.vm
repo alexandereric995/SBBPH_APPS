@@ -1,0 +1,51 @@
+<input type="hidden" id="idMaklumatPeralatan" name="idMaklumatPeralatan" value="$rekod.id">
+<fieldset class="fieldset">
+<legend class="legend">Maklumat Peralatan</legend>
+<table cellpadding="5" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td class="label" style="width:29%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:70%">&nbsp;</td>
+  </tr>
+  		#input_required("nama" "Nama Peralatan" "$!rekod.nama")
+		#number_required("kuantiti" "Kuantiti" "$!rekod.kuantiti")
+		#textarea("catatan" "Catatan" "$!rekod.catatan")
+		#currency_required("kadarSewa" "Kadar Sewa (RM)" "$!rekod.kadarSewa")
+  <tr>
+    <td></td>
+    <td></td>
+    <td> #if ( $command == "addMaklumatPeralatan")
+      <input type="button" id="saveMaklumatPeralatan" name="saveMaklumatPeralatan" value="Simpan">
+      <input type="button" id="batalMaklumatPeralatan" name="batalMaklumatPeralatan" value="Keluar">
+      #elseif ( $command == "editMaklumatPeralatan")
+      <input type="button" id="saveExitMaklumatPeralatan" name="saveExitMaklumatPeralatan" value="Simpan">
+      <input type="button" id="batalMaklumatPeralatan" name="batalMaklumatPeralatan" value="Keluar">
+      #end </td>
+  </tr>
+</table>
+<div id="statusMaklumatPeralatan"></div>
+</fieldset>
+<script>
+_jq('#batalMaklumatPeralatan').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getMaklumatPeralatan','');
+    jQuery('#editMaklumatPeralatan').fadeOut();
+});
+
+_jq('#saveMaklumatPeralatan').on('click', function(){
+    saveMaklumatPeralatan();
+});
+
+_jq('#saveExitMaklumatPeralatan').on('click', function(){
+	saveMaklumatPeralatan();
+});
+
+</script>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

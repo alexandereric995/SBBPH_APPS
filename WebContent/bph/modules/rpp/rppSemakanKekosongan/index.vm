@@ -1,0 +1,154 @@
+
+<fieldset>
+<legend class="legend">SEMAKAN KEKOSONGAN</legend>
+			
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+			<td style="width:150px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+		</tr>
+		<tr>
+			<td valign="top">Jenis Peranginan</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				$selectJenisPeranginan
+				<div id="err_socJenisPeranginan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top">Lokasi</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				<div id="divPeranginan">$selectPeranginan</div>
+				<div id="err_socPeranginan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top">Jenis Unit</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				<div id="divFilterJenisUnit">$selectJenisUnit</div>
+				<div id="err_socJenisUnit" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="label" valign="top">Tarikh Masuk</td>
+			<td class="label" valign="top">:</td>
+			<td valign="top">
+		    		<input type="text" id="tarikhMasukRpp" name="tarikhMasukRpp" value="" onChange=" $('err_tarikhMasukRpp').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()">
+					<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+		    		<script>
+		            	_jq("#tarikhMasukRpp").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+							readonly_element: false
+		            	});
+		    		</script>
+		    		<div id="err_tarikhMasukRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td valign="top" class="label">Tarikh Keluar</td>
+			<td valign="top" class="label">:</td>
+			<td valign="top">
+				<input type="text" id="tarikhKeluarRpp" name="tarikhKeluarRpp" value="" onChange="$('err_tarikhKeluarRpp').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()">
+					<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+		    		<script>
+		            	_jq("#tarikhKeluarRpp").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+							readonly_element: false
+		            	});
+		    		</script>
+				<div id="err_tarikhKeluarRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    		</td>
+    	</tr>
+	</table>
+
+</fieldset>
+	
+	<table width="100%">
+    	<tr>
+    		<td align="right">##Fatin 13/06/2015
+    			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+    			<input id="btnSemakKekosongan" type="button" value="Semak Kekosongan" onClick="doCheckAvailableRoom()">
+        		<input id="btnClearForm" type="button" value="Kosongkan" onClick="doKosongkanMaklumat()">
+    		</td>
+    	</tr>
+    </table>
+
+	
+<div id="divMaklumatDanPilihanKekosongan"></div>
+	
+
+<script>
+function doFilterPeranginan(){
+	doDivAjaxCall$formname('divPeranginan','filterPeranginan','');
+}
+function doFilterJenisUnit(){
+	doDivAjaxCall3$formname('divFilterJenisUnit','filterJenisUnit','')
+}
+function doKosongkanMaklumat(){
+	$('socJenisPeranginan').value = "";
+	$('socPeranginan').value = "";
+	$('socJenisUnit').value = "";
+	$('tarikhMasukRpp').value = "";
+	$('tarikhKeluarRpp').value = "";
+}	
+
+function validateCheckingRoom() {
+
+	var err_count = 0;
+	
+	var tarikhMasukRpp = $('tarikhMasukRpp').value;
+	var tarikhKeluarRpp = $('tarikhKeluarRpp').value;
+	
+	var dt1   = parseInt(tarikhMasukRpp.substring(0,2),10);
+   	var mon1  = parseInt(tarikhMasukRpp.substring(3,5),10)-1;
+   	var yr1   = parseInt(tarikhMasukRpp.substring(6,10),10);
+   	var date1 = new Date(yr1, mon1, dt1);
+	
+	var dt2   = parseInt(tarikhKeluarRpp.substring(0,2),10);
+   	var mon2  = parseInt(tarikhKeluarRpp.substring(3,5),10)-1;
+   	var yr2   = parseInt(tarikhKeluarRpp.substring(6,10),10);
+   	var date2 = new Date(yr2, mon2, dt2);
+	
+	var socJenisPeranginan = $('socJenisPeranginan').value;
+	if ( socJenisPeranginan == "" ) {$('err_socJenisPeranginan').innerHTML = "Jenis Peranginan adalah mandatori!"; err_count++;  }
+	
+	var socPeranginan = $('socPeranginan').value;
+	if ( socPeranginan == "" ) {$('err_socPeranginan').innerHTML = "Lokasi Peranginan adalah mandatori!"; err_count++;  }
+	
+	var socJenisUnit = $('socJenisUnit').value;
+	if ( socJenisUnit == "" ) {$('err_socJenisUnit').innerHTML = "Jenis Unit adalah mandatori!"; err_count++;  }
+	
+	if ( tarikhMasukRpp == "" ) {$('err_tarikhMasukRpp').innerHTML = "Tarikh Masuk RPP/RP adalah mandatori!"; err_count++;  }
+	
+	if ( tarikhKeluarRpp == "" ) {$('err_tarikhKeluarRpp').innerHTML = "Tarikh Keluar RPP/RP adalah mandatori!"; err_count++;  }
+	
+	if(date2 <= date1){
+		$('err_tarikhKeluarRpp').innerHTML = "Tarikh Keluar tidak kurang dan tidak sama dengan Tarikh Masuk" ; err_count++;  
+	}
+	
+	return err_count == 0;
+}
+
+function doCheckAvailableRoom(){
+	if ( validateCheckingRoom() ){
+		doDivAjaxCall$formname('divMaklumatDanPilihanKekosongan','checkBilikKosong','');
+	}
+}
+
+_jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+  
+</script>
+
+
+	

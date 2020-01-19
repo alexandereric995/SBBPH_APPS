@@ -1,0 +1,18 @@
+
+<td>$!r.id</td>
+<td>$!r.namaPegawai</td>
+<td>$!r.noTelefon</td>
+<td>
+	<b>Kementerian :</b> $!r.agensi.kementerian.keterangan<br />
+	<b>Agensi :</b> $!r.agensi.keterangan<br />
+  	<b>Jabatan :</b> $!r.namaJabatan<br />
+</td>
+#if ($!r.tarikhDaftar) 
+	#set ($dateDaftar = "$!util.getDateTime($!r.tarikhDaftar,'dd-MM-yyyy')")
+#else #set ($dateDaftar="-") #end
+<td>$dateDaftar</td>
+#if ($!r.tarikhLuput) 
+	#set ($dateLuput = "$!util.getDateTime($!r.tarikhLuput,'dd-MM-yyyy')")
+#else #set ($dateLuput="-") #end
+<td>$dateLuput</td>
+<td>$!r.getKeteranganFlagAktif()</td>

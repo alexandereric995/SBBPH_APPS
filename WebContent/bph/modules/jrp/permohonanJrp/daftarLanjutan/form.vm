@@ -1,0 +1,88 @@
+<fieldset>
+<legend class="legend">
+	#if($jenis == '1')
+		MAKLUMAT TAMBAHAN
+	#elseif($jenis == '2')
+		MAKLUMAT PERPINDAHAN
+	#elseif($jenis == '3')
+		MAKLUMAT LANJUTAN
+	#end
+	</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+
+ 	#if ($!r.tarikhSurat) #set ($dateSurat = $!r.tarikhSurat)  #end
+  #input_readonly_all_label("tarikhSurat1" "Tarikh Permohonan" "$!util.getDateTime($dateSurat,'dd-MM-yyyy')")<input type="hidden" id="tarikhSurat" name="tarikhSurat" value="$!util.getDateTime($dateSurat,'dd-MM-yyyy')"/>
+  
+	<tr>
+    <td class="label">Jenis Permohonan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td>#parse("$path/selectJenisPermohonanLanjutanJRP.vm")
+      <div id="err_idJenisPermohonanLanjutanJRP" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  #input_required("tujuanPermohonan" "Tujuan Permohonan" "")
+   <tr>
+	<td class="label" valign="top">Justifikasi Permohonan &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<textarea id="alasanPermohonan" name="alasanPermohonan" onKeyUp="$('err_alasanPermohonan').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">$!r.alasanPermohonan</textarea>
+		<span style="color:#FF2A00">Sila lampirkan justifikasi permohonan di Dokumen Sokongan jika melebihi 512 aksara</span>
+		<div id="err_alasanPermohonan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+</table>
+</fieldset>
+	
+<table width="100%">
+	<tr>
+		<td align="right">
+    			<input type="button" value="Simpan" id="cmdSaveLanjutan" />
+##    			<input type="button" value="Kosongkan" id="cmdKosongkanBp" />
+    			<input id="cmdKembali" type="button" value="Kembali" onclick="document.location = '$!tabIdAndClassName'" />
+		</td>
+	</tr>
+</table>
+##end
+<div id="statusLanjutan"></div>
+<script>	
+	_jq('#cmdSaveLanjutan').on('click', function(){
+	var err_count = 0;
+	var tarikhSurat = $('tarikhSurat').value;
+	var idJenisPermohonanJRP = $('idJenisPermohonanLanjutanJRP').value;
+	var alasanPermohonan = $('alasanPermohonan').value;
+	
+	if ( tarikhSurat == "" ) {$('err_tarikhSurat').innerHTML = "Tarikh Surat adalah mandatori!"; err_count++;  }
+	if ( idJenisPermohonanJRP == "" ) {$('err_idJenisPermohonanLanjutanJRP').innerHTML = "Jenis Permohonan adalah mandatori!"; err_count++;  }
+	if ( alasanPermohonan == "" ) {$('err_alasanPermohonan').innerHTML = "Justifikasi Permohonan adalah mandatori!"; err_count++;  }
+	
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = $!r.id;
+	
+	##var mainForm = document.getElementById('mainForm');
+  	##mainForm.style.display = 'none';
+    if(	err_count == 0){
+		doDivAjaxChainCall$formname('divTab','doSaveMaklumatPermohonanLanjutan','idPermohonan='+idPermohonan);
+	}
+	return err_count == 0;
+});
+
+##_jq('#cmdKosongkanBp').on('click', function(){
+##	$('tarikhSurat').value;
+##	$('tarikhTerima').value;
+##	$('idJenisPermohonanLanjutanJRP').value;
+##	$('alasanPermohonan').value;
+##	
+##	$('err_tarikhSurat').innerHTML ='';
+##	$('err_tarikhTerima').innerHTML ='';
+##	$('err_idJenisPermohonanLanjutanJRP').innerHTML ='';
+##	$('err_alasanPermohonan').innerHTML ='';
+##});
+
+_jq('#cmdKembali').on('click', function(){
+	location.reload();
+	
+});
+</script>

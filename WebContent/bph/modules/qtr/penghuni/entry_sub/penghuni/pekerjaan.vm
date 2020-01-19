@@ -1,0 +1,181 @@
+<script>
+	_jq("#perKontrak").hide();
+</script>
+
+<div id="simpanPekerjaan"></div>
+<table cellpadding="5" cellspacing="0" border="0" width="95%" id="pemohonKerja">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="label" valign="top">Skim Perkhidmatan&nbsp;<span style="color:#FF2A00">*</span>
+        </td>
+        <td valign="top">:</td>
+        <td>
+            <span id="listKelasPerkhidmatan">
+                #parse("$path/entry_sub/penghuni/pekerjaan/selectKelasPerkhidmatan.vm")
+            </span>
+            <div id="err_idKelasPerkhidmatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label" valign="top">Gred Jawatan&nbsp;<span style="color:#FF2A00">*</span>
+        </td>
+        <td valign="top">:</td>
+        <td>
+            <span id="listGredJawatan">
+                #parse("$path/entry_sub/penghuni/pekerjaan/selectGredJawatan.vm")
+            </span>
+            <div id="err_idGredJawatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label" valign="top">Jawatan&nbsp;<span style="color:#FF2A00">*</span>
+        </td>
+        <td valign="top">:</td>
+        <td>
+            <span id="listJawatan">
+                #parse("$path/entry_sub/penghuni/pekerjaan/selectJawatan.vm")
+            </span>
+            <div id="err_idJawatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    #if ($!uj.tarikhLantikan)
+        #set($tarikhLantikan = $util.getDateTime($!uj.tarikhLantikan,"dd-MM-yyyy"))
+    #else
+        #set($tarikhLantikan = "")
+    #end
+    #date_input_required("tarikhLantikan" "Tarikh Lantikan" "$tarikhLantikan")
+    #input_required("noGaji" "No Gaji" "$!uj.noGaji")
+    ##currency_required("gajiPokok" "Gaji" "$!uj.gajiPokok")
+    <tr>
+        <td class="label" valign="top">Jenis Perkhidmatan&nbsp;<span style="color:#FF2A00">*</span>
+        </td>
+        <td valign="top">:</td>
+        <td>
+            <span id="listJenisPerkhidmatan">
+                #parse("$path/entry_sub/penghuni/pekerjaan/selectJenisPerkhidmatan.vm")
+            </span>
+            <div id="err_idJenisPerkhidmatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">Status Perkhidmatan&nbsp;<span style="color:#FF2A00">*</span>
+        </td>
+        <td>:</td>
+        <td>
+            <span id="listStatusPerkhidmatan">
+                #parse("$path/entry_sub/penghuni/pekerjaan/selectStatusPerkhidmatan.vm")
+            </span>
+            <div id="err_idStatusPerkhidmatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    <tbody id="perKontrak">
+		#if ($!uj.tarikhTamat)
+            #set($tarikhTamat = $util.getDateTime($!uj.tarikhTamat,"dd-MM-yyyy"))
+        #else
+            #set($tarikhTamat = "")
+        #end
+        #date_input_required("tarikhTamat" "Tarikh Tamat Kontrak" "$tarikhTamat")
+		<tr>
+            <td class="label" style="word-wrap: break-word; width: 150px;">Imbuhan Tetap Perumahan (ITP)&nbsp;<span style="color:#FF2A00">*</span>
+            </td>
+            <td>:</td>
+            <td>
+                <input type="radio" name="flagITP" value="1" #if($uj.flagITP==1) checked="checked" #end />Ada
+                <input type="radio" name="flagITP" value="0" #if($uj.flagITP==0) checked="checked" #end />Tiada
+                <div id="err_valueFlagITP" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                <input type="hidden" id="valueFlagITP" name="valueFlagITP" value="$!uj.flagITP"/>
+                <script>
+                    _jq("input[name='flagITP']").change(function() {
+                        _jq('#valueFlagITP').val(this.value);
+                        _jq('#err_valueFlagITP').html("");
+                    });
+                </script>
+            </td>
+        </tr>
+		<tr>
+            <td class="label" style="word-wrap: break-word; width: 150px;">Elaun Perumahan Wilayah (EPW)&nbsp;<span style="color:#FF2A00">*</span>
+            </td>
+            <td>:</td>
+            <td>
+                <input type="radio" name="flagEPW" value="1" #if($uj.flagEPW==1) checked="checked" #end />Ada
+                <input type="radio" name="flagEPW" value="0" #if($uj.flagEPW==0) checked="checked" #end />Tiada
+                <div id="err_valueFlagEPW" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                <input type="hidden" id="valueFlagEPW" name="valueFlagEPW" value="$!uj.flagEPW"/>
+                <script>
+                    _jq("input[name='flagEPW']").change(function() {
+                        _jq('#valueFlagEPW').val(this.value);
+                        _jq('#err_valueFlagEPW').html("");
+                    });
+                </script>
+            </td>
+        </tr>
+    </tbody>
+    <tr>
+        <td class="label" valign="top">Kementerian&nbsp;<span style="color:#FF2A00">*</span>
+        </td>
+        <td valign="top">:</td>
+        <td>
+            <div id="listKementerian">
+                #parse("$path/entry_sub/penghuni/pekerjaan/selectKementerian.vm")
+            </div>
+            <div id="err_idKementerian" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">Jabatan&nbsp;<span style="color:#FF2A00">*</span>
+        </td>
+        <td>:</td>
+        <td>
+            <span id="selectJabatan">
+                #parse("$path/entry_sub/penghuni/pekerjaan/selectJabatan.vm")
+            </span>
+            <div id="err_idJabatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    #input_required("bahagian" "Bahagian" "$!uj.bahagian")	
+	#input_required("userAlamat1" "Alamat Pejabat" "$!uj.alamat1")
+	#input("userAlamat2" "" "$!uj.alamat2")
+	#input("userAlamat3" "" "$!uj.alamat3")
+	#postcode_required("userPoskod" "Poskod" "$!uj.poskod")
+	<tr>
+        <td class="label">Negeri&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listNegeriPekerjaan">
+                #parse("$path/entry_sub/penghuni/select/selectNegeriPekerjaan.vm")
+            </span>
+            <div id="err_idNegeriPekerjaan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+	<tr>
+        <td class="label">Bandar&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listBandarPekerjaan">
+                #parse("$path/entry_sub/penghuni/pekerjaan/selectBandarPekerjaan.vm")
+            </span>
+            <div id="err_idBandarPekerjaan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    #input_required("noTelPejabat" "No. Tel. Pejabat" "$!uj.noTelPejabat")
+    ##input("noFaks" "No. Faks" "$!uj.noFaks")
+    ##input_required("email" "Emel" "$!uj.emel")
+    <tr>
+        <td colspan="2"></td>
+        <td>
+            <input type="button" id="btnSimpanPekerjaan" name="btnSimpanPekerjaan" value="Simpan / Kemaskini" onclick="simpanPekerjaan()" />
+        </td>
+    </tr>
+</table>
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

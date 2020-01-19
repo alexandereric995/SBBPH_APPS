@@ -1,0 +1,16 @@
+<input type="hidden" id="selectedSubTab" name="selectedSubTab" value="$!selectedSubTab">
+
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedSubTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='1') onClick="doDivAjaxCall3$formname('divTab','getRekodUrusan','')" #end >Urusan JKPTG</a></li>
+	<li #if($!selectedSubTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='2') onClick="doDivAjaxCall3$formname('divTab','getRekodUrusanJPPH','')" #end >Urusan JPPH</a></li>
+  </ul>
+</nav>	
+
+#if ($!selectedSubTab=='1')
+	#parse("$path/rekodUrusan/senaraiUrusan.vm")
+#end
+
+#if ($!selectedSubTab=='2')
+	#parse("$path/rekodUrusan/senaraiUrusan.vm")
+#end

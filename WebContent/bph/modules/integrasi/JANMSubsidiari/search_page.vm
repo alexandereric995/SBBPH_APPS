@@ -1,0 +1,41 @@
+<fieldset>
+<legend class="legend"><strong>KRITERIA CARIAN</strong></legend>
+<table cellpadding="5" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_required("findIc", "No. Pengenalan", "")
+        #month_year_input_range_required("Tarikh", "tarikhDari", "", "tarikhHingga", "")
+        <tr>
+          <td class="label">Cawangan</td>
+          <td>:</td>
+          <td>#parse("$path/findAgBranchCode.vm")</td>
+        </tr>
+        <tr>
+          <td class="label">Jabatan Pembayar</td>
+          <td>:</td>
+          <td>#parse("$path/findDepartmentCode.vm")</td>
+        </tr>        
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input("findPersonnelNo", "Personnel No.", "")        
+        #input("findAccNo", "No. Akaun", "")
+        #input("findName", "Nama", "")
+        #input("findDeductionCode", "Kod Potongan", "")
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><input name="cmdCari" id="cmdCari" value="Carian" type="button" onClick="javascript:doCarian();">
+      <input name="cmdKosongkan" id="cmdKosongkan" value="Kosongkan" type="reset" onClick="doDivAjaxCall$formname('divRekod','doReset','');"></td>
+  </tr>
+</table>
+</fieldset>

@@ -1,0 +1,45 @@
+#if ($jenisLaporan != "")
+<fieldset>
+	<legend class="legend">PARAMETER</legend>
+	<table width="100%">
+	<tr>
+	    <td style="width:150px"></td>
+	    <td style="width:10px"></td>
+	    <td></td>
+	</tr>
+	
+	#parse("$path/${jenisLaporan}.vm")
+	
+	 <tr>
+		<td colspan="1" align="center"><input type="button" value="Jana" onClick="doJanaLaporan('$!jenisLaporan')">
+		  <input type="reset" value="Kosongkan"/>
+		</td>
+	 </tr>
+	</table>
+</fieldset>
+#end
+
+<script>
+function doJanaLaporan(x) {
+	##alert(x);
+	var err_count = 0;
+##	$('err_dateStart').innerHTML = "";
+##	$('err_dateEnd').innerHTML = "";
+##	
+##	var lbl = "Tarikh";
+##	if (x == "kewangan3" || x == "kewangan4") {
+##		lbl = "Tempoh";
+##	}
+##	
+##	var dateStart = $('dateStart').value;
+##	if ( dateStart == "" ) {$('err_dateStart').innerHTML = lbl + " Mula adalah mandatori!"; err_count++;  }
+##	
+##	var dateEnd = $('dateEnd').value;
+##	if ( dateEnd == "" ) {$('err_dateEnd').innerHTML = lbl + " Hingga adalah mandatori!"; err_count++;  }
+##	
+##	if (err_count == 0) {
+		doDivAjaxCall3$formname('divTab','janaLaporan','')
+##	}
+	
+}
+</script>

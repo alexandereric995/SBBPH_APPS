@@ -1,0 +1,22 @@
+function doFilterCarianPeranginan(){
+	doDivAjaxCall3$formname('divCarianPeranginan','filterCarianRpp','')
+}
+
+function saveAgihanSubsidari(){
+	var idBayaranBalik = $('idBayaranBalik').value;
+	if ( idBayaranBalik !== "" )
+	{
+		swal("Makluman", "Agihan telah dihantar ke Unit Kewangan. Anda tidak dibenarkan untuk membuat agihan semula", "error");
+		err_count++;
+	}else{
+		if ( window.confirm("Adakah anda pasti untuk hantar ke Unit Kewangan?") ){	
+			doDivAjaxCall3$formname('divPermohonan','saveAgihanSubsidari','')
+	}
+	
+	}
+}
+
+function validate() {
+	var err_count = 0;
+	return err_count == 0;
+}

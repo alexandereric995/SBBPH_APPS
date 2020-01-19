@@ -1,0 +1,37 @@
+#set ($idSeksyen = "")
+#if ($!userRole == '(BGS) Penyedia' || $!userRole == '(BGS) Penyemak' || $!userRole == '(BGS) Pengesah')
+	#set ($idSeksyen = "06")
+#elseif ($!userRole == '(RK) Penyedia')	
+	#set ($idSeksyen = "07")
+#end
+<input name="idSeksyen" type="hidden" value="$!idSeksyen">
+
+<div id="divMain">	
+	#if ($!command == 'laporanSenaraiRuangKomersil')
+		#parse("$path/laporanSenaraiRuangKomersil.vm")		
+	#elseif ($!command == 'laporanSenaraiPenyewaanAktif')
+		#parse("$path/laporanSenaraiPenyewaanAktif.vm")
+	#elseif ($!command == 'laporanSenaraiPenyewaanAkanTamat')
+		#parse("$path/laporanSenaraiPenyewaanAkanTamat.vm")
+	#elseif ($!command == 'laporanSenaraiPenyewaanTamat')
+		#parse("$path/laporanSenaraiPenyewaanTamat.vm")
+	#elseif ($!command == 'laporanSenaraiABT')
+		#parse("$path/laporanSenaraiABT.vm")
+	#else
+		#parse("$path/senaraiLaporan.vm")		
+	#end
+ </div>
+ 
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>
+
+<script>
+#parse("$path/script.vm")
+</script>
+

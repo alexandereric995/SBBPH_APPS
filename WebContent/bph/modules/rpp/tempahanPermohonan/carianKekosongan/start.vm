@@ -1,0 +1,71 @@
+<br/>
+
+<fieldset>
+<legend class="legend">
+	#if($!jenisReport.equalsIgnoreCase("RT"))
+		senarai rumah transit dan jenis unit
+	#else
+		senarai rumah peranginan dan jenis unit
+	#end
+</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2" border="0">
+		<tr>
+			<td>
+				<span style="font-size:12px;color:blue">
+					
+					#if($!userRole.equalsIgnoreCase("(RPP) Penyedia") || $!userRole.equalsIgnoreCase("(RPP) Penyemak") 
+                		|| $!userRole.equalsIgnoreCase("(RPP) Pelulus") || $!userRole.equalsIgnoreCase("(RPP) Penyelia"))
+						
+						#if( $!rekodPenginap.gredPerkhidmatan )
+						Nota : 
+						Senarai paparan adalah berdasarkan gred jawatan <b>$!rekodPenginap.gredPerkhidmatan.keterangan.toUpperCase()</b>
+						#end
+						
+                	#else
+						Nota : 
+						Senarai paparan adalah berdasarkan gred jawatan <b>$!objUser.gredPerkhidmatan.keterangan.toUpperCase()</b>
+                	#end
+					
+				</span>
+				<br/>
+			</td>
+		</tr>
+	</table>
+	
+	<table width="100%" cellpadding="2" cellspacing="2" border="0">
+		<tr>
+			<td class="row_header" width="5%">BIL.</td>
+			<td class="row_header" style="text-align:left" width="85%">RUMAH PERANGINAN</td>
+			<td class="row_header" width="10%"></td>
+		</tr>
+		
+    		#if ( $listRpByGred.size() > 0 )
+        		#set ( $count = 0 )
+        		#foreach( $d in $listRpByGred )
+        			
+        			#set ( $count = $count + 1)
+                	#if ( $count % 2 == 0 ) 
+            			#set ( $rowcolor = "#D0CFCE" ) 
+            		#else 
+            			#set ( $rowcolor = "#F0F0F0" ) 
+    				#end
+    				
+            		<tr bgcolor="$rowcolor">
+    					<td align="center">$!count</td>
+    					<td align="left">$!d.namaPeranginan.toUpperCase()</td>
+    					<td align="center">
+    						<input id="btnPilihRP" #if( $!d.jumlahUnit < 1 ) disabled #else style="font-weight:bold" #end type="button" value="PILIH" onClick="doPilihRP('$!d.peranginanId')">
+    					</td>
+                    </tr>
+    			#end
+    		#else
+    			<tr bgcolor="#F0F0F0">
+    				<td colspan="3"><span style="color:red;font-weight:bold;font-size:13px">TIADA REKOD</span></td>
+    			</tr>
+    		#end
+	</table>
+	
+</fieldset>
+	
+

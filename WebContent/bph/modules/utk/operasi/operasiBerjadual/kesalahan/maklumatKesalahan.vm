@@ -1,0 +1,33 @@
+<input type="hidden" id="idKesalahan" name="idKesalahan" value="$!rekod.id"/>
+<fieldset>
+<legend class="legend">MAKLUMAT PESALAH</legend>
+<table width="100%" cellpadding="1" cellspacing="2" align="center">
+  <tr>
+    <td class="label" style="width:25%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:64%">&nbsp;</td>
+  </tr>
+  	#input_readonly_all_label("noKp" "No Pengenalan" "$!rekod.penghuni.pemohon.noKP")
+  	#input_readonly_all_label("namaPesalah" "Nama" "$!rekod.penghuni.pemohon.userName")
+  	#input_readonly_all_label("noUnit" "No Unit Kuarters" "$!rekod.penghuni.kuarters.noUnit")
+	#textarea("catatan" "Catatan" "$!rekod.catatan")
+</table>
+<br/>
+<table width="40%" cellpadding="1" cellspacing="2" align="center">
+  <tr>
+    <td>
+      <input type="button" id="saveKesalahan" name="saveKesalahan" value="Simpan">
+      <input type="button" id="batalKesalahan" name="batalKesalahan" value="Keluar">
+      </td>
+  </tr>
+</table>
+</fieldset>
+<script>
+_jq('#batalKesalahan').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getMaklumatKesalahan','');
+    jQuery('#editMaklumatKesalahan').fadeOut();
+});
+_jq('#saveKesalahan').on('click', function(){
+	saveKesalahan();
+});
+</script>

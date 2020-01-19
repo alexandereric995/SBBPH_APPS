@@ -1,0 +1,68 @@
+
+<input type="hidden" name="idrp" id="idrp" value="$!rp.id" />
+
+<br/>
+	
+<fieldset>
+<legend class="legend">senarai rumah peranginan dan jenis unit</legend>
+	
+	<table width="100%" cellpadding="2" cellspacing="2" border="0">
+		<tr>
+			<td colspan="3">
+				<span style="font-weight:bold;font-size:13px">
+					<u>$!rp.namaPeranginan.toUpperCase()</u> 
+				</span>
+			</td>
+		</tr>
+		
+		<tr><td colspan="3">&nbsp;</td></tr>
+		
+		<tr>
+			<td class="row_header" style="text-align:left" width="60%">JENIS UNIT</td>
+			<td class="row_header" width="15%">KADAR SEWA (RM)</td>
+			<td class="row_header" width="10%"></td>
+		</tr>
+		
+		#if ( $listJenisUnit.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listJenisUnit )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+					<td align="left">$!d.keterangan.toUpperCase()</td>
+					<td align="center">$!util.formatDecimal($!d.kadarSewa)</td>
+					<td align="center">
+						##<input id="btnPilihRP" type="button" value="PILIH" onClick="doPaparMaklumatPermohonan('$!d.id')">
+						<input id="btnPilihRP" type="button" value="PILIH" onClick="doOpenPopupDateRange('$!d.id')">	
+					</td>
+                </tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="3"><span style="color:red;font-weight:bold;font-size:13px">TIADA KEKOSONGAN</span></td>
+			</tr>
+		#end
+		
+	</table>
+	
+</fieldset>	
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+    			<input style="width:auto" id="btnKembaliSenaraiRp" type="button" value="KEMBALI SENARAI RUMAH PERANGINAN" onClick="doPaparSemuaKekosongan()">
+    		</td>
+    	</tr>
+    </table>
+	
+	
+<div id="divPopupDateRange" class="popup"></div>	
+<div id="divMaklumatTempahan"></div>
+
+	

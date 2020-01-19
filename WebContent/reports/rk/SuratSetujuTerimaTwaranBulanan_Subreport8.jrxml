@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SuratSetujuTerimaTwaranBulanan_Subreport8"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="idFail" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT rk_permohonan.no_rujukan_surat,
+       rk_pemohon.nama,
+       rk_pemohon.no_kp,
+       rk_pemohon.alamat1 alamat1pemohon,
+       rk_pemohon.alamat2 alamat2pemohon,
+       rk_pemohon.alamat3 alamat3pemohon,
+       rk_pemohon.poskod poskodpemohon,
+       ruj_bandar_1.keterangan bandarpemohon,
+       ruj_negeri_1.keterangan negeripemohon,
+       rk_fail.no_fail,
+       rk_permohonan.bil_mesyuarat,
+       rk_permohonan.keputusan_mesyuarat,
+       rk_permohonan.tarikh_mesyuarat,
+       rk_ruang_komersil.nama_ruang,
+       rk_ruang_komersil.alamat1 alamat1ruang,
+       rk_ruang_komersil.alamat2 alamat2ruang,
+       rk_ruang_komersil.alamat3 alamat3ruang,
+       rk_ruang_komersil.poskod poskodruang,
+       rk_ruang_komersil.id_bandar,
+       ruj_bandar_1.keterangan bandarruang,
+       ruj_negeri_1.keterangan negeriruang,
+       rk_perjanjian.tempoh,
+       rk_perjanjian.tarikh_mula,
+       rk_perjanjian.tarikh_tamat,
+       rk_perjanjian.kadar_sewa,
+       rk_perjanjian.deposit,
+       rk_ruang_komersil.luas_mps,
+       rk_ruang_komersil.luas_kps
+  FROM (((sbbphdb.rk_fail rk_fail
+          INNER JOIN sbbphdb.rk_pemohon rk_pemohon
+             ON (rk_fail.id_pemohon = rk_pemohon.id))
+         INNER JOIN sbbphdb.rk_permohonan rk_permohonan
+            ON (rk_fail.id = rk_permohonan.id_fail))
+        INNER JOIN sbbphdb.rk_perjanjian rk_perjanjian
+           ON (rk_permohonan.id = rk_perjanjian.id_permohonan))
+       INNER JOIN sbbphdb.rk_ruang_komersil rk_ruang_komersil
+          ON (rk_fail.id_ruang = rk_ruang_komersil.id_ruang)
+      INNER JOIN sbbphdb.ruj_bandar ruj_bandar_1
+         ON (rk_ruang_komersil.id_bandar = ruj_bandar_1.id)
+     INNER JOIN sbbphdb.ruj_negeri ruj_negeri_1
+       ON (ruj_bandar_1.id_negeri = ruj_negeri_1.id);]]></queryString>
+
+	<field name="no_rujukan_surat" class="java.lang.String"/>
+	<field name="nama" class="java.lang.String"/>
+	<field name="no_kp" class="java.lang.String"/>
+	<field name="alamat1pemohon" class="java.lang.String"/>
+	<field name="alamat2pemohon" class="java.lang.String"/>
+	<field name="alamat3pemohon" class="java.lang.String"/>
+	<field name="poskodpemohon" class="java.lang.String"/>
+	<field name="bandarpemohon" class="java.lang.String"/>
+	<field name="negeripemohon" class="java.lang.String"/>
+	<field name="no_fail" class="java.lang.String"/>
+	<field name="bil_mesyuarat" class="java.lang.String"/>
+	<field name="keputusan_mesyuarat" class="java.lang.String"/>
+	<field name="tarikh_mesyuarat" class="java.sql.Date"/>
+	<field name="nama_ruang" class="java.lang.String"/>
+	<field name="alamat1ruang" class="java.lang.String"/>
+	<field name="alamat2ruang" class="java.lang.String"/>
+	<field name="alamat3ruang" class="java.lang.String"/>
+	<field name="poskodruang" class="java.lang.String"/>
+	<field name="id_bandar" class="java.lang.String"/>
+	<field name="bandarruang" class="java.lang.String"/>
+	<field name="negeriruang" class="java.lang.String"/>
+	<field name="tempoh" class="java.lang.String"/>
+	<field name="tarikh_mula" class="java.sql.Date"/>
+	<field name="tarikh_tamat" class="java.sql.Date"/>
+	<field name="kadar_sewa" class="java.lang.Double"/>
+	<field name="deposit" class="java.lang.Double"/>
+	<field name="luas_mps" class="java.lang.Double"/>
+	<field name="luas_kps" class="java.lang.Double"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="782"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="443"
+						y="22"
+						width="92"
+						height="20"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<text><![CDATA[LAMPIRAN B]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="85"
+						y="74"
+						width="368"
+						height="17"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<text><![CDATA[SURAT SETUJU TERIMA TAWARAN]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="14"
+						y="97"
+						width="509"
+						height="138"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Justified" lineSpacing="1_1_2">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Dengan ini yang bertandatangan di bawah ini mengaku menerima tawaran penyewaan untuk perkhidmatan Kafeteria oleh Power Venture Enterprise seperti yang terkandung di dalam surat tawaran penyewaan rujukan  BPH.BGS.200-3/1/158 (3) bertarikh ____ Oktober 2015 dan bersetuju untuk mematuhi semua syarat-syarat yang ditetapkan di dalam surat tawaran dan spesifikasi penyewaannya.  Saya faham bahawa Bahagian Pengurusan Hartanah (BPH), Jabatan Perdana Menteri akan menamatkan penyewaan dengan memberi sebulan notis jika saya gagal menjelaskan sewaan selama tiga (3) bulan atau lebih dan apa-apa pelanggaran syarat seperti dijelaskan dalam LAMPIRAN A surat tawaran ini."]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="22"
+						y="251"
+						width="182"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="22"
+						y="262"
+						width="182"
+						height="20"
+						key="staticText-3"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Tandatangan Penyewa]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="22"
+						y="292"
+						width="182"
+						height="29"
+						key="staticText-4"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Nama Penuh :....................................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="22"
+						y="329"
+						width="182"
+						height="29"
+						key="staticText-5"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[No K/P :.............................................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="22"
+						y="367"
+						width="182"
+						height="19"
+						key="staticText-6"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[ALamat :............................................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="22"
+						y="386"
+						width="182"
+						height="19"
+						key="staticText-7"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[..........................................................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="22"
+						y="405"
+						width="182"
+						height="19"
+						key="staticText-8"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[..........................................................]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="276"
+						y="251"
+						width="182"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="276"
+						y="262"
+						width="182"
+						height="20"
+						key="staticText-9"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Tandatangan Penyewa]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="276"
+						y="292"
+						width="182"
+						height="29"
+						key="staticText-10"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Nama Penuh :....................................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="276"
+						y="329"
+						width="182"
+						height="29"
+						key="staticText-11"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[No K/P :.............................................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="276"
+						y="367"
+						width="182"
+						height="19"
+						key="staticText-12"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[ALamat :............................................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="276"
+						y="386"
+						width="182"
+						height="19"
+						key="staticText-13"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[...........................................................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="276"
+						y="405"
+						width="182"
+						height="19"
+						key="staticText-14"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[...........................................................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="22"
+						y="443"
+						width="182"
+						height="16"
+						key="staticText-15"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Meteri atau Cap Kontraktor:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="22"
+						y="469"
+						width="182"
+						height="29"
+						key="staticText-16"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Tarikh :.............................................]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="276"
+						y="469"
+						width="182"
+						height="29"
+						key="staticText-17"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Tarikh :.............................................]]></text>
+				</staticText>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

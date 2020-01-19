@@ -1,0 +1,20 @@
+<iframe id="upload_dokumen" name="upload_dokumen" width="0px" height="0px" style="visibility:hidden"></iframe>
+<div id="getKontraktor"> </div>
+<table width="100%">
+  #if ( $!r.fileName ) 
+  <tr>
+    <td align="left"> 
+    	#if ( $!r.fileName != "") 
+    		<a href="../download?file=$!uploadDir$!r.fileName" ><img src="../download?file=$!uploadDir$!r.fileName" border="0"></a>
+    	#end
+    </td>
+  </tr>
+  #end
+  <tr>
+    <td align="left">
+    	<input type="file" id="dokumen" name="dokumen" onChange="uploadDokumen()">
+      	<div id="err_dokumen" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      	<div id="dokumenMuatnaik" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SuratSetujuTerimaTwaranBulanan_Subreport5"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["D:\\Eclipse\\workspace\\sbbphv2\\WebContent\\reports\\rk\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idFail" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT rk_permohonan.no_rujukan_surat,
+       rk_pemohon.nama,
+       rk_pemohon.no_kp,
+       rk_pemohon.alamat1 alamat1pemohon,
+       rk_pemohon.alamat2 alamat2pemohon,
+       rk_pemohon.alamat3 alamat3pemohon,
+       rk_pemohon.poskod poskodpemohon,
+       ruj_bandar_1.keterangan bandarpemohon,
+       ruj_negeri_1.keterangan negeripemohon,
+       rk_fail.no_fail,
+       rk_permohonan.bil_mesyuarat,
+       rk_permohonan.keputusan_mesyuarat,
+       rk_permohonan.tarikh_mesyuarat,
+       rk_ruang_komersil.nama_ruang,
+       rk_ruang_komersil.alamat1 alamat1ruang,
+       rk_ruang_komersil.alamat2 alamat2ruang,
+       rk_ruang_komersil.alamat3 alamat3ruang,
+       rk_ruang_komersil.poskod poskodruang,
+       rk_ruang_komersil.id_bandar,
+       ruj_bandar_1.keterangan bandarruang,
+       ruj_negeri_1.keterangan negeriruang,
+       rk_perjanjian.tempoh,
+       rk_perjanjian.tarikh_mula,
+       rk_perjanjian.tarikh_tamat,
+       rk_perjanjian.kadar_sewa,
+       rk_perjanjian.deposit,
+       rk_ruang_komersil.luas_mps,
+       rk_ruang_komersil.luas_kps
+  FROM (((sbbphdb.rk_fail rk_fail
+          INNER JOIN sbbphdb.rk_pemohon rk_pemohon
+             ON (rk_fail.id_pemohon = rk_pemohon.id))
+         INNER JOIN sbbphdb.rk_permohonan rk_permohonan
+            ON (rk_fail.id = rk_permohonan.id_fail))
+        INNER JOIN sbbphdb.rk_perjanjian rk_perjanjian
+           ON (rk_permohonan.id = rk_perjanjian.id_permohonan))
+       INNER JOIN sbbphdb.rk_ruang_komersil rk_ruang_komersil
+          ON (rk_fail.id_ruang = rk_ruang_komersil.id_ruang)
+      INNER JOIN sbbphdb.ruj_bandar ruj_bandar_1
+         ON (rk_ruang_komersil.id_bandar = ruj_bandar_1.id)
+     INNER JOIN sbbphdb.ruj_negeri ruj_negeri_1
+       ON (ruj_bandar_1.id_negeri = ruj_negeri_1.id);]]></queryString>
+
+	<field name="no_rujukan_surat" class="java.lang.String"/>
+	<field name="nama" class="java.lang.String"/>
+	<field name="no_kp" class="java.lang.String"/>
+	<field name="alamat1pemohon" class="java.lang.String"/>
+	<field name="alamat2pemohon" class="java.lang.String"/>
+	<field name="alamat3pemohon" class="java.lang.String"/>
+	<field name="poskodpemohon" class="java.lang.String"/>
+	<field name="bandarpemohon" class="java.lang.String"/>
+	<field name="negeripemohon" class="java.lang.String"/>
+	<field name="no_fail" class="java.lang.String"/>
+	<field name="bil_mesyuarat" class="java.lang.String"/>
+	<field name="keputusan_mesyuarat" class="java.lang.String"/>
+	<field name="tarikh_mesyuarat" class="java.sql.Date"/>
+	<field name="nama_ruang" class="java.lang.String"/>
+	<field name="alamat1ruang" class="java.lang.String"/>
+	<field name="alamat2ruang" class="java.lang.String"/>
+	<field name="alamat3ruang" class="java.lang.String"/>
+	<field name="poskodruang" class="java.lang.String"/>
+	<field name="id_bandar" class="java.lang.String"/>
+	<field name="bandarruang" class="java.lang.String"/>
+	<field name="negeriruang" class="java.lang.String"/>
+	<field name="tempoh" class="java.lang.String"/>
+	<field name="tarikh_mula" class="java.sql.Date"/>
+	<field name="tarikh_tamat" class="java.sql.Date"/>
+	<field name="kadar_sewa" class="java.lang.Double"/>
+	<field name="deposit" class="java.lang.Double"/>
+	<field name="luas_mps" class="java.lang.Double"/>
+	<field name="luas_kps" class="java.lang.Double"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="800"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="15"
+						width="231"
+						height="15"
+						key="textField-6"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["4.	     TEMPOH SEWAAN"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="34"
+						width="496"
+						height="28"
+						key="textField-7"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["4.1.	     Tempoh sewaan bagi kontrak ini adalah (2 + 1) tahun dengan pertimbangan pelanjutan 1 tahun dengan syarat-syarat berikut:"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="76"
+						y="66"
+						width="455"
+						height="16"
+						key="textField-8"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["4.1.1	     Mengemukakan sokongan Ketua Jabatan Penghuni;"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="76"
+						y="82"
+						width="455"
+						height="16"
+						key="textField-9"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["4.1.2	     Rekod bayaran yang memuaskan;"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="76"
+						y="98"
+						width="455"
+						height="16"
+						key="textField-10"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["4.1.3	     Kebersihan kafeteria memuaskan;"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="76"
+						y="114"
+						width="455"
+						height="31"
+						key="textField-11"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["4.1.4	  Permohonan pelanjutan dikemukakan selewat-lewatnya 6 bulan sebelum tamat tempoh penyewaan; dan"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="76"
+						y="145"
+						width="455"
+						height="16"
+						key="textField-12"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["4.1.5	     Mendapat kelulusan Jawatankuasa Ruang Komersial."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="166"
+						width="496"
+						height="42"
+						key="textField-13"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["4.2	     Kadar sewaan ini adalah sentiasa tertakluk kepada penilaian semasa yang akan dikaji semula untuk setiap tempoh enam (6) bulan atau selepas tamat tempoh penyewaan tersebut, jika difikirkan perlu oleh pihak berkuasa yang berkenaan; dan"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="213"
+						width="496"
+						height="42"
+						key="textField-14"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["4.3	     Kedua-dua pihak, pengusaha dan Kerajaan melalui BPH, JPM boleh juga menamatkan kontrak sewaan di atas persetujuan bersama atau Kerajaan boleh menamatkan kontrak sewaan dengan memberi sebulan notis jika terdapat pelanggaran syarat sewaan yang ditetapkan."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="262"
+						width="231"
+						height="15"
+						key="textField-15"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["5.	     UTILITI"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="282"
+						width="496"
+						height="16"
+						key="textField-16"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["5.1	     Kadar sewa premis  tidak termasuk bayaran penggunaan elektrik dan utiliti."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="303"
+						width="231"
+						height="15"
+						key="textField-17"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["6.	     LESEN PERNIAGAAN"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="323"
+						width="496"
+						height="44"
+						key="textField-18"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["6.1	     Pengusaha perlu mendapatkan kelulusan atau lesen untuk menjalankan perniagaan daripada pihak berwajib yang berkenaan sebelum boleh menjalankan apa-apa perniagaan di ruang berkenaan. Penyewa juga perlu memastikan lesen perniagaan adalah sah sepanjang tempoh penyewaan. "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="372"
+						width="496"
+						height="44"
+						key="textField-19"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["6.2	     BPH, JPM tidak akan bertanggungjawab di atas apa-apa tindakan yang diambil oleh Pihak Berkuasa atau Pihak Berkuasa Tempatan terhadap pengusaha yang menjalankan perniagaan tanpa lesen atau tamat tempoh. "]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="34"
+						y="759"
+						width="481"
+						height="30"
+						key="subreport-1"/>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "/SuratSetujuTerimaTwaranBulanan_Subreport6.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="422"
+						width="231"
+						height="15"
+						key="textField-20"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["7.	     PERALATAN"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="439"
+						width="496"
+						height="56"
+						key="textField-21"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["7.1	     Pengusaha perlu menyediakan peralatan perniagaannya sendiri. Sebarang pemasangan peralatan elektrik dan sistem saliran minimal yang memerlukan pengubahsuaian fizikal ruang berkenaan perlulah dimaklumkan kepada pihak BPH, JPM serta mendapat sokongan pihak Jabatan Kerja Raya Negeri Pulau Pinang untuk kelulusan."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="500"
+						width="231"
+						height="15"
+						key="textField-22"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["8.	     PENGUBAHSUAIAN RUANG"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="517"
+						width="496"
+						height="69"
+						key="textField-23"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["8.1	      Segala kerja-kerja pengubahsuaian perlulah dimaklumkan kepada pihak BPH, JPM untuk kelulusan serta mendapat sokongan daripada JKR dan pihak-pihak berkuasa lain yang terlibat. Kos-kos pengubahsuaian hendaklah ditanggung oleh pengusaha yang dilantik. Reka bentuk dan struktur pengubahsuaian yang baru akan menjadi hak milik kerajaan selepas tamat tempoh kontrak penyewaan ini."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="590"
+						width="231"
+						height="15"
+						key="textField-24"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["9.	     KEBERSIHAN RUANG"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="607"
+						width="496"
+						height="32"
+						key="textField-25"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["9.1	     Pengusaha adalah bertanggungjawab untuk membersihkan kawasan yang disewa seperti Jadual Pembersihan Penyelenggaran di Lampiran C. "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="641"
+						width="496"
+						height="27"
+						key="textField-26"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["9.2.	        Laporan “Pest Control” perlu dikemukakan kepada BPH, JPM sebelum 5 haribulan setiap bulan."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="670"
+						width="496"
+						height="79"
+						key="textField-27"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["9.3.	     Pengusaha perlu memastikan semua perkara di atas dilakukan mengikut jangka masa yang telah ditetapkan. Sekiranya pihak BPH, JPM mendapati pihak tuan gagal melakukan semua perkara tersebut, tindakan tegas akan diambil. Walau bagaimanapun, bergantung kepada tahap penggunaan kafeteria, sekiranya perkara ini memerlukan pembersihan serta penyelenggaraan yang lebih kerap maka pihak pengusaha perlu untuk melaksanakan program pembersihan atau penyelenggaraan sekerap mungkin."]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

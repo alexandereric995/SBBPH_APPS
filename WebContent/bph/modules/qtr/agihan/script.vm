@@ -1,0 +1,110 @@
+function validate() {
+	var err_count = 0;
+	return err_count == 0;
+}
+
+function agihKuarters() {
+	var err_count = 0;
+	
+	var idPetugas = $('idPetugas').value;
+	if ( idPetugas == "" ) {$('err_idPetugas').innerHTML = "Sila pilih petugas"; err_count++;  }
+	
+	var valuePilihKuarters = $('valuePilihKuarters').value;
+	if ( valuePilihKuarters == "" ) {$('err_valuePilihKuarters').innerHTML = "Sila pilih 1 kuarters"; err_count++;  }
+	
+	if (err_count == 0) {
+				swal({
+			        title: "Pengesahan",
+			        text: "Adakah anda ingin mengesahkan agihan kuarters bagi pemohon?",
+			        type: "warning",
+			        showCancelButton: true,
+			        confirmButtonColor: "#DD6B55",
+			        confirmButtonText: "OK",
+			        closeOnConfirm: true
+			    },
+			     function(){
+						doDivAjaxCall3$formname('agihKuarters','agihKuarters','');
+			    });
+	}
+	
+	return err_count == 0;
+}
+
+function hantarBersyarat() {
+	var err_count = 0;
+	
+	if (err_count == 0) {
+	
+	
+##		if ( window.confirm("Hantar ke Senarai Menunggu Bersyarat?") ){
+##			doDivAjaxCall3$formname('agihKuarters','hantarBersyarat','');
+##		}
+	}
+	
+	return err_count == 0;
+}
+
+function pengesahanHantarBersyarat() {
+	var err_count = 0;
+	
+	if (err_count == 0) {
+				swal({
+			        title: "Pengesahan",
+			        text: "Anda pasti untuk hantar ke senarai menunggu bersyarat?",
+			        type: "warning",
+			        showCancelButton: true,
+			        confirmButtonColor: "#DD6B55",
+			        confirmButtonText: "OK",
+			        closeOnConfirm: true
+			    },
+			     function(){
+						doDivAjaxCall3$formname('agihKuarters','pengesahanAgihKuarters','');
+			    });	
+##		if ( window.confirm("Hantar ke Senarai Menunggu Bersyarat?") ){
+##			doDivAjaxCall3$formname('agihKuarters','pengesahanHantarBersyarat','');
+##		}
+	}
+	
+	return err_count == 0;
+}
+
+function pengesahanAgihKuarters() {
+	var err_count = 0;
+	if (err_count == 0) {
+				swal({
+			        title: "Pengesahan",
+			        text: "Adakah anda ingin menghantar pengesahan agihan kuarters?",
+			        type: "warning",
+			        showCancelButton: true,
+			        confirmButtonColor: "#DD6B55",
+			        confirmButtonText: "OK",
+			        closeOnConfirm: false
+			    },
+			     function(){
+						doDivAjaxCall3$formname('agihKuarters','pengesahanAgihKuarters','');
+						##doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num');
+						##doDivAjaxChainCall$formname('agihKuarters','pengesahanAgihKuarters','','div_list','list_page','page_num=$!current_page_num');
+			    });	
+
+	}
+	return err_count == 0;
+}
+
+function simpanCatatan() {
+	var err_count = 0;	
+	if (err_count == 0) {
+				swal({
+			        title: "Pengesahan",
+			        text: "Kemaskini catatan anda?",
+			        type: "warning",
+			        showCancelButton: true,
+			        confirmButtonColor: "#DD6B55",
+			        confirmButtonText: "OK",
+			        closeOnConfirm: true
+			    },    
+			    function(){
+						doDivAjaxCall$formname('simpanCatatan','simpanCatatan','');
+			    });
+	}
+	return err_count == 0;
+}

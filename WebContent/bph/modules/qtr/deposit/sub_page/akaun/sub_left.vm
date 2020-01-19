@@ -1,0 +1,60 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%" id="subLeft">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+    
+	#if ($!tawaran.tarikhSurat)
+        #set($tarikhSurat = $util.getDateTime($!tawaran.tarikhSurat, "dd-MM-yyyy"))
+    #else
+        #set($tarikhSurat = "")
+	#end
+	
+##	#if ($util.getTarikhTamatSurat($tarikhSurat, "dd-MM-yyyy"))
+##        #set($tarikhTamatSurat = $util.getTarikhTamatSurat($tarikhSurat, "dd-MM-yyyy"))
+##    #else
+##        #set($tarikhTamatSurat = "-")
+##	#end
+	
+	#input_normal("tarikhTamatSurat" "Tarikh Tamat Tempoh" "$tarikhTamatTempoh")
+	
+	#if ($!r.tarikhMasukKuarters)
+        #set($tarikhMasukKuarters = $util.getDateTime($!r.tarikhMasukKuarters, "dd-MM-yyyy"))
+    #else
+        #set($tarikhMasukKuarters = "")
+    #end
+    
+	#date_input_required("tarikhMasukKuarters" "Tarikh Masuk Kuarters" "$tarikhMasukKuarters")
+	
+	<tr>
+		<td align="right">1</td>
+		<td>-</td>
+		<td>
+			<a href="#" style="color:blue" id="cmdBorangPotongGaji"><b><u>Borang Arahan Potongan Gaji</u></b></a>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">2</td>
+		<td>-</td>
+		<td>
+			<a href="#" style="color:blue" id="cmdSuratPotongGaji"><b><u>Surat Arahan Potongan Gaji</u></b></a>
+		</td>
+	</tr>
+</table>
+<script>
+		_jq('#cmdBorangPotongGaji').on('click', function(){
+			var url = "../servlet/bph.laporan.qtr.QTRBorangBerhentiPotongGaji?idPermohonan=$!r.permohonan.id";
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		});	
+		_jq('#cmdSuratPotongGaji').on('click', function(){
+			var url = "../servlet/bph.laporan.qtr.QTRSuratBerhentiPotongGaji?idPermohonan=$!r.permohonan.id";
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		});	
+</script>

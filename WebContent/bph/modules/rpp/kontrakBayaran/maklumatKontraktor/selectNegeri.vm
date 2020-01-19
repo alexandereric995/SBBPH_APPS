@@ -1,0 +1,10 @@
+<select id="idNegeri" name="idNegeri" style="width:100%" onChange="doDivAjaxCall3$formname('selectBandar','selectBandar','')">
+    <option value="">SILA PILIH</option>
+    #foreach( $n in $selectNegeri )
+    	#if ($!command == 'getRegisteredKontraktor')
+    		<option #if ( $n.id == $kontraktor.bandar.negeri.id ) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+    	#else
+    		<option #if ( $n.id == $r.kontraktor.bandar.negeri.id ) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+    	#end
+    #end
+</select>

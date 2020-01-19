@@ -1,0 +1,154 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#penghuniKesPeguam').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+
+<fieldset>
+	<legend class="legend">Maklumat Kes Peguam</legend>
+	<table width="100%">
+		<tr>
+			## KIRI
+			<td>
+				<table width="100%">
+				  <tr>
+				    <td style="width:150px"></td>
+				    <td style="width:10px"></td>
+				    <td></td>
+				  </tr>
+				## --------------- Start display data sahaja untuk maklumat detail --------------- 
+					<b><u>MAKLUMAT PENGHUNI</u></b>
+					#input_readonly_all_label("noKP" "No Pengenalan" "$!r.pemohon.noKP")
+					#input_readonly_all_label("namaPenghuni" "Nama" "$!r.pemohon.userName")
+					#set ($tarikhMasuk = $!util.getDateTime($!tarikhMasuk,'dd-MM-yyyy'))
+				    #if ($!r.tarikhMasuk) 
+				    	#set ($tarikhMasuk = "$!util.getDateTime($!r.tarikhMasuk,'dd-MM-yyyy')") 
+				    #end
+					#input_readonly_all_label("tarikhMasuk" "Tarikh Masuk Kuaters" "$tarikhMasuk")
+					
+					#set ($tarikhKeluar = $!util.getDateTime($!tarikhKeluar,'dd-MM-yyyy'))
+				    #if ($!r.tarikhKeluar) 
+				    	#set ($tarikhKeluar = "$!util.getDateTime($!r.tarikhKeluar,'dd-MM-yyyy')") 
+				    #end
+					#input_readonly_all_label("tarikhKeluar" "Tarikh Keluar Kuaters" "$tarikhKeluar")
+					
+					#input_readonly_all_label("kadarSewa" "Kadar Sewa" "$!r.kuarters.sewa")
+					
+					#input_readonly_all_label("status" "Status Rayuan" "<b>$!r.status</b>")
+					## --------------- End display data sahaja untuk maklumat detail --------------- 
+				</table>
+			</td>
+			
+			## KANAN
+			<td>
+				<table width="100%">
+				  <tr>
+				    <td style="width:80px"></td>
+				    <td style="width:10px"></td>
+				    <td></td>
+				  </tr>
+				## --------------- Start display data sahaja untuk maklumat detail --------------- 
+					<b><u>ALAMAT</u></b> 
+					#input_readonly_all_label("noUnit" "No Unit" "$!r.kuarters.noUnit") 
+					#input_readonly_all_label("lokasi" "Lokasi" "$!r.kuarters.lokasi.keterangan")
+					#input_readonly_all_label("tempat" "Kawasan" "$!r.kuarters.kawasan")
+					#input_readonly_all_label("bandar" "Bandar" "$!r.kuarters.bandar.keterangan")
+					#input_readonly_all_label("negeri" "Negeri" "$!r.kuarters.bandar.negeri.keterangan")
+					
+				## --------------- End display data sahaja untuk maklumat detail --------------- 
+				</table>
+			</td>
+		</tr>
+	</table>
+	<br />
+	<b><u>MAKLUMAT KES PEGUAM</u></b>
+	<p align="left">
+ 		<input type="button" value="Tambah" align='left' id="cmdTambahKesPeguam">
+	</p>
+	<br /><br />
+	
+	<table id="penghuniKesPeguam" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Bil.</th>
+                <th>Tarikh Dirujuk Kepada JPN</th> ## Label Tarikh ditukar kepada Tarikh Dirujuk Kepada JPN - 20161005 - UAT
+                
+                ## <th>Keputusan</th> ## comment dari UAT no 3 = Tambah medan status kes a. Selesai b. Tidak selesai, 
+				<th>Status Kes</th> ## Note: telah ada pada keputusan cuma ubah title keputusan kepada status Kes.
+                
+                <th>Jenis Kes</th>
+                <th>Catatan</th>
+                <th>Papar</th>
+                <th>Hapus</th>
+            </tr>
+        </thead>
+		
+		<tbody>
+			#set( $count = 0 )
+    		#foreach ( $c in $kesPeguamList )
+    			#set ( $count = $count + 1 )
+                <tr>
+                    <td align="center" >$count</td>
+                    <td align="center" >$util.getDateTime($c.tarikhKeputusan, "dd-MM-yyyy")</td>
+					
+					## --- Start Comment UAT ---
+					## comment dari UAT no 3 = Tambah medan status kes a. Selesai b. Tidak selesai, 
+					## Note: telah ada pada keputusan cuma ubah title keputusan kepada status Kes.
+##                    #if($!c.flagKeputusan == '1')
+##        				#set($flagKeputusan = 'BERSALAH')
+##        			#elseif($!c.flagKeputusan == '2')
+##        				#set($flagKeputusan = 'TIDAK BERSALAH')
+##    				#elseif($!c.flagKeputusan == '3')
+##    					#set($flagKeputusan = 'SELESAI')
+##    				#elseif($!c.flagKeputusan == '4')
+##    					#set($flagKeputusan = 'TIDAK SELESAI')
+##			        #end
+					#if($!c.flagKeputusan == '0')
+        				#set($flagKeputusan = 'SILA PILIH')
+        			#elseif($!c.flagKeputusan == '1')
+        				#set($flagKeputusan = 'SELESAI')
+    				#elseif($!c.flagKeputusan == '2')
+    					#set($flagKeputusan = 'TIDAK SELESAI')
+			        #end
+                    <td align="center" >$!flagKeputusan</td>
+                    ## --- End Comment UAT ---
+                    
+                    #if($!c.statusJenisKes == '0')
+                    	#set($statusJenisKes = 'SILA PILIH')
+                    #elseif($!c.statusJenisKes == '1')
+                    	#set($statusJenisKes = 'TUNTUTAN TUNGGAKAN')
+                    #elseif($!c.statusJenisKes == '2')
+                    	#set($statusJenisKes = 'PENGUSIRAN')
+                    #end
+                    <td align="center" >$!statusJenisKes</td>
+                    <td align="" >$!c.catatan</td>
+                    <td align="center" ><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a></td>
+                    <td align="center" ><a href="javascript:void()" onClick="deleteKP('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a></td>
+                </tr>
+                <script>
+                    _jq('#link$c.id').on('click', function(){
+                    	
+						doDivAjaxCall3$formname('editpopup','editKP','idKP=$c.id');
+                        jQuery('#editpopup').fadeIn();
+                    });
+                </script>
+			#end
+		</tbody>
+    </table>
+    
+</fieldset>
+
+<div id="addpopup" class="popup"></div>
+<div id="editpopup" class="popup"></div>
+
+
+<script>
+        _jq('#cmdTambahKesPeguam').on('click', function(){
+			doDivAjaxCall3$formname('addpopup','addPeguam','');
+            jQuery('#addpopup').fadeIn();
+        });
+ </script>

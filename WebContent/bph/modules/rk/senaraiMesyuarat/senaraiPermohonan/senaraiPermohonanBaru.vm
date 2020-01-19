@@ -1,0 +1,68 @@
+<div id="divSenaraiPermohonanBaru">
+
+<script>
+    _jq(document).ready(function() {
+        _jq('#tblPermohonanBaru').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+
+<fieldset >
+<legend class="legend">SENARAI PERMOHONAN BARU</legend>
+  <table id="tblPermohonanBaru" class="display" width="100%" cellpadding="5" cellspacing="1">
+  	#if ($!r.status == "B")
+  		<input id="btnPopupSenaraiPermohonanBaru" type="button"  value="Pilih Senarai Permohonan Baru" /> <br/><br/>
+  	#end
+    <thead>
+      <tr>
+        <td class="row_header" width="5%">Bil.</td>
+        <td class="row_header" >No. Permohonan</td>
+        <td class="row_header" >Jenis Permohonan</td>
+        <td class="row_header" >Nama Pemohon</td>
+        <td class="row_header" >Kertas Pertimbangan</td>
+        <td class="row_header" >Keputusan</td>
+        <td class="row_header" >Catatan</td>
+        #if ($!r.status == "B")
+        	<td class="row_header" >Hapus</td>
+        #end
+      </tr>
+    </thead>
+    
+    <tbody>    
+    #set ( $count = 0 ) 
+    #foreach( $cBaru in $listMesyuaratPermohonanBaru )
+    #set ( $count = $count + 1)
+    
+    #if ( $count % 2 == 0 ) 
+    #set ( $rowcolor = "#D0CFCE" ) 
+    #else 
+    #set ( $rowcolor = "#F0F0F0" ) 
+    #end
+    <tr bgcolor="$rowcolor">
+      <td align="center">$count</td>
+      <td align="center"><a href="javascript:void()" onClick="popupSenaraiDokumenSokonganPermohonan($!cBaru.id)"><font color="#0000FF"><strong>$!cBaru.permohonan.noPermohonan</strong></font></a></td>
+      <td align="center">$!cBaru.permohonan.getJenisPermohonan()</td>
+      <td align="center">$!cBaru.permohonan.fail.pemohon.syarikat.nama</td>     
+      <td align="center"><span id="cetakKertasPertimbangan"><a href="javascript:void()" onClick="doCetakKertasPertimbangan($!cBaru.id)" ><img src="../img/print.gif" border="0"></a></span></td> 
+      <td align="center"><div id="selectKeputusanBaru$!cBaru.id">#parse("$path/senaraiPermohonan/selectKeputusanBaru.vm")</div></td>
+      <td align="center"><div id="catatanKeputusanBaru$!cBaru.id">#parse("$path/senaraiPermohonan/catatanKeputusanBaru.vm")</div></td>
+      #if ($!r.status == "B")
+      	<td align="center"><span id="hapusMesyuaratPermohonan"><a href="javascript:void()" onClick="doHapusMesyuaratPermohonan($!cBaru.id)" ><img src="../img/delete.gif" border="0"></a></span></td>  
+   	  #end
+    </tr>
+    #end
+    </tbody>    
+  </table>
+</fieldset>
+
+</div>
+
+<script>
+	_jq('#btnPopupSenaraiPermohonanBaru').on('click', function(){
+		doDivAjaxCall3$formname('popupSenaraiPermohonan','getSenaraiPermohonanBaru','');
+	    jQuery('#popupSenaraiPermohonan').fadeIn();
+	});
+</script>

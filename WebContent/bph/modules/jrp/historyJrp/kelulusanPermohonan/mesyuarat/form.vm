@@ -1,0 +1,182 @@
+
+###parse("$path/kelulusanPermohonan/senaraiSubTab.vm")
+<input name="flagJenis" type="hidden" id="cetakFlagKeputusan" value="$!km.flagKeputusan"/>
+<input name="flagJenis1" type="hidden" id="flagJenis1" value="$!r.getKategoriPermohonan()"/>
+<fieldset>
+<legend class="legend">Keputusan Mesyuarat</legend>
+	
+	<table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+		
+		<!-- 
+		<tr>
+        	<td class="label" valign="top">Bil. mesyuarat</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="bilMesyuarat" class="uppercasefont" name="bilMesyuarat" value="$!km.bilMesyuarat" onKeyUp="$('err_bilMesyuarat').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_bilMesyuarat" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+		-->
+		
+		<tr>
+        	<td  valign="top" class="label">Tarikh mesyuarat</td>
+        	<td  valign="top" class="label">:</td>
+        	<td valign="top">
+				<input type="text" id="tarikhMesyuarat" name="tarikhMesyuarat" value="$!util.getDateTime($!km.tarikhMesyuarat,'dd-MM-yyyy')" style="width: 18%" onChange=" $('err_tarikhMesyuarat').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()">
+        		<script>
+                _jq(function() {
+                	jQuery("#tarikhMesyuarat").datepicker({ 
+                		dateFormat: "dd-mm-yy",
+        				showOn: "both",
+        				buttonImageOnly: true,
+        				buttonImage: "../img/calendar_icon.gif",
+        				buttonText: "Calendar",
+                	});
+                });
+        		</script>
+				<div id="err_tarikhMesyuarat" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+		<tr>
+			<td class="label" valign="top">Keputusan</td>##&nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<select id="flagKeputusan" name="flagKeputusan" onChange=" $('err_flagKeputusan').innerHTML=''; at(this, event);" >
+					<option value="">SILA PILIH</option>
+					<option value="L" #if($!km.flagKeputusan=='L')selected#end >LULUS</option>
+					<option value="TL" #if($!km.flagKeputusan=='TL')selected#end >TOLAK</option>
+					<option value="TG" #if($!km.flagKeputusan=='TG')selected#end >TANGGUH</option>
+					<option value="LB" #if($!km.flagKeputusan=='LB')selected#end >LULUS BERSYARAT</option>
+				</select>
+				<div id="err_flagKeputusan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>	
+		<tr>
+        	<td class="label" valign="top">Ulasan</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<textarea id="ulasan" style="width:40% !important" class="uppercasefont" name="ulasan" onKeyUp=" $('err_ulasan').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()" onBlur="this.value=this.value.toUpperCase();">$!km.ulasan</textarea>
+				<div id="err_ulasan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+		<tr>
+        	<td class="label" valign="top">Disediakan oleh</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="urusetiaPenyedia" class="uppercasefont" name="urusetiaPenyedia" value="$!km.urusetiaPenyedia" onKeyUp="$('err_urusetiaPenyedia').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_urusetiaPenyedia" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+	</table>
+
+</fieldset>
+	
+
+
+<fieldset>
+<legend class="legend">pengesahan</legend>
+	<table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+		<tr>
+        	<td  valign="top" class="label">Tarikh pengesahan</td>
+        	<td  valign="top" class="label">:</td>
+        	<td valign="top">
+				<input type="text" id="tarikhSah" name="tarikhSah" value="$!util.getDateTime($!km.tarikhSah,'dd-MM-yyyy')" style="width: 18%" onChange=" $('err_tarikhSah').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()">
+        		<script>
+                _jq(function() {
+                	jQuery("#tarikhSah").datepicker({ 
+                		dateFormat: "dd-mm-yy",
+        				showOn: "both",
+        				buttonImageOnly: true,
+        				buttonImage: "../img/calendar_icon.gif",
+        				buttonText: "Calendar",
+                	});
+                });
+        		</script>
+				<div id="err_tarikhSah" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+		<tr>
+        	<td class="label" valign="top">Disahkan oleh</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="urusetiaPengesah" class="uppercasefont" name="urusetiaPengesah" value="$!km.urusetiaPengesah" onKeyUp="$('err_urusetiaPengesah').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_urusetiaPengesah" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+  	</table>
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+##			#if($km.id != "" && $km.id)
+##				<input type="button" value="Cetak"  id="cmdCetak"/>
+##			#else
+##			<input type="button" value="Cetak"  id="cmdCetak" disabled="disabled"/>
+##			#end
+##			<input type="button" value="Simpan" id="cmdSaveMesyuarat" />
+##			<input type="button" value="Kosongkan" id="cmdKosongkanMesyuarat" />
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">			
+		</td>
+	</tr>
+</table>
+
+<div id="statusMesyuarat"></div>
+
+<script>
+_jq('#cmdKosongkanMesyuarat').on('click', function(){
+	<!--NOT USE $('bilMesyuarat').value = ""; -->
+	$('tarikhMesyuarat').value = "";
+	$('ulasan').value = "";
+	$('urusetiaPenyedia').value = "";
+	$('tarikhSah').value = "";
+	$('urusetiaPengesah').value = "";
+	$('flagKeputusan').value = "";
+});
+_jq('#cmdSaveMesyuarat').on('click', function(){
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = $!r.id;
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('statusMesyuarat','saveMesyuarat','idPermohonan='+idPermohonan+'&selectedSubTab='+tabNo+'','divTab','getKeputusanMesyuarat','selectedSubTab=2');
+	}
+});
+
+
+_jq('#cmdCetak').on('click', function(){
+	
+	var idPermohonan = $!r.id;
+	var cetakFlagKeputusan = document.${formName}.cetakFlagKeputusan.value;
+	var jenis = document.${formName}.flagJenis1.value;
+	if(cetakFlagKeputusan == "L"){
+			var url = "../servlet/bph.laporan.jrp.JRPSuratLulusRuangPejabat?idPermohonan="+idPermohonan+"&flag_lewat=&jenis_permohonan="+jenis;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		} else if(cetakFlagKeputusan == "TL"){
+			var url = "../servlet/bph.laporan.jrp.JRPSuratTolakRuangPejabat?idPermohonan="+idPermohonan+"&flag_lewat=&jenis_permohonan="+jenis;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		} else{
+			var url = "../servlet/bph.laporan.jrp.JRPSuratTangguhRuangPejabat?idPermohonan="+idPermohonan+"&flag_lewat=&jenis_permohonan="+jenis;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+
+		}
+});
+</script>
+	

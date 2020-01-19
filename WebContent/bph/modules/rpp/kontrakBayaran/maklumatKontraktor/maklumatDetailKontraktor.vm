@@ -1,0 +1,121 @@
+#if ($!command == 'getRegisteredKontraktor')
+<fieldset>
+<legend class="legend">MAKLUMAT KONTRAKTOR</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="label">No. Pendaftaran &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td class="label">:</td>
+          <td><input type="text" id="noPendaftaran" name="noPendaftaran" value="$!noPendaftaran" onKeyUp=" $('err_noPendaftaran').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();doDivAjaxCall3$formname('divKontraktor','getRegisteredKontraktor','')">
+            <div id="err_noPendaftaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #input_required("namaKontraktor" "Nama Kontraktor" "$!kontraktor.namaKontraktor") 
+        #input_required("kodPembekal" "Kod Pembekal" "$!kontraktor.kodPembekal")       
+        #input_required("namaPemilik" "Nama Pemilik" "$!kontraktor.namaPemilik")
+        #phone_number_required("noTelefon" "No. Telefon" "$!kontraktor.noTelefon")
+        #phone_number_required("noTelefonBimbit" "No. Telefon Bimbit" "$!kontraktor.noTelefonBimbit")
+        #phone_number("noFaks" "No. Faks" "$!kontraktor.noFaks")
+        #input_email("emel" "E-mel" "$!kontraktor.emel")
+        
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_required("alamat1" "Alamat" "$!kontraktor.alamat1")
+        #input("alamat2" "" "$!kontraktor.alamat2")
+        #input("alamat3" "" "$!kontraktor.alamat3")
+        <td></td>
+          <td></td>
+          <td><div id="err_alamat" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+          #postcode_required("poskod" "Poskod" "$!kontraktor.poskod")
+          <td></td>
+          <td></td>
+          <td><div id="err_poskod" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatKontraktor/selectNegeri.vm")
+            <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandar">
+            #parse("$path/maklumatKontraktor/selectBandar.vm")
+            <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        #textarea("catatan" "Catatan" "$!kontraktor.catatan")
+      </table></td>
+  </tr>
+</table>
+</fieldset>	
+#else
+<fieldset>
+<legend class="legend">MAKLUMAT KONTRAKTOR</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="label">No. Pendaftaran &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td class="label">:</td>
+          <td><input type="text" id="noPendaftaran" name="noPendaftaran" value="$!r.kontraktor.id" onKeyUp=" $('err_noPendaftaran').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();doDivAjaxCall3$formname('divKontraktor','getRegisteredKontraktor','')">
+            <div id="err_noPendaftaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #input_required("namaKontraktor" "Nama Kontraktor" "$!r.kontraktor.namaKontraktor")       
+        #input_required("kodPembekal" "Kod Pembekal" "$!r.kontraktor.kodPembekal")       
+        #input_required("namaPemilik" "Nama Pemilik" "$!r.kontraktor.namaPemilik")
+        #phone_number_required("noTelefon" "No. Telefon" "$!r.kontraktor.noTelefon")
+        #phone_number_required("noTelefonBimbit" "No. Telefon Bimbit" "$!r.kontraktor.noTelefonBimbit")
+        #phone_number("noFaks" "No. Faks" "$!r.kontraktor.noFaks")
+        #input_email("emel" "E-mel" "$!r.kontraktor.emel")
+        
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_required("alamat1" "Alamat" "$!r.kontraktor.alamat1")
+        #input("alamat2" "" "$!r.kontraktor.alamat2")
+        #input("alamat3" "" "$!r.kontraktor.alamat3")
+        <td></td>
+          <td></td>
+          <td><div id="err_alamat" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+          #postcode_required("poskod" "Poskod" "$!r.kontraktor.poskod")
+          <td></td>
+          <td></td>
+          <td><div id="err_poskod" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatKontraktor/selectNegeri.vm")
+            <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandar">
+            #parse("$path/maklumatKontraktor/selectBandar.vm")
+            <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        #textarea("catatan" "Catatan" "$!r.kontraktor.catatan")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+#end

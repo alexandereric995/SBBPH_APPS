@@ -1,0 +1,126 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%">
+    <tr>
+        <td style="width:100px"></td>
+        <td style="width:5px"></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="label">Lokasi Kuarters&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listLokasiKuarters">
+                #parse("$path/select/selectLokasiKuarters.vm")
+            </span>
+            <div id="err_idLokasiKuarters" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+##	<tr>
+##        <td class="label">Lokasi Dibenarkan Memohon&nbsp;<span style="color:#FF2A00">*</span></td>
+##        <td>:</td>
+##        <td>
+##            <span id="listLokasiDibenar">
+##                #parse("$path/select/selectLokasiDibenar.vm")
+##            </span>
+##            <div id="err_idLokasiDibenar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##        </td>
+##    </tr>
+    ##input("kawasan" "Kawasan" "$!r.kawasan.toUpperCase()")
+    #input("lotNo" "Lot Nombor" "$!r.lotNo")
+    #input_required("noUnit" "No. Unit" "$!r.noUnit")
+	<tr>
+        <td class="label" valign="top">Fasa</td>
+        <td valign="top">:</td>
+        <td>
+            <span id="listFasa">
+                #parse("$path/select/selectFasa.vm")
+            </span>
+        </td>
+    </tr>
+	##input("blok" "Blok" "$!r.blok")
+    ##input_required("alamat1" "Alamat" "$!r.alamat1")
+	<tr>
+		<td class="label">Alamat &nbsp;<span style="color:#FF2A00">*</span></td>
+		<td class="label">:</td>
+		<td><input type="text" id="alamat1" name="alamat1" value="$!r.alamat1" placeholder="Contoh:Jalan P11B/1 " onKeyUp=" $('err_alamat1').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+		<div id="err_alamat1" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	</tr>
+	#input("alamat2" "" "$!r.alamat2")
+	#input("alamat3" "" "$!r.alamat3")
+	##input("alamat2" "" "$!r.alamat2")
+    #postcode_required("poskod" "Poskod" "$!r.poskod")
+    <tr>
+        <td class="label" valign="top">Negeri&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td valign="top">:</td>
+        <td>
+            <span id="listNegeri">
+                #parse("$path/select/selectNegeri.vm")
+            </span>
+            <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">Bandar&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listBandar">
+                #parse("$path/select/selectBandar.vm")
+            </span>
+			<div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+##    <tr>
+##        <td class="label">Daerah</td>
+##        <td>:</td>
+##        <td>
+##            <span id="listDaerah">
+##                #parse("$path/select/selectDaerah.vm")
+##            </span>
+##			<div id="err_idDaerah" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##        </td>
+##    </tr>
+
+        #if ($!r.tarikhSerahan)
+        	#set ($dateSerahan = "$!util.getDateTime($!r.tarikhSerahan,'dd-MM-yyyy')")
+        #else 
+        	#set ($dateSerahan = "")
+        #end
+  		<tr>
+			<td class="label" valign="top">Tarikh Serahan &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top">
+				<div>
+		    		<input type="text" id="tarikhSerahan" name="tarikhSerahan" value="$dateSerahan">
+		    		<script>
+		            	_jq("#tarikhSerahan").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+		            	});
+		    		</script>
+				</div>
+				<div id="err_tarikhSerahan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+			</td>
+		</tr>
+		<tr>
+	        <td class="label" valign="top">Status Rekod</td>
+	        <td valign="top">:</td>
+	        <td>
+	            <span id="listFlagKuarters">
+	               <select id="idFlagKuarters" name="idFlagKuarters" style="width:100%" onChange="$('err_idFlagKuarter').innerHTML=''; at(this, event);">
+				    <option value="">SILA PILIH</option>
+					<option #if ( $!r.flagDelete == 0 ) selected #end value=0>AKTIF</option>
+					<option #if ( $!r.flagDelete == 1 ) selected #end value=1>TIDAK AKTIF</option>
+				</select>
+	            </span>
+	        </td>
+	    </tr>
+</table>
+
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+		$('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

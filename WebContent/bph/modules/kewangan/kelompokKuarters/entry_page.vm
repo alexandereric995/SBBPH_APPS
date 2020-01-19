@@ -1,0 +1,104 @@
+
+<input type="hidden" id="mainId" name="mainId" value="$!r.id" />
+
+<style>
+.scrollitpopup {
+	height:250px; width: 100%; overflow: auto;
+}
+</style>
+
+<fieldset>
+<legend class="legend">MAKLUMAT REKOD</legend>
+
+    <table width="100%">
+    	<tr>
+    		<td style="width:150px"></td>
+    		<td style="width:10px"></td>
+    		<td></td>
+    	</tr>
+    	#input_required("namaAgensi" "Agensi" "$!r.namaAgensi.toUpperCase()")
+    	#textarea("keterangan" "Keterangan" "$!r.keterangan.toUpperCase()")
+    </table>
+	
+	
+	#if( $!r ) ##Show after have main record
+    	<br/>
+    	
+		<div class="scrollitpopup">
+        	<table width="100%">
+            	<tr>
+        			<td colspan="5">
+        				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">SENARAI PENGHUNI KUARTERS</span>
+        			</td>
+        		</tr>
+        		<tr>
+                    <td colspan="5">
+        				<br/>
+        				<input style="width:20%" type="button" id="btnPopupPilihPenghuni" name="btnPopupPilihPenghuni" value="Pilih Penghuni">
+    						
+    					<script>
+                        	_jq('#btnPopupPilihPenghuni').on('click', function(){
+                        		doDivAjaxCall3$formname('popupSenaraiPenghuni','openPopupSenaraiPenghuni','');
+                                jQuery('#popupSenaraiPenghuni').fadeIn();
+                           	});
+                        </script>	
+    						
+        			</td>
+        		</tr>
+        		
+            	<tr>
+        			<td class="row_header" width="1%">BIL</td>
+        			<td class="row_header" width="25%">NO. RUJUKAN</td>
+        			<td class="row_header" width="15%">NO. UNIT</td>
+        			<td class="row_header" width="34%">NAMA PENGHUNI</td>
+        			<td class="row_header" width="20%">KADAR SEWA BULANAN (RM)</td>
+					<td class="row_header" width="5%">HAPUS</td>
+        		</tr>
+        		
+        		#if ( $listKelompokPenghuni.size() > 0 )
+            		#set ( $count = 0 )
+            		#foreach( $d in $listKelompokPenghuni )
+            			
+            			#set ( $count = $count + 1)
+                    	#if ( $count % 2 == 0 ) 
+                			#set ( $rowcolor = "#D0CFCE" ) 
+                		#else 
+                			#set ( $rowcolor = "#F0F0F0" ) 
+        				#end
+        				
+            		<tr bgcolor="$rowcolor">
+        				<td align="center">$count</td>
+            			<td align="left">&nbsp;$!d.kuaPenghuni.kuarters.noRujukan.toUpperCase()</td>
+        				<td align="center">$!d.kuaPenghuni.kuarters.noUnit.toUpperCase()</td>
+            			<td align="left">&nbsp;$!d.kuaPenghuni.pemohon.userName.toUpperCase()</td>
+        				<td align="right">$!util.formatDecimal($!d.kuaPenghuni.kuarters.sewa)</td>
+						<td align="center">
+							<a href="javascript:void()" onclick="$('_wait').innerHTML='Please wait...';doDivAjaxCall3$formname('div_main_entry','deletePilihanPenghuni','idPilihan=$!d.id')"><img src="../img/delete.gif" border="0"></a>
+						</td>
+            		</tr>
+        			
+        			#end
+            	#else
+            		<tr bgcolor="#F0F0F0">
+            			<td colspan="5">Tiada Rekod</td>
+            		</tr>
+            	#end
+        		
+            </table>
+		</div>
+	
+	#end
+	
+</fieldset>
+
+<div id="popupSenaraiPenghuni" class="popup"></div>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

@@ -1,0 +1,139 @@
+function validate() {
+	var err_count = 0;
+	return err_count == 0;
+}
+
+## START MAKLUMAT NOTIS 
+function deleteMaklumatNotis(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','removeNotis','idNotis=' + id);
+}
+
+function validateNotis(){
+	var err_count = 0;
+	
+	var noSiri = $('noSiri').value;
+	if ( noSiri == "" ) {$('err_noSiri').innerHTML = "No Siri adalah mandatori!"; err_count++;  }
+	
+	var idJenisNotis = $('idJenisNotis').value;
+	if ( idJenisNotis == "" ) {$('err_idJenisNotis').innerHTML = "Jenis Notis adalah mandatori!"; err_count++;  }
+	
+	var tarikhHantar = $('tarikhHantar').value;
+	if ( tarikhHantar == "" ) {$('err_tarikhHantar').innerHTML = "Tarikh Hantar Notis adalah mandatori!"; err_count++;  }
+	
+	return err_count == 0; 
+}
+
+function saveNotis() {
+	if ( validateNotis() ){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxChainCall$formname('editMaklumatNotis','saveNotis','','divTab','getNotis','');
+	}
+}
+## END MAKLUMAT NOTIS
+
+## START MAKLUMAT RAYUAN 
+function deleteMaklumatRayuan(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','removeRayuan','idRayuan=' + id);
+}
+
+function validateRayuan(){
+	var err_count = 0;
+	
+	var noRayuan = $('noRayuan').value;
+	if ( noRayuan == "" ) {$('err_noRayuan').innerHTML = "No Rayuan adalah mandatori!"; err_count++;  }
+	
+	var tarikhRayuan = $('tarikhRayuan').value;
+	if ( tarikhRayuan == "" ) {$('err_tarikhRayuan').innerHTML = "Tarikh Rayuan adalah mandatori!"; err_count++;  }
+	
+	var idJenisRayuan = $('idJenisRayuan').value;
+	if ( idJenisRayuan == "" ) {$('err_idJenisRayuan').innerHTML = "Jenis Rayuan adalah mandatori!"; err_count++;  }
+	
+	return err_count == 0; 
+}
+
+function saveRayuan() {
+	if ( validateRayuan() ){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxChainCall$formname('editMaklumatRayuan','saveRayuan','','divTab','getRayuan','');
+	}
+}
+## END MAKLUMAT RAYUAN
+
+## START UPLOAD DOKUMEN
+function checkUpload() {
+	
+	$('err_dokumen').innerHTML = '';
+	var idKesalahan = $('idKesalahan').value;
+	var error = 0;
+	var err_count = 0;
+	
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {
+		$('err_tajuk').innerHTML = "Tajuk dokumen adalah mandatori!"; 
+		$('dokumen').value = "";
+		err_count++;  
+	}
+	
+	var jenisDokumen = $('idJenisDokumen').value;
+	if ( jenisDokumen == "" ) {
+		$('err_idJenisDokumen').innerHTML = "Jenis dokumen adalah mandatori!"; 
+		$('dokumen').value = "";
+		err_count++;  
+	}
+
+	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+		error++;
+		$('dokumen').value = "";
+		$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+	}
+	if ($('dokumen').value != "" && $('dokumen').files[0].size > 2097152) {
+		error++;
+		$('err_dokumen').innerHTML = "Saiz fail adalah "+($('dokumen').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumen').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('dokumenMuatnaik').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_doc';
+		document.${formName}.action='?command=uploadDoc&idKesalahan='+idKesalahan+'&tajuk='+$('tajuk').value+'&idJenisDokumen='+$('idJenisDokumen').value+'&keterangan='+$('keterangan').value;
+		document.${formName}.submit();
+		$('tajuk').value = "";
+		$('idJenisDokumen').value = "";
+		$('keterangan').value = "";
+	}
+	
+	return err_count == 0;	
+}
+
+function checkDoc(val) {
+	var arr = val.split(".");
+	var arr1 = val.split("\\");
+	if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" || arr[1] == "PDF" || arr[1] == "pdf" || arr[1] == "doc" || arr[1] == "DOC" || arr[1] == "docx" || arr[1] == "DOCX" ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+## END UPLOAD DOKUMEN
+
+## START UPDATE STATUS PENGHUNI
+function saveStatusPenghuni() {
+
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxChainCall$formname('divTab','saveStatusPenghuni','');
+}
+## END UPDATE STATUS PENGHUNI

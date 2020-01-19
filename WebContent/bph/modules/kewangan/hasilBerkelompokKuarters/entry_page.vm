@@ -1,0 +1,136 @@
+
+<input type="hidden" id="mainId" name="mainId" value="$!r.id" />
+<input type="hidden" id="countInvois" name="countInvois" value="$!listInvois.size()" />
+
+<style>
+.scrollitpopup {
+	height:250px; width: 100%; overflow: auto;
+}
+</style>
+
+<fieldset>
+<legend class="legend">MAKLUMAT REKOD</legend>
+
+    <table width="100%">
+    	<tr>
+    		<td style="width:150px"></td>
+    		<td style="width:10px"></td>
+    		<td></td>
+    	</tr>
+    	#show("AGENSI" "$!r.namaAgensi.toUpperCase()")
+    	#show("KETERANGAN" "$!r.keterangan.toUpperCase()")
+    </table>
+	
+	
+    	<br/>
+    	
+		<div class="scrollitpopup">
+        	<table width="100%">
+            	<tr>
+        			<td colspan="5">
+        				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">SENARAI PENGHUNI KUARTERS</span>
+        			</td>
+        		</tr>
+
+				<tr>
+        			<td class="row_header" width="1%">BIL</td>
+        			<td class="row_header" width="25%">NO. RUJUKAN</td>
+        			<td class="row_header" width="15%">NO. UNIT</td>
+        			<td class="row_header" width="39%">NAMA PENGHUNI</td>
+        			<td class="row_header" width="20%">KADAR SEWA BULANAN (RM)</td>
+        		</tr>
+        		
+        		#if ( $listKelompokPenghuni.size() > 0 )
+            		#set ( $count = 0 )
+            		#foreach( $d in $listKelompokPenghuni )
+            			
+            			#set ( $count = $count + 1)
+                    	#if ( $count % 2 == 0 ) 
+                			#set ( $rowcolor = "#D0CFCE" ) 
+                		#else 
+                			#set ( $rowcolor = "#F0F0F0" ) 
+        				#end
+        				
+            		<tr bgcolor="$rowcolor">
+        				<td align="center">$count</td>
+            			<td align="left">&nbsp;$!d.kuaPenghuni.kuarters.noRujukan.toUpperCase()</td>
+        				<td align="center">$!d.kuaPenghuni.kuarters.noUnit.toUpperCase()</td>
+            			<td align="left">&nbsp;$!d.kuaPenghuni.pemohon.userName.toUpperCase()</td>
+        				<td align="right">$!util.formatDecimal($!d.kuaPenghuni.kuarters.sewa)</td>
+            		</tr>
+        			
+        			#end
+            	#else
+            		<tr bgcolor="#F0F0F0">
+            			<td colspan="5">Tiada Rekod</td>
+            		</tr>
+            	#end
+        		
+            </table>
+		</div>
+		
+		<br/>
+		
+		<div class="scrollitpopup">
+        	<table width="100%">
+            	<tr>
+        			<td colspan="5">
+        				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">SENARAI INVOIS</span>
+        			</td>
+        		</tr>
+
+				<tr>
+        			<td class="row_header" width="1%">BIL</td>
+        			<td class="row_header" width="25%">NO. INVOIS</td>
+        			<td class="row_header" width="15%">TARIKH INVOIS</td>
+        			<td class="row_header" width="39%">NAMA PENGHUNI</td>
+        			<td class="row_header" width="20%">KADAR SEWA BULANAN (RM)</td>
+        		</tr>
+        		
+        		#if ( $listInvois.size() > 0 )
+            		#set ( $count = 0 )
+            		#foreach( $d in $listInvois )
+            			
+            			#set ( $count = $count + 1)
+                    	#if ( $count % 2 == 0 ) 
+                			#set ( $rowcolor = "#D0CFCE" ) 
+                		#else 
+                			#set ( $rowcolor = "#F0F0F0" ) 
+        				#end
+        				
+            		<tr bgcolor="$rowcolor">
+        				<td align="center">$count</td>
+            			<td align="left">&nbsp;$!d.noInvois.toUpperCase()</td>
+        				<td align="center">$!util.getDateTime($!d.tarikhInvois,"dd-MM-yyyy")</td>
+            			<td align="left">&nbsp;$!d.pembayar.userName.toUpperCase()</td>
+        				<td align="right">$!util.formatDecimal($!d.debit)</td>
+            		</tr>
+        			
+        			#end
+            	#else
+            		<tr bgcolor="#F0F0F0">
+            			<td colspan="5">Tiada Rekod</td>
+            		</tr>
+            	#end
+        		
+            </table>
+		</div>
+	
+</fieldset>
+
+<table width="100%">
+	<tr><td><div id="err_countInvois" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td></tr>
+</table>
+
+<script>
+    _jq(document).ready(function () {
+    	_jq('#btnSaveRecordTemplate').val('Bayar');
+    });
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

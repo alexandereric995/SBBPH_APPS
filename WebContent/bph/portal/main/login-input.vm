@@ -1,0 +1,193 @@
+<table cellpadding="5" cellspacing="0" border="0" width="100%">
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td class="box-title">
+			Log Masuk
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table width="100%" cellpadding="5" cellspacing="0" class="login-panel">
+				<tr>
+        			<td colspan="2" width="100px">
+        			    <input class="input-style" type="text" name="username" id="username" style="width: 100%" placeholder="MyID" 
+        			    onBlur="checkPwdHint(this.value);" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+        			</td>
+        			<div id="portal_pwd_hint" class="widget-header" style="display:none">
+        			Hint KataLaluan
+        			</div>
+				</tr>
+				<tr>
+        			<td colspan="2" width="100px">
+        				<input class="input-style" type="password" name="password" id="password" style="width: 100%" placeholder="Kata Laluan" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+        			</td>
+				</tr>
+				<tr>
+                	<td>
+                		<input class="button-login" type="button" name="btnSubmit" id="btnSubmit" value="Daftar Masuk" onClick="doLogin()" />
+                	</td>
+                	<td>
+                		<input class="button-login" type="button" name="btnLupaKataLaluan" id="btnLupaKataLaluan" value="Lupa Kata Laluan" onClick="lupaKataLaluan()"/>
+                	</td>
+                </tr>
+				<tr>
+					<td align="center" colspan="2">
+						<div id="divPortalLoginResult"></div>
+    				</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td class="box-title">
+			Pendaftaran Pengguna
+		</td>
+	</tr>
+	<tr>
+		<td class="login-description">
+			<a href="#" onclick="doDivAjaxCall3$formname('main-content','getMainContent','header=PendaftaranAkaun')">Klik di sini</a> untuk mendapatkan ID Pengguna bagi melayari sistem ini.
+		</td>
+	</tr>
+	<tr>
+		<td class="login-footer">
+			##**Daftar akaun hanya untuk <strong>penjawat awam</strong> yang ingin menggunakan perkhidmatan ini.
+		</td>
+	</tr>
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+</table>
+	
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+        $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+	
+    function doLogin() {
+    	if ( !checkIsEmpty(document.getElementById('username').value, document.getElementById('password').value, document.getElementById('divPortalLoginResult')) ) {
+    		submitAjaxLogin(document.getElementById('divPortalLoginResult'), document.getElementById('username').value, document.getElementById('password').value);
+    	}
+    }
+    
+    function submitLogin() {
+        if ( document.getElementById('username').value == "" ) { alert("Please enter user name!"); document.getElementById('username').focus(); return; }
+        if ( document.getElementById('password').value == "" ) { alert("Please enter password!"); document.getElementById('password').focus(); return; }
+        document.getElementById('header_login').action = "login";
+        document.getElementById('header_login').submit();
+    }
+    
+    function checkIsEmpty(username, password, e) {
+    	if ( username == "" ) {
+    		e.style.backgroundColor = "rgba(255,69,0,0.9)";
+    		e.style.border = "1px solid #777";
+    		e.style.color = "#FFF";
+    		e.innerHTML = "<b> #if ( $lang == "en" ) username field is empty! #elseif ( $lang == "bm" ) ruangan MyID kosong! #end </b>";
+    		e.style.display='block';
+    		return true;
+    	}
+    	if ( password == "" ) {
+    		e.style.backgroundColor = "rgba(255,69,0,0.9)";
+    		e.style.color = "#fff";
+    		e.innerHTML = "<b> #if ( $lang == "en" ) password field is empty! #elseif ( $lang == "bm" ) ruangan kata laluan kosong! #end </b>";
+    		e.style.display='block';
+    		return true;
+    	}
+    	return false;
+    }
+    
+    function submitAjaxLogin(e, username, password) {
+    	e.style.backgroundColor = "rgba(255,255,255,0.9)";
+    	e.style.border = "1px solid #777";
+    	e.style.color = "#000";
+    	e.innerHTML = "<b> #if ( $lang == "en" ) Validation... Please wait.... #elseif ( $lang == "bm" ) Pengesahan... Sila tunggu.... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+    	e.style.display='block';
+    
+    	var result = callAjaxLogin(username, password);
+    	var json = eval("(" + result + ")");
+    	if ( json.result == "true" ) {
+    		e.style.backgroundColor = "rgba(50,205,50,0.9)";
+    		e.style.color = "#FFF";
+    		e.innerHTML = "<b> #if ( $lang == "en" ) Login Success.. Transferring... #elseif ( $lang == "bm" ) Log Masuk Berjaya.. Memindahkan... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+    		window.location = "${serverUrl}";
+    	} else {
+    		e.style.backgroundColor = "rgba(255,69,0,0.9)";
+    		e.style.color = "#FFF";
+    		e.innerHTML = "<b> #if ( $lang == "en" ) Access Denied<br />Incorrect password or username #elseif ( $lang == "bm" ) Akses Ditolak<br />Salah Kata laluan atau MyID #end </b>";
+    	} 
+    }
+    
+    function submitAjaxLogin2(e, username, password, url) {
+    	e.style.backgroundColor = "rgba(255,255,255,0.9)";
+    	e.style.border = "1px solid #777";
+    	e.style.color = "#000";
+    	e.innerHTML = "<b> #if ( $lang == "en" ) Validation... Please wait.... #elseif ( $lang == "bm" ) Pengesahan... Sila tunggu.... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+    	e.style.display='block';
+    	
+    	var urls;
+    	
+    	if (url != "") urls = "${serverUrl}/c/"+url;
+    	else urls = "${serverUrl}";
+    
+    	var result = callAjaxLogin(username, password);
+    	var json = eval("(" + result + ")");
+    	if ( json.result == "true" ) {
+    		e.style.backgroundColor = "rgba(50,205,50,0.9)";
+    		e.style.color = "#FFF";
+    		e.innerHTML = "<b> #if ( $lang == "en" ) Login Success.. Transferring... #elseif ( $lang == "bm" ) Log Masuk Berjaya.. Memindahkan... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+    		window.location = urls;
+    	} else {
+    		e.style.backgroundColor = "rgba(255,69,0,0.9)";
+    		e.style.color = "#FFF";
+    		e.innerHTML = "<b> #if ( $lang == "en" ) Access Denied<br />Incorrect password or username #elseif ( $lang == "bm" ) Akses Ditolak<br />Salah Kata laluan atau MyID #end </b>";
+    	} 
+    }
+    
+    function loginInputKey(e, el) {
+    	var keynum;
+    	if (window.event) keynum = e.keyCode;
+    	else if (e.which) keynum = e.which;
+    	if ( keynum == 13 ) {
+    		if ( el.id == "username" ) {
+    			$('password').focus();
+    		} else if ( el.id == "password" ) {
+    			$('btnSubmit').focus();
+    		}
+    	}
+    }
+    
+    function lupaKataLaluan() {
+        var url = "../y/bph.portal.FrmLupaKataLaluan";
+    	var hWnd = window.open(url,'KataLaluan','width=650, height=350, toolbar=no, menubar=no, location=no, directories=no, status=no, resizable=no, scrollbars=no');
+        if ((document.window != null) && (!hWnd.opener))
+    	hWnd.opener = document.window;
+        if (hWnd.focus != null) hWnd.focus();	
+    }
+    function checkPwdHint(x) {
+    	var x = callAjaxPwdHint(x);
+    	var l = x.trim().length;
+    	if (l>0) {
+    		document.getElementById("portal_pwd_hint").style.display = 'block';
+    		document.getElementById("portal_pwd_hint").innerHTML="<b>Hint Kata Laluan</b>:<br>"+x;
+    		//alert("result="+x);
+    	} else {
+    		document.getElementById("portal_pwd_hint").style.display = 'none';
+    		document.getElementById("portal_pwd_hint").innerHTML="";
+    	}
+    	
+    }
+</script>

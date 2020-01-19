@@ -1,0 +1,193 @@
+<form name="roleForm" method="post">
+	<table width="100%" border="0" cellpadding="2" cellspacing="0">
+        <tr>
+            <td>
+                <fieldset><legend class="legend">Peranan</legend>
+                    <table cellpadding="2" cellspacing="0">
+                        <tr>
+                            <td>Nama Peranan</td>
+                			<td>:</td>
+                            <td><input type="text" name="name" size="50" maxlength="99"></td>
+                        </tr>
+                        <tr>
+                            <td>Deskripsi</td>
+                			<td>:</td>
+                            <td><input type="text" name="description" size="50" maxlength="254"></td>
+                        </tr>
+						<tr>
+                            <td >Kategori</td>
+							<td>:</td>
+                            <td>
+                                <select id="kategori" name="kategori">
+									<option value="">SILA PILIH KATEGORI</option>
+                                    <option value="0">Pengguna Awam</option>
+									<option value="1">Pengguna Dalaman</option>
+									<option value="2">Pengguna Agensi</option>
+                                </select>
+                            </td>
+                        </tr>  
+						<tr>
+                            <td >Tema</td>
+							<td>:</td>
+                            <td>
+                                <select id="theme" name="theme">
+									<option value=""></option>
+                                    #foreach ( $style in $pageStyleList )
+                                        #if ( $m_style == $style.getCssName() )
+                                            #set ( $selected = "selected")
+                                        #else
+                                            #set ($selected = "")
+                                        #end
+                                        <option value="$style.getCssName()" $selected>$style.getTitle()</option>
+                                    #end
+                                </select>
+                            </td>
+                        </tr>  
+                        <tr>
+                            <td colspan="3">
+                                <input type="button" name="btnAdd" value="Tambah Peranan" onclick="doAddRole()">
+                                <input type="button" name="btnUpdate" value="Kemaskini Peranan" disabled onclick="doUpdateRole()">
+                                <input type="button" value="Reset" onclick="doReset()">
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <fieldset><legend class="legend">Senarai Peranan</legend>
+					<font color=blue>** Nota : Sila klik ikon&nbsp;&nbsp;<img src="../img/edit.gif">&nbsp;&nbsp;untuk melihat maklumat lengkap.</font>
+					<br /><br />
+                    <table width="100%" cellpadding="1" cellspacing="0" border="0">
+                        <tr>
+                            <td>
+                                <table width="100%" cellpadding="2" cellspacing="1" border="0">
+                                    <tr height="30px" style="background-color:#CCCCCC">
+                                        <td width="2%"></td>
+                                        <td width="20%"><b>Nama</b></td>
+                                        <td width="38%"><b>Nama Peranan</b></td>
+										<td width="15%"><b>Kategori</b></td>
+										<td width="15%"><b>Tema</b></td>
+                                        <td width="5%"></td>
+										<td width="5%"></td>
+                                    </tr>
+                                    #if ( $roleList.isEmpty() )
+                                        <tr>
+                                            <td class="row1" colspan="5" align="center">Tiada)</td>
+                                        </tr>
+                                    #else
+                                        #foreach ( $role in $roleList )
+											
+                                            #set( $i = $velocityCount )
+                                            #if ( ($i % 2) == 0 )
+                                                #set( $row = "row2" )
+                                            #else
+                                                #set( $row = "row1" )
+											#end
+											
+                                            #if ( $role.getKategori() == 0 )
+                                                #set( $kategori = "Pengguna Awam" )
+                                            #elseif ( $role.getKategori() == 1 )
+                                                #set( $kategori = "Pengguna Dalaman" )
+											#elseif ( $role.getKategori() == 2 )
+												#set( $kategori = "Pengguna Agensi" )
+											#else
+												#set( $kategori = "-" )
+											#end
+											
+                                            <tr class="$row" style="height:25px">
+                                                <td align="center" style="border-bottom:1px solid #CCCCCC">$i</td>
+                                                <td style="border-bottom:1px solid #CCCCCC">$role.getName()</td>
+                                                <td style="border-bottom:1px solid #CCCCCC">$role.getDescription()</td>
+												<td style="border-bottom:1px solid #CCCCCC">$kategori</td>
+												<td style="border-bottom:1px solid #CCCCCC">#if ($role.getTheme() != "" && $role.getTheme() != "null") $role.getTheme() #else - #end</td>
+                                                <td style="border-bottom:1px solid #CCCCCC" align="center">
+                                                #if ( $role.getName() != "root" )
+                                                    <a href="javascript: doEditRole('$role.getName()','$role.getDescription()')"><img src="../img/edit.gif" border="0"></a>
+                                                #end
+                                                </td>
+                                                <td style="border-bottom:1px solid #CCCCCC" align="center">
+                                                #if ( $role.getName() != "root" )
+                                                    <a href="javascript: doDeleteRole('$role.getName()')"><img src="../img/delete.gif" border="0"></a>
+                                                #end
+                                                </td>
+                                            </tr>
+                                        #end
+                                    #end
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" name="form_action" value="">
+    <input type="hidden" name="old_name" value="">
+</form>
+
+<script>
+function doSubmit() {
+    document.roleForm.action = "";
+    document.roleForm.submit();
+}
+
+function doAddRole() {
+    if (document.roleForm.name.value == "") {
+        alert("Role Name required");
+        document.roleForm.name.focus();
+    } else if (document.roleForm.description.value == "") {
+        alert("Description required");
+        document.roleForm.description.focus();
+    } else {
+        document.roleForm.form_action.value = "add_role";
+        document.roleForm.old_name.value = "";
+        doSubmit();
+    }
+}
+
+function doEditRole(name,des) {
+    document.roleForm.name.value = name;
+    document.roleForm.description.value = des;
+    document.roleForm.old_name.value = name;
+    document.roleForm.btnAdd.disabled = true;
+    document.roleForm.btnUpdate.disabled = false;
+}
+
+function doUpdateRole() {
+    if (document.roleForm.name.value == "")
+    {
+        alert("Role Name required");
+        document.roleForm.name.focus();
+    } else if (document.roleForm.description.value == "")
+    {
+        alert("Description required");
+        document.roleForm.description.focus();
+    } else
+    {
+        document.roleForm.form_action.value = "update_role";
+        doSubmit();
+    }
+}
+
+function doReset() {
+    document.roleForm.old_name.value = "";
+    document.roleForm.name.value = "";
+    document.roleForm.description.value = "";
+    document.roleForm.btnUpdate.disabled = true;
+    document.roleForm.btnAdd.disabled = false;
+}
+
+function doDeleteRole(name) {
+    if (confirm("Delete this role?") == false)
+    {
+        return;
+    } else
+    {
+        document.roleForm.old_name.value = name;
+        document.roleForm.form_action.value = "delete_role";
+        doSubmit();
+    }
+}
+</script>

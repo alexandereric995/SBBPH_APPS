@@ -1,0 +1,37 @@
+<table width="80%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr> 
+  
+  #date_input("findTarikhAduan" "Tarikh Aduan Dibuat" "")
+  
+  <tr>
+    <td class="label">Jenis Kerosakan</td>
+    <td>:</td>
+    <td>
+		<select class="texts" id="findBarangDeposit" name="findBarangDeposit" style="width:100%">
+			<option value="">SILA PILIH</option>
+            #foreach( $n in $listBarangDeposit)
+				<option value="$n.id">$n.nama.toUpperCase()</option>
+			#end
+			<option value="999">LAIN - LAIN</option>
+		</select>
+	</td>
+  </tr>
+  
+  <tr>
+    <td class="label">Status</td>
+    <td>:</td>
+    <td>
+		<select class="texts" id="findStatus" name="findStatus" style="width:100%">
+			<option value="">SILA PILIH</option>
+            #foreach( $n in $listStatusAduanKerosakan)
+				<option value="$n.id">$n.keterangan.toUpperCase()</option>
+			#end
+		</select>
+	</td>
+  </tr>
+  
+</table>

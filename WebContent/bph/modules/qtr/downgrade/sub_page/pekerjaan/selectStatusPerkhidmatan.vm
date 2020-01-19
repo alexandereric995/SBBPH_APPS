@@ -1,0 +1,44 @@
+<select id="idStatusPerkhidmatan" name="idStatusPerkhidmatan" style="width:100%" onChange="$('err_idStatusPerkhidmatan').innerHTML=''; at(this, event);">
+    <option value="">SILA PILIH</option>
+    #foreach( $n in $selectStatusPerkhidmatan )
+        <option #if ( $n.id ==  $!uj.statusPerkhidmatan.id) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+    #end
+</select>
+	
+<script>
+	var x = "$uj.statusPerkhidmatan.id";
+	
+	if ( x != "" ) {
+		if ( x == "03" ) {
+    		_jQuery.jGrowl("Status Perkhidmatan Sambilan tidak layak untuk membuat permohonan", 
+    			{ 
+    				header: 'Permohonan Ditolak:',
+    				life: 5000,
+    				theme:  'error',
+    				speed:  'slow'
+    			}
+    		);
+    	} else if ( x == "02" ) {
+			_jq("#perKontrak").show();
+		} else {
+    		_jq("#perKontrak").hide();
+    	}
+	}
+	
+    _jq("#idStatusPerkhidmatan").change(function() {
+    	if ( this.value == "03" ) {
+    		_jQuery.jGrowl("Status Perkhidmatan Sambilan tidak layak untuk membuat permohonan", 
+    			{ 
+    				header: 'Permohonan Ditolak:',
+    				life: 5000,
+    				theme:  'error',
+    				speed:  'slow'
+    			}
+    		);
+    	} else if ( this.value == "02" ) {
+    		_jq("#perKontrak").show();
+    	} else {
+    		_jq("#perKontrak").hide();
+    	}
+    });
+</script>

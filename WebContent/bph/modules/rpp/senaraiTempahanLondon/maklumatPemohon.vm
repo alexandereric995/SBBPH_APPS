@@ -1,0 +1,71 @@
+
+
+<fieldset>
+<legend class="legend">maklumat pemohon</legend>
+	
+	<table width="100%" cellpadding="1" cellspacing="1">
+		
+		<tr>
+			<td width="43%" valign="top">
+				<table width="100%" cellpadding="1" cellspacing="1">
+					<tr>
+						<td style="width:160px"></td>
+						<td style="width:10px"></td>
+						<td></td>
+					</tr>
+					
+					#show("No. Kad Pengenalan" "$!util.replaceIfNull($!r.getMaklumatPemohon().nokp,'-')")
+					#show("Nama Pemohon" "$!util.replaceIfNull($!r.getMaklumatPemohon().nama,'-')")
+    				#show("No. Telefon Pejabat" "$!util.replaceIfNull($!r.getMaklumatPemohon().noTelPejabat,'-')")
+    				#show("No. Telefon Bimbit" "$!util.replaceIfNull($!r.getMaklumatPemohon().noTelBimbit,'-')")
+    				#show("Emel" "$!util.replaceIfNull($!r.getMaklumatPemohon().emel,'-')")
+    				#show("No. Faks" "$!util.replaceIfNull($!r.getMaklumatPemohon().noFaks,'-')")
+						
+				</table>
+			</td>
+			
+			<td width="2%">&nbsp;</td>
+			
+			<td width="55%" valign="top">
+				<table width="100%" cellpadding="1" cellspacing="1">
+					<tr>
+						<td style="width:170px"></td>
+						<td style="width:10px"></td>
+						<td></td>
+					</tr>
+						
+					#show("Jawatan dan Gred" "$!util.replaceIfNull($!r.getMaklumatPemohon().jawatanDanGred,'-')")
+					#show("Kementerian / Jabatan" "$!util.replaceIfNull($!r.getMaklumatPemohon().kementerianJabatan,'-')")
+					#show("Alamat" "$!util.replaceIfNull($!r.getMaklumatPemohon().alamatPejabat1,'-')")
+					#show("" "$!util.replaceIfNull($!r.getMaklumatPemohon().alamatPejabat2,'-')")
+					#show("" "$!util.replaceIfNull($!r.getMaklumatPemohon().alamatPejabat3,'-')")
+						
+				</table>
+			</td>
+		</tr>
+		
+	</table>
+	
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr><td colspan="3"><hr/></td></tr>
+		<tr>
+			<td style="width:160px" class="label" valign="top">Catatan</td>
+            <td style="width:10px" class="label" valign="top">:</td>
+            <td valign="top">
+				$!util.replaceIfNull($!r.catatanHq,"TIADA")
+			</td>
+        </tr>
+	</table>
+	
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>
+	  

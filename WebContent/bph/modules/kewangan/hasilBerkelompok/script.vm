@@ -1,0 +1,60 @@
+function validate() {
+	var err_count = 0;
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doSimpanTerimaanBerkelompok(){
+
+	var err_count = 0;
+	
+	var noInvois = $('noInvois').value;
+	if ( noInvois == "" ) {$('err_noInvois').innerHTML = "No. Invois adalah mandatori!"; err_count++;  }
+	
+	var noEft = $('noEft').value;
+	if ( noEft == "" ) {$('err_noEft').innerHTML = "No. EFT adalah mandatori!"; err_count++;  }
+	
+	var tarikhEft = $('tarikhEft').value;
+	if ( tarikhEft == "" ) {$('err_tarikhEft').innerHTML = "Tarikh EFT adalah mandatori!"; err_count++;  }
+	
+	var amaunBayaran = $('amaunBayaran').value;
+	if ( amaunBayaran == "" ) {$('err_amaunBayaran').innerHTML = "Amaun Bayaran adalah mandatori!"; err_count++;  }
+	
+	var jumlahYangPerluDibayar = $('jumlahBayaranPerluDibayar').value;
+	if (err_count == 0) {
+	
+		if(parseFloat(amaunBayaran) > parseFloat(jumlahYangPerluDibayar)){
+	    	if ( !window.confirm("Jumlah Amaun Bayaran melebihi jumlah yang perlu dibayar. Anda pasti?") ){
+				return;
+			}
+	    }
+			
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('div_main_entry','doSimpanTerimaanBerkelompok','');
+	}
+	return err_count == 0;
+}
+
+function doSimpanNoInvois(){
+
+	var err_count = 0;
+	
+	var noInvois = $('noInvois').value;
+	if ( noInvois == "" ) {$('err_noInvois').innerHTML = "No. Invois adalah mandatori!"; err_count++;  }
+	
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('div_main_entry','doSimpanNoInvois','');
+	}
+	return err_count == 0;
+}

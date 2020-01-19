@@ -1,0 +1,28 @@
+##if( $dev=="true" )
+
+<td>$!r.pemohon.userName</td>
+<td>$!r.pemohon.noKP</td>
+#if ( $bersyarat == "tidak" )
+	<td>$!r.getNoGiliranBaru()</td>
+#end
+<td>$!r.kelasKuarters</td>
+<td>$!r.permohonan.lokasi.lokasi</td>
+#if ( $!r.permohonan.tarikhPermohonan )
+	#set( $tarikhPermohonan = $util.getDateTime($!r.permohonan.tarikhPermohonan, 'dd-MM-yyyy') )
+#else	
+	#set( $tarikhPermohonan = "-" )
+#end
+<td>$tarikhPermohonan</td>
+#if ( $r.tarikhKemaskini )
+	#set( $tarikhKemaskini = $util.getDateTime($r.tarikhKemaskini, 'dd-MM-yyyy - hh:mm:ss a') )
+#else	
+	#set( $tarikhKemaskini = "-" )
+#end
+<td>$tarikhKemaskini</td>
+#if ( $bersyarat == "ya" )
+	<td>$util.getSebabPenolakan($r.id)</td>
+#end
+
+##else
+	##SEMENTARA
+	##parse("$path/notis.vm")   	

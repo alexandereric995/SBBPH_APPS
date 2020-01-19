@@ -1,0 +1,194 @@
+function validate() {
+	var err_count = 0;
+	
+	var idLokasi = $('idLokasi').value;
+	if ( idLokasi == "" ) {$('err_idLokasi').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+## SENARAI JKH
+function deleteSenaraiJKH(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divPenyediaanIndenKerja','deleteSenaraiJKH','idJKH=' + id);
+}
+
+## MAKLUMAT PEMILIHAN KONTRAKTOR
+function lantikKontraktor(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+
+	doDivAjaxCall3$formname('divPemilihanKontraktorRecordModule','simpanLantikanKontraktor','idDaftarKontraktor=' + id);
+}
+
+## MAKLUMAT NOTA MINTA
+function updateNotaMinta(){
+	var err_count = 0;
+	
+	var tarikhSST = $('tarikhSST').value;
+	if ( tarikhSST == "" ) {$('err_tarikhSST').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var noRujukanSST = $('noRujukanSST').value;
+	if ( noRujukanSST == "" ) {$('err_noRujukanSST').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divCetakanIndenKerjaNotaMintaRecordModule','updateNotaMinta','');
+	}
+}
+
+function simpanPenukaranKontraktor(id) {
+	var err_count = 0;
+	
+	var idSebabPenukaran = $('idSebabPenukaran').value;
+	if ( idSebabPenukaran == "" ) {$('err_idSebabPenukaran').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		$('div_main_entry').style.display='none';
+		$('div_main').style.display='block';
+		doDivAjaxCall$formname('div_list','simpanPenukaranKontraktor','page_num=$!current_page_num')
+	}
+}
+
+function simpanHantarTugasan(id) {
+	var err_count = 0;
+	
+	var idPenyemakSenggara = $('idPenyemakSenggara').value;
+	if ( idPenyemakSenggara == "" ) {$('err_idPenyemakSenggara').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		$('div_main_entry').style.display='none';
+		$('div_main').style.display='block';
+		doDivAjaxCall$formname('div_list','simpanHantarTugasan','page_num=$!current_page_num')
+	}
+}
+
+## AGIHAN TUGAS PEMANTAUAN KERJA
+function simpanAgihanTugas(){
+	var err_count = 0;
+	
+	var idPenyediaSenggara = $('idPenyediaSenggara').value;
+		if ( idPenyediaSenggara == "" ) {$('err_idPenyediaSenggara').innerHTML = "** mandatori!"; err_count++;  }
+
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divAgihanTugasPemantauanKerjaRecordModule','simpanAgihanTugas','');
+	}	
+}
+
+## LOG PEMANTAUAN KERJA
+function simpanKemaskiniLogPemantauanKerja(){
+	var err_count = 0;
+	
+	var tarikh = $('tarikh').value;
+	if ( tarikh == "" ) {$('err_tarikh').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var catatan = $('catatan').value;
+	if ( catatan == "" ) {$('err_catatan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var peratusanKerja = $('peratusanKerja').value;
+	if ( peratusanKerja == "" ) {$('err_peratusanKerja').innerHTML = "** mandatori!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divPemantauanKerjaRecordModule','simpanKemaskiniLogPemantauanKerja','');
+	}	
+}
+
+function deleteLogPemantauanKerja(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divPemantauanKerjaRecordModule','deleteLogPemantauanKerja','idLog=' + id);
+}
+
+## LAPORAN PEMBAIKAN
+function uploadLampiranLaporanPembaikan() {
+
+	var idJKH = $('idJKH').value;
+	$('err_lampiranLaporanPembaikan').innerHTML = '';
+
+	var err_count = 0;	
+	if ($('lampiranLaporanPembaikan').value != "" && !checkDoc($('lampiranLaporanPembaikan').value)) {
+		err_count++;
+		$('lampiranLaporanPembaikan').value = "";
+		$('err_lampiranLaporanPembaikan').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (doc, docx, xls, xlsx atau pdf)';
+	}
+	if ($('lampiranLaporanPembaikan').value != "" && $('lampiranLaporanPembaikan').files[0].size > 2097152) {
+		err_count++;
+		$('err_lampiranLaporanPembaikan').innerHTML = "Saiz fail adalah "+($('lampiranLaporanPembaikan').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('lampiranLaporanPembaikan').value = "";
+	}
+	
+	if (err_count == 0) {
+		$('uploadLampiranLaporanPembaikan').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_lampiran_laporan_pembaikan';
+		document.${formName}.action='?command=uploadLampiranLaporanPembaikan&idJKH='+idJKH;
+		document.${formName}.submit();
+	}
+}
+
+function checkDoc(val){
+	var arr = val.split(".");
+    var arr1 = val.split("\\");
+    if (arr[1] == "PDF" || arr[1] == "pdf" || arr[1] == "doc" || arr[1] == "DOC" || arr[1] == "docx" || arr[1] == "DOCX" || arr[1] == "xlsx" || arr[1] == "XLSX" || arr[1] == "xls" || arr[1] == "XLS") {
+    	return true;
+    } else {
+    	return false;
+    }
+}
+
+function simpanSelesaiPembaikan(){
+	var err_count = 0;
+	
+	var tarikhSelesaiPembaikan = $('tarikhSelesaiPembaikan').value;
+	if ( tarikhSelesaiPembaikan == "" ) {$('err_tarikhSelesaiPembaikan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divPemantauanKerjaRecordModule','simpanSelesaiPembaikan','');
+	}	
+}
+
+## PENILAIAN KONTRAKTOR
+function savePenilaianKontraktor() {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+
+	doDivAjaxCall3$formname('divPenilaianKontraktorRecordModule','savePenilaianKontraktor','');
+}
+
+## PROSES BAYARAN
+function updateProsesBayaran() {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+
+	doDivAjaxCall3$formname('divProsesBayaranRecordModule','updateProsesBayaran','');
+}

@@ -1,0 +1,99 @@
+
+<fieldset>
+<legend class="legend">Maklumat Aduan</legend>
+
+    <table width="100%">
+      <tr>
+        <td style="width:200px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+      </tr>
+      
+	  #show("TARIKH ADUAN DIBUAT" "$!util.getDateTime($!r.tarikhAduan,'dd-MM-yyyy')")
+	  #show("JENIS KEROSAKAN" "$!r.barangDeposit.nama.toUpperCase()")
+      #show("KETERANGAN" "$!r.keterangan")
+      #show("KUANTITI" "$!r.kuantiti")
+	  #show("JUMLAH BAYARAN KEROSAKAN" "RM $!util.formatDecimal($!r.harga)")
+	  #show("STATUS ADUAN" "$!r.status.keterangan")
+	
+    </table>
+
+</fieldset>
+
+
+<fieldset>
+<legend class="legend">Gambar</legend>
+
+    <table width="100%">
+      <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+      </tr>
+      
+      <tr>
+		<td colspan="3">
+				#if ($senaraiGambar.size() > 0)
+					<div style="width:100%;height:150;overflow:auto"> 
+    					#foreach ($i in $senaraiGambar)
+        				<div style="float:left;padding:0.1cm">
+        					<a href="../download?file=$!uploadDir$!i.photofilename"> 
+                    			#if ($i.thumbfilename != "") 
+                    				<img style="border:1px solid black;width:120px;height:120px;margin:4px 0 4px;" width="120px" height="120px" id="photoImg" src="../download?file=$!uploadDir$i.thumbfilename" border="0" /> 
+                    			#else 
+                    				#set($photofilename = $!i.photofilename.substring($!i.photofilename.lastIndexOf('/'))) 
+                    				<span class="print">$!photofilename</span> 
+                    			#end 
+                    		</a>
+        				</div>
+    					#end
+					</div>
+				#else
+					TIADA GAMBAR DISERTAKAN	
+				#end
+		</td>
+	  </tr>
+    
+    </table>
+
+</fieldset>
+
+
+<fieldset>
+<legend class="legend">Ulasan</legend>
+
+    <table width="100%">
+	  <tr>
+		<td>
+			<textarea id="ulasanHq" style="height:100px" name="ulasanHq" onKeyUp="$('err_ulasanHq').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">$!r.ulasanHq</textarea>
+			<div id="err_ulasanHq" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	  </tr>
+	  <tr>
+		<td><input type="checkbox" #if($!r.flagSelesai=="Y") checked #end name="flagSelesai" id="flagSelesai" value="Y" />&nbsp; ADUAN SELESAI</td>
+	  </tr>
+    </table>
+
+</fieldset>
+
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="right">##Fatin 13/06/2015
+			#set ( $queryParam = "record_id=$!r.id" )
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+			<input type="button" value="Simpan" onClick="if ( validateField() ) doDivAjaxCall$formname('div_main_entry','save_data','$queryParam')">
+			<input type="button" value="Kosongkan" onclick="javascript:kosongkan();">
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

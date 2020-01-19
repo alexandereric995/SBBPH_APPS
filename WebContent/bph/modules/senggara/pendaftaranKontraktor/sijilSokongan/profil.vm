@@ -1,0 +1,37 @@
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px">
+          	<input class="texts" type="file" id="dokumenProfil" name="dokumenProfil" style="width:500px" onFocus="$('err_dokumenProfil').innerHTML = '';" onChange="uploadProfil()">
+            <div id="muatNaikSijilProfil" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+            <div id="err_dokumenProfil" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($r.kontraktor.filenameProfil )
+	        #if ($r.kontraktor.filenameProfil != "")
+	        <tr>
+	          <td style="width:150px">  <a href="../download?file=$!uploadDir$!r.kontraktor.filenameProfil" > <span class="print">PROFIL KONTRAKTOR<span> </a> &nbsp;&nbsp;<input id="hapusProfil" name="hapusProfil" type="button" value="Hapus" onclick="javascript:doHapusProfil();"/> </td>
+	          <td style="width:10px"></td>
+	          <td></td>
+	        </tr>
+	        #end
+        #end
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<iframe id="upload_Profil" name="upload_Profil" width="0px" height="0px" style="visibility:hidden"></iframe>

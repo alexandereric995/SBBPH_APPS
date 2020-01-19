@@ -1,0 +1,35 @@
+
+<td>
+	<b>Nama :</b> <a href="javascript:void()" style="color:blue" onClick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')">$!r.pemohon.userName.toUpperCase() </a><br/>
+	<b>MyID :</b> $!r.pemohon.noKP<br/>
+	<b>No. Telefon :</b> $!r.pemohon.noTelefon<br/>
+  	<b>No. Telefon Bimbit :</b> $!r.pemohon.noTelefonBimbit<br/>
+  	<b>Emel :</b> $!r.pemohon.emel
+</td>
+
+<td>
+	<b>No.tempahan :</b> $!util.replaceIfNull($!r.noTempahan.toUpperCase(),"-")<br/>
+	<b>Lokasi :</b> $!r.rppPeranginan.namaPeranginan.toUpperCase()<br/>
+</td>
+<td>$!util.getDateTime($!r.tarikhPermohonan,'dd-MM-yyyy')</td>
+<td>$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy')</td>
+<td>$!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')</td>
+<td>
+	#if( $!r.getObjTuntutanDeposit())
+		## PERMOHONAN DEPOSIT(1436464445665) - PERMOHONAN TELAH DIAGIHKAN(1436464445668) - PELARASAN AMAUN TUNTUTAN(1436464445673)
+		## - MOHON PENGESAHAN PELARASAN (1438023402951) - MOHON KELULUSAN PELARASAN (1438023402975) - PELARASAN DILULUSKAN (1438023402980)
+
+		<span style="color:blue">
+			$!r.getObjTuntutanDeposit().status.keterangan.toUpperCase()
+    		##if($!r.getObjTuntutanDeposit().status.id != "1436464445665")
+    		##	DALAM PROSES
+			##elseif($!r.getObjTuntutanDeposit().status.id == "1438023402980")
+			##	$!r.getObjTuntutanDeposit().status.keterangan.toUpperCase()
+    		##else
+    		##	$!r.getObjTuntutanDeposit().status.keterangan.toUpperCase()
+    		##end
+		</span>
+	#else	
+		<span style="color:#FF2A00">BELUM DISAHKAN</span>
+	#end	
+</td>

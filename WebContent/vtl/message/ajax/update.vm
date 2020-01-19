@@ -1,0 +1,83 @@
+
+#set ( $subject = $session.getAttribute("subject"))
+#set ( $message = $session.getAttribute("message"))
+#if ( $subject == "")
+	#set ( $subject = $forum.title )
+	#set ( $message = $forum.notes )
+#end
+
+
+
+<table width="100%" border="0" cellspacing="1" cellpadding="1">
+	<tr>
+		<td>
+		
+			<table width="100%" border="0" cellspacing="1" cellpadding="1">
+				<tr>
+					<td>
+<b>						Title:</b>
+												<input class="text" name="title" value="$forum.title" style="width:100%; font-family:verdana; font-weight:bold">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						$forum.postedBy
+					</td>
+				</tr>
+				<tr>
+					<td>
+						$forum.datePosted
+					</td>
+				</tr>				
+				</table>
+
+##parse("vtl/editor/fck.vm")
+								
+								<table>
+				<tr>
+					<td>
+						<input class="button" type="button" value="Update" 
+						onclick="doAjaxCall$formname('SubmitUpdate', 'forum_id=$forum.id')">
+						##onclick="save_${formname}()">
+
+						<input class="button" type="button" value="Cancel" 
+						onclick="doAjaxCall$formname('Open', 'forum_id=$forum.id')">
+						##onclick="cancel_${formname}()">
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+##<textarea name="content" cols="40" rows="10" style="visibility:hidden">$!message</textarea>
+<textarea name="message" style="width:100%; height:200px">$forum.message</textarea>
+
+
+<input type="hidden" name="$formname" value="$formname">
+
+
+<script>
+
+document.${formname}.message.value = document.${formname}.content.value;
+
+function save_${formname}() {
+update_${formname}();
+}
+
+function update_${formname}() {
+
+	document.${formname}.action = "?command=SubmitUpdate&subjectId=$!subjectId&forum_id=$forum.id";	
+	document.${formname}.submit();	
+}
+
+function cancel_${formname}() {
+	document.${formname}.action = "?command=Open&subjectId=$!subjectId&forum_id=$forum.id";
+	document.${formname}.submit();
+}
+
+function attachment_${formname}() {
+
+	document.${formname}.action = "?command=AttachmentTopic&subjectId=$!subjectId&forum_id=$forum_id";
+	document.${formname}.submit();
+}
+</script>

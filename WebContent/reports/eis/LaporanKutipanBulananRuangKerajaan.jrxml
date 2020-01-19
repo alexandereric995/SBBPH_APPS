@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="LaporanKutipanBulananRuangKerajaan"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="590"
+		 pageHeight="850"
+		 columnWidth="530"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoDataSection"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="tahun" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[select month(kew_bayaran_resit.tarikh_bayaran), kew_invois.id_kod_hasil kodHasil, sum(kew_bayaran_resit.jumlah_amaun_bayaran) total
+from kew_bayaran_resit
+join kew_resit_senarai_invois on kew_bayaran_resit.id = kew_resit_senarai_invois.id_bayaran_resit
+join kew_invois on kew_resit_senarai_invois.id_invois = kew_invois.id
+join ruj_kod_hasil on kew_invois.id_kod_hasil = ruj_kod_hasil.id
+where kew_bayaran_resit.flag_void = 'T'
+and year(kew_bayaran_resit.tarikh_bayaran) = '$P!{tahun}'
+group by month(kew_bayaran_resit.tarikh_bayaran), kew_invois.id_kod_hasil]]></queryString>
+
+	<field name="month(kew_bayaran_resit.tarikh_bayaran)" class="java.lang.Integer"/>
+	<field name="kodHasil" class="java.lang.String"/>
+	<field name="total" class="java.lang.Double"/>
+
+	<variable name="74202" class="java.lang.Double" resetType="Group" resetGroup="month" calculation="Sum">
+		<variableExpression><![CDATA[$F{kodHasil}.equals("74202")? $F{total} : new Double(0.00)]]></variableExpression>
+	</variable>
+	<variable name="79503" class="java.lang.Double" resetType="Group" resetGroup="month" calculation="Sum">
+		<variableExpression><![CDATA[$F{kodHasil}.equals("79503")? $F{total} : new Double(0.00)]]></variableExpression>
+	</variable>
+	<variable name="74202_TOTAL" class="java.lang.Double" resetType="Column" incrementType="Group" incrementGroup="month" calculation="Sum">
+		<variableExpression><![CDATA[$V{74202}]]></variableExpression>
+	</variable>
+	<variable name="79503_TOTAL" class="java.lang.Double" resetType="Column" incrementType="Group" incrementGroup="month" calculation="Sum">
+		<variableExpression><![CDATA[$V{79503}]]></variableExpression>
+	</variable>
+
+		<group  name="month" >
+			<groupExpression><![CDATA[$F{month(kew_bayaran_resit.tarikh_bayaran)}]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="29"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="30"
+						y="0"
+						width="150"
+						height="29"
+						key="textField-1"/>
+					<box leftPadding="5" rightPadding="2">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{month(kew_bayaran_resit.tarikh_bayaran)}.toString().equals("1") ? "JANUARI" :
+$F{month(kew_bayaran_resit.tarikh_bayaran)}.toString().equals("2") ? "FEBRUARI" : 
+$F{month(kew_bayaran_resit.tarikh_bayaran)}.toString().equals("3") ? "MAC" :
+$F{month(kew_bayaran_resit.tarikh_bayaran)}.toString().equals("4") ? "APRIL" : 
+$F{month(kew_bayaran_resit.tarikh_bayaran)}.toString().equals("5") ? "MEI" : 
+$F{month(kew_bayaran_resit.tarikh_bayaran)}.toString().equals("6") ? "JUN" : 
+$F{month(kew_bayaran_resit.tarikh_bayaran)}.toString().equals("7") ? "JULAI" : 
+$F{month(kew_bayaran_resit.tarikh_bayaran)}.toString().equals("8") ? "OGOS" : 
+$F{month(kew_bayaran_resit.tarikh_bayaran)}.toString().equals("9") ? "SEPTEMBER" : 
+$F{month(kew_bayaran_resit.tarikh_bayaran)}.toString().equals("10") ? "OKTOBER" : 
+$F{month(kew_bayaran_resit.tarikh_bayaran)}.toString().equals("11") ? "NOVEMBER" : 
+$F{month(kew_bayaran_resit.tarikh_bayaran)}.toString().equals("12") ? "DISEMBER" : "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="339"
+						y="0"
+						width="160"
+						height="29"
+						key="textField-2"/>
+					<box leftPadding="2" rightPadding="2">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{79503}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="180"
+						y="0"
+						width="159"
+						height="29"
+						key="textField-8"/>
+					<box leftPadding="2" rightPadding="2">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{74202}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="50"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="30"
+						y="9"
+						width="469"
+						height="31"
+						key="textField-9"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true" isUnderline="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["LAPORAN KUTIPAN BPH KESELURUHAN MENGIKUT JENIS KUTIPAN DI SEKSYEN PENGURUSAN BANGUNAN KERAJAAN PADA TAHUN " + $P{tahun}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="50"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="339"
+						y="10"
+						width="160"
+						height="40"
+						backcolor="#CCCCCC"
+						key="textField-3"/>
+					<box leftPadding="2" rightPadding="2">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["DEPOSIT (RM)"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="30"
+						y="10"
+						width="150"
+						height="40"
+						backcolor="#CCCCCC"
+						key="textField-4"/>
+					<box leftPadding="2" rightPadding="2">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["BULAN/ KETERANGAN"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="180"
+						y="10"
+						width="159"
+						height="40"
+						backcolor="#CCCCCC"
+						key="textField-7"/>
+					<box leftPadding="2" rightPadding="2">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["SEWA BANGUNAN PEJABAT (RM)"]]></textFieldExpression>
+				</textField>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="29"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="339"
+						y="0"
+						width="160"
+						height="29"
+						backcolor="#CCCCCC"
+						key="textField-11"/>
+					<box leftPadding="2" rightPadding="2">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true" isUnderline="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{79503_TOTAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="180"
+						y="0"
+						width="159"
+						height="29"
+						backcolor="#CCCCCC"
+						key="textField-12"/>
+					<box leftPadding="2" rightPadding="2">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true" isUnderline="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{74202_TOTAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="30"
+						y="0"
+						width="150"
+						height="29"
+						backcolor="#CCCCCC"
+						key="textField-10"/>
+					<box leftPadding="5" rightPadding="2">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["JUMLAH (RM)"]]></textFieldExpression>
+				</textField>
+			</band>
+		</summary>
+		<noData>
+			<band height="141"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="30"
+						y="10"
+						width="469"
+						height="31"
+						key="textField-13"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true" isUnderline="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["LAPORAN KUTIPAN BPH KESELURUHAN MENGIKUT JENIS KUTIPAN DI SEKSYEN PENGURUSAN BANGUNAN KERAJAAN PADA TAHUN " + $P{tahun}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="339"
+						y="61"
+						width="160"
+						height="40"
+						backcolor="#CCCCCC"
+						key="textField-14"/>
+					<box leftPadding="2" rightPadding="2">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["DEPOSIT (RM)"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="30"
+						y="61"
+						width="150"
+						height="40"
+						backcolor="#CCCCCC"
+						key="textField-15"/>
+					<box leftPadding="2" rightPadding="2">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["BULAN/ KETERANGAN"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="180"
+						y="61"
+						width="159"
+						height="40"
+						backcolor="#CCCCCC"
+						key="textField-16"/>
+					<box leftPadding="2" rightPadding="2">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["SEWA BANGUNAN PEJABAT (RM)"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="30"
+						y="101"
+						width="469"
+						height="40"
+						backcolor="#FFFFFF"
+						key="textField-17"/>
+					<box leftPadding="2" rightPadding="2">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["TIADA MAKLUMAT"]]></textFieldExpression>
+				</textField>
+			</band>
+		</noData>
+</jasperReport>

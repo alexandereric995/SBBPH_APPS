@@ -1,0 +1,136 @@
+
+<fieldset>
+<legend class="legend">Maklumat Senarai Hitam</legend>
+    
+	<table width="100%">
+        <tr>
+            <td style="width:200px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+        </tr>
+		
+        <tr>
+            <td class="label">No. Pengenalan &nbsp;</td>
+            <td>:</td>
+            <td>$!r.pemohon.noKP</td>
+		</tr>
+		
+        <tr>
+            <td class="label">Nama Pemohon</td>
+            <td>:</td>
+            <td>$!r.pemohon.userName.toUpperCase()</td>
+        </tr>
+		
+		<tr>
+            <td class="label">Lokasi Permohonan</td>
+            <td>:</td>
+            <td>$util.replaceIfNull($!r.permohonan.rppPeranginan.namaPeranginan.toUpperCase(),"-")</td>
+        </tr>
+		
+		<tr>
+            <td class="label">Tarikh Menginap</td>
+            <td>:</td>
+            <td>
+				$!util.getDateTime($!r.permohonan.tarikhMasukRpp,'dd/MM/yyyy') - $!util.getDateTime($!r.permohonan.tarikhKeluarRpp,'dd/MM/yyyy')
+			</td>
+        </tr>
+		
+		<tr>
+            <td class="label">Sebab Disenarai Hitam</td>
+            <td>:</td>
+            <td>$!r.sebab.toUpperCase()</td>
+        </tr>
+		
+		<tr>
+            <td class="label">Catatan</td>
+            <td>:</td>
+            <td>$!r.catatan.toUpperCase()</td>
+        </tr>
+		
+		##input("sebab" "Sebab" "$!r.sebab") 
+		##textarea("catatan" "Catatan" "$!r.catatan") 
+		
+		<tr>
+            <td class="label" valign="top">Tarikh Mula &nbsp;<span style="color:#FF2A00">*</span></td>
+            <td class="label" valign="top">:</td>
+            <td valign="top">
+                <input type="text" id="tarikhMula" style="width:170px;" name="tarikhMula" value="$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')" onChange=" $('err_tarikhMula').innerHTML=''; at(this, event);" style="width: 50%">
+                    <span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+		    		<script>
+		            	_jq("#tarikhMula").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+							readonly_element: false
+		            	});
+		    		</script>
+				<div id="err_tarikhMula" style="color:#CC0000;font-weight:bold;border:2px #000"></div>	
+        	</td>
+        </tr>
+		
+        <tr>
+			<td class="label" valign="top">Tarikh Tamat &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top">
+				<input type="text" id="tarikhTamat" style="width:170px;" name="tarikhTamat" value="$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')" onChange=" $('err_tarikhTamat').innerHTML=''; at(this, event);" style="width: 50%">
+                <span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+		    		<script>
+		            	_jq("#tarikhTamat").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+							readonly_element: false
+		            	});
+		    		</script>
+				<div id="err_tarikhTamat" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		
+		<tr>
+            <td class="label" valign="top">Status Permohonan &nbsp;<span style="color:#FF2A00">*</span></td>
+            <td valign="top">:</td>
+            <td valign="top">
+				#foreach( $s in $selectStatusSenaraiHitam )
+					<input type="radio" #if($s.id == $!r.status.id) checked #end id="status$s.id" name="status" value="$s.id" onclick=" $('err_status').innerHTML=''; at(this, event);" >
+					 $s.keterangan.toUpperCase() &nbsp;
+				#end
+				<div id="err_status" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+		
+		<!--
+        <tr>
+            <td class="label">Status Senarai Hitam</td>
+            <td>:</td>
+            <td>
+                <select class="texts" name="flag1" id="flag1" style="width:100%" >
+                    <option value="" selected="selected">SILA PILIH</option>
+                    <option value="Y" #if ( $r.flagAktif == "Y" ) selected #end>AKTIF</option>
+                        <option value="T" #if ( $r.flagAktif == "T" ) selected #end>TIDAK AKTIF</option>
+                </select>
+            </td>
+        </tr>
+		-->
+		
+	</table>
+</fieldset>
+
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="right">##Fatin 13/06/2015
+			#set ( $queryParam = "record_id=$!r.id" )
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+			<input type="button" value="Simpan" onClick="if ( validateField() ) doDivAjaxCall$formname('div_main_entry','save_data','$queryParam')">	
+			<input type="button" value="Kosongkan" onclick="javascript:kosongkan();">
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+
+<div id="senaraiHitam"></div>
+
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init'); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

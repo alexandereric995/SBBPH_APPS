@@ -1,0 +1,54 @@
+<input type="hidden" name="peranginanId" id="peranginanId" value="$!idPeranginan" />
+
+<fieldset>
+<legend class="legend">CATATAN PENYELIA</legend>
+<table width="100%" cellpadding="2" cellspacing="2">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  
+  #if( $!r )
+	#show("Tarikh Catatan" "$!util.getDateTime($!r.tarikhCatatan,'dd-MM-yyyy')")
+  #end
+  
+  #if(!$!userRole.equalsIgnoreCase("(RPP) Penyelia"))
+	##HQ
+	#show("Rumah Peranginan" "$!r.peranginan.namaPeranginan.toUpperCase()")
+	#show("Penyelia" "$!r.pendaftar.userName.toUpperCase()")
+	#show("Tajuk" "$!r.tajuk")
+	#show("Catatan" "$!r.catatan")
+  #else
+	##PENYELIA
+	#input_required("tajuk" "Tajuk" "$!r.tajuk")
+	#textarea_required("catatan" "Catatan" "$!r.catatan")
+  #end	
+  
+</table>
+</fieldset>
+
+	#if($!userRole.equalsIgnoreCase("(RPP) Penyelia"))
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+    			<input id="btnSave" type="button" value="Simpan" onClick="doSaveMain('$!r.id')">
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>	
+	#end
+	
+#if( $!r )	
+<div id="divListUlasan">#parse("$path/senaraiUlasan.vm")</div>
+#end
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

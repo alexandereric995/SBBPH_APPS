@@ -1,0 +1,277 @@
+#parse("bph/dashboard/style.vm")
+#parse("$path/script.vm")
+<table width="100%" border="0" cellspacing="0" cellpadding="5">
+<tr>
+  <td width="60%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="5">
+      <tr>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+            <tr>
+              <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                  <tr>
+                    <td width="15%" valign="top" align="center"><img src="../bph/dashboard/picture/myprofile.png"  width="30" height="30" align="center"/></td>
+                    <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                        <tr>
+                          <td><font color="black" style="font-size:120%"><b>Profil</b></td>
+                        </tr>                       
+                        <tr>
+                          <td><a href="javascript:gotoProfile()" class="help" title="Profil Pengguna">
+                            <li><font color="blue" style="font-size:110%">&nbsp;Profil Pengguna</font></li>
+                            </a></td>
+                        </tr>
+                        <tr>
+                          <td><a href="javascript:gotoKataLaluan()" class="help" title="Tukar Kata Laluan">
+                            <li><font color="blue" style="font-size:110%">&nbsp;Tukar Kata Laluan</font></li>
+                            </a></td>
+                        </tr>
+                      </table></td>
+                  </tr>
+                </table></td>
+              <td width="50%" valign="top">&nbsp;</td>
+            </tr>
+          </table></td>
+      </tr>
+      ## LAYER 2 
+      <tr>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+            <tr>
+              <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                  <tr>
+                    <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                    <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                        <tr>
+                          <td><font color="black" style="font-size:120%"><b>Permohonan Ruang Pejabat</b></td>
+                        </tr>
+                        #if ($!portal_role == '(BGS) Penyedia')
+                        <tr>
+                          <td><a href="javascript:gotoPermohonanRuangPejabat()" class="help" title="Senarai Permohonan">
+                            <li><font color="blue" style="font-size:110%">&nbsp;Permohonan Ruang Pejabat</font>
+                            #if ($bilPermohonanRuangPejabat)
+                            	<span id="blinkBilPermohonanRuangPejabat"><font color="red"><b>($!bilPermohonanRuangPejabat)</b></font></span>
+                            #end
+                            </li></a></td>
+                        </tr>
+                        #end
+                        #if ($!portal_role == '(BGS) Penyemak')
+                        <tr>
+                          <td><a href="javascript:gotoSemakanKertasPertimbangan()" class="help" title="Semakan Kertas Pertimbangan">
+                            <li><font color="blue" style="font-size:110%">&nbsp;Semakan Penyediaan Kertas Pertimbangan</font>
+                            #if ($bilSemakanKertasPertimbangan)
+                            	<span id="blinkBilSemakanKertasPertimbangan"><font color="red"><b>($!bilSemakanKertasPertimbangan)</b></font></span>
+                            #end
+                            </li></a></td>
+                        </tr>
+                        #end
+                        #if ($!portal_role == '(BGS) Pengesah')
+                        <tr>
+                          <td><a href="javascript:gotoPengesahanKertasPertimbangan()" class="help" title="Pengesahan Kertas Pertimbangan">
+                            <li><font color="blue" style="font-size:110%">&nbsp;Pengesahan Kertas Pertimbangan</font>
+                            #if ($bilPengesahanPertimbangan)
+                            	<span id="blinkBilPengesahanPertimbangan"><font color="red"><b>($!bilPengesahanPertimbangan)</b></font></span>
+                            #end
+                            </li></a></td>
+                        </tr>
+                        #end
+                      </table></td>  
+                  </tr>
+                </table></td>
+              <td width="50%" valign="top">&nbsp;</td>
+            </tr>
+          </table></td>
+      </tr>
+      
+      ## LAYER 3
+      <tr>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+            <tr>
+              <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                  <tr>
+                    <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                    <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                        <tr>
+                          <td><font color="black" style="font-size:120%"><b>Bangunan Gunasama</b></td>
+                        </tr>
+                        <tr>
+                          <td><a href="javascript:gotoBangunanGunaSama()" class="help" title="Bangunan GunaSama">
+                            <li><font color="blue" style="font-size:110%">&nbsp;Bangunan Gunasama</font></li>
+                            </a></td>
+                        </tr>
+                      </table></td>
+                  </tr>
+                </table></td>
+              <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                  <tr>
+                    <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                    <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                        <tr>
+                          <td><font color="black" style="font-size:120%"><b>Pendaftaran Pemohon</b></td>
+                        </tr>
+                        <tr>
+                          <td><a href="javascript:gotoPendaftaranPemohon()" class="help" title="Pendaftaran Pemohon">
+                            <li><font color="blue" style="font-size:110%">&nbsp;Pendaftaran Pemohon</font></li>
+                            </a></td>
+                        </tr>
+                      </table></td>
+                  </tr>
+                </table></td>
+            </tr>
+          </table></td>
+      </tr>
+      
+      ## LAYER 4
+      <tr>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+            <tr>
+              <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                  <tr>
+                    <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                    <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                        <tr>
+                          <td><font color="black" style="font-size:120%"><b>Pengurusan Bil Utiliti</b></td>
+                        </tr>
+                        <tr>
+                          <td><a href="javascript:gotoPendaftaranBil()" class="help" title="Pendaftaran Bil">
+                            <li><font color="blue" style="font-size:110%">&nbsp;Pendaftaran Bil</font></li>
+                            </a></td>
+                        </tr>
+                        <tr>
+                          <td><a href="javascript:gotoMaklumatBayaranBil()" class="help" title="Maklumat Bayaran Bil">
+                            <li><font color="blue" style="font-size:110%">&nbsp;Maklumat Bayaran</font></li>
+                            </a></td>
+                        </tr>
+                      </table></td>
+                  </tr>
+                </table></td>
+                
+              <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                  <tr>
+                    <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                    <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                        <tr>
+                          <td><font color="black" style="font-size:120%"><b>Pengurusan Kontrak</b></td>
+                        </tr>
+                        <tr>
+                          <td><a href="javascript:gotoKontrak()" class="help" title="Senarai Kontrak">
+                            <li><font color="blue" style="font-size:110%">&nbsp;Senarai Kontrak Bayaran</font></li>
+                            </a></td>
+                        </tr>
+                      </table></td>
+                  </tr>
+                </table></td>
+            </tr>
+          </table></td>
+      </tr>   
+    
+      ## LAYER 5
+        <tr>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+            <tr>
+              <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                  <tr>
+                    <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                    <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                        <tr>
+                          <td><font color="black" style="font-size:120%"><b>Pengurusan Ruang Komersial</b></td>
+                        </tr>
+                        <tr>
+                          <td><a href="javascript:gotoPermohonanPenyewaanRK()" class="help" title="Permohonan Penyewaan">
+                            <li><font color="blue" style="font-size:110%">&nbsp;Permohonan Penyewaan</font>
+                            #if ($bilPermohonanPenyewaanRK)
+                            	<span id="blinkBilPermohonanPenyewaanRK"><font color="red"><b>($!bilPermohonanPenyewaanRK)</b></font></span>
+                            #end
+                            </li></a></td>
+                        </tr>
+                        <tr>
+                          <td><a href="javascript:gotoAkaunPenyewaRK()" class="help" title="Senarai Akaun Penyewa">
+                            <li><font color="blue" style="font-size:110%">&nbsp;Senarai Akaun Penyewa</font>
+                            #if ($bilAkaunPenyewaRK)
+                            	<span id="blinkBilAkaunPenyewaRK"><font color="red"><b>($!bilAkaunPenyewaRK)</b></font></span>
+                            #end
+                            </li></a></td>
+                        </tr>
+                        <tr>
+                          <td><a href="javascript:gotoKutipanDataPenyewaRK()" class="help" title="Kutipan Data Akaun Penyewa">
+                            <li><font color="blue" style="font-size:110%">&nbsp;Kutipan Data Akaun Penyewa</font>
+                            </li></a></td>
+                        </tr>
+                        <tr>
+                          <td><a href="javascript:gotoSenaraiRuangKomersil()" class="help" title="Senarai Ruang Komersil">
+                            <li><font color="blue" style="font-size:110%">&nbsp;Senarai Ruang Komersil</font>
+                            #if ($bilRuangKomersil)
+                            	<span id="blinkBilRuangKomersil"><font color="red"><b>($!bilRuangKomersil)</b></font></span>
+                            #end
+                            </li></a></td>
+                        </tr>
+                      </table></td>
+                  </tr>
+                </table></td>       	
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >  
+                <tr>
+                    <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/images_stat.png" width="30" height="30" align="center"/> </td>
+                    <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+				  <tr>
+                     <td><font color="black" style="font-size:120%"><b>Laporan</b></td>
+                   </tr>
+                   <tr>
+                     <td><a href="javascript:gotoLaporan()" class="help" title="Laporan">
+                         <li><font color="blue" style="font-size:110%">&nbsp;Senarai Laporan Ruang Pejabat</font></li>
+                         </a></td>
+                   </tr>
+                   <tr>
+                     <td><a href="javascript:gotoLaporanRK()" class="help" title="Laporan">
+                         <li><font color="blue" style="font-size:110%">&nbsp;Senarai Laporan Ruang Komersil</font></li>
+                         </a></td>
+                   </tr>
+				</tr>
+                </table></td>    
+              <td width="50%" valign="top">&nbsp;</td>
+            </tr>
+          </table></td>          
+      </tr>
+    </table>
+    
+    ## LAYER 6
+    
+      <tr>
+          <td>
+          	<table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Aduan</b></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoSenaraiAduan()" class="help" title="Senarai Aduan">
+                  			  <li><font color="blue" style="font-size:110%">&nbsp;Senarai Aduan</font></li>
+                              </a></td>
+                          </tr>
+                   
+                        </table></td>
+                    </tr>
+           	   </table>
+           	 </td>
+                  
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                ##     <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/images_stat.png" width="30" height="30" align="center"/>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                 ##           <td><font color="black" style="font-size:120%"><b>Laporan</b></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoRekodTerimaanKunci()" class="help" title="Rekod Terimaan Kunci">
+                 ##			  <li><font color="blue" style="font-size:110%">&nbsp;Senarai Laporan Senggara</font></li>
+                              </a></td>
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+              </tr>
+            </table></td>
+        </tr>
+  
+      ##
+    
+    

@@ -1,0 +1,42 @@
+
+##<td>$!r.noAkaun</td>
+<td>$!r.pembayar.noKP</td>
+<td>$!r.pembayar.userName</td>
+<td>$!r.noInvois</td>
+<td>RM $!util.formatDecimal($!r.debit)</td>
+#if ($r.tarikhMasuk)
+    #set($tarikhMasuk = $util.getDateTime($r.tarikhMasuk, "dd-MM-yyyy"))
+#else
+    #set($tarikhMasuk = "-")
+#end
+#if ($util.getIdAgihanTarikhSurat($r.pembayar.id))
+    #set($tarikhSurat = $util.getDateTime($util.getIdAgihanTarikhSurat($r.pembayar.id), "dd-MM-yyyy"))
+#else
+    #set($tarikhSurat = "-")
+#end
+<td>$tarikhMasuk</td>
+<td>$!r.noResit</td>
+##<td align="center">$!util.daysBetween($tarikhSurat, $tarikhMasuk)</td>
+
+###if ($!r.flagBayar=="T")
+##			#set ($flagBayar = "BELUM BAYAR")
+##			<td><b><span id='a' style='color: #f61100'>$flagBayar</span></b></td>
+###else 
+##			#set ($flagBayar = "BAYARAN SELESAI")
+##			<td><b><span id='a' style='color: #228B22'>$flagBayar</span></b>
+##			#if ( $!util.daysBetween($tarikhSurat, $tarikhMasuk) > 14 )
+##			<i id='$r.id' style='color: #FF0000'>Tamat Tempoh</i>
+##			<script>
+##	        	function blinker() {
+##	                _jq('#$r.id').fadeOut(750);
+##	                _jq('#$r.id').fadeIn(750);
+##	            }
+##	            setInterval(blinker, 1500);
+##	        </script>
+##	#end
+##			</td>
+###end
+
+	
+
+	

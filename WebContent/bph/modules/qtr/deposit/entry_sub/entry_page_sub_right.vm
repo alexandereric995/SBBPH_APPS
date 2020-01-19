@@ -1,0 +1,26 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:5px"></td>
+        <td></td>
+    </tr>
+	#if ($r.tarikhMasuk)
+        #set($tarikhMasuk = $util.getDateTime($r.tarikhMasuk, "dd-MM-yyyy"))
+    #else
+        #set($tarikhMasuk = "-")
+    #end
+	#input_normal("tarikhMasuk" "Tarikh Masuk" "$tarikhMasuk")
+    #input_normal("noInvois" "No.Invois" "$!r.noInvois")
+##	#input_normal("noAkaun" "No. Akaun" "$!r.noAkaun")
+##	#input_normal("namaAkaun" "Nama Akaun" "$!r.agihan.pemohon.userName")
+	#currency_readonly_label("debit" "Jumlah" "$!r.debit")
+</table>
+
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

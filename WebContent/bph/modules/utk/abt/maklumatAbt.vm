@@ -1,0 +1,82 @@
+<input type="hidden" id="idAbt" name="idAbt" value="$!r.id">
+<fieldset>
+<legend class="legend">Maklumat Akaun Belum Terima</legend>
+
+	<table cellpadding ="0" cellspacing="0" border="0" width="100%">
+		<tr>
+			<td>
+				#parse("$path/maklumatPenghuni.vm")
+			</td>
+			<td>
+				#parse("$path/maklumatKuarters.vm")
+			</td>
+		</tr>
+	</table>
+	
+	<br /><br />
+	<b><u>Maklumat ABT</u></b>
+
+    	<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+			<tr>
+				<td style="width:160px"></td>
+				<td style="width:10px"></td>
+				<td></td>
+			</tr>
+##					##	display sahaja data
+####					#input_readonly_all_label("noAkaun" "No Akaun" "$!r.akaun.noAkaun")
+##					#input_readonly_all_label("noKP" "No Pengenalan" "$!r.penghuni.pemohon.noKP")
+##					#input_readonly_all_label("namaPenghuni" "Nama" "$!r.penghuni.pemohon.userName")
+##					#input_readonly_all_label("noUnit" "No Unit" "$!r.penghuni.kuarters.noUnit") 
+##					#input_readonly_all_label("lokasi" "Lokasi" "$!r.penghuni.kuarters.lokasi.keterangan")
+##					#input_readonly_all_label("tempat" "Kawasan" "$!r.penghuni.kuarters.kawasan")
+##					#input_readonly_all_label("bandar" "Bandar" "$!r.penghuni.kuarters.bandar.keterangan")
+##					#input_readonly_all_label("negeri" "Negeri" "$!r.penghuni.kuarters.bandar.negeri.keterangan")
+##					
+##					#set ($tarikhMasuk = $!util.getDateTime($!tarikhMasuk,'dd-MM-yyyy'))
+##				    #if ($!r.tarikhMasuk) 
+##				    	#set ($tarikhMasuk = "$!util.getDateTime($!r.tarikhMasuk,'dd-MM-yyyy')") 
+##				    #end
+##					#input_readonly_all_label("tarikhMasuk" "Tarikh Masuk Kuaters" "$tarikhMasuk")
+##					
+##					#set ($tarikhKeluar = $!util.getDateTime($!tarikhKeluar,'dd-MM-yyyy'))
+##				    #if ($!r.tarikhKeluar) 
+##				    	#set ($tarikhKeluar = "$!util.getDateTime($!r.tarikhKeluar,'dd-MM-yyyy')") 
+##				    #end
+##					#input_readonly_all_label("tarikhKeluar" "Tarikh Keluar Kuaters" "$tarikhKeluar")
+##					
+##					#input_readonly_all_label("kadarSewa" "Kadar Sewa" "$!r.penghuni.kuarters.sewa")
+##					
+####					#input_readonly_all_label("amaun" "Jumlah Tunggakan" "$util.formatDecimal($!r.amaun)")
+##					#input_readonly_all_label("status" "Status" "<b>$!r.status</b>")
+##					##	display sahaja data
+				
+		##	start field keyin data					  
+		#currency("jumlahTunggakan" "Jumlah Tunggakan (RM)" "$!r.jumlahTunggakan")
+   					#currency("jumlahBayaran" "Jumlah Bayaran (RM)" "$!r.jumlahBayaran")
+		<tr>
+			<td>Status Bayaran &nbsp;</td> ## <span style="color:#FF2A00">*</span>
+			<td>:</td>
+			<td><div id="flagBayaran">#parse("$path/selectStatusBayaran.vm")</div>
+			<div id="err_statusBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		</tr>
+		#textarea("catatan" "Catatan" "$!r.catatan")
+		##	end field keyin data
+	</table>
+    		
+</fieldset>
+#if($command != 'add_new_record')
+<p align="right">
+##	<input type="button" id="btnSimpanAbt" name="btnSimpanAbt" value="Simpan" onClick="if ( validateField() ) doDivAjaxCall$formname('divTab','saveMaklumatAbt','')">
+	<input type="button" value="Simpan" align='left' id="btnSimpanAtauKemaskiniAbt">
+ 	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+</p>
+#end
+</div>
+
+
+<script>
+_jq('#btnSimpanAtauKemaskiniAbt').on('click', function(){
+	doDivAjaxChainCall$formname('divTab','funcSimpanAtauKemaskiniAbt','');
+    jQuery('#btnSimpanAtauKemaskiniAbt').fadeOut();
+});
+</script>

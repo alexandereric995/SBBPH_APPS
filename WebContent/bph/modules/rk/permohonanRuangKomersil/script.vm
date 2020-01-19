@@ -1,0 +1,409 @@
+function validate() {
+	var err_count = 0;
+	
+	var tarikhPermohonan = $('tarikhPermohonan').value;
+	if ( tarikhPermohonan == "" ) {$('err_tarikhPermohonan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var noRujukanPermohonan = $('noRujukanPermohonan').value;
+	if ( noRujukanPermohonan == "" ) {$('err_noRujukanPermohonan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tarikhTerimaPermohonan = $('tarikhTerimaPermohonan').value;
+	if ( tarikhTerimaPermohonan == "" ) {$('err_tarikhTerimaPermohonan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idJenisSewa = $('idJenisSewa').value;
+	if ( idJenisSewa == "" ) {$('err_idJenisSewa').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var hargaTawaranSewa = $('hargaTawaranSewa').value;
+	if ( hargaTawaranSewa == "" ) {$('err_hargaTawaranSewa').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tarikhMulaOperasi = $('tarikhMulaOperasi').value;
+	if ( tarikhMulaOperasi == "" ) {$('err_tarikhMulaOperasi').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tempoh = $('tempoh').value;
+	if ( tempoh == "" ) {$('err_tempoh').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tarikhTamatOperasi = $('tarikhTamatOperasi').value;
+	if ( tarikhTamatOperasi == "" ) {$('err_tarikhTamatOperasi').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idRuang = $('idRuang').value;
+	if ( idRuang == "" ) {$('err_idRuang').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var noPengenalan = $('noPengenalan').value;
+	if ( noPengenalan == "" ) {$('err_noPengenalan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var nama = $('nama').value;
+	if ( nama == "" ) {$('err_nama').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var alamat1 = $('alamat1').value;
+	if ( alamat1 == "" ) {$('err_alamat1').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var poskod = $('poskod').value;
+	if ( poskod == "" ) {$('err_poskod').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idNegeri = $('idNegeri').value;
+	if ( idNegeri == "" ) {$('err_idNegeri').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idBandar = $('idBandar').value;
+	if ( idBandar == "" ) {$('err_idBandar').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var noTelefon = $('noTelefon').value;
+	if ( noTelefon == "" ) {$('err_noTelefon').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var noTelefonBimbit = $('noTelefonBimbit').value;
+	if ( noTelefonBimbit == "" ) {$('err_noTelefonBimbit').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var noPendaftaran = $('noPendaftaran').value;
+	if ( noPendaftaran == "" ) {$('err_noPendaftaran').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var namaSyarikat = $('namaSyarikat').value;
+	if ( namaSyarikat == "" ) {$('err_namaSyarikat').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var alamat1Syarikat = $('alamat1Syarikat').value;
+	if ( alamat1Syarikat == "" ) {$('err_alamat1Syarikat').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var poskodSyarikat = $('poskodSyarikat').value;
+	if ( poskodSyarikat == "" ) {$('err_poskodSyarikat').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idNegeriSyarikat = $('idNegeriSyarikat').value;
+	if ( idNegeriSyarikat == "" ) {$('err_idNegeriSyarikat').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idBandarSyarikat = $('idBandarSyarikat').value;
+	if ( idBandarSyarikat == "" ) {$('err_idBandarSyarikat').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function doKemaskiniMaklumatPermohonan(){
+	var err_count = 0;
+	
+	var tarikhPermohonan = $('tarikhPermohonan').value;
+	if ( tarikhPermohonan == "" ) {$('err_tarikhPermohonan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var noRujukanPermohonan = $('noRujukanPermohonan').value;
+	if ( noRujukanPermohonan == "" ) {$('err_noRujukanPermohonan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tarikhTerimaPermohonan = $('tarikhTerimaPermohonan').value;
+	if ( tarikhTerimaPermohonan == "" ) {$('err_tarikhTerimaPermohonan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idJenisSewa = $('idJenisSewa').value;
+	if ( idJenisSewa == "" ) {$('err_idJenisSewa').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var hargaTawaranSewa = $('hargaTawaranSewa').value;
+	if ( hargaTawaranSewa == "" ) {$('err_hargaTawaranSewa').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tarikhMulaOperasi = $('tarikhMulaOperasi').value;
+	if ( tarikhMulaOperasi == "" ) {$('err_tarikhMulaOperasi').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tempoh = $('tempoh').value;
+	if ( tempoh == "" ) {$('err_tempoh').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tarikhTamatOperasi = $('tarikhTamatOperasi').value;
+	if ( tarikhTamatOperasi == "" ) {$('err_tarikhTamatOperasi').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','doKemaskiniMaklumatPermohonan','');
+	}
+}
+
+function doKemaskiniMaklumatRuang(){
+	var err_count = 0;
+	
+	var idRuang = $('idRuang').value;
+	if ( idRuang == "" ) {$('err_idRuang').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','doKemaskiniMaklumatRuang','');
+	}
+}
+
+function doKemaskiniMaklumatIndividu(){
+	var err_count = 0;
+	
+	var noPengenalan = $('noPengenalan').value;
+	if ( noPengenalan == "" ) {$('err_noPengenalan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var nama = $('nama').value;
+	if ( nama == "" ) {$('err_nama').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var alamat1 = $('alamat1').value;
+	if ( alamat1 == "" ) {$('err_alamat1').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var poskod = $('poskod').value;
+	if ( poskod == "" ) {$('err_poskod').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idNegeri = $('idNegeri').value;
+	if ( idNegeri == "" ) {$('err_idNegeri').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idBandar = $('idBandar').value;
+	if ( idBandar == "" ) {$('err_idBandar').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var noTelefon = $('noTelefon').value;
+	if ( noTelefon == "" ) {$('err_noTelefon').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var noTelefonBimbit = $('noTelefonBimbit').value;
+	if ( noTelefonBimbit == "" ) {$('err_noTelefonBimbit').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','doKemaskiniMaklumatIndividu','');
+	}
+}
+
+function doKemaskiniMaklumatSyarikat(){
+	var err_count = 0;
+
+	var noPendaftaran = $('noPendaftaran').value;
+	if ( noPendaftaran == "" ) {$('err_noPendaftaran').innerHTML = "** mandatori!"; err_count++;  }
+
+	var namaSyarikat = $('namaSyarikat').value;
+	if ( namaSyarikat == "" ) {$('err_namaSyarikat').innerHTML = "** mandatori!"; err_count++;  }
+
+	var alamat1Syarikat = $('alamat1Syarikat').value;
+	if ( alamat1Syarikat == "" ) {$('err_alamat1Syarikat').innerHTML = "** mandatori!"; err_count++;  }
+
+	var poskodSyarikat = $('poskodSyarikat').value;
+	if ( poskodSyarikat == "" ) {$('err_poskodSyarikat').innerHTML = "** mandatori!"; err_count++;  }
+
+	var idNegeriSyarikat = $('idNegeriSyarikat').value;
+	if ( idNegeriSyarikat == "" ) {$('err_idNegeriSyarikat').innerHTML = "** mandatori!"; err_count++;  }
+
+	var idBandarSyarikat = $('idBandarSyarikat').value;
+	if ( idBandarSyarikat == "" ) {$('err_idBandarSyarikat').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','doKemaskiniMaklumatSyarikat','');
+	}
+}
+
+function doKemaskiniMaklumatLain(){
+	var err_count = 0;
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','doKemaskiniMaklumatLain','');
+	}
+}
+
+function checkUpload() {
+	$('err_dokumen').innerHTML = '';
+	var idPermohonan = $('idPermohonan').value;
+	var error = 0;
+	var err_count = 0;
+	
+	var idJenisDokumen = $('idJenisDokumen').value;
+	if ( idJenisDokumen == "" ) {$('err_idJenisDokumen').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tajukDokumen = $('tajukDokumen').value;
+	if ( tajukDokumen == "" ) {$('err_tajukDokumen').innerHTML = "Tajuk adalah mandatori!"; err_count++;  }
+
+	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+		error++;
+		$('dokumen').value = "";
+		$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+	}
+	if ($('dokumen').value != "" && $('dokumen').files[0].size > 2097152) {
+		error++;
+		$('err_dokumen').innerHTML = "Saiz fail adalah "+($('dokumen').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumen').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('dokumenMuatnaik').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_doc';
+		document.${formName}.action='?command=uploadDoc&idPermohonan='+idPermohonan+'&tajukDokumen='+$('tajukDokumen').value+'&idJenisDokumen='+$('idJenisDokumen').value+'&keteranganDokumen='+$('keteranganDokumen').value;
+		document.${formName}.submit();
+		$('tajukDokumen').value = "";
+		$('idJenisDokumen').value = "";
+		$('keteranganDokumen').value = "";
+		$('dokumen').value = "";
+	}
+	
+	return err_count == 0;
+}
+
+function checkDoc(val) {
+	var arr = val.split(".");
+	var arr1 = val.split("\\");
+	if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" || arr[1] == "PDF" || arr[1] == "pdf" || arr[1] == "doc" || arr[1] == "DOC" || arr[1] == "docx" || arr[1] == "DOCX" ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function deleteDokumen(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divTab','deleteDokumen','idDokumen='+id);
+}
+
+function doKemaskiniMaklumatKertasPertimbangan(){
+	var err_count = 0;
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','doKemaskiniMaklumatKertasPertimbangan','');
+	}
+}
+
+function doHantarKeMesyuarat(){
+	var err_count = 0;
+	
+	var ulasanKertasPertimbangan = $('ulasanKertasPertimbangan').value;
+	if ( ulasanKertasPertimbangan == "" ) {$('err_ulasanKertasPertimbangan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var syorKertasPertimbangan = $('syorKertasPertimbangan').value;
+	if ( syorKertasPertimbangan == "" ) {$('err_syorKertasPertimbangan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','doHantarKeMesyuarat','');
+	}
+}
+
+function validateMaklumatSST(){
+	var err_count = 0;
+
+	var noRujukanSST = $('noRujukanSST').value;
+	if ( noRujukanSST == "" ) {$('err_noRujukanSST').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tarikhMulaSST = $('tarikhMulaSST').value;
+	if ( tarikhMulaSST == "" ) {$('err_tarikhMulaSST').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tarikhTamatSST = $('tarikhTamatSST').value;
+	if ( tarikhTamatSST == "" ) {$('err_tarikhTamatSST').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idJenisSewa = $('idJenisSewa').value;
+	if ( idJenisSewa == "" ) {$('err_idJenisSewa').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tarikhMula = $('tarikhMula').value;
+	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tempoh = $('tempoh').value;
+	if ( tempoh == "" ) {$('err_tempoh').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tarikhTamat = $('tarikhTamat').value;
+	if ( tarikhTamat == "" ) {$('err_tarikhTamat').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var kadarSewa = $('kadarSewa').value;
+	if ( kadarSewa == "" ) {$('err_kadarSewa').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var deposit = $('deposit').value;
+	if ( deposit == "" ) {$('err_deposit').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var flagCajIWK = $('flagCajIWK').value;
+	if ( flagCajIWK == "" ) {$('err_flagCajIWK').innerHTML = "** mandatori!"; err_count++;  }
+	if ( flagCajIWK == "Y" ) {
+		var kadarBayaranIWK = $('kadarBayaranIWK').value;
+		if ( kadarBayaranIWK == "" ) {$('err_kadarBayaranIWK').innerHTML = "** mandatori!"; err_count++;  }
+	}
+	return err_count == 0;
+}
+
+function doKemaskiniMaklumatSST(){	
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divTab','doKemaskiniMaklumatSST','');
+}
+
+function doAktifMaklumatSST(){
+	
+	if (validateMaklumatSST()) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','doAktifMaklumatSST','');
+	}
+}
+
+function doKemaskiniAkuanTerimaSST(){
+	var err_count = 0;
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','doKemaskiniAkuanTerimaSST','');
+	}
+}
+
+function doPenyediaanPerjanjian(){
+	var err_count = 0;
+
+	var tarikhAkuanTerimaSST = $('tarikhAkuanTerimaSST').value;
+	if ( tarikhAkuanTerimaSST == "" ) {$('err_tarikhAkuanTerimaSST').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var deposit = $('deposit').value;
+	deposit = deposit * 1;
+	var idResit = $('idResit').value;
+	if ( idResit == "" && deposit > 0) { alert('BAYARAN DEPOSIT BELUM DITERIMA'); err_count++; }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','doPenyediaanPerjanjian','');
+	}
+}
+
+function doCetakResitDeposit(idResit) {
+	var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	if ((document.window != null) && (!hWnd.opener))
+	hWnd.opener = document.window;
+	if (hWnd.focus != null) hWnd.focus();
+}
+
+function doKemaskiniMaklumatPerjanjian(){
+	var err_count = 0;
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','doKemaskiniMaklumatPerjanjian','');
+	}
+}
+
+function doAktifPerjanjian(){
+	var err_count = 0;	
+	
+	var noFail = $('noFail').value;
+	if ( noFail == "" ) {$('err_noFail').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var noRujukan = $('noRujukan').value;
+	if ( noRujukan == "" ) {$('err_noRujukan').innerHTML = "** mandatori!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','doAktifPerjanjian','');
+	}
+}

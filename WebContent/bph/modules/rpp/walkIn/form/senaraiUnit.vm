@@ -1,0 +1,46 @@
+
+	<br/>
+	
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+			<td colspan="5">
+				<span style="font-size:12px;font-weight:bold;text-decoration: underline;">PILIHAN BILIK BAGI $!objJenisUnit.keterangan.toUpperCase()</span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" width="5%">BIL.</td>
+			<td class="row_header" style="text-align:left" width="55%">NO. UNIT & NAMA UNIT</td>
+			<td class="row_header" width="15%">CATATAN</td>
+			<td class="row_header" width="15%">STATUS</td>
+			<td class="row_header" width="10%">PILIH</td>
+		</tr>
+		
+		#set ( $count = 0 )
+		#if($listUnit.size() > 0)
+    		#foreach($u in $listUnit)
+    		#set ( $count = $count + 1)
+    		<tr>
+    			<td align="center">$count</td>
+    			<td align="left">$!u.noUnit - $!u.namaUnit</td>
+				<td align="center">$!util.replaceIfNull($!u.catatan.toUpperCase(),'-')</td>
+				<td align="center">
+					$!util.replaceIfNull($!u.status,'-') 
+					#if($!u.getCheckedSelenggara($!strTarikhMasuk,$!strTarikhKeluar)=="Y")
+						(SELENGGARA)
+					#end	
+				</td>
+    			<td align="center">
+    				<input type="radio" name="radUnit" id="radUnit$u.id" value="$u.id" onclick="$('err_radUnit').innerHTML=''; at(this, event)" />       
+    			</td>
+    		</tr>
+    		#end
+		#else
+			<tr><td colspan="5">TIADA KEKOSONGAN</td></tr>
+		#end
+		
+		<tr><td colspan="5"><div id="err_radUnit" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td></tr>
+	</table>	
+	
+	

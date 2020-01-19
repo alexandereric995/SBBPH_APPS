@@ -1,0 +1,33 @@
+<div id="content-format"><pinLeft></pinLeft><pinRight></pinRight>
+  <header>ARKIB VIDEO</header>
+  <section>
+	
+	<div id="tabs">
+        <div id="tabs-1">
+			<table cellpadding="5" cellspacing="0" border="0" width="100%">
+				#if ($listGaleriVideo.size() > 0)
+					#foreach ( $gv in $listGaleriVideo )
+	        		<tbody>
+	        			<tr>
+	        				<td>
+								<video width="250px" controls>
+	                                <source src="../download?file=$!uploadDir$!gv.fileName" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+	                                Harap maaf video tidak dapat dimainkan<br />
+									Sekiranya anda menggunakan pelayar safari, sila dapatkan <a href="#Quicktime" onclick="window.open('https://www.apple.com/quicktime/download/');" title="Dapatkan Quicktime">Quicktime</a>
+	                            </video>&nbsp;&nbsp;&nbsp;&nbsp;<strong>$!gv.tajuk</strong>
+							</td>
+	        			</tr>
+	        		</tbody>
+	        		#end 
+	        	#else
+				<tr>
+			    	<td style="text-align:center;">
+			        	<font color="black"><b>GALERI SEDANG DIKEMASKINI.</b></font>
+			        </td>
+			    </tr>
+				#end
+        	</table>
+    	</div>
+	</div>
+  </section>  
+</div>

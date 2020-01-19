@@ -1,0 +1,8 @@
+
+<select id="kaedahBayaran" name="kaedahBayaran" style="width:60%" onChange="$('err_kaedahBayaran').innerHTML='';javascript:doGetMaklumatPenyataPemungutByModAndDate();" >
+    <option value="">SILA PILIH</option>
+    #foreach( $d in $listDailyKaedahBayaran )
+    	<option #if ( $d.id == $r.kaedahBayaran.id ) selected #end value="$d.id">$d.keterangan.toUpperCase()</option>
+    #end
+</select>
+<div id="err_kaedahBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>

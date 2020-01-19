@@ -1,0 +1,64 @@
+<style>
+.scrollitpopup {
+	height:500px;
+	width: 100%;
+	overflow: auto;
+}
+</style>
+
+#set( $mainUnit = 'T' )
+<fieldset style="width:100%; ">
+<legend class="legend">Senarai Kekosongan mengikut unit</legend>
+#if ( $listUnitAvailable.size() > 0 )
+    #set( $count = 0 )
+    #foreach ( $d in $listUnitAvailable )
+<div style="vertical-align:top;float:left;margin: 10px 10px 20px 20px;width:20%"> <span style="font-size:12px;font-weight:bold;"> $!d.noUnit $!d.namaUnit 
+  #if($!d.getCheckedSelenggara($!dtfrom,$!dtto).equalsIgnoreCase("Y")) <span style="color:#CC0000;font-weight:bold;border:2px #000"> (SELENGGARA) </span> #end </span>
+  <table cellpadding="1" cellspacing="1" width="100%" border="0">
+    <tr>
+      <th class="row_header" width="50%">TARIKH</th>
+      <th class="row_header" width="50%">KEKOSONGAN</th>
+    </tr>
+    #set( $directUnit = 'Y' )
+    #foreach( $e in $d.listKekosonganByUnit($!tarikhMula,$!tarikhAkhir))
+    #if ($e.flagAvailable.equalsIgnoreCase("T"))
+    #set ( $directUnit = 'T')
+    #end
+    #set ( $count = $count + 1)
+    #if ( $count % 2 == 0 ) 
+    #set ( $rowcolor = "#D0CFCE" ) 
+    #else 
+    #set ( $rowcolor = "#F0F0F0" ) 
+    #end
+    <tr bgcolor="$rowcolor">
+      <td>$e.tarikhLoop</td>
+      <td align="center"> #if($e.flagAvailable.equalsIgnoreCase("Y")) <img src="../img/check_present.png" style="width:20px;height:20px" border="0"> #else <img src="../img/check_absent.png" style="width:20px;height:20px" border="0"> #end </td>
+    </tr>
+    #end
+    #if ( $directUnit == 'Y' )
+    #set( $mainUnit = 'Y' )
+    #end
+  </table>
+</div>
+#end
+
+#if ( !$!r.flagKelulusanSub )
+#if ( $!mainUnit == 'T')
+<table width="100%">
+  <tr>
+    <td ><div id="alertPertindihan" style="vertical-align:top;float:left;margin: 10px 10px 20px 20px;width:50%"> <span style="font-weight:bold;color:red;font-size:12px"> TERDAPAT PERTINDIHAN BAGI UNIT YANG DIMOHON. SEKIRANYA INGIN MELULUSKAN PERMOHONAN INI, SILA BATAL PERMOHONAN TERDAHULU.</span> </div></td>
+  </tr>
+</table>
+<script>
+	function blinkers() {
+		_jq('#alertPertindihan').fadeOut(750);
+		_jq('#alertPertindihan').fadeIn(750);
+	}
+	setInterval(blinkers, 100);
+</script>
+#end
+#end
+    #else
+<p>TIADA REKOD</p>
+#end
+</fieldset>

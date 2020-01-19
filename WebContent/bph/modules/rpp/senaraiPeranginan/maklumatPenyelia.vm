@@ -1,0 +1,106 @@
+
+<fieldset>
+<legend class="legend">MAKLUMAT PENYELIA</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:84%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3" class="label"><input type="button" id="addMaklumatPenyelia" name="addMaklumatPenyelia" value="Tambah Penyelia">
+      <script>
+        _jq('#addMaklumatPenyelia').on('click', function(){
+			doDivAjaxCall3$formname('editMaklumatPenyelia','addMaklumatPenyelia','');
+            jQuery('#editMaklumatPenyelia').fadeIn();
+        });
+    </script>
+      <br />
+      <br />
+      <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+          <td class="row_header" width="5%">Bil.</td>
+          <td class="row_header" width="30%">Nama Penyelia</td>
+		  <td class="row_header" width="15%">No. Kad Pengenalan</td>
+		  <td class="row_header" width="15%">No. Telefon</td>
+		  ##<td class="row_header" width="15%">No. Telefon Bimbit</td>
+		  <td class="row_header" width="10%">Email</td>
+          ##<td class="row_header" width="15%" align="center">Tarikh Mula Khidmat</td>
+          ##<td class="row_header" width="15%" align="center">Tarikh Tamat Khidmat</td>
+          <td class="row_header" width="15%" align="center">Status</td>
+          <td class="row_header" width="5%">Papar</td>
+          <td class="row_header" width="5%">Hapus</td>
+        </tr>
+        #set ( $count = 0 )
+        #if ( $listMaklumatPenyelia.size() > 0) 
+        #foreach( $c in $listMaklumatPenyelia )
+        #set ( $count = $count + 1)
+        
+        #if ( $count % 2 == 0 ) 
+        #set ( $rowcolor = "#D0CFCE" ) 
+        #else 
+        #set ( $rowcolor = "#F0F0F0" ) 
+        #end
+        <tr bgcolor="$rowcolor">
+          <td align="center">$count</td>
+          <td><a href="javascript:void()" id="link$c.id" style="color:blue">$c.penyelia.userName.toUpperCase()</a></td>
+          ##if ($!c.tarikhMulaKhidmat) 
+		  ##set ($dateMulaKhidmat = "$!util.getDateTime($!c.tarikhMulaKhidmat,'dd-MM-yyyy')")
+		  ##else #set ($dateMulaKhidmat = "") #end
+          ##<td align="center">$dateMulaKhidmat</td>
+          ##if ($!c.tarikhTamatKhidmat) 
+  		  ##set ($dateTamatKhidmat = "$!util.getDateTime($!c.tarikhTamatKhidmat,'dd-MM-yyyy')")
+		  ##else #set ($dateTamatKhidmat = "") #end
+          ##<td align="center">$dateTamatKhidmat</td>
+		  <td align="center">$!c.penyelia.noKP</td>
+		  <td align="center">$!c.penyelia.noTelefon</td>
+		  ##<td align="center">$!c.penyelia.noTelefonBimbit</td>
+		  <td align="center">$!c.penyelia.emel</td>
+          #if ($c.statusPerkhidmatan == 'Y')
+			#set ($statusAktif = "AKTIF")
+          #else
+			#set ($statusAktif = "TIDAK AKTIF")
+          #end
+          <td align="center">$statusAktif</td>
+          <td align="center"><a href="javascript:void()" id="xlink$c.id"> <img alt="edit" src="../img/edit_bak.gif" border="0"> </a> </td>
+          <td align="center"><a href="javascript:void()" onClick="deleteMaklumatPenyelia('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+        </tr>
+        <script>
+                    _jq('#link$c.id').on('click', function(){
+						doDivAjaxCall3$formname('editMaklumatPenyelia','editMaklumatPenyelia','idMaklumatPenyelia=$c.id');
+                        jQuery('#editMaklumatPenyelia').fadeIn();
+                    });
+					 _jq('#xlink$c.id').on('click', function(){
+						doDivAjaxCall3$formname('editMaklumatPenyelia','editMaklumatPenyelia','idMaklumatPenyelia=$c.id');
+                        jQuery('#editMaklumatPenyelia').fadeIn();
+                    });
+                </script>
+        #end
+        #else
+        <tr >
+          <td align="center">&nbsp;</td>
+          <td >Tiada Rekod</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+        </tr>
+        #end
+      </table></td>
+  </tr>
+</table>
+
+
+</fieldset>
+## Popup popupMaklumatMaklumatPenyelia.vm
+<div id="editMaklumatPenyelia" class="popup"></div>
+## Blank status page
+<div id="removeMaklumatPenyelia"></div>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			<input type="button" value="Cetak" onclick="javascript:window.print()">
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>

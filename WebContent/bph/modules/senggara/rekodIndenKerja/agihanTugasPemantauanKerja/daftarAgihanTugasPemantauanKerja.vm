@@ -1,0 +1,27 @@
+<fieldset>
+<legend class="legend">MAKLUMAT AGIHAN TUGAS PEMANTAUAN KERJA</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">Agih Tugas Ke &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td>#parse("$path/selectPenyediaSenggara.vm")
+      <div id="err_idPenyediaSenggara" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  #textarea("catatanTugasan" "Catatan Tugasan" "")
+</table>
+</fieldset>
+
+<br>
+<table width="100%">
+  <tr>
+    <td align="right">
+    	<input type="button" value="Simpan" onclick="javascript:simpanAgihanTugas();">
+    	<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

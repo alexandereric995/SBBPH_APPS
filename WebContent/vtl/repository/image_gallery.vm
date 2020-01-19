@@ -1,0 +1,48 @@
+<table class="table_row" width="100%" align="center" cellpadding="1" cellspacing="0">
+	<tr class="table_header">
+		<td colspan="2">
+			&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td class="table_row2" width="20%" valign="top">
+			#parse ( "vtl/repository/image_group.vm" )
+		</td>
+		<td valign="top">
+			#parse ( "vtl/repository/image_item.vm" )
+		</td>
+	</tr>
+</table>
+
+#if ( $allowPost )
+	<form name="edit" method="post">
+	<table class="table_row" width="100%" align="center" cellpadding="1" cellspacing="0">
+		<tr>
+			<td align="right">
+				<a href="javascript:editing()">
+				#if ( $editing )
+					Disable Edit
+				#else
+					Enable Edit
+				#end
+				</a>
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" name="command">
+	<input type="hidden" name="group_id" value="$group_id">
+	</form>
+	<script>
+	function editing() {
+		document.edit.command.value = "editing";
+		document.edit.action = "";
+		document.edit.submit();	
+	}
+	</script>
+	#end
+	
+	
+	#if ( $allowPost && $editing )
+		#parse ( "vtl/repository/category_add.vm" )
+	#end
+

@@ -1,0 +1,145 @@
+<fieldset>
+<legend class="legend">MAKLUMAT PERMOHONAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #if ($!command != "add_new_record")
+  	#input_normal("noPermohonan" "No. Permohonan" "<b>$!r.noPermohonan</b>")
+  	#if($!userRole != '(BGS) Pemohon')
+	  	#if ($!r.noFail != "")
+	  		#input_normal("noFail" "No. Fail" "<b>$!r.noFail</b>")
+		#end
+	#end
+  	#input_normal("status" "Status Permohonan" "<b>$!r.status.keterangan</b>")
+  	#if ($!r.tarikhPermohonan)
+  		#set ($datePermohonan = "$!util.getDateTime($!r.tarikhPermohonan,'dd-MM-yyyy')")
+  	#else 
+  		#set ($datePermohonan = "") 
+  	#end
+  	#input_normal("tarikhPermohonan" "Tarikh Hantar Permohonan" "<b>$datePermohonan</b>")
+  #end
+  #if ($!r.tarikhSurat) 
+  #set ($dateSurat = "$!util.getDateTime($!r.tarikhSurat,'dd-MM-yyyy')")
+  #else #set ($dateSurat = "") #end
+  #date_input_required("tarikhSurat" "Tarikh Surat" "$dateSurat")
+  <tr>
+    <td class="label">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> #parse("$path/selectNegeriBangunan.vm")
+      <div id="err_idNegeriBangunan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Daerah &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><div id="selectDaerahBangunan">#parse("$path/selectDaerahBangunan.vm")</div>
+      <div id="err_idDaerahBangunan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Mukim &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><div id="selectMukimBangunan">#parse("$path/selectMukimBangunan.vm")</div>
+      <div id="err_idMukimBangunan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Premis &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><div id="selectPremis">#parse("$path/selectPremis.vm")</div>
+      <div id="err_idPremis" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Bangunan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><div id="selectBangunan"> #parse("$path/selectBangunan.vm")</div>
+      <div id="err_idBangunan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #if ($!command != "add_new_record")
+  	#input_normal("jumlahKeluasanAkanDatang" "Keluasan Dimohon (MP)" "<b>$!util.formatLuas($!r.jumlahKeluasanAkanDatang)</b>")
+  #end
+</table>
+</fieldset>
+<fieldset>
+<legend class="legend">MAKLUMAT PEMOHON</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #if($!userRole == '(BGS) Pemohon')
+  	#if ($!command == 'add_new_record')
+  		#input_normal("namaKementerian" "Kementerian" "<b>$!pemohon.agensi.kementerian.keterangan</b>")
+  		#input_normal("noPermohonan" "Agensi" "<b>$!pemohon.agensi.keterangan</b>")
+  		<input type="hidden" id="idKementerian" name="idKementerian" value="$!pemohon.agensi.kementerian.id">
+  		<input type="hidden" id="idAgensi" name="idAgensi" value="$!pemohon.agensi.id">
+  		 #input_required("jabatan" "Nama Jabatan" "$!pemohon.namaJabatan") 
+  	#else
+  		#input_normal("namaKementerian" "Kementerian" "<b>$!r.agensi.kementerian.keterangan</b>")
+  		#input_normal("noPermohonan" "Agensi" "<b>$!r.agensi.keterangan</b>")
+  		<input type="hidden" id="idKementerian" name="idKementerian" value="$!r.agensi.kementerian.id">
+  		<input type="hidden" id="idAgensi" name="idAgensi" value="$!r.agensi.id">
+  		#input_required("jabatan" "Nama Jabatan" "$!r.jabatan") 
+	#end  	
+  #else
+  	<tr>
+    <td class="label">Kementerian &nbsp;<span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td>#parse("$path/selectKementerian.vm")
+      <div id="err_idKementerian" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Agensi &nbsp; <span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td><div id="selectAgensi"> #parse("$path/selectAgensi.vm") </div>
+      <div id="err_idAgensi" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #input_required("jabatan" "Nama Jabatan" "$!r.jabatan") 
+  #end  
+ 
+  #input_required("alamat1" "Alamat" "$!r.alamat1")
+  #input("alamat2" "" "$!r.alamat2")
+  #input("alamat3" "" "$!r.alamat3")
+  #postcode_required("poskod" "Poskod" "$!r.poskod")
+  <tr>
+    <td class="label">Negeri &nbsp;<span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td>#parse("$path/selectNegeri.vm")
+      <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Bandar &nbsp;<span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td><div id="selectBandar"> #parse("$path/selectBandar.vm") </div>
+      <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #phone_number_required("noTelefon" "No. Telefon" "$!r.noTelefon")
+  #phone_number_required("noFaks" "No. Faks" "$!r.noFaks")
+  #input_required("namaPegawai" "Nama Pegawai" "$!r.namaPegawai")
+  #input_email_required("emelPegawai" "E-mel" "$!r.emelPegawai")
+</table>
+</fieldset>
+
+#parse("$path/status.vm")
+
+#if ($!command != "add_new_record")
+<table width="100%">
+	<tr>
+		<td align="right">
+		    	          		
+			#if ($!userRole == '(BGS) Pemohon')
+				#if ($!r.status.id == '1428384412943' || $!r.status.id == '1423568441685') ## DRAF PERMOHONAN || PERMOHONAN TIDAK LENGKAP
+					<input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:saveMaklumatPermohonan();"/>
+				#end 
+			#end
+			
+			#if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441671' || $!r.status.id == '1423568441694')) ## PERMOHONAN BARU/PINDAAN KERTAS PERTIMBANGAN
+				<input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:saveMaklumatPermohonan();"/>
+			#end
+    		
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+#end

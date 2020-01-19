@@ -1,0 +1,36 @@
+      _jq(document).ready(function () { 
+            _jq('#btnAddNewRecordTemplate').val('Daftar Senarai Hitam'); ##ubah nama kepada nama yang diperlukan
+      	  });
+
+function validate() {
+	var err_count = 0;
+	
+	var sebab = $('sebab').value;
+	if ( sebab == "" ) {$('err_sebab').innerHTML = "Sebab adalah mandatori!"; err_count++;  }
+	
+	var tarikhPermohonan = $('tarikhPermohonan').value;
+	if ( tarikhPermohonan == "" ) {$('err_tarikhPermohonan').innerHTML = "Tarikh Permohonan adalah mandatori!"; err_count++;  }
+	
+	var pemohon = $('pemohon').value;
+	if ( pemohon == "" ) {$('err_pemohon').innerHTML = "Nama adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function kosongkanSenaraiHitam() {
+	$('tarikhPermohonan').value = "";
+	$('sebab').value = "";
+	$('catatan').value = "";
+}
+
+function batalPermohonanSenaraiHitam() {
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall3$formname('div_main_entry','batalSenaraiHitam','')
+	}
+}

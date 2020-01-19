@@ -1,0 +1,47 @@
+<fieldset>
+<legend class="legend">Catatan Semakan</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #textarea_required("catatan" "Catatan" "")
+        #if ($!semakan.status == 'P')
+        <tr>
+          <td class="label" valign="top">Pegawai Penyemak &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td> #parse("$path/logSemakan/selectPenyemak.vm")
+            <div id="err_idPenyemak" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #end
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<table width="100%">
+  <tr> &nbsp;
+    </td>
+  </tr>
+  <tr>
+    <td align="right"> #if ($!semakan.status == 'B' && $!userRole == '(TNH) Penyemak')
+      <input id="button" type="button" value="Hantar Untuk Pindaan" onClick="javascript:doHantarPindaanSemakan();">
+      <input id="button" type="button" value="Selesai Semakan" onClick="javascript:doSelesaiSemakan();">
+      #end
+      #if ($!semakan.status == 'P' && $!userRole == '(TNH) Penyedia')
+      <input id="button" type="button" value="Hantar Untuk Semakan" onClick="javascript:doHantarSemakanSemula();">
+      #end
+    </td>
+  </tr>
+</table>
+</fieldset>

@@ -1,0 +1,30 @@
+<input type="hidden" id="userId" name="userId" value="$!penghuni.id"/>
+<table cellpadding="5" cellspacing="0" border="0" width="100%" style="padding: 0px 60px;">	
+##		<tr>
+##	        <td style="width:10%"></td>
+##	        <td style="width:1%"></td>
+##	        <td style="width:69%"></td>
+##	        <td style="width:10%"></td>
+##	    </tr>
+		  <tr>
+			<td style="width:10%" class="label" align="right">Nama &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td style="width:1%" class="label" align="top">:</td>
+			<td style="width:69%"><input type="text" id="namaPenghuni" name="namaPenghuni" value="$!penghuni.userName" onKeyUp=" $('err_namaPenghuni').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+			<div id="err_namaPenghuni" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+			<td style="width:10%" align="top"><input type="button" id="cmdCarianPenghuni" name="cmdCarianPenghuni" value="Cari">
+		</tr>
+  </table>
+<div id="popupMaklumatPenghuni" class="popup"></div>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+	_jq('#cmdCarianPenghuni').on('click', function(){
+			doDivAjaxCall3$formname('popupMaklumatPenghuni','cariPenghuni','');
+            jQuery('#popupMaklumatPenghuni').fadeIn();
+        });
+</script>

@@ -1,0 +1,199 @@
+##<input type="text" id="idKesalahan" name="idKesalahan" value="$!r.id">
+<div id="mainPage" name="mainPage">
+	<fieldset>
+		<legend class="legend">CARIAN PESALAH</legend>
+		<table width="100%" cellpadding="1" cellspacing="2" align="center">
+		##  <tr>
+		##    <td class="label" style="width:50%">&nbsp;</td>
+		##    <td style="width:50%">&nbsp;</td>
+		##  </tr>
+			<tr>
+				<td>
+					##start sebelah kiri
+					<table width="100%" cellpadding="1" cellspacing="2" align="center">
+						<tr>
+							<td class="label" style="width:30%">&nbsp;</td>
+							<td style="width:1%">&nbsp;</td>
+							<td style="width:69%">&nbsp;</td>
+						</tr>
+						<tr>
+							<td>No Kad Pengenalan <span style="color:#FF2A00">*</span></td>
+							<td>:</td>
+							<td>
+								<input type="text" id="noKp" name="noKp" style="width:80%"/>
+								<div id="err_noKp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+							</td>
+							
+						</tr>
+						<tr>
+							<td>Nama</td>
+							<td>:</td>
+							<td><input type="text" id="namaPesalah" name="namaPesalah" style="width:80%"/></td>
+						</tr>
+						<tr>
+							<td>No Unit Kuarters</td>
+							<td>:</td>
+							<td><input type="text" id="noUnit" name="noUnit" style="width:80%"/></td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					##start sebelah kanan
+					<table width="100%" cellpadding="1" cellspacing="2" align="center">
+						<tr>
+							<td class="label" style="width:20%">&nbsp;</td>
+							<td style="width:1%">&nbsp;</td>
+							<td style="width:69%">&nbsp;</td>
+						</tr>
+						<tr>
+							<td>No Fail Penghuni</td>
+							<td>:</td>
+							<td><input type="text" id="noFile" name="noFile" style="width:80%"/></td>
+						</tr>
+						<tr>
+							<td class="label">Negeri</td>
+							<td>:</td>
+							<td><div id="findNegeri"> #parse("$path/kesalahan/findNegeri.vm") </div></td>
+						</tr>
+						<tr>
+							<td class="label">Bandar</td>
+							<td>:</td>
+							<td><div id="findBandar"> #parse("$path/kesalahan/findBandar.vm") </div></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		
+		<table width="50%" cellpadding="1" cellspacing="2" align="center">
+			<tr>
+				<td style="width:64%">&nbsp;</td>
+			</tr>
+			<tr>
+				<td align="center"><input type="button" id="addMaklumatPesalah" name="addMaklumatPesalah" value="Cari">
+				##    <input type="button" id="kosongkan" name="kosongkan" value="Kosongkan">
+				<input type="reset" value="Kosongkan" onclick="$('div_list').style.visibility='visible';doDivAjaxCall$formname('div_list','reset_list','')"></td>
+			</tr>
+		</table>
+	</fieldset>
+
+	<fieldset>
+		<legend class="legend">SENARAI PESALAH</legend>
+		<table width="100%" cellpadding="1" cellspacing="2">
+			<tr>
+				<td class="label" style="width:15%">&nbsp;</td>
+				<td style="width:1%">&nbsp;</td>
+				<td style="width:84%">&nbsp;</td>
+			</tr>
+			<tr>
+				<td width="100%">
+					<table width="100%" cellpadding="5" cellspacing="1">
+					<tr>
+						<td class="row_header" width="5%">Bil.</td>
+						<td class="row_header" width="20%">No Kad Pengenalan</td>
+						<td class="row_header" width="30%">Nama</td>
+						<td class="row_header" width="10%">No Unit</td>
+						<td class="row_header" width="5%">Papar</td>
+						<td class="row_header" width="5%">Hapus</td>
+					</tr>
+					
+					#set ( $count = 0 )
+					#if ( $listKesalahan.size() > 0) 
+						#foreach( $c in $listKesalahan )
+							#set ( $count = $count + 1)
+			
+							#if ( $count % 2 == 0 ) 
+								#set ( $rowcolor = "#D0CFCE" ) 
+							#else 
+								#set ( $rowcolor = "#F0F0F0" ) 
+							#end
+							<tr bgcolor="$rowcolor">
+								<td align="center">$!count</td>	
+								<td align="left">$!c.penghuni.pemohon.noKP</td>
+								<td align="left">$!c.penghuni.pemohon.userName</td>
+								<td align="left">$!c.penghuni.kuarters.noUnit</td>
+								#if($r.jenisOperasi.id == 'CP' || ($r.jenisOperasi.id == 'PS' && $r.jenisPelanggaranSyarat.id == '1435633886800'))
+									<td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> </td>
+									<td align="center"><a href="javascript:void()" onClick="deleteMaklumatPenguncian('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+									<script>
+										_jq('#link$c.id').on('click', function(){
+										##        	$('mainPage').style.display = 'none';
+										doDivAjaxCall3$formname('editMaklumatPenguncian','editPenguncian','idPenguncian=$c.id');
+										jQuery('#editMaklumatPenguncian').fadeIn();
+										});
+									</script>
+								#else
+									<td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> </td>
+									<td align="center"><a href="javascript:void()" onClick="deleteMaklumatKesalahan('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+									<script>
+										##	_jq('#link$c.id').on('click', function(){
+										##		doDivAjaxCall3$formname('editMaklumatKesalahan','editKesalahan','idKesalahan=$c.id');
+										##		jQuery('#editMaklumatKesalahan').fadeIn();
+										##	});
+										_jq('#link$c.id').on('click', function(){
+											doDivAjaxCall3$formname('mainPage','paparMaklumatPesalah','idKesalahan=$c.id');
+									        jQuery('#paparMaklumatPesalah').fadeIn();
+								        });
+									</script>
+								#end
+							</tr>
+						#end
+					#else
+						<tr >
+							<td align="center">&nbsp;</td>
+							<td >Tiada Rekod</td>
+							<td align="center">&nbsp;</td>
+							## <td align="center">&nbsp;</td>
+						</tr>
+					#end
+					</table>
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+
+	<p align="right"><input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')"></p>	
+</div>
+
+## Popup
+<div id="editMaklumatKesalahan" class="popup"></div>
+
+## Blank status page
+<div id="removeMaklumatKesalahan"></div>
+
+## Popup
+<div id="editMaklumatPenguncian" class="popup"></div>
+
+## Blank status page
+<div id="removeMaklumatPenguncian"></div>
+
+<script>
+
+	##	asal zul ubah buat ic mandatori pada 25-9-2016
+##	_jq('#addMaklumatPesalah').on('click', function(){
+##		doDivAjaxCall3$formname('editMaklumatKesalahan','addPesalah','');
+##		jQuery('#editMaklumatKesalahan').fadeIn();
+##	});
+    
+    ##	start code new zul ubah buat ic mandatori pada 25-9-2016
+    _jq('#addMaklumatPesalah').on('click', function(){
+	  	funcAddMaklumatPesalah();
+    });
+    
+    function funcAddMaklumatPesalah() {
+		if (validate()){
+			doDivAjaxCall3$formname('editMaklumatKesalahan','addPesalah','');
+        	jQuery('#editMaklumatKesalahan').fadeIn();
+		}
+	}
+	
+	function validate() {
+		var err_count = 0;	
+		
+		var noKp = $('noKp').value;
+		if ( noKp == "" ) {$('err_noKp').innerHTML = "adalah mandatori!"; err_count++;  }
+			
+		return err_count == 0;
+	}
+	##	End code new zul ubah buat ic mandatori pada 25-9-2016
+</script>

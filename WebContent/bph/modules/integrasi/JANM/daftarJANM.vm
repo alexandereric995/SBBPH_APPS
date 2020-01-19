@@ -1,0 +1,29 @@
+<fieldset>
+<legend class="legend">MUAT NAIK LAMPIRAN JANM</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  <tr>
+    <td valign="top">Lampiran JANM &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td valign="top">
+    	<input type=hidden name="dokumenJANM" id="dokumenJANM" value="$!r.fileDir"> 
+	    #if ( $!r.fileDir ) 
+			#if ($!r.fileDir != "") 
+		    	<a href="../download?file=$!uploadDir$!r.fileDir" ><font color="#0000FF"><strong>LAMPIRAN JANM</strong></font> </a> &nbsp;&nbsp;
+		    #end
+		#end
+		    
+      <input class="texts" type="file" id="lampiranJANM" name="lampiranJANM" style="width:500px" onFocus="$('err_lampiranJANM').innerHTML = '';" onChange="muatNaikLampiranJANM();">
+      <div id="uploadLampiranJANM" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+      <div id="err_lampiranJANM" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+   </td>
+  </tr>
+</table>
+</fieldset>
+
+<div id="lampiranJANMReload"></div>
+<iframe id="upload_lampiran_janm" name="upload_lampiran_janm" width="0px" height="0px" style="visibility:hidden"></iframe>

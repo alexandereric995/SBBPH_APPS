@@ -1,0 +1,19 @@
+<input type="hidden" name="idpermohonan" value="$!r.id" id="idpermohonan" />
+
+#parse("$path/form/status.vm")	
+	
+	
+	<nav class="breadcrumbs">
+      <ul>
+    	<li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('mainform','getMaklumatPermohonan','');" #end >MAKLUMAT PERMOHONAN & PEMOHON</a></li>
+		
+		#if( $!r )
+		<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doGetDokumen();" #end >DOKUMEN SOKONGAN</a></li>
+		#end
+		
+		#if( ($!userRole.equalsIgnoreCase("(RPP) Penyedia") || $!userRole.equalsIgnoreCase("(RPP) Penyemak") || $!userRole.equalsIgnoreCase("(RPP) Pelulus") || $!userRole.equalsIgnoreCase("(RPP) Penyelia")) && ($r.status.id=="1433097397170" || $r.status.id=="1425259713415" || $r.status.id=="1435093978588" ) )
+		<li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3') onClick="doGetMaklumatLO();" #end >MAKLUMAT BAYARAN</a></li>
+		#end
+				
+	  </ul>
+    </nav>

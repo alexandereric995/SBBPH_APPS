@@ -1,0 +1,30 @@
+<table style="width:100%">
+
+<tr>
+<td>
+Title:<br/>
+<input name="announcement_title" style="width:100%" value="$!announcement.title">
+</td>
+</tr>
+
+<tr>
+<td>
+Expiry Date:<br/>
+#if ( $announcement.dateExpired ) #set ( $dateValue = $dateFormat.format($announcement.dateExpired)) #else #set ( $dateValue = "") #end
+$html.dateField.name("announcement_expired").value("$!dateValue").style("width:200px")
+</td>
+</tr>
+
+<tr>
+<td>
+Announcement Text:<br/>
+<textarea name="announcement_text" style="height:100px;width:100%">$!announcement.text</textarea>
+</td>
+</tr>
+
+<tr><td>
+<input type="button" value="Cancel" onclick="doDivAjaxCall$formname('div_${_moduleId}','list_announcements','')">
+<input type="button" value="Save" onclick="doDivAjaxCall$formname('div_${_moduleId}','save_announcement','announcement_id=$announcement.id')">
+</td></tr>
+
+</table>

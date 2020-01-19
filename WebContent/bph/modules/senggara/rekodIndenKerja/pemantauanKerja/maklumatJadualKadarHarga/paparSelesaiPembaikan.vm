@@ -1,0 +1,27 @@
+<fieldset>
+<legend class="legend">SELESAI PEMBAIKAN</legend>
+	<table width="100%" cellpadding="1" cellspacing="2">
+	  <tr>
+	    <td class="label" style="width:15%"></td>
+	    <td style="width:1%"></td>
+	    <td style="width:84%"></td>
+	  </tr>	
+      #if ($!jkh.tarikhSelesaiPembaikan) 
+      	#set ($dateSelesaiPembaikan = "$!util.getDateTime($!jkh.tarikhSelesaiPembaikan,'dd-MM-yyyy')")
+      #else #set ($dateSelesaiPembaikan = "-") #end
+      #input_readonly_all_label("tarikhSelesaiPembaikan" "Tarikh Selesai" "$dateSelesaiPembaikan") 	
+      #input_readonly_all_label("catatanPembaikan" "Catatan" "$!jkh.catatanPembaikan")
+	  <tr>
+	    <td valign="top">Laporan Pembaikan</td>
+	    <td valign="top">:</td>
+	    <td valign="top"><input type=hidden name="dokumenLaporanPembaikan" id="dokumenLaporanPembaikan" value="$!jkh.fileLaporanPembaikan"> 
+	    	#if ( $!jkh.fileLaporanPembaikan ) 
+		    	#if ($!jkh.fileLaporanPembaikan != "") 
+		    		<a href="../download?file=$!uploadDir$!jkh.fileLaporanPembaikan" > 
+		    			<font color="#0000FF"><strong>LAPORAN PEMBAIKAN</strong></font> </a> &nbsp;&nbsp;
+		    	#end
+		    #end	
+	    </td>
+	  </tr>
+	</table>
+</fieldset>

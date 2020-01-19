@@ -1,0 +1,37 @@
+#if ($r.tarikhMohonTemujanji)
+    #set($dateMohonTemujanji = $util.getDateTime($r.tarikhMohonTemujanji, "dd-MM-yyyy"))
+#else #set($dateMohonTemujanji = "") #end
+<td align="center">$!dateMohonTemujanji</td>
+
+#if ($r.tarikhTemujanji)
+    #set($dateTemujanji = $util.getDateTime($r.tarikhTemujanji, "dd-MM-yyyy"))
+#else #set($dateTemujanji = "") #end
+<td align="center">$!dateTemujanji</td>
+
+#if ($r.tarikhMulaTemujanji)
+    #set($dateMulaTemujanji = $util.getDateTime($r.tarikhMulaTemujanji, "hh:mm a"))
+#else #set($dateMulaTemujanji = "") #end
+<td align="center">$!dateMulaTemujanji</td>
+
+<td align="center">$!r.pemohon.id</td>
+<td>$!r.pemohon.userName</td>
+
+<td align="center">
+#if ($!r.getFlagTemujanjiTamat() == 'Y')
+	<span id="blinkTemujanjiTamat$!r.id">
+		<font color="red"><b>TEMUJANJI TELAH LEPAS</b></font>
+	</span>
+#else
+	<b><span style='color: #228B22'>$!r.getKeteranganStatusTemujanji()</span></b>
+#end	
+</td>
+
+<script>
+## START BLINK NOTIFICATION
+function blinker() {
+	_jq('#blinkTemujanjiTamat$!r.id').fadeOut(1000);
+    _jq('#blinkTemujanjiTamat$!r.id').fadeIn(1000);     
+}
+setInterval(blinker, 1000);
+## END BLINK NOTIFICATION
+</script>

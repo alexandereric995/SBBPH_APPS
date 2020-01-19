@@ -1,0 +1,183 @@
+function validate() {
+	var err_count = 0;
+	
+	var idSumberAduan = $('idSumberAduan').value;
+	if ( idSumberAduan == "" ) {$('err_idSumberAduan').innerHTML = "Sumber Aduan adalah mandatori!"; err_count++;  }
+	
+	var idJenisAduan = $('idJenisAduan').value;
+	if ( idJenisAduan == "" ) {$('err_idJenisAduan').innerHTML = "Jenis Aduan adalah mandatori!"; err_count++;  }
+	
+	var tarikhAduan = $('tarikhAduan').value;
+	if ( tarikhAduan == "" ) {$('err_tarikhAduan').innerHTML = "Tarikh Aduan adalah mandatori!"; err_count++;  }
+	
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "Tajuk adalah mandatori!"; err_count++;  }
+	
+	var butiran = $('butiran').value;
+	if ( butiran == "" ) {$('err_butiran').innerHTML = "Butiran adalah mandatori!"; err_count++;  }
+	
+##	var noPengenalan = $('noPengenalan').value;
+##	if ( noPengenalan == "" ) {$('err_noPengenalan').innerHTML = "No. Pengenalan adalah mandatori!"; err_count++;  }
+##	
+##	var nama = $('nama').value;
+##	if ( nama == "" ) {$('err_nama').innerHTML = "Nama adalah mandatori!"; err_count++;  }
+##	
+##	var alamat1 = $('alamat1').value;
+##	if ( alamat1 == "" ) {$('err_alamat1').innerHTML = "Alamat adalah mandatori!"; err_count++;  }
+##	
+##	var poskod = $('poskod').value;
+##	if ( poskod == "" ) {$('err_poskod').innerHTML = "Poskod adalah mandatori!"; err_count++;  }
+##	
+##	var idNegeri = $('idNegeri').value;
+##	if ( idNegeri == "" ) {$('err_idNegeri').innerHTML = "Negeri adalah mandatori!"; err_count++;  }
+##	
+##	var idBandar = $('idBandar').value;
+##	if ( idBandar == "" ) {$('err_idBandar').innerHTML = "Bandar adalah mandatori!"; err_count++;  }
+##	
+##	var noTelefon = $('noTelefon').value;
+##	if ( noTelefon == "" ) {$('err_noTelefon').innerHTML = "No. Telefon adalah mandatori!"; err_count++;  }
+##	
+##	var emel = $('emel').value;
+##	if ( emel == "" ) {$('err_emel').innerHTML = "Emel adalah mandatori!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+## MAKLUMAT ADUAN
+function doSaveAduan() {
+	if (validate()){
+		doDivAjaxCall$formname('divTab','saveAduan','');
+	}
+}
+
+function doTerimaAduan() {
+	doDivAjaxCall$formname('divTab','terimaAduan','');
+}
+
+function doMaklumbalasUnit() {
+	doDivAjaxCall$formname('divTab','maklumbalasUnit','');
+}
+
+function doSaveMaklumbalasUnit() {
+	doDivAjaxCall$formname('divTab','saveMaklumbalasUnit', '');
+}
+
+function validateTerimaAduan() {
+	var err_count = 0;
+	
+	var ulasanUrusetia = $('ulasanUrusetia').value;
+	if ( ulasanUrusetia == "" ) {$('err_ulasanUrusetia').innerHTML = "Maklumbalas kepada Pengadu adalah mandatori!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doSaveTerimaAduan() {
+	if (validateTerimaAduan()){
+		doDivAjaxCall$formname('divTab','saveTerimaAduan','');
+	}
+}
+
+function doTolakAduan() {
+	doDivAjaxCall$formname('divTab','tolakAduan','');
+}
+
+function validatePenolakanAduan() {
+	var err_count = 0;
+	
+	var ulasanSelesai = $('ulasanSelesai').value;
+	if ( ulasanSelesai == "" ) {$('err_ulasanSelesai').innerHTML = "Maklumbalas kepada Pengadu adalah mandatori!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doSavePenolakanAduan() {
+	if (validatePenolakanAduan()){
+		doDivAjaxCall$formname('divTab','savePenolakanAduan','');
+	}
+}
+
+function doSelesaiAduan() {
+	doDivAjaxCall$formname('divTab','selesaiAduan','');
+}
+
+function validateSelesaiAduan() {
+	var err_count = 0;
+	
+	var ulasanSelesai = $('ulasanSelesai').value;
+	if ( ulasanSelesai == "" ) {$('err_ulasanSelesai').innerHTML = "Maklumbalas kepada Pengadu adalah mandatori!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doSaveSelesaiAduan() {
+	if (validateSelesaiAduan()){
+		doDivAjaxCall$formname('divTab','saveSelesaiAduan','');
+	}
+}
+
+##function doSaveKeteranganTeknikal() {
+##	if ( !window.confirm("Anda pasti?") ){
+##			return;
+##		}
+##	doDivAjaxCall$formname('divTab','saveKeteranganTeknikal','');
+##}
+function doSaveKeteranganTeknikal() {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divRefreshKeteranganTeknikal','saveKeteranganTeknikal','');
+}
+
+##email ke FM
+function doEmailKeFm() {
+	doDivAjaxCall$formname('divTab','emailKeFm','');
+}
+function doSaveEmailKeFm() {
+	if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	doDivAjaxCall$formname('divTab','saveEmailKeFm','');
+}
+
+
+
+function savePilihPegawaiPertama() {
+##	if ( !window.confirm("Anda pasti?") ){
+##		return;
+##	}
+	doDivAjaxCall3$formname('divTab','savePilihPegawaiPertama','');
+}
+
+function saveAgihanTugas() {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','saveAgihanTugas','');
+}
+
+function deleteMaklumatPegawai(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','removePegawaiPertama','idPegawaiTugas=' + id);
+}

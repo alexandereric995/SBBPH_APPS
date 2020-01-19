@@ -1,0 +1,63 @@
+function validate() {
+
+	var err_count = 0;
+	
+	var noAkaun = $('noAkaun').value;
+	if ( noAkaun == "" ) {$('err_noAkaun').innerHTML = "No Akaun adalah mandatori!"; err_count++;  }
+	
+	##var noBil = $('noBil').value;
+	##if ( noBil == "" ) {$('err_noBil').innerHTML = "No Bil adalah mandatori!"; err_count++;  }
+		
+	var tarikhBil = $('tarikhBil').value;
+	if ( tarikhBil == "" ) {$('err_tarikhBil').innerHTML = "Tarikh Bil adalah mandatori!"; err_count++;  }
+	
+	var amaunTunggakan = $('amaunTunggakan').value;
+	if ( amaunTunggakan == "" ) {$('err_amaunTunggakan').innerHTML = "Amaun Tunggakan adalah mandatori!"; err_count++;  }
+	
+	var amaunSemasa = $('amaunSemasa').value;
+	if ( amaunSemasa == "" ) {$('err_amaunSemasa').innerHTML = "Amaun Semasa adalah mandatori!"; err_count++;  }
+	
+	var tarikhAkhirBayaran = $('tarikhAkhirBayaran').value;
+	if ( tarikhAkhirBayaran == "" || tarikhAkhirBayaran == "-" ) {$('err_tarikhAkhirBayaran').innerHTML = "Tarikh Akhir Bayaran adalah mandatori!"; err_count++;  }
+
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+##function saveAgihanTugas() {
+##	if ( !window.confirm("Anda pasti?") ){
+##		return;
+##	}
+##	doDivAjaxCall3$formname('divTab','saveAgihanTugas','');
+##}
+
+
+function doSaveMaklumatBayaran() {
+	if (validate()){
+		doDivAjaxCall$formname('divTab','saveMaklumatBayaran','');
+	}
+}
+
+function doLulusMaklumatBayaran() {
+	if (validate()){
+		doDivAjaxCall$formname('divTab','lulusMaklumatBayaran','');
+	}
+}
+
+function doHantarSemakan() {
+	if (validate()){
+		doDivAjaxCall$formname('divTab','doHantarSemakan','');
+	}
+}
+
+function doHantarKewangan() {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divTab','doHantarKewangan','');
+}

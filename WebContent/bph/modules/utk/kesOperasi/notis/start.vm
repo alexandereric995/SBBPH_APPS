@@ -1,0 +1,82 @@
+<fieldset><legend class="legend">Maklumat Notis</legend>
+
+
+	<p align="left">
+ 		<input type="button" value="Tambah" align='left' id="addMaklumatNotis">
+ 		<script>
+			_jq('#addMaklumatNotis').on('click', function(){
+			doDivAjaxCall3$formname('editMaklumatNotis','addNotis','');
+            jQuery('#editMaklumatNotis').fadeIn();
+        	});
+		</script>
+	</p>
+	<br /><br />
+    <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+            <td class="row_header" width="5%">Bil.</td>
+            <td class="row_header" width="25%">No Siri</td>
+			<td class="row_header" width="20%">Jenis Notis</td>
+			<td class="row_header" width="20%">Jenis Peringatan</td>
+            <td class="row_header" width="10%">Tarikh Hantar Notis</td>
+            <td class="row_header" width="5%">Papar</td>
+##		    <td class="row_header" width="5%">Hapus</td>
+        </tr>
+        #if ( $listNotis.size() > 0) 
+    		#set ( $count = 0 )
+    		#foreach( $c in $listNotis)
+    			#set ( $count = $count + 1)
+				
+    			#if ( $count % 2 == 0 ) 
+					#set ( $rowcolor = "#D0CFCE" ) 
+				#else 
+					#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+    			<tr bgcolor="$rowcolor">
+    				<td align="center">$count</td>
+    				<td align="center">$!c.noSiri</td>
+    				#if($!c.flagJenisNotis == '1')
+    					#set($flagNotis = 'NOTIS PERINGATAN')
+    				#elseif($!c.flagJenisNotis == '2')
+    					#set($flagNotis = 'NOTIS PENGOSONGAN')
+				    #end
+					<td align="center">$flagNotis</td>
+					#if($!c.flagJenisNotis == '1')
+						#if($!c.flagPeringatan == '1')
+    						#set($flagPeringatan = 'PERINGATAN PERTAMA')
+    					#else
+    						#set($flagPeringatan = 'PERINGATAN KE-' + $!c.flagPeringatan)
+				    	#end
+				    #else
+				    	#set($flagPeringatan = '')
+				    #end
+					<td align="center">$flagPeringatan</td>
+					<td align="center">$util.getDateTime($c.tarikhHantar, "dd/MM/yyyy")</td>
+					<td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> </td>
+##          			<td align="center"><a href="javascript:void()" onClick="deleteMaklumatNotis('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+        			</tr>
+        			<script>
+        			_jq('#link$c.id').on('click', function(){
+					doDivAjaxCall3$formname('editMaklumatNotis','editNotis','idNotis=$c.id');
+            		jQuery('#editMaklumatNotis').fadeIn();
+            		});
+       			</script>
+    		#end
+	#else
+	<tr >
+		<td align="center">&nbsp;</td>
+		<td >Tiada Rekod</td>
+		<td align="center">&nbsp;</td>
+		<td align="center">&nbsp;</td>
+		<td align="center">&nbsp;</td>
+		<td align="center">&nbsp;</td>
+	</tr>
+	#end
+    </table>
+</fieldset>
+<p align="right">
+	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	</p>
+## Popup
+<div id="editMaklumatNotis" class="popup"></div>
+## Blank status page
+<div id="removeMaklumatNotis"></div>

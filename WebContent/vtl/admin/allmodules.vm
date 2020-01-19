@@ -1,0 +1,71 @@
+<fieldset>
+    <form name="f" method="post">
+    	<table align="center" border="0">
+    		<tr>
+    			<td height="320px" width="510px" valign="top">
+    				<div style="overflow:auto;height:300px; width:500px;background:lightgrey;position:absolute" >
+    					<div style="margin:0px; width:100%">          
+    						<table width="100%" align="center" cellpadding="2" cellspacing="0" border="0" >
+    							#set ( $group_name = "" )
+    							#foreach ( $module in $allModules )
+    								#set ($i = $i + 1)
+    								#if ( $module.marked)
+    									#set ( $row = "selected")
+    									#set ( $checked = "checked")	
+    								#else
+    									#set ( $row = "row1")
+    									#set ( $checked = "")                               
+    								#end
+                 
+    								#if ( $group_name != $module.groupName )
+    									#set ( $group_name = $module.groupName )
+    									<tr>
+    										<td colspan="2">
+    											<b>$module.groupName</b>
+    										</td>                                       
+    									</tr>
+    								#end                                
+                                    
+    								<tr #if ( $module.marked ) bgcolor="blue" #end>
+    									<td width="25"><input class="cb" type="checkbox" name="cbmodules" value="$module.id" $checked></td>
+    									<td #if ( $module.marked ) style="color:white" #end>
+    									#if ( $module.title == "" )
+    										[<i>$module.id</i>]
+    									#else
+    										$module.title
+    									#end
+    									</td>
+    								</tr>
+    							#end
+    						</table>  
+    					</div>
+    				</div>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td bgcolor="silver">
+    				#if ( $lang == "en" ) #set($butMODUPD = "UPDATE TAB'S MODULES") #elseif ( $lang == "bm" ) #set($butMODUPD = "KEMASKINI MODUL TAB") #end
+    					<input type="button" value="$butMODUPD" onclick="updateTabModules()">
+    				#if ( $lang == "en" ) #set($butMODBCK = "BACK") #elseif ( $lang == "bm" ) #set($butMODBCK = "KEMBALI") #end
+    					<input type="button" value="$butMODBCK" onclick="listModules()">
+    			</td>
+    		</tr>
+    	</table>
+    	<input type="hidden" name="tabId" value="$tab.id">
+    	<input type="hidden" name="command">
+    </form>
+</fieldset>
+<br /><br />
+
+<script>
+function updateTabModules(){
+    document.f.action = "customize?type=module&do=updateTabModules";
+    document.f.submit();
+}
+
+function listModules() {
+    document.f.action = "customize?type=module&do=listModules";
+    document.f.submit();
+}
+
+</script>

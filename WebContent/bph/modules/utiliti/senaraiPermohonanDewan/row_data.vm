@@ -1,0 +1,67 @@
+##<td>$!r.id</td>
+<td>$!r.idTempahan</td>
+<td>$!r.pemohon.userName ($!r.pemohon.id)</td>
+<td>$!r.dewan.nama</td>
+#if ($!r.tarikhMula)
+	#set ($dateMula = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+#else 
+	#set ($dateMula = "-") 
+#end
+<td>$dateMula</td>
+
+#if ( $!r.statusBayaran == "T" )
+		#set ($status = "BELUM BAYAR")		
+		##if ( $!util.daysBetween($!r.tarikhPermohonan,$tarikh) > 6 )
+		#if ( $!util.daysBetween($tarikh,$!r.tarikhMula) < 30 )
+			#set ($status = "LEWAT BAYAR")	
+			<td><b><span id='$r.id' style='color: #FF0000'>$status</span></b></td>
+			<script>
+            	function blinker() {
+                   	 _jq('#$r.id').fadeOut(750);
+                    _jq('#$r.id').fadeIn(750);
+                }
+                setInterval(blinker, 1500);
+            </script>	
+		#else
+         	<td><b>$status</b></td>
+		#end	
+#else
+		#set ($status = "TELAH BAYAR")
+		#if ( $!util.daysBetween($!r.tarikhPermohonan,$tarikh) > 6 )
+			
+			<td><b><span id='a' style='color: #228B22'>$status</span></b></td>
+
+		#else
+         	<td><b><span id='$b' style='color: #228B22'>$status</span></b></td>
+		#end	
+#end
+
+#if ( $!r.statusPermohonan == "Y" && $!r.statusBayaran == "Y" )
+	#set ($statusPermohonan = "DILULUSKAN")
+	<td><b><span id='c' style='color: #228B22'>$statusPermohonan</span></b></td>
+#elseif ( $!r.statusPermohonan == "Y" && $!r.statusBayaran == "T" )
+	#set ($statusPermohonan = "DILULUSKAN")
+	<td><b><span id='d' style='color: #FF8C00'>$statusPermohonan</span></b></td>
+#elseif ( $!r.statusPermohonan == "R" && $!r.statusBayaran == "T" )
+	#set ($statusPermohonan = "MENUNGGU KELULUSAN")
+	<td><b><span id='e' style='color: #FF0000'>$statusPermohonan</span></b></td>
+#elseif ( $!r.statusPermohonan == "R" && $!r.statusBayaran == "Y" )
+	#set ($statusPermohonan = "DILULUSKAN")
+	<td><b><span id='c' style='color: #228B22'>$statusPermohonan</span></b></td>
+#elseif	( $!r.statusPermohonan == "N" )
+	#set ($statusPermohonan = "DITOLAK")
+	<td><b><span id='f' style='color: #FF0000'>$statusPermohonan</span></b></td>
+#elseif	( $!r.statusPermohonan == "YY" && $!r.statusBayaran == "YY" )
+	#set ($statusPermohonan = "DILULUSKAN (TANPA BAYARAN)")
+	<td><b><span id='f' style='color: #FF0000'>$statusPermohonan</span></b></td>
+#elseif	( $!r.statusPermohonan == "B" && $!r.statusBayaran == "T" )
+	#set ($statusPermohonan = "BATAL")
+	<td><b><span id='f' style='color: #FF0000'>$statusPermohonan ( $!r.sebabBatal )</span></b></td>
+#end
+
+###if	( $!r.statusPermohonan == "YY" && $!r.statusBayaran == "YY" )
+##<td align="center">
+##	<a href="javascript:void()" title="Klik untuk cetak resit." onclick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')"><img src="../img/print.gif" border="0"></a>
+##</td>
+###end
+

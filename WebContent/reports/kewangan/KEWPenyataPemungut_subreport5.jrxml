@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="KEWPenyataPemungut_subreport5"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="kaedahBayaran" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="tarikhPenyataPemungut" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="modBayaran" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idPenyata" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="kodPusat" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT A.no_resit, A.tarikh_bayaran, D.id_kod_hasil, D.kredit AS TOTAL, '' AS DEPOSIT
+FROM kew_bayaran_resit A
+JOIN kew_resit_senarai_invois B ON A.id = B.id_bayaran_resit
+JOIN kew_invois D ON B.id_invois = D.id
+where a.id in (
+select a.id
+from kew_bayaran_resit a
+join kew_resit_kaedah_bayaran b
+on a.id = b.id_bayaran_resit
+where DATE_FORMAT(A.tarikh_bayaran,'%d-%m-%Y') = $P!{tarikhPenyataPemungut}
+AND A.id_juruwang is not null
+AND b.id_mod_bayaran = '$P!{kaedahBayaran}'
+AND a.id_kod_pusat_terima = '$P!{kodPusat}'
+AND (A.flag_void is null or A.flag_void = 'T'))
+UNION ALL
+SELECT A.no_resit, A.tarikh_bayaran, D.id_kod_hasil, '' AS TOTAL, D.jumlah_deposit AS DEPOSIT
+FROM kew_bayaran_resit A
+JOIN kew_resit_senarai_invois B ON A.id = B.id_bayaran_resit
+JOIN kew_deposit D ON B.id_deposit = D.id
+where a.id in (
+select a.id
+from kew_bayaran_resit a
+join kew_resit_kaedah_bayaran b
+on a.id = b.id_bayaran_resit
+where DATE_FORMAT(A.tarikh_bayaran,'%d-%m-%Y') = $P!{tarikhPenyataPemungut}
+AND A.id_juruwang is not null
+AND b.id_mod_bayaran = '$P!{kaedahBayaran}'
+AND a.id_kod_pusat_terima = '$P!{kodPusat}'
+AND (A.flag_void is null or A.flag_void = 'T'))
+order by no_resit]]></queryString>
+
+	<field name="no_resit" class="java.lang.String"/>
+	<field name="tarikh_bayaran" class="java.sql.Date"/>
+	<field name="id_kod_hasil" class="java.lang.String"/>
+	<field name="TOTAL" class="java.lang.Double"/>
+	<field name="DEPOSIT" class="java.lang.Double"/>
+
+	<variable name="total_besar" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{TOTAL}.doubleValue() + $F{DEPOSIT}.doubleValue())]]></variableExpression>
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="296"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="260"
+						width="533"
+						height="18"
+						key="staticText-29"/>
+					<box leftPadding="2">					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[SENARAI RESIT YANG DIKELUARKAN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="278"
+						width="35"
+						height="18"
+						key="staticText-30"/>
+					<box leftPadding="2">					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Bil]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="278"
+						width="155"
+						height="18"
+						key="staticText-31"/>
+					<box leftPadding="2">					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[No. Resit]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="190"
+						y="278"
+						width="98"
+						height="18"
+						key="staticText-32"/>
+					<box leftPadding="2">					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Tarikh]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="288"
+						y="278"
+						width="133"
+						height="18"
+						key="staticText-33"/>
+					<box leftPadding="2">					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Amaun (RM)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="421"
+						y="278"
+						width="112"
+						height="18"
+						key="staticText-34"/>
+					<box leftPadding="2">					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Perihal]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="0"
+						width="530"
+						height="240"
+						key="subreport-1"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="tarikhPenyataPemungut">
+						<subreportParameterExpression><![CDATA[$P{tarikhPenyataPemungut}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idPenyata">
+						<subreportParameterExpression><![CDATA[$P{idPenyata}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="kaedahBayaran">
+						<subreportParameterExpression><![CDATA[$P{kaedahBayaran}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="kodPusat">
+						<subreportParameterExpression><![CDATA[$P{kodPusat}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\kewangan\\KEWPenyataPemungut_subreport9.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="18"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="421"
+						y="0"
+						width="112"
+						height="18"
+						key="textField-9"/>
+					<box leftPadding="2">					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{id_kod_hasil}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="35"
+						height="18"
+						key="textField-5"/>
+					<box leftPadding="2">					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="35"
+						y="0"
+						width="155"
+						height="18"
+						key="textField-6"/>
+					<box leftPadding="2">					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{no_resit}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="190"
+						y="0"
+						width="98"
+						height="18"
+						key="textField-7"/>
+					<box leftPadding="2">					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{tarikh_bayaran}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,###,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="288"
+						y="0"
+						width="133"
+						height="18"
+						key="textField-8"/>
+					<box leftPadding="2" rightPadding="2">					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{TOTAL}.doubleValue() + $F{DEPOSIT}.doubleValue())]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="18"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="#,###,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="288"
+						y="0"
+						width="133"
+						height="18"
+						key="textField-4"/>
+					<box leftPadding="2" rightPadding="2">					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{total_besar}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="288"
+						height="18"
+						key="staticText-27"/>
+					<box leftPadding="2" rightPadding="2">					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Jumlah]]></text>
+				</staticText>
+			</band>
+		</summary>
+</jasperReport>

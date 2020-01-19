@@ -1,0 +1,20 @@
+<form name="site_map" method="post">
+<table width="600" align="center">
+<tr height="20px"><td colspan="2"></td></tr>
+
+#foreach( $tab in $site_tabs )
+<tr><td colspan="2">
+<a href="$tab.id">$tab.title</a>
+</td></tr>
+#foreach ( $content in $tab.contents )
+<tr><td width="50px"></td><td>
+<a href="$tab.id?_portal_module=$content.id">
+$content.title
+</a>
+</td></tr>
+#end
+<tr height="20px"><td colspan="2"></td></tr>
+#end
+</table>
+
+</form>

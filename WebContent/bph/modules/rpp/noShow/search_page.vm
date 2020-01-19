@@ -1,0 +1,78 @@
+<table width="80%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+  <tr>
+    <td class="label">No. Pengenalan</td>
+    <td>:</td>
+    <td><input type="text" name="noKP"></td>
+  </tr>
+  
+  <tr>
+    <td class="label">Nama</td>
+    <td>:</td>
+    <td><input type="text" name="userName"></td>
+  </tr>
+  
+  #if(!$!userRole.equalsIgnoreCase("(RPP) Penyelia"))
+  <tr>
+    <td class="label">Jenis Peranginan</td>
+    <td>:</td>
+    <td>
+		$!carianJenisPeranginan
+	</td>
+  </tr>
+  <tr>
+    <td class="label">RPP/RP</td>
+    <td>:</td>
+    <td>
+		<div id="divCarianPeranginan">$!carianRppPeranginan</div>
+	</td>
+  </tr>
+  #end
+  
+  <tr>
+    <td class="label">Status</td>
+    <td>:</td>
+    <td>
+		$!carianStatusNoShow
+	</td>
+  </tr>
+
+  ##Fatin 
+  <tr>
+	<td class="label" valign="top">Tarikh Masuk</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<div>
+    		<input type="text" id="tarikhMasukRpp" name="tarikhMasukRpp" value="">
+			<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+    		<script>
+            	_jq("#tarikhMasukRpp").Zebra_DatePicker({ 
+		    		format: 'd-m-Y',
+					readonly_element: false
+		        });
+    		</script>
+		</div>
+	</td>
+</tr>
+  <tr>
+	<td class="label" valign="top">Tarikh Keluar</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<div>
+    		<input type="text" id="tarikhKeluarRpp" name="tarikhKeluarRpp" value="">
+			<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+    		<script>
+            	_jq("#tarikhKeluarRpp").Zebra_DatePicker({ 
+		    		format: 'd-m-Y',
+					readonly_element: false
+		        });
+    		</script>
+		</div>
+	</td>
+  </tr>
+
+</table>

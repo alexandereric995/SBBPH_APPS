@@ -1,0 +1,43 @@
+
+<br/>
+	
+	<fieldset>
+		<legend class="legend">CATATAN PENGGUNA</legend>
+		
+			
+			
+			#if($!updatecatatan.equalsIgnoreCase("Y"))
+			<br/>	
+        		<table cellpadding="5" cellspacing="0" border="0" width="100%">
+        			<tr>
+        				<td style="color:blue;font-size:11px;font-weight:bold;text-align:justify;">
+        					CATATAN PENGGUNA TELAH DISIMPAN.
+        				</td>
+        			</tr>
+        		</table>
+			<br/>	
+			#end
+			
+			<textarea id="rppCatatanPengguna" style="height:80px" name="rppCatatanPengguna" onBlur="this.value=this.value.toUpperCase();"></textarea>
+			<div id="err_rppCatatanPengguna" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			
+			<br/><br/>
+			
+			#if( $!listCatatan.size() > 0)
+    			<div style="float:left;text-align:left">
+    				<a href="#" style="color:blue;font-size:11px" id="lnkViewListCatatan">Papar Senarai Catatan ($!listCatatan.size())</a>
+    			</div>
+    			<script>
+               		_jq('#lnkViewListCatatan').on('click', function(){
+                    	doDivAjaxCall3$formname('listCatatanPengguna','openPopupListCatatanPengguna','');
+                        jQuery('#listCatatanPengguna').fadeIn();
+                 	});
+             	</script>
+			#end
+			
+			<div style="float:right;text-align:right"><input type="button" value="Simpan Catatan" onClick="simpanCatatanPengguna()"></div>
+	</fieldset>
+	
+	<div id="listCatatanPengguna" class="popup"></div>
+	
+	

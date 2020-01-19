@@ -1,0 +1,26 @@
+function validate() {
+	var err_count = 0;
+	
+	var noTelefon = $('noTelefon').value;
+	if ( noTelefon == "" ) {$('err_noTelefon').innerHTML = "No Telefon adalah mandatori!"; err_count++;  }
+	
+	var noPengenalan = $('noPengenalan').value;
+	if ( noPengenalan == "" ) {$('err_noPengenalan').innerHTML = "No Kad Pengenalan adalah mandatori!"; err_count++;  }
+	
+	
+	var tajuk = $('idTajuk').value;
+	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "Tajuk adalah mandatori!"; err_count++;  }
+	
+	
+	var butiran = $('butiran').value;
+	if ( butiran == "" ) {$('err_butiran').innerHTML = "Butiran adalah mandatori!"; err_count++;  }
+	
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+	

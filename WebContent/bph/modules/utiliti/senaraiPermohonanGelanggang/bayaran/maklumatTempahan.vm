@@ -1,0 +1,72 @@
+<fieldset>
+<legend class="legend">MAKLUMAT TEMPAHAN</legend>
+    
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+            <td colspan="7">&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="15%">No.Tempahan</td>
+			<td class="row_header" width="25%">Nama Gelanggang</td>
+			<td class="row_header" width="10%">Masa Mula</td>
+			<td class="row_header" width="10%">Masa Tamat</td>
+			<td class="row_header" width="10%">Kadar Siang (RM)</td>
+			<td class="row_header" width="10%">Kadar Malam (RM)</td>
+			<td class="row_header" width="15%">Jumlah Amaun (RM)</td>
+		</tr>
+		
+		#if ( $listUtilPermohonan.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listUtilPermohonan )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+				#set ( $jumlahAmaun = $!d.amaun )
+    				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+        			<td align="center">$!d.id</td>
+                    <td align="center">$!d.gelanggang.nama</td>
+ 
+##            		<td align="center">$!util.getDateTime($!d.tarikhMula,'dd-MM-yyyy')</td>
+##            		<td align="center">$!util.getDateTime($!d.tarikhTamat,'dd-MM-yyyy')</td>
+            		#if ($!d.masaMula)
+						#set ($timeMula = "$!util.getKeteranganMasa($!r.masaMula)")
+		  			#else 
+		  				#set ($timeMula = "-") 
+		  			#end
+        			<td align="center">$timeMula</td>
+        			
+        			#if ($!d.masaTamat)
+						#set ($timeTamat = "$!util.getKeteranganMasa($!r.masaTamat)")
+		  			#else
+		  				#set ($timeTamat = "-") 
+		  			#end
+        			<td align="center">$timeTamat</td>
+					<td align="center">$!d.gelanggang.kadarSewa</td>
+					<td align="center">$!d.gelanggang.kadarSewaAwam</td>
+					<td align="center">$jumlahAmaun</td>
+                </tr>
+			#end
+##			<tr>
+##				<td colspan="7" align="right"><b>JUMLAH : </b></td>
+##				<td align="left"><b>$jumlahAmaun</b></td>
+##			</tr>
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="8">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+	
+</fieldset>
+	

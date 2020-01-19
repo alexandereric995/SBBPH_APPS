@@ -1,0 +1,132 @@
+
+<input type="hidden" name="idPenyataPemungut" id="idPenyataPemungut" value="$!r.id" />
+
+<fieldset>
+<legend class="legend">maklumat penyata pemungut</legend>
+	<table width="100%" cellpadding="2" cellspacing="0" border="0">
+		<tr>
+			<td width="40%" valign="top">
+                <table width="100%" cellpadding="3" cellspacing="0" border="0">
+                    <tr>
+                        <td style="width:150px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+					#if( $!userRole.equalsIgnoreCase("(HASIL) Penyelia") || $!userRole.equalsIgnoreCase("(HASIL) Penyelia Cawangan"))
+						#show("NO. AKAUN" "$!r.noAkaun")
+						#show("KOD JABATAN" "$!r.kodJabatan")
+					#else
+						#input_required("noAkaun" "NO. AKAUN" "$!util.replaceIfNull($!r.noAkaun,'16010000318713')")
+						#input_required("kodJabatan" "KOD JABATAN" "$!util.replaceIfNull($!r.kodJabatan,'111')")
+					#end
+                </table>
+			</td>
+			
+			<td width="60%" valign="top">
+                <table width="100%" cellpadding="3" cellspacing="0" border="0">
+                    <tr>
+                        <td style="width:170px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+					#if( $!userRole.equalsIgnoreCase("(HASIL) Penyelia") || $!userRole.equalsIgnoreCase("(HASIL) Penyelia Cawangan"))
+						#show("NAMA AKAUN" "$!r.namaAkaun")
+						#show("NO PENYATA PEMUNGUT" "$!r.noPenyataPemungut")
+					#else
+						#input_required("namaAkaun" "NAMA AKAUN" "$!util.replaceIfNull($!r.namaAkaun,'AKAUN KERAJAAN MALAYSIA, KETUA AKAUNTAN, JABATAN PERDANA MENTERI')")
+						#input_readonly_all_label("noPenyataPemungut" "NO PENYATA PEMUNGUT" "$!r.noPenyataPemungut")
+					#end
+                </table>
+			</td>
+		</tr>
+		<tr><td colspan="3"><hr/></td></tr>
+	</table>
+	
+	<table width="100%" cellpadding="2" cellspacing="0" border="0">
+		<tr>
+			<td width="40%" valign="top">
+                <table width="100%" cellpadding="3" cellspacing="0" border="0">
+                    <tr>
+                        <td style="width:150px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+                    ##date_input_required("tarikhKutipanDari" "TARIKH KUTIPAN DARI" "$util.getDateTime($r.tarikhKutipanDari,'dd-MM-yyyy')")
+                    #show("DISEDIAKAN OLEH" "$!util.replaceIfNull($!r.penyedia.userName.toUpperCase(),$!userLogin.userName.toUpperCase())")
+                </table>
+			</td>
+			<td width="60%" valign="top">
+                <table width="100%" cellpadding="3" cellspacing="0" border="0">
+                    <tr>
+                        <td style="width:170px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+					##date_input_required("tarikhKutipanHingga" "TARIKH KUTIPAN HINGGA" "$util.getDateTime($r.tarikhKutipanHingga,'dd-MM-yyyy')")
+                    ##input("perakuan2" "PERAKUAN 2" "$!r.perakuan2")
+					#show("PERAKUAN 1" "$!util.replaceIfNull($!r.perakuan1.userName.toUpperCase(),'<b>BELUM DIPERAKUI</b>')")
+					<tr><td><div style="height: 20px;">&nbsp;</div></td></tr>
+                </table>
+			</td>
+		</tr>
+	</table>
+</fieldset>
+<br/>	
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+				#if( $r )
+					<input type="button" value="Cetak"  id="cmdCetak"/>
+					#set($btns = "Kemaskini")
+				#else
+					#set($btns = "Simpan")
+				#end
+					
+				#if( $!userRole.equalsIgnoreCase("(HASIL) Penyelia") || $!userRole.equalsIgnoreCase("(HASIL) Penyelia Cawangan"))
+					#if ( !$r.perakuan1 )
+					<input id="btnPerakuan" type="button" value="Sahkan" onClick="doUpdatePerakuan()">
+					#end	
+				#else
+					#if ( !$r.perakuan1 )
+					<input id="btnSave" type="button" value="$btns" onClick="doSaveUpdate()">
+					#end
+				#end
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>	
+
+<fieldset id="tableReport" style="display:none;">
+<legend class="legend">SENARAI LAPORAN</legend>
+<table width="100%" >
+	<tr>
+		<td><a href="#" style="color:blue" id="cmdPenyataPemungut">Penyata Pemungut</a></td>		
+	</tr>
+</table>
+</fieldset>	
+<script>
+##start Report
+_jq('#cmdCetak').on('click', function(){
+
+			if(document.getElementById('tableReport').style.display=="none"){
+				document.getElementById('tableReport').style.display="block";
+				}
+			else if(document.getElementById('tableReport').style.display=="block"){
+				document.getElementById('tableReport').style.display="none";
+				}
+});
+
+_jq('#cmdPenyataPemungut').on('click', function(){
+
+	var idPenyata = '$!r.id';
+	var tarikhPenyataPemungut = $('tarikhPenyataPemungut').value;
+	
+	var url = "../servlet/bph.laporan.kewangan.KEWPenyataPemungut?idPenyata=" + idPenyata + "&tarikhPenyataPemungut='"+ tarikhPenyataPemungut + "'";
+	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	if ((document.window != null) && (!hWnd.opener))
+	hWnd.opener = document.window;
+	if (hWnd.focus != null) hWnd.focus();
+});
+##end Report
+</script>

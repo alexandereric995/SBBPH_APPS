@@ -1,0 +1,22 @@
+function validate() {
+	var err_count = 0;
+	
+	var tarikhKelulusanSub = $('tarikhKelulusanSub').value;
+	if ( tarikhKelulusanSub == "" ) {$('err_tarikhKelulusanSub').innerHTML = "Tarikh Kelulusan adalah mandatori!"; err_count++;  }
+	
+	var count = 0;	
+	var arr = new Array(2);
+	for(var i = 0; i < arr.length ; i++){
+		var str = document.${formname}.flagKelulusanSub[i].checked;
+		if(str == true){count = count + 1;}
+	}
+	
+	if ( count == 0 ) {$('err_flagKelulusanSub').innerHTML = "Keputusan adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}

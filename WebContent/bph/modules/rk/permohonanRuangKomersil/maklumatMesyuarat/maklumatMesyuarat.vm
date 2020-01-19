@@ -1,0 +1,21 @@
+<fieldset>
+<legend class="legend">MAKLUMAT MESYUARAT</legend>
+<table width="100%">
+  <tr>
+    <td style="width:29%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+  #input_normal("tajukMesyuarat" "Tajuk Mesyuarat" "<b>$!r.mesyuarat.tajuk</b>") 
+  #input_normal("bilMesyuarat" "Bil. Mesyuarat" "<b>$!r.mesyuarat.bil</b>") 
+  #input_normal("lokasiMesyuarat" "Lokasi Mesyuarat" "<b>$!r.mesyuarat.lokasi</b>") 
+  
+  #if ($!r.mesyuarat.tarikh)
+  #set ($dateMesyuarat = "$!util.getDateTime($!r.mesyuarat.tarikh,'dd-MM-yyyy')")
+  #else #set ($dateMesyuarat = "") #end
+  #input_normal("tarikhMesyuarat" "Tarikh Mesyuarat" "<b>$dateMesyuarat</b>")	 	   	
+  
+  #input_normal("keputusanMesyuarat" "Keputusan" "<b>$!r.getKeteranganKeputusanMesyuarat()</b>")
+  #input_normal("catatanKeputusanMesyuarat" "Catatan" "<b>$!r.catatanKeputusanMesyuarat</b>")
+</table>
+</fieldset>

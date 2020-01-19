@@ -1,0 +1,116 @@
+function validate() {
+	var err_count = 0;
+	
+	var noFail = $('noFail').value;
+	if ( noFail == "" ) {$('err_noFail').innerHTML = "Sila masukkan nombor fail"; err_count++;  }
+	
+	var kepadaSiapa = $('kepadaSiapa').value;
+	if ( kepadaSiapa == "" ) {$('err_kepadaSiapa').innerHTML = "Kepada Siapa adalah mandatori!"; err_count++;  }
+
+	var idGelaranDalamSurat = $('idGelaranDalamSurat').value;
+	if ( idGelaranDalamSurat == "" ) {$('err_idGelaranDalamSurat').innerHTML = "Gelaran Dalam Surat adalah mandatori!"; err_count++;  }
+	
+	var idPegawai = $('idPegawai').value;
+	if ( idPegawai == "" ) {$('err_idPegawai').innerHTML = "Nama Pegawai Dalam Surat adalah mandatori!"; err_count++;  }
+	
+	return err_count == 0;
+}
+
+function simpanPermohonan() 
+{
+	var err_count = 0;
+	var statusTawaran=$('statusTawaran').value;
+	var jenisPenolakan=$('idJenisPenolakan').value;
+
+	if (err_count == 0) 
+	{
+			if (statusTawaran == "01") 
+			{
+				doDivAjaxCall3$formname('simpanPermohonan','simpanPermohonan','');
+				##swal("Hantar", "Maklumat deposit kuarters berjaya dihantar ke Unit Hasil.", "success");
+				swal({
+						title: "Makluman!",
+						text: "Maklumat tawaran berjaya disimpan! \n Maklumat deposit kuarters telah dihantar ke unit hasil untuk proses pembayaran deposit.",				
+						type: "success",
+						showCancelButton: false,
+						confirmButtonText: "Tutup",
+						closeOnConfirm: false
+					},
+					function(){
+						location.href='../c/1449800459411?_portal_module=bph.modules.qtr.FrmKuaTawaranRecord';
+					});
+			}
+			else
+			{
+				if (jenisPenolakan == "1") 
+				{
+					doDivAjaxCall3$formname('simpanPermohonan','simpanPenolakanBersyarat','');
+					swal({
+						title: "Makluman!",
+						text: "Pengesahan penolakan bersyarat telah dihantar",				
+						type: "success",
+						showCancelButton: false,
+						confirmButtonText: "Tutup",
+						closeOnConfirm: false
+					},
+					function(){
+						location.href='../c/1449800459411?_portal_module=bph.modules.qtr.FrmKuaTawaranRecord';
+					});
+					
+##					swal("Hantar", "Pengesahan penolakan bersyarat telah dihantar", "success");
+						
+				}
+				
+				if (jenisPenolakan == "2") 
+				{
+					doDivAjaxCall3$formname('simpanPermohonan','simpanPermohonan','');
+					swal({
+						title: "Makluman!",
+						text: "Maklumat tawaran berjaya dikemaskini!.",				
+						type: "success",
+						showCancelButton: false,
+						confirmButtonText: "Tutup",
+						closeOnConfirm: false
+					},
+					function(){
+						location.href='../c/1449800459411?_portal_module=bph.modules.qtr.FrmKuaTawaranRecord';
+					});
+##					swal("Hantar", "Maklumat tawaran berjaya dikemaskini!.", "success");
+				}
+				
+				if (jenisPenolakan == "3") 
+				{
+					doDivAjaxCall3$formname('simpanPermohonan','simpanPermohonan','');
+					swal({
+						title: "Makluman!",
+						text: "Maklumat tawaran berjaya dikemaskini!.",				
+						type: "success",
+						showCancelButton: false,
+						confirmButtonText: "Tutup",
+						closeOnConfirm: false
+					},
+					function(){
+						location.href='../c/1449800459411?_portal_module=bph.modules.qtr.FrmKuaTawaranRecord';
+					});
+##					swal("Hantar", "Maklumat tawaran berjaya dikemaskini!.", "success");
+				}
+			}
+	}
+	return err_count == 0;
+}
+
+function pengesahanTerimaTawaran() {
+	var err_count = 0;
+	if (err_count == 0) {
+			doDivAjaxCall3$formname('simpanPermohonan','pengesahanTerimaTawaran','');
+			swal("Makluman", "Pengesahan senarai menunggu bersyarat berjaya diluluskan", "success");
+	}
+}
+
+function pengesahanBatalTawaran() {
+	var err_count = 0;
+	if (err_count == 0) {
+			doDivAjaxCall3$formname('simpanPermohonan','pengesahanBatalTawaran','');
+			swal("Makluman", "Pengesahan senarai menunggu bersyarat telah ditolak", "error");
+	}
+}

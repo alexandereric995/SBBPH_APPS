@@ -1,0 +1,128 @@
+function validate() {
+	var err_count = 0;
+		
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+	
+	   var newData = CKEDITOR.instances.butiran.getData();  ## GET VALUE FROM CKEDITOR Add ByZUl
+        $('butiran').value = newData;   ## GET VALUE FROM CKEDITOR Add ByZUl
+	
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function kemaskiniMaklumat() {
+	var err_count = 0;
+		
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( window.confirm("Anda pasti?") ){
+		
+		    $('butiran').value = CKEDITOR.instances.butiran.getData(); ## GET VALUE FROM CKEDITOR Add ByZUl
+		  
+		    doDivAjaxCall3$formname('divTab','kemaskiniMaklumat','')
+		}
+	}
+}
+
+## DOKUMEN
+function simpanSubInformasi() {
+	var idInformasi = $('idInformasi').value;	
+	$('err_dokumen').innerHTML = '';
+	
+	var err_count = 0;
+	
+	var tajukSubInformasi = $('tajukSubInformasi').value;
+	if ( tajukSubInformasi == "" ) {$('err_tajukSubInformasi').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var tarikhIklanSubInformasi = $('tarikhIklanSubInformasi').value;
+	if ( tarikhIklanSubInformasi == "" ) {$('err_tarikhIklanSubInformasi').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktifSubInformasi = $('flagAktifSubInformasi').value;
+	if ( flagAktifSubInformasi == "" ) {$('err_flagAktifSubInformasi').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var dokumen = $('dokumen').value;
+	if ( dokumen == "" ) {$('err_dokumen').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+		err_count++;
+    	$('dokumen').value = "";
+    	$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg,jpg,pdf,doc atau docx)';
+    }
+    
+    if (err_count == 0) {
+    	if ( window.confirm("Anda pasti?") ){
+	    	$('dokumenMuatnaik').style.display = "";
+	    	document.${formName}.enctype='multipart/form-data';
+	    	document.${formName}.encoding ='multipart/form-data';
+	    	document.${formName}.target='upload_dokumen';
+	    	document.${formName}.action='?command=simpanSubInformasi&idInformasi='+idInformasi+'&tajukSubInformasi='+tajukSubInformasi+'&tarikhIklanSubInformasi='+tarikhIklanSubInformasi+'&tarikhLuputSubInformasi='+$('tarikhLuputSubInformasi').value+'&flagAktifSubInformasi='+flagAktifSubInformasi;
+	    	document.${formName}.submit();
+	    	$('dokumen').value = "";
+	    }
+    }
+}
+
+function simpanKemaskiniSubInformasi() {
+	var idSubInformasi = $('idSubInformasi').value;	
+	$('err_dokumen').innerHTML = '';
+	
+	var err_count = 0;
+	
+	var tajukSubInformasi = $('tajukSubInformasi').value;
+	if ( tajukSubInformasi == "" ) {$('err_tajukSubInformasi').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var tarikhIklanSubInformasi = $('tarikhIklanSubInformasi').value;
+	if ( tarikhIklanSubInformasi == "" ) {$('err_tarikhIklanSubInformasi').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktifSubInformasi = $('flagAktifSubInformasi').value;
+	if ( flagAktifSubInformasi == "" ) {$('err_flagAktifSubInformasi').innerHTML = "** adalah mandatori!"; err_count++;  }
+		
+	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+		err_count++;
+    	$('dokumen').value = "";
+    	$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg,jpg,pdf,doc atau docx)';
+    }
+    
+    if (err_count == 0) {
+    	if ( window.confirm("Anda pasti?") ){
+	    	$('dokumenMuatnaik').style.display = "";
+	    	document.${formName}.enctype='multipart/form-data';
+	    	document.${formName}.encoding ='multipart/form-data';
+	    	document.${formName}.target='upload_dokumen';
+	    	document.${formName}.action='?command=simpanKemaskiniSubInformasi&idSubInformasi='+idSubInformasi+'&tajukSubInformasi='+tajukSubInformasi+'&tarikhIklanSubInformasi='+tarikhIklanSubInformasi+'&tarikhLuputSubInformasi='+$('tarikhLuputSubInformasi').value+'&flagAktifSubInformasi='+flagAktifSubInformasi;
+	    	document.${formName}.submit();
+	    	$('dokumen').value = "";
+	    }
+    }
+}
+
+function checkDoc(val) {
+	var arr = val.split(".");
+	var arr1 = val.split("\\");
+	if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" || arr[1] == "PDF" || arr[1] == "pdf" || arr[1] == "doc" || arr[1] == "DOC" || arr[1] == "docx" || arr[1] == "DOCX" ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function deleteSubInformasi(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divTab','deleteSubInformasi','idSubInformasi='+id);
+}

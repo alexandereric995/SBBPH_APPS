@@ -1,0 +1,91 @@
+
+<script>
+	_jq('#btnAddJenisUnit').on('click', function(){
+		doDivAjaxCall3$formname('popupJenisUnit','openPopupJenisUnit','');
+        jQuery('#popupJenisUnit').fadeIn();
+   	});
+</script>
+
+<fieldset>
+<legend class="legend">SENARAI JENIS UNIT</legend>
+    
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+            <td colspan="9">
+				#if( !$userRole.equalsIgnoreCase("(RPP) Penyelia") )
+				<br/>
+				<input type="button" id="btnAddJenisUnit" name="btnAddJenisUnit" value="Tambah Jenis Unit">
+				#end	
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="25%">Jenis Unit</td>
+			<td class="row_header" width="10%">Gred Minimum Kelayakan</td>
+			<td class="row_header" width="10%">Gred Waktu Puncak</td>
+			<td class="row_header" width="10%">Kadar Sewa (RM)</td>
+			<td class="row_header" width="10%">Kadar Sewa Waktu Puncak (RM)</td>
+			<td class="row_header" width="10%">Bil. Unit</td>
+			<td class="row_header" width="10%">Papar</td>
+			#if( !$userRole.equalsIgnoreCase("(RPP) Penyelia") )
+			<td class="row_header" width="10%">Hapus</td>
+			#end
+		</tr>
+		
+		#if ( $listJenisUnit.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listJenisUnit )
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+					<td align="left"><a href="javascript:void()" id="link$d.id" style="color:blue">$!d.keterangan.toUpperCase()</a></td>
+            		<td align="center">$!d.getKeteranganGredMinimumKelayakan()</td>
+            		<td align="center">$!d.getKeteranganGredKelayakanWaktuPuncak()</td>
+        			<td align="center">$!util.formatDecimal($!d.kadarSewa)</td>
+					<td align="center">$!util.formatDecimal($!d.kadarSewaWaktuPuncak)</td>
+					<td align="center"><a href="javascript:void()" id="viewUnit$d.id" style="color:blue">$!d.getTotalBilanganUnit() <span style="font-size:8px">(papar)</span></a></td>
+					<td align="center"><a href="javascript:void()" id="xlink$d.id"><img alt="edit" src="../img/edit_bak.gif" border="0"></a></td>
+					#if( !$userRole.equalsIgnoreCase("(RPP) Penyelia") )
+					<td align="center"><a href="javascript:void()" onClick="deleteJenisUnit('$d.id')"><img alt="hapus" src="../img/delete.gif" border="0"></a></td>
+					#end
+				</tr>
+				
+				<script>
+					_jq('#link$d.id').on('click', function(){
+						doDivAjaxCall3$formname('popupJenisUnit','openPopupJenisUnit','idJenisUnit=$d.id');
+                        jQuery('#popupJenisUnit').fadeIn();
+                    });
+					_jq('#xlink$d.id').on('click', function(){
+						doDivAjaxCall3$formname('popupJenisUnit','openPopupJenisUnit','idJenisUnit=$d.id');
+                        jQuery('#popupJenisUnit').fadeIn();
+                    });
+					_jq('#viewUnit$d.id').on('click', function(){
+						doDivAjaxCall3$formname('divSenaraiUnit','viewSenaraiUnit','idJenisUnit=$d.id');
+                    });
+                </script>
+				
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="9">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+	
+</fieldset>	
+
+<div id="popupJenisUnit" class="popup"></div>
+
+<div id="divSenaraiUnit"></div>
+	
+
+

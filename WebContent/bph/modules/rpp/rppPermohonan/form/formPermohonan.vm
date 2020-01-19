@@ -1,0 +1,365 @@
+
+#set($disabledField = "")
+#set($mandatory = "<span style='color:#FF2A00'>*</span>")
+#if($!r.noTempahan)
+	#set($disabledField = "disabled")
+	#set($mandatory = "")
+#end	
+
+#parse("$path/senaraiTab.vm")
+
+#if(!$!userRole.equalsIgnoreCase("(AWAM) Penjawat Awam"))
+
+<div id="divCheckingHad"></div>	
+
+<fieldset>
+<legend class="legend">MAKLUMAT PEMOHON</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+    <tr>
+			<td>No. Kad Pengenalan $!mandatory</td>
+			<td>:</td>
+			<td>
+				#if($disabledField=="disabled")
+					$!r.pemohon.noKP
+				#else
+					$!selectIcPemohon
+				#end
+				<div id="err_socPemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		<tr>
+			<td>Nama</td>
+			<td>:</td>
+			<td><div id="divDetailUser">$!r.pemohon.userName</div></td>
+		</tr>
+		<tr>
+			<td valign="top">Kategori Jawatan</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				-
+			</td>
+		</tr>
+		
+		<tr>
+			<td valign="top">Kategori Gred</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				-
+			</td>
+		</tr>
+    		
+		
+      </table></td>
+    	<td width="50%" valign="top">
+    <table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        <tr>
+			<td valign="top">Gred Jawatan</td>
+			<td valign="top">:</td>
+			<td valign="top">-
+			</td>
+		</tr>
+		<tr>
+			<td>No.Telefon</td>
+			<td>:</td>
+			<td>$!r.pemohon.noTelefon</td>
+		</tr>
+		
+		<tr>
+			<td valign="top">No.Telefon Bimbit</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				$!r.pemohon.noTelefonBimbit
+			</td>
+		</tr>
+    		
+      </table></td>
+  </tr>
+</table>
+</fieldset>	
+
+#end
+
+
+<fieldset>
+<legend class="legend">MAKLUMAT PERMOHONAN</legend>
+    
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+			<td style="width:150px"></td>
+            <td style="width:10px"></td>
+            <td>
+				<input type="hidden" name="jenisPemohon" id="jenisPemohon" value="INDIVIDU" />
+			</td>
+		</tr>
+		
+		#if( $r )
+		#show("No. Tempahan" "$!r.noTempahan")
+		#end
+		
+		<!--
+		<tr>
+			<td valign="top">Jenis Pemohon $mandatory</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				<input name="jenisPemohon" id="individu" $!disabledField type="radio" value="INDIVIDU" #if($!r.jenisPemohon=="INDIVIDU") checked #end onclick=" $('err_jenisPemohon').innerHTML=''; at(this, event);" />
+    			<label for="individu">Individu</label>
+    			<input name="jenisPemohon" id="berkelompok" $!disabledField type="radio" value="KELOMPOK" #if($!r.jenisPemohon=="KELOMPOK") checked #end onclick=" $('err_jenisPemohon').innerHTML=''; at(this, event);" />
+    			<label for="berkelompok">Berkelompok</label>
+				<div id="err_jenisPemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		-->
+		
+		<tr>
+			<td valign="top">Jenis Peranginan $mandatory</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				#if($disabledField=="disabled")
+					$!r.rppPeranginan.jenisPeranginan.id.toUpperCase() - $!r.rppPeranginan.jenisPeranginan.keterangan.toUpperCase()
+				#else	
+					$selectJenisPeranginan
+				#end	
+				<div id="err_socJenisPeranginan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top">Lokasi $mandatory</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				#if($disabledField=="disabled")
+					$!r.rppPeranginan.namaPeranginan.toUpperCase()
+				#else	
+					<div id="divPeranginan">$selectPeranginan</div>
+				#end	
+				<div id="err_socPeranginan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top">Jenis Unit $mandatory</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				#if($disabledField=="disabled")
+					$!r.jenisUnitRpp.keterangan.toUpperCase()
+				#else	
+					<div id="divFilterJenisUnit">$selectJenisUnit</div>
+				#end	
+				<div id="err_socJenisUnit" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top" class="label">Tarikh Masuk $mandatory</td>
+            <td valign="top" class="label">:</td>
+            <td valign="top">
+				<input type="text" $disabledField id="tarikhMasukRpp" name="tarikhMasukRpp" value="$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy')">
+            	<div id="err_tarikhMasukRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+         	</td>
+      	</tr>
+
+		#if($disabledField != "disabled")
+			<script>
+			var intHad = parseInt("$hadTempohMenginap")-1;
+			_jq(function() {
+				_jq('#tarikhMasukRpp').Zebra_DatePicker({
+                	format: 'd-m-Y',
+					view: 'months',
+					readonly_element: false,
+					direction: 1, ##start today
+					##disabled_dates: [ '3 1 2015','2 2 2015','3 8 2015','2 10 2015' ], 
+					pair: _jq('#tarikhKeluarRpp'), ##startend with another date
+					onSelect: function(view, elements) {
+						$('err_tarikhMasukRpp').innerHTML='';
+						$('tarikhKeluarRpp').value='';
+					}
+               	});
+			});
+			
+			_jq(function() {
+				_jq('#tarikhKeluarRpp').Zebra_DatePicker({
+					format: 'd-m-Y',
+					view: 'months',
+					readonly_element: false,
+					direction: [1, intHad], ##tempoh menginap
+					onSelect: function(view, elements) {
+						$('err_tarikhKeluarRpp').innerHTML='';
+					}
+                });
+			});	
+          	</script>
+		#end
+		
+		<tr>
+			<td valign="top" class="label">Tarikh Keluar $mandatory</td>
+			<td valign="top" class="label">:</td>
+			<td valign="top">
+				<input type="text" $disabledField id="tarikhKeluarRpp" name="tarikhKeluarRpp" value="$!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')">
+				<div id="err_tarikhKeluarRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    		</td>
+    	</tr>
+		
+		<tr><td colspan="4">&nbsp;</td></tr>
+		<tr>
+			<td colspan="4">
+				<span style='color:blue'>
+					Nota :
+					<br/>
+					1. Had tempoh penginapan selama $!hadTempohMenginap hari.
+				</span>
+			</td>
+		</tr>
+		
+	</table>
+</fieldset>
+
+	
+	#if(!$!r.noTempahan)
+		
+	<!--	
+	<fieldset>
+    <legend class="legend">TARIKH BLOCKING / SELENGGARA</legend>
+    
+    	<table width="100%" cellpadding="1" cellspacing="1">
+    		
+    		<tr>
+    			<td class="row_header" width="20%">Tarikh</td>
+    			<td class="row_header" width="80%">Perkara</td>
+    		</tr>
+    		
+    		#if ( $jenisUnitRPP.peranginan.listKemudahan.size() > 0 )
+        		#set ( $count = 0 )
+        		#foreach( $d in $jenisUnitRPP.peranginan.listKemudahan )
+        			
+        			#set ( $count = $count + 1)
+                	#if ( $count % 2 == 0 ) 
+            			#set ( $rowcolor = "#D0CFCE" ) 
+            		#else 
+            			#set ( $rowcolor = "#F0F0F0" ) 
+    				#end
+    				
+            		<tr bgcolor="$rowcolor">
+            			<td align="center">$count</td>
+                		<td align="center">$!d.nama.toUpperCase()</td>
+                    </tr>
+    			#end
+    		#else
+    			<tr bgcolor="#F0F0F0">
+    				<td colspan="2">Tiada Rekod</td>
+    			</tr>
+    		#end
+    		
+    	</table>
+    
+    </fieldset>	
+	
+	<br/>
+	-->
+	
+    <table width="100%">
+    	<tr>
+    		<td align="right">
+    			<input id="btnSemakKekosongan" type="button" value="Semak Kekosongan" onClick="doCheckAvailableRoom('$!userRole','$!hadTempohMenginap')">
+        		<input id="btnClearForm" type="button" value="Kosongkan" onClick="doKosongkanMaklumatPermohonan('$!userRole')">
+        		<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>
+	#else
+		#if( $!r.rppPeranginan.flagKelulusanSub.equalsIgnoreCase("Y") )
+			#parse("$path/form/statusKelulusanSub.vm")
+		#else
+			#parse("$path/form/statusPermohonanLulus.vm")
+		#end
+    #end
+
+<div id="divMaklumatDanPilihanKekosongan">
+	#if($!r.noTempahan)
+		#parse("bph/modules/rpp/templates/maklumatTempahan.vm")
+		<table width="100%">
+        	<tr>
+        		<td align="right">##fatin 13/06/2015
+        			<input type="button" value="Batal Permohonan" onClick="doBatalTempahan($!r.id)">
+        			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+        			
+        			#if ($!r.status.id == '1425259713415')
+        			<input type="button" value="Cetak"  id="cmdCetak"/>
+        			#end
+        			
+					#if( $!r.status.id != "1425259713418" && $!r.statusBayaran != "Y" )	
+        			<input id="btnRecordTemplateSave" type="button" value="Bayar" onClick="doBayarTempahan($!r.id)">
+        			#end
+					<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+        		</td>
+        	</tr>
+        </table>
+	#end
+	##parse("$path/form/maklumatDanPilihanKekosongan.vm")
+</div>
+
+<fieldset id="tableReport" style="display:none;">
+<legend class="legend">CETAKAN</legend>
+<table width="100%" >
+##	<tr>
+##		<td><a href="#" style="color:blue" id="cmdResit">Resit </a></td>		
+##	</tr>
+	<tr>
+		<td><a href="#" style="color:blue" id="cmdSuratKelulusan">Surat Kelulusan </a></td>		
+	</tr>
+    <tr>
+		<td><a href="#" style="color:blue" id="cmdSuratKelulusanLangkawi">Surat Kelulusan Langkawi</a></td>		
+	</tr>
+</table>
+</fieldset>
+
+<script>
+	
+	_jq('#cmdCetak').on('click', function(){
+
+			if(document.getElementById('tableReport').style.display=="none"){
+				document.getElementById('tableReport').style.display="block";
+				}
+			else if(document.getElementById('tableReport').style.display=="block"){
+				document.getElementById('tableReport').style.display="none";
+				}
+	});
+	
+		_jq('#cmdResit').on('click', function(){
+		
+				var url = "../servlet/bph.laporan.rpp.Resit?idRppPermohonan=$!r.id";
+				var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+				if ((document.window != null) && (!hWnd.opener))
+				hWnd.opener = document.window;
+				if (hWnd.focus != null) hWnd.focus();
+	
+		});
+		
+		_jq('#cmdSuratKelulusan').on('click', function(){
+		
+				var url = "../servlet/bph.laporan.rpp.RPPSuratKelulusanPermohonan?idRppPermohonan=$!r.id";
+				var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+				if ((document.window != null) && (!hWnd.opener))
+				hWnd.opener = document.window;
+				if (hWnd.focus != null) hWnd.focus();
+	
+		});
+				_jq('#cmdSuratKelulusanLangkawi').on('click', function(){
+		
+				var url = "../servlet/bph.laporan.rpp.RPPSuratKelulusanRPPLangkawi?idRppPermohonan=$!r.id";
+				var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+				if ((document.window != null) && (!hWnd.opener))
+				hWnd.opener = document.window;
+				if (hWnd.focus != null) hWnd.focus();
+	
+		});
+		
+</script>

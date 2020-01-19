@@ -1,0 +1,74 @@
+
+<table width="50%">
+<tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+</tr>
+
+<tr>
+    <td class="label">Tahun</td>
+    <td>:</td>
+    <td>
+    #set($list_tahun = ["2015", "2016", "2017"])
+	<select id="yearStart" name="yearStart" style="width:100%" onChange="doDivAjaxCall3$formname('divTab','janaLaporan','')">
+	<option value="" >SILA PILIH</option>
+	#foreach($s in $list_tahun)
+	<option value="$s">$s</option>
+	#end
+	</select>
+    	</td>
+  </tr>
+  <tr>
+        <td class="label">Kelas Kuarters</td>
+        <td>:</td>
+        <td>
+            #parse("$path/findKelasKuarters.vm")
+        </td>
+    </tr>
+##<tr>
+##<td class="label" valign="top">Tahun &nbsp;<span style="color:#FF2A00">*</span></td>
+##    	<td class="label" valign="top">:</td>
+##    	<td valign="top">
+##    		<div>
+##        		<input type="text" id="yearStart" name="yearStart" value="" onChange="doDivAjaxCall3$formname('divTab','janaLaporan','')">
+##    			<script>
+##                	_jq("#yearStart").Zebra_DatePicker({ 
+####                		view: 'month',
+####        				format: 'm-Y',
+##        				view: 'year',
+##        				format: 'Y',
+##                	});
+##    				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+##        		</script>
+##    		</div>
+##    		<div id="err_yearStart" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##    	</td>
+##    </tr>
+## <tr>
+
+##	<td colspan="1" align="center"><input type="button" value="Jana" onClick="doJanaLaporan('$!jenisLaporan')">
+##	  <input type="reset" value="Kosongkan"/>
+##	</td>
+## </tr>
+</table>
+
+<script>
+function doJanaLaporan(x) {
+	//alert(x);
+	var err_count = 0;
+	$('err_yearStart').innerHTML = "";
+	
+##	var lbl = "Tarikh";
+##	if (x == "kewangan3" || x == "kewangan4") {
+##		lbl = "Tempoh";
+##	}
+	
+	var yearStart = $('yearStart').value;
+	if ( yearStart == "" ) {$('err_yearStart').innerHTML = " Tahun adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		doDivAjaxCall3$formname('divTab','janaLaporan','')
+	}
+}
+</script>

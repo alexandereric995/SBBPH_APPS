@@ -1,0 +1,39 @@
+#if ($!selectedTab=='2' || $!selectedTab=='3' || $!selectedTab=='4' || $!selectedTab=='5')
+	#parse("$path/header.vm")
+#end
+
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatAras','')" #end >Maklumat Aras</a></li>
+	<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divTab','getMaklumatKonsesi','')" #end >Maklumat Konsesi</a></li>
+	<li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('divTab','getMaklumatFail','')" #end >Maklumat Fail</a></li>
+	<li #if($!selectedTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedTab!='4') onClick="doDivAjaxCall3$formname('divTab','getMaklumatPenghuni','')" #end >Maklumat Penghuni</a></li>
+	<li #if($!selectedTab=='5') class="active" #end><a href="javascript:void()" #if($!selectedTab!='5') onClick="doDivAjaxCall3$formname('divTab','getDokumenSokongan','')" #end >Dokumen Sokongan</a></li>
+  </ul>
+</nav>
+	
+<br/>
+
+#if ($!selectedTab=='')
+	#parse("$path/daftarBaru.vm")
+#end
+
+#if ($!selectedTab=='1')
+	#parse("$path/maklumatAras.vm")
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/maklumatKonsesi/maklumatKonsesi.vm")
+#end
+
+#if ($!selectedTab=='3')
+	#parse("$path/maklumatFail/maklumatFail.vm")
+#end
+
+#if ($!selectedTab=='4')
+	#parse("$path/maklumatPenghuni/maklumatPenghuni.vm")
+#end
+
+#if ($!selectedTab=='5')
+	#parse("$path/dokumenSokongan/start.vm")
+#end

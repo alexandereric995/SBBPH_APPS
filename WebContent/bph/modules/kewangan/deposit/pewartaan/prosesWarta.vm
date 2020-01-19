@@ -1,0 +1,82 @@
+
+##TAB
+#parse("$templateDir/tab.vm")
+
+<br/>
+
+<fieldset>
+
+	<legend class="legend">SENARAI DEPOSIT DALAM PROSES / TELAH DIWARTAKAN</legend>
+    <table width="100%" border="0" cellspacing="1" cellpadding="1">
+		
+		<tr>
+			<td class="row_header" width="5%" valign="middle">BIL.</td>
+			<td class="row_header" width="20%" valign="middle">BIL. DEPOSIT DIWARTAKAN</td>
+			<td class="row_header" width="20%" valign="middle">TARIKH HANTAR WARTA</td>
+			<td class="row_header" width="15%" valign="middle">NO. WARTA</td>
+			<td class="row_header" width="15%" valign="middle">TARIKH WARTA</td>
+			<td class="row_header" width="25%"></td>
+		</tr>
+		
+		#if ( $listWarta.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listWarta )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+					<td align="center">$!d.senaraiDepositWarta.size()</td>
+            		<td align="center">$!util.getDateTime($!d.tarikhHantarWarta,'dd-MM-yyyy')</td>
+            		<td align="center"><input type="text" id="noWarta$!d.id" onKeyUp="at(this, event)" onBlur="this.value=this.value.toUpperCase();" name="noWarta$!d.id" value="$!d.noWarta.toUpperCase()" /></td>
+					<td align="center">
+						<input type="text" id="tarikhWarta$!d.id" name="tarikhWarta$!d.id" value="$!util.getDateTime($!d.tarikhWarta,'dd-MM-yyyy')" >
+						<script>
+                        	_jq("#tarikhWarta$!d.id").Zebra_DatePicker({ 
+                				format: 'd-m-Y',
+            					readonly_element: false,
+    							direction:1
+                        	});
+            				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+                		</script>
+					</td>
+					<td align="center">
+						<a style="color:blue" href="#" id="kemaskiniWarta$!d.id"><u>KEMASKINI</u></a> 
+						&nbsp;
+						<a style="color:blue" href="#" id="papar$!d.id"><u>LIHAT SENARAI</u></a> 
+						&nbsp;
+						<a style="color:blue" href="#" onclick=""><u>CETAK</u></a> 
+						
+						<script>
+                        	_jq('#kemaskiniWarta$!d.id').on('click', function(){
+                        		doDivAjaxCall3$formname('divMainPage','getUpdateWarta','idWarta=$!d.id')	
+                        	});
+							_jq('#papar$!d.id').on('click', function(){
+                        		doDivAjaxCall3$formname('divSenaraiPendeposit','getSenaraiPendeposit','idWarta=$!d.id')	
+                        	});
+                        </script>
+						
+					</td>
+                </tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="6">Tiada Rekod</td>
+			</tr>
+		#end
+		
+		<tr>
+			<td colspan="6"></td>
+		</tr>
+		
+	</table>
+		
+</fieldset>
+
+<div id="divSenaraiPendeposit"></div>
+

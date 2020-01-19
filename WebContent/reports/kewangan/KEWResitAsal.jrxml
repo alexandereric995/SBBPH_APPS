@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="KEWResitAsal"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="600"
+		 pageHeight="842"
+		 columnWidth="580"
+		 columnSpacing="0"
+		 leftMargin="10"
+		 rightMargin="10"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idResit" isForPrompting="true" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="154"  isSplitAllowed="false" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="0"
+						width="580"
+						height="50"
+						key="subreport-1"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idResit">
+						<subreportParameterExpression><![CDATA[$P{idResit}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="namaSalinan">
+						<subreportParameterExpression><![CDATA["RESIT ASAL"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\kewangan\\KEWResitSalinan.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="52"
+						width="580"
+						height="50"
+						key="subreport-2"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idResit">
+						<subreportParameterExpression><![CDATA[$P{idResit}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="namaSalinan">
+						<subreportParameterExpression><![CDATA["SALINAN PEJABAT"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\kewangan\\KEWResitSalinan.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="104"
+						width="580"
+						height="50"
+						key="subreport-3"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idResit">
+						<subreportParameterExpression><![CDATA[$P{idResit}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="namaSalinan">
+						<subreportParameterExpression><![CDATA["SALINAN AUDIT"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\kewangan\\KEWResitSalinan.jasper"]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="0"
+						y="51"
+						width="580"
+						height="0"
+						key="element-1"
+						positionType="Float"/>
+				</break>
+				<break>
+					<reportElement
+						x="0"
+						y="103"
+						width="580"
+						height="0"
+						key="element-2"
+						positionType="Float"/>
+				</break>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

@@ -1,0 +1,63 @@
+<fieldset>
+<legend class="legend">SENARAI JADUAL KADAR HARGA</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:84%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3" class="label">
+      <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+		    <td class="row_header" width="5%">Bil.</td>		    
+		    <td class="row_header" width="20%">No. JKH</td>
+		    <td class="row_header" width="15%" align="center">Tarikh JKH</td>
+		    <td class="row_header" width="15%" align="right">Jumlah (RM)</td>
+		    <td class="row_header" >Jadual Kadar Harga</td>
+        </tr>
+        #set ( $count = 0 )
+        #if ( $listSenaraiJKH.size() > 0) 
+        #foreach( $c in $listSenaraiJKH )
+        #set ( $count = $count + 1)
+        
+        #if ( $count % 2 == 0 ) 
+        #set ( $rowcolor = "#D0CFCE" ) 
+        #else 
+        #set ( $rowcolor = "#F0F0F0" ) 
+        #end
+        <tr bgcolor="$rowcolor">
+          	<td align="center">$count</td>			
+		    <td align="center">$c.noJKH</td>
+		    #if ($!c.tarikhJKH) 
+				#set ($dateJKH = "$!util.getDateTime($!c.tarikhJKH,'dd-MM-yyyy')")
+			#else #set ($dateJKH = "-") #end
+		    <td align="center">$dateJKH</td>
+		    <td align="right">$!util.formatDecimal($!c.jumlahKeseluruhan)</td>
+          	<td align="center">
+          		#if ( $!c.fileJKH ) 
+      				#if ($!c.fileJKH != "") 
+      					<a href="../download?file=$!uploadDir$!c.fileJKH" > <font color="#0000FF"><strong>MUAT TURUN</strong></font> </a> &nbsp;&nbsp;
+      				#end
+      			#end
+      		</td>
+        </tr>
+        #end
+        #else
+        <tr >
+          <td align="center">&nbsp;</td>
+          <td colspan="4">Tiada Rekod</td>
+        </tr>
+        #end
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="LejarPenyewa"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="600"
+		 pageHeight="842"
+		 columnWidth="540"
+		 columnSpacing="0"
+		 leftMargin="10"
+		 rightMargin="10"
+		 topMargin="10"
+		 bottomMargin="20"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="ID_FAIL" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT rk_fail.id AS id_fail,
+       rk_fail.no_fail,
+       rk_syarikat.id AS id_syarikat,
+       rk_syarikat.nama AS nama_syarikat,
+       rk_syarikat.alamat1 AS alamat1_syarikat,
+       rk_syarikat.alamat2 AS alamat2_syarikat,
+       rk_syarikat.alamat3 AS alamat3_syarikat,
+       rk_syarikat.poskod AS poskod_syarikat,
+       bandar_syarikat.keterangan AS bandar_syarikat,
+       negeri_syarikat.keterangan AS negeri_syarikat,
+       rk_perjanjian.no_rujukan,
+       rk_perjanjian.kadar_sewa,
+       rk_perjanjian.tarikh_mula,
+       rk_perjanjian.tarikh_tamat,
+       rk_ruang_komersil.nama_ruang AS nama_premis,
+       rk_ruang_komersil.lokasi AS lokasi_premis,
+       rk_ruang_komersil.alamat1 AS alamat1_premis,
+       rk_ruang_komersil.alamat2 AS alamat2_premis,
+       rk_ruang_komersil.alamat3 AS alamat3_premis,
+       rk_ruang_komersil.poskod AS poskod_premis,
+       bandar_ruang.keterangan AS bandar_premis,
+       negeri_ruang.keterangan AS negeri_premis
+FROM rk_fail,
+     rk_pemohon,
+     rk_syarikat,
+     ruj_bandar bandar_syarikat,
+     ruj_negeri negeri_syarikat,
+     rk_perjanjian,
+     rk_ruang_komersil,
+     ruj_bandar bandar_ruang,
+     ruj_negeri negeri_ruang
+WHERE     rk_fail.id_pemohon = rk_pemohon.id
+      AND rk_pemohon.id_syarikat = rk_syarikat.id
+      AND rk_syarikat.id_bandar = bandar_syarikat.id
+      AND bandar_syarikat.id_negeri = negeri_syarikat.id
+      AND rk_fail.id = rk_perjanjian.id_fail
+      AND rk_perjanjian.flag_perjanjian_semasa = 'Y'
+      AND rk_perjanjian.id_jenis_perjanjian IN (1, 2)
+      AND rk_fail.id_ruang = rk_ruang_komersil.id
+      AND rk_ruang_komersil.id_bandar = bandar_ruang.id
+      AND bandar_ruang.id_negeri = negeri_ruang.id
+      AND rk_fail.id = '$P!{ID_FAIL}']]></queryString>
+
+	<field name="id_fail" class="java.lang.String"/>
+	<field name="no_fail" class="java.lang.String"/>
+	<field name="id_syarikat" class="java.lang.String"/>
+	<field name="nama_syarikat" class="java.lang.String"/>
+	<field name="alamat1_syarikat" class="java.lang.String"/>
+	<field name="alamat2_syarikat" class="java.lang.String"/>
+	<field name="alamat3_syarikat" class="java.lang.String"/>
+	<field name="poskod_syarikat" class="java.lang.String"/>
+	<field name="bandar_syarikat" class="java.lang.String"/>
+	<field name="negeri_syarikat" class="java.lang.String"/>
+	<field name="no_rujukan" class="java.lang.String"/>
+	<field name="kadar_sewa" class="java.lang.Double"/>
+	<field name="tarikh_mula" class="java.sql.Date"/>
+	<field name="tarikh_tamat" class="java.sql.Date"/>
+	<field name="nama_premis" class="java.lang.String"/>
+	<field name="lokasi_premis" class="java.lang.String"/>
+	<field name="alamat1_premis" class="java.lang.String"/>
+	<field name="alamat2_premis" class="java.lang.String"/>
+	<field name="alamat3_premis" class="java.lang.String"/>
+	<field name="poskod_premis" class="java.lang.String"/>
+	<field name="bandar_premis" class="java.lang.String"/>
+	<field name="negeri_premis" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="300"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						mode="Transparent"
+						x="2"
+						y="120"
+						width="286"
+						height="170"
+						key="rectangle-2"
+						stretchType="RelativeToTallestObject"/>
+					<graphicElement stretchType="RelativeToTallestObject"/>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						mode="Transparent"
+						x="3"
+						y="34"
+						width="285"
+						height="77"
+						key="rectangle-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						mode="Transparent"
+						x="332"
+						y="34"
+						width="245"
+						height="114"
+						key="rectangle-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="120"
+						y="0"
+						width="300"
+						height="30"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["LEJAR PENYEWA"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="40"
+						width="110"
+						height="20"
+						key="textField-2"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["NAMA"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="60"
+						width="110"
+						height="20"
+						key="textField-3"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["NO PENDAFTARAN"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="340"
+						y="40"
+						width="110"
+						height="20"
+						key="textField-4"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["NO. KONTRAK"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="340"
+						y="60"
+						width="110"
+						height="20"
+						key="textField-5"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["KADAR SEWA (RM)"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="340"
+						y="100"
+						width="111"
+						height="20"
+						key="textField-7"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["TARIKH MULA"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="340"
+						y="120"
+						width="111"
+						height="20"
+						key="textField-8"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["TARIKH TAMAT"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="125"
+						width="271"
+						height="20"
+						key="textField-9"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["ALAMAT SYARIKAT"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="120"
+						y="40"
+						width="161"
+						height="20"
+						key="textField"/>
+					<box leftPadding="4" rightPadding="4">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nama_syarikat}.toUpperCase()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="120"
+						y="60"
+						width="161"
+						height="20"
+						key="textField"/>
+					<box leftPadding="4" rightPadding="4">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{id_syarikat}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="145"
+						width="271"
+						height="40"
+						key="textField"/>
+					<box leftPadding="4" rightPadding="4">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{nama_syarikat} != null ? $F{nama_syarikat} + "\n" : "")
++ ($F{alamat1_syarikat} != null ? $F{alamat1_syarikat} + "\n" : "")
++ ($F{alamat2_syarikat} != null ? $F{alamat2_syarikat} + "\n" : "")
++ ($F{alamat3_syarikat} != null ? $F{alamat3_syarikat} + "\n" : "")
++ ($F{poskod_syarikat} != null ? $F{poskod_syarikat} + " " + ($F{bandar_syarikat} != null ? $F{bandar_syarikat} : "" ) + "\n" : "")
++ ($F{negeri_syarikat} != null ? $F{negeri_syarikat} : "" )]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="450"
+						y="40"
+						width="120"
+						height="20"
+						key="textField"/>
+					<box leftPadding="4" rightPadding="4">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{no_rujukan}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="450"
+						y="60"
+						width="120"
+						height="20"
+						key="textField"/>
+					<box leftPadding="4" rightPadding="4">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{kadar_sewa}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="450"
+						y="100"
+						width="120"
+						height="20"
+						key="textField"/>
+					<box leftPadding="4" rightPadding="4">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{tarikh_mula}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="450"
+						y="120"
+						width="120"
+						height="20"
+						key="textField"/>
+					<box leftPadding="4" rightPadding="4">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{tarikh_tamat}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="80"
+						width="110"
+						height="20"
+						key="textField-22"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["NO. FAIL"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="120"
+						y="80"
+						width="161"
+						height="20"
+						key="textField-23"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{no_fail}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="195"
+						width="271"
+						height="20"
+						key="textField-26"
+						positionType="Float"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["ALAMAT PREMIS"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="215"
+						width="270"
+						height="40"
+						key="textField-27"
+						positionType="Float"/>
+					<box leftPadding="4" rightPadding="4">					<pen lineWidth="0.25" lineStyle="Dotted"/>
+					<topPen lineWidth="0.25" lineStyle="Dotted"/>
+					<leftPen lineWidth="0.25" lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+					<rightPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{lokasi_premis} != null ? $F{lokasi_premis} + "\n" : "")
++ ($F{alamat1_premis} != null ? $F{alamat1_premis} + "\n" : "")
++ ($F{alamat2_premis} != null ? $F{alamat2_premis} + "\n" : "")
++ ($F{alamat3_premis} != null ? $F{alamat3_premis} + "\n" : "")
++ ($F{poskod_premis} != null ? $F{poskod_premis} + " " + ($F{bandar_premis} != null ? $F{bandar_premis} : "" ) + "\n" : "")
++ ($F{negeri_premis} != null ? $F{negeri_premis} : "" )]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="265"
+						width="271"
+						height="20"
+						key="textField-28"
+						positionType="Float"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="190"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="50"
+						width="120"
+						height="20"
+						key="textField-24"
+						positionType="Float"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["PENYATA DEPOSIT"]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="70"
+						width="580"
+						height="20"
+						key="subreport-1"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ID_FAIL">
+						<subreportParameterExpression><![CDATA[$P{ID_FAIL}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\rk\\LejarPenyewa_subDeposit.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="100"
+						width="120"
+						height="20"
+						key="textField-29"
+						positionType="Float"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["PENYATA SEWA"]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="120"
+						width="580"
+						height="20"
+						key="subreport-2"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ID_FAIL">
+						<subreportParameterExpression><![CDATA[$P{ID_FAIL}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\rk\\LejarPenyewa_subSewa.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="150"
+						width="120"
+						height="20"
+						key="textField-30"
+						positionType="Float"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["PENYATA IWK"]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="170"
+						width="580"
+						height="20"
+						key="subreport-3"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ID_FAIL">
+						<subreportParameterExpression><![CDATA[$P{ID_FAIL}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\rk\\LejarPenyewa_subIWK.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="0"
+						width="156"
+						height="20"
+						key="textField-33"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["SENARAI PERJANJIAN"]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="20"
+						width="580"
+						height="20"
+						key="subreport-4"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ID_FAIL">
+						<subreportParameterExpression><![CDATA[$P{ID_FAIL}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\rk\\LejarPenyewa_subPerjanjian.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="20"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="487"
+						y="4"
+						width="72"
+						height="16"
+						key="textField-31"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Mukasurat : "+$V{PAGE_NUMBER}+" / "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="546"
+						y="4"
+						width="34"
+						height="16"
+						key="textField-32"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="30"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="5"
+						width="580"
+						height="20"
+						key="textField-34"/>
+					<box leftPadding="2" rightPadding="2" topPadding="5" bottomPadding="5">					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["INI ADALAH CETAKAN KOMPUTER DAN TIDAK PERLU DITANDATANGANI."]]></textFieldExpression>
+				</textField>
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

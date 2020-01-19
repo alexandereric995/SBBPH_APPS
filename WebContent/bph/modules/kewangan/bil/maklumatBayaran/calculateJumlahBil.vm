@@ -1,0 +1,12 @@
+
+#if ($!command == 'calculateJumlahBil')
+	$util.formatDecimal($jumlahBil) 
+	<input type="hidden" class="currency" id="jumlahBil" name="jumlahBil" value="$jumlahBil">
+#else
+	#if($!r.jumlahBil != '')
+		$util.formatDecimal($!r.jumlahBil) 
+	#else
+		0.00
+	#end
+	<input type="hidden" class="currency" id="jumlahBil" name="jumlahBil" value="$!r.jumlahBil">
+#end  

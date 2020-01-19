@@ -1,0 +1,19 @@
+
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divForm','getMaklumatPermohonan','')" #end >Maklumat Permohonan</a></li>
+    
+	#if( $!r && $!r.rppPeranginan.flagKelulusanSub.equals("Y") )
+	<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divForm','getKelulusanSub','')" #end >Kelulusan SUB</a></li>
+	#end
+	
+	##if( $!r && ($!r.status.id=="1425259713412" || $!r.status.id=="1430809277102" || $!r.status.id=="1425259713418" || $!r.statusBayaran=="Y") )
+	##<li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('divForm','getBayaran','')" #end >Bayaran</a></li>
+	##end
+	
+	#if( $!r && !$!r.statusBayaranLewat().equalsIgnoreCase("") )
+	<li #if($!selectedTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedTab!='4') onClick="doDivAjaxCall3$formname('divForm','getPembatalanManual','')" #end >Pembatalan Manual</a></li>	
+	#end
+	
+  </ul>
+</nav>

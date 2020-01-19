@@ -1,0 +1,41 @@
+function validate() {
+	var err_count = 0;
+		
+	var mID = $('module_id').value;
+	if ( mID == "" ) {
+		$('err_module_id').innerHTML = "ID Modul adalah mandatori!"; err_count++;  
+	}
+	
+	var mTitle = $('module_title').value;
+	if ( mTitle == "" ) {
+		$('err_module_title').innerHTML = "Tajuk Modul adalah mandatori!"; err_count++;  
+	}
+	
+	var mClass = $('module_class').value;
+	if ( mClass == "" ) {
+		$('err_module_class').innerHTML = "Kelas Modul adalah mandatori!"; err_count++;  
+	}
+	
+	var mGroup = $('module_group').value;
+	if ( mGroup == "" ) {
+		$('err_module_group').innerHTML = "Kumpulan Modul adalah mandatori!"; err_count++;  
+	}
+	
+	//if (err_count == 0) {
+			//return;
+	//}
+	
+	return err_count == 0;
+}
+
+function selectGroupName() {
+	//$('module_group').value = $('groupList').value;
+	document.${formname}.module_group.value = document.${formname}.groupList.value;
+} 
+
+function selectAll(source) {
+    checkboxes = document.getElementsByName('cbroles');
+    for(var i=0, n=checkboxes.length;i<n;i++) {
+    	checkboxes[i].checked = source.checked;
+    }
+}

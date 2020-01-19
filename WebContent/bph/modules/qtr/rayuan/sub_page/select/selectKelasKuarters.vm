@@ -1,0 +1,12 @@
+###if ($penghuni)
+##	#set ( $kelasKuarters = $penghuni.getKuarters().getKelas().getId())
+###else
+##	#set ( $kelasKuarters = $uj.gredJawatan.kelasKuarters)
+###end
+
+<select id="idKelasKuarters" name="idKelasKuarters" style="width:100%" onChange="$('err_idKelasKuarters').innerHTML=''; at(this, event);">
+    <option value="">SILA PILIH</option>
+    #foreach( $kk in $selectKelasKuarters )
+        <option #if ( $kk.id ==  $kelasKuarters ) selected #end value="$kk.id">$!kk.id.toUpperCase()</option>
+    #end
+</select>

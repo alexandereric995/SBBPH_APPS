@@ -1,0 +1,23 @@
+
+<td>
+	<b>Bahagian :</b> $!r.bahagian<br/>
+  	<b>Jabatan :</b> $!r.jabatan<br/>
+  	<b>Alamat :</b> $!r.alamat1 $!r.alamat2<br/> $!r.alamat3 $!r.poskod $!r.bandar.keterangan
+</td>
+<td>
+	<b>No. Telefon :</b> $!r.noTelefon<br/>
+  	<b>No. Faks :</b> $!r.noFaks<br/>
+  	<b>Emel :</b> $!r.emel
+</td>
+<td>$!r.getKeteranganFlagUtama()</td>
+
+<td>$!r.daftarOleh.userName</td>
+#if ($!r.tarikhMasuk) 
+	#set ($dateMasuk = "$!util.getDateTime($!r.tarikhMasuk,'dd-MM-yyyy hh:mm:ss a')")
+#else #set ($dateMasuk="") #end
+<td  align="center">$dateMasuk</td>
+<td>$!r.kemaskiniOleh.userName</td>
+#if ($!r.tarikhKemaskini) 
+	#set ($dateKemaskini = "$!util.getDateTime($!r.tarikhKemaskini,'dd-MM-yyyy hh:mm:ss a')")
+#else #set ($dateKemaskini="") #end
+<td  align="center">$dateKemaskini</td>

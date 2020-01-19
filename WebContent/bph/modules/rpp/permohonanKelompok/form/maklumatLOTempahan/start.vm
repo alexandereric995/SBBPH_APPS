@@ -1,0 +1,80 @@
+
+#if( ($r.noLoTempahan && !$r.noLoTempahan.equalsIgnoreCase("")) ||  ($r.statusBayaran=="Y" && $r.status.id == "1425259713415") )
+<fieldset id="makluman" style="font-weight:bold;color:red; background-color:#D8CEF6">
+    <table cellpadding="5" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td style="font-weight:bold;text-align:justify;">
+				#if($r.statusBayaran=="Y" && $r.status.id == "1425259713415")
+					PERMOHONAN TELAH LULUS
+				#else
+					PROSES PEMBAYARAN DIBUAT DI UNIT HASIL KEWANGAN
+				#end
+			</td>
+		</tr>
+	</table>
+</fieldset>
+<br/><br/>
+#end
+				
+#parse("$path/senaraiTab.vm")
+
+<input type="hidden" name="idRppPermohonan" id="idRppPermohonan" value="$!r.id" />
+
+<fieldset>
+<legend class="legend">maklumat lo tempahan</legend>
+
+	 <table width="100%">
+    	<tr>
+    		<td style="width:190px"></td>
+    		<td style="width:10px"></td>
+    		<td></td>
+    	</tr>
+		
+		<!--
+		<tr>
+    		<td>Kaedah Bayaran  &nbsp;</td>
+    		<td>:</td>
+    		<td><select class="texts" name="kaedahBayaran" id="kaedahBayaran" style="width:100%" >
+		    		<option value="">SILA PILIH</option>
+					<option value="LO" #if ( $r.kaedahBayaran == "LO" ) selected #end>NO.LO TEMPAHAN</option>
+		    		<option value="TUNAI" #if ( $r.kaedahBayaran == "TUNAI" ) selected #end>TUNAI</option>
+		    		<option value="EFT" #if ( $r.kaedahBayaran == "EFT" ) selected #end>EFT</option>
+	    		</select>
+    		</td>
+    	</tr>
+		-->
+		
+		##date_input_required("tarikhBayaran" "Tarikh Bayaran" "$!util.getDateTime($!r.tarikhBayaran,'dd-MM-yyyy')") 
+		#input_required("noLoTempahan" "No. LO Tempahan" "$!r.noLoTempahan")
+		#textarea("catatanLo" "Catatan" "$!r.catatanLo")
+		
+
+	 </table>
+
+</fieldset>
+
+
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="right">##Fatin 13/06/2015
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+				
+			#if( !$userRole.equalsIgnoreCase("(RPP) Penyedia") )	
+    			#if( $r.noLoTempahan  && $r.status.id !="1425259713415" )
+				##LULUS DI KEWANGAN
+    			##<input type="button" value="Permohonan Lulus" onClick="javascript:doSavePermohonanLulus('$!r.id')">
+    			#end	
+    			#if( $r.status.id=="1433097397170" )
+    			<input type="button" value="Simpan" onClick="javascript:doSaveLOTempahan('$!r.id')">
+    			#end	
+			#end
+			
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+
+
+
+

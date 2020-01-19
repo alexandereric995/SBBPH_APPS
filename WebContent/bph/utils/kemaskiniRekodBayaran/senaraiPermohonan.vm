@@ -1,0 +1,62 @@
+
+<style>
+.scrollitpopup {
+	height:200px; width: 100%; overflow: auto;
+}
+</style>
+
+<fieldset>
+<legend class="legend">senarai permohonan</legend>
+    
+<div class="scrollitpopup">
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+			<td class="row_header" width="5%">BIL.</td>
+			<td class="row_header" width="10%">ID</td>
+			<td class="row_header" width="15%">NO. TEMPAHAN</td>
+			<td class="row_header" width="15%">PEMOHON</td>
+			<td class="row_header" width="10%">TARIKH PERMOHONAN</td>
+			<td class="row_header" width="10%">TARIKH MASUK</td>
+			<td class="row_header" width="10%">TARIKH KELUAR</td>
+			<td class="row_header" width="15%">STATUS PERMOHONAN</td>
+			<td class="row_header" width="10%">STATUS BAYAR</td>
+		</tr>
+		
+		#if ( $listPermohonan.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listPermohonan )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+					<td><a href="#" style="color:blue" onclick="javascript:getMaklumatBayaran('$!d.id')">$!d.id</a></td>
+					<td>$!d.noTempahan.toUpperCase()</td>
+            		<td>$!d.pemohon.userName.toUpperCase()</td>
+            		<td>$!util.getDateTime($!d.tarikhPermohonan,'dd-MM-yyyy')</td>
+					<td>$!util.getDateTime($!d.tarikhMasukRpp,'dd-MM-yyyy')</td>
+        			<td>$!util.getDateTime($!d.tarikhKeluarRpp,'dd-MM-yyyy')</td>
+        			<td>$!d.status.keterangan</td>
+					<td>$!d.keteranganStatusBayaran()</td>
+                </tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="8">TIADA REKOD</td>
+			</tr>
+		#end
+		
+	</table>
+</div>
+
+</fieldset>	
+
+
+	
+

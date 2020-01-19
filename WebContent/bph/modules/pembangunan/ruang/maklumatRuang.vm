@@ -1,0 +1,101 @@
+<fieldset>
+<legend class="legend">Maklumat Ruang</legend>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("kodDAK" "Kod DAK" "$!r.kodDAK")
+        #input_normal("namaRuang" "Nama Ruang" "$!r.namaRuang")	
+        #input_normal("fungsiRuang" "Fungsi Ruang" "$!r.fungsiRuang")
+        <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("luasRuang" "Luas Ruang (Meter Persegi)" "$!r.luasRuang")
+        #input_normal("tinggiSiling" "Tinggi Siling (M)" "$!r.tinggiSiling")        
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">Maklumat Aras</legend>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("kodDAK" "Kod DAK" "$!r.aras.kodDAK")
+        #input_normal("namaAras" "Nama Aras" "$!r.aras.namaAras")	
+        <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #set ($jenisAras = "")
+        #if ($!r.aras.jenisAras == 'A')
+        	#set ($jenisAras = "ATAS TANAH")
+        #elseif ($!r.aras.jenisAras == 'B')	
+        	#set ($jenisAras = "BAWAH TANAH")
+        #end
+        #input_normal("jenisAras" "Jenis Aras" "$jenisAras")
+        #input_normal("luasAras" "Luas Aras (Meter Persegi)" "$!r.aras.luasAras")        
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">Maklumat Bangunan</legend>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("kodDPA" "Kod DPA" "$!r.aras.bangunan.kodDPA")
+        #input_normal("kodDAK" "Kod DAK" "$!r.aras.bangunan.kodDAK")
+        #input_normal("namaBangunan" "Nama Bangunan" "$!r.aras.bangunan.namaBangunan")	
+        #input_normal("luas" "Luas (Meter Persegi)" "$!r.aras.bangunan.luas")
+        #input_normal("kegunaanBangunan" "Kegunaan Bangunan" "$!r.aras.bangunan.kegunaanBangunan")
+        #input_normal("noPendaftaran" "No. Pendaftaran" "$!r.aras.bangunan.noPendaftaran")
+        <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("namaKontraktor" "Nama Kontraktor" "$!r.aras.bangunan.namaKontraktor")
+        #input_normal("bidangKerjaKontraktor" "Bidang Kerja Kontraktor" "$!r.aras.bangunan.bidangKerjaKontraktor")  
+        #input_normal("namaPerunding" "Nama Perunding" "$!r.aras.bangunan.namaPerunding")
+        #input_normal("bidangKerjaPerunding" "Bidang Kerja Perunding" "$!r.aras.bangunan.bidangKerjaPerunding")  
+        #input_normal("tahunSiapBina" "Tahun Siap Bina" "$!r.aras.bangunan.tahunSiapBina")
+        #input_normal("kosBinaan" "Kos Binaan (RM)" "$!r.aras.bangunan.kosBinaan")              
+      </table></td>
+  </tr>
+</table>
+</fieldset>

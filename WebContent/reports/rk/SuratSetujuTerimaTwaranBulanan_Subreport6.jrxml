@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SuratSetujuTerimaTwaranBulanan_Subreport6"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["D:\\Eclipse\\workspace\\sbbphv2\\WebContent\\reports\\rk\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idFail" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT rk_permohonan.no_rujukan_surat,
+       rk_pemohon.nama,
+       rk_pemohon.no_kp,
+       rk_pemohon.alamat1 alamat1pemohon,
+       rk_pemohon.alamat2 alamat2pemohon,
+       rk_pemohon.alamat3 alamat3pemohon,
+       rk_pemohon.poskod poskodpemohon,
+       ruj_bandar_1.keterangan bandarpemohon,
+       ruj_negeri_1.keterangan negeripemohon,
+       rk_fail.no_fail,
+       rk_permohonan.bil_mesyuarat,
+       rk_permohonan.keputusan_mesyuarat,
+       rk_permohonan.tarikh_mesyuarat,
+       rk_ruang_komersil.nama_ruang,
+       rk_ruang_komersil.alamat1 alamat1ruang,
+       rk_ruang_komersil.alamat2 alamat2ruang,
+       rk_ruang_komersil.alamat3 alamat3ruang,
+       rk_ruang_komersil.poskod poskodruang,
+       rk_ruang_komersil.id_bandar,
+       ruj_bandar_1.keterangan bandarruang,
+       ruj_negeri_1.keterangan negeriruang,
+       rk_perjanjian.tempoh,
+       rk_perjanjian.tarikh_mula,
+       rk_perjanjian.tarikh_tamat,
+       rk_perjanjian.kadar_sewa,
+       rk_perjanjian.deposit,
+       rk_ruang_komersil.luas_mps,
+       rk_ruang_komersil.luas_kps
+  FROM (((sbbphdb.rk_fail rk_fail
+          INNER JOIN sbbphdb.rk_pemohon rk_pemohon
+             ON (rk_fail.id_pemohon = rk_pemohon.id))
+         INNER JOIN sbbphdb.rk_permohonan rk_permohonan
+            ON (rk_fail.id = rk_permohonan.id_fail))
+        INNER JOIN sbbphdb.rk_perjanjian rk_perjanjian
+           ON (rk_permohonan.id = rk_perjanjian.id_permohonan))
+       INNER JOIN sbbphdb.rk_ruang_komersil rk_ruang_komersil
+          ON (rk_fail.id_ruang = rk_ruang_komersil.id_ruang)
+      INNER JOIN sbbphdb.ruj_bandar ruj_bandar_1
+         ON (rk_ruang_komersil.id_bandar = ruj_bandar_1.id)
+     INNER JOIN sbbphdb.ruj_negeri ruj_negeri_1
+       ON (ruj_bandar_1.id_negeri = ruj_negeri_1.id);]]></queryString>
+
+	<field name="no_rujukan_surat" class="java.lang.String"/>
+	<field name="nama" class="java.lang.String"/>
+	<field name="no_kp" class="java.lang.String"/>
+	<field name="alamat1pemohon" class="java.lang.String"/>
+	<field name="alamat2pemohon" class="java.lang.String"/>
+	<field name="alamat3pemohon" class="java.lang.String"/>
+	<field name="poskodpemohon" class="java.lang.String"/>
+	<field name="bandarpemohon" class="java.lang.String"/>
+	<field name="negeripemohon" class="java.lang.String"/>
+	<field name="no_fail" class="java.lang.String"/>
+	<field name="bil_mesyuarat" class="java.lang.String"/>
+	<field name="keputusan_mesyuarat" class="java.lang.String"/>
+	<field name="tarikh_mesyuarat" class="java.sql.Date"/>
+	<field name="nama_ruang" class="java.lang.String"/>
+	<field name="alamat1ruang" class="java.lang.String"/>
+	<field name="alamat2ruang" class="java.lang.String"/>
+	<field name="alamat3ruang" class="java.lang.String"/>
+	<field name="poskodruang" class="java.lang.String"/>
+	<field name="id_bandar" class="java.lang.String"/>
+	<field name="bandarruang" class="java.lang.String"/>
+	<field name="negeriruang" class="java.lang.String"/>
+	<field name="tempoh" class="java.lang.String"/>
+	<field name="tarikh_mula" class="java.sql.Date"/>
+	<field name="tarikh_tamat" class="java.sql.Date"/>
+	<field name="kadar_sewa" class="java.lang.Double"/>
+	<field name="deposit" class="java.lang.Double"/>
+	<field name="luas_mps" class="java.lang.Double"/>
+	<field name="luas_kps" class="java.lang.Double"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="800"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="14"
+						width="231"
+						height="15"
+						key="textField-9"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["10.	     PENJUALAN BARANGAN"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="31"
+						width="496"
+						height="27"
+						key="textField-10"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["10.1	       Pengusaha minuman keras serta makanan yang diharamkan di sisi agama Islam adalah dilarang sama sekali;"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="60"
+						width="496"
+						height="40"
+						key="textField-11"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["10.2	       Penjualan rokok, cerut atau tembakau atau bahan-bahan yang berkaitan adalah tidak dibenarkan sama sekali. Penyediaan kawasan merokok, menghisap rokok atau membenarkan orang lain merokok di dalam atau berdekatan ruang kafeteria juga adalah tidak dibenarkan; dan"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="102"
+						width="496"
+						height="41"
+						key="textField-12"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["10.3	    BPH, JPM dan pihak-pihak Berkuasa Tempatan yang lain berhak menyita premis sekiranya pihak pengusaha gagal mematuhi sebarang peraturan atau undang-undang yang telah ditetapkan oleh Pihak Kerajaan. "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="149"
+						width="231"
+						height="15"
+						key="textField-13"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["11.	     PENETAPAN HARGA BARANG"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="166"
+						width="496"
+						height="27"
+						key="textField-14"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["11.1	      Pengusaha perlu menetapkan harga jualan barangan/perkhidmatan berdasarkan kepada harga yang berpatutan dan telah dipersetujui di antara pihak pengusaha dan Kerajaan."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="195"
+						width="496"
+						height="40"
+						key="textField-15"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["11.2	     Harga bagi barangan kawalan (jika berkaitan) adalah tertakluk kepada penetapan yang dibuat oleh Pihak Kementerian Perdagangan Dalam Negeri, Koperasi dan Kepenggunaan (KPDNKK) atau lain-lain pihak Berkuasa Tempatan yang lain; dan"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="237"
+						width="496"
+						height="29"
+						key="textField-16"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["11.3	       Pengusaha adalah diwajibkan untuk sentiasa mempamerkan senarai harga makanan/minuman dalam keadaan yang mudah dilihat di dalam kafeteria untuk rujukan pelanggan."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="271"
+						width="382"
+						height="15"
+						key="textField-17"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["12.	     PENJUALAN BARANGAN JUALAN DI LUAR RUANG PREMIS"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="288"
+						width="496"
+						height="42"
+						key="textField-18"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["12.1	      Pengusaha tidak dibenarkan untuk meletakkan barangan jualannya di luar ruang kafeteria terutamanya di kaki lima dan sebagainya kecuali dengan kebenaran secara bertulis daripada pihak BPH, JPM."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="335"
+						width="382"
+						height="15"
+						key="textField-19"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["13.	     PENYERAHAN PENYEWAAN KEPADA PIHAK KETIGA"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="352"
+						width="496"
+						height="66"
+						key="textField-20"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["13.1	      Hanya pengusaha yang diluluskan oleh pihak BPH, JPM dibenarkan menjalankan perniagaan di lot niaga berkenaan. Sebarang penyerahan atau penyewaan semula kepada pihak ketiga adalah tidak dibenarkan kecuali dengan kebenaran secara bertulis daripada pihak Jabatan Ketua Pengarah Tanah dan Galian (JKPTG) dengan permohonan melalui BPH, JPM. Kerajaan berhak untuk membatalkan kontrak penyewaan sekiranya perkara ini tidak dipatuhi."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="423"
+						width="382"
+						height="15"
+						key="textField-21"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["14.	     KEROSAKAN RUANG DAN PERALATAN TERSEDIA"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="440"
+						width="496"
+						height="66"
+						key="textField-22"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["14.1	      Sebarang kerosakan  di ruang kafeteria dan peralatan tersedia yang disebabkan oleh kecuaian pengusaha adalah menjadi tanggungjawab pengusaha untuk menggantikannya atau mengembalikan kepada sedia ada. BPH, JPM berhak untuk tidak memulangkan atau mengurangkan pembayaran deposit sewaan sekiranya premis ditinggalkan di dalam keadaan yang tidak memuaskan selepas tamat tempoh kontrak penyewaan."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="511"
+						width="382"
+						height="15"
+						key="textField-23"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["15.	     PEMERIKSAAN DARI SEMASA KE SEMASA"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="528"
+						width="496"
+						height="67"
+						key="textField-24"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["15.1	      BPH, JPM, KJP serta lain-lain pihak Berkuasa Tempatan yang lain melalui kakitangannya yang diberikan kuasa berhak dari semasa ke semasa untuk membuat pemeriksaan tanpa perlu memaklumkan terlebih dahulu kepada pihak pengusaha untuk memastikan semua syarat berkaitan dengan penyewaan dipatuhi.atau lain-lain syarat atau arahan yang dikeluarkan oleh pihak Kerajaan dari semasa ke semasa."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="601"
+						width="382"
+						height="15"
+						key="textField-25"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["16.	     INSURANS"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="618"
+						width="496"
+						height="54"
+						key="textField-26"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["16.1	      Pengusaha tanpa ada paksaan adalah dinasihatkan untuk mengambil skim atau polisi insurans terhadap kebakaran dan/atau kecurian ke atas segala harta benda persendirian yang terdapat di dalam premis perniagaan di atas perbelanjaan sendiri, selain daripada peralatan dan/atau peralatan tersedia milik Kerajaan."]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="39"
+						y="763"
+						width="468"
+						height="29"
+						key="subreport-1"/>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "SuratSetujuTerimaTwaranBulanan_Subreport7.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="2"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

@@ -1,0 +1,89 @@
+##Fatin 13/06/2015
+      _jq(document).ready(function () { 
+            _jq('#btnAddNewRecordTemplate').val('Tambah Blocking/Selenggara'); ##ubah nama kepada nama yang diperlukan
+      });
+
+function validate() {
+	var err_count = 0;
+	
+	var perkara = $('perkara').value;
+	if ( perkara == "" ) {$('err_perkara').innerHTML = "Perkara adalah mandatori!"; err_count++;  }
+	
+	var tarikhMula = $('tarikhMula').value;
+	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	
+	var tarikhTamat = $('tarikhTamat').value;
+	if ( tarikhTamat == "" ) {$('err_tarikhTamat').innerHTML = "Tarikh Tamat adalah mandatori!"; err_count++;  }
+	
+	var flagJenisSelenggara1 = document.${formname}.flagJenisSelenggara[0].checked;
+	var flagJenisSelenggara2 = document.${formname}.flagJenisSelenggara[1].checked;
+	if ( flagJenisSelenggara1 == false && flagJenisSelenggara2 == false ) {$('err_flagJenisSelenggara').innerHTML = "Pilihan Kategori Selenggara adalah mandatori!"; err_count++;  }
+	
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doKosongkan() {
+	$('perkara').value = "";
+	$('catatan').value = "";
+	$('tarikhMula').value = "";
+	$('tarikhTamat').value = "";
+	
+	var inputs = document.${formname}.flagJenisSelenggara;
+    for(var i = inputs.length-1;i>=0;i--){
+		if(inputs[i].getAttribute("type")==="radio"){
+          inputs[i].checked=false;
+		}
+    }
+}
+
+function doListingUnit() {
+	doDivAjaxCall3$formname('divListRppDanUnit','listingUnit','')
+}
+
+function validatePilihanUnit() {
+
+	var err_count = 0;
+	
+	var peranginan = $('peranginan').value;
+	if ( peranginan == "" ) {
+		$('err_peranginan').innerHTML = "Lokasi Peranginan adalah mandatori!"; err_count++;  
+	}else{
+		
+		var g = 0;
+    	var inputs = document.getElementsByName('cbPilihan');
+		
+        for(var x = 0; x < inputs.length; x++) {
+        	if(inputs[x].checked) {
+        		g += 1;
+        	}else{
+        		g += 0;
+        	}
+		}
+			
+		if ( g == 0 ) {$('err_cbPilihan').innerHTML = "Pilihan Unit/Lokasi adalah mandatori!"; err_count++;  }
+		
+	}
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doSimpanPilihanUnit() {
+	if (validatePilihanUnit()) {
+		doDivAjaxCall3$formname('divForm','savePilihanUnit','')
+	}	
+}
+
+
+
+

@@ -1,0 +1,218 @@
+<fieldset>
+	<legend class="legend">Operasi Berjadual</legend>
+	<table width="100%">
+		<tr>
+			<td style="width:150px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+	  	<tr>
+			<td width="50%" valign="top">
+				<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+					<tr>
+						<td style="width:150px"></td>
+						<td style="width:10px"></td>
+						<td></td>
+					</tr>
+					
+					## ----------------START CODE UNTUK DISPLAY SAHAJA---------------
+					#if($command !="add_new_record")
+						<input type="hidden" id="idZon" name="idZon" value="$!r.zon.id"/>
+						<input type="hidden" id="idKuarters" name="idKuarters" value="$!r.jenisKuarters.id"/>
+						<input type="hidden" id="idKawasan" name="idKawasan" value="$!r.kawasan.id"/>
+						<input type="hidden" id="idJenisOperasi" name="idJenisOperasi" value="$!r.jenisOperasi.id"/>
+
+##						#input_readonly_all_label("noFail" "No. Fail" "<b>$!r.noFail</b>") disable tukar kepada noRujukanOperasi
+						#input_readonly_all_label("noRujukanOperasi" "No. Rujukan Operasi" "<b>$!r.noRujukanOperasi</b>")
+##						#input_readonly_all_label("idZon1" "Zon" "$!r.zon.keterangan")
+##						#input_readonly_all_label("idKuarters1" "Jenis Kuarters" "$!r.jenisKuarters.keterangan")
+##						#input_readonly_all_label("idKawasan1" "Kawasan" "$!r.kawasan.keterangan")
+##						#input_readonly_all_label("idFasa" "Fasa" "$!r.fasa.keterangan")
+##						#input_readonly_all_label("idBlok" "Blok" "$!r.blok.keterangan")
+##						#input_readonly_all_label("idJenisOperasi1" "Jenis Operasi" "$!r.jenisOperasi.keterangan")
+		  			#end
+		  			## ----------------END CODE UNTUK DISPLAY SAHAJA---------------
+		  			
+		  			## ---------------- START CODE UNTUK DATA BARU ---------------
+##		  			#if($command == "add_new_record") 
+	  				<tr>
+		    			<td class="label">Zon &nbsp;<span style="color:#FF2A00">*</span></td>
+		    			<td>:</td>
+		    			<td><div id="selectZon"> #parse("$path/selectZon.vm") </div>
+		    			<div id="err_idZon" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		  			</tr>
+					<tr>
+		    			<td class="label">Jenis Kuarters &nbsp;<span style="color:#FF2A00">*</span></td>
+		    			<td>:</td>
+		    			<td><div id="selectJenisKuarters"> #parse("$path/selectJenisKuarters.vm") </div>
+						<div id="err_idKuarters" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		  			</tr>
+		  			<tr>
+		    			<td class="label">Kawasan &nbsp;<span style="color:#FF2A00">*</span></td>
+		    			<td>:</td>
+		    			<td><div id="selectKawasan"> #parse("$path/selectKawasan.vm") </div>
+		    			<div id="err_idKawasan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		  			</tr>
+		  			<tr>
+		    			<td class="label">Fasa &nbsp;</td> ##<span style="color:#FF2A00">*</span>
+		    			<td>:</td>
+		    			<td><div id="selectKawasan"> #parse("$path/selectFasa.vm") </div>
+		    			<div id="err_idFasa" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		  			</tr>
+		  				<tr>
+		    			<td class="label">Blok &nbsp;</td> ##<span style="color:#FF2A00">*</span>
+		    			<td>:</td>
+		    			<td><div id="selectKawasan"> #parse("$path/selectBlok.vm") </div>
+		    			<div id="err_idBlok" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		  			</tr>
+		  			<tr>
+		    			<td class="label">Jenis Operasi &nbsp;<span style="color:#FF2A00">*</span></td>
+		    			<td>:</td>
+		    			<td><div id="selectJenisOperasi"> #parse("$path/selectJenisOperasi.vm") </div>
+						<div id="err_idJenisOperasi" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		  			</tr>
+##		  			#end	
+		  		</table>
+		  	
+				#if ($r.jenisOperasi.id == 'PS')## ------- START CODE JIKA PILIH PELANGGARAN SYARAT ---------
+					<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+						<tr>
+							<td style="width:150px"></td>
+							<td style="width:10px"></td>
+							<td></td>
+						</tr>
+			  			<tr>
+			    			<td class="label">Jenis Kes&nbsp;<span style="color:#FF2A00">*</span></td>
+			    			<td>:</td>
+			    			<td>#parse("$path/selectKes.vm")
+			    			<div id="err_idKes" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td></td>
+			  			</tr>
+			  			<tr>
+			    			<td class="label">Jenis Kesalahan&nbsp;<span style="color:#FF2A00">*</span></td>
+			    			<td>:</td>
+			    			<td><div id="selectPelanggaran">#parse("$path/selectJenisPelanggaranSyarat.vm")</div>
+			    			<div id="err_idJenisPelanggaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td></td>
+			  			</tr>
+	  				</table>
+	  			#elseif($r.jenisOperasi.id == 'CP') ## ------- START CODE JIKA PILIH PENGUNCIAN TAYAR --------
+	  				<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+						<tr>
+							<td style="width:150px"></td>
+							<td style="width:10px"></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="label">Jenis Kenderaan&nbsp;<span style="color:#FF2A00">*</span></td>
+							<td>:</td>
+							<td>#parse("$path/selectKenderaan.vm")
+							<div id="err_idKes" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td></td>
+						</tr>
+						#input("noPlatKenderaan" "No Plat Kenderaan" "$!r.noPlatKenderaan")
+						#input("modelKenderaan" "Model Kenderaan" "$!r.modelKenderaan")
+					</table>
+				#elseif($r.jenisOperasi.id == 'AD')
+					<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+						<tr>
+							<td style="width:150px"></td>
+							<td style="width:10px"></td>
+							<td></td>
+						</tr>
+						
+						#set ($tarikhAduan = $!util.getDateTime($!tarikhAduan,'dd-MM-yyyy'))
+				        #if ($!r.tarikhAduan) 
+				        	#set ($tarikhAduan = "$!util.getDateTime($!r.tarikhAduan,'dd-MM-yyyy')") 
+				        #end
+						 #date_input("tarikhAduan" "Tarikh Aduan" "$tarikhAduan")
+					</table>
+				#end
+				<div id="divKes" name="divKes"></div> ##papar jika pilih jenis operasi untuk new record		
+			</td>
+			 
+			<td width="50%" valign="top">
+				<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+					<tr>
+						<td style="width:150px"></td>
+						<td style="width:10px"></td>
+						<td></td>
+					</tr>
+					
+		  			#input_required("tajuk" "Jenis Kesalahan" "$!r.tajuk") ##Tajuk dipinda kepada Jenis Kesalahan.
+		  			
+##		  			************ start field tarikh operasi ************
+## 					Tarikh operasi asal field adalah mandatori			
+##		  			#if ($r.tarikhOperasi) 
+##		  				#set ($tarikhOperasi="$!util.getDateTime($r.tarikhOperasi,'dd-MM-yyyy')") 
+##		  			#else 
+##		  				#set ($tarikhOperasi="") 
+##		  			#end
+##					#date_input_required("tarikhOperasi" "Tarikh Operasi" "$tarikhOperasi")
+
+## 					Tarikh operasi tidak mandatori				
+					#set ($tarikhOperasi = $!util.getDateTime($!tarikhOperasi,'dd-MM-yyyy'))
+			        #if ($!r.tarikhOperasi) 
+			        	#set ($tarikhOperasi = "$!util.getDateTime($!r.tarikhOperasi,'dd-MM-yyyy')") 
+			        #end
+			        #date_input("tarikhOperasi" "Tarikh Operasi" "$tarikhOperasi")
+##		  			************ start field tarikh operasi ************
+					
+					<tr>
+						<td class="label" valign="top">Masa Mula &nbsp;</td> ##<span style="color:#FF2A00">*</span>
+						<td class="label" valign="top">:</td>
+						<td valign="top"><input type="text" class="masa" id="masaMula" name="masaMula" value="$!r.masaMula" onKeyUp="$('err_masaMula').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+							<span style="color:#FF2A00">&nbsp;Format Masa adalah 24 jam. Cth: 0800</span>
+##							<div id="err_masaMula" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+						</td>
+					</tr>
+					 <tr>
+						<td class="label" valign="top">Masa Tamat &nbsp;</td> ##<span style="color:#FF2A00">*</span>
+						<td class="label" valign="top">:</td>
+						<td valign="top"><input type="text" class="masa" id="masaTamat" name="masaTamat" value="$!r.masaTamat" onKeyUp="$('err_masaTamat').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+						<span style="color:#FF2A00">&nbsp;Format Masa adalah 24 jam. Cth: 0800</span>
+						<div id="err_masaTamat" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+					</tr>
+			     	 <tr>
+						<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+							<tr>
+								<td style="width:150px"></td>
+								<td style="width:10px"></td>
+								<td></td>
+							</tr>
+							#textarea("catatan" "Catatan" "$!r.catatan")
+						</table>	
+					</tr>
+			     	 
+				</table>
+			</td>
+			## ----------------END CODE UNTUK DATA BARU ---------------
+		</tr>
+		<br />
+		<br />
+		<tr>
+			<td width="50%" valign="top">
+				## ------- START CODE UPLOAD --------
+				#if($command != 'add_new_record')  
+					#parse("$path/dokumenSokongan/start.vm")
+				#end 
+				## ------- START CODE UPLOAD --------
+			</td>
+		</tr>
+		
+	</table>
+</fieldset>
+
+#if($command != 'add_new_record')
+	<p align="right">
+		<input type="button" id="cmdSimpanHk" name="cmdSimpanHk" value="Simpan" onClick="if ( validateField() ) doDivAjaxCall$formname('divTab','saveMaklumatOperasi','')">
+	 	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	</p>
+#end
+
+<script>
+	  _jq(function($) {
+	      $('.currency').autoNumeric('init'); 
+	 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+	 	  $('.masa').autoNumeric('init', {aSep: '', vMin: '0000', vMax: '9999', lZero: 'keep'} );
+	 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'allow'} );
+	 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+	  });
+</script>

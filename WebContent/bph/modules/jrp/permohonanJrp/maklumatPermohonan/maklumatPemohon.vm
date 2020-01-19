@@ -1,0 +1,268 @@
+<div id="mainForm" name="mainForm">
+<fieldset>
+<legend class="legend">MAKLUMAT PERMOHONAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #if($permohonanLanjutan.id != $r.id)
+		#set ($r = $!permohonanLanjutan)
+	#else
+		#set ($r = $!r)
+	#end
+
+  #input_readonly_all_label("noPermohonan" "No. Permohonan" "<b>$!r.noPermohonan</b>")
+  #input_readonly_all_label("status" "Status Permohonan" "<b>$!r.status.keterangan</b>")
+  #if ($!r.tarikhSurat) #set ($dateSurat = $!r.tarikhSurat) #end
+  #input_readonly_all_label("tarikhSurat" "Tarikh Permohonan" "$!util.getDateTime($dateSurat,'dd-MM-yyyy')")<input type="hidden" id="tarikhSurat" name="tarikhSurat" value="$!util.getDateTime($dateSurat,'dd-MM-yyyy')"/>
+  
+  #if ($!userRole != '(JRP) Pemohon' && $!userRole != '(JRP) JawatanKuasa Teknikal')
+  #if ($!r.tarikhTerima) 
+  #set ($dateTerima = "$!util.getDateTime($!r.tarikhTerima,'dd-MM-yyyy')")
+  #else #set ($dateTerima = "") #end
+  #date_input_required("tarikhTerima" "Tarikh Terima" "$dateTerima")
+  #elseif ($!userRole == '(JRP) JawatanKuasa Teknikal')
+  #if ($!r.tarikhHantarUlasan) 
+  #set ($dateHantarUlasan = "$!util.getDateTime($!r.tarikhHantarUlasan,'dd-MM-yyyy')")
+  #else #set ($dateHantarUlasan = "") #end
+  #date_input_required("tarikhTerima" "Tarikh Terima Ulasan" "$dateHantarUlasan")
+  #end
+  
+  <tr>
+    <td class="label">Jenis Permohonan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    #if($r.jenisPermohonanJrp.id == 'JRP1' || $r.jenisPermohonanJrp.id == 'JRP2' )
+    <td>#parse("$path/selectJenisPermohonanJRP.vm")
+      <div id="err_idJenisPermohonanJRP" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  #elseif($r.jenisPermohonanJrp.id == 'JRP3' || $r.jenisPermohonanJrp.id == 'JRP4' )
+  <td>#parse("$path/selectJenisPermohonanTambahanJRP.vm")
+      <div id="err_idJenisPermohonanLanjutanJRP" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  #elseif($r.jenisPermohonanJrp.id == 'JRP5' || $r.jenisPermohonanJrp.id == 'JRP6' )
+  <td>#parse("$path/selectJenisPermohonanPindahJRP.vm")
+      <div id="err_idJenisPermohonanLanjutanJRP" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  #elseif($r.jenisPermohonanJrp.id == 'JRP7')
+  <td>#parse("$path/selectJenisPermohonanLanjutanJRP.vm")
+      <div id="err_idJenisPermohonanLanjutanJRP" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  #end
+    </tr>
+##  #input_required("tujuanPermohonan" "Tujuan Permohonan" "$!r.tujuanPermohonan")
+<tr>
+	<td class="label" valign="top">Tujuan Permohonan &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><select class="texts" id="tujuanPermohonan" name="tujuanPermohonan" style="width:100%" onChange="javascript=doChangeTujuan()">
+    <option value="">SILA PILIH</option>
+    <option value="TABIKA" #if($!r.tujuanPermohonan == "TABIKA") selected #end>TABIKA</option>
+    <option value="STOR" #if($!r.tujuanPermohonan == "STOR") selected #end>STOR</option>
+    <option value="RUANG PEJABAT" #if($!r.tujuanPermohonan == "RUANG PEJABAT") selected #end>RUANG PEJABAT</option>
+    <option value="BALAI POLIS/PONDOK POLIS" #if($!r.tujuanPermohonan == "BALAI POLIS/PONDOK POLIS") selected #end>BALAI POLIS/PONDOK POLIS</option>
+    <option value="KLINIK" #if($!r.tujuanPermohonan == "KLINIK") selected #end>KLINIK</option>
+    <option value="LAIN - LAIN" #if($!r.tujuanPermohonan != "" &&  $!r.tujuanPermohonan != "TABIKA" && $!r.tujuanPermohonan != "STOR" && $!r.tujuanPermohonan != "RUANG PEJABAT" && $!r.tujuanPermohonan != "BALAI POLIS/PONDOK POLIS" && $!r.tujuanPermohonan != "KLINIK") selected #end>LAIN - LAIN</option>
+	</select>
+	<div id="err_tujuanPermohonan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+	</tr>
+</table>
+	#set ($tujuan = $!r.tujuanPermohonan)
+<div id="divTujuanPermohonan" name="divTujuanPermohonan" #if($tujuan == "" && $tujuan != "STOR" && $tujuan != "RUANG PEJABAT" && $tujuan != "BALAI POLIS/PONDOK POLIS" && $tujuan != "KLINIK") style="display:none;" #else style="display:block;" #end>
+##<div id="divTujuanPermohonan" name="divTujuanPermohonan" #if ($tujuan == "LAIN - LAIN") style="display:block;" #else style="display:none;" #end>	
+	<table width="100%" cellpadding="1" cellspacing="2">
+	<tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+   <tr>
+  <tr>
+	<td class="label" valign="top">**Sila Nyatakan</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<input type="text" id="tujuanPermohonan2" name="tujuanPermohonan2" value="$!r.tujuanPermohonan"/>
+	</td>
+</tr>
+</table>
+</div>
+<table width="100%" cellpadding="1" cellspacing="2">
+	<tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+   <tr>
+   		#if($!r.alasanPermohonan.length() > 0)
+    		#set($totalAksara = 512 - $!r.alasanPermohonan.length())
+    	#else
+    		#set($totalAksara = 512)
+        #end
+  <tr>
+	<td class="label" valign="top">Justifikasi Permohonan &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<textarea id="alasanPermohonan" maxlength="512" name="alasanPermohonan" onKeyUp="$('err_alasanPermohonan').innerHTML=''; at(this, event);calculateJumlahAksara(this.value, 'jumlahAksara')" onBlur="this.value=this.value.toUpperCase();">$!r.alasanPermohonan</textarea>
+		<span style="color:#FF2A00" id="jumlahAksara">Baki Aksara: $totalAksara </span>
+		<br><span style="color:#FF2A00">Sila lampirkan justifikasi permohonan di Dokumen Sokongan jika melebihi 512 aksara</span>
+		<div id="err_alasanPermohonan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+</table>
+</div>
+</fieldset>
+
+<fieldset>
+<legend class="legend">MAKLUMAT PEMOHON</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  
+  #if ($!userRole == '(JRP) Pemohon')
+  <tr>
+    <td class="label">Kementerian</td>
+    <td>:</td>
+    <td>$users.agensi.kementerian.keterangan</td>
+  </tr>
+  <tr>
+    <td class="label">Agensi / Jabatan</td>
+    <td>:</td>
+    <td>$users.agensi.keterangan</td>
+  </tr>  	
+  #else
+  <tr>
+    <td class="label">Kementerian &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td>#parse("$path/selectKementerian.vm")
+      <div id="err_idKementerian" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  <tr>
+    <td class="label">Agensi / Jabatan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><div id="selectAgensi">
+      #parse("$path/selectAgensi.vm")
+      <div id="err_idAgensi" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  #end
+  
+  #input_required("alamat1" "Alamat" "$!r.alamat1")
+  #input("alamat2" "" "$!r.alamat2")
+  #input("alamat3" "" "$!r.alamat3")
+  <td></td><td></td>
+  <td><div id="err_alamat1" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  #postcode_required("poskod" "Poskod" "$!r.poskod")
+  <tr>
+    <td class="label">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td>#parse("$path/selectNegeriPemohon.vm")
+      <div id="err_idNegeriPemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><div id="selectBandarPemohon">
+      #parse("$path/selectBandarPemohon.vm")</div>
+      <div id="err_idBandarPemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #input_required("namaPegawai1" "Nama Pegawai 1" "$!r.namaPegawai1")
+  #input("namaPegawai2" "Nama Pegawai 2" "$!r.namaPegawai2")
+  #phone_number_required("noTelefonPegawai1" "No. Telefon Pegawai 1" "$!r.noTelefonPegawai1")
+  #phone_number("noTelefonPegawai2" "No. Telefon Pegawai 2" "$!r.noTelefonPegawai2")
+  #input_email_required("emelPegawai1" "E-mel Pegawai 1" "$!r.emelPegawai1")
+  #input_email("emelPegawai2" "E-mel Pegawai 2" "$!r.emelPegawai2")
+  #phone_number("noFaks" "No. Faks Jabatan" "$!r.noFaks")
+</table>
+</fieldset>
+#if($userRole != '(JRP) Pemohon')
+<fieldset>
+<legend class="legend">MAKLUMAT PEGAWAI DI HQ</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+<tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+</tr>
+#input_readonly_all_label("namaPegawaiHq" "Nama Pegawai" "<b>$!r.agensiHq.userName</b>")
+#input_readonly_all_label("noTelHq" "No Telefon" "<b>$!r.agensiHq.noTelefon</b>")
+#input_readonly_all_label("emelHq" "E-mel" "<b>$!r.agensiHq.emel</b>")
+</table>	
+</fieldset>
+#end
+
+
+<fieldset id="tableReport" style="display:none;">
+<legend class="legend">SENARAI LAPORAN</legend>
+<table width="100%" >
+	<tr>
+		<td><a href="#" style="color:blue" id="cmdCetakBorangJRP">Borang JRP</a></td>		
+	</tr>
+</table>
+</fieldset>
+<table width="100%">
+	<tr>
+		<td align="right">			
+			<input type="button" value="Cetak"  id="cmdCetak"/>
+##			#if(!$!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal"))
+			#if(($r.status.id == '1424860634493' || $!r.status.id == '1424860634499') && $!userRole.equalsIgnoreCase("(JRP) Pemohon")) ##LULUS || LULUS BERSYARAT	
+			<input type="button" value="Daftar Tambahan" id="cmdDaftarTambahan">
+			<input type="button" value="Daftar Pindah" id="cmdDaftarPindah">
+			<input type="button" value="Daftar Lanjutan" id="cmdDaftarLanjutan">
+			#end
+			#if($!userRole.equalsIgnoreCase("(JRP) Pemohon") && (($users.flagHq == 'Y' && ($r.status.id == '1438356583122' || $r.status.id == '1436841294664')) || ($users.flagHq == 'T' && ($r.status.id == '1424860634472' || $!r.status.id == '1424860634475'))))
+			<input type="button" value="Simpan" onclick="javascript:doSaveMaklumatPermohonan('$!r.id');">
+			#end
+##			#if($!userRole.equalsIgnoreCase("(JRP) Penyedia") && $r.status.id != '1424860634493' && $!r.status.id != '1424860634496' && $!r.status.id != '1424860634499' && $!r.status.id != '1424924558493')
+##			<input type="button" value="Batal Permohonan" id="cmdBatalPermohonan" />
+##			#end
+##			#end
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+</div>
+<div id="statusBp"></div>
+<script>
+	_jq('#cmdCetak').on('click', function(){
+
+			if(document.getElementById('tableReport').style.display=="none"){
+				document.getElementById('tableReport').style.display="block";
+				}
+			else if(document.getElementById('tableReport').style.display=="block"){
+				document.getElementById('tableReport').style.display="none";
+				}
+});
+
+_jq('#cmdCetakBorangJRP').on('click', function(){
+	
+	var idPermohonan = $!r.id;
+	var jenis = "$!r.jenisPermohonanJrp.id";
+##	var jenis = document.${formName}.flagJenis.value;
+	
+			var url = "../servlet/bph.laporan.jrp.JRPBorangJRP?idPermohonan="+idPermohonan+"&jenisPermohonan="+jenis;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+});
+_jq('#cmdDaftarTambahan').on('click', function(){
+
+	doDivAjaxCall$formname('divTab','doDaftarLanjutan','jenisPermohonan=1');
+});
+_jq('#cmdDaftarPindah').on('click', function(){
+
+	doDivAjaxCall$formname('divTab','doDaftarLanjutan','jenisPermohonan=2');
+});
+_jq('#cmdDaftarLanjutan').on('click', function(){
+
+	doDivAjaxCall$formname('divTab','doDaftarLanjutan','jenisPermohonan=3');
+});
+_jq('#cmdBatalPermohonan').on('click', function(){
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = $!r.id;
+	
+	var mainForm = document.getElementById('mainForm');
+    	mainForm.style.display = 'none';
+ 
+		doDivAjaxChainCall$formname('statusBp','batalPermohonan','idPermohonan='+idPermohonan);
+});
+</script>

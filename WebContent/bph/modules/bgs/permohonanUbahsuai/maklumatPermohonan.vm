@@ -1,0 +1,74 @@
+<fieldset>
+<legend class="legend">MAKLUMAT PERMOHONAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #input_readonly_all_label("noFail" "No. Fail" "<b>$!r.noFail</b>")
+  #input_normal("status" "Status Permohonan" "<b>$!r.status.keterangan</b>")
+  #if ($!r.tarikhPermohonan) 
+  #set ($datePermohonan = "$!util.getDateTime($!r.tarikhPermohonan,'dd-MM-yyyy')")
+  #else #set ($datePermohonan = "") #end
+  #date_input_required("tarikhPermohonan" "Tarikh Permohonan" "$datePermohonan")
+  #textarea_required("tujuan" "Tujuan" "$!r.tujuan")
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">MAKLUMAT RUANG</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #input_readonly_all_label("ruang" "Ruang" "$!r.permohonan.ruangDiluluskan")
+  #input_readonly_all_label("luas" "Keluasan (Meter Persegi)" "$!r.permohonan.luasDiluluskan")
+  #input_readonly_all_label("aras" "Aras" "$!r.permohonan.aras.namaAras")
+  #input_readonly_all_label("bangunan" "Bangunan" "$!r.permohonan.aras.bangunan.namaBangunan")
+  #input_readonly_all_label("premis" "Premis" "$!r.permohonan.aras.bangunan.premis.namaPremis")
+  #input_readonly_all_label("mukim" "Mukim" "$!r.permohonan.aras.bangunan.premis.mukim.keterangan")
+  #input_readonly_all_label("daerah" "Daerah" "$!r.permohonan.aras.bangunan.premis.mukim.daerah.keterangan")
+  #input_readonly_all_label("negeri" "Negeri" "$!r.permohonan.aras.bangunan.premis.mukim.daerah.negeri.keterangan")
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">MAKLUMAT PEMOHON</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #input_readonly_all_label("kementerian" "Kementerian" "$!r.permohonan.agensi.kementerian.keterangan")
+  #input_readonly_all_label("kementerian" "Kementerian" "$!r.permohonan.agensi.keterangan")  
+  #input_readonly_all_label("jabatan" "Nama Jabatan" "$!r.permohonan.jabatan")
+  #input_readonly_all_label("alamat1" "Alamat" "$!r.permohonan.alamat1")
+  #input_readonly_all_label("alamat2" "" "$!r.permohonan.alamat2")
+  #input_readonly_all_label("alamat3" "" "$!r.permohonan.alamat3")
+  #input_readonly_all_label("poskod" "Poskod" "$!r.permohonan.poskod")  
+  #input_readonly_all_label("bandar" "Bandar" "$!r.permohonan.bandar.keterangan")
+  #input_readonly_all_label("negeri" "Negeri" "$!r.permohonan.bandar.negeri.keterangan")  
+  #input_readonly_all_label("noTelefon" "No. Telefon" "$!r.permohonan.noTelefon")
+  #input_readonly_all_label("noFaks" "No. Faks" "$!r.permohonan.noFaks")
+  #input_readonly_all_label("namaPegawai" "Nama Pegawai" "$!r.permohonan.namaPegawai")
+  #input_readonly_all_label("emelPegawai" "E-mel" "$!r.permohonan.emelPegawai")
+</table>
+</fieldset>
+
+
+#parse("$path/status.vm")
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if ($!r.status.id == '1423568441671') ## PERMOHONAN BARU
+				<input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:saveMaklumatPermohonan();"/>
+		    #end
+		    <input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">	    
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="CetakSenaraiKuartersKeseluruhan"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="600"
+		 pageHeight="842"
+		 columnWidth="540"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoDataSection"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="findNegeri" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="findNegeri_cond" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[(!$P{findNegeri}.trim().equals("")  ? " AND ruj_negeri.id ='" + $P{findNegeri}+"'" : "")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="findLokasiKuarters" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="findLokasiKuarters_cond" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[(!$P{findLokasiKuarters}.trim().equals("")  ? " AND ruj_lokasi_kuarters.id ='" + $P{findLokasiKuarters}+"'" : "")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="findJalan" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="findJalan_cond" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[(!$P{findJalan}.trim().equals("")  ? " AND kua_kuarters.alamat_1 ='" + $P{findJalan}+"'" : "")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="findFasa" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="findFasa_cond" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[(!$P{findFasa}.trim().equals("")  ? " AND kua_kuarters.id_fasa ='" + $P{findFasa}+"'" : "")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="findNoUnit" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="findNoUnit_cond" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[(!$P{findNoUnit}.trim().equals("")  ? " AND kua_kuarters.no_unit ='" + $P{findNoUnit}+"'" : "")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="findNoRujukan" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="findNoRujukan_cond" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[(!$P{findNoRujukan}.trim().equals("")  ? " AND kua_kuarters.no_rujukan ='" + $P{findNoRujukan}+"'" : "")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="findKelasKuarters" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="findKelasKuarters_cond" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[(!$P{findKelasKuarters}.trim().equals("")  ? " AND ruj_kelas_kuarters.id ='" + $P{findKelasKuarters}+"'" : "")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="status_kuarters" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="status_kuarters_cond" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[(!$P{status_kuarters}.trim().equals("")  ? " AND ruj_status_kuarters.id ='" + $P{status_kuarters}+"'" : "")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="findDetailKuarters" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="findDetailKuarters_cond" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[(!$P{findDetailKuarters}.trim().equals("")  ? " AND ruj_status_kuarters.id ='" + $P{findDetailKuarters}+"'" : "")]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT kua_kuarters.no_unit,
+kua_kuarters.alamat_1 jalan,
+kua_kuarters.id_fasa fasa,
+kua_kuarters.id_kelas_kuarters kelas_kuarters,
+kua_kuarters.no_rujukan no_rujukan,
+ruj_jenis_kediaman.keterangan kediaman,
+ruj_lokasi_kuarters.keterangan lokasi,
+ruj_status_kuarters.keterangan status,
+ruj_status_kuarters.flag_aktif perincian,
+ruj_bandar.keterangan bandar, 
+ruj_negeri.keterangan negeri 
+FROM kua_kuarters
+LEFT JOIN ruj_lokasi_kuarters ON (kua_kuarters.id_lokasi_kuarters = ruj_lokasi_kuarters.id)
+LEFT JOIN ruj_kelas_kuarters ON (kua_kuarters.id_kelas_kuarters = ruj_kelas_kuarters.id)
+LEFT JOIN ruj_jenis_kediaman ON (kua_kuarters.id_jenis_kediaman = ruj_jenis_kediaman.id)
+LEFT JOIN ruj_status_kuarters ON (kua_kuarters.id_status_kuarters = ruj_status_kuarters.id)
+LEFT JOIN ruj_bandar ON (kua_kuarters.id_bandar = ruj_bandar.id)
+LEFT JOIN ruj_negeri ON (ruj_bandar.id_negeri = ruj_negeri.id)
+WHERE kua_kuarters.id is not null
+$P!{findNegeri_cond}
+$P!{findLokasiKuarters_cond}
+$P!{findJalan_cond}
+$P!{findFasa_cond}
+$P!{findNoUnit_cond}
+$P!{findNoRujukan_cond}
+$P!{findKelasKuarters_cond}
+$P!{status_kuarters_cond}
+$P!{findDetailKuarters_cond}]]></queryString>
+
+	<field name="no_unit" class="java.lang.String"/>
+	<field name="jalan" class="java.lang.String"/>
+	<field name="fasa" class="java.lang.String"/>
+	<field name="kelas_kuarters" class="java.lang.String"/>
+	<field name="no_rujukan" class="java.lang.String"/>
+	<field name="kediaman" class="java.lang.String"/>
+	<field name="lokasi" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="perincian" class="java.lang.Integer"/>
+	<field name="bandar" class="java.lang.String"/>
+	<field name="negeri" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="69"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="239"
+						y="10"
+						width="261"
+						height="40"
+						key="textField-13"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["SENARAI REKOD KUARTERS"]]></textFieldExpression>
+				</textField>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="10"
+						width="70"
+						height="50"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{ReportDir} + "\\images\\jata.png"]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="90"
+						y="10"
+						width="130"
+						height="50"
+						key="image-2"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{ReportDir} + "\\images\\Logo BPH.jpg"]]></imageExpression>
+				</image>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="27"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="10"
+						y="0"
+						width="26"
+						height="27"
+						backcolor="#CCCCCC"
+						key="textField-14"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["BIL"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="37"
+						y="0"
+						width="82"
+						height="27"
+						backcolor="#CCCCCC"
+						key="textField-15"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["NO UNIT"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="120"
+						y="0"
+						width="101"
+						height="27"
+						backcolor="#CCCCCC"
+						key="textField-16"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["KELAS KUARTERS"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="222"
+						y="0"
+						width="100"
+						height="27"
+						backcolor="#CCCCCC"
+						key="textField-17"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["KEDIAMAN"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="323"
+						y="0"
+						width="107"
+						height="27"
+						backcolor="#CCCCCC"
+						key="textField-18"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["LOKASI"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="431"
+						y="0"
+						width="99"
+						height="27"
+						backcolor="#CCCCCC"
+						key="textField-19"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["STATUS"]]></textFieldExpression>
+				</textField>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="27"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="37"
+						y="5"
+						width="82"
+						height="18"
+						key="textField-6"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{no_unit}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="120"
+						y="5"
+						width="101"
+						height="18"
+						key="textField-7"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{kelas_kuarters}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="222"
+						y="5"
+						width="100"
+						height="18"
+						key="textField-8"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{kediaman}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="323"
+						y="5"
+						width="107"
+						height="18"
+						key="textField-9"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{lokasi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="431"
+						y="5"
+						width="99"
+						height="18"
+						key="textField-10"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{status}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="5"
+						width="26"
+						height="18"
+						key="textField-12"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="30"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+		<noData>
+			<band height="100"  isSplitAllowed="true" >
+			</band>
+		</noData>
+</jasperReport>

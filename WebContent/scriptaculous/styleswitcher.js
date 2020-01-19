@@ -1,0 +1,111 @@
+function setActiveStyleSheet(title) {
+	var i, a, main;
+	
+	for(i=0; (a = document.getElementsByTagName("div")[i]); i++) {
+		a.style.fontSize = title;
+//		if(a.getAttribute("rel").indexOf("style") != -1 && a.getAttribute("title")) {
+//			a.disabled = true;
+//			if(a.getAttribute("title") == title) a.disabled = false;
+//		}
+	}
+	
+	for(i=0; (a = document.getElementsByTagName("input")[i]); i++) {
+		a.style.fontSize = title;
+	}
+
+	for(i=0; (a = document.getElementsByTagName("p")[i]); i++) {
+		a.style.fontSize = title;
+	}
+
+	for(i=0; (a = document.getElementsByTagName("td")[i]); i++) {
+		a.style.fontSize = title;
+	}
+	
+	for(i=0; (a = document.getElementsByTagName("span")[i]); i++) {
+		a.style.fontSize = title;
+	}
+	
+	for(i=0; (a = document.getElementsByTagName("font")[i]); i++) {
+		a.style.fontSize = title;
+	}
+		
+	for(i=0; (a = document.getElementsByTagName("a")[i]); i++) {
+		a.style.fontSize = title;
+	}
+	
+	//var title = getActiveStyleSheet();
+	createCookie("style", title, 365);
+	
+	highlightFontStyle(title);
+}
+
+function highlightFontStyle(title) {
+	if ( title == "x-small") {
+		document.getElementById("fontStandard").className = "icon-font-reduce-selected";
+		document.getElementById("fontMedium").className = "icon-font-reset";
+		document.getElementById("fontLarge").className = "icon-font-increase";
+	}else if ( title == "small") {
+		document.getElementById("fontStandard").className = "icon-font-reduce";
+		document.getElementById("fontMedium").className = "icon-font-reset-selected";
+		document.getElementById("fontLarge").className = "icon-font-increase";
+	}else if ( title == "medium") {
+		document.getElementById("fontStandard").className = "icon-font-reduce";
+		document.getElementById("fontMedium").className = "icon-font-reset";
+		document.getElementById("fontLarge").className = "icon-font-increase-selected";
+	}
+}
+
+function getActiveStyleSheet() {
+	var i, a;
+	for(i=0; (a = document.getElementsByTagName("link")[i]); i++) {
+		if(a.getAttribute("rel").indexOf("style") != -1 && a.getAttribute("title") && !a.disabled) return a.getAttribute("title");
+	}
+	return null;
+}
+
+function getPreferredStyleSheet() {
+	var i, a;
+	for(i=0; (a = document.getElementsByTagName("link")[i]); i++) {
+		if(a.getAttribute("rel").indexOf("style") != -1
+				&& a.getAttribute("rel").indexOf("alt") == -1
+				&& a.getAttribute("title")
+		) return a.getAttribute("title");
+	}
+	return null;
+}
+
+function createCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+window.onload = function(e) {
+	var cookie = readCookie("style");
+	var title = cookie ? cookie : getPreferredStyleSheet();
+	setActiveStyleSheet(title);
+}
+
+window.onunload = function(e) {
+	var title = getActiveStyleSheet();
+	createCookie("style", title, 365);
+}
+
+var cookie = readCookie("style");
+var title = cookie ? cookie : getPreferredStyleSheet();
+setActiveStyleSheet(title);

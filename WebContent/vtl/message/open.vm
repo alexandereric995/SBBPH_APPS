@@ -1,0 +1,98 @@
+<form name="${formname}" method="post">
+<table width="100%" cellpadding="5" cellspacing="0">
+<tr>
+	<td>
+		
+    <table width="100%" cellpadding="2" cellspacing="0" border="0">	
+    	<tr>
+    		<td class="cell_head">
+    			<b>Posted on:</b> $message.getDateOfPost()
+			</td>
+		</tr>
+		<tr>
+			<td class="cell_head">
+				<b>Title:</b> $message.getTitle()
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>
+    			$message.getContent()
+    		</td>
+    	</tr>	
+    	<tr>
+    		<td>
+    			#if($allowAttachment && $message.hasAttachment())
+    				<b>Attachment(s):</b> Click on the filename to download..<br>
+    				<table cellpadding="2" cellspacing="0">
+					#set($folder = $message.getAttachmentFolder())
+    				#foreach($fileName in $listOfAttachments)
+    				<tr>
+						<td>&nbsp;</td>
+						<td>
+							<a href="javascript:download_${formname}('${folder}${fileName}')">
+								<u>$fileName</u>
+							</a>
+    					</td>
+    				</tr>
+    				#end
+    				</table>
+    			#end
+    		</td>
+    	</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+    	<tr>
+    		<td class="cell_head">
+    			<input type="button" value="Close" onclick="closeMessage_${formname}()">
+    		#if ( $allowUpdate )
+    			<input type="button" value="Modify" onclick="goUpdate_${formname}()">
+    		#end
+    		#if ( $allowDelete )
+    			<input type="button" value="Delete" onclick="goDelete_${formname}()">
+    		#end
+    		</td>
+    	</tr>	
+    </table>
+	
+	</td>
+</tr>
+</table>
+<input type="hidden" name="$formname" value="$formname">
+<input type="hidden" name="selected_week_${formname}" value="$selectedWeek">
+<input type="hidden" name="message_id_${formname}" value="$message.getId()">
+<input type="hidden" name="forum_id" value="$message.getId()">
+<input type="hidden" name="command_${formname}">
+<input type="hidden" name="subject_id_${formname}" value="$!{subjectId}">
+</form>
+<script>
+function goUpdate_${formname}() {
+	document.${formname}.command_${formname}.value = "Update";
+	document.${formname}.submit();
+}
+function goDelete_${formname}() {
+	if ( !window.confirm('Are you sure?') ) return;
+	document.${formname}.action = "?command=Delete&subjectId=$!subjectId&forum_id=$forum.id&parent_id=$parent_id";
+	document.${formname}.submit();
+}
+function closeMessage_${formname}() {
+	document.${formname}.command_${formname}.value = "";	
+	document.${formname}.submit();
+}
+function goPage_${formname}(p) {
+	document.${formname}.action = "?command=GoPage&subjectId=$!subjectId&page=" + p;	
+	document.${formname}.submit();
+}
+function download_${formname}(filename) {
+	document.${formname}.action = "../download?file=" + filename;	
+	document.${formname}.submit();
+}
+function addNewTopic_${formname}() {
+	document.${formname}.action = "?command=AddNewTopic&subjectId=$!subjectId";
+	document.${formname}.submit();	
+}
+function removeAttachment_${formname}() {
+	document.${formname}.action = "?command=RemoveAttachment&subjectId=$!subjectId";
+	document.${formname}.submit();	
+}
+</script>

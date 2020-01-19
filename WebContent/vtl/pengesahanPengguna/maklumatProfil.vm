@@ -1,0 +1,42 @@
+<fieldset>
+<legend class="legend">PROFIL PENGGUNA</legend>
+
+<table width="90%" align="center" border="0" cellpadding="5" cellspacing="0">
+  <tr>
+    <td width="20%"></td>
+    <td width="2%"></td>
+    <td></td>
+    <td rowspan="20" width="40%" valign="top"><fieldset>
+      <legend class="legend">GAMBAR PROFIL</legend>
+      <div id="divPhoto">#parse("$path/divPhoto.vm")</div>
+      </fieldset></td>
+  </tr>
+  #input_normal("noKadPengenalan" "No. Kad Pengenalan" "<b>$!pengguna.id</b>")
+  #input_normal("nama" "Nama" "<b>$!pengguna.userName</b>")
+  #input_normal("peranan" "Peranan Pengguna" "<b>$!pengguna.role.name</b>")
+  #if ($!pengguna.role.name == '(AWAM) Badan Berkanun')
+  #input_normal("badanBerkanun" "Badan Berkanun" "$!pengguna.badanBerkanun.keterangan")
+  #end
+  #input_normal("jantina" "Jantina" "$!pengguna.jantina.keterangan")  
+  #input_normal("agama" "Agama" "$!pengguna.agama.keterangan")
+  #input_normal("bangsa" "Bangsa" "$!pengguna.bangsa.keterangan")  
+  #input_normal("userAddress" "Alamat" "$!pengguna.userAddress")
+  #input_normal("userAddress2" "" "$!pengguna.userAddress2")
+  #input_normal("userAddress3" "" "$!pengguna.userAddress3")
+  #input_normal("userPostcode" "Poskod" "$!pengguna.userPostcode")
+  #input_normal("bandar" "Bandar" "$!pengguna.userBandar.keterangan")
+  #input_normal("negeri" "Negeri" "$!pengguna.userBandar.negeri.keterangan")  
+  #input_normal("noTelefon" "No. Telefon" "$!pengguna.noTelefon")
+  #input_normal("noTelefonBimbit" "No. Telefon Bimbit" "$!pengguna.noTelefonBimbit")
+  #input_normal("emel" "Emel" "$!pengguna.emel")
+</table>
+</fieldset>
+
+<table width="100%">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right"><input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')"></td>
+  </tr>
+</table>

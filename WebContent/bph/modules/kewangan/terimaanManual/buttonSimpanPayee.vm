@@ -1,0 +1,17 @@
+
+
+#if( $isEditPayee.equalsIgnoreCase("Y") )
+	<input type="button" style="width:200px" value="SIMPAN" id="btnSaveMaklumatPayee" />
+#else
+	<input type="button" #if( !$!pembayar.id ) disabled #end style="width:200px" value="KEMASKINI" id="btnEditPayer" />
+#end	
+
+
+<script>
+	_jq('#btnEditPayer').on('click', function(){
+		doDivAjaxChainCall$formname('divMaklumatPembayar','editMaklumatPayer','payerId=$!pembayar.id','divEditPayer','showButtonSave','payerId=$!pembayar.id');
+	});
+	_jq('#btnSaveMaklumatPayee').on('click', function(){
+		doDivAjaxChainCall$formname('divMaklumatPembayar','saveMaklumatPayee','payerId=$!pembayar.id','divEditPayer','hideButtonSave','payerId=$!pembayar.id');
+	});
+</script>

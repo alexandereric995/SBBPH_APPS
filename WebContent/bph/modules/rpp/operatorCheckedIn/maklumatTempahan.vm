@@ -1,0 +1,73 @@
+<input type="hidden" id="idPermohonan" name="idPermohonan" value="$!r.id">
+<table width="100%" border="0" cellspacing="2" cellpadding="2">
+  <tr>
+    <td width="50%"><fieldset>
+      <legend class="legend">MAKLUMAT TEMPAHAN</legend>
+      <table width="100%" border="0">
+        <tr>
+          <td width="29%"></td>
+          <td width="1%"></td>
+          <td width="70%"></td>
+        </tr>
+        #show("<b>NO. TEMPAHAN</b>" "<b>$!r.noTempahan.toUpperCase()</b>")  
+        #show("<b>RUMAH PERANGINAN</b>" "<b>$!r.jenisUnitRpp.peranginan.namaPeranginan.toUpperCase()</b>")
+        #show("<b>JENIS UNIT</b>" "<b>$!r.jenisUnitRpp.keterangan.toUpperCase()</b>")
+        #show("<b>KADAR SEWA (RM)</b>" "<b>$!util.formatDecimal($!r.jenisUnitRpp.kadarSewa)</b>")
+        #show("<b>TARIKH MOHON</b>" "<b>$!util.getDateTime($!r.tarikhPermohonan,'dd-MM-yyyy')</b>")
+        #show("<b>TARIKH DAFTAR MASUK</b>" "<b>$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy')</b>")
+        #show("<b>TARIKH DAFTAR KELUAR</b>" "<b>$!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')</b>")
+        #show("<b>BIL. UNIT</b>" "<b>$!r.kuantiti</b>")
+        #show("<b>BIL. DEWASA</b>" "<b>$!r.bilDewasa</b>")
+        #show("<b>BIL. KANAK - KANAK</b>" "<b>$!r.bilKanakKanak</b>")  
+        #show("<b>STATUS TEMPAHAN</b>" "<b>$!r.status.keterangan.toUpperCase()</b>")
+        <tr>
+          <td width="29%"><b>STATUS BAYARAN</b></td>
+          <td width="1%">:</td>
+          <td width="70%"><b>$!r.keteranganStatusBayaran()</b></td>
+        </tr>
+        #show("<b>TARIKH BAYARAN</b>" "<b>$!util.getDateTime($!r.tarikhBayaran,'dd-MM-yyyy')</b>")
+        <tr>
+          <td width="29%"><b>SLIP BAYARAN</b></td>
+          <td width="1%">:</td>
+          <td width="70%">
+          	#if( $!r.photofilename && !$!r.photofilename.equalsIgnoreCase("") )
+	          	<a href="../download?file=$!uploadDir$!r.photofilename"><span class="print" style="color:#0000FF"><strong>SLIP PEMBAYARAN</strong><span></a>
+	        #end
+          </td>
+        </tr>
+      </table>
+      </fieldset></td>
+    <td width="50%"><fieldset>
+      <legend class="legend">MAKLUMAT PEMOHON</legend>
+      <table width="100%" border="0">
+        <tr>
+          <td width="29%"></td>
+          <td width="1%"></td>
+          <td width="70%"></td>
+        </tr>
+        #show("<b>GELARAN</b>" "<b>$!r.pemohon.gelaran.keterangan.toUpperCase()</b>")
+        #show("<b>NAMA</b>" "<b>$!r.pemohon.userName.toUpperCase()</b>")
+        #show("<b>NO. PENGENALAN</b>" "<b>$!r.pemohon.id.toUpperCase()</b>")
+        #show("<b>JAWATAN</b>" "<b>$!r.pemohon.keteranganJawatan.toUpperCase()</b>")
+        #show("<b>GRED PERKHIDMATAN</b>" "<b>$!r.pemohon.gredPerkhidmatan.keterangan.toUpperCase()</b>")  
+        #show("<b>ALAMAT</b>" "<b>$!r.pemohon.userAddress</b>")
+        #show("" "<b>$!r.pemohon.userAddress2</b>")
+        #show("" "<b>$!r.pemohon.userAddress3</b>")
+        #show("<b>POSKOD</b>" "<b>$!r.pemohon.userPostcode</b>")
+        #show("<b>BANDAR</b>" "<b>$!r.pemohon.userBandar.keterangan</b>")
+        #show("<b>NEGERI</b>" "<b>$!r.pemohon.userBandar.negeri.keterangan</b>")  
+        #show("<b>NO. TELEFON</b>" "<b>$!r.pemohon.noTelefon</b>")
+        #show("<b>NO. TELEFON BIMBIT</b>" "<b>$!r.pemohon.noTelefonBimbit</b>")
+        #show("<b>EMEL</b>" "<b>$!r.pemohon.emel</b>")
+      </table>
+      </fieldset></td>
+  </tr>
+</table>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>

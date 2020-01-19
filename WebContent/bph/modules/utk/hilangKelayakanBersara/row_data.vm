@@ -1,0 +1,39 @@
+<td align="left">$!r.penghuni.id</td>
+<td align="left">$!r.penghuni.kuarters.noUnit</td>
+
+##<td align="left">$!r.penghuni.pemohon.userName.toUpperCase()</td>
+<td>
+	<b>No. Pengenalan : </b>$!r.penghuni.pemohon.id.toUpperCase()<br/>
+	<b>Nama : </b>$!r.penghuni.pemohon.userName.toUpperCase()<br/>
+</td>
+
+<td align="left">$!r.status</td>
+
+##edit byzul
+###if($r.statusPenghuni == '1')
+##	#set($status = 'KELUAR KUARTERS')
+###elseif($r.statusPenghuni == '2')
+##	#set($status = 'KEKAL MENDIAMI KUARTERS')
+###elseif($r.statusPenghuni == '3')
+##	#set($status = 'PELANJUTAN MENDUDUKI KUARTERS')
+#####elseif($r.statusPenghuni == '3')
+####	#set($status = 'DISENARAI HITAM')
+###else
+##	#set($status = '')
+###end
+##<td align="center">$status</td>
+#if ( $r.statusPenghuni == '1' )
+	#set($statusPenghuni = 'KELUAR KUARTERS')
+#elseif($r.statusPenghuni == '2')
+	#set($statusPenghuni = 'KEKAL MENDIAMI KUARTERS')
+#elseif($r.statusPenghuni == '3')
+	#set($statusPenghuni = 'PELANJUTAN MENDUDUKI KUARTERS')
+#elseif($r.statusPenghuni == '4')
+	#set($statusPenghuni = 'DISENARAI HITAM')
+#elseif($r.statusPenghuni == '5')
+	#set($statusPenghuni = 'KES DIRUJUK PEGUAM')
+#elseif($r.statusPenghuni == '6')
+	#set($statusPenghuni = 'TIADA TINDAKAN DIAMBIL')
+#end
+<td align="center" >$statusPenghuni</td>
+##End byzul

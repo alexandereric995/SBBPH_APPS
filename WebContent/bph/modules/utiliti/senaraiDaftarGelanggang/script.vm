@@ -1,0 +1,30 @@
+function validate() {
+
+	var err_count = 0;
+	
+	var kadarSewa = $('kadarSewa').value;
+	if ( kadarSewa == "" ) {$('err_kadarSewa').innerHTML = "Kadar sewa siang adalah mandatori!"; err_count++;  }
+
+	var kadarSewaAwam = $('kadarSewaAwam').value;
+	if ( kadarSewaAwam == "" ) {$('err_kadarSewaAwam').innerHTML = "Kadar sewa malam adalah mandatori!"; err_count++;  }
+	
+	var masaMulaSiang = $('waktuBukaSiang').value;
+	if ( masaMulaSiang == "" ) {$('err_masaMulaSiang').innerHTML = "Masa mula adalah mandatori!"; err_count++;  }
+	
+	var masaTamatSiang = $('waktuTutupSiang').value;
+	if ( masaTamatSiang == "" ) {$('err_masaTamatSiang').innerHTML = "Masa tamat adalah mandatori!"; err_count++;  }
+	
+	var masaMulaMalam = $('waktuBukaMalam').value;
+	if ( masaMulaMalam == "" ) {$('err_masaMulaMalam').innerHTML = "Masa mula adalah mandatori!"; err_count++;  }
+	
+	var masaTamatMalam = $('waktuTutupMalam').value;
+	if ( masaTamatMalam == "" ) {$('err_masaTamatMalam').innerHTML = "Masa tamat adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}

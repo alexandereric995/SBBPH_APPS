@@ -1,0 +1,80 @@
+<input type="hidden" id="idJKH" name="idJKH" value="$!jkh.id">
+
+<fieldset>
+<legend class="legend">MAKLUMAT JKH</legend>
+	<table width="100%" cellpadding="1" cellspacing="2">
+	  <tr>
+	    <td class="label" style="width:15%"></td>
+	    <td style="width:1%"></td>
+	    <td style="width:84%"></td>
+	  </tr>
+      #input_readonly_all_label("noJKH" "No. JKH" "$!jkh.noJKH")	
+      #if ($!jkh.tarikhJKH) 
+      	#set ($dateJKH = "$!util.getDateTime($!jkh.tarikhJKH,'dd-MM-yyyy')")
+      #else #set ($dateJKH = "-") #end
+      #input_readonly_all_label("tarikhJKH" "Tarikh JKH" "$dateJKH") 	
+      #input_readonly_all_label("jumlah" "Jumlah (RM)" "$!util.formatDecimal($!jkh.jumlah)")
+      #input_readonly_all_label("gst" "GST (%)" "$!util.formatDecimal($!jkh.gst)")
+      #input_readonly_all_label("jumlahKeseluruhan" "Jumlah Keseluruhan (RM)" "$!util.formatDecimal($!jkh.jumlahKeseluruhan)")
+	  <tr>
+	    <td valign="top">Jadual Kadar Harga</td>
+	    <td valign="top">:</td>
+	    <td valign="top"><input type=hidden name="dokumenJKH" id="dokumenJKH" value="$!jkh.fileJKH"> 
+	    	#if ( $!jkh.fileJKH ) 
+		    	#if ($!jkh.fileJKH != "") 
+		    		<a href="../download?file=$!uploadDir$!jkh.fileJKH" > 
+		    			<font color="#0000FF"><strong>JADUAL KADAR HARGA</strong></font> </a> &nbsp;&nbsp;
+		    	#end
+		    #end	
+	    </td>
+	  </tr>
+	</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">MAKLUMAT SEMAKAN PENYEDIAAN JKH</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">Keputusan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> #parse("$path/semakanPenyediaanJKH/selectKeputusan.vm") 
+     <div id="err_idKeputusan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  #if ($!idKeputusan == '1')
+  <tr>
+    <td class="label" valign="top">Agih Kunci Ke &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> #parse("$path/selectPelulusSenggara.vm") 
+     <div id="err_idPelulusSenggara" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  #end
+  #if ($!idKeputusan == '2')
+  <tr>
+    <td class="label" valign="top">Agih Kunci Ke &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> #parse("$path/selectPenyediaSenggara.vm") 
+     <div id="err_idPenyediaSenggara" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  #end
+  <tr>
+    <td class="label" valign="top" style="width:15%">Ulasan</td>
+    <td class="label" valign="top" style="width:1%">:</td>
+    <td valign="top" style="width:84%"><textarea id="catatanPenyemak" name="catatanPenyemak" onBlur="this.value=this.value.toUpperCase();">$!catatanPenyemak</textarea></td>
+  </tr>
+</table>
+</fieldset>
+
+<br>
+<table width="100%">
+  <tr>
+    <td align="right">
+    	<input type="button" value="Simpan" onclick="javascript:simpanSemakanPenyediaanJKH();">
+    	<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

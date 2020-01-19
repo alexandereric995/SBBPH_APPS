@@ -1,0 +1,30 @@
+		
+
+#if(!$!userRole.equalsIgnoreCase("(AWAM) Penjawat Awam"))
+<td valign="top">
+	<b>Nama :</b> <a href="javascript:void()" style="color:blue" onClick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')">$!r.pemohon.userName.toUpperCase() <span style='color:#FF2A00;font-weight:bold'>&nbsp;$!r.checkVIP()</span></a><br/>
+	<b>MyID :</b> $!r.pemohon.noKP<br/>
+	<b>Gred :</b> $!r.pemohon.gredPerkhidmatan.keterangan.toUpperCase()<br/>
+	<b>No. Telefon :</b> $!r.pemohon.noTelefon<br/>
+  	<b>No. Telefon Bimbit :</b> $!r.pemohon.noTelefonBimbit<br/>
+  	<b>Emel :</b> $!r.pemohon.emel
+</td>
+#end
+<td valign="top">
+	<a href="javascript:void()" style="color:blue" onclick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')">
+		$!r.noTempahan.toUpperCase()
+	</a>
+	<br/><span style='font-size:10px'>$!r.rppPeranginan.namaPeranginan.toUpperCase()</span>
+	<br/><span style='font-size:10px'>$!r.jenisUnitRpp.keterangan.toUpperCase()</span>
+</td>
+<td valign="top" align="center">$!util.getDateTime($!r.tarikhPermohonan,'dd-MM-yyyy')</td>
+<td valign="top">$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy') - $!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')</td>
+<td valign="top">
+	$!util.replaceIfNull($!r.status.keterangan.toUpperCase(),"-") <br/> 
+	#if( $!r.status.id != "1688545253001455" && $!r.status.id != "1435512646303" && $!r.status.id != "1425259713421" && $!r.status.id != "1425259713424" )
+	<span style='font-size:10px'>($!r.keteranganStatusBayaran())</span>
+	#end
+</td>
+
+
+

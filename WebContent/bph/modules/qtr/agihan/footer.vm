@@ -1,0 +1,68 @@
+<input type="hidden" value="$!flagCetakan"  id="flagCetakan"/>
+
+#if ($!bersyarat == 'ya')
+	<input type="button" value="Cetak"  id="cmdCetakBersyarat" align="right"/>
+#elseif ($!bersyarat == 'tidak')
+	<input type="button" value="Cetak"  id="cmdCetakSemasa" align="right"/>
+#end
+
+
+<script>
+_jq('#cmdCetakBersyarat').on('click', function(){	
+		var findNoPermohonan = $('findNoPermohonan').value;
+		var findNamaPemohon = $('findNamaPemohon').value;
+		var findNoKPPemohon = $('findNoKPPemohon').value;
+		var findKelasKuarters = $('findKelasKuarters').value;
+		var findLokasiKuarters = $('findLokasiKuarters').value;
+		
+		if(!findNoPermohonan){
+			findNoPermohonan = "";
+		}
+		if(!findNamaPemohon){
+			findNamaPemohon = "";
+		}
+		if(!findNoKPPemohon){
+			findNoKPPemohon = "";
+		}
+		if(!findKelasKuarters){
+			findKelasKuarters = "";
+		}
+		if(!findLokasiKuarters){
+			findLokasiKuarters = "";
+		}		
+		var url = "../servlet/bph.laporan.qtr.CetakSenaraiMenungguBersyarat?findNoPermohonan="+findNoPermohonan+"&findNamaPemohon="+findNamaPemohon+"&findNoKPPemohon="+findNoKPPemohon+"&findKelasKuarters="+findKelasKuarters+"&findLokasiKuarters="+findLokasiKuarters;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+		hWnd.opener = document.window;
+		if (hWnd.focus != null) hWnd.focus();
+});
+
+_jq('#cmdCetakSemasa').on('click', function(){	
+		var findNoPermohonan = $('findNoPermohonan').value;
+		var findNamaPemohon = $('findNamaPemohon').value;
+		var findNoKPPemohon = $('findNoKPPemohon').value;
+		var findKelasKuarters = $('findKelasKuarters').value;
+		var findLokasiKuarters = $('findLokasiKuarters').value;
+		
+		if(!findNoPermohonan){
+			findNoPermohonan = "";
+		}
+		if(!findNamaPemohon){
+			findNamaPemohon = "";
+		}
+		if(!findNoKPPemohon){
+			findNoKPPemohon = "";
+		}
+		if(!findKelasKuarters){
+			findKelasKuarters = "";
+		}
+		if(!findLokasiKuarters){
+			findLokasiKuarters = "";
+		}	
+		var url = "../servlet/bph.laporan.qtr.CetakSenaraiMenungguSemasa?findNoPermohonan="+findNoPermohonan+"&findNamaPemohon="+findNamaPemohon+"&findNoKPPemohon="+findNoKPPemohon+"&findKelasKuarters="+findKelasKuarters+"&findLokasiKuarters="+findLokasiKuarters;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+		hWnd.opener = document.window;
+		if (hWnd.focus != null) hWnd.focus();
+});
+</script>

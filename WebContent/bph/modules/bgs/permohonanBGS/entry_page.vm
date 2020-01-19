@@ -1,0 +1,25 @@
+#if ($!command == 'add_new_record')
+	#parse("$path/maklumatPermohonan.vm")	
+#else	
+	<div id="divTab">
+	  <input type="hidden" id="idPermohonan" name="idPermohonan" value="$!r.id">	
+	  <input type="hidden" id="idStatus" name="idStatus" value="$!r.status.id">  
+	  ## DRAF PERMOHONAN | PERMOHONAN BARU | KUIRI DARI BPH
+	  #if($!userRole != '(BGS) Pemohon' && $!r.status.id != '1428384412943' && $!r.status.id != '1423568441671' && $!r.status.id != '1423568441685')
+	  	#parse("$path/senaraiUpperTab.vm")	
+  	  #else
+	  	#parse("$path/senaraiTab.vm")
+	  #end
+	</div>
+#end
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+      $('.luas').autoNumeric('init', {aSep: '', vMin: '0.00000', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

@@ -1,0 +1,135 @@
+
+	#input("idKodBil" "Jenis  Bil" "$!maklumatBil.jenisBil.keterangan")
+	
+	#input("penerimaBayaran" "Bayaran Kepada" "$!maklumatBil.penerimaBayaran")
+  	
+  	#alamat_readonly("alamat1" "Alamat " "$!maklumatBil.alamat1")
+  	#alamat_readonly("" " " "$!maklumatBil.alamat2")
+  	#alamat_readonly("" " " "$!maklumatBil.alamat3")
+  	#alamat_readonly("" " " "$!maklumatBil.poskod")
+  	
+	<tr>
+		<td colspan="3"><table width="100%"><tr><td><hr></td></tr></table></td>
+	</tr>
+	
+	#input("tahun" "Tahun" "$!bayaranBil.getTahun()")
+	
+	## -------------- Star ubah bulan guna drop down -------------
+  	###input("bulan" "Bulan" "$!bayaranBil.getBulan()") - x guna dah
+	## #if ($r.bulan)
+	## 	#input("bulan" "Bulan" "$r.bulan")
+	## #else
+	## 	#input("bulan" "Bulan" "$!bayaranBil.getBulan()")
+	## #end
+	##--- Code new ---
+	<tr>
+		<td class="label">Bulan</td>
+		<td>:</td>
+		<td>
+		#if ($r.bulan)
+		## #input("bulan" "Bulan" "$r.bulan")
+			<select class="texts" name="bulan" id="bulan" style="width:100%">
+				<option value="" selected="selected">SILA PILIH</option>
+				<option value="1" #if ( $r.bulan == "1" ) selected #end>JANUARY</option>
+				<option value="2" #if ( $!r.bulan == "2") selected #end>FEBRUARY</option>
+				<option value="3" #if ( $r.bulan == "3" ) selected #end>MARCH</option>
+				<option value="4" #if ( $!r.bulan == "4") selected #end>APRIL</option>
+				<option value="5" #if ( $r.bulan == "5" ) selected #end>MAY</option>
+				<option value="6" #if ( $!r.bulan == "6") selected #end>JUNE</option>
+				<option value="7" #if ( $r.bulan == "7" ) selected #end>JULY</option>
+				<option value="8" #if ( $!r.bulan == "8") selected #end>AUGUST</option>
+				<option value="9" #if ( $r.bulan == "9" ) selected #end>SEPTEMBER</option>
+				<option value="10" #if ( $!r.bulan == "10") selected #end>OCTOBER</option>
+				<option value="11" #if ( $r.bulan == "11" ) selected #end>NOVEMBER</option>
+				<option value="12" #if ( $!r.bulan == "12") selected #end>DECEMBER</option>
+			</select>
+		#else
+		## #input("bulan" "Bulan" "$!bayaranBil.getBulan()")
+			<select class="texts" name="bulan" id="bulan" style="width:100%">
+				<option value="" selected="selected">SILA PILIH</option>
+				<option value="1" #if ( $!bayaranBil.getBulan() == "1" ) selected #end>JANUARY</option>
+				<option value="2" #if ( $!bayaranBil.getBulan() == "2") selected #end>FEBRUARY</option>
+				<option value="3" #if ( $!bayaranBil.getBulan() == "3" ) selected #end>MARCH</option>
+				<option value="4" #if ( $!bayaranBil.getBulan() == "4") selected #end>APRIL</option>
+				<option value="5" #if ( $!bayaranBil.getBulan() == "5" ) selected #end>MAY</option>
+				<option value="6" #if ( $!bayaranBil.getBulan() == "6") selected #end>JUNE</option>
+				<option value="7" #if ( $!bayaranBil.getBulan() == "7" ) selected #end>JULY</option>
+				<option value="8" #if ( $!bayaranBil.getBulan() == "8") selected #end>AUGUST</option>
+				<option value="9" #if ( $!bayaranBil.getBulan() == "9" ) selected #end>SEPTEMBER</option>
+				<option value="10" #if ( $!bayaranBil.getBulan() == "10") selected #end>OCTOBER</option>
+				<option value="11" #if ( $!bayaranBil.getBulan() == "11" ) selected #end>NOVEMBER</option>
+				<option value="12" #if ( $!bayaranBil.getBulan() == "12") selected #end>DECEMBER</option>
+			</select>
+		#end
+		</td>
+		</td>
+	</tr>
+	##--- Code new ---
+	## -------------- End ubah bulan guna drop down -------------
+	
+	#input("noBil" "No Bil" "$!r.noBil")
+  
+	#if ($!r.tarikhBil)
+		#set($dateBil = $util.getDateTime($!r.tarikhBil,"dd-MM-yyyy"))
+	#else 
+		#set($dateBil = "") 
+	#end
+	#date_input_required("tarikhBil" "Tarikh Bil" "$dateBil")
+	    
+	#if ($!r.tarikhTerimaBil)
+		#set($dateTerimaBil = $util.getDateTime($!r.tarikhTerimaBil,"dd-MM-yyyy"))
+	#else 
+		#set($dateTerimaBil = "") 
+	#end
+	#date_input("tarikhTerimaBil" "Tarikh Terima Bil" "$dateTerimaBil")  
+	  
+	 
+##	#currency("amaunTunggakan" "Amaun Tunggakan" "$!r.amaunTunggakan")   
+##	#currency("amaunSemasa" "Amaun Semasa" "$!r.amaunSemasa")    
+	<tr>
+		<td class="label" valign="top">Amaun Tunggakan (RM)&nbsp;<span style="color:#FF2A00">*</span></td>
+		<td valign="top">:</td>
+		<td>
+			<input class="currency" id="amaunTunggakan" name="amaunTunggakan" value="$!r.amaunTunggakan" maxlength="11" size="11" onKeyUp="at(this, event)" onBlur="this.value=this.value.toUpperCase();" onChange="doDivAjaxCall3$formname('calculateJumlahBil','calculateJumlahBil','')">
+			<div id="err_amaunTunggakan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	</tr>
+	<tr>
+		<td class="label" valign="top">Amaun Semasa (RM)&nbsp;<span style="color:#FF2A00">*</span></td>
+		<td valign="top">:</td>
+		<td>
+			<input class="currency" id="amaunSemasa" name="amaunSemasa" value="$!r.amaunSemasa" maxlength="11" size="11" onKeyUp="at(this, event)" onBlur="this.value=this.value.toUpperCase();" onChange="doDivAjaxCall3$formname('calculateJumlahBil','calculateJumlahBil','')">
+			<div id="err_amaunSemasa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	</tr>
+
+	<tr>
+		<td class="label" valign="top">Jumlah Bil (RM)&nbsp;<span style="color:#FF2A00"></span></td>
+		<td valign="top">:</td>
+		<td>
+			<div id="calculateJumlahBil"> #parse("$path/calculateJumlahBil.vm") </div>
+		</td>
+	</tr>
+  
+	#if ($!r.tarikhAkhirBayaran)
+		#set($dateAkhirBayaran = $util.getDateTime($!r.tarikhAkhirBayaran,"dd-MM-yyyy"))
+	#else 
+		#set($dateAkhirBayaran = "") 
+	#end
+	#date_input_required("tarikhAkhirBayaran" "Tarikh Akhir Bayaran" "$dateAkhirBayaran")  
+  
+	<tr>
+		<td colspan="3">
+			<input type="hidden" id="idPendaftaranBil" name="idPendaftaranBil" value="$!maklumatBil.id">
+		</td>
+	</tr>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+ </script>
+ 

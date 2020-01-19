@@ -1,0 +1,29 @@
+<table>
+	<tr>
+		<td style="width:150px"></td>
+		<td style="width:10px"></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td class="label"></td>
+	  	<td valign="top"></td>
+	  	<td>
+			#if ($!command == 'selectSeksyen' && $!idSeksyen == '10' )
+##				#input("idPeranginan" "Peranginan" "$!r.idPeranginan")
+				<tr>
+				  	<td class="label">Peranginan &nbsp;<span style="color:#FF2A00">*</span></td>
+				  	<td valign="top">:</td>
+				  	<td>#parse("$path/selectPeranginan.vm")
+					<div id="err_idSeksyen" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+				</tr>
+			#elseif ($!command != 'selectSeksyen' && ($!idSeksyen == '10' || $!r.seksyen.id == '10') )	##jika edit akan papar bawah ini
+				<tr>
+				  	<td class="label">Peranginan &nbsp;<span style="color:#FF2A00">*</span></td>
+				  	<td valign="top">:</td>
+				  	<td>#parse("$path/selectPeranginan.vm")
+					<div id="err_idSeksyen" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+				</tr>
+			#end
+		</td>
+	</tr>
+</table>

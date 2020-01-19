@@ -1,0 +1,53 @@
+
+<fieldset>
+<legend class="legend">Laporan Senarai Kontrak</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+    <td></td>
+  </tr>  
+#if ($!r.tarikhMula)
+ 		   #set ($dateMula = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+	#else #set ($dateMula = "") #end
+	#date_input_required("tarikhMula" "Tarikh Mula" "$dateMula")
+
+
+	#if ($!r.tarikhTamat)
+ 		  #set ($dateTamat = "$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')")
+	#else #set ($dateTamat = "") #end
+	#date_input_required("tarikhTamat" "Tarikh Tamat" "$dateTamat")
+	
+        <tr>
+		   <td class="label">Seksyen &nbsp;</td>
+		   <td>:</td>
+		   <td><span id="selectSeksyen">
+		   	#parse("$path/selectSeksyen.vm")
+		   	   </span>
+		   	</td>
+		</tr>
+        <tr>
+		   <td class="label">Jenis Kontrak &nbsp;</td> 
+		   <td>:</td>
+		   <td><span id="selectJenisKontrak">
+		   	#parse("$path/selectJenisKontrak.vm")
+		   	   </span>
+		   	</td>
+		</tr>
+		<tr>
+		   <td class="label">Lantikan Kontrak Oleh &nbsp;</td> 
+		   <td>:</td>
+		   <td><span id="selectJenisKontrak">
+		   	#parse("$path/selectLantikanKontrak.vm")
+		   	   </span>
+		   	</td>
+		</tr> 
+<tr>
+	<td></td>
+	<td class="label"></td>
+	<td><input type="button" name="cmdCetak" id="cmdCetak" value="Jana Laporan" onclick="javascript:doCetakLaporanSenaraiKontrak()"/><input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/></td>
+</tr>
+</table>
+</fieldset>
+<div id="cetakLaporan"></div>

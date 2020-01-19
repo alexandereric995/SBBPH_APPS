@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="BGSKertasPertimbangan"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idPermohonan" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT a.tujuan,
+a.lokasi_ruang_dipohon as lokasi_ruang, a.keluasan_ruang_dipohon as keluasan_ruang, a.lampiranA as lampiran_a,
+a.nama_jabatan, a.bil_kakitangan, a.pejabat_sediaada as ruang_pejabat_sediaada, a.cadangan_ruang, a.alasan1 as alasan_permohonan_1, a.alasan2 as alasan_permohonan_2, a.alasan3 as alasan_permohonan_3, a.lampiranB as lampiran_b,
+a.nama_pengerusi_bangunan, a.ulasan_pengerusi_bangunan, a.lampiranC as lampiran_c,
+a.nama_pengurus_bangunan, a.ulasan_pengurus_bangunan, a.lampiranD as lampiran_d
+FROM bgs_kertas_pertimbangan a
+WHERE a.id_permohonan = $P{idPermohonan}]]></queryString>
+
+	<field name="tujuan" class="java.lang.String"/>
+	<field name="lokasi_ruang" class="java.lang.String"/>
+	<field name="keluasan_ruang" class="java.lang.String"/>
+	<field name="lampiran_a" class="java.lang.String"/>
+	<field name="nama_jabatan" class="java.lang.String"/>
+	<field name="bil_kakitangan" class="java.lang.String"/>
+	<field name="ruang_pejabat_sediaada" class="java.lang.String"/>
+	<field name="cadangan_ruang" class="java.lang.String"/>
+	<field name="alasan_permohonan_1" class="java.lang.String"/>
+	<field name="alasan_permohonan_2" class="java.lang.String"/>
+	<field name="alasan_permohonan_3" class="java.lang.String"/>
+	<field name="lampiran_b" class="java.lang.String"/>
+	<field name="nama_pengerusi_bangunan" class="java.lang.String"/>
+	<field name="ulasan_pengerusi_bangunan" class="java.lang.String"/>
+	<field name="lampiran_c" class="java.lang.String"/>
+	<field name="nama_pengurus_bangunan" class="java.lang.String"/>
+	<field name="ulasan_pengurus_bangunan" class="java.lang.String"/>
+	<field name="lampiran_d" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="36"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="22"
+						y="2"
+						width="484"
+						height="34"
+						key="textField"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{tujuan}!=null ? $F{tujuan} : "")]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="560"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="48"
+						y="35"
+						width="343"
+						height="525"
+						key="staticText-5"
+						stretchType="RelativeToBandHeight"
+						positionType="Float"/>
+					<box>					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="49"
+						height="35"
+						key="staticText-1"
+						positionType="Float"/>
+					<box>					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[BIL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="49"
+						y="0"
+						width="342"
+						height="35"
+						key="staticText-2"
+						positionType="Float"/>
+					<box>					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PERKARA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="391"
+						y="0"
+						width="144"
+						height="35"
+						key="staticText-3"
+						positionType="Float"/>
+					<box>					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[LAMPIRAN]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="134"
+						width="391"
+						height="20"
+						key="textField-1"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["       2.      " + " <style isBold='true' isUnderline='true'  pdfFontName='Helvetica-Bold'>MAKLUMAT PERMOHONAN</style>\n\n "]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="35"
+						width="49"
+						height="525"
+						key="staticText-4"
+						stretchType="RelativeToBandHeight"
+						positionType="Float"/>
+					<box>					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="391"
+						y="35"
+						width="144"
+						height="525"
+						key="staticText-6"
+						stretchType="RelativeToBandHeight"
+						positionType="Float"/>
+					<box>					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="78"
+						y="414"
+						width="281"
+						height="40"
+						key="textField-2"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["- "+($F{ulasan_pengerusi_bangunan} != null ? $F{ulasan_pengerusi_bangunan}.toLowerCase(): "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="364"
+						width="391"
+						height="20"
+						key="textField-5"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["       3.      " + " <style isBold='true' isUnderline='true'  pdfFontName='Helvetica-Bold'>ULASAN</style>"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="391"
+						y="45"
+						width="144"
+						height="20"
+						key="textField-7"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["<style isBold='true' isUnderline='true'  pdfFontName='Helvetica-Bold'>LAMPIRAN A</style>\n\n " + $F{lampiran_a}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="391"
+						y="134"
+						width="144"
+						height="20"
+						key="textField-8"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["<style isBold='true' isUnderline='true'  pdfFontName='Helvetica-Bold'>LAMPIRAN B</style>\n\n " + $F{lampiran_b}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="45"
+						width="391"
+						height="20"
+						key="textField-9"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["       1.      " + " <style isBold='true' isUnderline='true'  pdfFontName='Helvetica-Bold'>MAKLUMAT RUANG YANG DIPOHON</style>\n\n "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="60"
+						y="65"
+						width="331"
+						height="20"
+						key="textField-10"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>Lokasi Ruang  :   \n</style>"+ ($F{lokasi_ruang} != null ? $F{lokasi_ruang}: "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="60"
+						y="94"
+						width="331"
+						height="20"
+						key="textField-11"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>Keluasan Ruang  :   \n</style>" + ($F{keluasan_ruang}!=null ? $F{keluasan_ruang} : "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="60"
+						y="184"
+						width="331"
+						height="20"
+						key="textField-13"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>Bil. Kakitangan  :   </style>" + ($F{bil_kakitangan}!=null ? $F{bil_kakitangan}.toString() + " orang": "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="60"
+						y="243"
+						width="331"
+						height="21"
+						key="textField-15"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font fontName="SansSerif" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>Cadangan Ruang   :   \n</style>" + ($F{cadangan_ruang}!=null ? $F{cadangan_ruang}.toString() : "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="60"
+						y="274"
+						width="331"
+						height="20"
+						key="textField-16"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font fontName="SansSerif" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>Alasan permohonan   :   \n</style>" + "1.     "+($F{alasan_permohonan_1}!=null ? $F{alasan_permohonan_1}.toString() : "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="60"
+						y="300"
+						width="331"
+						height="20"
+						key="textField-17"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font fontName="SansSerif" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["2.     "+($F{alasan_permohonan_2}!=null ? $F{alasan_permohonan_2}.toString() : "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="60"
+						y="320"
+						width="331"
+						height="20"
+						key="textField-18"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font fontName="SansSerif" size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["3.     "+($F{alasan_permohonan_3}!=null ? $F{alasan_permohonan_3}.toString() : "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="78"
+						y="493"
+						width="281"
+						height="41"
+						key="textField-19"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["- "+($F{ulasan_pengurus_bangunan} != null ? $F{ulasan_pengurus_bangunan}.toLowerCase(): "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="60"
+						y="384"
+						width="299"
+						height="20"
+						key="textField-20"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["(a) "+($F{nama_pengerusi_bangunan} != null ? $F{nama_pengerusi_bangunan}.toLowerCase(): "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="60"
+						y="464"
+						width="299"
+						height="20"
+						key="textField-21"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["(b) "+($F{nama_pengurus_bangunan} != null ? $F{nama_pengurus_bangunan}.toLowerCase(): "")
++
+"\n     (Pengurus Bangunan):"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="391"
+						y="454"
+						width="144"
+						height="20"
+						key="textField-22"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["<style isBold='true' isUnderline='true'  pdfFontName='Helvetica-Bold'>LAMPIRAN C</style>\n\n " + $F{lampiran_c}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="391"
+						y="527"
+						width="144"
+						height="20"
+						key="textField-23"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["<style isBold='true' isUnderline='true'  pdfFontName='Helvetica-Bold'>LAMPIRAN D</style>\n\n " + $F{lampiran_d}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="60"
+						y="154"
+						width="331"
+						height="20"
+						key="textField-24"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>Nama Jabatan  :   \n</style>" + ($F{nama_jabatan} != null ? $F{nama_jabatan}: "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="60"
+						y="204"
+						width="331"
+						height="30"
+						key="textField-25"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font size="12" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>Ruang Pejabat Sediaada  :\n</style>" + ($F{ruang_pejabat_sediaada} != null ? $F{ruang_pejabat_sediaada}: "")]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

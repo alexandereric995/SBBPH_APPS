@@ -1,0 +1,41 @@
+<script>
+    _jq(function() {
+    	_jq( "#tabs" ).tabs();
+    });
+</script>
+
+<div id="content-format">
+  <pinLeft></pinLeft>
+  <pinRight></pinRight>
+  <header>DIREKTORI</header>
+  <fieldset>
+  <section>
+    <div class="content">
+      <table width="100%" border="0" cellspacing="10" cellpadding="0">
+        <tr valign="top">
+          <td width="50%" valign="top"><table border="0" cellspacing="10" cellpadding="0" align="right">
+              	<tcontent> 
+              	#foreach($rekod in $listBahagian1)
+	                <tr height="50px">
+	                  <td align="center" valign="middle"><input type="button" class="direktoriButton" onClick="doDivAjaxCall3$formname('content','getSubDirektori','idBahagian=$!rekod.id')" value="$!rekod.keterangan">
+	                  </td>
+	                </tr>
+                #end 
+            	</tcontent>
+            </table></td>
+          <td width="50%" valign="top"><table border="0" cellspacing="10" cellpadding="0" align="left">
+              	<tcontent> 
+              	#foreach($rekod in $listBahagian2)
+	                <tr height="50px">
+	                  <td align="center" valign="middle"><input type="button" class="direktoriButton" onClick="doDivAjaxCall3$formname('content','getSubDirektori','idBahagian=$!rekod.id')" value="$!rekod.keterangan">
+	                  </td>
+	                </tr>
+                #end 
+                </tcontent>
+            </table></td>
+        </tr>
+      </table>
+    </div>
+  </section>
+  </fieldset>
+</div>

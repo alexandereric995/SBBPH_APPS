@@ -1,0 +1,21 @@
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #input_readonly_all_label("ulasanPelulus" "Ulasan" "$!r.ulasanPelulus")
+  
+  #if ($!r.tarikhKelulusan) 
+  #set ($dateKelulusan = "$!util.getDateTime($!r.tarikhKelulusan,'dd-MM-yyyy')")
+  #else #set ($dateKelulusan = "-") #end
+  #input_readonly_all_label("tarikhKelulusan" "Tarikh Kelulusan" "$dateKelulusan")
+  #input_readonly_all_label("pelulus" "Keputusan Oleh" "$!r.pelulus.userName")	
+  
+  #if ($!r.flagKeputusanPelulus == 'Y') 
+  	#set ($keputusanPelulus = "LULUS")
+  #elseif ($!r.flagKeputusanPelulus == 'T') 
+  	#set ($keputusanPelulus = "TOLAK")
+  #else #set ($keputusanPelulus = "") #end
+  #input_readonly_all_label("flagKeputusanPelulus" "Keputusan" "$keputusanPelulus")	
+</table>

@@ -1,0 +1,87 @@
+<form name="${formname}" method="post">
+<table width="100%" cellpadding="2" cellspacing="2" border="0">
+	<tr><td>
+		<table width="100%" cellpadding="2" cellspacing="0">
+			<tr>
+				<td class="cell_head">
+            		<table cellpadding="2" cellspacing="0">
+            		<tr>
+            			<td>View announcement from&nbsp;</td>
+					</tr>
+					<tr>
+            			<td>
+            			<select name="selected_week_${formname}">
+            				<option value="0" #if($selectedWeek == "0")selected#end>This week</option>
+            				<option value="1" #if($selectedWeek == "1")selected#end>1 week ago</option>
+            				<option value="2" #if($selectedWeek == "2")selected#end>2 weeks ago</option>
+            				<option value="3" #if($selectedWeek == "3")selected#end>3 weeks ago</option>
+            				<option value="4" #if($selectedWeek == "4")selected#end>4 weeks ago</option>
+            				<option value="5" #if($selectedWeek == "5")selected#end>5 weeks ago</option>
+                        </select>
+            			<input type="button" value="Go" onclick="getNewList_${formname}()">
+            			</td>
+            		</tr>	
+            		</table>
+				</td>
+				<td class="cell_head" align="right" valign="top">
+					#if ( $allowPost )
+						<input class="button" type="button" value="ADD NEW" onclick="addNewTopic_${formname}()">
+					#end
+				</td>
+			</tr>	
+		</table>
+		<table align="center" width="100%" border="0" cellpadding="2" cellspacing="0" >	
+		#if($topicList.isEmpty())
+		<tr>
+			<td align="center" ><br><b>No Announcement Found</b><br><br></td>
+		</tr>
+		#else
+			#foreach($topic in $topicList)
+				#set($count = $velocityCount)
+				#if($count % 2 == 0)
+					#set($class="row1")
+				#else
+					#set($class="row2")
+				#end
+		<tr>
+		
+			<td class="$class" valign="top" width="15%">
+				<b>$topic.getDateOfPost()</b>
+            </td>
+			<td class="$class" width="85%">
+				#if ( $showSubject )
+                $topic.getTitle()
+				#end
+				<br>
+				<a href="javascript:openForum_${formname}('$topic.getId()')" style="text-decoration:none">
+				[Open]
+				</a>
+			    <br><br>
+			</td>
+		</tr>
+			#end
+		#end
+		</table>
+	</td>
+</tr>
+</table>
+<input type="hidden" name="$formname" value="$formname">
+<input type="hidden" name="message_id_${formname}">
+<input type="hidden" name="command_${formname}">
+<input type="hidden" name="subject_id_${formname}" value="$!{subjectId}">
+</form>
+<script>
+function addNewTopic_${formname}() {
+	document.${formname}.command_${formname}.value = "AddNewTopic";
+	document.${formname}.submit();	
+}
+function openForum_${formname}(id) {
+	document.${formname}.message_id_${formname}.value = id;
+	document.${formname}.command_${formname}.value = "Open";
+	document.${formname}.submit();	
+}
+function getNewList_${formname}() {
+	document.${formname}.command_${formname}.value = "GetNewList";
+	document.${formname}.submit();
+}
+</script>

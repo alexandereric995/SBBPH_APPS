@@ -1,0 +1,53 @@
+##<td>$!r.id</td>
+<td>$!r.idTempahan</td>
+<td>$!r.pemohon.userName ($!r.pemohon.id)</td>
+<td>$!r.gelanggang.nama</td>
+<td>$!r.gelanggang.lokasi</td>
+
+#if ($!r.tarikhMula)
+			#set ($dateMula = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+		  #else #set ($dateMula = "-") #end
+<td>$dateMula</td>
+
+###if ($!r.tarikhTamat)
+##			#set ($dateTamat = "$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')")
+##		  #else #set ($dateTamat = "-") #end
+##<td>$dateTamat</td>
+
+#if ($!r.masaMula)
+			#set ($timeMula = "$!util.getKeteranganMasa($!r.masaMula)")
+		  #else #set ($timeMula = "-") #end
+<td>$timeMula</td>
+
+#if ($!r.masaTamat)
+			#set ($timeTamat = "$!util.getKeteranganMasa($!r.masaTamat)")
+		  #else #set ($timeTamat = "-") #end
+<td>$timeTamat</td>
+
+#if ( $!r.statusBayaran == "T" )
+		#set ($status = "BELUM BAYAR")
+		<td><b><span id='a' style='color: #FF0000'>$status</span></b></td>		
+#else
+		#set ($status = "TELAH BAYAR")
+		<td><b><span id='a' style='color: #228B22'>$status</span></b></td>
+#end
+
+#if ( $!r.statusPermohonan == "Y" && $!r.statusBayaran == "Y" )
+	#set ($statusPermohonan = "DILULUSKAN")
+	<td><b><span id='c' style='color: #228B22'>$statusPermohonan</span></b></td>
+#elseif ( $!r.statusPermohonan == "Y" && $!r.statusBayaran == "T" )
+	#set ($statusPermohonan = "PERMOHONAN BARU")
+	<td><b><span id='d' style='color: #FF8C00'>$statusPermohonan</span></b></td>
+#elseif ( $!r.statusPermohonan == "R" && $!r.statusBayaran == "T" )
+	#set ($statusPermohonan = "MENUNGGU KELULUSAN")
+	<td><b><span id='e' style='color: #FF0000'>$statusPermohonan</span></b></td>
+#elseif ( $!r.statusPermohonan == "B" && $!r.statusBayaran == "T" )
+	#set ($statusPermohonan = "DIBATALKAN (AUTO)")
+	<td><b><span id='e' style='color: #FF0000'>$statusPermohonan</span></b></td>
+#elseif	( $!r.statusPermohonan == "N" )
+	#set ($statusPermohonan = "DITOLAK")
+	<td><b><span id='f' style='color: #FF0000'>$statusPermohonan</span></b></td>
+#end
+<td align="center">
+	<a href="javascript:void()" title="Klik untuk cetak resit." onclick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')"><img src="../img/print.gif" border="0"></a>
+</td>

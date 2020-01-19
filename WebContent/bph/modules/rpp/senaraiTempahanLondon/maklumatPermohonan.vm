@@ -1,0 +1,37 @@
+
+
+<fieldset>
+<legend class="legend">maklumat permohonan</legend>
+
+    <table width="100%">
+		<tr>
+			<td style="width:150px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+      
+		#if( $!r.status.id.equalsIgnoreCase("1430809277102") )
+			#show("Status" "<span style='color:blue;font-weight:bold;font-size:12px'>$!r.status.keterangan.toUpperCase()</span>")
+		#elseif( $!r.status.id.equalsIgnoreCase("1430809277099") )
+			#show("Status" "<span style='color:red;font-weight:bold;font-size:12px'>$!r.status.keterangan.toUpperCase()</span>")
+		#end
+		
+		#show("Peranginan" "$!r.jenisUnitRpp.peranginan.namaPeranginan.toUpperCase()")
+		#show("Jenis Unit" "$!r.jenisUnitRpp.keterangan.toUpperCase()")
+	  
+    	<tr><td colspan="3">&nbsp;</td></tr>
+    	<tr>
+    		<td colspan="3">
+    			<span style="font-size:11px;font-weight:bold;text-decoration: underline;">MAKLUMAT PENGINAPAN</span>
+    		</td>
+    	</tr>
+    		
+		##show("No. Tempahan" "$!r.noTempahan")
+    	#show("Tarikh Mohon" "$!util.getDateTime($!r.tarikhDaftarRekod,'dd-MM-yyyy')")
+        #show("Tarikh Masuk" "$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy')")
+    	#show("Tarikh Keluar" "$!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')")
+    	#show("Jumlah Bayaran (RM)" "$!util.formatDecimal($!r.debit)")
+      
+    </table>
+</fieldset>
+

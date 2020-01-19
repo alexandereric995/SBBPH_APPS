@@ -1,0 +1,55 @@
+<input type="hidden" id="idKertasPertimbangan" name="idKertasPertimbangan" value="$!kertasPertimbangan.id">
+<fieldset>
+<legend class="legend">DISEDIAKAN OLEH</legend>
+	#parse("$path/kertasPertimbangan/catatanPenyedia.vm")
+</fieldset>
+
+<fieldset>
+<legend class="legend">DISEMAK OLEH</legend>
+	#parse("$path/kertasPertimbangan/catatanPenyemak.vm")
+</fieldset>	
+
+<fieldset>
+<legend class="legend">DISAHKAN OLEH</legend>
+	#parse("$path/kertasPertimbangan/catatanPengesah.vm")
+</fieldset>	
+
+<table width="100%">
+  <tr>
+    <td align="right">
+    	#if ($!userRole == '(BGS) Penyedia')
+    		#if ($!r.status.id == '1423568441688' || $!r.status.id == '1423568441694') ## PENYEDIAAN KERTAS PERTIMBANGAN || PINDAAN KERTAS PERTIMBANGAN
+    			<input type="button" value="Hantar Untuk Semakan" onclick="javascript:hantarSemakan();">    		
+    		#end
+	    #end
+	    
+	    #if ($!userRole == '(BGS) Penyemak' && $!r.status.id == '1423568441682') ## SEMAKAN KERTAS PERTIMBANGAN
+	    	<input type="button" value="Hantar Untuk Pindaan" onclick="javascript:simpanPindaanPenyemak();">
+	    	<input type="button" value="Hantar Untuk Pengesahan" onclick="javascript:hantarPengesahan();">	    	
+    	#end
+    	
+    	#if ($!userRole == '(BGS) Pengesah' && $!r.status.id == '1423822397722') ## PENGESAHAN KERTAS PERTIMBANGAN
+	    	<input type="button" value="Hantar Untuk Pindaan" onclick="javascript:simpanPindaanPengesah();">
+	    	<input type="button" value="Sah Kertas Pertimbangan" onclick="javascript:simpanPengesahan();">	    	
+    	#end
+    	#if ($!r.status.id == '1423568441691' || $!r.status.id == '1423568441697' || $!r.status.id == '1423568441700') ## KEPUTUSAN SUB || LULUS || TOLAK
+    		<input id="cetakMemoKeputusanSUB" name="cetakMemoKeputusanSUB" type="button" value="Cetak Memo Keputusan SUB"/>
+    	#end
+    	<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+
+<script>
+	_jq('#cetakMemoKeputusanSUB').on('click', function(){
+    	var idPermohonan = '$!r.id';
+        		    
+		var url = "../servlet/bph.laporan.bgs.BGSMemoKeputusanSUB?idPermohonan="+idPermohonan;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();	
+    	});
+</script>
+
+#parse("$path/status.vm")

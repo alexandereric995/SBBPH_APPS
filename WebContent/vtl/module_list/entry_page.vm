@@ -1,0 +1,113 @@
+<fieldset>
+<legend class="legend">MAKLUMAT REKOD</legend>
+<table width="90%" align="center" border="0" cellpadding="2" cellspacing="2">
+	
+	<tr><td width="25%"></td><td width="2%"></td><td></td></tr>
+	
+	#if ($r.id)
+		#input_readonly_label("module_id" "ID Modul" "$!r.id")
+	#else
+		#input_required_no_case("module_id" "ID Modul" "$!r.id")
+	#end
+	#input_required_no_case("module_title" "Tajuk Modul" "$!r.moduleTitle")
+	#input_required_no_case("module_class" "Kelas Modul" "$!r.moduleClass")
+	#input_required_no_case("module_group" "Kumpulan Modul" "$!r.moduleGroup")
+
+	<tr>
+		<td colspan="2"></td>
+		<td>Atau pilih</td>
+	</tr>
+	<tr>    
+        <td colspan="2"></td>
+        <td><select name="groupList" style="width:100%" onChange="selectGroupName()">
+                <option value="">Sila Pilih</option>
+                    #foreach( $name in $groupList)
+            			<option value="$name">$name</option>
+                    #end
+            </select>
+        </td>
+    </tr>   
+	
+	#textarea_no_case("module_description" "Dapatkan ID" "$!r.moduleDescription")
+       
+    #if ( $object_types.contains("html_container") )
+        <tr>
+            <td >File Location:</td>
+            <td><input name="html_location" style="width:100%" value="$html_location"></td>
+        </tr>   
+    #end
+    #if ( $object_types.contains("xml_container") )
+        <tr>
+            <td >URL of XML</td>
+            <td><input name="html_location" style="width:100%" value="$html_location"></td>
+        </tr>   
+        <tr>
+            <td >URL of XSL</td>
+            <td><input name="xsl_name" style="width:100%" value="$xsl_name"></td>
+        </tr>   
+    #end
+    #if ( $object_types.contains("attributable") )
+        #set ( $i = 0 )
+        #foreach ( $attribute in $attributes_name )
+            #set ( $i = $i + 1 )
+            <tr>
+                <td >
+                    $attribute
+                </td>
+                <td>
+                    <input type="text" id="$attribute" name="$attribute" style="width:100%" value="$!attributes_data.get($attribute)">
+                </td>
+            </tr>   
+        #end
+    #end
+    <tr>
+        <td colspan="3" align="center">
+			<fieldset><legend class="legend">Assigned to these role(s):</legend>
+                <table width="100%" border="0" cellpadding="2" cellspacing="2">
+					<tr>
+                        <td class="row2"><input type="checkbox" onClick="selectAll(this)"></td>
+						<td class="row2" colspan="3">Select All</td>
+					</tr>
+                    #set ( $checked = "" )
+                    #foreach ( $role in $userRoles )
+                        #set( $i = $velocityCount )
+                        #if ( ($i % 2) == 0 )
+                            #set( $row = "row2" )
+                        #else
+                            #set( $row = "row1" )
+                        #end
+                        <tr>
+                            <td class="$row" width="10">
+        						#if ( $assignedRoles.get($role.getName()) == "true" )
+                                    #set ( $checked = "checked" )
+                                #else
+                                    #set ( $checked = "" )
+                                #end	
+                                <input type="checkbox" name="cbroles" value="$role.getName()" $checked>
+                            </td>
+                            <td class="$row">
+                                $role.getName()
+                            </td>
+                            ##<td class="$row" align="center" width="5">
+							##	-
+                            ##</td>
+                            <td class="$row">
+                                $role.getDescription()
+                            </td>
+                        </tr>       
+        			#end
+                </table>
+			</fieldset>
+        </td>
+    </tr>
+</table>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

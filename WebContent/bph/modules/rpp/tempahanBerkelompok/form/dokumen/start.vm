@@ -1,0 +1,70 @@
+
+#parse("$path/form/tab.vm")
+
+<fieldset>
+	
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+            <td style="width:180px"></td>
+            <td style="width:10px"></td>
+			<td></td>
+		</tr>
+		#if( (( $!userRole.equalsIgnoreCase("(RPP) Penyemak") || $!userRole.equalsIgnoreCase("(RPP) Pelulus")) && ($!r.status.id!="1433097397170" && $!r.status.id!="1425259713415") ) || ( $!r.status.id=="1439694210108" || $r.status.id=="2155884463563036" ) )
+		<tr>
+            <td valign="top">TAJUK&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td valign="top">:</td>
+            <td valign="top">
+				<input type="text" id="tajuk" class="uppercasefont" name="tajuk" value="" onKeyUp="$('err_tajuk').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_tajuk" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+  		</tr>
+		<tr>
+            <td valign="top">JENIS DOKUMEN&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td valign="top">:</td>
+            <td valign="top"> 
+				<select class="texts" id="idJenisDokumen" name="idJenisDokumen" style="width:100%" onChange="$('err_socJenisDokumen').innerHTML=''" >
+					<option value="">SILA PILIH</option>
+                    #foreach( $n in $listJenisDokumen)
+                    	<option #if ( $n.id == $r.jenisDokumen.id ) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+                    #end
+                </select>
+				<div id="err_socJenisDokumen" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          </tr>
+        <tr>
+			<td valign="top">KETERANGAN</td>
+            <td valign="top">:</td>
+            <td valign="top"><textarea id="keteranganDokumen" name="keteranganDokumen" class="uppercasefont" onBlur="this.value=this.value.toUpperCase();"></textarea></td>
+		</tr>
+		
+		<tr>
+            <td valign="top">MUATNAIK DOKUMEN</td>
+            <td valign="top">:</td>
+            <td valign="top">
+				<input class="texts" type="file" id="dokumen" name="dokumen" style="width:50%" onfocus="$('err_dokumen').innerHTML = '';" onChange="checkUpload()">
+				<div id="dokumenMuatnaik" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span></div>
+				<div id="err_dokumen" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+  		</tr>
+		
+		
+		<tr><td colspan="3">&nbsp;</td></tr>
+				
+		<tr><td colspan="3">
+				<div style="color:#CC0000;font-weight:bold;border:2px #000">
+				* Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)
+				<br/>
+				* Sila pastikan saiz fail tidak melebihi 2MB. 
+				</div>
+		</td></tr>
+		#end
+        <tr>
+			<td colspan="3" align="center">
+				<div id="refreshListDokumen">#parse("$path/form/dokumen/listDokumen.vm")</div>
+			</td>
+        </tr>
+	</table>
+	
+</fieldset>
+
+<iframe id="upload_doc" name="upload_doc" width="0px" height="0px" style="visibility:hidden"></iframe>
+

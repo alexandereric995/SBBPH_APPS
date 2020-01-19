@@ -1,0 +1,93 @@
+<form name="${formname}" method="post" action="javascript:save_${formname}()">
+
+<table width="100%" border="0" cellspacing="1" cellpadding="1">
+	<tr>
+		<td>
+			<table border="0" cellspacing="1" cellpadding="1">
+				<tr>
+					<td>
+						Title:<br>
+						<input class="text" name="title"  style="width:630px"> <!--  value="Re:$forum.title" -->
+					</td>
+				</tr>
+				<tr>
+				
+				</table>
+												#parse("vtl/courseportfolio/fck.vm")
+				<table border="0">
+				<tr>
+					<td>
+						<input class="button" type="button" value="Post this reply" onclick="save_${formname}()">
+						#if ( $allowAttachment )
+##							<input class="button" type="button" value="Attachment" onclick="attachment_${formname}()">
+						#end
+						<input class="button" type="button" value="Cancel" onclick="cancel_${formname}()">
+					</td>
+				</tr>
+			</table>
+
+<textarea name="content"  style="visibility:hidden"></textarea>
+<input type="hidden" name="$formname" value="$formname">
+
+
+<table width="100%" cellpadding="1" cellspacing="1" border="0">
+	<tr>
+		<td>
+			<table class="table_header"  width="100%" cellpadding="1" cellspacing="1" border="0">
+				<tr>
+					<td>
+						$forum.title
+					</td>
+				</tr>
+				<tr>
+					<td>
+						$forum.postedBy
+					</td>
+				</tr>
+				<tr>
+					<td>
+						$forum.datePosted
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td class="table_row" >
+			$forum.notes
+		</td>
+	</tr>	
+
+</table>
+
+</form>
+<script>
+
+##document.${formname}.message.value = document.${formname}.content.value;
+
+function save_${formname}() {
+add_${formname}();
+}
+
+
+function add_${formname}() {
+##			updateRTE('message');
+##				document.${formname}.onsubmit(); //workaround browser bugzzz
+	document.${formname}.action = "?command=SubmitReply&subjectId=$!subjectId&forum_id=$forum.id";	
+	document.${formname}.submit();	
+}
+
+function cancel_${formname}() {
+	document.${formname}.action = "?command=Open&subjectId=$!subjectId&forum_id=$forum.id";
+	document.${formname}.submit();
+}
+
+function attachment_${formname}() {
+##			updateRTE('message');
+				document.${formname}.onsubmit(); //workaround browser bugzzz
+	document.${formname}.action = "?command=Attachment&subjectId=$!subjectId&forum_id=$forum.id";
+	document.${formname}.submit();
+}
+
+
+</script>

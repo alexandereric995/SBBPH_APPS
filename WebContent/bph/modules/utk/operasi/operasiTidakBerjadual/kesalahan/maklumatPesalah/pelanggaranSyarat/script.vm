@@ -1,0 +1,133 @@
+function validate() {
+	var err_count = 0;
+	return err_count == 0;
+}
+
+## START PELANGGARAN SYARAT ##
+function validatePelanggaranSyarat(){
+	var err_count = 0;
+
+	var idJenisOperasi = $('idJenisOperasi').value;
+	if ( idJenisOperasi == "" ) { $('err_idJenisOperasi').innerHTML = "Jenis Operasi adalah mandatori!"; err_count++;  }
+	
+	if(idJenisOperasi == 'CP'){
+		var jenisKenderaan = $('jenisKenderaan').value;
+		if ( jenisKenderaan == "" ) {$('err_jenisKenderaan').innerHTML = "Jenis Kenderaan adalah mandatori!"; err_count++;  }
+		
+		var noPlat = $('noPlat').value;
+		if ( noPlat == "" ) {$('err_noPlat').innerHTML = "No Plat Kenderaan adalah mandatori!"; err_count++;  }
+		
+		var amaun = $('amaun').value;
+		if ( amaun == "" ) {$('err_amaun').innerHTML = "Amaun adalah mandatori!"; err_count++;  }
+		
+	}
+
+	if(idJenisOperasi == 'PS'){
+		var idJenisPelanggaran = $('idJenisPelanggaran').value;
+		if ( idJenisPelanggaran == "" ) {$('err_idJenisPelanggaran').innerHTML = "Jenis Kesalahan adalah mandatori!"; err_count++;  }
+
+		var idKes = $('idKes').value;
+		if ( idKes == "" ) {$('err_idKes').innerHTML = "Jenis Kes adalah mandatori!"; err_count++;  }
+			
+		if(idJenisPelanggaran == '1435633886800'){
+			var jenisKenderaan = $('jenisKenderaan').value;
+			if ( jenisKenderaan == "" ) {$('err_jenisKenderaan').innerHTML = "Jenis Kenderaan adalah mandatori!"; err_count++;  }
+			var noPlat = $('noPlat').value;
+			if ( noPlat == "" ) {$('err_noPlat').innerHTML = "No Plat Kenderaan adalah mandatori!"; err_count++;  }
+			
+			var amaun = $('amaun').value;
+			if ( amaun == "" ) {$('err_amaun').innerHTML = "Amaun adalah mandatori!"; err_count++;  }
+		}
+	}
+	
+	return err_count == 0; 
+}
+
+function savePelanggaranSyarat() {
+	if (validatePelanggaranSyarat()){
+		if ( !window.confirm("Anda pasti?") ){
+		return;
+		}
+		
+	doDivAjaxChainCall$formname('addpopup','savePelanggaranSyarat','','divTab','getPelanggaranSyarat','');
+	}
+}
+
+function deletePS(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','removePelanggaranSyarat','idPS=' + id);
+}
+
+## END PELANGGARAN SYARAT ##
+
+## START HILANG KELAYAKAN ##
+
+function validateHilangKelayakan() {
+	var err_count = 0;
+	
+	var idSebabHk = $('idSebabHk').value;
+	if ( idSebabHk == "" ) {$('err_idSebabHk').innerHTML = "Sebab Hilang Kelayakan adalah mandatori!"; err_count++;  }
+	
+	var tarikh = $('tarikh').value;
+	if ( tarikh == "" ) {$('err_tarikh').innerHTML = "Tarikh Hilang Kelayakan adalah mandatori!"; err_count++;  }
+	
+	
+	
+	return err_count == 0;
+}
+
+function saveHilangKelayakan() {
+	if (validateHilangKelayakan()){
+		if ( !window.confirm("Anda pasti?") ){
+		return;
+		}
+		
+	doDivAjaxChainCall$formname('addpopup','saveHilangKelayakan','','divTab','getHilangKelayakan','');
+	}
+}
+
+function deleteHK(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','removeHilangKelayakan','idHK=' + id);
+}
+##END HILANG KELAYAKAN ##
+
+## START KES PEGUAM ##
+function validateKesPeguam() {
+	var err_count = 0;
+	
+	var tarikh = $('tarikh').value;
+	if ( tarikh == "" ) {$('err_tarikh').innerHTML = "Tarikh Keputusan adalah mandatori!"; err_count++;  }
+	
+	var flagKeputusan = $('flagKeputusan').value;
+	if ( flagKeputusan == "" ) {$('err_flagKeputusan').innerHTML = "Keputusan adalah mandatori!"; err_count++;  }
+	
+	
+	
+	return err_count == 0;
+}
+
+function saveKesPeguam() {
+	if (validateKesPeguam()){
+		if ( !window.confirm("Anda pasti?") ){
+		return;
+		}
+	doDivAjaxChainCall$formname('addpopup','simpanPeguam','','divTab','getKesPeguam','');
+	}
+}
+
+
+function deleteKP(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','removePeguam','idKP=' + id);
+}
+
+##END KES PEGUAM ##
+
+

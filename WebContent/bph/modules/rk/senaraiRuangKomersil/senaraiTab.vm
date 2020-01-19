@@ -1,0 +1,23 @@
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatRuang','')" #end >Maklumat Ruang</a></li>
+	<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divTab','getDokumenSokongan','')" #end >Dokumen Sokongan</a></li>
+	<li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('divTab','getSejarahPenyewaan','')" #end >Sejarah Penyewaan</a></li>
+  </ul>
+</nav>
+	
+<br/>
+
+#if ($!selectedTab=='1')
+	#parse("$path/maklumatRuang.vm")
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/header.vm")
+	#parse("$path/dokumenSokongan/start.vm")
+#end
+
+#if ($!selectedTab=='3')
+	#parse("$path/header.vm")
+	#parse("$path/maklumatSejarahPenyewaan.vm")
+#end

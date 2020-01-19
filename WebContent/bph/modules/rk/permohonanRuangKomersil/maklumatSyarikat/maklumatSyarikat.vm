@@ -1,0 +1,146 @@
+#if ($!command == 'getMaklumatSyarikatBerdaftar' || $!command == 'getPilihanSyarikat')
+<fieldset>
+<legend class="legend">Maklumat Syarikat</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">No. Pendaftaran &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><input size="30" id="noPendaftaran" name="noPendaftaran" value="$!noPendaftaran" onChange="doDivAjaxCall3$formname('divSyarikat','getMaklumatSyarikatBerdaftar','')" onKeyUp="$('err_noPendaftaran').innerHTML=''; at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+            <input type="button" tabindex="4" value="CARI SYARIKAT" id="btnSenaraiSyarikat"/>
+            <div id="err_noPendaftaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #input_required("namaSyarikat" "Nama" "$!syarikat.nama")
+        <tr>
+          <td class="label" valign="top">Jenis Pemilikan</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatSyarikat/selectJenisPemilikan.vm")
+            <div id="err_idJenisPemilikan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Taraf Bumiputera</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatSyarikat/selectTarafBumiputera.vm")
+            <div id="err_idTarafBumiputera" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>     
+        #if ($!syarikat.tarikhPenubuhan) #set ($datePenubuhan = "$!util.getDateTime($!syarikat.tarikhPenubuhan,'dd-MM-yyyy')")
+        #else #set ($datePenubuhan = "") #end
+        #date_input("tarikhPenubuhan" "Tarikh Penubuhan" "$datePenubuhan")
+        #textarea("bidangSyarikat" "Bidang Syarikat" "$!syarikat.bidangSyarikat")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        #input_required("alamat1Syarikat" "Alamat" "$!syarikat.alamat1")
+        #input("alamat2Syarikat" "" "$!syarikat.alamat2")
+        #input("alamat3Syarikat" "" "$!syarikat.alamat3")
+        #postcode_required("poskodSyarikat" "Poskod" "$!syarikat.poskod")
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatSyarikat/selectNegeri.vm")
+            <div id="err_idNegeriSyarikat" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandarSyarikat"> #parse("$path/maklumatSyarikat/selectBandar.vm") </div>
+            <div id="err_idBandarSyarikat" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+#else
+<fieldset>
+<legend class="legend">Maklumat Syarikat</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        #if ($!command == 'add_new_record')
+        <tr>
+          <td class="label" valign="top">No. Pendaftaran &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><input size="30" id="noPendaftaran" name="noPendaftaran" value="$!r.fail.pemohon.syarikat.id" onChange="doDivAjaxCall3$formname('divSyarikat','getMaklumatSyarikatBerdaftar','')" onKeyUp="$('err_noPendaftaran').innerHTML=''; at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+             <input type="button" tabindex="4" value="CARI SYARIKAT" id="btnSenaraiSyarikat"/> 
+            <div id="err_noPendaftaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+    	#elseif ($!r.idJenisPermohonan == '1' && $!allowUpdatePermohonan == 'Y')
+    	<tr>
+          <td class="label" valign="top">No. Pendaftaran &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><input size="30" id="noPendaftaran" name="noPendaftaran" value="$!r.fail.pemohon.syarikat.id" onChange="doDivAjaxCall3$formname('divSyarikat','getMaklumatSyarikatBerdaftar','')" onKeyUp="$('err_noPendaftaran').innerHTML=''; at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+             <input type="button" tabindex="4" value="CARI SYARIKAT" id="btnSenaraiSyarikat"/> 
+            <div id="err_noPendaftaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+       	#else
+       		#input_normal("" "No. Pendaftaran" "<b>$!r.fail.pemohon.syarikat.id</b>")
+        	<input type=hidden name="noPendaftaran" id="noPendaftaran" value="$!r.fail.pemohon.syarikat.id">
+        #end
+        #input_required("namaSyarikat" "Nama" "$!r.fail.pemohon.syarikat.nama")
+        <tr>
+          <td class="label" valign="top">Jenis Pemilikan</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatSyarikat/selectJenisPemilikan.vm")
+            <div id="err_idJenisPemilikan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Taraf Bumiputera</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatSyarikat/selectTarafBumiputera.vm")
+            <div id="err_idTarafBumiputera" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>     
+        #if ($!r.fail.pemohon.syarikat.tarikhPenubuhan) #set ($datePenubuhan = "$!util.getDateTime($!r.fail.pemohon.syarikat.tarikhPenubuhan,'dd-MM-yyyy')")
+        #else #set ($datePenubuhan = "") #end
+        #date_input("tarikhPenubuhan" "Tarikh Penubuhan" "$datePenubuhan")
+        #textarea("bidangSyarikat" "Bidang Syarikat" "$!r.fail.pemohon.syarikat.bidangSyarikat")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        #input_required("alamat1Syarikat" "Alamat" "$!r.fail.pemohon.syarikat.alamat1")
+        #input("alamat2Syarikat" "" "$!r.fail.pemohon.syarikat.alamat2")
+        #input("alamat3Syarikat" "" "$!r.fail.pemohon.syarikat.alamat3")
+        #postcode_required("poskodSyarikat" "Poskod" "$!r.fail.pemohon.syarikat.poskod")
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatSyarikat/selectNegeri.vm")
+            <div id="err_idNegeriSyarikat" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandarSyarikat"> #parse("$path/maklumatSyarikat/selectBandar.vm") </div>
+            <div id="err_idBandarSyarikat" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+#end
+
+<div id="popupSenaraiSyarikat" class="popup"></div>
+<script>
+	_jq('#btnSenaraiSyarikat').on('click', function(){
+		doDivAjaxCall3$formname('popupSenaraiSyarikat','getSenaraiSyarikat','');
+	    jQuery('#popupSenaraiSyarikat').fadeIn();
+	});
+</script>

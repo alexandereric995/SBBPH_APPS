@@ -1,0 +1,18 @@
+
+	#set( $nid = "" )
+	#set( $nm = "" )
+	#set( $nkp = "" )
+	#if($objUser.equalsIgnoreCase(""))
+		#set( $nm = "$!r.pemohon.userName.toUpperCase()" )
+		#set( $nkp = "$!r.pemohon.noKP" )
+		#set( $nid = "$!r.pemohon.id" )
+	#else
+		#set( $nm = "$!objUser.userName.toUpperCase()" )
+		#set( $nkp = "$!objUser.noKP" )
+		#set( $nid = "$!objUser.id" )
+	#end
+
+	<p>Nama 	: $nm </p>
+	<p>No. KP	: $nkp </p>
+		
+	<input type="hidden" name="pemohon" id="pemohon" value="$!nid" />

@@ -1,0 +1,55 @@
+<script>
+	var x = "$!success";
+	var y = "$!result";
+	var z = "$!result2";
+	var pc = "$!resultPermohonanCompletion";
+	var kahwin = "$!statusPerkahwinan";
+	if ( x != "" ) {
+	
+		swal({
+				title: "Makluman!",
+				text: "Maklumat pekerjaan berjaya dikemaskini!",
+				type: "success"
+				});
+##				if ( kahwin == "true" ) 
+##				{
+##					doDivAjaxCall3$formname('detailLain','getPasangan','');
+##				}
+##				else
+##				{
+##					doDivAjaxCall3$formname('entry_page','getPerakuan','');
+##				}
+	} else {
+		swal({
+				title: "Perhatian!",
+				text: "Maklumat pekerjaan tidak berjaya dikemaskini!",
+				type: "error"
+				});
+	}
+	
+	if ( y != "" ) {
+		if ( y == "false" ) {
+			swal({
+				title: "Perhatian!",
+				text: "Tarikh Tamat Kontrak didalam lingkungan yang tidak layak memohon kuarters!",
+				type: "error"
+				});
+		}
+	}
+	
+	if ( z != "") {
+		if ( z == "false" ) {
+			swal({
+				title: "Perhatian!",
+				text: "Imbuhan Tetap Perumahan (ITP) / Elaun Perumahan Wilayah (EPW) tidak menepati kriteria yang ditetapkan!",
+				type: "error"
+				});
+		}
+	}
+
+	if ( pc == "true") {
+		_jq('#perakuanDetail').show();
+	} else {
+		_jq('#perakuanDetail').hide();
+	}
+</script>

@@ -1,0 +1,85 @@
+#if ($!command == 'findKadarSewa')
+<fieldset>
+<legend class="legend">maklumat kemudahan</legend>
+
+	<table width="100%">
+      <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+      </tr>
+	  
+	  <tr>
+		<td valign="top">Lokasi Peranginan</td>
+		<td valign="top">:</td>
+		<td valign="top">$!rppPeranginan.namaPeranginan.toUpperCase()</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top">Kemudahan &nbsp;<span style='color:#FF2A00'>*</span></td>
+		<td valign="top">:</td>
+		<td valign="top">
+			
+            <select class="texts" id="kemudahan" name="kemudahan" style="width:100%" onChange="doDivAjaxChainCall$formname('divKemudahan','findKadarSewa','');">
+            
+                <option value="">SILA PILIH</option>
+                #foreach( $n in $listKemudahan)
+                	<option value="$n.id" #if($n.id == $kemudahan.id) selected #end>$n.nama.toUpperCase()</option>
+                #end
+            </select>
+			<div id="err_kemudahan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	  </tr>
+	  #number("bilangan" "Bilangan" "$!kemudahan.bilangan")
+	  #number("kadarSewa" "Kadar Sewa" "$!kemudahan.kadarSewa")
+      #textarea("catatan" "Catatan" "$!r.catatan")
+      #date_input_required("tarikhMulaGuna" "Tarikh Mula Guna" "$!util.getDateTime($!r.tarikhMulaGuna,'dd-MM-yyyy')")
+      #date_input_required("tarikhTamatGuna" "Tarikh Tamat Guna" "$!util.getDateTime($!r.tarikhTamatGuna,'dd-MM-yyyy')")
+  
+	</table> 
+
+</fieldset>
+#else
+<fieldset>
+<legend class="legend">maklumat kemudahan</legend>
+
+	<table width="100%">
+      <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+      </tr>
+	  
+	  <tr>
+		<td valign="top">Lokasi Peranginan</td>
+		<td valign="top">:</td>
+		<td valign="top">$!rppPeranginan.namaPeranginan.toUpperCase()</td>
+	  </tr>
+	  
+	  <tr>
+		<td valign="top">Kemudahan &nbsp;<span style='color:#FF2A00'>*</span></td>
+		<td valign="top">:</td>
+		<td valign="top">
+			
+			##<select class="texts" id="kemudahan" name="kemudahan" style="width:100%" onChange="$('err_kemudahan').innerHTML=''; at(this, event);">
+            <select class="texts" id="kemudahan" name="kemudahan" style="width:100%" onChange="doDivAjaxChainCall$formname('divKemudahan','findKadarSewa','');">
+            
+                <option value="">SILA PILIH</option>
+                #foreach( $n in $listKemudahan)
+                	<option value="$n.id" #if($n.id == $r.kemudahan.id) selected #end>$n.nama.toUpperCase()</option>
+                #end
+            </select>
+			<div id="err_kemudahan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	  </tr>
+	  #number("bilangan" "Bilangan" "$!r.bilangan")
+	  #number("kadarSewa" "Kadar Sewa" "$!r.jumlahKadarSewa")
+	  
+      #textarea("catatan" "Catatan" "$!r.catatan")
+      #date_input_required("tarikhMulaGuna" "Tarikh Mula Guna" "$!util.getDateTime($!r.tarikhMulaGuna,'dd-MM-yyyy')")
+      #date_input_required("tarikhTamatGuna" "Tarikh Tamat Guna" "$!util.getDateTime($!r.tarikhTamatGuna,'dd-MM-yyyy')")
+  
+	</table> 
+
+</fieldset>
+#end

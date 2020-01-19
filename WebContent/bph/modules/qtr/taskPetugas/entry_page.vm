@@ -1,0 +1,88 @@
+<div id="hantarTetapan">
+<fieldset>
+    <legend class="legend">Maklumat Petugas</legend>
+    <table width="100%">
+        <tr>
+            <td align="center" valign="top" width="50%">
+                #parse("$path/entry_sub/entry_page_sub_left.vm")
+            </td>
+            <td align="center" valign="top" width="50%">
+                #parse("$path/entry_sub/entry_page_sub_right.vm")
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend class="legend">Agihan Tugasan</legend>
+    <table width="100%">
+        <tr>
+            <td align="center" valign="top" width="50%">
+                <table cellpadding="5" cellspacing="0" border="0" width="95%" id="entryLeft">
+			    <tr>
+			        <td style="width:150px"></td>
+			        <td style="width:10px"></td>
+			        <td></td>
+			    </tr>
+			<tr>
+            <td class="label" valign="top">Peranan Semasa&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td valign="top">:</td>
+		    <td>
+		    <input id="flagPenyelia" name="flagPeranan" type="checkbox" value="Penyelia" onClick="">PENYELIA
+            <br>
+            
+		    <input id="flagPTKunci" name="flagPeranan" type="checkbox" value="PtKunci" onClick="" >PEMBANTU TADBIR (KUNCI)
+		    <br>
+		    
+		    <input id="flagPTAdun" name="flagPeranan" type="checkbox" value="PtAdun" onClick="" >PEMBANTU TADBIR (ADUN)
+		    </td>
+   		</tr>
+			</table>
+            </td>
+            <td align="center" valign="top" width="50%">
+                
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<table cellpadding="5" cellspacing="0" border="0" width="100%">
+	<tr>
+		<td colspan="3" align="right">
+			<input type="button" id="btnHantarTetapan" name="btnHantarTetapan" value="Kemaskini" onclick="hantarTetapan()" />
+			<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block'; doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')" />
+		</td>
+	</tr>
+</table>
+
+<input type="hidden" id="idPetugas" name="idPetugas" value="$!r.id" />
+</div>
+<script>
+	
+	window.onload=new function window_onload()
+		{
+		
+			if($checkPenyelia==true)
+			{
+				document.getElementById("flagPenyelia").checked=true;
+			}
+			
+			if($checkPTKunci==true)
+			{
+				document.getElementById("flagPTKunci").checked=true;
+			}
+		 	
+		 	if($checkPTAdun==true)
+		 	{
+		 		document.getElementById("flagPTAdun").checked=true;
+			}
+		}
+		
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+        $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

@@ -1,0 +1,61 @@
+<fieldset>
+<legend class="legend">KRITERIA CARIAN</legend>
+<table width="100%">
+	  <tr>
+	    <td style="width:35%"></td>
+	    <td style="width:2%"></td>
+	    <td style="width:63%"></td>
+	  </tr>
+	  	<tr>
+		<td class="label" valign="top" align="right">Dari</td>
+		<td class="label" valign="top" align="center">:</td>
+		<td valign="top" align="left">
+			<div>
+	    		<input type="text" id="tarikhDari" name="tarikhDari">
+				<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+	    		<script>
+	            	_jq("#tarikhDari").Zebra_DatePicker({ 
+	    				format: 'd-m-Y',
+						readonly_element: false
+	            	});
+					_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+	    		</script>
+			</div>
+		</td>
+		</tr>
+	<tr>
+	<td class="label" valign="top" align="right">Sehingga</td>
+	<td class="label" valign="top" align="center">:</td>
+	<td valign="top" align="left">
+		<div>
+    		<input type="text" id="tarikhBayar" name="tarikhBayar">
+			<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+    		<script>
+            	_jq("#tarikhBayar").Zebra_DatePicker({ 
+    				format: 'd-m-Y',
+					readonly_element: false
+            	});
+				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+    		</script>
+		</div>
+	</td>
+</tr>
+	<tr>
+	<td></td>
+	<td class="label"></td>
+	<td align=""><input type="button" name="cmdCari" id="cmdCari" value="Carian" onclick="javascript:carianPendeposit()"/>
+	<input type="button" name="cmdKosong" id="cmdKosong" value="Kosongkan" onclick="javascript:doKosongkan()"/></td>
+</tr>
+</table>
+</fieldset>
+<script>
+	function doKosongkan() {
+	$('tarikhBayar').value = "";
+	$('tarikhDari').value = "";
+	doDivAjaxCall3$formname('divMaklumatLejarPendeposti','carianPendeposit','');
+}
+
+function carianPendeposit() {
+		doDivAjaxCall3$formname('divMaklumatLejarPendeposti','carianPendeposit','');
+	}
+</script>

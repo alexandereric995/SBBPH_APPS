@@ -1,0 +1,83 @@
+<fieldset>
+<legend class="legend">MAKLUMAT LOKASI PERANGINAN</legend>
+<table width="100%">
+  <tr>
+    <td style="width:200px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class="label">Jenis Peranginan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td>#parse("$path/selectJenisPeranginan.vm")
+      <div id="err_idJenisPeranginan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  
+  #input("kodLokasi" "Kod Lokasi" "$!r.kodLokasi")
+  #input("kodUnit" "Kod Unit" "$!r.kodUnit")
+  
+  <tr>
+    <td class="label">Nama Peranginan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><div id="selectJenisPeranginan">#parse("$path/namaPeranginan.vm")</div>
+      <div id="err_idJenisPeranginan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  
+  #input_required("alamat1" "Alamat" "$!r.alamat1")
+  #input("alamat2" "" "$!r.alamat2")
+  #input("alamat3" "" "$!r.alamat3")
+  <td></td>
+    <td></td>
+    <td><div id="err_alamat" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+    #postcode_required("poskod" "Poskod" "$!r.poskod")
+  <tr>
+    <td class="label">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td>#parse("$path/selectNegeri.vm")
+      <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><div id="selectBandar">
+      #parse("$path/selectBandar.vm")</div>
+      <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #phone_number("noTelefon" "No. Telefon" "$!r.noTelefon")
+  #phone_number("noFaks" "No. Faks" "$!r.noFaks")
+  #input_email("emel" "E-mel" "$!r.emel")
+  #textarea("catatan" "Catatan" "$!r.catatan")
+  
+  <tr>
+    <td class="label">Kelulusan manual ?</td>
+    <td>:</td>
+    <td>
+		<input type="checkbox" name="flagKelulusanSub" id="flagKelulusanSub" value="Y" #if($!r.flagKelulusanSub=="Y") checked #end />
+	</td>
+  </tr>
+  
+  <tr>
+    <td class="label">Diuruskan Oleh Operator ?</td>
+    <td>:</td>
+    <td>
+		<input type="checkbox" name="flagOperator" id="flagOperator" value="Y" #if($!r.flagOperator == "Y") checked #end />
+	</td>
+  </tr>
+  
+</table>
+</fieldset>
+
+#if ($command != 'add_new_record')
+<table width="100%">
+	<tr>
+		<td align="right">##Fatin 13/06/2015
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+			## COMMENT BY PEJE - ALLOW PENYELIA UTK UPDATE TEMPORARY
+			###if( !$userRole.equalsIgnoreCase("(RPP) Penyelia") )	
+			<input type="button" value="Simpan" onclick="javascript:doSaveMaklumatLokasiPeranginan('$!r.id');">
+			###end
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+#end

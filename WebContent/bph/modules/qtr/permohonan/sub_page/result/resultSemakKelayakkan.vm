@@ -1,0 +1,40 @@
+<script>
+	var y = "$!result";
+	var z = "$!result2";
+	
+	if ( y != "" ) {
+		if ( y == "false" ) {
+			swal({
+				title: "Perhatian!",
+				text: "Tarikh jangka siap didalam lingkungan tidak layak memohon kuarters!",
+				type: "error"
+				});
+		}
+	} else {
+		swal({
+				title: "Perhatian!",
+				text: "Sila masukkan tarikh di ruangan Tarikh Jangka Siap!",
+				type: "error"
+				});
+	}
+	
+	if ( z != "") {
+		if ( z == "false" ) {
+			swal({
+				title: "Perhatian!",
+				text: "Jarak rumah yang dibeli didalam lingkungan radius yang tidak layak!",
+				type: "error"
+				});
+		}
+	}
+	
+	if ( y != "" && z != "") {
+		if ( y == "true" && z == "true" ) {
+    		_jq('#btnSemakKelayakkan').hide();
+    		_jq("#btnSimpanPinjaman").show();
+		} else {
+			_jq('#btnSemakKelayakkan').show();
+    		_jq("#btnSimpanPinjaman").hide();
+		}
+	}
+</script>

@@ -1,0 +1,480 @@
+#parse("bph/dashboard/style.vm")
+#parse("$path/script.vm")
+<style>
+	a {
+		color: #058DC7;
+		text-decoration: none;
+	}
+	
+	a:hover {
+		color: #933030;
+	}
+	
+	img {
+		margin-top: 5px;
+	}
+	
+	ul {
+		list-style: none;
+		line-height: 1.8em;
+		margin-top: 3px;
+		margin-bottom: 1px;
+	}
+	
+	li {
+		padding-left: 0; 
+	}
+	
+	li:before {
+		padding-right: 5px;
+        content: "• ";
+        color: #058DC7;
+    }
+
+	.dashboard_child {
+		-webkit-border-radius: 5px; 
+        -moz-border-radius: 5px; 
+    	border-radius: 5px; 
+		
+		border: 1px solid #D9D9D9;
+	}
+	
+	.dashboard_child .title {
+		text-transform: uppercase;
+		padding-left: 15px; 
+		border-bottom: 1px solid #D9D9D9;
+		font-size: 1.2em; 
+		color: #058DC7;
+		font-weight: bold;
+	}
+	
+	.dashboard_child .content {
+		border-left: 1px solid #D9D9D9;
+	}
+	
+	.dashboard_child:hover, .dashboard_child:hover .title, .dashboard_child:hover .content {
+		border-color: #BFBFBF;
+##      -webkit-border-radius: 12px; 
+##      -moz-border-radius: 12px; 
+##    	border-radius: 12px; 
+		
+##    	-moz-box-shadow: 0 0 4px #444;
+##    	-webkit-box-shadow: 0 0 4px #444;
+##    	box-shadow: 0 0 4px #444;
+##    	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=0, Color='#444444')";
+##    	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=0, Color='#444444');
+	}
+	
+
+</style>
+
+<table width="95%" border="0" cellspacing="0" cellpadding="15" align="center">
+	<tr>
+        <td width="50%" valign="top">
+			<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="dashboard_child">
+                <tr>
+                    <td width="15%" valign="top" align="center">
+                        <img src="../bph/dashboard/picture/myprofile.png"  width="30" height="30" align="center"/>
+                    </td>
+                    <td width="85%" valign="top" class="content">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                            <tr>
+                                <td class="title">
+                                    Profil
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:gotoKataLaluan()" title="Tukar Kata Laluan">
+                                                Tukar Kata Laluan
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:gotoProfile()" title="Profil Pengguna">
+                                                Profil Pengguna
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:gotoKalendar()" title="Kalendar Aktiviti">
+                                                Kalendar Aktiviti
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+		</td>
+		<td width="50%" valign="top">
+			
+		</td>
+	</tr>
+	<tr>
+        <td width="50%" valign="top">
+			<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="dashboard_child">
+                <tr>
+                    <td width="15%" valign="top" align="center">
+                        <img src="../bph/dashboard/picture/applyonline.png"  width="30" height="30" align="center"/>
+                    </td>
+                    <td width="85%" valign="top" class="content">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                            <tr>
+                                <td class="title">
+                                    Kuarters
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:gotoRekodKuarters()" title="Rekod Kuarters">
+                                                Rekod Kuarters
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:gotoRekodKuartersTidakAktif()" title="Rekod Kuarters Tidak Aktif">
+                                                Rekod Kuarters Tidak Aktif
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:gotoSenaraiKuartersKeseluruhan()" title="Senarai Kuarters Keseluruhan">
+                                                Senarai Kuarters Keseluruhan
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+		</td>
+		<td width="50%" valign="top">
+			<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="dashboard_child">
+                <tr>
+                    <td width="15%" valign="top" align="center">
+                        <img src="../bph/dashboard/picture/applyonline.png"  width="30" height="30" align="center"/>
+                    </td>
+                    <td width="85%" valign="top" class="content">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                            <tr>
+                                <td class="title">
+                                    Permohonan
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:gotoSenaraiPermohonan()" title="Senarai Permohonan">
+                                                Senarai Permohonan
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:gotoSenaraiPermohonanKeseluruhan()" title="Senarai Permohonan Keseluruhan">
+                                                Senarai Permohonan Keseluruhan
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+		</td>
+	</tr>
+	
+	<tr>
+        <td width="50%" valign="top">
+			<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="dashboard_child">
+                <tr>
+                    <td width="15%" valign="top" align="center">
+                        <img src="../bph/dashboard/picture/applyonline.png"  width="30" height="30" align="center"/>
+                    </td>
+                    <td width="85%" valign="top" class="content">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                            <tr>
+                                <td class="title">
+                                    Senarai Menunggu
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:gotoSenaraiMenungguKeseluruhan()" title="Senarai Menunggu Keseluruhan">
+                                                Senarai Menunggu Keseluruhan
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:gotoBersyarat()" title="Bersyarat">
+                                                Bersyarat
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+		</td>
+		<td width="50%" valign="top">
+			<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="dashboard_child">
+                <tr>
+                    <td width="15%" valign="top" align="center">
+                        <img src="../bph/dashboard/picture/applyonline.png"  width="30" height="30" align="center"/>
+                    </td>
+                    <td width="85%" valign="top" class="content">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                            <tr>
+                                <td class="title">
+                                    Senarai Tawaran
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:gotoSenaraiTawaran()" title="Senarai Tawaran">
+                                                Senarai Tawaran
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+		</td>
+	</tr>
+	
+	<tr>
+        <td width="50%" valign="top">
+			<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="dashboard_child">
+                <tr>
+                    <td width="15%" valign="top" align="center">
+                        <img src="../bph/dashboard/picture/applyonline.png"  width="30" height="30" align="center"/>
+                    </td>
+                    <td width="85%" valign="top" class="content">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                            <tr>
+                                <td class="title">
+                                    Penyerahan Kunci
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:gotoBayaranDeposit()" title="Bayaran Deposit">
+                                                Bayaran Deposit
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+		</td>
+		<td width="50%" valign="top">
+			<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="dashboard_child">
+                <tr>
+                    <td width="15%" valign="top" align="center">
+                        <img src="../bph/dashboard/picture/applyonline.png"  width="30" height="30" align="center"/>
+                    </td>
+                    <td width="85%" valign="top" class="content">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                            <tr>
+                                <td class="title">
+                                    Penghuni
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:gotoRekodPenghuni()" title="Rekod Penghuni">
+                                                Rekod Penghuni
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+		</td>
+	</tr>
+	
+	<tr>
+        <td width="50%" valign="top">
+			<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="dashboard_child">
+                <tr>
+                    <td width="15%" valign="top" align="center">
+                        <img src="../bph/dashboard/picture/applyonline.png"  width="30" height="30" align="center"/>
+                    </td>
+                    <td width="85%" valign="top" class="content">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                            <tr>
+                                <td class="title">
+                                    e-Temujanji
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:gotoETemujanji()" title="e-Temujanji">
+                                                e-Temujanji
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:gotoETemujanjiUtiliti()" title="e-Temujanji Utiliti">
+                                                e-Temujanji Utiliti
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+		</td>
+		<td width="50%" valign="top">
+			<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="dashboard_child">
+                <tr>
+                    <td width="15%" valign="top" align="center">
+                        <img src="../bph/dashboard/picture/applyonline.png"  width="30" height="30" align="center"/>
+                    </td>
+                    <td width="85%" valign="top" class="content">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                            <tr>
+                                <td class="title">
+                                    Rayuan
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:gotoRayuan()" title="Rayuan">
+                                                Rayuan
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+		</td>
+	</tr>
+	
+	<tr>
+        <td width="50%" valign="top">
+			<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="dashboard_child">
+                <tr>
+                    <td width="15%" valign="top" align="center">
+                        <img src="../bph/dashboard/picture/images_stat.png"  width="30" height="30" align="center"/>
+                    </td>
+                    <td width="85%" valign="top" class="content">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                            <tr>
+                                <td class="title">
+                                    Laporan
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:gotoKataLaluan()" title="Laporan Senarai Kuarters">
+                                                Laporan Senarai Kuarters
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:gotoProfile()" title="Laporan Senarai Penghuni Kuarters">
+                                                Laporan Senarai Penghuni Kuarters
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:gotoKalendar()" title="Laporan Senarai Permohonan Kuarters">
+                                                Laporan Senarai Permohonan Kuarters
+                                            </a>
+                                        </li>
+										<li>
+                                            <a href="javascript:gotoKataLaluan()" title="Laporan Senarai Penghuni Keluar Kuarters">
+                                                Laporan Senarai Penghuni Keluar Kuarters
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:gotoProfile()" title="Laporan Senarai Penghuni Menunggu">
+                                                Laporan Senarai Penghuni Menunggu
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:gotoKalendar()" title="Laporan Senarai e-Temujanji">
+                                                Laporan Senarai e-Temujanji
+                                            </a>
+                                        </li>
+										<li>
+                                            <a href="javascript:gotoProfile()" title="Laporan Statistik Status Permohonan Mengikut Tahun">
+                                                Laporan Statistik Status Permohonan Mengikut Tahun
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:gotoKalendar()" title="Laporan Statistik Status Kuarters Mengikut Tahun">
+                                                Laporan Statistik Status Kuarters Mengikut Tahun
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+		</td>
+		<td width="50%" valign="top">
+			<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center" class="dashboard_child">
+                <tr>
+                    <td width="15%" valign="top" align="center">
+                        <img src="../bph/dashboard/picture/applyonline.png"  width="30" height="30" align="center"/>
+                    </td>
+                    <td width="85%" valign="top" class="content">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                            <tr>
+                                <td class="title">
+                                    Audit Trail
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:gotoAuditTrail()" title="Audit Trail">
+                                                Audit Trail
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,47 @@
+<fieldset>
+<legend class="legend">Maklumat Aras</legend>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("kodDAK" "Kod DAK" "$!rekod.kodDAK")
+        #input_normal("namaAras" "Nama Aras" "$!rekod.namaAras")	
+        <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #set ($jenisAras = "")
+        #if ($!rekod.jenisAras == 'A')
+        	#set ($jenisAras = "ATAS TANAH")
+        #elseif ($!rekod.jenisAras == 'B')	
+        	#set ($jenisAras = "BAWAH TANAH")
+        #end
+        #input_normal("jenisAras" "Jenis Aras" "$jenisAras")
+        #input_normal("luasAras" "Luas Aras (Meter Persegi)" "$!rekod.luasAras")        
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+<table width="100%">
+	<tr>
+		<td align="right">
+			<input id="kembali" name="kembali" type="button" value="Kembali">
+		</td>
+	</tr>
+</table>
+
+<script>
+_jq('#kembali').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getMaklumatAras','');
+});
+</script>

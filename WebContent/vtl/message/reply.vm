@@ -1,0 +1,91 @@
+<form name="${formname}" method="post">
+<table width="100%" border="0" cellspacing="1" cellpadding="1">
+	<tr>
+		<td>
+			<table align="center" border="0" cellspacing="1" cellpadding="1">
+				<tr>
+					<td>
+						Title:<br>
+						<input class="text" name="title" size="58" value="Re:$forum.title">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Message:<br>
+						<textarea class="text" name="message" cols="60" rows="10">Message</textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input class="button" type="button" value="Add" onclick="add_${formname}()">
+						<input class="button" type="button" value="Attachment" onclick="attachment_${formname}()">
+						<input class="button" type="button" value="Cancel" onclick="cancel_${formname}()">
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<input type="hidden" name="$formname" value="$formname">
+</form>
+
+Reply to:
+<table width="100%" cellpadding="1" cellspacing="1" border="0">
+	<tr>
+		<td>
+			<table class="table_header"  width="100%" cellpadding="1" cellspacing="1" border="0">
+				<tr>
+					<td>
+						$forum.title
+					</td>
+				</tr>
+				<tr>
+					<td>
+						$forum.postedBy
+					</td>
+				</tr>
+				<tr>
+					<td>
+						$forum.datePosted
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td class="table_row" >
+			$forum.notes
+		</td>
+	</tr>	
+
+</table>
+
+<script>
+function add_${formname}() {
+	document.${formname}.action = "?command=SubmitReply&forum_id=$forum.id";	
+	document.${formname}.submit();	
+}
+
+function cancel_${formname}() {
+	document.${formname}.action = "?command=Open&subjectId=$!subjectId&forum_id=$forum.id";
+	document.${formname}.submit();
+}
+
+function attachment_${formname}() {
+	document.${formname}.action = "?command=Attachment&subjectId=$!subjectId&forum_id=$forum.id";
+	document.${formname}.submit();
+}
+
+function goAttachment() {
+  openWindow('about:blank');
+  document.forum.target = "attachment";
+  document.forum.action = "/$appname/uploader/PageUpload.jsp";
+  document.forum.submit();
+}
+function openWindow(url) {
+    var hWnd = window.open(url,'attachment','width=600,height=300, resizable=yes,scrollbars=yes');
+    if ((document.window != null) && (!hWnd.opener))
+     	hWnd.opener = document.window;
+    if (hWnd.focus != null) hWnd.focus();
+}
+</script>

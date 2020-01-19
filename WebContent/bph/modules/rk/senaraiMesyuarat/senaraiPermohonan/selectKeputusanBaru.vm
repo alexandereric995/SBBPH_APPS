@@ -1,0 +1,11 @@
+ #if ($!r.status == "B")
+	<select id="idKeputusan$cBaru.id" name="idKeputusan$cBaru.id" style="width:100%" onChange="doDivAjaxCall3$formname('selectKeputusanBaru$!cBaru.id','doSaveKeputusanBaru','idMesyuaratPermohonan=$!cBaru.id')">
+	    <option value="">SILA PILIH</option>
+	    <option #if ( "L" == $cBaru.flagKeputusan ) selected #end value="L">LULUS</option>
+	    <option #if ( "LB" == $cBaru.flagKeputusan ) selected #end value="LB">LULUS BERSYARAT</option>
+	    <option #if ( "TG" == $cBaru.flagKeputusan ) selected #end value="TG">TANGGUH</option>
+	    <option #if ( "T" == $cBaru.flagKeputusan ) selected #end value="T">TOLAK</option>
+	</select>
+#else
+	<b>$cBaru.getKeteranganKeputusan()</b>
+#end

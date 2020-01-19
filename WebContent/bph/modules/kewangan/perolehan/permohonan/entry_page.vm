@@ -1,0 +1,86 @@
+<style>
+	.uppercasefont{
+		text-transform: uppercase !important;
+	}
+	table.alltop td {
+		vertical-align:top;
+    } 
+</style>	
+
+<input type="hidden" name="idPerolehan" id="idPerolehan" value="$!lbl.id">
+
+<fieldset>
+<legend class="legend">PERMOHONAN BARU</legend>
+
+<table width="100%" class="alltop">
+      
+	<tr>
+        <td class="label" width="20%">TAJUK&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td class="label" width="2%">:</td>
+        <td width="78%">
+			<input class="uppercasefont" style="width:40%" type="text" id="tajuk" name="tajuk" value="$!r.tajuk" onKeyUp=" $('err_tajuk').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()" onBlur="this.value=this.value.toUpperCase();">
+			<div id="err_tajuk" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	</tr>
+  
+	<tr>
+    	<td class="label">UNIT&nbsp;<span style="color:#FF2A00">*</span></td>
+    	<td class="label">:</td>
+    	<td>
+			<input style="width:40%" type="text" id="unit" name="unit" value="$!r.unit" onKeyUp=" $('err_unit').innerHTML=''; at(this, event);" >
+			<div id="err_unit" style="color:#CC0000;font-weight:bold;border:2px #000"></div>	
+		</td>
+    </tr>
+
+	<tr>
+    	<td class="label">JENIS PEROLEHAN&nbsp;<span style="color:#FF2A00">*</span></td>
+    	<td class="label">:</td>
+    	<td>
+			$!selectKodPerolehan
+			<div id="err_perolehan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+    </tr>
+
+	<tr>
+    	<td class="label" valign="top">JUSTIFIKASI</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top"><textarea id="justifikasi" style="width:40%" class="uppercasefont" name="justifikasi" onKeyUp="this.value=this.value.toUpperCase();" onBlur="this.value=this.value.toUpperCase();">$!r.justifikasi</textarea></td>
+    </tr>
+  
+</table>
+</fieldset>
+
+#if($!lbl.flagSokong.equalsIgnoreCase("TS"))
+<fieldset>
+<legend class="legend">PERMOHONAN TIDAK DISOKONG</legend>
+<table width="100%">
+	<tr>
+    	<td class="label" valign="top" width="20%">CATATAN</td>
+    	<td class="label" valign="top" width="2%">:</td>
+    	<td valign="top" width="78%">$!lbl.catatanSokongan</td>
+    </tr>
+</table>
+</fieldset>
+#end
+
+#if($!lbl.flagLulus.equalsIgnoreCase("TL"))
+<fieldset>
+<legend class="legend">PERMOHONAN TIDAK DILULUSKAN</legend>
+<table width="100%">
+	<tr>
+    	<td class="label" valign="top" width="20%">CATATAN</td>
+    	<td class="label" valign="top" width="2%">:</td>
+    	<td valign="top" width="78%">$!lbl.catatanLulus</td>
+    </tr>
+</table>
+</fieldset>
+#end
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

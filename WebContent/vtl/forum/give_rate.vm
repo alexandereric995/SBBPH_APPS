@@ -1,0 +1,75 @@
+<form name="${formname}" method="post" action="javascript:save_${formname}()">
+<table width="100%">
+<tr><td style="font-family:helvetica;font-weight:bold;font-size:12pt">
+Rate This Post
+</td></tr>
+
+												<tr>						<td align="center">
+												<br>
+												</td></tr>
+												
+<tr><td>
+$forum.message
+</td></tr>
+</table>
+
+												<input type="hidden" name="$formname" value="$formname">
+												<br>
+												<script>
+												var rateValue = 0;
+																		var img1 = new Image();
+						var img2 = new Image();
+						img1.src = '../img/star1.gif';
+						img2.src = '../img/star2.gif';
+						function rate(r) {
+document.star1.src=img2.src;document.star2.src=img2.src;document.star3.src=img2.src;document.star4.src=img2.src;document.star5.src=img2.src;
+if ( r == 1 ) document.star1.src = img1.src;
+if ( r == 2 ) {document.star1.src=img1.src;document.star2.src=img1.src;}
+if ( r == 3 ) {document.star1.src=img1.src;document.star2.src=img1.src;document.star3.src=img1.src;}
+if ( r == 4 ) {document.star1.src=img1.src;document.star2.src=img1.src;document.star3.src=img1.src;document.star4.src=img1.src;}
+if ( r == 5 ) {document.star1.src=img1.src;document.star2.src=img1.src;document.star3.src=img1.src;document.star4.src=img1.src;document.star5.src=img1.src;}
+rateValue = r;
+						}
+						</script>
+						<p align="center">
+						<table width="200px" cellpadding="2" cellspacing="0">
+						<tr>						<td align="center" colspan="5">
+<b>Click on the star:</b><br>
+						</td>						</tr>
+						
+
+												
+						<tr>
+						<td align="center">												<a href="javascript:submitRate_${formname}(1)"><img src="../img/star2.gif" name="star1" onmouseover="rate(1)" border="0"></a></td>
+																														<td align="center"><a href="javascript:submitRate_${formname}(2)"><img src="../img/star2.gif" name="star2" onmouseover="rate(2)" border="0"></td>
+																																										<td align="center"><a href="javascript:submitRate_${formname}(3)"><img src="../img/star2.gif" name="star3" onmouseover="rate(3)" border="0"></td>
+																																																						<td align="center"><a href="javascript:submitRate_${formname}(4)"><img src="../img/star2.gif" name="star4" onmouseover="rate(4)" border="0"></td>
+																																																																		<td align="center"><a href="javascript:submitRate_${formname}(5)"><img src="../img/star2.gif" name="star5" onmouseover="rate(5)" border="0"></td>
+																																																																		</tr>
+																																																																								<tr>
+						<td align="center">1												</td>
+																														<td align="center">2</td>
+																																										<td align="center">3</td>
+																																																						<td align="center">4</td>
+																																																																		<td align="center">5</td>
+																																																																		</tr>
+																																																																		</table>
+																																																																		
+																																																												</p>
+																																																												<p align="right">
+																																																																		<input class="button" type="button" value="Cancel" onclick="cancel_${formname}()">
+																																																																		</p>
+						</form>
+
+
+						<script>
+
+						function cancel_${formname}() {
+	document.${formname}.action = "?command=Open&subjectId=$!subjectId&forum_id=$forum.id";
+	document.${formname}.submit();
+}
+						function submitRate_${formname}(r) {
+	document.${formname}.action = "?command=SubmitRate&subjectId=$!subjectId&forum_id=$forum.id&rateValue="+r;
+	document.${formname}.submit();
+}
+</script>

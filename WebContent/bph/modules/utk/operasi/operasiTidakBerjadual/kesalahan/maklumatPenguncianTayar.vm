@@ -1,0 +1,46 @@
+<fieldset>
+<legend class="legend">MAKLUMAT KESALAHAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2" align="center">
+  <tr>
+    <td class="label" style="width:25%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:64%">&nbsp;</td>
+  </tr>
+  	#input_readonly_all_label("noKp" "No Pengenalan" "$!rekod.penghuni.pemohon.noKP")
+  	#input_readonly_all_label("namaPesalah" "Nama" "$!rekod.penghuni.pemohon.userName")
+  	#input_readonly_all_label("noUnit" "No Unit Kuarters" "$!rekod.penghuni.kuarters.noUnit")
+  	#input_required("noSiri" "No Siri" "$!rekod.noSiri")
+  	#input_required("jenisKenderaan" "Jenis Kenderaan" "$!rekod.jenisKenderaan") 	
+  	#input_required("noPlat" "No Plat Kenderaan" "$!rekod.noPlat")
+	#textarea("catatan" "Catatan" "$!rekod.catatan")
+	#currency_required("amaun" "Amaun (RM)" "$!ak.debit")
+</table>
+<br/>
+<table width="40%" cellpadding="1" cellspacing="2" align="center">
+  <tr>
+    <td>
+	<input type="button" value="Simpan" align='left' id="cmdSimpanPenguncian">
+ 	<input type="button" value="Kembali" align='left' id="cmdKembali">
+	</td>
+  </tr>
+</table>
+</fieldset>
+<input type="hidden" id="idPenguncian" name="idPenguncian" value="$rekod.id">
+
+<script>
+_jq('#cmdKembali').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getMaklumatKesalahan','');
+    jQuery('#cmdKembali').fadeOut();
+});
+_jq('#cmdSimpanPenguncian').on('click', function(){
+	savePenguncian();
+});
+</script>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

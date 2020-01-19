@@ -1,0 +1,429 @@
+function validate() {
+
+	var err_count = 0;
+
+	var noPendaftaran = $('noPendaftaran').value;
+	if ( noPendaftaran == "" ) {$('err_noPendaftaran').innerHTML = "No. Pendaftaran adalah mandatori!"; err_count++;  }
+	
+	var namaKontraktor = $('namaKontraktor').value;
+	if ( namaKontraktor == "" ) {$('err_namaKontraktor').innerHTML = "Nama Kontraktor adalah mandatori!"; err_count++;  }
+	
+	var namaPemilik = $('namaPemilik').value;
+	if ( namaPemilik == "" ) {$('err_namaPemilik').innerHTML = "Nama Pemilik adalah mandatori!"; err_count++;  }
+	
+	var noTelefon = $('noTelefon').value;
+	if ( noTelefon == "" ) {$('err_noTelefon').innerHTML = "No Telefon adalah mandatori!"; err_count++;  }
+	
+	var noTelefonBimbit = $('noTelefonBimbit').value;
+	if ( noTelefonBimbit == "" ) {$('err_noTelefonBimbit').innerHTML = "No Telefon Bimbit adalah mandatori!"; err_count++;  }
+	
+	var checkFlagElektrik = $('flagElektrik').checked;
+	var checkFlagAwam = $('flagAwam').checked;
+	if (!checkFlagElektrik && !checkFlagAwam) {$('err_bidang').innerHTML = "Bidang adalah mandatori!"; err_count++;  }
+	
+	var idKawasan = $('idKawasan').value;
+	if ( idKawasan == "" ) {$('err_kawasan').innerHTML = "Kawasan adalah mandatori!"; err_count++;  }
+	
+	var alamat1 = $('alamat1').value;
+	if ( alamat1 == "" ) {$('err_alamat1').innerHTML = "Alamat adalah mandatori!"; err_count++;  }
+	
+	var poskod = $('poskod').value;
+	if ( poskod == "" ) {$('err_poskod').innerHTML = "Poskod adalah mandatori!"; err_count++;  }
+	
+	var idNegeri = $('idNegeri').value;
+	if ( idNegeri == "" ) {$('err_negeri').innerHTML = "Negeri adalah mandatori!"; err_count++;  }
+	
+	var idBandar = $('idBandar').value;
+	if ( idBandar == "" ) {$('err_bandar').innerHTML = "Bandar adalah mandatori!"; err_count++;  }
+
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function validateKontraktor() {
+
+	var err_count = 0;
+	
+	var namaKontraktor = $('namaKontraktor').value;
+	if ( namaKontraktor == "" ) {$('err_namaKontraktor').innerHTML = "Nama Kontraktor adalah mandatori!"; err_count++;  }
+	
+	var namaPemilik = $('namaPemilik').value;
+	if ( namaPemilik == "" ) {$('err_namaPemilik').innerHTML = "Nama Pemilik adalah mandatori!"; err_count++;  }
+	
+	var noTelefon = $('noTelefon').value;
+	if ( noTelefon == "" ) {$('err_noTelefon').innerHTML = "No Telefon adalah mandatori!"; err_count++;  }
+	
+	var noTelefonBimbit = $('noTelefonBimbit').value;
+	if ( noTelefonBimbit == "" ) {$('err_noTelefonBimbit').innerHTML = "No Telefon Bimbit adalah mandatori!"; err_count++;  }
+	
+	var checkFlagElektrik = $('flagElektrik').checked;
+	var checkFlagAwam = $('flagAwam').checked;
+	if (!checkFlagElektrik && !checkFlagAwam) {$('err_bidang').innerHTML = "Bidang adalah mandatori!"; err_count++;  }
+	
+	var idKawasan = $('idKawasan').value;
+	if ( idKawasan == "" ) {$('err_kawasan').innerHTML = "Kawasan adalah mandatori!"; err_count++;  }
+	
+	var alamat1 = $('alamat1').value;
+	if ( alamat1 == "" ) {$('err_alamat1').innerHTML = "Alamat adalah mandatori!"; err_count++;  }
+	
+	var poskod = $('poskod').value;
+	if ( poskod == "" ) {$('err_poskod').innerHTML = "Poskod adalah mandatori!"; err_count++;  }
+	
+	var idNegeri = $('idNegeri').value;
+	if ( idNegeri == "" ) {$('err_negeri').innerHTML = "Negeri adalah mandatori!"; err_count++;  }
+	
+	var idBandar = $('idBandar').value;
+	if ( idBandar == "" ) {$('err_bandar').innerHTML = "Bandar adalah mandatori!"; err_count++;  }
+
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doSaveKontraktor() {
+	if (validateKontraktor()){
+		doDivAjaxCall$formname('divTab','saveKontraktor','');
+	}
+}
+
+## MAKLUMAT PENGKHUSUSAN
+function validateMaklumatPengkhususan() {
+	var err_count = 0;
+	
+	var idGred = $('idGred').value;
+	if ( idGred == "" ) {$('err_idGred').innerHTML = "Gred adalah mandatori!"; err_count++;  }
+	
+	var idKategori = $('idKategori').value;
+	if ( idKategori == "" ) {$('err_idKategori').innerHTML = "Kategori adalah mandatori!"; err_count++;  }
+	
+	var idPengkhususan = $('idPengkhususan').value;
+	if ( idPengkhususan == "" ) {$('err_idPengkhususan').innerHTML = "Pengkhususan adalah mandatori!"; err_count++;  }
+	
+	return err_count == 0;
+}
+
+function saveMaklumatPengkhususan() {
+	if ( validateMaklumatPengkhususan() ){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxChainCall$formname('divTab','saveMaklumatPengkhususan','','divTab','getMaklumatPengkhususan','');
+	}
+}
+
+function deleteMaklumatPengkhususan(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','removeMaklumatPengkhususan','idMaklumatPengkhususan=' + id);
+}
+
+## SIJIL SOKONGAN
+function doSaveSijil() {
+	
+	var err_count = 0;
+	var tarikhMulaPP = $('tarikhMulaPP').value;
+	if ( tarikhMulaPP == "-" ) {$('err_tarikhMulaPP').innerHTML = "Tarikh Mula PP adalah mandatori!"; err_count++;  }
+	
+	var tarikhTamatPP = $('tarikhTamatPP').value;
+	if ( tarikhTamatPP == "-" ) {$('err_tarikhTamatPP').innerHTML = "Tarikh Tamat PP adalah mandatori!"; err_count++;  }
+	
+	var tarikhMulaSPKK = $('tarikhMulaSPKK').value;
+	if ( tarikhMulaSPKK == "-" ) {$('err_tarikhMulaSPKK').innerHTML = "Tarikh Mula SPKK adalah mandatori!"; err_count++;  }
+	
+	var tarikhTamatSPKK = $('tarikhTamatSPKK').value;
+	if ( tarikhTamatSPKK == "-" ) {$('err_tarikhTamatSPKK').innerHTML = "Tarikh Tamat SPKK adalah mandatori!"; err_count++;  }
+	
+	var tarikhMulaSTB = $('tarikhMulaSTB').value;
+	if ( tarikhMulaSTB == "-" ) {$('err_tarikhMulaSTB').innerHTML = "Tarikh Mula STB adalah mandatori!"; err_count++;  }
+	
+	var tarikhTamatSTB = $('tarikhTamatSTB').value;
+	if ( tarikhTamatSTB == "-" ) {$('err_tarikhTamatSTB').innerHTML = "Tarikh Tamat STB adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','saveSijilSokongan','');
+	}
+	return err_count == 0;	
+}
+
+function uploadProfil() {
+	$('err_dokumenProfil').innerHTML = '';
+	var idPendaftaran = $('idPendaftaran').value;
+	var error = 0;
+	var err_count = 0;
+	
+	if ($('dokumenProfil').value != "" && !checkDoc($('dokumenProfil').value)) {
+		error++;
+		$('dokumenProfil').value = "";
+		$('err_dokumenProfil').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+	}
+	if ($('dokumenProfil').value != "" && $('dokumenProfil').files[0].size > 2097152) {
+		error++;
+		$('err_dokumenProfil').innerHTML = "Saiz fail adalah "+($('dokumenProfil').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumenProfil').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('muatNaikSijilProfil').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_Profil';
+		document.${formName}.action='?command=uploadProfil&idPendaftaran='+idPendaftaran;
+		document.${formName}.submit();
+		$('dokumenProfil').value = "";
+	}
+	
+	return err_count == 0;
+}
+
+function uploadBank() {
+	$('err_dokumenBank').innerHTML = '';
+	var idPendaftaran = $('idPendaftaran').value;
+	var error = 0;
+	var err_count = 0;
+	
+	if ($('dokumenBank').value != "" && !checkDoc($('dokumenBank').value)) {
+		error++;
+		$('dokumenBank').value = "";
+		$('err_dokumenBank').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+	}
+	if ($('dokumenBank').value != "" && $('dokumenBank').files[0].size > 2097152) {
+		error++;
+		$('err_dokumenBank').innerHTML = "Saiz fail adalah "+($('dokumenBank').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumenBank').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('muatNaikSijilBank').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_Bank';
+		document.${formName}.action='?command=uploadBank&idPendaftaran='+idPendaftaran;
+		document.${formName}.submit();
+		$('dokumenBank').value = "";
+	}
+	
+	return err_count == 0;
+}
+
+function uploadPP() {
+	$('err_dokumenPP').innerHTML = '';
+	var idPendaftaran = $('idPendaftaran').value;
+	var error = 0;
+	var err_count = 0;
+	
+	if ($('dokumenPP').value != "" && !checkDoc($('dokumenPP').value)) {
+		error++;
+		$('dokumenPP').value = "";
+		$('err_dokumenPP').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+	}
+	if ($('dokumenPP').value != "" && $('dokumenPP').files[0].size > 2097152) {
+		error++;
+		$('err_dokumenPP').innerHTML = "Saiz fail adalah "+($('dokumenPP').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumenPP').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('muatNaikSijilPP').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_PP';
+		document.${formName}.action='?command=uploadPP&idPendaftaran='+idPendaftaran;
+		document.${formName}.submit();
+		$('dokumenPP').value = "";
+	}
+	
+	return err_count == 0;
+}
+
+function uploadSPKK() {
+	$('err_dokumenSPKK').innerHTML = '';
+	var idPendaftaran = $('idPendaftaran').value;
+	var error = 0;
+	var err_count = 0;
+	
+	if ($('dokumenSPKK').value != "" && !checkDoc($('dokumenSPKK').value)) {
+		error++;
+		$('dokumenSPKK').value = "";
+		$('err_dokumenSPKK').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+	}
+	if ($('dokumenSPKK').value != "" && $('dokumenSPKK').files[0].size > 2097152) {
+		error++;
+		$('err_dokumenSPKK').innerHTML = "Saiz fail adalah "+($('dokumenSPKK').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumenSPKK').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('muatNaikSijilSPKK').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_SPKK';
+		document.${formName}.action='?command=uploadSPKK&idPendaftaran='+idPendaftaran;
+		document.${formName}.submit();
+		$('dokumenSPKK').value = "";
+	}
+	
+	return err_count == 0;
+}
+
+function uploadST() {
+	$('err_dokumenST').innerHTML = '';
+	var idPendaftaran = $('idPendaftaran').value;
+	var error = 0;
+	var err_count = 0;
+	
+	if ($('dokumenST').value != "" && !checkDoc($('dokumenST').value)) {
+		error++;
+		$('dokumenST').value = "";
+		$('err_dokumenST').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+	}
+	if ($('dokumenST').value != "" && $('dokumenST').files[0].size > 2097152) {
+		error++;
+		$('err_dokumenST').innerHTML = "Saiz fail adalah "+($('dokumenST').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumenST').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('muatNaikSijilST').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_ST';
+		document.${formName}.action='?command=uploadST&idPendaftaran='+idPendaftaran;
+		document.${formName}.submit();
+		$('dokumenST').value = "";
+	}
+	
+	return err_count == 0;
+}
+
+function uploadSTB() {
+	$('err_dokumenSTB').innerHTML = '';
+	var idPendaftaran = $('idPendaftaran').value;
+	var error = 0;
+	var err_count = 0;
+	
+	if ($('dokumenSTB').value != "" && !checkDoc($('dokumenSTB').value)) {
+		error++;
+		$('dokumenSTB').value = "";
+		$('err_dokumenSTB').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+	}
+	if ($('dokumenSTB').value != "" && $('dokumenSTB').files[0].size > 2097152) {
+		error++;
+		$('err_dokumenSTB').innerHTML = "Saiz fail adalah "+($('dokumenSTB').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumenSTB').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('muatNaikSijilSTB').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_STB';
+		document.${formName}.action='?command=uploadSTB&idPendaftaran='+idPendaftaran;
+		document.${formName}.submit();
+		$('dokumenSTB').value = "";
+	}
+	
+	return err_count == 0;
+}
+
+function doHapusProfil() {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divTab','doHapusProfil','');
+}
+
+function doHapusBank() {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divTab','doHapusBank','');
+}
+
+function doHapusPP() {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divTab','doHapusPP','');
+}
+
+function doHapusSPKK() {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divTab','doHapusSPKK','');
+}
+
+function doHapusST() {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divTab','doHapusST','');
+}
+
+function doHapusSTB() {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divTab','doHapusSTB','');
+}
+
+## DOKUMEN SOKONGAN
+function checkUpload() {
+	$('err_dokumen').innerHTML = '';
+	var idPendaftaran = $('idPendaftaran').value;
+	var error = 0;
+	var err_count = 0;
+	
+	var idJenisDokumen = $('idJenisDokumen').value;
+	if ( idJenisDokumen == "" ) {$('err_idJenisDokumen').innerHTML = "Jenis Dokumen adalah mandatori!"; err_count++;  }
+	
+	var tajukDokumen = $('tajukDokumen').value;
+	if ( tajukDokumen == "" ) {$('err_tajukDokumen').innerHTML = "Tajuk adalah mandatori!"; err_count++;  }
+
+	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+		error++;
+		$('dokumen').value = "";
+		$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+	}
+	if ($('dokumen').value != "" && $('dokumen').files[0].size > 2097152) {
+		error++;
+		$('err_dokumen').innerHTML = "Saiz fail adalah "+($('dokumen').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumen').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('dokumenMuatnaik').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_doc';
+		document.${formName}.action='?command=uploadDoc&idPendaftaran='+idPendaftaran+'&tajukDokumen='+$('tajukDokumen').value+'&idJenisDokumen='+$('idJenisDokumen').value+'&keteranganDokumen='+$('keteranganDokumen').value;
+		document.${formName}.submit();
+		$('tajukDokumen').value = "";
+		$('idJenisDokumen').value = "";
+		$('keteranganDokumen').value = "";
+		$('dokumen').value = "";
+	}
+	
+	return err_count == 0;
+}
+
+function checkDoc(val) {
+	var arr = val.split(".");
+	var arr1 = val.split("\\");
+	if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" || arr[1] == "PDF" || arr[1] == "pdf" || arr[1] == "doc" || arr[1] == "DOC" || arr[1] == "docx" || arr[1] == "DOCX" ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function deleteDokumen(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divTab','deleteDokumen','idDokumen='+id);
+}

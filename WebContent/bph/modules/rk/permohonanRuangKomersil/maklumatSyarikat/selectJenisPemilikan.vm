@@ -1,0 +1,12 @@
+<select id="idJenisPemilikan" name="idJenisPemilikan" style="width:100%"">
+    <option value="">SILA PILIH</option>
+    #if ($!command == 'getMaklumatSyarikatBerdaftar' || $!command == 'getPilihanSyarikat')
+    <option #if ( "T" ==  $!syarikat.idJenisPemilikan ) selected #end value="T">TUNGGAL</option>
+    <option #if ( "P" ==  $!syarikat.idJenisPemilikan ) selected #end value="P">PERKONGSIAN</option>
+    <option #if ( "L" ==  $!syarikat.idJenisPemilikan ) selected #end value="L">LAIN-LAIN</option>
+    #else
+    <option #if ( "T" ==  $!r.fail.pemohon.syarikat.idJenisPemilikan ) selected #end value="T">TUNGGAL</option>
+    <option #if ( "P" ==  $!r.fail.pemohon.syarikat.idJenisPemilikan ) selected #end value="P">PERKONGSIAN</option>
+    <option #if ( "L" ==  $!r.fail.pemohon.syarikat.idJenisPemilikan ) selected #end value="L">LAIN-LAIN</option>
+    #end
+</select>

@@ -1,0 +1,14 @@
+<nav class="breadcrumbs">
+    <ul>
+        <li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getKebersihan','')" #end >Maklumat Naziran Kebersihan</a></li>
+		<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onclick="doDivAjaxCall3$formname('divTab','getNotis','')" #end >Maklumat Notis</a></li>
+    </ul>	
+</nav>
+<br/>
+#if ($!selectedTab=='1')
+	#parse("$path/maklumatKontraktor.vm")
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/notis/start.vm")
+#end

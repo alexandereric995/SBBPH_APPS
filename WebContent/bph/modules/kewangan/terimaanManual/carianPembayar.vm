@@ -1,0 +1,40 @@
+
+
+##<fieldset style="height:50px;min-height:50px">
+<fieldset style="height:200px;min-height:200px">
+	<legend class="legend">CARIAN PEMBAYAR</legend>
+	
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr>
+			<td width="80%" valign="top">
+				<input type="text" placeholder="NAMA / NO. KP / NO. SSM / NO. INVOIS" name="carianPembayar" id="carianPembayar" tabindex="3" value="$!carianPembayar" onKeyUp=" $('err_carianPembayar').innerHTML='';" />
+				<div id="err_carianPembayar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+			<td width="20%" valign="top">
+				<input type="button" tabindex="4" value="CARI" id="btnCariPembayar" onclick="" />
+			</td>
+		</tr>
+	</table>
+	
+</fieldset>		
+
+<div id="divPopupCarianPembayar" class="popup"></div>
+
+<script>
+function validateCarian() {
+	var err_count = 0;
+	
+	var carianPembayar = $('carianPembayar').value;
+	if ( carianPembayar == "" ) {$('err_carianPembayar').innerHTML = "Sila Masukkan Carian."; err_count++;  }
+	
+	if (err_count == 0) {}
+	
+	return err_count == 0;
+}
+_jq('#btnCariPembayar').on('click', function(){
+	if (validateCarian()){
+		doDivAjaxCall3$formname('divPopupCarianPembayar','callPopupCarianPembayar','');
+    	jQuery('#divPopupCarianPembayar').fadeIn();
+	}
+});
+</script>

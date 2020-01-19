@@ -1,0 +1,46 @@
+<fieldset>
+<legend class="legend">Maklumat Notis / Surat</legend>
+<table width="100%">
+  <tr>
+    <td style="width:180px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+     #input_required("noSiri" "No Notis / Surat" "$!rekod.noSiri")
+     <tr>
+    	<td class="label">Jenis Notis / Surat &nbsp;<span style="color:#FF2A00">*</span></td>
+    	<td>:</td>
+    	<td>#parse("$path/notis/selectJenisNotis.vm")
+    	<div id="err_idJenisNotis" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  	</tr>
+  	</table>
+  	<div id="selectFlagPeringatan" name="selectFlagPeringatan">
+  	#parse("$path/notis/selectPeringatan.vm")
+  	</div>
+  	<table width="100%">
+  	<tr>
+    <td style="width:180px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+	 #date_input_required("tarikhHantar" "Tarikh Hantar Notis / Surat" "$!util.getDateTime($rekod.tarikhHantar,'dd-MM-yyyy')")
+	 #textarea("catatan" "Catatan" "$!rekod.catatan")
+</table>
+<input type="hidden" id="idNotis" name="idNotis" value="$rekod.id">
+	<p align="center">
+	<input type="button" value="Simpan" align='left' id="cmdSimpanNotis">
+ 	<input type="button" value="Kembali" align='left' id="cmdKembali">
+	</p>
+</fieldset>
+
+
+
+<script>
+_jq('#cmdKembali').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getNotis','');
+    jQuery('#cmdKembali').fadeOut();
+});
+_jq('#cmdSimpanNotis').on('click', function(){
+	saveNotis();
+});
+</script>

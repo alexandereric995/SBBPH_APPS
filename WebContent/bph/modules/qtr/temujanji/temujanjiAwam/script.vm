@@ -1,0 +1,97 @@
+function doSimpanMaklumatTemujanji() {
+	var err_count = 0;
+	
+	var tarikhTemujanji = $('tarikhTemujanji').value;
+	if ( tarikhTemujanji == "" ) {$('err_tarikhTemujanji').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if ( tarikhTemujanji != "" ) {
+		var idMasaTemujanji = $('idMasaTemujanji').value;
+		if ( idMasaTemujanji == "" ) {$('err_idMasaTemujanji').innerHTML = "** mandatori!"; err_count++;  }
+	}
+	
+	var idSebabBertukar = $('idSebabBertukar').value;
+	if ( idSebabBertukar == "" ) {$('err_idSebabBertukar').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var alamat1 = $('alamat1').value;
+	if ( alamat1 == "" ) {$('err_alamat1').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var poskod = $('poskod').value;
+	if ( poskod == "" ) {$('err_poskod').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idNegeri = $('idNegeri').value;
+	if ( idNegeri == "" ) {$('err_idNegeri').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idBandar = $('idBandar').value;
+	if ( idBandar == "" ) {$('err_idBandar').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var noTelefonBimbit = $('noTelefonBimbit').value;
+	if ( noTelefonBimbit == "" ) {$('err_noTelefonBimbit').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var email = $('emel').value;     
+	if ( email == "" ) { 
+    	$('err_emel').innerHTML = "** mandatori"; err_count++;
+    } else {
+		var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	    if (!filter.test(email)) {
+	    	$('err_emel').innerHTML = "Sila masukkan format email yang betul"; err_count++;
+	    }
+    }
+	
+	if (idSebabBertukar == '01') {
+		var idKementerian = $('idKementerian').value;
+		if ( idKementerian == "" ) {$('err_idKementerian').innerHTML = "** mandatori!"; err_count++;  }
+		
+		var idAgensi = $('idAgensi').value;
+		if ( idAgensi == "" ) {$('err_idAgensi').innerHTML = "** mandatori!"; err_count++;  }
+		
+		var bahagian = $('bahagian').value;
+		if ( bahagian == "" ) {$('err_bahagian').innerHTML = "** mandatori!"; err_count++;  }
+		
+		var noTelefonPejabat = $('noTelefonPejabat').value;
+		if ( noTelefonPejabat == "" ) {$('err_noTelefonPejabat').innerHTML = "** mandatori!"; err_count++;  }
+		
+		var alamatPejabat1 = $('alamatPejabat1').value;
+		if ( alamatPejabat1 == "" ) {$('err_alamatPejabat1').innerHTML = "** mandatori!"; err_count++;  }
+		
+		var poskodPejabat = $('poskodPejabat').value;
+		if ( poskodPejabat == "" ) {$('err_poskodPejabat').innerHTML = "** mandatori!"; err_count++;  }
+		
+		var idNegeriPejabat = $('idNegeriPejabat').value;
+		if ( idNegeriPejabat == "" ) {$('err_idNegeriPejabat').innerHTML = "** mandatori!"; err_count++;  }
+		
+		var idBandarPejabat = $('idBandarPejabat').value;
+		if ( idBandarPejabat == "" ) {$('err_idBandarPejabat').innerHTML = "** mandatori!"; err_count++;  }
+	}
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('divMaklumatTemujanji','doSimpanMaklumatTemujanji','');
+	}	
+}
+
+function doBatalMaklumatTemujanji() {
+
+	var err_count = 0;
+	
+	var catatan = $('catatan').value;
+	if ( catatan == "" ) {$('err_catatan').innerHTML = "** mandatori!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('divMaklumatTemujanji','doBatalMaklumatTemujanji','');
+	}
+	
+	return err_count == 0;
+}
+
+function previewRekodTemujanji(idTemujanji) {
+    var url = "../servlet/bph.laporan.qtr.QTRPreviewSijilAkuan?idTemujanji="+idTemujanji;
+	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	if ((document.window != null) && (!hWnd.opener))
+	hWnd.opener = document.window;
+	if (hWnd.focus != null) hWnd.focus();
+}

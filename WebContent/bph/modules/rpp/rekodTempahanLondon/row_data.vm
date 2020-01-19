@@ -1,0 +1,30 @@
+
+<td valign="top">
+	<b>Nama :</b> <a href="javascript:void()" style="color:blue" onClick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')">$!r.getMaklumatPemohon().nama.toUpperCase() </a><br/>
+	<b>MyID :</b> $!r.getMaklumatPemohon().nokp<br/>
+	<b>Gred :</b> $!r.getMaklumatPemohon().jawatanDanGred<br/>
+	<b>No. Telefon :</b> $!r.getMaklumatPemohon().noTelPejabat<br/>
+  	<b>No. Telefon Bimbit :</b> $!r.getMaklumatPemohon().noTelBimbit<br/>
+  	<b>Emel :</b> $!r.getMaklumatPemohon().emel
+</td>
+<td valign="top">
+	<span style='font-size:10px'>$!r.jenisUnitRpp.peranginan.namaPeranginan.toUpperCase()</span>
+	<br/><span style='font-size:10px'>($!r.jenisUnitRpp.keterangan.toUpperCase())</span>
+</td>
+<td valign="top" align="center">$!util.getDateTime($!r.tarikhDaftarRekod,'dd-MM-yyyy')</td>
+<td valign="top">$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy') - $!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')</td>
+<td valign="top">
+	$!util.replaceIfNull($!r.status.keterangan.toUpperCase(),"PERMOHONAN BARU")
+	#if( $!r.status.id == "1430809277102")
+	<br/><span style='font-size:10px'>($!r.keteranganStatusBayaran())</span>
+	#end
+	
+	#if($!userRole.equalsIgnoreCase("(RPP) Penyedia") || $!userRole.equalsIgnoreCase("(RPP) Penyemak") || $!userRole.equalsIgnoreCase("(RPP) Pelulus"))
+    	#if( $!r.flagKelulusanPmo )
+    	<br/><span style='font-size:10px;color:red'>* $!r.keteranganKelulusanPmo()</span>
+    	#end
+	#end
+	
+</td>
+	
+

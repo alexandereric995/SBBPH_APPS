@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="LaporanBukuTunaiCerakinanHarian_subreport2"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="220"
+		 pageHeight="842"
+		 columnWidth="220"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="tarikhBayar" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="kodPusat" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT ruj_kod_hasil.kod, SUM(kew_invois.kredit) jumlah_amaun_bayaran, '' jumlah_deposit
+FROM kew_invois
+JOIN ruj_kod_hasil ON kew_invois.id_kod_hasil = ruj_kod_hasil.id
+JOIN kew_resit_senarai_invois ON kew_resit_senarai_invois.id_invois = kew_invois.id
+JOIN kew_bayaran_resit ON kew_bayaran_resit.id = kew_resit_senarai_invois.id_bayaran_resit
+JOIN ruj_kod_juruwang ON kew_bayaran_resit.id_juruwang = ruj_kod_juruwang.id
+WHERE DATE_FORMAT(kew_bayaran_resit.tarikh_bayaran,'%d-%m-%Y')  = '$P!{tarikhBayar}'
+AND ruj_kod_juruwang.id_juruwang is not null
+AND ruj_kod_juruwang.kod_pusat_terima = '$P!{kodPusat}'
+AND (kew_bayaran_resit.flag_void is null or kew_bayaran_resit.flag_void = 'T')
+AND kew_bayaran_resit.flag_jenis_bayaran != 'ONLINE'
+AND kew_invois.id_kod_hasil NOT IN ('72310','74202','74299','92401','92402','74201','79503','81199')
+GROUP BY ruj_kod_hasil.kod
+UNION
+SELECT ruj_kod_hasil.kod, '' jumlah_amaun_bayaran, SUM(kew_deposit.jumlah_deposit) jumlah_deposit
+FROM kew_deposit
+JOIN ruj_kod_hasil ON kew_deposit.id_kod_hasil = ruj_kod_hasil.id
+JOIN kew_resit_senarai_invois ON kew_resit_senarai_invois.id_deposit = kew_deposit.id 
+JOIN kew_bayaran_resit ON kew_bayaran_resit.id = kew_resit_senarai_invois.id_bayaran_resit
+JOIN ruj_kod_juruwang ON kew_bayaran_resit.id_juruwang = ruj_kod_juruwang.id
+WHERE DATE_FORMAT(kew_bayaran_resit.tarikh_bayaran,'%d-%m-%Y')  = '$P!{tarikhBayar}'
+AND ruj_kod_juruwang.id_juruwang is not null
+AND ruj_kod_juruwang.kod_pusat_terima = '$P!{kodPusat}'
+AND (kew_bayaran_resit.flag_void is null or kew_bayaran_resit.flag_void = 'T')
+AND kew_bayaran_resit.flag_jenis_bayaran != 'ONLINE'
+AND kew_deposit.id_kod_hasil NOT IN ('72310','74202','74299','92401','92402','74201','79503','81199')
+GROUP BY ruj_kod_hasil.kod]]></queryString>
+
+	<field name="kod" class="java.lang.String"/>
+	<field name="jumlah_amaun_bayaran" class="java.lang.Double"/>
+	<field name="jumlah_deposit" class="java.lang.Double"/>
+
+	<variable name="kod" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[!$F{kod}.equals("74201") && !$F{kod}.equals("74202") && !$F{kod}.equals("74299") && 
+!$F{kod}.equals("79503") && !$F{kod}.equals("72310") && !$F{kod}.equals("81199") && 
+!$F{kod}.equals("92401") && !$F{kod}.equals("92402") ?$F{kod} : ("")]]></variableExpression>
+	</variable>
+	<variable name="TOTAL" class="java.lang.Double" resetType="Group" resetGroup="kod" calculation="Sum">
+		<variableExpression><![CDATA[($F{kod}!= null? new Double($F{jumlah_amaun_bayaran}.doubleValue()+$F{jumlah_deposit}.doubleValue()) : new Double(0.00))]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_1" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{jumlah_amaun_bayaran}.doubleValue()+$F{jumlah_deposit}.doubleValue())]]></variableExpression>
+	</variable>
+
+		<group  name="kod" >
+			<groupExpression><![CDATA[$F{kod}]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="16"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="12"
+						y="0"
+						width="100"
+						height="16"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{kod}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,###,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="132"
+						y="0"
+						width="80"
+						height="16"
+						key="textField"/>
+					<box rightPadding="2"></box>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{TOTAL}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="13"  isSplitAllowed="false" >
+				<textField isStretchWithOverflow="false" pattern="#,###,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="130"
+						y="0"
+						width="80"
+						height="13"
+						key="textField"/>
+					<box rightPadding="2">					<pen lineWidth="0.25" lineStyle="Solid"/>
+					<topPen lineWidth="0.25" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.25" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isUnderline="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["RM " + new DecimalFormat("#,###,##0.00").format($V{TOTAL_1}.doubleValue())]]></textFieldExpression>
+				</textField>
+			</band>
+		</summary>
+</jasperReport>

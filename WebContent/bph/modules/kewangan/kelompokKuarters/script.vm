@@ -1,0 +1,22 @@
+
+function validate() {
+	var err_count = 0;
+	
+	var namaAgensi = $('namaAgensi').value;
+	if ( namaAgensi == "" ) {$('err_namaAgensi').innerHTML = "Nama Agensi adalah mandatori!"; err_count++;  }
+
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function savePilihan(){
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall$formname('div_main_entry','savePilihanPenghuni','');
+		jQuery('#popupSenaraiPenghuni').fadeOut();
+	}
+}

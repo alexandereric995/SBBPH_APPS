@@ -1,0 +1,65 @@
+<input type="hidden" id="flagSkrin" name="flagSkrin" value="$!flagSkrin">
+<input type="hidden" id="idLaporan" name="idLaporan" value="$!r.id">
+
+#if ($!flagSkrin == 'RekodKunciRecordModule')
+	<div id="divTab">
+		#parse("$path/senaraiTab.vm")
+	</div>
+#end
+
+#if ($!flagSkrin == 'TerimaanKunciRecordModule')
+	<div id="divTerimaanKunci">
+		#parse("$path/terimaanKunci/start.vm")
+	</div>
+#end
+
+#if ($!flagSkrin == 'AgihanTugasSemakanKuartersRecordModule')
+	<div id="divAgihanTugasSemakanKuarters">
+		#parse("$path/agihanTugasSemakanKuarters/start.vm")
+	</div>
+#end
+
+#if ($!flagSkrin == 'SemakanKuartersRecordModule')
+	<div id="divSemakanKuarters">
+		#parse("$path/semakanKuarters/start.vm")
+	</div>
+#end
+
+#if ($!flagSkrin == 'PembaikanAgensiRecordModule')
+	<div id="divPembaikanAgensi">
+		#parse("$path/pembaikanAgensi/start.vm")
+	</div>
+#end
+
+#if ($!flagSkrin == 'PenyediaanJKHRecordModule')
+	<div id="divPenyediaanJKH">
+		#parse("$path/penyediaanJKH/start.vm")
+	</div>
+#end
+
+#if ($!flagSkrin == 'SemakanPenyediaanJKHRecordModule')
+	<div id="divSemakanPenyediaanJKH">
+		#parse("$path/semakanPenyediaanJKH/start.vm")
+	</div>
+#end
+
+#if ($!flagSkrin == 'PengesyoranPenyediaanJKHRecordModule')
+	<div id="divPengesyoranPenyediaanJKH">
+		#parse("$path/pengesyoranPenyediaanJKH/start.vm")
+	</div>
+#end
+
+#if ($!flagSkrin == 'SerahanKunciRecordModule')
+	<div id="divSerahanKunci">
+		#parse("$path/serahanKunci/start.vm")
+	</div>
+#end
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

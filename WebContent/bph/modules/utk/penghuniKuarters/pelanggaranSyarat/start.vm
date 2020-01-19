@@ -1,0 +1,135 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#penghuniPelanggaranSyarat').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+
+<fieldset>
+	<legend class="legend">Maklumat Pelanggaran Syarat</legend>
+	<table width="100%">
+		<tr>
+			## KIRI
+			<td>
+				<table width="100%">
+				  <tr>
+				    <td style="width:150px"></td>
+				    <td style="width:10px"></td>
+				    <td></td>
+				  </tr>
+				## --------------- Start display data sahaja untuk maklumat detail --------------- 
+					<b><u>MAKLUMAT PENGHUNI</u></b>
+					#input_readonly_all_label("noKP" "No Pengenalan" "$!r.pemohon.noKP")
+					#input_readonly_all_label("namaPenghuni" "Nama" "$!r.pemohon.userName")
+					#set ($tarikhMasuk = $!util.getDateTime($!tarikhMasuk,'dd-MM-yyyy'))
+				    #if ($!r.tarikhMasuk) 
+				    	#set ($tarikhMasuk = "$!util.getDateTime($!r.tarikhMasuk,'dd-MM-yyyy')") 
+				    #end
+					#input_readonly_all_label("tarikhMasuk" "Tarikh Masuk Kuaters" "$tarikhMasuk")
+					
+					#set ($tarikhKeluar = $!util.getDateTime($!tarikhKeluar,'dd-MM-yyyy'))
+				    #if ($!r.tarikhKeluar) 
+				    	#set ($tarikhKeluar = "$!util.getDateTime($!r.tarikhKeluar,'dd-MM-yyyy')") 
+				    #end
+					#input_readonly_all_label("tarikhKeluar" "Tarikh Keluar Kuaters" "$tarikhKeluar")
+					
+					#input_readonly_all_label("kadarSewa" "Kadar Sewa" "$!r.kuarters.sewa")
+					
+					#input_readonly_all_label("status" "Status Rayuan" "<b>$!r.status</b>")
+					## --------------- End display data sahaja untuk maklumat detail --------------- 
+				</table>
+			</td>
+			
+			## KANAN
+			<td>
+				<table width="100%">
+				  <tr>
+				    <td style="width:80px"></td>
+				    <td style="width:10px"></td>
+				    <td></td>
+				  </tr>
+				## --------------- Start display data sahaja untuk maklumat detail --------------- 
+					<b><u>ALAMAT</u></b> 
+					#input_readonly_all_label("noUnit" "No Unit" "$!r.kuarters.noUnit") 
+					#input_readonly_all_label("lokasi" "Lokasi" "$!r.kuarters.lokasi.keterangan")
+					#input_readonly_all_label("tempat" "Kawasan" "$!r.kuarters.kawasan")
+					#input_readonly_all_label("bandar" "Bandar" "$!r.kuarters.bandar.keterangan")
+					#input_readonly_all_label("negeri" "Negeri" "$!r.kuarters.bandar.negeri.keterangan")
+					
+				## --------------- End display data sahaja untuk maklumat detail --------------- 
+				</table>
+			</td>
+		</tr>
+	</table>
+	<br />
+	<b><u>MAKLUMAT PELANGGARAN SYARAT</u></b>
+	<p align="left">
+ 	<input type="button" value="Tambah" align='left' id="cmdTambah">
+	</p>
+
+	<br /><br />
+	
+	<table id="penghuniPelanggaranSyarat" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Bil.</th>
+                <th>Jenis Kesalahan</th>
+                <th>Tarikh</th>
+                <th>Status Tindakan</th>
+                <th>Papar</th>
+                <th>Hapus</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+			#set( $count = 0 )
+    		#foreach ( $c in $psList )
+    			#set ( $count = $count + 1 )
+                <tr>
+                    <td align="center">$count</td>
+                    <td align="left">$!c.jenisOperasi.keterangan  #if($c.jenisPelanggaranSyarat) - $!c.jenisPelanggaranSyarat.keterangan #end</td>
+                    <td align="center">$!util.getDateTime($c.tarikh, "dd-MM-yyyy")</td>
+                    #set($statusPenghuni = '')
+        			#if ( $!c.statusPenghuni == '1' )
+        			#set($statusPenghuni = 'KELUAR KUARTERS')
+        			#elseif($!c.statusPenghuni == '2')
+        			#set($statusPenghuni = 'KEKAL MENDIAMI KUARTERS')
+        			#elseif($!c.statusPenghuni == '3')
+        			#set($statusPenghuni = 'DISENARAI HITAM')
+        			#elseif($!c.statusPenghuni == '4')
+        			#set($statusPenghuni = 'KES DIRUJUK PEGUAM')
+        			#elseif($!c.statusPenghuni == '5')
+        			#set($statusPenghuni = 'TIADA TINDAKAN DIAMBIL')
+        			#end
+                    <td align="left">$!statusPenghuni</td>
+					<td align="center"><a href="javascript:void()" id="link$c.id"><img alt="edit" src="../img/edit.gif" border="0"></a></td>
+                    <td align="center"><a href="javascript:void()" onClick="deletePS('$c.id')"><img alt="hapus" src="../img/delete.gif" border="0"></a></td>
+                </tr>
+                <script>
+                    _jq('#link$c.id').on('click', function(){
+                    	
+						doDivAjaxCall3$formname('editpopup','editPS','idPS=$c.id');
+                        jQuery('#editpopup').fadeIn();
+                    });
+                </script>
+			#end
+		</tbody>
+    </table>
+    
+</fieldset>
+## #else
+##	#parse("$path/pelanggaranSyarat/entry_page.vm")
+###end
+<div id="addpopup" class="popup"></div>
+<div id="editpopup" class="popup"></div>
+
+
+<script>
+    _jq('#cmdTambah').on('click', function(){
+		doDivAjaxCall3$formname('addpopup','addLanggarSyarat','');
+        jQuery('#addpopup').fadeIn();
+    });
+</script>

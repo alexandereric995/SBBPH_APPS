@@ -1,0 +1,71 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%" id="entryLeft">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+##    <tr>
+##		<td align="center" colspan="3" style="background: #B2B0B0; color: #FFF; font-weight: bold">
+##			Maklumat Surat
+##		</td>
+##	</tr>
+	<tr>
+		<td colspan="3">&nbsp;</td>
+	</tr>
+	#if ($!r.tarikhSuratSebenar)
+        #set($tarikhSurat = $util.getDateTime($!r.tarikhSuratSebenar, "dd-MM-yyyy"))
+    #else
+        #set($tarikhSurat = "")
+    #end
+	#date_input("tarikhSurat" "Tarikh Surat" "$tarikhSurat")
+	#input_required("noFail" "No. Fail" "$!r.noFail")
+	#input("bil" "Bil." "$!r.bil")
+	<tr>
+        <td class="label" valign="middle">Gelaran Dalam Surat&nbsp;<span style="color:#FF2A00">*</span>
+        </td>
+        <td valign="middle">:</td>
+        <td>
+            <span id="listGelaranDalamSurat">
+                #parse("$path/select/selectGelaranDalamSurat.vm")
+            </span>
+            <div id="err_idGelaranDalamSurat" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    <tr>
+            <td class="label">Pegawai&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <span id="listPetugas">
+                    #parse("$path/select/selectPegawai.vm")
+                </span>
+                <div id="err_idPegawai" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+    </tr>
+    		<tr>
+		    <td class="label" valign="top">Nama Kementerian&nbsp;<span style="color:#FF2A00">*</span>
+		    </td>
+		    <td valign="top">:</td>
+		    <td>
+		        <div id="selectKementerian">
+		            #parse("$path/select/selectKementerian.vm")
+		        </div>
+		        <div id="err_idKementerian" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		    </td>
+		</tr>
+		<tr>
+		    <td class="label">Nama Jabatan&nbsp;<span style="color:#FF2A00">*</span>
+		    </td>
+		    <td>:</td>
+		    <td>
+		        <span id="selectJabatan">
+		            #parse("$path/select/selectJabatan.vm")
+		        </span>
+		        <div id="err_idJabatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		    </td>
+		</tr>
+    ##input("kementerian" "Kementerian" "$!uj.agensi.kementerian.keterangan")
+    ##input("jabatan" "Jabatan" "$!uj.agensi.keterangan")
+	#input("bahagian" "Bahagian" "$!uj.bahagian")
+	##input_readonly_label("generateEmail" "Emel telah dihantar" "$!r.getDescGenEmail()")
+	##input_normal("generateEmail" "Emel telah dihantar" "$!r.getDescGenEmail()")
+</table>

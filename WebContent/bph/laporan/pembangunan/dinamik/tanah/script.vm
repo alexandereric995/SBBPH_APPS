@@ -1,0 +1,32 @@
+function janaLaporan() {
+
+var err_count = 0;
+	
+	var tajukLaporan = $('tajukLaporan').value;
+	var idJenisHakmilik = $('findJenisHakmilik').value;
+	var idJenisLot = $('findJenisLot').value;	
+	var idNegeri = $('findNegeri').value;
+	var idDaerah= $('findDaerah').value;
+	var idMukim = $('findMukim').value;
+	var idStatusDaftar = $('findStatusDaftar').value;		
+	var idKategoriTanah = $('idKategoriTanah').value;	
+	var tarikhDaftar = $('tarikhDaftar').value;
+	var tarikhDaftarHingga = $('tarikhDaftarHingga').value;
+	
+	if ( tarikhDaftar == "" ) {$('err_tarikhDaftar').innerHTML = "Tarikh Daftar adalah mandatori!"; err_count++;  }
+	if ( tarikhDaftarHingga == "" ) {$('err_tarikhDaftarHingga').innerHTML = "Tarikh Sehingga adalah mandatori!"; err_count++;  }
+	if ( tajukLaporan == "" ) {$('err_tajukLaporan').innerHTML = "Tajuk Laporan adalah mandatori!"; err_count++; }
+
+		if (err_count == 0){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		    var url = "../servlet/bph.laporan.pembangunan.LaporanDinamik?idJenisHakmilik="+idJenisHakmilik+"&idJenisLot="+idJenisLot+"&idNegeri="+idNegeri+"&idDaerah="+idDaerah+"&idMukim="+idMukim+"&idStatusDaftar="+idStatusDaftar+"&tajukLaporan="+tajukLaporan+"&idKategoriTanah="+idKategoriTanah+"&tarikhDaftar="+tarikhDaftar+"&tarikhDaftarHingga="+tarikhDaftarHingga;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	
+	return err_count == 0;		
+}

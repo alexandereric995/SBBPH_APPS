@@ -1,0 +1,69 @@
+
+#parse("$path/form/tab.vm")
+
+<fieldset>
+<legend class="legend">MAKLUMAT SOKONGAN</legend>
+
+    <table width="100%">
+		
+		<tr>
+			<td style="width:15%"></td>
+            <td style="width:1%"></td>
+            <td style="width:84%"></td>
+		</tr>
+
+		#if( $!userRole.equalsIgnoreCase("(PEROLEHAN) Penyedia") || ($!r.status.id != "1422943424799" && $!r.status.id != "1422943424802" && $!r.status.id != "1422941888314" ) )
+			#set( $lblsokong = "" )
+			#if($!r.flagSokong== "S")
+				#set( $lblsokong = "DISOKONG" )
+			#elseif($!r.flagSokong== "TS")
+				#set( $lblsokong = "TIDAK DISOKONG" )
+			#end
+				
+			#show("SOKONGAN KPSU" "$!lblsokong")
+			#show("CATATAN" "$!r.catatanSokongan.toUpperCase()")
+		#else
+    		<tr>
+            	<td class="label" valign="top" width="20%">SOKONGAN KPSU&nbsp;<span style="color:#FF2A00">*</span></td>
+            	<td class="label" valign="top" width="2%">:</td>
+            	<td valign="top" width="78%">
+        			<input type="radio" #if($!r.flagSokong=='S')checked#end id="radio1" name="sokongan" value="S" onclick=" $('err_sokong').innerHTML=''; at(this, event);">&nbsp;DISOKONG
+        			<input type="radio" #if($!r.flagSokong=='TS')checked#end id="radio2" name="sokongan" value="TS" onclick=" $('err_sokong').innerHTML=''; at(this, event);">&nbsp;TIDAK DISOKONG
+        			<div id="err_sokong" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        		</td>
+            </tr>
+    		
+    		#textarea("catatanSokongan" "CATATAN" "$!r.catatanSokongan.toUpperCase()")
+		#end
+		
+    </table>
+
+</fieldset>
+
+<br/>
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+				#if( !$!userRole.equalsIgnoreCase("(PEROLEHAN) Penyedia") )
+					#if( $!r.flagSokong== "S" && $!r.status.id == "1422943424799" ) 
+						<input id="btnHantarKelulusan" type="button" value="Hantar Untuk Kelulusan" onClick="doHantarKelulusan()">
+					#end
+					#if( $!r.status.id == "1422943424799" || $!r.status.id == "1422943424802" || $!r.status.id == "1422941888314" )
+						<input id="btnSimpan" type="button" value="Simpan" onClick="doSaveSokongan()">
+					#end	
+				#end	
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

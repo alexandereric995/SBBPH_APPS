@@ -1,0 +1,70 @@
+
+#if($checkingPenyelia.equals(false))
+	
+	<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+		<p>
+			<strong>* MAAF, SILA PASTIKAN ID ANDA BERDAFTAR DIBAWAH MANA-MANA RPP</strong>
+		</p>
+    </div>
+	
+#else
+	
+    #if( $r )
+    	<fieldset id="makluman" style="font-weight:bold;color:red; background-color:lightgrey">
+        <table cellpadding="5" cellspacing="0" border="0" width="100%">
+            <tr>
+                <td style="font-weight:bold;text-align:justify;">
+    				MAKLUMAT BERJAYA DIDAFTAR. BAGI PROSES SETERUSNYA, SILA KLIK PADA MENU PENGURUSAN BILIK.
+					&nbsp;<a href="#" style="color:blue" id="cmdResit">CETAK RESIT</a>
+    			</td>
+    		</tr>
+    	</table>
+        </fieldset>
+    	
+		<script>
+			_jq('#cmdResit').on('click', function(){
+				var url = "../servlet/bph.laporan.rpp.Resit?idRppPermohonan=$!r.id";
+				var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+				if ((document.window != null) && (!hWnd.opener))
+				hWnd.opener = document.window;
+				if (hWnd.focus != null) hWnd.focus();
+			});
+		</script>
+		
+    	<br/>
+    #end
+    
+    <fieldset>
+    <legend class="legend" style="font-size:12px">PENDAFTARAN TEMPAHAN WALKIN</legend>
+    
+    	<div id="divMaklumatTetamu">
+    		#parse("$path/form/maklumatTetamu.vm")
+    	</div>
+    	
+    	<hr/>
+    	<br/>
+    	
+    	<div id="divMaklumatTempahan">
+    		#parse("$path/form/maklumatTempahan.vm")
+    	</div>
+    	
+    	<hr/>
+    	<br/>
+    	
+    	<div id="divMaklumatKekosongan">
+    		#parse("$path/form/maklumatKekosongan.vm")
+    	</div>
+    	
+    </fieldset>
+    
+    <div id="divMaklumatBayaran">
+    	##parse("$path/form/maklumatBayaran.vm")
+    </div>
+    
+    <br/>
+
+#end	
+
+
+
+

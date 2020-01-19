@@ -1,0 +1,28 @@
+#if($command == 'addNotis')
+	<select class="texts" id="idJenisNotis" name="idJenisNotis" style="width:80%" onChange="$('err_idJenisNotis').innerHTML=''; doDivAjaxCall3$formname('selectFlagPeringatan','selectFlagPeringatan','')">
+	    <option value="">SILA PILIH</option>
+	    <option #if ( $rekod.flagJenisNotis == '1' ) selected #end value="1">PERINGATAN</option>
+	    <option #if ( $rekod.flagJenisNotis == '2' ) selected #end value="2">PENGOSONGAN</option>
+	    <option #if ( $rekod.flagJenisNotis == '3' ) selected #end value="3">TUNTUTAN TUNGGAKAN</option> ## diminta tukar comment PAT "BAYARAN SEWA" kepada "Notis tuntutan tunggakan" pada 15/11/2016
+	    <option #if ( $rekod.flagJenisNotis == '4' ) selected #end value="4">PELANGGARAN SYARAT (SAMAN)</option>
+	    <option #if ( $rekod.flagJenisNotis == '5' ) selected #end value="5">SURAT AMARAN</option>
+	    <option #if ( $rekod.flagJenisNotis == '6' ) selected #end value="6">TUNJUK SEBAB</option>
+	</select>
+#else
+	<input type="hidden" id="idJenisNotis" name="idJenisNotis" value="$rekod.flagJenisNotis"/>
+	#if($rekod.flagJenisNotis == '1')
+		#set($flagNotis = 'PERINGATAN')
+	#elseif($rekod.flagJenisNotis == '2')
+		#set($flagNotis = 'PENGOSONGAN')
+	#elseif($rekod.flagJenisNotis == '3')
+		#set($flagNotis = 'TUNTUTAN TUNGGAKAN')  ## diminta tukar comment PAT "BAYARAN SEWA" kepada "Notis tuntutan tunggakan" pada 15/11/2016
+	#elseif($rekod.flagJenisNotis == '4')
+		#set($flagNotis = 'PELANGGARAN SYARAT (SAMAN)')
+	#elseif($rekod.flagJenisNotis == '5')
+		#set($flagNotis = 'SURAT AMARAN')
+	#elseif($rekod.flagJenisNotis == '6')
+		#set($flagNotis = 'TUNJUK SEBAB')
+	#end
+	##	PAPARAN JIKA EDIT DATA - VIEW SAHAJA
+	$flagNotis 
+#end

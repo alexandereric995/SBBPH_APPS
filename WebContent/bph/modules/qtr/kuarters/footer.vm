@@ -1,0 +1,63 @@
+###if( $!userRole.equalsIgnoreCase("(QTR) Penyedia") || $!userRole.equalsIgnoreCase("(QTR) Pelulus"))
+	<input type="button" value="Cetak"  id="cmdCetak" align="right"/>
+###end
+
+<script>
+
+_jq('#cmdCetak').on('click', function(){
+
+##		alert("test");
+		
+		var findNegeri = $('findNegeri').value;
+##		alert($('findNegeri').value);
+		var findLokasiKuarters = $('findLokasiKuarters').value;
+##		alert($('findLokasiKuarters').value);
+		var findJalan = $('findJalan').value;
+##		alert($('findJalan').value);
+		var findFasa = $('findFasa').value;
+##		alert($('findFasa').value);
+		var findNoUnit = $('findNoUnit').value;
+		var findNoRujukan = $('findNoRujukan').value;
+		var findKelasKuarters = $('findKelasKuarters').value;
+		var status_kuarters = $('status_kuarters').value;
+		var findDetailKuarters = $('findDetailKuarters').value;
+		
+		if(!findNegeri){
+			findNegeri = "";
+		}
+		if(!findLokasiKuarters){
+			findLokasiKuarters = "";
+		}
+		if(!findJalan){
+			findJalan = "";
+		}
+		
+		if(!findFasa){
+			findFasa = "";
+		}
+		if(!findNoUnit){
+			findNoUnit = "";
+		}
+		if(!findNoRujukan){
+			findNoRujukan = "";
+		}
+		if(!findKelasKuarters){
+			findKelasKuarters = "";
+		}
+		if(!status_kuarters){
+			status_kuarters = "";
+		}
+		if(!findDetailKuarters){
+			findDetailKuarters = "";
+		}
+		
+
+		var url = "../servlet/bph.laporan.qtr.CetakSenaraiKuartersKeseluruhan?findNegeri="+findNegeri+"&findLokasiKuarters="+findLokasiKuarters+"&findJalan="+findJalan+"&findFasa="+findFasa+"&findNoUnit="+findNoUnit+"&findNoRujukan="+findNoRujukan+"&findKelasKuarters="+findKelasKuarters+"&status_kuarters="+status_kuarters+"&findDetailKuarters="+findDetailKuarters;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+		hWnd.opener = document.window;
+		if (hWnd.focus != null) hWnd.focus();
+
+});
+
+</script>

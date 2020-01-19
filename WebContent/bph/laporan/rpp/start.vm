@@ -1,0 +1,90 @@
+<style type="text/css">
+
+.style2 {
+	color: #FF0000;
+	font-weight: bold;
+}
+.blink {
+	animation: blink 1s steps(5, start) infinite;
+}
+@keyframes blink {
+ to {
+ visibility: hidden;
+}
+</style>
+<div id="senaraiLaporan">
+<fieldset>
+	<legend class="legend">Senarai Laporan</legend>
+
+<table id="tableID">
+	<tr>
+    	<td> 1. &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('8')">Laporan Kadar Pengunaan dan Jumlah Bayaran Penginapan<font class="blink" ><span class="style2">  Baru</font></td>
+    </tr>
+    #if ($users.role.name != "(RPP) Operator")
+    <tr>
+    	<td> 2. &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('17')">Laporan Kadar Penggunaan Kemudahan</td>
+    </tr>
+##    <tr>
+##    	<td> 2. &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('9')">Laporan Jumlah Bayaran Penginapan<font class="blink" ><span class="style2">  Baru</font></td>
+##    </tr>
+##    <tr>
+##    	<td> 3. &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('10')">Laporan Jumlah Permohonan<font class="blink" ><span class="style2">  Baru</font></td>
+##    </tr>
+##    <tr>
+##    	<td> 4. &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('11')">Laporan Jumlah Permohonan Walk in<font class="blink" ><span class="style2">  Baru</font></td>
+##    </tr>
+##    <tr>
+##    	<td> 5. &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('12')">Laporan Bilangan Penghuni<font class="blink" ><span class="style2">  Baru</font></td>
+##    </tr>
+##   <tr>
+##    	<td> 6. &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('1')">Laporan Keseluruhan Penyalahgunaan Kemudahan</td>
+##  </tr>
+    <tr>
+    	<td> 3. &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('2')">Laporan Keseluruhan Kerosakan</td>
+    </tr>
+     <tr>
+    	<td> 4. &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('3')">Laporan Senarai Hitam Pemohon</td>
+    </tr>
+##    <tr>
+##    	<td> 5. &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('4')">Laporan Daftar Permohonan Rumah Peranginan</td>
+##    </tr>
+##    <tr>
+##    	<td> 5. &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('5')">Laporan Maklumat Penghuni Keluar</td>
+##    </tr>
+##    <tr>
+##    	<td><a href="#" style="color:blue" onclick="javascript:paparLaporan('6')">Laporan Statistik Permohonan<font class="blink" ><span class="style2">  Baru</font></td>
+##    </tr>
+    <tr>
+    	<td> 5. &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('13')">Laporan Senarai Daftar Masuk Rumah Peranginan RPP/RP/RT</td>
+    </tr>
+        <tr>
+    	<td> 6. &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('14')">Laporan Senarai Daftar Keluar Rumah Peranginan RPP/RP/RT</td>
+    </tr>
+    <tr>
+    	<td> 7. &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('15')">Laporan Semakan Overbook Bilik</td>
+    </tr>
+    <tr>
+    	<td> 8. &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('16')">Laporan Kadar Penggunaan Rumah Peranginan Persekutuan Premier London</td>
+    </tr>
+    #end
+</table>
+</fieldset>
+</fieldset>
+</div>
+
+ <div id="paparLaporan"></div>
+ 
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+  
+
+
+</script>
+<script>
+#parse("$path/script.vm")
+</script>

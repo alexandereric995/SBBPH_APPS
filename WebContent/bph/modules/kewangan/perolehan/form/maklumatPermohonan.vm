@@ -1,0 +1,72 @@
+
+#parse("$path/form/tab.vm")
+
+<fieldset>
+<legend class="legend">MAKLUMAT PERMOHONAN</legend>
+
+    <table width="100%">
+      <tr>
+        <td style="width:15%"></td>
+        <td style="width:1%"></td>
+        <td style="width:84%"></td>
+      </tr>
+	  
+	  #if( !$r || $!r.status.id == "1422934789302" )
+		
+          #input_required("tajuk" "TAJUK" "$!r.tajuk.toUpperCase()")
+          #input_required("unit" "UNIT" "$!r.unit.toUpperCase()")
+          
+          <tr>
+        	<td valign="top">JENIS PEROLEHAN <span style='color:#FF2A00'>*</span></td>
+        	<td valign="top">:</td>
+        	<td valign="top">
+        		<select class="texts" id="kodJenisPerolehan" name="kodJenisPerolehan" style="width:100%" onChange=" $('err_kodJenisPerolehan').innerHTML=''; at(this, event);">
+                <option value="">SILA PILIH</option>
+                #foreach($n in $!listKodJenisPerolehan)
+        			<option value="$n.id" #if($!r.kodJenisPerolehan.id == $!n.id) selected #end >$n.keterangan.toUpperCase()</option>
+        		#end
+                </select>
+                <div id="err_kodJenisPerolehan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>	
+        	</td>
+          </tr>
+          
+          #textarea("justifikasi" "JUSTIFIKASI" "$!r.justifikasi.toUpperCase()")
+      
+	  #else
+		
+		  #show("TAJUK" "$!r.tajuk.toUpperCase()")
+          #show("UNIT" "$!r.unit.toUpperCase()")
+		  #show("JENIS PEROLEHAN" "$!r.kodJenisPerolehan.keterangan.toUpperCase()")
+		  #show("JUSTIFIKASI" "$!r.justifikasi.toUpperCase()")
+		  
+	  #end
+	  
+    </table>
+
+</fieldset>
+
+<br/>
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+				#if( $r && $!r.status.id == "1422934789302" )
+					<input id="btnHantarSokongan" type="button" value="Hantar Untuk Sokongan" onClick="doHantarSokongan()">
+				#end
+				#if( !$r || $!r.status.id == "1422934789302" )
+				<input id="btnSimpan" type="button" value="Simpan" onClick="doSavePerolehan()">
+				#end	
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

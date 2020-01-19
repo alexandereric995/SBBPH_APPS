@@ -1,0 +1,19 @@
+
+<td>$!r.noPermohonan</td>
+#if($!userRole != '(BGS) Pemohon')
+	<td>$!r.noFail</td>
+#end
+#if ($!r.tarikhSurat) 
+	#set ($dateSurat = "$!util.getDateTime($!r.tarikhSurat,'dd-MM-yyyy')")
+#else #set ($dateSurat="") #end
+<td  align="center">$dateSurat</td>
+#if ($!r.tarikhPermohonan) 
+	#set ($datePermohonan = "$!util.getDateTime($!r.tarikhPermohonan,'dd-MM-yyyy')")
+#else #set ($datePermohonan="") #end
+<td  align="center">$datePermohonan</td>
+<td>	
+	<b>Kementerian :</b> $!r.agensi.kementerian.keterangan<br/>  	
+  	<b>Agensi :</b> $!r.agensi.keterangan<br/>
+  	<b>Jabatan :</b> $!r.jabatan
+</td>
+<td><b>$!r.status.keterangan</b></td>

@@ -1,0 +1,40 @@
+<fieldset>
+<legend class="legend">MAKLUMAT REKOD</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+                    <tr>
+                    	<td class="label" valign="top">Tahun</td>
+                    	<td class="label" valign="top">:</td>
+                    	<td valign="top">
+                    		<div>
+                        		<input type="text" id="tahun" name="tahun" value="" >
+                    			<script>
+                                	_jq("#tahun").Zebra_DatePicker({ 
+                        				view: 'year',
+										format: 'Y'
+                                	});
+                    				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+                        		</script>
+                    		</div>
+                    	</td>
+                    </tr>
+<tr>
+	<td></td>
+	<td class="label"></td>
+	<td><input type="button" name="cmdCetak" id="cmdCetak" value="Cetak" onclick="javascript:doCetakLaporanTempahanRppOnline()"/></td>
+</tr>
+</table>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

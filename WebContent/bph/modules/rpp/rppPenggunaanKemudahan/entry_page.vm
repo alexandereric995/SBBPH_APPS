@@ -1,0 +1,57 @@
+
+<fieldset>
+<legend class="legend">maklumat pemohon</legend>
+
+<input type="hidden" name="idPenggunaanKemudahan" id="idPenggunaanKemudahan" value="$!r.id" />
+
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  
+  <tr>
+	<td valign="top">Kategori Pemohon &nbsp;<span style='color:#FF2A00'>*</span></td>
+	<td valign="top">:</td>
+	<td valign="top">
+		<input type="radio" #if($!r.flagJenisPemohon =='MENGINAP') checked #end id="flagJenisPemohon1" name="flagJenisPemohon" value="MENGINAP" onclick="javascript:doSelectKategori(); $('err_flagJenisPemohon').innerHTML=''; at(this, event);" />
+        <label for="flagJenisPemohon1" >MENGINAP</label>
+		<input type="radio" #if($!r.flagJenisPemohon == 'TIDAK') checked #end id="flagJenisPemohon2" name="flagJenisPemohon" value="TIDAK" onclick="javascript:doSelectKategori(); $('err_flagJenisPemohon').innerHTML=''; at(this, event);" />
+		<label for="flagJenisPemohon2" >TIDAK MENGINAP</label>
+		<div id="err_flagJenisPemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+  </tr>
+  
+  <tr>
+	<td valign="top">&nbsp;</td>
+	<td valign="top">&nbsp;</td>
+	<td valign="top">
+		<div id="divKategoriPemohon">
+			#if($!r.flagJenisPemohon =='MENGINAP')
+				#parse("$path/pilihanPermohonan.vm")
+			#end
+			
+			#if($!r.flagJenisPemohon =='TIDAK')
+				#parse("$path/pilihanPemohon.vm")
+			#end
+		</div>
+	</td>
+  </tr>
+  
+</table>
+
+</fieldset>
+
+<div id="divKemudahan">
+	#parse("$path/maklumatDetailKemudahan.vm")
+</div>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

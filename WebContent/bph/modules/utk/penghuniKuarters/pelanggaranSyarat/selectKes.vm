@@ -1,0 +1,20 @@
+#if ($!command == "addLanggarSyarat")
+	<select class="texts" id="idKes" name="idKes" style="width:100%" onChange="$('err_idKes').innerHTML='';doDivAjaxCall3$formname('selectPelanggaran','selectPelanggaranOperasi','')">
+	    <option value="">SILA PILIH</option>
+	    <option value="1">KES RINGAN</option>
+	    <option value="2">KES BERAT</option>
+	</select>
+#else
+	<select class="texts" id="idKes" name="idKes" style="width:100%" onChange="$('err_idKes').innerHTML='';doDivAjaxCall3$formname('selectPelanggaran','selectPelanggaranOperasi','')">
+		<option value="">SILA PILIH</option>
+		<option #if ( $!rekod.jenisPelanggaranSyarat.flagKes == '1' || $flagKes == '1') selected #end value="1">KES RINGAN</option>
+		<option #if ( $!rekod.jenisPelanggaranSyarat.flagKes == '2' || $flagKes == '2') selected #end value="2">KES BERAT</option>
+	</select>
+#end
+
+####bak old code sblm buang dropdown jenis operasi
+##<select class="texts" id="idKes" name="idKes" style="width:100%" onChange="$('err_idKes').innerHTML='';doDivAjaxCall3$formname('selectPelanggaran','selectPelanggaranOperasi','')">
+##    <option value="">SILA PILIH</option>
+##    <option value="1">KES RINGAN</option>
+##    <option value="2">KES BERAT</option>
+##</select>

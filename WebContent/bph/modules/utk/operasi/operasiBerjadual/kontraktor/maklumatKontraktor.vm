@@ -1,0 +1,79 @@
+<style>
+.scrollitpopup {
+	##width:100%; overflow-x: hidden; max-height: 150px; border:#000 solid 1px;
+	height:200px; width: 100%; overflow: auto;
+}
+</style>
+<fieldset>
+<legend class="legend">Kontraktor</legend>
+<br/>
+<div class="scrollitpopup">
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+<tr>
+			<td class="row_header" width="10%">BIL.</td>
+			<td class="row_header" width="25%">NO. PENDAFTARAN</td>
+			<td class="row_header" width="45%">NAMA KONTRAKTOR</td>
+			<td class="row_header" width="20%">PILIH</td>
+		</tr>
+		
+		#set ( $count = 0 )
+		#if($kontraktorList.size() > 0)
+    		#foreach($u in $kontraktorList)
+##    		<input type="hidden" id="idKontraktor" name="idKontraktor" value="$!u.id"/>
+    		#set ( $count = $count + 1)
+    		<tr>
+    			<td align="center">$count</td>
+				<td align="center">$u.id</td>
+    			<td align="center">$u.namaKontraktor.toUpperCase()</td>
+    			<td align="center">
+    				<input type="checkbox" name="kontraktor" id="radKontraktor$u.id" value="$u.id"/>       
+    			</td>
+    		</tr>
+    		#end
+		#else
+			<tr><td colspan="4">TIADA REKOD</td></tr>
+		#end
+
+</table>
+</div>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td>
+      <input type="button" id="saveKontraktor" name="saveKontraktor" value="Simpan">
+      <input type="button" id="batalKontraktor" name="batalKontraktor" value="Keluar">
+      </td>
+  </tr>
+<div id="statusMaklumatKontraktor"></div>
+</fieldset>
+
+<script>
+_jq('#batalKontraktor').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getMaklumatKontraktor','');
+    jQuery('#editMaklumatKontraktor').fadeOut();
+});
+
+_jq('#saveKontraktor').on('click', function(){
+    saveKontraktor();
+});
+
+</script>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

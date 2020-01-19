@@ -1,0 +1,78 @@
+<fieldset>
+	<legend class="legend">Maklumat Perlanjutan</legend>
+	<p align="left">
+ 		##<input type="button" value="Tambah" align='left' id="addMaklumatPerlanjutan">
+ 		##<script>
+		##	_jq('#addMaklumatPerlanjutan').on('click', function(){
+		##	doDivAjaxCall3$formname('editMaklumatPerlanjutan','addPerlanjutan','');
+        ##    jQuery('#editMaklumatPerlanjutan').fadeIn();
+        ##	});
+		##</script>
+	</p>
+	<br />
+	<br />
+    <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+            <td class="row_header" width="5%">Bil.</td>
+            <td class="row_header" width="40%">Jenis Rayuan</td>
+            <td class="row_header" width="15%">Tarikh Kelulusan</td>
+			<td class="row_header" width="15%">Tarikh Mula</td>
+			<td class="row_header" width="15%">Tarikh Tamat</td>
+            <td class="row_header" width="5%">Papar</td>
+		    <td class="row_header" width="5%">Hapus</td>
+        </tr>
+        #if ( $listNotis.size() > 0) 
+    		#set ( $count = 0 )
+    		#foreach( $c in $listNotis)
+    			#set ( $count = $count + 1)
+				
+    			#if ( $count % 2 == 0 ) 
+					#set ( $rowcolor = "#D0CFCE" ) 
+				#else 
+					#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+    			<tr bgcolor="$rowcolor">
+    				<td align="left">$count</td>
+					#if($!c.rayuan.flagJenisRayuan == '1')
+    					#set($flagJenisRayuan = 'RAYUAN PERLANJUTAN MENDUDUKI KUARTERS')
+    				#elseif($!c.rayuan.flagJenisRayuan == '2')
+    					#set($flagJenisRayuan = 'RAYUAN KEKAL MENDUDUKI KUARTERS')
+    				#elseif($!c.rayuan.flagJenisRayuan == '3')
+    					#set($flagJenisRayuan = 'RAYUAN BAYARAN SEWA')
+				    #end
+					<td align="left">$flagJenisRayuan</td>
+					<td align="left">$util.getDateTime($c.tarikhKelulusan, "dd/MM/yyyy")</td>
+					<td align="left">$util.getDateTime($c.tarikhMula, "dd/MM/yyyy")</td>
+					<td align="left">$util.getDateTime($c.tarikhTamat, "dd/MM/yyyy")</td>
+					<td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> </td>
+          			<td align="center"><a href="javascript:void()" onClick="deleteMaklumatPerlanjutan('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+        			</tr>
+        			<script>
+        			_jq('#link$c.id').on('click', function(){
+					doDivAjaxCall3$formname('editMaklumatPerlanjutan','editPerlanjutan','idLanjutan=$c.id');
+            		jQuery('#editMaklumatPerlanjutan').fadeIn();
+            		});
+       			</script>
+    		#end
+	#else
+	<tr >
+		<td align="center">&nbsp;</td>
+		<td >Tiada Rekod</td>
+		<td align="center">&nbsp;</td>
+		<td align="center">&nbsp;</td>
+		<td align="center">&nbsp;</td>
+		<td align="center">&nbsp;</td>
+	</tr>
+	#end
+    </table>
+</fieldset>
+<p align="right">
+	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+</p>
+
+## Popup
+<div id="editMaklumatPerlanjutan" class="popup"></div>
+
+## Blank status page
+<div id="removeMaklumatNotis"></div>

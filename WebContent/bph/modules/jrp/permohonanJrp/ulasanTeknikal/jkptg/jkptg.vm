@@ -1,0 +1,129 @@
+<input type="hidden" id="idUlasan" name="idUlasan" value="$!ut.id"/>
+<fieldset>
+<legend class="legend">ulasan jkptg</legend>
+
+    <table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+		#date_input_required("tarikhHantarUlasan" "Tarikh hantar ulasan" "$!util.getDateTime($!ut.tarikhHantarUlasan,'dd-MM-yyyy')")
+		#date_input_required("tarikhUlasan" "Tarikh terima ulasan" "$!util.getDateTime($!ut.tarikhUlasan,'dd-MM-yyyy')")
+		<tr><td colspan="4" style="padding-top:0.3cm" ><hr /></td></tr>
+		<tr>
+        	<td class="label" valign="top">Keputusan &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+        		<select style="width:30%" class="texts" id="flagKeputusan" name="flagKeputusan" style="width:100%" onChange="$('err_flagKeputusan').innerHTML='';at(this, event)">
+    			<option value="">SILA PILIH</option>
+    			<option value="S" #if ( $!ut.flagKeputusan == "S" ) selected #end id="flagKeputusan" name="flagKeputusan" value="S" onKeyUp=" $('err_flagKeputusan').innerHTML=''; at(this, event);">SOKONG</option>
+    			<option value="SB" #if ( $!ut.flagKeputusan  == "SB" ) selected #end id="flagKeputusan" name="flagKeputusan" value="SB" onKeyUp=" $('err_flagKeputusan').innerHTML=''; at(this, event);">SOKONG BERSYARAT</option>
+    			<option value="TS" #if ( $!ut.flagKeputusan == "TS" ) selected #end id="flagKeputusan" name="flagKeputusan" value="TS" onKeyUp=" $('err_flagKeputusan').innerHTML=''; at(this, event);">TIDAK SOKONG</option>
+				</select>
+    			<div id="err_flagKeputusan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    		</td>
+        </tr>
+        #if($!ut.ulasan.length() > 0)
+        		#set($totalAksara1 = 512 - $!ut.ulasan.length())
+        	#else
+        		#set($totalAksara1 = 512)
+	        #end
+		<tr>
+        	<td class="label" valign="top">Ulasan</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<textarea id="ulasan" maxlength="512" style="width:40% !important" class="uppercasefont" name="ulasan" onKeyUp=" $('err_ulasan').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()" onBlur="this.value=this.value.toUpperCase();">$!ut.ulasan</textarea>
+			<br><span style="color:#FF2A00" id="jumlahAksara">Baki Aksara: $totalAksara1</span></td>
+        </tr>
+		<tr>
+        	<td class="label" valign="top">Nama pegawai</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="namaPegawai" class="uppercasefont" name="namaPegawai" value="$!ut.namaPegawai" onKeyUp="$('err_namaPegawai').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_namaPegawai" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+        
+        <tr>
+        	<td class="label" valign="top">Jawatan pegawai</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="jawatanPegawai" class="uppercasefont" name="jawatanPegawai" value="$!ut.jawatanPegawai" onKeyUp="$('err_jawatanPegawai').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_jawatanPegawai" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>		
+	</table>	
+</fieldset>
+#if($!ut)	
+<fieldset>
+<legend class="legend">SURAT</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>#parse("$path/ulasanTeknikal/jkptg/surat.vm")</td>
+  </tr>
+</table>
+</fieldset>
+#end
+<table width="100%">
+	<tr>
+		<td align="right">			
+##			#if($!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal") && ($!idAgensiLogin.equalsIgnoreCase("1804")))
+				#if($!userRole.equalsIgnoreCase("(JRP) Pemohon") && (($users.flagHq == 'Y' && ($r.status.id == '1438356583122' || $r.status.id == '1436841294664')) || ($users.flagHq == 'T' && ($r.status.id == '1424860634472' || $!r.status.id == '1424860634475'))))
+##				#if($!ut.id!="" && !$!ut.flagHantar.equalsIgnoreCase("Y"))
+##					<input type="button" value="Hantar Ulasan kepada Agensi" id="cmdHantarUlasan" />
+##				#end
+##				#if(!$!ut || !$!ut.flagHantar.equalsIgnoreCase("Y"))				
+					<input type="button" value="Simpan" id="cmdSaveUlasanJkptg" />
+					<input type="button" value="Kosongkan" id="cmdKosongkanUlasanJkptg" />
+##				#end					
+			#end
+			<input id="cmdKembali" type="button" value="Kembali" onclick="doDivAjaxCall3$formname('divTab','getSenaraiJkptg','')" />
+		</td>
+	</tr>
+</table>
+	
+
+<div id="statusUlasan"></div>
+
+
+<script>
+_jq('#ulasan').on('keyup', function(){
+
+	var ulasan = $('ulasan').value;
+	calculateJumlahAksara(ulasan, 'jumlahAksara');
+});
+_jq('#cmdHantarUlasan').on('click', function(){
+	var idUlasanTeknikal = '$!ut.id';
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('statusUlasan','hantarUlasanKeAgensi','idUlasanTeknikal='+idUlasanTeknikal+'','divTab','getMaklumatUlasan','');
+	}
+});
+_jq('#cmdKosongkanUlasanJkptg').on('click', function(){
+	$('tarikhUlasan').value = "";
+	$('namaPegawai').value = "";
+	$('jawatanPegawai').value = "";
+	$('ulasan').value = "";
+	$('tarikhHantarUlasan').value = "";
+	$('err_ulasan').innerHTML='';
+	$('err_namaPegawai').innerHTML='';
+	$('err_tarikhUlasan').innerHTML='';
+	$('err_jawatanPegawai').innerHTML='';
+	$('err_flagKeputusan').innerHTML='';
+	$('err_tarikhHantarUlasan').innerHTML='';
+	var inputs = document.${formname}.flagKeputusan;
+    for(var i = inputs.length-1;i>=0;i--){
+        if(inputs[i].getAttribute("type")==="radio"){
+            inputs[i].checked=false;
+        }
+    }
+});
+
+_jq('#cmdSaveUlasanJkptg').on('click', function(){
+
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = $!r.id;
+	 saveUlasanJkptg(tabNo, idPermohonan);
+});
+</script>
+	

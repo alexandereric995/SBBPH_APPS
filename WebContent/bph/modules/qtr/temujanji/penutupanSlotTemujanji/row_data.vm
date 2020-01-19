@@ -1,0 +1,19 @@
+#if ($r.tarikhTemujanji)
+    #set($dateTemujanji = $util.getDateTime($r.tarikhTemujanji, "dd-MM-yyyy"))
+#else #set($dateTemujanji = "") #end
+<td align="center">$!dateTemujanji</td>
+
+#if ($r.tarikhMulaTemujanji)
+    #set($dateMulaTemujanji = $util.getDateTime($r.tarikhMulaTemujanji, "hh:mm a"))
+#else #set($dateMulaTemujanji = "") #end
+<td align="center">$!dateMulaTemujanji</td>
+<td>$!r.keterangan</td>
+<td>$!r.daftarOleh.userName</td>
+#if ($r.tarikhMasuk)
+    #set($dateMasuk = $util.getDateTime($r.tarikhMasuk, "dd-MM-yyyy hh:mm a"))
+#else #set($dateMasuk = "") #end
+<td align="center">$!dateMasuk</td>
+
+<td align="center">
+<a href="javascript:void()" onclick="if ( !confirm('Hapus Rekod ?') ) return; $('_wait').innerHTML='Please wait...';doDivAjaxCall3$formname('div_list','hapusRekod','idTemujanji=$!r.id')"><img src="../img/delete.gif" border="0"></a>
+</td>

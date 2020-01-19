@@ -1,0 +1,76 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%" id="pemohonKerja">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+    #input_normal("skimPerkhidmatan" "Skim Perkhidmatan" "$!uj.kelasPerkhidmatan.keterangan")
+    #input_normal("gredJawatan" "Gred Jawatan" "$!uj.gredPerkhidmatan.keterangan")
+    #input_normal("jawatan" "Jawatan" "$!uj.jawatan.keterangan")
+    
+    #if ($!uj.tarikhLantikan)
+        #set($tarikhLantikan = $util.getDateTime($!uj.tarikhLantikan,"dd-MM-yyyy"))
+    #else
+        #set($tarikhLantikan = "")
+    #end
+    
+    #input_normal("tarikhLantikan" "Tarikh Lantikan" "$tarikhLantikan")
+    #input_normal("noGaji" "No Gaji" "$!uj.noGaji")
+    #input_normal("gajiPokok" "Gaji" "$!uj.gajiPokok")
+    #input_normal("jenisPerkhidmatan" "Jenis Perkhidmatan" "$!uj.jenisPerkhidmatan.keterangan")
+    #input_normal("statusPerkhidmatan" "Status Perkhidmatan" "$!uj.statusPerkhidmatan.keterangan")
+    
+    <tbody id="perKontrak">
+		#if ($!uj.tarikhTamat)
+            #set($tarikhTamat = $util.getDateTime($!uj.tarikhTamat,"dd-MM-yyyy"))
+        #else
+            #set($tarikhTamat = "")
+        #end
+        
+		<tr>
+            <td class="label" style="word-wrap: break-word; width: 150px;">Imbuhan Tetap Perumahan (ITP)&nbsp;<span style="color:#FF2A00">*</span>
+            </td>
+            <td>:</td>
+            <td>
+                <input type="radio" name="flagITP" value="1" #if($uj.flagITP==1) checked="checked" #end />Ada
+                <input type="radio" name="flagITP" value="0" #if($uj.flagITP==0) checked="checked" #end />Tiada
+                <div id="err_valueFlagITP" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                <input type="hidden" id="valueFlagITP" name="valueFlagITP" value="$!uj.flagITP"/>
+                <script>
+                    _jq("input[name='flagITP']").change(function() {
+                        _jq('#valueFlagITP').val(this.value);
+                        _jq('#err_valueFlagITP').html("");
+                    });
+                </script>
+            </td>
+        </tr>
+		<tr>
+            <td class="label" style="word-wrap: break-word; width: 150px;">Elaun Perumahan Wilayah (EPW)&nbsp;<span style="color:#FF2A00">*</span>
+            </td>
+            <td>:</td>
+            <td>
+                <input type="radio" name="flagEPW" value="1" #if($uj.flagEPW==1) checked="checked" #end />Ada
+                <input type="radio" name="flagEPW" value="0" #if($uj.flagEPW==0) checked="checked" #end />Tiada
+                <div id="err_valueFlagEPW" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                <input type="hidden" id="valueFlagEPW" name="valueFlagEPW" value="$!uj.flagEPW"/>
+                <script>
+                    _jq("input[name='flagEPW']").change(function() {
+                        _jq('#valueFlagEPW').val(this.value);
+                        _jq('#err_valueFlagEPW').html("");
+                    });
+                </script>
+            </td>
+        </tr>
+    </tbody>
+    
+    #input_normal("kementerian" "Kementerian" "$!uj.kementerian.keterangan")
+    #input_normal("jabatan" "Jabatan" "$!uj.agensi.keterangan")
+    #input_normal("bahagian" "Bahagian" "$!uj.bahagian")	
+	#input_normal("userAlamat1" "Alamat Pejabat" "$!uj.alamat1")
+	#input_normal("userAlamat2" "" "$!uj.alamat2")
+	#input_normal("userAlamat3" "" "$!uj.alamat3")
+	#input_normal("userPoskod" "Poskod" "$!uj.poskod")
+	#input_normal("bandar" "Bandar" "$!uj.bandar.keterangan")
+	#input_normal("negeri" "Negeri" "$!uj.bandar.negeri.keterangan")
+    #input_normal("noTelPejabat" "No. Tel. Pejabat" "$!uj.noTelPejabat")  
+</table>

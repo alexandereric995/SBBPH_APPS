@@ -1,0 +1,576 @@
+#if ( $showLogin )
+	#if ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Hybrid.css" )
+		<div id="portal-header-hybrid">
+			<table cellpadding="1" cellspacing="0" border="0" width="100%">
+        		<tr>
+					<td width="100%" id="w3c" align="left">
+            			#parse("vtl/main/w3c.vm")
+            		</td>
+					<td align="right" style="min-width: 450px">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+                    			<td class="field" width="150px">
+                    			    <input type="text" name="username" id="username" placeholder="MyID" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+            						<i class="icon-user"></i>
+                    			</td>
+								<td>
+									&nbsp;
+								</td>
+                    			<td class="field" width="150px">
+                    				<input type="password" name="password" id="password" placeholder="Kata Laluan" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+            						<i class="icon-locked"></i>
+                    			</td>
+								<td>
+									&nbsp;
+								</td>
+            					<td align="right">
+                					<!-- <a href="#" onclick="lupaKataLaluan()" style="color: #FFF; font-size: 10px;">Kali pertama masuk?</a>
+                					<span style="color: #FFF; font-weight: bold; font-size: 11px;">&nbsp;&nbsp;|</span> -->
+                					<input type="button" name="btnSubmit" id="btnSubmit" value="Log Masuk" onClick="doLogin()" />
+                				</td>
+							</tr>
+							<tr>
+                    	    	<td colspan="3" align="center" valign="middle">
+                    				<div id="divPortalLoginResult" align="center"></div>
+                    			</td>
+                    		</tr>
+						</table>
+					</td>
+    			</tr>
+        	</table>
+		</div>
+	#elseif ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Modern.css" || ${session.getAttribute("_portal_css")} == "BPH-Portal-Modern-1.css" || ${session.getAttribute("_portal_css")} == "BPH-Portal-Tough.css" )
+		<div id="portal-header">
+			<table cellpadding="1" cellspacing="0" border="0" width="100%">
+        		<tr>
+					<td width="100%" id="w3c" align="left">
+            			#parse("vtl/main/w3c.vm")
+            		</td>
+					<td align="right" style="min-width: 450px">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+                    			<td class="field" width="150px">
+                    			    <input type="text" name="username" id="username" placeholder="MyID" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+            						<i class="icon-user"></i>
+                    			</td>
+								<td>
+									&nbsp;
+								</td>
+                    			<td class="field" width="150px">
+                    				<input type="password" name="password" id="password" placeholder="Kata Laluan" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+            						<i class="icon-locked"></i>
+                    			</td>
+								<td>
+									&nbsp;
+								</td>
+            					<td align="right">
+                					<!-- <a href="#" onclick="lupaKataLaluan()" style="color: #FFF; font-size: 10px;">Kali pertama masuk?</a>
+                					<span style="color: #FFF; font-weight: bold; font-size: 11px;">&nbsp;&nbsp;|</span> -->
+                					<input type="button" name="btnSubmit" id="btnSubmit" value="Log Masuk" onClick="doLogin()" />
+                				</td>
+							</tr>
+							<tr>
+                    	    	<td colspan="3" align="center" valign="middle">
+                    				<div id="divPortalLoginResult" align="center"></div>
+                    			</td>
+                    		</tr>							
+						</table>
+					</td>
+    			</tr>
+        	</table>
+		</div>
+	#elseif ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Tough-1.css")
+		<table cellpadding="1" cellspacing="0" border="0" width="100%" class="header">
+    		<tr>
+				<td width="5px">
+					&nbsp;
+				</td>
+				<td id="w3c" align="left">
+        			#parse("vtl/main/w3c.vm")
+        		</td>
+				<td width="50px">
+					&nbsp;
+				</td>
+				<td align="right" style="width: 450px">
+					<table cellpadding="0" cellspacing="0" border="0">
+						<tr>
+                			<td class="field" width="150px">
+                			    <input type="text" name="username" id="username" placeholder="MyID" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+        						<i class="icon-user"></i>
+                			</td>
+							<td>
+								&nbsp;
+							</td>
+                			<td class="field" width="150px">
+                				<input type="password" name="password" id="password" placeholder="Kata Laluan" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+        						<i class="icon-locked"></i>
+                			</td>
+							<td>
+								&nbsp;
+							</td>
+        					<td align="right">
+            					<input type="button" name="btnSubmit" id="btnSubmit" value="Log Masuk" onClick="doLogin()" />
+            				</td>
+							<td>
+								&nbsp;
+							</td>
+        					<td align="right">
+            					<input type="button" name="btnLupaKataLaluan" id="btnLupaKataLaluan" value="Lupa Kata Laluan" />
+            				</td>
+						</tr>
+						<tr>
+                	    	<td colspan="5" align="center" valign="middle">
+                				<div id="divPortalLoginResult" align="center"></div>
+                			</td>
+                		</tr>							
+					</table>
+				</td>
+				<td width="5px">
+					&nbsp;
+				</td>
+			</tr>
+    	</table>
+	#elseif ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Gomen.css")
+		<table cellpadding="0" cellspacing="0" border="0" width="100%" style="background: #FFF">
+			<tr>
+				<td colspan="2" class="box-title">
+					Log Masuk
+				</td>
+			</tr>
+			<tr>
+				<td>
+    				<table cellpadding="5" cellspacing="0" border="0" class="login_input">
+    					<tr>
+                			<td colspan="2">
+                			    <input type="text" name="username" id="username" style="width: 100%" placeholder="MyID" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+                			</td>
+            			</tr>
+            			<tr>
+                			<td colspan="2">
+                				<input type="password" name="password" id="password" style="width: 100%" placeholder="Kata Laluan" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+                			</td>
+            			</tr>
+            			<tr>
+            				<td align="right">
+            					<input type="button" style="width: 100%; cursor: pointer;" name="btnSubmit" id="btnSubmit" value="Log Masuk" onClick="doLogin()" />
+            				</td>
+            				<td>
+            					<input type="button" style="width: 100%; cursor: pointer;" name="btnLupaKataLaluan" id="btnLupaKataLaluan" value="Lupa Kata Laluan" />
+            				</td>
+            			</tr>
+            			<tr>
+            				<td colspan="2">
+            					<input type="button" style="width: 100%; cursor: pointer;" name="btnDaftarAkaun" id="btnDaftarAkaun" value="Daftar Akaun" />
+            				</td>
+            			</tr>
+            			<tr>
+            				<td colspan="2" style="color: #FF0000; font-size: 0.8em;">
+            					** <i>Daftar akaun hanya untuk penjawat awam yang ingin menggunakan perkhidmatan BPH.</i>
+            				</td>
+            			</tr>
+            			<tr>
+                	    	<td colspan="2" align="center" valign="middle">
+                				<div id="divPortalLoginResult" align="center"></div>
+                			</td>
+                		</tr>	
+					</table>
+				</td>
+			</tr>
+    	</table>
+	#elseif ( ${session.getAttribute("_portal_css")} == "BPH-Real-Portal.css")
+		<table width="100%" cellpadding="5" cellspacing="0">
+			<tr>
+    			<td colspan="2" width="100px">
+    			    <input class="loginInput" type="text" name="username" id="username" placeholder="MyID" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+    			</td>
+			</tr>
+			<tr>
+    			<td colspan="2" width="100px">
+    				<input class="loginInput" type="password" name="password" id="password" placeholder="Kata Laluan" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+    			</td>
+			</tr>
+			<tr>
+				<td align="right">
+					<input class="loginButton" type="button" name="btnSubmit" id="btnSubmit" value="Log Masuk" onClick="doLogin()" />
+				</td>
+				<td>
+					<input class="loginButton" type="button" name="btnLupaKataLaluan" id="btnLupaKataLaluan" value="Lupa Kata Laluan" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input class="loginButton" type="button" name="btnDaftarAkaun" id="btnDaftarAkaun" value="Daftar Akaun" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div id="divPortalLoginResult" align="center"></div>
+					<i class="loginTips">** Daftar akaun hanya untuk penjawat awam yang ingin menggunakan perkhidmatan BPH.</i>
+				</td>
+			</tr>
+		</table>
+		
+		<script>
+			_jq( "#btnSubmit" ).click(function() {
+            	_jq( ".loginTips" ).toggle();
+            });
+		</script>
+	#elseif ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Gomen-1.css" || ${session.getAttribute("_portal_css")} == "BPH-Portal-Gomen-2.css" || ${session.getAttribute("_portal_css")} == "BPH-Portal-Gomen-3.css" || ${session.getAttribute("_portal_css")} == "BPH-Portal-Gomen-4.css" || ${session.getAttribute("_portal_css")} == "BPH-Portal-Gomen-5.css" )
+		<table cellpadding="5" cellspacing="0" border="0" width="100%" class="w3c">
+			<tr>
+				<td>
+					#parse("vtl/main/w3c.vm")
+				</td>
+				<td width="10%">
+					&nbsp;
+					##parse("bph/portal/homepage/gomenPortal-1/pautan-social.vm")
+				</td>
+				<td style="position: relative">
+					<table cellpadding="5" cellspacing="0" border="0" width="100%">
+						<tr>
+							<td>
+								<input class="button-style" style="font-size: 0.8em" type="button" name="btnDaftarAkaun" id="btnDaftarAkaun" value="Daftar Baru" onClick="doDivAjaxCall3$formname('content','getRegister','')" />
+							</td>
+							<td>
+								<input class="button-style" style="font-size: 0.8em" type="button" name="login" id="login" value="Log Masuk" />
+            					<div id="loginPanel">
+            						<table width="100%" cellpadding="5" cellspacing="0">
+                						<tr>
+                                			<td colspan="2" width="100px">
+                                			    <input class="input-style" type="text" name="username" id="username" style="width: 100%" placeholder="MyID" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+                                			</td>
+            							</tr>
+            							<tr>
+                                			<td colspan="2" width="100px">
+                                				<input class="input-style" type="password" name="password" id="password" style="width: 100%" placeholder="Kata Laluan" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+                                			</td>
+                						</tr>
+            							<tr>
+                                        	<td>
+                                        		<input class="button-style" style="font-size: 0.8em" type="button" name="btnSubmit" id="btnSubmit" value="Daftar Masuk" onClick="doLogin()" />
+                                        	</td>
+                                        	<td>
+                                        		<input class="button-style" style="font-size: 0.8em" type="button" name="btnLupaKataLaluan" id="btnLupaKataLaluan" value="Lupa Kata Laluan" onClick="lupaKataLaluan()"/>
+                                        	</td>
+                                        </tr>
+            							<tr>
+                            				<td colspan="2">
+            									<div id="divPortalLoginResult" align="center"></div>
+                            					<i class="loginTips">** Daftar akaun hanya untuk penjawat awam yang ingin menggunakan perkhidmatan BPH.</i>
+                            				</td>
+                            			</tr>
+                					</table>
+            					</div>
+							</td>
+						</tr>
+					</table>
+					
+					<script>
+                        _jq( "#login" ).click(function() {
+                        	_jq( "#loginPanel" ).slideToggle( "slow" );
+                        });
+						
+						_jq( "#btnSubmit" ).click(function() {
+                        	_jq( ".loginTips" ).toggle();
+                        });
+					</script>
+				</td>
+			</tr>
+										
+    	</table>
+	#elseif ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Gomen-Ori.css")
+		<table cellpadding="5" cellspacing="0" border="0" width="100%" class="w3c">
+			<tr>
+				<td>
+					#parse("vtl/main/w3c.vm")
+				</td>
+				<td>
+					#parse("bph/portal/homepage/gomenPortal-Ori/pautan-social.vm")
+				</td>
+				<td style="position: relative">
+					<input type="button" style="width: 100%; cursor: pointer;" name="login" id="login" value="Log Masuk" />
+					<div id="loginPanel">
+						<table width="100%" cellpadding="5" cellspacing="0">
+    						<tr>
+                    			<td colspan="2" width="100px">
+                    			    <input type="text" name="username" id="username" style="width: 100%" placeholder="MyID" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+                    			</td>
+							</tr>
+							<tr>
+                    			<td colspan="2" width="100px">
+                    				<input type="password" name="password" id="password" style="width: 100%" placeholder="Kata Laluan" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+                    			</td>
+    						</tr>
+							<tr>
+                				<td align="right">
+                					<input type="button" style="width: 100%; cursor: pointer;" name="btnSubmit" id="btnSubmit" value="Log Masuk" onClick="doLogin()" />
+                				</td>
+                				<td>
+                					<input type="button" style="width: 100%; cursor: pointer;" name="btnLupaKataLaluan" id="btnLupaKataLaluan" value="Lupa Kata Laluan" />
+                				</td>
+                			</tr>
+                			<tr>
+                				<td colspan="2">
+                					<input type="button" style="width: 100%; cursor: pointer;" name="btnDaftarAkaun" id="btnDaftarAkaun" value="Daftar Akaun" />
+                				</td>
+                			</tr>
+							<tr>
+                				<td colspan="2">
+									<div id="divPortalLoginResult" align="center"></div>
+                					<i class="loginTips">** Daftar akaun hanya untuk penjawat awam yang ingin menggunakan perkhidmatan BPH.</i>
+                				</td>
+                			</tr>
+    					</table>
+					</div>
+					
+					<script>
+                        _jq( "#login" ).click(function() {
+                        	_jq( "#loginPanel" ).slideToggle( "slow" );
+                        });
+						
+						_jq( "#btnSubmit" ).click(function() {
+                        	_jq( ".loginTips" ).toggle();
+                        });
+					</script>
+				</td>
+			</tr>
+										
+    	</table>
+	#elseif ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Main.css" )
+		
+	#else
+		##****************** Start date 24/3/2017 add by MatJuju *************
+		## Selesaikan masalah log keluar tapi screen masih lagi boleh click.
+		<div class="root_logout">        	
+			<table cellpadding="0" cellspacing="0" border="0" width="50%">
+				<tbody>
+					<tr>
+						<td class="logout_popup">
+							<fieldset>
+##								<legend class="legend">Log Masuk</legend>
+								<table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
+									<tr>
+										<td align="center">
+											<img src="../images/logo-bph-baru.png" width="150px" height="80px">		
+										</td>									
+									</tr>
+									<tr>
+										<td colspan="4" height="20"></td>
+									</tr>
+									<tr>
+										<td colspan="4" align="center">
+											<font class="blink" ><span class="sesi_tamat">Sesi anda telah tamat.</span></font><br />
+											<font class="blink" ><span class="sesi_tamat">Sila log Masuk semula SBBPH.</span></font>
+										</td>
+									</tr>
+								</table>
+								<table cellpadding="1" cellspacing="0" border="0" width="100%" class="logout_panel">
+									
+									<tr>
+										<td>
+											<input class="input-style" type="text" name="username" id="username" placeholder="MyID" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)"/>
+										</td>
+										
+									</tr>
+									<tr>
+										<td>
+											<input class="input-style" type="password" name="password" id="password" placeholder="Kata Laluan" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)"/>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="0" align="center" valign="middle">
+											<div id="divPortalLoginResult" align="center"></div>
+										</td>
+									</tr>
+									<tr>
+										<td align="right" colspan="2">
+##											<a href="#" onclick="lupaKataLaluan()" style="color: #FFF; font-size: 10px;">Kali pertama masuk?</a>
+##											<input type="button" value="Keluar"  style="background: none; border: none; box-shadow: none; color: #fff; font-weight: bold" ></input>
+##											<span style="color: #FFF; font-weight: bold; font-size: 11px;">&nbsp;&nbsp;|</span>
+											<input type="button" name="btnSubmit" id="btnSubmit" value="Log Masuk" onClick="doLogin()" style="background: none; border: none; box-shadow: none; color: #fff; font-weight: bold" />
+										</td>
+									</tr>
+								</table>	
+							</fieldset>	
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		##****************** Start date 24/3/2017 add by MatJuju *************/
+		##****** old Code *********
+##        <div class="tab_login fixed_top">
+##    		<table cellpadding="0" cellspacing="0" border="0" width="100%">
+##    			<tr>
+##    				<td id="w3c" colspan="2">
+##            			#parse("vtl/main/w3c.vm")
+##            		</td>
+##    			</tr>
+##    			<tr>
+##    				<td width="70%">
+##                    	<table align="left" cellpadding="0" cellspacing="0" border="0" width="100%">
+##                    		<tr>
+##    							<td width="6%" align="center">
+##                    				<img src="../images/1malaysia.png" height="55px">		
+##                				</td>
+##                				<td width="10%" align="center">
+##                    				<img src="../images/jata-mini.png" height="55px">		
+##                				</td>
+##    							<td width="8%" align="center">
+##                    				<img src="../images/bph.png" height="55px">		
+##                				</td>
+##                    			<td width="76%" valign="middle" align="left" class="header_title">
+##    								<table cellpadding="0" cellspacing="0" border="0">
+##    									<tr>
+##    										<td>
+##    											<span class="font_description">Portal Rasmi</span>
+##    										</td>
+##    									</tr>
+##    									<tr>
+##    										<td>
+##    											<span class="font_title">Bahagian Pengurusan Hartanah</span>			
+##    										</td>
+##    									</tr>
+##    									<tr>
+##    										<td>
+##    											<span class="font_description"><i>Jabatan Perdana Menteri</i></span>
+##    										</td>
+##    									</tr>
+##    								</table>
+##                    			</td>
+##                    		</tr>
+##                    	</table>				
+##    				</td>
+##    				<td width="30%">
+##                    	<table cellpadding="1" cellspacing="0" border="0" width="100%">
+##                    		<tr>
+##                    			<td>
+##                    			    <input type="text" name="username" id="username" placeholder="MyID" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" style="font-size: 10px;" />
+##                    			</td>
+##                    			<td>
+##                    				<input type="password" name="password" id="password" placeholder="Kata Laluan" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" style="font-size: 10px;" />
+##                    			</td>
+##    						</tr>
+##    						<tr>
+##                    	    	<td colspan="2" align="center" valign="middle">
+##                    				<div id="divPortalLoginResult" align="center"></div>
+##                    			</td>
+##                    		</tr>
+##    						<tr>
+##                    			<td align="right" colspan="2">
+##    								<a href="#" onclick="lupaKataLaluan()" style="color: #FFF; font-size: 10px;">Kali pertama masuk?</a>
+##    								<span style="color: #FFF; font-weight: bold; font-size: 11px;">&nbsp;&nbsp;|</span>
+##    								<input type="button" name="btnSubmit" id="btnSubmit" value="Log Masuk" onClick="doLogin()" style="background: none; border: none; box-shadow: none; color: #fff; font-weight: bold" />
+##    							</td>
+##                    		</tr>
+##                    	</table>					
+##    				</td>
+##    			</tr>
+##    		</table>
+##        </div>
+		  ##****** old Code *********
+	#end
+#end
+
+<script>
+function doLogin() {
+	if ( !checkIsEmpty($('username').value, $('password').value, $('divPortalLoginResult')) ) {
+		submitAjaxLogin($('divPortalLoginResult'), $('username').value, $('password').value);
+	}
+}
+
+function submitLogin() {
+    if ( document.getElementById('username').value == "" ) { alert("Please enter user name!"); document.getElementById('username').focus(); return; }
+    if ( document.getElementById('password').value == "" ) { alert("Please enter password!"); document.getElementById('password').focus(); return; }
+    document.getElementById('header_login').action = "login";
+    document.getElementById('header_login').submit();
+}
+
+function checkIsEmpty(username, password, e) {
+	if ( username == "" ) {
+		e.style.backgroundColor = "rgba(255,69,0,0.9)";
+		e.style.border = "1px solid #777";
+		e.style.color = "#FFF";
+		e.innerHTML = "<b> #if ( $lang == "en" ) username field is empty! #elseif ( $lang == "bm" ) ruangan MyID kosong! #end </b>";
+		e.style.display='block';
+		return true;
+	}
+	if ( password == "" ) {
+		e.style.backgroundColor = "rgba(255,69,0,0.9)";
+		e.style.color = "#fff";
+		e.innerHTML = "<b> #if ( $lang == "en" ) password field is empty! #elseif ( $lang == "bm" ) ruangan kata laluan kosong! #end </b>";
+		e.style.display='block';
+		return true;
+	}
+	return false;
+}
+
+function submitAjaxLogin(e, username, password) {
+	e.style.backgroundColor = "rgba(255,255,255,0.9)";
+	e.style.border = "1px solid #777";
+	e.style.color = "#000";
+	e.innerHTML = "<b> #if ( $lang == "en" ) Validation... Please wait.... #elseif ( $lang == "bm" ) Pengesahan... Sila tunggu.... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+	e.style.display='block';
+
+	var result = callAjaxLogin(username, password);
+	var json = eval("(" + result + ")");
+	if ( json.result == "true" ) {
+		e.style.backgroundColor = "rgba(50,205,50,0.9)";
+		e.style.color = "#FFF";
+		e.innerHTML = "<b> #if ( $lang == "en" ) Login Success.. Transferring... #elseif ( $lang == "bm" ) Log Masuk Berjaya.. Memindahkan... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+		window.location = "${serverUrl}";
+	} else {
+		e.style.backgroundColor = "rgba(255,69,0,0.9)";
+		e.style.color = "#FFF";
+		e.innerHTML = "<b> #if ( $lang == "en" ) Access Denied<br />Incorrect password or username #elseif ( $lang == "bm" ) Akses Ditolak<br />Salah Kata laluan atau MyID #end </b>";
+	} 
+}
+
+function submitAjaxLogin2(e, username, password, url) {
+	e.style.backgroundColor = "rgba(255,255,255,0.9)";
+	e.style.border = "1px solid #777";
+	e.style.color = "#000";
+	e.innerHTML = "<b> #if ( $lang == "en" ) Validation... Please wait.... #elseif ( $lang == "bm" ) Pengesahan... Sila tunggu.... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+	e.style.display='block';
+	
+	var urls;
+	
+	if (url != "") urls = "${serverUrl}/c/"+url;
+	else urls = "${serverUrl}";
+
+	var result = callAjaxLogin(username, password);
+	var json = eval("(" + result + ")");
+	if ( json.result == "true" ) {
+		e.style.backgroundColor = "rgba(50,205,50,0.9)";
+		e.style.color = "#FFF";
+		e.innerHTML = "<b> #if ( $lang == "en" ) Login Success.. Transferring... #elseif ( $lang == "bm" ) Log Masuk Berjaya.. Memindahkan... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+		window.location = urls;
+	} else {
+		e.style.backgroundColor = "rgba(255,69,0,0.9)";
+		e.style.color = "#FFF";
+		e.innerHTML = "<b> #if ( $lang == "en" ) Access Denied<br />Incorrect password or username #elseif ( $lang == "bm" ) Akses Ditolak<br />Salah Kata laluan atau MyID #end </b>";
+	} 
+}
+
+function loginInputKey(e, el) {
+	var keynum;
+	if (window.event) keynum = e.keyCode;
+	else if (e.which) keynum = e.which;
+	if ( keynum == 13 ) {
+		if ( el.id == "username" ) {
+			$('password').focus();
+		} else if ( el.id == "password" ) {
+			$('btnSubmit').focus();
+		}
+	}
+}
+
+function lupaKataLaluan() {
+
+    var url = "../x/bph.portal.FrmLupaKataLaluan";
+	var hWnd = window.open(url,'KataLaluan','width=625, height=250, toolbar=no, menubar=no, location=no, directories=no, status=no, resizable=no, scrollbars=no');
+    if ((document.window != null) && (!hWnd.opener))
+	hWnd.opener = document.window;
+    if (hWnd.focus != null) hWnd.focus();	
+}
+</script>

@@ -1,0 +1,147 @@
+<input type="hidden" id="kodJuruwang" name="kodJuruwang" value="$!juruwang.kodJuruwang" />
+#if ($!command == "add_new_record")
+	#parse("$path/daftarPembayar.vm")
+	
+	#if($statusInfo == "error")
+		<script>
+	_jq.Zebra_Dialog('No. Pengenalan / No. SSM telah wujud',{
+		'type': 'error',
+		'title': 'Makluman'
+		});
+		</script>
+	#end
+	#if($statusInfo == "error2")
+		<script>
+	_jq.Zebra_Dialog('No. Pengenalan / No. SSM telah wujud di sistem, Sila ke paparan tab Terimaan Hasil Kaunter untuk meneruskan proses.',{
+		'type': 'error',
+		'title': 'Makluman'
+		});
+		</script>
+	#end
+#else
+##		<fieldset>
+##			<legend class="legend">maklumat pembayar</legend>
+##			
+##		    <table width="100%">
+##				<tr>
+##					<td style="width:150px"></td>
+##					<td style="width:10px"></td>
+##					<td></td>
+##				</tr>
+##				
+##				<tr>
+##		        	<td valign="top">KATEGORI PEMBAYAR &nbsp;<span style='color:#FF2A00'>*</span></td>
+##		        	<td valign="top">:</td>
+##		        	<td valign="top">
+##		        		<input type="radio" id="flagJenisPembayarLain1" #if($!r.flagJenisPembayarLain == "INDIVIDU") checked #end name="flagJenisPembayarLain" value="INDIVIDU" onclick="$('err_flagJenisPembayarLain').innerHTML=''; at(this, event);" />
+##		                <label for="flagJenisPembayarLain1" >INDIVIDU</label>
+##		        		<input type="radio" id="flagJenisPembayarLain2" #if($!r.flagJenisPembayarLain == "SYARIKAT") checked #end name="flagJenisPembayarLain" value="SYARIKAT" onclick="$('err_flagJenisPembayarLain').innerHTML=''; at(this, event);" />
+##		        		<label for="flagJenisPembayarLain2" >SYARIKAT</label>
+##		        		<div id="err_flagJenisPembayarLain" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##		        	</td>
+##		        </tr>
+##		  
+##				#input_required("id" "NO. PENGENALAN / SSM" "$!r.id")
+##				#input_required("nama" "NAMA" "$!r.nama")
+##				#input_required("alamat1" "ALAMAT" "$!r.alamat1")
+##				#input("alamat2" "" "$!r.alamat2")
+##				#input("alamat3" "" "$!r.alamat3")
+##				#postcode_required("poskod" "POSKOD" "$!r.poskod")
+##		
+##				<tr>
+##					<td>NEGERI &nbsp;<span style='color:#FF2A00'>*</span></td>
+##					<td>:</td>
+##					<td>
+##						<select class="texts" id="negeri" name="negeri" style="width:100%" onChange="doDivAjaxCall3$formname('divFilterBandar','filterBandar',''); $('err_negeri').innerHTML=''; at(this, event);">
+##		                    <option value="">SILA PILIH</option>
+##		                    #foreach( $n in $listNegeri)
+##		    					<option value="$n.id" #if($!n.id == $!r.bandar.negeri.id) selected #end >$n.keterangan.toUpperCase()</option>
+##		                    #end
+##		                </select>
+##						<div id="err_negeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##					</td>
+##				</tr>
+##				
+##				<tr>
+##					<td>BANDAR &nbsp;<span style='color:#FF2A00'>*</span></td>
+##					<td>:</td>
+##					<td>
+##						<div id="divFilterBandar">#parse("$path/bandar.vm")</div>
+##						<div id="err_bandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##					</td>
+##				</tr>
+##				<tr>
+##					<input type="button" style="width:200px" value="KEMASKINI" id="btnEditPayer" />
+##				</tr>
+##				<script>
+##					_jq('#btnEditPayer').on('click', function(){
+##						doDivAjaxChainCall$formname('divMaklumatPembayar','editMaklumatPayer','payerId=$!pembayar.id','divEditPayer','showButtonSave','payerId=$!pembayar.id');
+##					});
+##				</script>
+##		    </table>
+##		</fieldset>
+		<div id="divMaklumatPembayar">#parse("$path/editPembayar.vm")</div>
+	<br/>
+	<legend class="legend">maklumat bil / invois</legend>
+	<table style="width:100%" cellpadding="1" cellspacing="1" border="0">
+		<tr>
+    		<td width="50%">
+    			<div id="divMaklumatInvois">#parse("$path/maklumatInvois.vm")</div>
+    		</td>
+			<td width="50%">
+				<div id="divSenaraiBayaranPilihan">#parse("$path/maklumatInvoisPilihan.vm")</div>
+			</td>
+    	</tr>
+	</table>
+	
+		<table style="width:100%" cellpadding="1" cellspacing="1" border="0">
+			<tr>
+	    		<td width="100%" valign="top">
+				<div id="divMaklumatBayaran">#parse("$path/maklumatBayaran.vm")</div>
+			</td>
+	    	</tr>
+		</table>
+	<table width="100%" style="padding-top:0.5cm">
+		<tr>
+			<td align="right">
+					#set ( $queryParam = "record_id=$!r.id" )
+						<input type="button" value="BAYAR" onClick="if ( validateField() ) doDivAjaxChainCall$formname('div_main_entry','simpanSemua','$queryParam','divSenaraiBayaranPilihan','refreshDivQueue','')">
+
+						<input type="button" style="width:200px" #if( !$!r ) disabled #end value="SENARAI  RESIT" id="btnSenaraiResit" />
+						<script>
+							_jq('#btnCetakResit').on('click', function(){
+								var idInvois = "$!rsi.invois.id";
+								var idResit = "$!rsi.resit.id";
+								var bilCetak = $!rsi.resit.bilCetakResit+1;
+								if(bilCetak == 1){
+	                         			var url = "../servlet/bph.laporan.kewangan.KEWResitAsal?idInvois="+idInvois+"&idResit="+idResit+"&bilCetak="+bilCetak;
+	                         			} else{
+	                         			var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idInvois="+idInvois+"&idResit="+idResit+"&bilCetak="+bilCetak;
+	                         		}
+	                    		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	                    		if ((document.window != null) && (!hWnd.opener))
+	                    		hWnd.opener = document.window;
+	                    		if (hWnd.focus != null) hWnd.focus();	
+	                      	});
+	                      	_jq('#btnSenaraiResit').on('click', function(){
+								doDivAjaxCall3$formname('divPopupSenaraiResit','callPopupSenaraiResit','payerId=$!pembayar.id');
+	    						jQuery('#divPopupSenaraiResit').fadeIn();
+							});
+						</script>	
+
+				<input id="button" type="button" value="KEMBALI" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+			</td>
+		</tr>
+	</table>
+	
+		<div id="divPopupSenaraiResit" class="popup"></div>
+	#end
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

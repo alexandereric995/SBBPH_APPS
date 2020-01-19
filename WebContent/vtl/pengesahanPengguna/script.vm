@@ -1,0 +1,34 @@
+function kemaskiniNotaPengesahan() {
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall3$formname('divStatus','kemaskiniNotaPengesahan','')
+	}
+}
+
+function simpanPengesahan() {
+	var err_count = 0;
+	
+	var idGredPerkhidmatan = $('idGredPerkhidmatan').value;
+	if ( idGredPerkhidmatan == "" ) { 
+		$('err_idGredPerkhidmatan').innerHTML = "** adalah mandatori!"; err_count++;  
+	}
+	
+	if (err_count == 0) {
+		if ( window.confirm("Anda pasti?") ){
+			doDivAjaxCall3$formname('divProfil','simpanPengesahan','')
+		}
+	}
+}
+
+function tolakPengesahan() {
+	var err_count = 0;
+	var catatanPengesahan = $('catatanPengesahan').value;
+	if ( catatanPengesahan == "" ) { 
+		$('err_catatanPengesahan').innerHTML = "** mandatori"; err_count++;  
+	}
+	
+	if (err_count == 0) {
+		if ( window.confirm("Anda pasti?") ){
+			doDivAjaxCall3$formname('divProfil','tolakPengesahan','')
+		}
+	}
+}

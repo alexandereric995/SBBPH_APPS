@@ -1,0 +1,1765 @@
+<script>
+    _jq(document).ready(function($){
+    	$('#example').dataTable({
+			"pagingType": "full_numbers",
+			"language": {
+	            "url": "../css/jquery.dataTables/Malay.json"
+	        }
+		});
+	
+        $('#example2').dataTable({
+			"pagingType": "full_numbers",
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            },
+			"initComplete": function () {
+                this.api().columns().every( function () {
+                    var column = this;
+                    var select = _jq('<select><option value=""></option></select>')
+                        .appendTo( _jq(column.footer()).empty() )
+                        .on( 'change', function () {
+                            var val = _jq.fn.dataTable.util.escapeRegex(
+                                _jq(this).val()
+                            );
+     
+                            column
+                                .search( val ? '^'+val+'$' : '', true, false )
+                                .draw();
+                        } );
+     
+                    column.data().unique().sort().each( function ( d, j ) {
+                        select.append( '<option value="'+d+'">'+d+'</option>' )
+                    } );
+                } );
+            }
+		});
+		
+		_jq('#datepicker').Zebra_DatePicker({
+        	always_visible: _jq('#tDate'),
+			show_select_today: 'Hari Ini',
+			lang_clear_date: 'Buang Tarikh',
+			months: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'],
+			days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],
+			days_abbr: ['Aha', 'Isn', 'Sel', 'Rab', 'Kha', 'Jum', 'Sab'],
+			onChange: function(view, elements) {
+                if (view == 'days') {
+                    elements.each(function() {
+                        if (_jq(this).data('date').match(/\-08-31$/)) {
+							_jq(this).prop('title', 'Hari Merdeka');
+                            _jq(this).css({
+                                backgroundColor: '#C40000',
+                                color: '#FFF',
+                                cursor: 'default'
+                            });
+						}
+						
+						if (_jq(this).data('date').match(/\-01$/)) {
+							_jq(this).prop('title', 'Hari pertama dalam setiap bulan');
+                            _jq(this).css({
+                                backgroundColor: '#C40000',
+                                color: '#FFF',
+                                cursor: 'default'
+                            });
+						}
+                    });
+                }
+            }
+        });
+		_jq('#datepicker').hide();
+		
+		_jq('#btnHelpZebraDialog').click(function() {
+			new _jq.Zebra_Dialog('<strong>All parameters are optional.</strong>', {
+			    source: {'iframe': {
+			        'src':  '../bph/testing/pluginTutor/zebra_dialog.vm',
+			        'height': 350
+			    }},
+			    width: 960,
+			    title:  'Configuration'
+			});
+		});
+		
+		_jq('#btnHelpZebraDialogEvent').click(function() {
+			new _jq.Zebra_Dialog('', {
+			    source: {'iframe': {
+			        'src':  '../bph/testing/pluginTutor/zebra_dialog_event.vm',
+			        'height': 350
+			    }},
+			    width: 960,
+			    title:  'Event'
+			});
+		});
+		
+		_jq('#btnHelpZebraDialogMethod').click(function() {
+			new _jq.Zebra_Dialog('', {
+			    source: {'iframe': {
+			        'src':  '../bph/testing/pluginTutor/zebra_dialog_method.vm',
+			        'height': 350
+			    }},
+			    width: 960,
+			    title:  'Method'
+			});
+		});
+		
+		_jq('#btnHelpZebraTooltips').click(function() {
+			new _jq.Zebra_Dialog('<strong>All parameters are optional.</strong>', {
+			    source: {'iframe': {
+			        'src':  '../bph/testing/pluginTutor/zebra_tooltips.vm',
+			        'height': 350
+			    }},
+			    width: 960,
+			    title:  'Configuration'
+			});
+		});
+		
+		_jq('#btnHelpZebraTooltipsEvent').click(function() {
+			new _jq.Zebra_Dialog('', {
+			    source: {'iframe': {
+			        'src':  '../bph/testing/pluginTutor/zebra_tooltips_event.vm',
+			        'height': 350
+			    }},
+			    width: 960,
+			    title:  'Event'
+			});
+		});
+		
+		_jq('#btnHelpZebraTooltipsMethod').click(function() {
+			new _jq.Zebra_Dialog('', {
+			    source: {'iframe': {
+			        'src':  '../bph/testing/pluginTutor/zebra_tooltips_method.vm',
+			        'height': 350
+			    }},
+			    width: 960,
+			    title:  'Method'
+			});
+		});
+		
+		_jq('#btnHelpZebraDatepicker').click(function() {
+			new _jq.Zebra_Dialog('<strong>All parameters are optional.</strong>', {
+			    source: {'iframe': {
+			        'src':  '../bph/testing/pluginTutor/zebra_datepicker.vm',
+			        'height': 350
+			    }},
+			    width: 960,
+			    title:  'Configuration'
+			});
+		});
+		
+		_jq('#btnHelpZebraDatepickerEvent').click(function() {
+			new _jq.Zebra_Dialog('', {
+			    source: {'iframe': {
+			        'src':  '../bph/testing/pluginTutor/zebra_datepicker_event.vm',
+			        'height': 350
+			    }},
+			    width: 960,
+			    title:  'Event'
+			});
+		});
+		
+		_jq('#btnHelpZebraDatepickerMethod').click(function() {
+			new _jq.Zebra_Dialog('', {
+			    source: {'iframe': {
+			        'src':  '../bph/testing/pluginTutor/zebra_datepicker_method.vm',
+			        'height': 350
+			    }},
+			    width: 960,
+			    title:  'Method'
+			});
+		});
+		
+		_jq('#btnSuccess1').click(function() {
+			_jq.Zebra_Dialog('You clicked the button!', {
+			    'type':     'confirmation',
+			    'title':    'Good job!'
+			});
+		});
+		
+		_jq('#btnError1').click(function() {
+			_jq.Zebra_Dialog('Something went wrong!', {
+			    'type':     'error',
+			    'title':    'Oops'
+			});
+		});
+		
+		_jq('#btnConfirm1').click(function() {
+			_jq.Zebra_Dialog('You will not be able to recover this imaginary file!', {
+			    'type':     'question',
+			    'title':    'Are you sure?',
+			    'buttons':  [
+			                    {caption: 'Yes', callback: function() { swal("Deleted!", "Your imaginary file has been deleted.", "success")}},
+			                    {caption: 'No', callback: function() { swal("Nothing!", "Your imaginary file has not been deleted.", "error")}},
+			                    {caption: 'Cancel', callback: function() { swal("Cancel!", "Cancel transaction.", "info")}}
+			                ]
+			});
+		});
+		
+		_jq('#btnWidget1').click(function() {
+			new _jq.Zebra_Dialog('<strong>Zebra_Dialog</strong>, a small, compact and highly' +
+			    'configurable dialog box plugin for jQuery', {
+			    'type': 'error',
+			    'show_close_button': false,
+			    'buttons':  false,
+			    'modal': false,
+			    'position': ['right - 20', 'top + 50'],
+			    'auto_close': 2000
+			});
+		});
+		
+		_jq('#btnAjax1').click(function() {
+			new _jq.Zebra_Dialog('<strong>Some dummy content:</strong><br><br>', {
+			    'source':  {'ajax': '../bph/testing/pluginTutor/ajax.vm'},
+			    width: 600,
+			    'title': 'External content loaded via AJAX'
+			});
+		});
+		
+		new _jQuery.Zebra_Tooltips($('.tooltips'));
+		
+		new _jQuery.Zebra_Tooltips($('.tooltips2'), {
+		    'position': 'right',
+		    'max_width':    300
+		});
+		
+		new _jQuery.Zebra_Tooltips($('.tooltips1'), {
+		    'position':     'left',
+		    'max_width':    300
+		});
+		
+		var zt = new _jQuery.Zebra_Tooltips($('.tooltipsS'));
+		zt.show($('.tooltipsS'), true);
+		
+		_jq('#btnSuccessJgrowl').click(function() {
+			_jq.jGrowl("Success Message", { header: 'Success', theme:  'success' } );
+		});
+		
+		_jq('#btnErrorJgrowl').click(function() {
+			_jq.jGrowl("Permohonan tidak berjaya dihantar ke Senarai Menunggu, sila cuba sebentar lagi...", { header: 'Error', theme:  'error' } );
+		});
+		
+		_jq('#btnInfoJgrowl').click(function() {
+			_jq.jGrowl("Info Message", { header: 'Info', theme:  'info' } );
+		});
+    });
+</script>
+
+<fieldset>
+	<legend class="legend">Jquery Jgrowl</legend>
+	<table cellpadding="5" cellspacing="5" border="0" width="75%" align="center">
+		<tr>
+			<td width="50%" align="center">
+				<input type="button" id="btnSuccessJgrowl" name="btnSuccessJgrowl" value="Success Message" />
+			</td>
+			<td width="50%">
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+_jq('#btnSuccessJgrowl').click(function() {
+	_jq.jGrowl("Success: Message", 
+		{ 
+			theme:  'success'
+		}
+	);
+});
+</code></pre>	
+			
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr />
+			</td>
+		</tr>
+		<tr>
+			<td width="50%" align="center">
+				<input type="button" id="btnErrorJgrowl" name="btnErrorJgrowl" value="Error Message" />
+			</td>
+			<td width="50%">
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+_jq('#btnErrorJgrowl').click(function() {
+	_jq.jGrowl("Error: Message", 
+		{ 
+			theme:  'error'
+		}
+	);
+});
+</code></pre>	
+			
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr />
+			</td>
+		</tr>
+		<tr>
+			<td width="50%" align="center">
+				<input type="button" id="btnInfoJgrowl" name="btnInfoJgrowl" value="Info Message" />
+			</td>
+			<td width="50%">
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+_jq('#btnInfoJgrowl').click(function() {
+	_jq.jGrowl("Info: Message", 
+		{ 
+			theme:  'info'
+		}
+	);
+});
+</code></pre>	
+			
+			</td>
+		</tr>
+	</table>
+</fieldset>
+
+<fieldset>
+	<legend class="legend">Jquery Sweet Alert</legend>
+	<table cellpadding="5" cellspacing="5" border="0" width="75%" align="center">
+		<tr>
+			<td colspan="2">
+				<input type="button" id="btnHelpSweetAlert" name="btnHelpSweetAlert" value="Configuration" />
+				<input type="button" id="btnHelpSweetAlertMethod" name="btnHelpSweetAlertMethod" value="Method" />
+			</td>
+		</tr>
+		<tr>
+			<td width="50%" align="center">
+				<input type="button" id="btnSuccess" name="btnSuccess" value="Success Message" />
+			</td>
+			<td width="50%">
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+_jq('#btnSuccess').click(function() {
+	swal({
+		title: "Good job!",
+		text: "You clicked the button!",
+		type: "success"
+	});
+});
+</code></pre>	
+			
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr />
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<input type="button" id="btnError" name="btnError" value="Error Message" />
+			</td>
+			<td>
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+_jq('#btnError').click(function() {
+	swal({
+		title: "Oops...",
+		text: "Something went wrong!",
+		type: "error"
+	});
+});
+</code></pre>	
+			
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr />
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<input type="button" id="btnConfirm" name="btnConfirm" value="Confirmation Message" />
+			</td>
+			<td>
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+_jq('#btnConfirm').click(function() {
+    swal({
+        title: "Are you sure?",
+        text: "You will not be able to recover this imaginary file!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete it!",
+        closeOnConfirm: false
+    },
+    function(){
+    	swal("Deleted!", "Your imaginary file has been deleted.", "success");
+    });
+});
+</code></pre>	
+			
+			</td>
+		</tr>
+	</table>
+</fieldset>
+
+<script>
+	_jq('#btnHelpSweetAlert').click(function() {
+		new _jq.Zebra_Dialog('<strong>Here are the keys that you can use if you pass an object into sweetAlert:</strong>', {
+		    source: {'iframe': {
+		        'src':  '../bph/testing/pluginTutor/sweet_alert.vm',
+		        'height': 350
+		    }},
+		    width: 960,
+		    title:  'Configuration'
+		});
+	});
+	
+	_jq('#btnHelpSweetAlertMethod').click(function() {
+		new _jq.Zebra_Dialog('<strong>SweetAlert also comes with some simple methods that you can call:</strong>', {
+		    source: {'iframe': {
+		        'src':  '../bph/testing/pluginTutor/sweet_alert_method.vm',
+		        'height': 350
+		    }},
+		    width: 960,
+		    title:  'Method'
+		});
+	});
+	
+	_jq('#btnSuccess').click(function() {
+    	swal({
+    		title: "Good job!",
+    		text: "You clicked the button!",
+    		type: "success"
+    	});
+	});
+	
+	_jq('#btnError').click(function() {
+    	swal({
+    		title: "Oops...",
+    		text: "Something went wrong!",
+    		type: "error"
+    	});
+	});
+	
+	_jq('#btnConfirm').click(function() {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function(){
+        	swal("Deleted!", "Your imaginary file has been deleted.", "success");
+        });
+	});
+</script>
+
+<fieldset>
+	<legend class="legend">Zebra Dialog</legend>
+	<table cellpadding="5" cellspacing="5" border="0" width="75%" align="center">
+		<tr>
+			<td colspan="2">
+				<input type="button" id="btnHelpZebraDialog" name="btnHelpZebraDialog" value="Configuration" />
+				<input type="button" id="btnHelpZebraDialogEvent" name="btnHelpZebraDialogEvent" value="Event" />
+				<input type="button" id="btnHelpZebraDialogMethod" name="btnHelpZebraDialogMethod" value="Method" />
+			</td>
+		</tr>
+		<tr>
+			<td width="50%" align="center">
+				<input type="button" id="btnSuccess1" name="btnSuccess1" value="Success Message" />
+			</td>
+			<td width="50%">
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+_jq('#btnSuccess1').click(function() {
+	_jq.Zebra_Dialog('You clicked the button!', {
+	    'type':     'confirmation',
+	    'title':    'Good job!'
+	});
+});
+</code></pre>		
+		
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr />
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<input type="button" id="btnError1" name="btnError1" value="Error Message" />
+			</td>
+			<td>
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+_jq('#btnError1').click(function() {
+	_jq.Zebra_Dialog('Something went wrong!', {
+	    'type':     'error',
+	    'title':    'Oops'
+	});
+});
+</code></pre>		
+		
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr />
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<input type="button" id="btnConfirm1" name="btnConfirm1" value="Confirmation Message" />
+			</td>
+			<td>
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+_jq('#btnConfirm1').click(function() {
+	_jq.Zebra_Dialog('You will not be able to recover this imaginary file!', {
+	    'type':     'question',
+	    'title':    'Are you sure?',
+	    'buttons':  [
+	                    {caption: 'Yes', callback: function() { swal("Deleted!", "Your imaginary file has been deleted.", "success")}},
+	                    {caption: 'No', callback: function() { swal("Nothing!", "Your imaginary file has not been deleted.", "error")}},
+	                    {caption: 'Cancel', callback: function() { swal("Cancel!", "Cancel transaction.", "info")}}
+	                ]
+	});
+});
+</code></pre>	
+			
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr />
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<input type="button" id="btnWidget1" name="btnWidget1" value="Notification Widget" />
+			</td>
+			<td>
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+_jq('#btnWidget1').click(function() {
+	new _jq.Zebra_Dialog('<strong>Zebra_Dialog</strong>, a small, compact and highly' +
+	    'configurable dialog box plugin for jQuery', {
+	    'type': 'error',
+	    'show_close_button': false,
+	    'buttons':  false,
+	    'modal': false,
+	    'position': ['right - 20', 'top + 50'],
+	    'auto_close': 2000
+	});
+});
+</code></pre>			
+	
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr />
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<input type="button" id="btnAjax1" name="btnAjax1" value="External content loaded via AJAX" />
+			</td>
+			<td>
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+_jq('#btnAjax1').click(function() {
+	new _jq.Zebra_Dialog('<strong>Some dummy content:</strong><br><br>', {
+	    'source':  {'ajax': '../bph/testing/pluginTutor/ajax.vm'},
+	    width: 600,
+	    'title': 'External content loaded via AJAX'
+	});
+});
+</code></pre>		
+		
+			</td>
+		</tr>		
+	</table>
+</fieldset>
+
+<fieldset>
+	<legend class="legend">Zebra Tooltip</legend>
+	<table cellpadding="5" cellspacing="5" border="0" width="75%" align="center">
+		<tr>
+			<tr>
+				<td colspan="2">
+					<input type="button" id="btnHelpZebraTooltips" name="btnHelpZebraTooltips" value="Configuration" />
+					<input type="button" id="btnHelpZebraTooltipsEvent" name="btnHelpZebraTooltipsEvent" value="Event" />
+					<input type="button" id="btnHelpZebraTooltipsMethod" name="btnHelpZebraTooltipsMethod" value="Method" />
+				</td>
+			</tr>
+			<td width="50%" align="center">
+				<a href="#" class="tooltips" title="Zebra_Tooltips is a lightweight (around 5KB minified, 1.6KB gzipped) tooltip jQuery plugin for creating simple, but smart and visually attractive tooltips, featuring nice transitions and offering a wide range of configuration options.">Mouseover Here</a>
+			</td>
+			<td width="50%">
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-markup">
+&lt;a href="#" 
+class="tooltips" title="Zebra_Tooltips is a lightweight (around 5KB minified, 1.6KB 
+gzipped) tooltip jQuery plugin for creating simple, but smart and visually attractive 
+tooltips, featuring nice transitions and offering a wide range of configuration 
+options."&gt;Mouseover Here&lt;/a&gt;
+</code></pre>	
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+new _jQuery.Zebra_Tooltips&#40;&#36;&#40;'.tooltips'&#41;&#41;&#59;
+</code></pre>	
+
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr />
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<a href="#" class="tooltips1" title="Hello! I am aligned to the left of the element. Also, my width is different.">Left : Mouseover Here</a>
+			</td>
+			<td>
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-markup">
+&lt;a href="#" 
+class="tooltips1" title="Hello! I am aligned to the left of the element. Also, my
+width is different."&gt;left&lt;/a&gt;
+</code></pre>				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+new _jQuery.Zebra_Tooltips($('.tooltips1'), {
+    'position':     'left',
+    'max_width':    300
+});
+</code></pre>	
+			
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr />
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<a href="#" class="tooltips2" title="Hello! I am aligned to the right of the element. Also, my width is different.">Right : Mouseover Here</a>
+			</td>
+			<td>
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-markup">
+&lt;a href="#" 
+class="tooltips2" title="Hello! I am aligned to the right of the element. Also, my
+width is different."&gt;left&lt;/a&gt;
+</code></pre>		
+			
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+new _jQuery.Zebra_Tooltips($('.tooltips2'), {
+    'position': 'right',
+    'max_width':    300
+});
+</code></pre>		
+		
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<hr />
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<a href="#" class="tooltipsS" title="Zebra_Tooltips makes use of NO IMAGES (everything is handled from CSS), and falls back gracefully for browsers that don't support all the fancy stuff; also tooltips can be attached to any element not just anchor tags!\n\nWorks in all major browsers (Firefox, Opera, Safari, Chrome, Internet Explorer 6+)">Static Tooltip</a>
+			</td>
+			<td>
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-markup">
+&lt;a href="#" 
+class="tooltipsS" title="Zebra_Tooltips makes use of NO IMAGES (everything is 
+handled from CSS), and falls back gracefully for browsers that don't support all 
+the fancy stuff; also tooltips can be attached to any element not just anchor 
+tags!&lt;br&gt;&lt;br&gt;Works in all major browsers (Firefox, Opera, Safari, Chrome, Internet 
+Explorer 6+)"&gt;condimentum&lt;/a&gt;	
+&lt;a href="#" 
+class="tooltips2" title="Hello! I am aligned to the right of the element. Also, my
+width is different."&gt;left&lt;/a&gt;
+</code></pre>	
+				
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+var zt = new _jQuery.Zebra_Tooltips($('.tooltipsS'));
+zt.show($('.tooltipsS'), true); // destroy on close
+</code></pre>		
+		
+			</td>
+		</tr>		
+	</table>
+</fieldset>
+
+<fieldset>
+	<legend class="legend">Zebra Datepicker with Tooltip</legend>
+	<table cellpadding="5" cellspacing="0" border="0" align="center" width="100%">
+		<tr>
+			<td colspan="2">
+				<input type="button" id="btnHelpZebraDatepicker" name="btnHelpZebraDatepicker" value="Configuration" />
+				<input type="button" id="btnHelpZebraDatepickerEvent" name="btnHelpZebraDatepickerEvent" value="Event" />
+				<input type="button" id="btnHelpZebraDatepickerMethod" name="btnHelpZebraDatepickerMethod" value="Method" />
+			</td>
+		</tr>
+		<tr>
+			<td valign="bottom">Contoh Date-Picker : </td>
+    		<td rowspan="2">
+    			
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+_jq('#datepicker').Zebra_DatePicker({
+	always_visible: _jq('#tDate'),
+	show_select_today: 'Hari Ini',
+	lang_clear_date: 'Buang Tarikh',
+	months: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'],
+	days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],
+	days_abbr: ['Aha', 'Isn', 'Sel', 'Rab', 'Kha', 'Jum', 'Sab'],
+	onChange: function(view, elements) {
+        if (view == 'days') {
+            elements.each(function() {
+                if (_jq(this).data('date').match(/\-08-31$/)) {
+					_jq(this).prop('title', 'Hari Merdeka');
+                    _jq(this).css({
+                        backgroundColor: '#C40000',
+                        color: '#FFF',
+                        cursor: 'default'
+                    });
+				}
+				
+				if (_jq(this).data('date').match(/\-01$/)) {
+					_jq(this).prop('title', 'Hari pertama dalam setiap bulan');
+                    _jq(this).css({
+                        backgroundColor: '#C40000',
+                        color: '#FFF',
+                        cursor: 'default'
+                    });
+				}
+            });
+        }
+    }
+});
+_jq('#datepicker').hide();
+</code></pre>    		
+	
+		    </td>
+		</tr>
+    	<tr>
+    		<td valign="top">
+    			<input type="text" id="datepicker" value="" style="width: 150px" />
+				<div id="tDate" style="position: relative; z-index: 0; margin: 10px 0 0 0; width: 220px; height: 240px"></div>
+    		</td>
+    	</tr>
+    </table>
+</fieldset>
+
+<fieldset>
+	<legend class="legend">Jquery Data Tables</legend>
+	<h2>For simple method of calling datatables</h2>
+	
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+_jq(document).ready(function(){
+    _jq('#example').dataTable({
+		"pagingType": "full_numbers",
+		"language": {
+            "url": "../css/jquery.dataTables/Malay.json"
+        }
+	});
+});
+</code></pre>	
+
+	<br />
+	<hr />
+	<br />
+	<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Jawatan</th>
+                <th>Pejabat</th>
+                <th>Umur</th>
+                <th>Tarik Mula Kerja</th>
+                <th>Gaji</th>
+            </tr>
+        </thead>
+ 
+        <tbody>
+            <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+            </tr>
+            <tr>
+                <td>Garrett Winters</td>
+                <td>Accountant</td>
+                <td>Tokyo</td>
+                <td>63</td>
+                <td>2011/07/25</td>
+                <td>$170,750</td>
+            </tr>
+            <tr>
+                <td>Ashton Cox</td>
+                <td>Junior Technical Author</td>
+                <td>San Francisco</td>
+                <td>66</td>
+                <td>2009/01/12</td>
+                <td>$86,000</td>
+            </tr>
+            <tr>
+                <td>Cedric Kelly</td>
+                <td>Senior Javascript Developer</td>
+                <td>Edinburgh</td>
+                <td>22</td>
+                <td>2012/03/29</td>
+                <td>$433,060</td>
+            </tr>
+            <tr>
+                <td>Airi Satou</td>
+                <td>Accountant</td>
+                <td>Tokyo</td>
+                <td>33</td>
+                <td>2008/11/28</td>
+                <td>$162,700</td>
+            </tr>
+            <tr>
+                <td>Brielle Williamson</td>
+                <td>Integration Specialist</td>
+                <td>New York</td>
+                <td>61</td>
+                <td>2012/12/02</td>
+                <td>$372,000</td>
+            </tr>
+            <tr>
+                <td>Herrod Chandler</td>
+                <td>Sales Assistant</td>
+                <td>San Francisco</td>
+                <td>59</td>
+                <td>2012/08/06</td>
+                <td>$137,500</td>
+            </tr>
+            <tr>
+                <td>Rhona Davidson</td>
+                <td>Integration Specialist</td>
+                <td>Tokyo</td>
+                <td>55</td>
+                <td>2010/10/14</td>
+                <td>$327,900</td>
+            </tr>
+            <tr>
+                <td>Colleen Hurst</td>
+                <td>Javascript Developer</td>
+                <td>San Francisco</td>
+                <td>39</td>
+                <td>2009/09/15</td>
+                <td>$205,500</td>
+            </tr>
+            <tr>
+                <td>Sonya Frost</td>
+                <td>Software Engineer</td>
+                <td>Edinburgh</td>
+                <td>23</td>
+                <td>2008/12/13</td>
+                <td>$103,600</td>
+            </tr>
+            <tr>
+                <td>Jena Gaines</td>
+                <td>Office Manager</td>
+                <td>London</td>
+                <td>30</td>
+                <td>2008/12/19</td>
+                <td>$90,560</td>
+            </tr>
+            <tr>
+                <td>Quinn Flynn</td>
+                <td>Support Lead</td>
+                <td>Edinburgh</td>
+                <td>22</td>
+                <td>2013/03/03</td>
+                <td>$342,000</td>
+            </tr>
+            <tr>
+                <td>Charde Marshall</td>
+                <td>Regional Director</td>
+                <td>San Francisco</td>
+                <td>36</td>
+                <td>2008/10/16</td>
+                <td>$470,600</td>
+            </tr>
+            <tr>
+                <td>Haley Kennedy</td>
+                <td>Senior Marketing Designer</td>
+                <td>London</td>
+                <td>43</td>
+                <td>2012/12/18</td>
+                <td>$313,500</td>
+            </tr>
+            <tr>
+                <td>Tatyana Fitzpatrick</td>
+                <td>Regional Director</td>
+                <td>London</td>
+                <td>19</td>
+                <td>2010/03/17</td>
+                <td>$385,750</td>
+            </tr>
+            <tr>
+                <td>Michael Silva</td>
+                <td>Marketing Designer</td>
+                <td>London</td>
+                <td>66</td>
+                <td>2012/11/27</td>
+                <td>$198,500</td>
+            </tr>
+            <tr>
+                <td>Paul Byrd</td>
+                <td>Chief Financial Officer (CFO)</td>
+                <td>New York</td>
+                <td>64</td>
+                <td>2010/06/09</td>
+                <td>$725,000</td>
+            </tr>
+            <tr>
+                <td>Gloria Little</td>
+                <td>Systems Administrator</td>
+                <td>New York</td>
+                <td>59</td>
+                <td>2009/04/10</td>
+                <td>$237,500</td>
+            </tr>
+            <tr>
+                <td>Bradley Greer</td>
+                <td>Software Engineer</td>
+                <td>London</td>
+                <td>41</td>
+                <td>2012/10/13</td>
+                <td>$132,000</td>
+            </tr>
+            <tr>
+                <td>Dai Rios</td>
+                <td>Personnel Lead</td>
+                <td>Edinburgh</td>
+                <td>35</td>
+                <td>2012/09/26</td>
+                <td>$217,500</td>
+            </tr>
+            <tr>
+                <td>Jenette Caldwell</td>
+                <td>Development Lead</td>
+                <td>New York</td>
+                <td>30</td>
+                <td>2011/09/03</td>
+                <td>$345,000</td>
+            </tr>
+            <tr>
+                <td>Yuri Berry</td>
+                <td>Chief Marketing Officer (CMO)</td>
+                <td>New York</td>
+                <td>40</td>
+                <td>2009/06/25</td>
+                <td>$675,000</td>
+            </tr>
+            <tr>
+                <td>Caesar Vance</td>
+                <td>Pre-Sales Support</td>
+                <td>New York</td>
+                <td>21</td>
+                <td>2011/12/12</td>
+                <td>$106,450</td>
+            </tr>
+            <tr>
+                <td>Doris Wilder</td>
+                <td>Sales Assistant</td>
+                <td>Sidney</td>
+                <td>23</td>
+                <td>2010/09/20</td>
+                <td>$85,600</td>
+            </tr>
+            <tr>
+                <td>Angelica Ramos</td>
+                <td>Chief Executive Officer (CEO)</td>
+                <td>London</td>
+                <td>47</td>
+                <td>2009/10/09</td>
+                <td>$1,200,000</td>
+            </tr>
+            <tr>
+                <td>Gavin Joyce</td>
+                <td>Developer</td>
+                <td>Edinburgh</td>
+                <td>42</td>
+                <td>2010/12/22</td>
+                <td>$92,575</td>
+            </tr>
+            <tr>
+                <td>Jennifer Chang</td>
+                <td>Regional Director</td>
+                <td>Singapore</td>
+                <td>28</td>
+                <td>2010/11/14</td>
+                <td>$357,650</td>
+            </tr>
+            <tr>
+                <td>Brenden Wagner</td>
+                <td>Software Engineer</td>
+                <td>San Francisco</td>
+                <td>28</td>
+                <td>2011/06/07</td>
+                <td>$206,850</td>
+            </tr>
+            <tr>
+                <td>Fiona Green</td>
+                <td>Chief Operating Officer (COO)</td>
+                <td>San Francisco</td>
+                <td>48</td>
+                <td>2010/03/11</td>
+                <td>$850,000</td>
+            </tr>
+            <tr>
+                <td>Shou Itou</td>
+                <td>Regional Marketing</td>
+                <td>Tokyo</td>
+                <td>20</td>
+                <td>2011/08/14</td>
+                <td>$163,000</td>
+            </tr>
+            <tr>
+                <td>Michelle House</td>
+                <td>Integration Specialist</td>
+                <td>Sidney</td>
+                <td>37</td>
+                <td>2011/06/02</td>
+                <td>$95,400</td>
+            </tr>
+            <tr>
+                <td>Suki Burks</td>
+                <td>Developer</td>
+                <td>London</td>
+                <td>53</td>
+                <td>2009/10/22</td>
+                <td>$114,500</td>
+            </tr>
+            <tr>
+                <td>Prescott Bartlett</td>
+                <td>Technical Author</td>
+                <td>London</td>
+                <td>27</td>
+                <td>2011/05/07</td>
+                <td>$145,000</td>
+            </tr>
+            <tr>
+                <td>Gavin Cortez</td>
+                <td>Team Leader</td>
+                <td>San Francisco</td>
+                <td>22</td>
+                <td>2008/10/26</td>
+                <td>$235,500</td>
+            </tr>
+            <tr>
+                <td>Martena Mccray</td>
+                <td>Post-Sales support</td>
+                <td>Edinburgh</td>
+                <td>46</td>
+                <td>2011/03/09</td>
+                <td>$324,050</td>
+            </tr>
+            <tr>
+                <td>Unity Butler</td>
+                <td>Marketing Designer</td>
+                <td>San Francisco</td>
+                <td>47</td>
+                <td>2009/12/09</td>
+                <td>$85,675</td>
+            </tr>
+            <tr>
+                <td>Howard Hatfield</td>
+                <td>Office Manager</td>
+                <td>San Francisco</td>
+                <td>51</td>
+                <td>2008/12/16</td>
+                <td>$164,500</td>
+            </tr>
+            <tr>
+                <td>Hope Fuentes</td>
+                <td>Secretary</td>
+                <td>San Francisco</td>
+                <td>41</td>
+                <td>2010/02/12</td>
+                <td>$109,850</td>
+            </tr>
+            <tr>
+                <td>Vivian Harrell</td>
+                <td>Financial Controller</td>
+                <td>San Francisco</td>
+                <td>62</td>
+                <td>2009/02/14</td>
+                <td>$452,500</td>
+            </tr>
+            <tr>
+                <td>Timothy Mooney</td>
+                <td>Office Manager</td>
+                <td>London</td>
+                <td>37</td>
+                <td>2008/12/11</td>
+                <td>$136,200</td>
+            </tr>
+            <tr>
+                <td>Jackson Bradshaw</td>
+                <td>Director</td>
+                <td>New York</td>
+                <td>65</td>
+                <td>2008/09/26</td>
+                <td>$645,750</td>
+            </tr>
+            <tr>
+                <td>Olivia Liang</td>
+                <td>Support Engineer</td>
+                <td>Singapore</td>
+                <td>64</td>
+                <td>2011/02/03</td>
+                <td>$234,500</td>
+            </tr>
+            <tr>
+                <td>Bruno Nash</td>
+                <td>Software Engineer</td>
+                <td>London</td>
+                <td>38</td>
+                <td>2011/05/03</td>
+                <td>$163,500</td>
+            </tr>
+            <tr>
+                <td>Sakura Yamamoto</td>
+                <td>Support Engineer</td>
+                <td>Tokyo</td>
+                <td>37</td>
+                <td>2009/08/19</td>
+                <td>$139,575</td>
+            </tr>
+            <tr>
+                <td>Thor Walton</td>
+                <td>Developer</td>
+                <td>New York</td>
+                <td>61</td>
+                <td>2013/08/11</td>
+                <td>$98,540</td>
+            </tr>
+            <tr>
+                <td>Finn Camacho</td>
+                <td>Support Engineer</td>
+                <td>San Francisco</td>
+                <td>47</td>
+                <td>2009/07/07</td>
+                <td>$87,500</td>
+            </tr>
+            <tr>
+                <td>Serge Baldwin</td>
+                <td>Data Coordinator</td>
+                <td>Singapore</td>
+                <td>64</td>
+                <td>2012/04/09</td>
+                <td>$138,575</td>
+            </tr>
+            <tr>
+                <td>Zenaida Frank</td>
+                <td>Software Engineer</td>
+                <td>New York</td>
+                <td>63</td>
+                <td>2010/01/04</td>
+                <td>$125,250</td>
+            </tr>
+            <tr>
+                <td>Zorita Serrano</td>
+                <td>Software Engineer</td>
+                <td>San Francisco</td>
+                <td>56</td>
+                <td>2012/06/01</td>
+                <td>$115,000</td>
+            </tr>
+            <tr>
+                <td>Jennifer Acosta</td>
+                <td>Junior Javascript Developer</td>
+                <td>Edinburgh</td>
+                <td>43</td>
+                <td>2013/02/01</td>
+                <td>$75,650</td>
+            </tr>
+            <tr>
+                <td>Cara Stevens</td>
+                <td>Sales Assistant</td>
+                <td>New York</td>
+                <td>46</td>
+                <td>2011/12/06</td>
+                <td>$145,600</td>
+            </tr>
+            <tr>
+                <td>Hermione Butler</td>
+                <td>Regional Director</td>
+                <td>London</td>
+                <td>47</td>
+                <td>2011/03/21</td>
+                <td>$356,250</td>
+            </tr>
+            <tr>
+                <td>Lael Greer</td>
+                <td>Systems Administrator</td>
+                <td>London</td>
+                <td>21</td>
+                <td>2009/02/27</td>
+                <td>$103,500</td>
+            </tr>
+            <tr>
+                <td>Jonas Alexander</td>
+                <td>Developer</td>
+                <td>San Francisco</td>
+                <td>30</td>
+                <td>2010/07/14</td>
+                <td>$86,500</td>
+            </tr>
+            <tr>
+                <td>Shad Decker</td>
+                <td>Regional Director</td>
+                <td>Edinburgh</td>
+                <td>51</td>
+                <td>2008/11/13</td>
+                <td>$183,000</td>
+            </tr>
+            <tr>
+                <td>Michael Bruce</td>
+                <td>Javascript Developer</td>
+                <td>Singapore</td>
+                <td>29</td>
+                <td>2011/06/27</td>
+                <td>$183,000</td>
+            </tr>
+            <tr>
+                <td>Donna Snider</td>
+                <td>Customer Support</td>
+                <td>New York</td>
+                <td>27</td>
+                <td>2011/01/25</td>
+                <td>$112,000</td>
+            </tr>
+        </tbody>
+    </table>
+	<br />
+	<hr />
+	<br />
+	<h2>For advanced method of calling datatables</h2>
+	
+<pre class="line-numbers keep-initial-line-feed"><code class="language-javascript">
+_jq(document).ready(function(){
+    _jq('#example2').dataTable({
+		"pagingType": "full_numbers",
+		//"bFilter": false, //Only to hide Search Function
+		"language": {
+            "url": "../css/jquery.dataTables/Malay.json"
+        },
+		"initComplete": function () { // If bFilter is false, this function will be unusable
+            this.api().columns().every( function () {
+                var column = this;
+                var select = _jq('<select><option value=""></option></select>')
+                    .appendTo( _jq(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = _jq.fn.dataTable.util.escapeRegex(
+                            _jq(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        }
+	});
+});
+</code></pre>
+
+	<br />
+	<hr />
+	<br />
+	<table id="example2" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Jawatan</th>
+                <th>Pejabat</th>
+                <th>Umur</th>
+                <th>Tarik Mula Kerja</th>
+                <th>Gaji</th>
+            </tr>
+        </thead>
+ 
+        <tfoot>
+            <tr>
+                <th>Nama</th>
+                <th>Jawatan</th>
+                <th>Pejabat</th>
+                <th>Umur</th>
+                <th>Tarik Mula Kerja</th>
+                <th>Gaji</th>
+            </tr>
+        </tfoot>
+ 
+        <tbody>
+            <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+            </tr>
+            <tr>
+                <td>Garrett Winters</td>
+                <td>Accountant</td>
+                <td>Tokyo</td>
+                <td>63</td>
+                <td>2011/07/25</td>
+                <td>$170,750</td>
+            </tr>
+            <tr>
+                <td>Ashton Cox</td>
+                <td>Junior Technical Author</td>
+                <td>San Francisco</td>
+                <td>66</td>
+                <td>2009/01/12</td>
+                <td>$86,000</td>
+            </tr>
+            <tr>
+                <td>Cedric Kelly</td>
+                <td>Senior Javascript Developer</td>
+                <td>Edinburgh</td>
+                <td>22</td>
+                <td>2012/03/29</td>
+                <td>$433,060</td>
+            </tr>
+            <tr>
+                <td>Airi Satou</td>
+                <td>Accountant</td>
+                <td>Tokyo</td>
+                <td>33</td>
+                <td>2008/11/28</td>
+                <td>$162,700</td>
+            </tr>
+            <tr>
+                <td>Brielle Williamson</td>
+                <td>Integration Specialist</td>
+                <td>New York</td>
+                <td>61</td>
+                <td>2012/12/02</td>
+                <td>$372,000</td>
+            </tr>
+            <tr>
+                <td>Herrod Chandler</td>
+                <td>Sales Assistant</td>
+                <td>San Francisco</td>
+                <td>59</td>
+                <td>2012/08/06</td>
+                <td>$137,500</td>
+            </tr>
+            <tr>
+                <td>Rhona Davidson</td>
+                <td>Integration Specialist</td>
+                <td>Tokyo</td>
+                <td>55</td>
+                <td>2010/10/14</td>
+                <td>$327,900</td>
+            </tr>
+            <tr>
+                <td>Colleen Hurst</td>
+                <td>Javascript Developer</td>
+                <td>San Francisco</td>
+                <td>39</td>
+                <td>2009/09/15</td>
+                <td>$205,500</td>
+            </tr>
+            <tr>
+                <td>Sonya Frost</td>
+                <td>Software Engineer</td>
+                <td>Edinburgh</td>
+                <td>23</td>
+                <td>2008/12/13</td>
+                <td>$103,600</td>
+            </tr>
+            <tr>
+                <td>Jena Gaines</td>
+                <td>Office Manager</td>
+                <td>London</td>
+                <td>30</td>
+                <td>2008/12/19</td>
+                <td>$90,560</td>
+            </tr>
+            <tr>
+                <td>Quinn Flynn</td>
+                <td>Support Lead</td>
+                <td>Edinburgh</td>
+                <td>22</td>
+                <td>2013/03/03</td>
+                <td>$342,000</td>
+            </tr>
+            <tr>
+                <td>Charde Marshall</td>
+                <td>Regional Director</td>
+                <td>San Francisco</td>
+                <td>36</td>
+                <td>2008/10/16</td>
+                <td>$470,600</td>
+            </tr>
+            <tr>
+                <td>Haley Kennedy</td>
+                <td>Senior Marketing Designer</td>
+                <td>London</td>
+                <td>43</td>
+                <td>2012/12/18</td>
+                <td>$313,500</td>
+            </tr>
+            <tr>
+                <td>Tatyana Fitzpatrick</td>
+                <td>Regional Director</td>
+                <td>London</td>
+                <td>19</td>
+                <td>2010/03/17</td>
+                <td>$385,750</td>
+            </tr>
+            <tr>
+                <td>Michael Silva</td>
+                <td>Marketing Designer</td>
+                <td>London</td>
+                <td>66</td>
+                <td>2012/11/27</td>
+                <td>$198,500</td>
+            </tr>
+            <tr>
+                <td>Paul Byrd</td>
+                <td>Chief Financial Officer (CFO)</td>
+                <td>New York</td>
+                <td>64</td>
+                <td>2010/06/09</td>
+                <td>$725,000</td>
+            </tr>
+            <tr>
+                <td>Gloria Little</td>
+                <td>Systems Administrator</td>
+                <td>New York</td>
+                <td>59</td>
+                <td>2009/04/10</td>
+                <td>$237,500</td>
+            </tr>
+            <tr>
+                <td>Bradley Greer</td>
+                <td>Software Engineer</td>
+                <td>London</td>
+                <td>41</td>
+                <td>2012/10/13</td>
+                <td>$132,000</td>
+            </tr>
+            <tr>
+                <td>Dai Rios</td>
+                <td>Personnel Lead</td>
+                <td>Edinburgh</td>
+                <td>35</td>
+                <td>2012/09/26</td>
+                <td>$217,500</td>
+            </tr>
+            <tr>
+                <td>Jenette Caldwell</td>
+                <td>Development Lead</td>
+                <td>New York</td>
+                <td>30</td>
+                <td>2011/09/03</td>
+                <td>$345,000</td>
+            </tr>
+            <tr>
+                <td>Yuri Berry</td>
+                <td>Chief Marketing Officer (CMO)</td>
+                <td>New York</td>
+                <td>40</td>
+                <td>2009/06/25</td>
+                <td>$675,000</td>
+            </tr>
+            <tr>
+                <td>Caesar Vance</td>
+                <td>Pre-Sales Support</td>
+                <td>New York</td>
+                <td>21</td>
+                <td>2011/12/12</td>
+                <td>$106,450</td>
+            </tr>
+            <tr>
+                <td>Doris Wilder</td>
+                <td>Sales Assistant</td>
+                <td>Sidney</td>
+                <td>23</td>
+                <td>2010/09/20</td>
+                <td>$85,600</td>
+            </tr>
+            <tr>
+                <td>Angelica Ramos</td>
+                <td>Chief Executive Officer (CEO)</td>
+                <td>London</td>
+                <td>47</td>
+                <td>2009/10/09</td>
+                <td>$1,200,000</td>
+            </tr>
+            <tr>
+                <td>Gavin Joyce</td>
+                <td>Developer</td>
+                <td>Edinburgh</td>
+                <td>42</td>
+                <td>2010/12/22</td>
+                <td>$92,575</td>
+            </tr>
+            <tr>
+                <td>Jennifer Chang</td>
+                <td>Regional Director</td>
+                <td>Singapore</td>
+                <td>28</td>
+                <td>2010/11/14</td>
+                <td>$357,650</td>
+            </tr>
+            <tr>
+                <td>Brenden Wagner</td>
+                <td>Software Engineer</td>
+                <td>San Francisco</td>
+                <td>28</td>
+                <td>2011/06/07</td>
+                <td>$206,850</td>
+            </tr>
+            <tr>
+                <td>Fiona Green</td>
+                <td>Chief Operating Officer (COO)</td>
+                <td>San Francisco</td>
+                <td>48</td>
+                <td>2010/03/11</td>
+                <td>$850,000</td>
+            </tr>
+            <tr>
+                <td>Shou Itou</td>
+                <td>Regional Marketing</td>
+                <td>Tokyo</td>
+                <td>20</td>
+                <td>2011/08/14</td>
+                <td>$163,000</td>
+            </tr>
+            <tr>
+                <td>Michelle House</td>
+                <td>Integration Specialist</td>
+                <td>Sidney</td>
+                <td>37</td>
+                <td>2011/06/02</td>
+                <td>$95,400</td>
+            </tr>
+            <tr>
+                <td>Suki Burks</td>
+                <td>Developer</td>
+                <td>London</td>
+                <td>53</td>
+                <td>2009/10/22</td>
+                <td>$114,500</td>
+            </tr>
+            <tr>
+                <td>Prescott Bartlett</td>
+                <td>Technical Author</td>
+                <td>London</td>
+                <td>27</td>
+                <td>2011/05/07</td>
+                <td>$145,000</td>
+            </tr>
+            <tr>
+                <td>Gavin Cortez</td>
+                <td>Team Leader</td>
+                <td>San Francisco</td>
+                <td>22</td>
+                <td>2008/10/26</td>
+                <td>$235,500</td>
+            </tr>
+            <tr>
+                <td>Martena Mccray</td>
+                <td>Post-Sales support</td>
+                <td>Edinburgh</td>
+                <td>46</td>
+                <td>2011/03/09</td>
+                <td>$324,050</td>
+            </tr>
+            <tr>
+                <td>Unity Butler</td>
+                <td>Marketing Designer</td>
+                <td>San Francisco</td>
+                <td>47</td>
+                <td>2009/12/09</td>
+                <td>$85,675</td>
+            </tr>
+            <tr>
+                <td>Howard Hatfield</td>
+                <td>Office Manager</td>
+                <td>San Francisco</td>
+                <td>51</td>
+                <td>2008/12/16</td>
+                <td>$164,500</td>
+            </tr>
+            <tr>
+                <td>Hope Fuentes</td>
+                <td>Secretary</td>
+                <td>San Francisco</td>
+                <td>41</td>
+                <td>2010/02/12</td>
+                <td>$109,850</td>
+            </tr>
+            <tr>
+                <td>Vivian Harrell</td>
+                <td>Financial Controller</td>
+                <td>San Francisco</td>
+                <td>62</td>
+                <td>2009/02/14</td>
+                <td>$452,500</td>
+            </tr>
+            <tr>
+                <td>Timothy Mooney</td>
+                <td>Office Manager</td>
+                <td>London</td>
+                <td>37</td>
+                <td>2008/12/11</td>
+                <td>$136,200</td>
+            </tr>
+            <tr>
+                <td>Jackson Bradshaw</td>
+                <td>Director</td>
+                <td>New York</td>
+                <td>65</td>
+                <td>2008/09/26</td>
+                <td>$645,750</td>
+            </tr>
+            <tr>
+                <td>Olivia Liang</td>
+                <td>Support Engineer</td>
+                <td>Singapore</td>
+                <td>64</td>
+                <td>2011/02/03</td>
+                <td>$234,500</td>
+            </tr>
+            <tr>
+                <td>Bruno Nash</td>
+                <td>Software Engineer</td>
+                <td>London</td>
+                <td>38</td>
+                <td>2011/05/03</td>
+                <td>$163,500</td>
+            </tr>
+            <tr>
+                <td>Sakura Yamamoto</td>
+                <td>Support Engineer</td>
+                <td>Tokyo</td>
+                <td>37</td>
+                <td>2009/08/19</td>
+                <td>$139,575</td>
+            </tr>
+            <tr>
+                <td>Thor Walton</td>
+                <td>Developer</td>
+                <td>New York</td>
+                <td>61</td>
+                <td>2013/08/11</td>
+                <td>$98,540</td>
+            </tr>
+            <tr>
+                <td>Finn Camacho</td>
+                <td>Support Engineer</td>
+                <td>San Francisco</td>
+                <td>47</td>
+                <td>2009/07/07</td>
+                <td>$87,500</td>
+            </tr>
+            <tr>
+                <td>Serge Baldwin</td>
+                <td>Data Coordinator</td>
+                <td>Singapore</td>
+                <td>64</td>
+                <td>2012/04/09</td>
+                <td>$138,575</td>
+            </tr>
+            <tr>
+                <td>Zenaida Frank</td>
+                <td>Software Engineer</td>
+                <td>New York</td>
+                <td>63</td>
+                <td>2010/01/04</td>
+                <td>$125,250</td>
+            </tr>
+            <tr>
+                <td>Zorita Serrano</td>
+                <td>Software Engineer</td>
+                <td>San Francisco</td>
+                <td>56</td>
+                <td>2012/06/01</td>
+                <td>$115,000</td>
+            </tr>
+            <tr>
+                <td>Jennifer Acosta</td>
+                <td>Junior Javascript Developer</td>
+                <td>Edinburgh</td>
+                <td>43</td>
+                <td>2013/02/01</td>
+                <td>$75,650</td>
+            </tr>
+            <tr>
+                <td>Cara Stevens</td>
+                <td>Sales Assistant</td>
+                <td>New York</td>
+                <td>46</td>
+                <td>2011/12/06</td>
+                <td>$145,600</td>
+            </tr>
+            <tr>
+                <td>Hermione Butler</td>
+                <td>Regional Director</td>
+                <td>London</td>
+                <td>47</td>
+                <td>2011/03/21</td>
+                <td>$356,250</td>
+            </tr>
+            <tr>
+                <td>Lael Greer</td>
+                <td>Systems Administrator</td>
+                <td>London</td>
+                <td>21</td>
+                <td>2009/02/27</td>
+                <td>$103,500</td>
+            </tr>
+            <tr>
+                <td>Jonas Alexander</td>
+                <td>Developer</td>
+                <td>San Francisco</td>
+                <td>30</td>
+                <td>2010/07/14</td>
+                <td>$86,500</td>
+            </tr>
+            <tr>
+                <td>Shad Decker</td>
+                <td>Regional Director</td>
+                <td>Edinburgh</td>
+                <td>51</td>
+                <td>2008/11/13</td>
+                <td>$183,000</td>
+            </tr>
+            <tr>
+                <td>Michael Bruce</td>
+                <td>Javascript Developer</td>
+                <td>Singapore</td>
+                <td>29</td>
+                <td>2011/06/27</td>
+                <td>$183,000</td>
+            </tr>
+            <tr>
+                <td>Donna Snider</td>
+                <td>Customer Support</td>
+                <td>New York</td>
+                <td>27</td>
+                <td>2011/01/25</td>
+                <td>$112,000</td>
+            </tr>
+        </tbody>
+    </table>
+</fieldset>

@@ -1,0 +1,44 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:5px"></td>
+        <td></td>
+    </tr>
+    #input_normal("noFail" "No.Fail" "$!r.permohonan.noFail")
+	#input_normal("noResit" "No. Resit" "$!r.noResit")
+	##input_readonly_label("noSlipBank" "No. Slip Bank" "$!r.noSlipBank")
+	#if ($r.tarikhResit)
+        #set($tarikhResit = $util.getDateTime($r.tarikhResit, "dd-MM-yyyy"))
+    #else
+        #set($tarikhResit = "")
+    #end
+    
+	#input_normal("tarikhResit" "Tarikh Resit" "$tarikhResit")
+	#input_normal("keterangan" "Keterangan" "$!r.keterangan")
+##  	<tr>
+##			<td class="label" valign="top">Tarikh Resit &nbsp;<span style="color:#FF2A00">*</span></td>
+##			<td class="label" valign="top">:</td>
+##			<td valign="top">
+##				<div>
+##		    		<input type="text" id="tarikhResit" name="tarikhResit" value="$tarikhResit">
+##		    		<script>
+##		            	_jq("#tarikhResit").Zebra_DatePicker({ 
+##		    				format: 'd-m-Y',
+##		    				direction: true
+##		            	});
+##		    		</script>
+##				</div>
+##				<div id="err_tarikhResit" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+##			</td>
+##		</tr>
+    ###currency_readonly_label("debit" "Jumlah" "$!r.debit")
+</table>
+
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

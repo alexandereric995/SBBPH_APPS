@@ -1,0 +1,84 @@
+
+#set($mandatori = "")
+#if(!$sh || ($sh.status.id != '1428990717389' && $sh.status.id != '1428990717392'))
+	#set($mandatori = "<span style='color:#FF2A00'>*</span>")
+#end	
+
+<fieldset>
+<legend>
+	<nav class="breadcrumbs">
+      <ul>
+        <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divForm','getAduanKerosakan','')">Maklumat Aduan</a></li>
+		<li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divFormAduan','getGambarAduan','')">Gambar</a></li>
+		<li class="active"><a href="javascript:void()">Permohonan Senarai Hitam</a></li>
+	  </ul>
+    </nav>
+</legend>
+	
+    <table width="100%">
+		<tr>
+			<td style="width:200px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+      
+		#if($sh)
+    		<tr>
+    			<td>Status Permohonan</td>
+    			<td>:</td>
+    			<td><font color="blue">$!sh.status.keterangan.toUpperCase()</font></td>
+    		</tr>
+    		#if($sh.status.id == '1428990717389')
+				<tr>
+        			<td>Tarikh Mula Disenarai Hitam</td>
+        			<td>:</td>
+        			<td>$!util.getDateTime($!sh.tarikhMula,'dd-MM-yyyy')</td>
+        		</tr>
+				<tr>
+        			<td>Tarikh Tamat Disenarai Hitam</td>
+        			<td>:</td>
+        			<td>$!util.getDateTime($!sh.tarikhTamat,'dd-MM-yyyy')</td>
+        		</tr>
+			#end	
+    		<tr><td colspan="3">&nbsp;</td></tr>
+		#end
+		
+		#date_input_required("tarikhPermohonan" "Tarikh Permohonan" "$!util.getDateTime($!sh.tarikhPermohonan,'dd-MM-yyyy')")
+		
+		#if($mandatori=="")
+			#input("sebab" "Sebab" "$!sh.sebab")  
+		#else
+			#input_required("sebab" "Sebab" "$!sh.sebab")
+		#end
+			
+		#textarea("catatan" "Catatan" "$!sh.catatan") 
+
+    </table>
+	
+</fieldset>  
+
+#if(!$sh || ($sh.status.id != '1428990717389' && $sh.status.id != '1428990717392'))
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="right">
+			<input type="button" value="Simpan" onClick="javascript:doSimpanSenaraiHitam();">
+			#if($sh)	
+			<input type="button" value="Batalkan Permohonan" onclick="javascript:batalPermohonanSenaraiHitam();">	
+			#end	
+			##<input type="button" value="Kosongkan" onclick="javascript:kosongkanSenaraiHitam();">
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+#end
+
+<div id="senaraiHitam"></div>
+
+<script>
+_jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+});
+</script>

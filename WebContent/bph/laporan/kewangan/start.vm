@@ -1,0 +1,78 @@
+<div id="senaraiLaporan">
+<fieldset>
+	<legend class="legend">Senarai Laporan</legend>
+
+<table id="tableID">
+    <tr>
+    	<td>1.&nbsp &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('5')">Laporan Serahan Juruwang</td>
+    </tr>
+    <tr>
+    	<td>2.&nbsp &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('3')">Laporan Senarai Resit</td>
+    </tr>
+    <tr>
+    	<td>3.&nbsp &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('4')">Laporan Senarai Resit Batal</td>
+    </tr>
+   <tr>
+    	<td>4.&nbsp &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('1')">Laporan Senarai Kutipan Harian</td>
+  </tr>
+    <tr>
+    	<td>5.&nbsp &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('2')">Laporan Senarai Kutipan Harian Terperinci</td>
+    </tr>
+    <tr>
+    	<td>6.&nbsp &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('7')">Laporan Buku Tunai Cerakinan Harian</td>
+    </tr>     
+    <tr>
+    	<td>7.&nbsp &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('6')">Laporan Buku Tunai Cerakinan Bulanan</td>
+    </tr>
+    #if ( $userRole == "(HASIL) Penyelia" || $userRole == "(HASIL) Juruwang")
+    <tr>
+    	<td>8.&nbsp &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('8')">Laporan Urusniaga Harian E-Payment</td>
+    </tr>
+##    <tr>
+##    	<td>9.&nbsp &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('11')">Laporan Semakan Resit E-Payment<font class="blink" ><span class="style2">  Baru</font></td>
+##    </tr>
+    <tr>
+    	<td>9.&nbsp &nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('9')">Laporan Buku Tunai Cerakinan Harian E-Payment(MIGS)</td>
+    </tr>
+     <tr>
+    	<td>10.&nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('10')">Laporan Buku Tunai Cerakinan Harian E-Payment(FPX)</td>
+    </tr>
+	#else
+	<tr>
+    	<td>8.&nbsp &nbsp;<a href="#" style="color:grey">Laporan Urusniaga Harian E-Payment</td>
+    </tr>
+##    <tr>
+##    	<td>9.&nbsp &nbsp;<a href="#" style="color:grey">Laporan Semakan Resit E-Payment<font class="blink" ><span class="style2">  Baru</font></td>
+##    </tr>
+    <tr>
+    	<td>9.&nbsp &nbsp;<a href="#" style="color:grey">Laporan Buku Tunai Cerakinan Harian E-Payment(MIGS)</td>
+    </tr>
+     <tr>
+    	<td>10.&nbsp;<a href="#" style="color:grey">Laporan Buku Tunai Cerakinan Harian E-Payment(FPX)</td>
+    </tr>
+	#end   
+    <tr>
+    	<td>11.&nbsp;<a href="#" style="color:blue" onclick="javascript:paparLaporan('12')">Laporan Kutipan Berdasarkan Kod Hasil</td>
+    </tr>   
+</table>
+</fieldset>
+</fieldset>
+</div>
+
+ <div id="paparLaporan"></div>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+  
+
+
+</script>
+<script>
+#parse("$path/script.vm")
+</script>
+
+#parse("$path/macro.vm")

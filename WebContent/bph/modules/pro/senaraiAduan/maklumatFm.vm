@@ -1,0 +1,30 @@
+<fieldset>
+<legend class="legend">MAKLUMAT FM</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:29%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+   #if ($!command != 'emailKeFm')
+  	#input_normal("urusetiaFm" "Terima Oleh" "<b>$!r.urusetiaFm.userName.toUpperCase()</b>")
+  	#if ($!r.tarikhMaklumbalasFm) 
+    	#set ($dateMaklumbalasFm = "$!util.getDateTime($!r.tarikhMaklumbalasFm,'dd-MM-yyyy hh:mm:ss a')")
+    #else 
+    	#set ($dateMaklumbalasFm = '-') 
+    #end
+  		#input_normal("tarikhMaklumbalasFm" "Tarikh" "<b>$dateMaklumbalasFm</b>")
+	  	#textarea_readonly("emailFm" "Email To" "$!r.emailFm")
+		#textarea_readonly("emailCc" "Email Cc" "$!r.emailCc")
+	  	#textarea_readonly("keteranganTeknikal" "Keterangan Teknikal" "$!r.keteranganTeknikal")
+  #else
+		#input_email_with_placeholder("emailFm" "Email To" "$!r.emailFm" "Contoh : youremail@gmail.com,youremail@yahoo.com")
+		#input_email_with_placeholder("emailCc" "Email Cc" "$!r.emailCc" "Contoh : youremail@yahoo.com,youremail@gmail.com")
+		#textarea("keteranganTeknikal" "Keterangan Teknikal" "$!r.keteranganTeknikal")
+  #end
+  <tr>
+##	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+  </tr>
+  
+</table>
+</fieldset>

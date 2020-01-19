@@ -1,0 +1,26 @@
+
+<td>
+	<b>Nama :</b> <a href="javascript:void()" style="color:blue" onClick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')">$!r.getMaklumatPemohon().nama.toUpperCase() </a><br/>
+	<b>MyID :</b> $!r.getMaklumatPemohon().nokp<br/>
+	<b>Gred :</b> $!r.getMaklumatPemohon().jawatanDanGred<br/>
+	<b>No. Telefon :</b> $!r.getMaklumatPemohon().noTelPejabat<br/>
+  	<b>No. Telefon Bimbit :</b> $!r.getMaklumatPemohon().noTelBimbit<br/>
+  	<b>Emel :</b> $!r.getMaklumatPemohon().emel
+</td>
+<td>
+	$!r.jenisUnitRpp.peranginan.namaPeranginan.toUpperCase()
+	<br/>
+	<span style="font-size:10px;font-weight:bold"><i>$!r.jenisUnitRpp.keterangan.toUpperCase()</i></span>
+</td>
+<td align="center">$!util.getDateTime($!r.tarikhDaftarRekod,'dd-MM-yyyy')</td>
+<td align="center">$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy') <br/>- $!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')</td>
+<td align="center">
+	&nbsp;
+	#set ( $queryParam = "id=$r.id&record_id=$r.id&data_size=$data_size&total_page=$total_page&page_num=$!current_page_num" )
+	<input type="button" id="btnLulus" value="LULUS" onclick="doLulusPermohonanList('$queryParam')">
+	<input type="button" id="btnTidakLulus" value="TIDAK LULUS" onclick="doTidakLulusPermohonanList('$queryParam')">
+	&nbsp;
+</td>
+##<td>$!util.replaceIfNull($!r.status.keterangan.toUpperCase(),"PERMOHONAN BARU")</td>
+	
+

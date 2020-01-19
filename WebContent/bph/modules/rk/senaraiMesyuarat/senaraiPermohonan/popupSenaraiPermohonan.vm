@@ -1,0 +1,112 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#tblSenaraiPermohonan').DataTable({
+    		"language": {
+                "url": "../../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+<style>
+.scrollitpopup {
+	height:200px; width: 100%; overflow: auto;
+}
+</style>
+<input type="hidden" id="idMesyuarat" name="idMesyuarat" value="$!idMesyuarat" />
+<fieldset style="height:320px;width:50% !important">
+<legend class="legend">SENARAI PERMOHONAN</legend>
+<br/>
+	
+	<div class="scrollitpopup">
+	<table id="tblSenaraiPermohonan" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Bil.</th>
+                <th>No. Permohonan</th>
+                <th>Jenis Permohonan</th>
+                <th>Nama Pemohon</th>        
+                <th>Pilih</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+			#set ( $count = 0 )
+			#if($listPermohonan.size() > 0)
+	    		#foreach($u in $listPermohonan)
+	    		#set ( $count = $count + 1)
+	    		<tr>
+	    			<td align="center">$count</td>
+	    			<td align="center">$u.noPermohonan</td>
+	    			<td align="center">$u.getJenisPermohonan()</td>	 
+	    			<td align="center">$u.fail.pemohon.syarikat.nama</td>	      								    	
+	    			<td align="center">
+	    				<input type="checkbox" name="checkPermohonan" id="checkPermohonan$u.id" value="$u.id" onclick="$('err_checkPermohonan').innerHTML=''; at(this, event)" />       
+	    			</td>
+	    		</tr>
+	    		#end
+			#end
+		</tbody>
+    </table>
+	</div>
+	
+	
+	<br />
+	<br />	
+	
+	<table width="100%">
+		<tr>
+			<td align="left"><div id="err_checkPermohonan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+			<td align="right">
+				<input id="btnPilihPermohonan" type="button" value="Pilih" />
+				<input id="btnTutupPermohonan" type="button"  value="Tutup" />
+			</td>
+		</tr>
+	</table>
+	
+</fieldset>
+
+
+<script>
+	_jq('#btnTutupPermohonan').on('click', function(){
+     	jQuery('#popupSenaraiPermohonan').fadeOut();
+  	});
+  	
+	_jq('#btnPilihPermohonan').on('click', function(){
+		if(validatePilihanPermohonan()){
+			if ( !window.confirm("Anda pasti?") ){
+				return;
+			}
+			doDivAjaxCall$formname('divTab','doSavePilihanPermohonan','');
+			jQuery('#popupSenaraiPermohonan').fadeOut();
+		}
+  	});
+	
+	function validatePilihanPermohonan() {
+			
+    	var err_count = 0;
+		var checking = 0;
+		var size = document.${formName}.checkPermohonan.length ;
+		
+		if( size > 1 ){
+    		for( var i = 0; i < document.${formName}.checkPermohonan.length; i++ ){
+        		if(document.${formName}.checkPermohonan[i].checked){ 
+        			checking += 1;
+        		};
+        	}
+		} else {
+			if( document.${formName}.checkPermohonan.checked == true ){
+				checking += 1; 
+			}
+		}
+		
+    	if ( checking == 0 ){
+    		$('err_checkPermohonan').innerHTML = "Sila pilih permohonan terlebih dahulu"; err_count++;  
+    	}
+		
+		if (err_count == 0) {
+		}
+    	
+    	return err_count == 0;
+    }
+	
+</script>

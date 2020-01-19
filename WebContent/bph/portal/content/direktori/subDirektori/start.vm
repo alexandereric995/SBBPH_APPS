@@ -1,0 +1,69 @@
+<div id="content-format">
+  <pinLeft></pinLeft>
+  <pinRight></pinRight>
+  <header>$!bahagian.keterangan</header>
+  <fieldset>
+  <section>
+    <table border="0" cellspacing="10" cellpadding="0" align="center" width="100%">
+      <tcontent>
+        <tr>
+          <td colspan="2" align="center" valign="middle"> 
+          	#foreach($rekod in $listKetuaBahagian)
+	            <table cellpadding="5" cellspacing="0" border="0" width="100%">
+	              <tr>
+	              	#if ($rekod.fileName)
+	              		#if($!rekod.fileName != '')
+	              			<td rowspan="3" align="center" width="130"><img style="padding: 5px; border: 1px solid #CCC" src="../download?file=$!uploadDir$!rekod.fileName" width="130" height="150"/> </td>
+	              		#else	
+	              			<td rowspan="3" align="center" width="130"><img style="padding: 5px; border: 1px solid #CCC" src="../img/nophoto.gif" width="130" height="150"/> </td>
+		              	#end
+	              	#else	
+	              		<td rowspan="3" align="center" width="130"><img style="padding: 5px; border: 1px solid #CCC" src="../img/nophoto.gif" width="130" height="150"/> </td>
+	              	#end
+	                <td valign="top" width="275"><h3>$!rekod.nama</h3>
+	                  <h4>$!rekod.jawatan</h4></td>
+	                <td valign="top" rowspan="3"><br />
+	                  <table cellpadding="5" cellspacing="0" border="0" style="border-left: 1px solid #CCC">
+	                    <tr>
+	                      <td><i class="icon-mail on-left-more on-right"></i> <a href="mailto:$!rekod.email">$!rekod.email</a> </td>
+	                    </tr>
+	                    <tr>
+	                      <td><i class="icon-phone on-left-more on-right"></i> $!rekod.noTelefon </td>
+	                    </tr>
+	                    <tr>
+	                      <td><i class="icon-printer on-left-more on-right"></i> $!rekod.noFax </td>
+	                    </tr>
+	                    <tr>
+	                      <td>&nbsp;</td>
+	                    </tr>
+	                    <tr>
+	                      <td>&nbsp;</td>
+	                    </tr>
+	                  </table></td>
+	              </tr>
+	            </table>
+            #end 
+            </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <td align="centre" valign="middle">#parse("bph/portal/content/direktori/subDirektori/listUnit.vm")
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center"><input type="button" class="direktoriButton" onClick="doDivAjaxCall3$formname('content','getDirektori','')" value="Kembali" />
+          </td>
+        </tr>
+      </tcontent>
+    </table>
+  </section>
+  </fieldset>
+</div>

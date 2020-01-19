@@ -1,0 +1,43 @@
+#set ( $queryParam = "id=$r.id&record_id=$r.id&data_size=$data_size&total_page=$total_page&page_num=$!current_page_num" )
+
+<td><a href="javascript:void()" style="color:blue" onClick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')"> $!r.noTempahan </a></td>
+<td>
+	<b>Nama :</b> $!r.pemohon.userName<br/>
+	<b>MyID :</b> $!r.pemohon.noKP<br/>
+	<b>No. Telefon :</b> $!r.pemohon.noTelefon<br/>
+  	<b>No. Telefon Bimbit :</b> $!r.pemohon.noTelefonBimbit<br/>
+  	<b>Emel :</b> $!r.pemohon.emel
+</td>
+#if ($!r.tarikhPermohonan) #set($datePermohonan = $util.getDateTime($!r.tarikhPermohonan,"dd-MM-yyyy"))
+#else #set($datePermohonan = "-") #end
+<td align="center">$datePermohonan</td>
+
+#if ($!r.tarikhMasukRpp) #set($dateMasukRpp = $util.getDateTime($!r.tarikhMasukRpp,"dd-MM-yyyy"))
+#else #set($dateMasukRpp = "-") #end
+#if ($!r.tarikhKeluarRpp) #set($dateKeluarRpp = $util.getDateTime($!r.tarikhKeluarRpp,"dd-MM-yyyy"))
+#else #set($dateKeluarRpp = "-") #end
+<td align="center">$dateMasukRpp - $dateKeluarRpp</td>
+
+#if( $!r.photofilename && !$!r.photofilename.equalsIgnoreCase("") )
+	<td align="center">
+		<a href="../download?file=$!uploadDir$!r.photofilename">
+			<span class="print" style="color:#0000FF">
+				<strong>SLIP PEMBAYARAN</strong>
+			</span>
+		</a>
+		<br/><br/>
+		<input type="button" style="width:70%" id="btnCheckedIn" value="Tidak Sah" onclick="doReturnTempahan('$queryParam')">
+	</td>
+#else
+	<td align="center">$!r.photofilename</td>
+#end
+
+<td align="center">$!r.status.keterangan</td>
+<td align="center">
+	<input type="button" style="width:70%" id="btnCheckedIn" value="Checked-in" onclick="doCheckedIn('$queryParam')">
+	<input type="button" style="width:70%" id="btnNoShow" value="No Show" onclick="doNoShow('$queryParam')">
+</td>
+
+
+
+

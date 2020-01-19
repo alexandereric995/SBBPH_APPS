@@ -1,0 +1,31 @@
+<style type="text/css">
+
+.blink {
+	animation: blink 1s steps(5, start) infinite;
+}
+@keyframes blink {
+ to {
+ visibility: hidden;
+}
+</style>
+
+<td>$!r.kontraktor.id</td>
+<td>$!r.kontraktor.namaKontraktor</td>
+<td>$!r.kontraktor.namaPemilik</td>
+#if ($!r.tarikhMula) 
+	#set ($dateMula = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+#else #set ($dateMula = "-") #end
+<td align="center">$dateMula</td>
+#if ($!r.tarikhTamat) 
+	#set ($dateTamat = "$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')")
+#else #set ($dateTamat = "-") #end
+<td  align="center">$dateTamat</td>
+#if ($!r.tarikhBebas) 
+	#set ($dateBebas = "$!util.getDateTime($!r.tarikhBebas,'dd-MM-yyyy')")
+#else #set ($dateBebas = "-") #end
+<td align="center">$dateBebas</td>
+#if ($!r.flagAktif == 'Y') 
+	<td align="center"><font class="blink" color="red"><b>$!r.getKeteranganFlagAktif()</b></font></td>
+#else
+	<td align="center"><b>$!r.getKeteranganFlagAktif()</b></td>
+#end

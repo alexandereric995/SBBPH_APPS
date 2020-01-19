@@ -1,0 +1,49 @@
+###if ($r.status.id == '1425259713415' || $r.status.id == '1425259713418' || $r.status.id == '1425259713424' || $r.status.id == '1425259713430' || $r.status.id == '1425259713421' || $r.status.id == '1433083787409' || $r.status.id == '1435093978588' || $r.status.id =='1435512646303' || $r.status.id == '1688545253001455')
+	#if( $!userRole.equalsIgnoreCase("(RPP) Penyedia") || $!userRole.equalsIgnoreCase("(RPP) Penyelia") || $!userRole.equalsIgnoreCase("(RPP) Pelulus") || $!userRole.equalsIgnoreCase("(RPP) Penyemak"))
+	<input type="button" value="Cetak"  id="cmdCetak" align="right"/>
+	#end
+###end
+
+<script>
+
+_jq('#cmdCetak').on('click', function(){
+		
+		var findNoKp = $('findNoKp').value;
+		var findUserName = $('findUserName').value;
+		var findRpp = $('findRpp').value;
+		var findStatus = $('findStatus').value;
+		var findStatusBayaran = $('findStatusBayaran').value;
+		var findTarikhMasukRpp = $('findTarikhMasukRpp').value;
+		var findTarikhKeluarRpp = $('findTarikhKeluarRpp').value;
+		
+		if(!findNoKp){
+			findNoKp = "";
+		}
+		if(!findUserName){
+			findUserName = "";
+		}
+		if(!findRpp){
+			findRpp = "";
+		}
+		if(!findStatus){
+			findStatus = "";
+		}
+		if(!findStatusBayaran){
+			findStatusBayaran = "";
+		}
+		if(!findTarikhMasukRpp){
+			findTarikhMasukRpp = "";
+		}
+		if(!findTarikhKeluarRpp){
+			findTarikhKeluarRpp = "";
+		}
+
+				var url = "../servlet/bph.laporan.rpp.RPPSejarahTempahan?findNoKp="+findNoKp+"&findUserName="+findUserName+"&findRpp="+findRpp+"&findStatus="+findStatus+"&findStatusBayaran="+findStatusBayaran+"&findTarikhMasukRpp="+findTarikhMasukRpp+"&findTarikhKeluarRpp="+findTarikhKeluarRpp;
+				var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+				if ((document.window != null) && (!hWnd.opener))
+				hWnd.opener = document.window;
+				if (hWnd.focus != null) hWnd.focus();
+	
+});
+
+</script>

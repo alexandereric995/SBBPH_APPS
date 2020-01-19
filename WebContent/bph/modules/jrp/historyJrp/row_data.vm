@@ -1,0 +1,33 @@
+<style type="text/css">
+
+.style1 {
+	color: #0033FF
+}
+.style2 {
+	color: #FF0000;
+	font-weight: bold;
+}
+.blink {
+	animation: blink 1s steps(5, start) infinite;
+}
+@keyframes blink {
+ to {
+ visibility: hidden;
+}
+</style>
+<td>$!r.noPermohonan</td>
+<td>$!r.jenisPermohonanJrp.id - $!r.jenisPermohonanJrp.keterangan</td>
+#if ($!r.tarikhHantarUlasan) 
+	#set ($dateHantarUlasan = "$!util.getDateTime($!r.tarikhHantarUlasan,'dd-MM-yyyy')")
+#else #set ($dateHantarUlasan="") #end
+<td  align="center">$dateHantarUlasan</td>
+#if ($!r.tarikhTerima) 
+	#set ($dateTerima = "$!util.getDateTime($!r.tarikhTerima,'dd-MM-yyyy')")
+#else #set ($dateTerima="") #end
+<td  align="center">$dateTerima</td>
+##<td>$!r.agensi.kementerian.keterangan</td>
+<td>$!r.agensi.keterangan</td>
+<td>$!r.bandar.negeri.keterangan</td>
+<td>$!r.bandar.keterangan</td>
+<td>$!r.status.keterangan <br><font class="blink" size="0.2"><span class="style2">$r.getStatusPerjanjian()</span></font></td>
+<td>$!r.urusetia.userName.toUpperCase()</td>

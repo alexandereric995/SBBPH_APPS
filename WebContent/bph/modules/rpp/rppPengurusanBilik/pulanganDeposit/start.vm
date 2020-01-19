@@ -1,0 +1,141 @@
+
+
+#parse("$path/tabbed.vm")
+
+<input type="hidden" id="idRppPermohonan" name="idRppPermohonan" value="$!r.id" />
+<input type="hidden" id="idKewDeposit" name="idKewDeposit" value="$!dep.id" />
+
+<fieldset id="makluman" style="font-weight:bold;color:red; background-color:#D8CEF6">
+	<table cellpadding="5" cellspacing="0" border="0" width="100%">
+		<tr>
+			<td style="color:blue;font-size:15px;font-weight:bold;text-align:justify;" id="notaLulusOperator">
+				PENDAFTARAN KELUAR TELAH SELESAI. <br/>SILA LENGKAPKAN MAKLUMAT DIBAWAH UNTUK PROSES PENGESAHAN PEMULANGAN DEPOSIT. 
+			</td>
+		</tr>
+	</table>
+</fieldset>	
+	
+<fieldset>
+<legend class="legend">SENARAI KEROSAKAN / KEHILANGAN</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2">
+
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" style="text-align:left !important" width="50%">Jenis Kerosakan</td>
+			<td class="row_header" width="20%">Kuantiti</td>
+			<td class="row_header" width="25%">Nilai Kerosakan (RM)</td>
+		</tr>
+		
+		#if ( $listRosak.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listRosak )
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+					<td align="left">$!d.barangDeposit.nama.toUpperCase()</td>
+            		<td align="center">$!d.kuantiti</td>
+            		<td align="center">$!util.formatDecimal($!d.harga)</td>
+                </tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="4">Tiada Kerosakan Dilaporkan</td>
+			</tr>
+		#end
+		
+	</table>
+
+</fieldset>
+	
+<fieldset>
+<legend class="legend">MAKLUMAT PULANGAN DEPOSIT</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+			<td width="38%" valign="top">
+				<table width="100%" cellpadding="1" cellspacing="1">
+					<tr>
+            			<td width="50%">Deposit (RM)</td>
+            			<td width="3%">:</td>
+            			<td width="47%">$!util.formatDecimal($!r.amaunDeposit())</td>
+            		</tr>
+					#show("Bilangan Kerosakan" "$!r.jumlahBilanganKerosakan()")
+					#show("Jumlah Nilai Kerosakan (RM)" "$!util.formatDecimal($!r.jumlahNilaiKerosakan())")
+					#show("<b>Baki Deposit (RM)</b>" "<b>$!util.formatDecimal($!r.bakiDeposit())</b>")
+				</table>
+			</td>
+			
+			<td width="2%">&nbsp;</td>	
+			
+			<td width="60%" valign="top">
+				<table width="100%" cellpadding="1" cellspacing="1">
+					<tr>
+            			<td width="35%">Tarikh Pengesahan Pulangan Deposit</td>
+            			<td width="3%">:</td>
+            			<td width="62%">$!util.getCurrentDate("dd-MM-yyyy")</td>
+            		</tr>
+					
+					#if( $r.status.id != "1435512646303")	
+						#textarea("catatanPenyeliaRpp" "Catatan" "$!dep.tuntutanDeposit.catatanPenyeliaRpp")
+					#else
+						#show("Catatan" "$!dep.tuntutanDeposit.catatanPenyeliaRpp")
+					#end
+					
+				</table>
+			</td>
+		</tr>
+	</table>
+		
+	
+	<fieldset>
+    	<table width="100%" cellpadding="2" cellspacing="2">
+			<tr>
+				<td colspan="3"><u><b>Maklumat Akaun Penginap</b></u> :</td>
+			</tr>
+    		<tr>
+    			<td width="20%" valign="top">Bank</td>
+    			<td width="1%" valign="top">:</td>
+    			<td width="79%" valign="top">$!util.replaceIfNull($!r.pemohon.bank.keterangan,'Tiada Maklumat')</td>
+    		</tr>
+			<tr>
+				<td valign="top">No. Akaun</td>
+				<td valign="top">:</td>
+				<td valign="top">$!util.replaceIfNull($!r.pemohon.noAkaunBank,'Tiada Maklumat')</td>
+			</tr>
+			<tr><td colspan="3">&nbsp;</td></td></tr>
+			<tr>
+				<td colspan="3" valign="top"><div style="color:red;font-size:10px">* Sila pastikan penginap mengemaskini maklumat terbaru akaun bank.</div></td>
+			</tr>
+    	</table>
+    </fieldset>
+
+</fieldset>
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+				<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+				#if( $r.status.id != "1435512646303")	
+    			<input id="btnPulangDeposit" type="button" value="Pengesahan Pulangkan Deposit" onClick="simpanPulanganDeposit()">
+				#end
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		    
+    		</td>
+    	</tr>
+    </table>	
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

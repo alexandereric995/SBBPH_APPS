@@ -1,0 +1,71 @@
+<div id="divRefresh">
+	<input type="hidden" id="idMakluman" name="idMakluman" value="$!r.id">
+	
+	<fieldset>
+		<legend class="legend">MAKLUMAN PENTING</legend>
+		<table width="100%">
+			<tr>
+				<td style="width:150px"></td>
+				<td style="width:10px"></td>
+				<td></td>
+			</tr>
+			
+##			#input_required_no_case("tajuk" "Tajuk" "$!r.tajuk")
+##			#input_no_case("tajuk" "Tajuk" "$!r.tajuk")
+			
+			
+			
+			##CK EDITOR ADD ByZUL
+##          #textarea_no_case("butiran" "Butiran" "$!r.butiran")
+            <tr>
+                <td class="label">Butiran</td>
+                <td class="label">:</td>
+                <td>
+                <textarea rows="5" cols="5" id="butiran" name="butiran">$!r.butiran</textarea>
+                <script>
+                   CKEDITOR.replace( 'butiran',
+                    {
+                        toolbar : 'Basic', /* Basic toolbar */
+                        uiColor : '#D6F3C8',
+                        enterMode : CKEDITOR.ENTER_BR
+                    });
+                </script>
+                </td>
+            </tr>
+		
+			<tr>
+				<td class="label" valign="top">Status &nbsp;<span style="color:#FF2A00">*</span></td>
+				<td valign="top">:</td>
+				<td>#parse("$path/selectFlagAktif.vm")
+				<div id="err_flagAktif" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+			</tr>
+			<tr>
+				<td class="label" valign="top">Turutan &nbsp;</td>  ## <span style="color:#FF2A00">*</span>
+				<td valign="top">:</td>
+				<td>#parse("$path/selectTurutan.vm")
+				<div id="err_turutan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	#if ($!command != 'add_new_record')
+		<table width="100%">
+			<tr>
+				<td align="right">
+					<input id="btnKemaskini" name="btnKemaskini" type="button" value="Simpan" onclick="javascript:kemaskiniMaklumat();"/>
+					<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+				</td>
+			</tr>
+		</table>	
+	#end
+</div>	
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

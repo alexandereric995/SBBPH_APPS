@@ -1,0 +1,286 @@
+<div id="frameMaklumatAduan" name"frameMaklumatAduan">
+
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	  <tr>
+	    <td valign="top">
+	    <fieldset>
+	      <legend class="legend">MAKLUMAT ADUAN</legend>
+	      <table width="100%" border="0" cellspacing="0" cellpadding="3">
+	        <tr>
+	          <td width="29%">&nbsp;</td>
+	          <td width="1%">&nbsp;</td>
+	          <td width="70%">&nbsp;</td>
+	        </tr>
+	        #if ($!command != 'add_new_record')
+	        	#input_normal("noAduan" "No. Aduan" "<b>$!r.noAduan</b>")
+	        #end
+	        <tr>
+	          <td class="label" valign="top">Sumber Aduan &nbsp;<span style="color:#FF2A00">*</span></td>
+	          <td valign="top">:</td>
+	          <td>#parse("$path/selectSumberAduan.vm")
+	            <div id="err_idSumberAduan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+	        </tr>
+	        <tr>
+	          <td class="label" valign="top">Jenis Aduan &nbsp;<span style="color:#FF2A00">*</span></td>
+	          <td valign="top">:</td>
+	          <td>#parse("$path/selectJenisAduan.vm")
+	            <div id="err_idJenisAduan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+	        </tr>
+	        
+##	        #set ($dateAduan = $!util.getDateTime($!tarikhAduan,'dd-MM-yyyy hh:mm:ss a'))
+##	        #if ($!r.tarikhAduan) 
+##	        	#set ($dateAduan = "$!util.getDateTime($!r.tarikhAduan,'dd-MM-yyyy hh:mm:ss a')") 
+##	        #end
+			#if ($!r.tarikhAduan)
+				#set ($dateAduan = "$!util.getDateTime($!r.tarikhAduan,'dd-MM-yyyy')")
+			#else 
+				#set ($dateAduan = "") 
+			#end
+	        #date_input_required("tarikhAduan" "Tarikh Aduan" "$dateAduan")
+	        
+	        #textarea_required("tajuk" "Tajuk" "$!r.tajuk")
+	        
+##          #textarea_required("butiran" "Butiran" "$!r.butiran")
+	        <tr>
+				<td class="label" valign="top">Butiran<span style="color:#FF2A00">*</span></td>
+				<td class="label" valign="top">:</td>
+				<td valign="top">
+					<textarea style="height:300px;" id="butiran" name="butiran">$!r.butiran</textarea>
+					<div id="err_butiran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+				</td>
+			</tr>
+	        
+	        #if ($!command != 'add_new_record')
+	        	#input_normal("status" "Status" "<b>$!r.status.keterangan</b>")
+	        <tr>
+				<td>Lampiran Aduan</td>
+				<td>:</td>
+				<td> 
+					#if ( $!r.fileName ) 
+						#if ($!r.fileName  != "") 
+							<a href="../download?file=$!uploadDir$!r.fileName" > <font color="#0000FF"><strong>MUAT TURUN</strong></font> </a> &nbsp;&nbsp;
+						#else 
+						-
+						#end
+					#else 
+						-
+					#end 
+				</td>
+			</tr>
+	        #end
+	      </table>
+	      </fieldset>
+	    </td>
+	    <td valign="top"><fieldset>
+	      <legend class="legend">MAKLUMAT PENGADU</legend>
+	      <table width="100%" border="0" cellspacing="0" cellpadding="3">
+	        <tr>
+	          <td width="29%">&nbsp;</td>
+	          <td width="1%">&nbsp;</td>
+	          <td width="70%">&nbsp;</td>
+	        </tr>
+	        #mykad_with_placeholder("noPengenalan" "No. Pengenalan" "$!r.noPengenalan" "cth : 871020115555")
+	        #input("nama" "Nama" "$!r.nama")
+	        #input("alamat1" "Alamat" "$!r.alamat1")
+	        #input("alamat2" "" "$!r.alamat2")
+	        #input("alamat3" "" "$!r.alamat3")
+	        #postcode("poskod" "Poskod" "$!r.poskod")
+	        <tr>
+	          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00"></span></td>
+	          <td valign="top">:</td>
+	          <td>#parse("$path/selectNegeri.vm")
+	            <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+	        </tr>
+	        <tr>
+	          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00"></span></td>
+	          <td valign="top">:</td>
+	          <td><div id="selectBandar">
+	            #parse("$path/selectBandar.vm")
+	            <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+	        </tr>
+	        #phone_number("noTelefon" "No. Telefon" "$!r.noTelefon")
+	        #input_email("emel" "Emel" "$!r.emel")
+	      </table>
+	      </fieldset></td>
+	  </tr>
+	</table>
+
+	
+	##*************************************** START PENERIMAAN ADUAN *********************************
+	#if ($r.status.id == '1434787994722' && $command == 'terimaAduan') ##BARU
+		#parse("$path/terimaAduan.vm")
+	#end
+	##*************************************** START PENERIMAAN ADUAN *********************************
+		
+	##*************************************** PENERIMAAN ADUAN ***************************************
+						## DALAM TINDAKAN 					|| TIDAK BERASAS 					|| SELESAI						|| MAKLUMBALAS UNIT					|| TINDAKAN UNIT
+	#if (($r.status.id == '1434787994725' || $r.status.id == '1434787994731' || $r.status.id == '1434787994728' || $r.status.id == '1440506568974' || $r.status.id == '1440506568977'))
+		#parse("$path/terimaAduan.vm")
+	#end
+	## *************************************** END PENERIMAAN ADUAN **********************************
+	
+	##*************************************** MAKLUMBALAS UNIT *************************************** 
+	##VIEW				## MAKLUMBALAS UNIT 				## SELESAI 						  ## TINDAKAN UNIT	
+	#if (($r.status.id == '1440506568974' || $r.status.id == '1434787994728' || $r.status.id == '1440506568977') && $command != 'maklumbalasUnit')	
+		#parse("$path/maklumbalasUnit/maklumbalasUnit.vm")
+	#end
+	##EDIT				  MAKLUMBALAS UNIT 					   SELESAI						 	DALAM TINDAKAN					     TINDAKAN UNIT
+	#if (($r.status.id == '1440506568974' || $r.status.id == '1434787994728' || $r.status.id == '1434787994725' || $r.status.id == '1440506568977') && $command == 'maklumbalasUnit' && $command != 'emailKeFm') 
+		#parse("$path/maklumbalasUnit/maklumbalasUnit.vm")
+	#end
+	##*************************************** END MAKLUMBALAS UNIT ************************************
+	
+	##*************************************** START MAKLUMAT FM ***************************************
+					  ## MAKLUMBALAS UNIT				##  TINDAKAN UNIT
+	#if (($r.status.id == '1440506568974' || $r.status.id == '1440506568977') && $command != 'maklumbalasUnit' && $command != 'emailKeFm')  
+		#parse("$path/maklumatFm.vm") ##VIEW
+	#end
+						## SELESAI						## MAKLUMBALAS UNIT 			##  TINDAKAN UNIT   
+	#if (($r.status.id == '1434787994725' || $r.status.id == '1434787994728' || $r.status.id == '1440506568974' || $r.status.id == '1440506568977') && $command == 'emailKeFm') ## && $command == 'maklumbalasUnit'
+		#parse("$path/maklumatFm.vm") ##EDIT
+	#end
+	##*************************************** END MAJUKAN KE FM ***************************************
+	
+	##*************************************** START PENOLAKAN ADUAN ***********************************
+	#if (($r.status.id == '1434787994722' || $r.status.id == '1434787994725' || $r.status.id == '1440506568974') && $command == 'tolakAduan') ##BARU || DALAM TINDAKAN
+		#parse("$path/tolakAduan.vm")
+	#end
+	
+	#if ($r.status.id == '1434787994731') ##TIDAK BERASAS
+		#parse("$path/tolakAduan.vm")
+	#end
+	##*************************************** END PENOLAKAN ADUAN *************************************
+
+	
+	##*************************************** START SELESAI ADUAN *************************************
+	#if (($r.status.id == '1434787994722' || $r.status.id == '1434787994725' || $r.status.id == '1440506568974') && $command == 'selesaiAduan') ##BARU || DALAM TINDAKAN
+		#parse("$path/selesaiAduan.vm")
+	#end
+	
+	#if ($r.status.id == '1434787994728') ##SELESAI
+		#parse("$path/selesaiAduan.vm")
+	#end
+	##*************************************** END SELESAI ADUAN ***************************************
+	
+	
+</div>
+
+#if ($!command != "add_new_record")
+<table width="100%">
+	<tr>
+		<td><br /></td>
+	</tr>
+	<tr>
+		<td align="center">
+		#if ($!userRole == '(ICT) Pentadbir Sistem' || $!userRole == '(PRO) Pengguna' || $!userRole == '(RPP) Penyedia' || $!userRole == '(RPP) Penyemak' || $!userRole == '(RPP) Pelulus' || $!userRole == '(UTK) Penyedia' || $!userRole == '(UTK) Penyemak' ||  $!userRole == '(UTK) Pelulus' || $!userRole == '(UTILITI) Penyedia' || $!userRole == '(UTILITI) Penyemak' || $!userRole == '(UTILITI) Pelulus' || $!userRole == '(QTR) Penyedia' || $!userRole == '(QTR) Penyemak' || $!userRole == '(QTR) Pelulus' || $!userRole == '(RK) Penyedia' || $!userRole == '(RK) Penyemak' || $!userRole == '(RK) Pelulus' || $!userRole == '(JRP) Penyedia' || $!userRole == '(JRP) Penyemak' || $!userRole == '(JRP) Pelulus' || $!userRole == '(TNH) Penyedia' || $!userRole == '(TNH) Penyemak' || $!userRole == '(TNH) Pelulus' || $!userRole == '(BGS) Penyedia' || $!userRole == '(BGS) Penyemak' || $!userRole == '(BGS) Pelulus' || $!userRole == '(DASAR) Penyedia' || $!userRole == '(DASAR) Pelulus' || $!userRole == '(HASIL) Penyelia' || $!userRole == '(DEPOSIT) Penyemak')	
+			
+			##********************************START SIMPAN MAKLUMAT ADUAN ********************************	
+				## BARU  $r.status.id == '1434787994722'
+			#if ($r.status.id == '1434787994722' && $!userRole == '(PRO) Pengguna' && $!command != 'terimaAduan' && $!command != 'tolakAduan' && $!command != 'selesaiAduan' && $!command != 'maklumbalasUnit' && $command != 'emailKeFm') ##BARU
+    			<input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:doSaveAduan();"/>    		
+    			<input id="simpan" name="simpan" type="button" value="Akuan Terima Aduan" onclick="javascript:doTerimaAduan();"/>
+    			<input id="simpan" name="simpan" type="button" value="Tolak Aduan" onclick="javascript:doTolakAduan();"/>
+    			<input id="simpan" name="simpan" type="button" value="Selesai Aduan" onclick="javascript:doSelesaiAduan();"/>
+    		#end
+    							## DALAM TINDAKAN  				|| MAKLUMBALAS UNIT
+    		#if (($r.status.id == '1434787994725' || $r.status.id == '1440506568974') && $!userRole == '(PRO) Pengguna' && $!command != 'terimaAduan' && $!command != 'tolakAduan' && $!command != 'selesaiAduan' && $!command != 'maklumbalasUnit' && $command != 'emailKeFm') 
+    			<input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:doSaveAduan();"/>    		
+    			<input id="simpan" name="simpan" type="button" value="Tolak Aduan" onclick="javascript:doTolakAduan();"/>
+    			<input id="simpan" name="simpan" type="button" value="Selesai Aduan" onclick="javascript:doSelesaiAduan();"/>
+    		#end
+    		##********************************END SIMPAN MAKLUMAT ADUAN ********************************	
+    		
+    		
+    		##******************************** START TERIMA ADUAN ********************************
+    								## BARU  					  || MAKLUMBALAS UNIT 			
+			#if (($!r.status.id == '1434787994722' || $r.status.id == '1440506568974') && $!command == 'terimaAduan' && $!command != 'maklumbalasUnit')	
+				<input id="simpan" name="simpan" type="button" value="Simpan & Hantar " onclick="javascript:doSaveTerimaAduan();"/> 
+				<input id="simpan" name="kembali" type="button" value="Kembali" onClick="doDivAjaxCall3$formname('divTab','getMaklumatAduan','')"/>    	   	
+			#end
+			##********************************END START TERIMA ADUAN ********************************
+			
+			##******************************** START TOLAK ADUAN ********************************
+								##	BARU							## DALAM TINDAKAN				## MAKLUMBALAS UNIT
+			#if (($!r.status.id == '1434787994722' || $r.status.id == '1434787994725' || $r.status.id == '1440506568974') && $!command == 'tolakAduan' && $!command != 'maklumbalasUnit' && $!command != 'emailKeFm') ## BARU || DALAM TINDAKAN || MAKLUMBALAS UNIT
+				<input id="simpan" name="simpan" type="button" value="Simpan & Hantar" onclick="javascript:doSavePenolakanAduan();"/> 
+				<input id="simpan" name="kembali" type="button" value="Kembali" onClick="doDivAjaxCall3$formname('divTab','getMaklumatAduan','')"/>    	   	
+			#end
+			##******************************** END TOLAK ADUAN ********************************
+			
+			##******************************** START SELESAI ADUAN ********************************		
+								##	BARU						  ## DALAM TINDAKAN					## MAKLUMBALAS UNIT
+			#if (($r.status.id == '1434787994722' || $r.status.id == '1434787994725' || $r.status.id == '1440506568974') && $!command == 'selesaiAduan' && $!command != 'maklumbalasUnit') ##BARU || DALAM TINDAKAN  || MAKLUMBALAS UNIT
+				<input id="simpan" name="simpan" type="button" value="Simpan & Hantar" onclick="javascript:doSaveSelesaiAduan();"/> 
+				<input id="simpan" name="kembali" type="button" value="Kembali" onClick="doDivAjaxCall3$formname('divTab','getMaklumatAduan','')"/>    	   	
+			#end
+			##******************************** END SELESAI ADUAN ********************************	
+			
+			##******************************** START TINDAKAN UNIT ********************************
+								## TINDAKAN UNIT
+			#if (($r.status.id == '1440506568977') && $!command != 'maklumbalasUnit' && $!command != 'emailKeFm')  
+				<input id="simpan" name="Simpan & Hantar" type="button" value="Maklumbalas Unit" onclick="javascript:doMaklumbalasUnit();"/>
+			#end
+								## TINDAKAN UNIT
+			#if (($r.status.id == '1440506568977') && $!command == 'maklumbalasUnit')
+				<input id="simpan" name="simpan" type="button" value="Simpan & Hantar" onclick="javascript:doSaveMaklumbalasUnit();"/>
+				<input id="simpan" name="kembali" type="button" value="Kembali" onClick="doDivAjaxCall3$formname('divTab','getMaklumatAduan','')"/>    	   	
+			#end
+			##******************************** END MAKLUMBALAS UNIT ********************************
+			
+			##******************************** START EMAIL MAKLUMAT FM ********************************
+								## DALAM TINDAKAN				## MAKLUMBALAS UNIT					## TINDAKAN UNIT
+			#if (($r.status.id == '1434787994725'|| $r.status.id == '1440506568974' || $r.status.id == '1440506568977') && $!command != 'emailKeFm' && $!command != 'maklumbalasUnit')
+				<input id="simpan" name="Simpan & Hantar" type="button" value="Maklumat Fm" onclick="javascript:doEmailKeFm();"/>
+##				<input id="simpan" name="kembali" type="button" value="Kembali" onClick="doDivAjaxCall3$formname('divTab','getMaklumatAduan','')"/>
+			#end
+								  ## MAKLUMAT FM					  DALAM TINDAKAN				## MAKLUMBALAS UNIT	
+			#if (($!r.status.id == '1434787994722' || $r.status.id == '1434787994725' || $r.status.id == '1440506568974' || $r.status.id == '1440506568977') && $!command != 'maklumbalasUnit' && $!command == 'emailKeFm')
+				<input id="simpan" name="simpan" type="button" value="Simpan & Hantar" onclick="javascript:doSaveEmailKeFm();"/>
+				<input id="simpan" name="kembali" type="button" value="Kembali" onClick="doDivAjaxCall3$formname('divTab','getMaklumatAduan','')"/>  	   	
+			#end
+			##******************************** START CETAK MAKLUMAT ADUAN ********************************
+	        #if ($!command != 'terimaAduan' && $!command != 'tolakAduan' && $!command != 'agihanAduan' && $!command != 'selesaiAduan' && $!command != 'maklumbalasUnit' && $!command != 'emailKeFm')
+            <a href="#" style="color:blue" id="cmdCetak"><input type="button" value="Cetak" /></a>
+	        <input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	        #end			
+#end
+
+  </tr>
+</table>
+#end
+
+##bella
+<script>
+    _jq('#cmdCetak').on('click', function(){
+		var idAduan = '$!r.id';
+    	var url = "../servlet/bph.laporan.pro.CetakMaklumbalasUnitProPengguna?idAduan="+idAduan;
+    	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+    	if ((document.window != null) && (!hWnd.opener))
+    	hWnd.opener = document.window;
+    	if (hWnd.focus != null) hWnd.focus();
+    });
+</script>
+
+
+<script>
+##	_jq('#cmdCetak').on('click', function(){
+##		var idAduan = $!r.id;
+##		alert($!r.id);
+##		var url = "../servlet/bph.laporan.pro.CetakMaklumbalasUnitProPengguna?idAduan=$!r.id";
+##		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+##		if ((document.window != null) && (!hWnd.opener))
+##		hWnd.opener = document.window;
+##		if (hWnd.focus != null) hWnd.focus();
+##	});	
+
+
+	_jq('#btnPrint').click(function() {
+		_jq('#frameMaklumatAduan').printThis({
+		      debug: false,              
+		      importCSS: false,           
+		      printContainer: true,      
+		      pageTitle: "",             
+		      removeInline: false        
+		});
+	});	
+</script>

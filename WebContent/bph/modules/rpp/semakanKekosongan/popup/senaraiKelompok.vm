@@ -1,0 +1,84 @@
+
+<style>
+.scrollitpopup {
+	height:500px; width: 100%; overflow: auto;
+}
+</style>
+
+<fieldset style="width:60%">
+<legend class="legend">Senarai Permohonan Kelompok</legend>
+	
+##<input type="hidden" id="idJenisUnit" name="idJenisUnit" value="$!jns.id" />
+
+<br/>
+	
+	<div class="scrollitpopup">
+	<table cellpadding="1" cellspacing="1" width="100%">
+		
+		<tr>
+			<th class="row_header" width="5%">BIL.</th>
+			<th class="row_header" width="35%">PEMOHON</th>
+			<th class="row_header" width="20%">UNIT</th>
+			<th class="row_header" width="10%">TARIKH MOHON</th>
+			<th class="row_header" width="10%">TARIKH MASUK</th>
+			<th class="row_header" width="10%">TARIKH KELUAR</th>
+			<th class="row_header" width="10%">STATUS</th>
+		</tr>
+		
+		
+		#if ( $senaraiKelompok.size() > 0 )
+			#set( $count = 0 )
+			#foreach ( $d in $senaraiKelompok )
+        			
+    		#set ( $count = $count + 1)
+				#if ( $count % 2 == 0 ) 
+					#set ( $rowcolor = "#D0CFCE" ) 
+            	#else 
+            		#set ( $rowcolor = "#F0F0F0" ) 
+    			#end
+    				
+				<tr bgcolor="$rowcolor">
+					<td align="center">$count</td>
+					<td>
+                    	<b>Nama :</b> $!d.userName.toUpperCase() <br/>
+                    	<b>MyID :</b> $!d.noKp<br/>
+                    	<b>No. Telefon :</b> $!d.noTelefon<br/>
+                      	<b>No. Telefon Bimbit :</b> $!d.noTelefonBimbit<br/>
+                      	<b>Emel :</b> $!d.emel
+                    </td>
+					<td align="center">$!util.replaceIfNull($!d.bahagianUnit.toUpperCase(),"-")</td>
+                    <td>$!util.getDateTime($!d.tarikhPermohonan,'dd-MM-yyyy')</td>
+                    <td>$!util.getDateTime($!d.tarikhMasukRpp,'dd-MM-yyyy')</td>
+					<td>$!util.getDateTime($!d.tarikhKeluarRpp,'dd-MM-yyyy')</td>
+                    <td>$!util.replaceIfNull($!d.status.toUpperCase(),"PERMOHONAN BARU")</td>
+				</tr>
+				
+    			#end
+    		#else
+    			<tr bgcolor="#F0F0F0">
+    				<td colspan="7">TIADA REKOD</td>
+    			</tr>
+    		#end
+		
+	</table>
+	</div>
+	
+	<br/>
+	
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+    			<input type="button" id="btnKeluar" name="btnKeluar" value="Keluar">
+    		</td>
+    	</tr>
+    </table>
+
+</fieldset>
+	
+<script>
+  _jq('#btnKeluar').on('click', function(){
+    jQuery('#popupDetail').fadeOut();
+  });
+</script>
+
+

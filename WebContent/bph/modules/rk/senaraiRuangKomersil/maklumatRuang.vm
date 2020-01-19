@@ -1,0 +1,158 @@
+<fieldset>
+<legend class="legend">Maklumat Ruang</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("" "ID Ruang" "<b>$!r.idRuang</b>")
+        #input_required("namaRuang" "Nama Ruang" "$!r.namaRuang")
+        <tr>
+          <td class="label" valign="top">Jenis Meter Air &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectJenisMeterAir.vm")
+            <div id="err_jenisMeterAir" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Jenis Meter Elektrik &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectJenisMeterElektrik.vm")
+            <div id="err_jenisMeterElektrik" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Jenis Meter IWK &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectJenisMeterIWK.vm")
+            <div id="err_jenisMeterIWK" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Jenis Perkhidmatan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectJenisKegunaanRuang.vm")
+            <div id="err_jenisKegunaanRuang" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td valign="top" colspan="3"><div id="divJenisKegunaanLain">#parse("$path/jenisKegunaanRuangLain.vm")</div></td>
+        </tr>        
+        <tr>
+          <td class="label">Kadar Nilaian JPPH (RM) &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><input class="currency" type="text" id="kadarSewa" name="kadarSewa" value="$!util.formatDecimal($!r.kadarSewa)" onKeyUp="$('err_kadarSewa').innerHTML=''; at(this, event)">
+          <div id="err_kadarSewa" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Jenis Sewaan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectJenisSewa.vm")
+            <div id="err_idJenisSewa" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label">Luas &nbsp;</td>
+          <td valign="top">:</td>
+          <td><input class="currency" type="text" id="luasMps" name="luasMps" value="$!util.formatDecimal($!r.luasMps)" style="width:70%">
+            &nbsp; Meter Persegi </td>
+        </tr>
+        <tr>
+          <td class="label"></td>
+          <td valign="top">:</td>
+          <td><input class="currency" type="text" id="luasKps" name="luasKps" value="$!util.formatDecimal($!r.luasKps)" style="width:70%">
+            &nbsp; Kaki Persegi </td>
+        </tr>
+        #textarea("catatan" "Catatan" "$!r.catatan")        
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #textarea_required("lokasi" "Lokasi" "$!r.lokasi")        
+        #input_required("alamat1" "Alamat" "$!r.alamat1")
+        #input("alamat2" "" "$!r.alamat2")
+        #input("alamat3" "" "$!r.alamat3")
+        #postcode_required("poskod" "Poskod" "$!r.poskod")
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectNegeri.vm")
+            <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandar"> #parse("$path/selectBandar.vm") </div>
+            <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #if ($!showSeksyen == 'true')
+        <tr>
+          <td class="label" valign="top">Seksyen &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectSeksyen.vm")
+            <div id="err_idSeksyen" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #else
+		<input type="hidden" id="idSeksyen" name="idSeksyen" value="$idSeksyen">	
+		#end
+        #input("namaPegawai" "Nama Pegawai" "$!r.namaPegawai")
+        #phone_number("noTelefonPegawai" "No. Telefon Pegawai" "$!r.noTelefonPegawai")
+        <tr>
+          <td class="label" valign="top">Status &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectFlagAktif.vm")
+            <div id="err_flagAktif" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #if ($!command != 'add_new_record')
+        #if ($!r.flagSewa == 'Y')
+        #input_normal("flagSewa" "Status Sewaan" "<b>SEDANG DISEWA</b>")
+        #elseif ($!r.flagSewa == 'T')
+        #input_normal("flagSewa" "Status Sewaan" "<b>KOSONG</b>")
+        #else
+        #input_normal("flagSewa" "Status Sewaan" "")
+        #end
+        #end
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+#if ($!command != 'add_new_record')
+<fieldset>
+<legend class="legend">Maklumat Rekod</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("" "Daftar Oleh" "<b>$!r.daftarOleh.userName</b>")
+        #input_normal("" "Tarikh Daftar" "<b>$util.getDateTime($!r.tarikhMasuk,'dd-MM-yyyy hh:mm:ss a')</b>")        
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("" "Kemaskini Oleh" "<b>$!r.kemaskiniOleh.userName</b>")
+        #input_normal("" "Tarikh Kemaskini" "<b>$util.getDateTime($!r.tarikhKemaskini,'dd-MM-yyyy hh:mm:ss a')</b>")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+#end
+
+#if ($!command != "add_new_record")
+<table width="100%">
+  <tr>
+    <td align="right">
+    	<input id="simpan" name="simpan" type="button" value="Simpan" onClick="javascript:doSaveMaklumatRuang();"/>
+    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+#end 

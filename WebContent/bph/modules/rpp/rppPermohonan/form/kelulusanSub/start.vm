@@ -1,0 +1,32 @@
+
+#parse("$path/senaraiTab.vm")
+	
+<fieldset>
+<legend class="legend">MAKLUMAT KELULUSAN SUB</legend>
+	
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+			<td style="width:150px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+		</tr>
+		
+		#show("Tarikh Kelulusan" "$util.replaceIfNull($!util.getDateTime($!r.tarikhKelulusanSub,'dd-MM-yyyy'),'-')")
+		#if($!r.flagKelulusanSub=="Y") #set($kelulusanSub = "LULUS") #end
+		#if($!r.flagKelulusanSub=="T") #set($kelulusanSub = "TIDAK LULUS") #end	
+		#show("Keputusan" "$util.replaceIfNull($!kelulusanSub,'-')")
+		#show("Catatan" "$util.replaceIfNull($!r.catatanSub,'-')")
+		
+	</table>
+	
+</fieldset>	
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">##Fatin 13/07/2015
+    			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+    			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>
+			

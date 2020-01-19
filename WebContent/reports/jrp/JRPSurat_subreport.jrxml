@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="JRPSurat_subreport"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="340"
+		 pageHeight="600"
+		 columnWidth="340"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="idPermohonan" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT B.alamat_1, B.alamat_2, B.alamat_3, B.poskod, C.keterangan BANDAR, D.keterangan NEGERI, F.luas_mp, F.luas_kp, F.perakuan_sewa_bulanan sewa, F.nilaian_mp sewa_mp, F.nilaian_kp sewa_kp, F.luas_jpph_mp, F.luas_jpph_kp, F.nilaian_jpph_mp, F.nilaian_jpph_kp,F.flag_keputusan,F.tempoh_sewa,
+B.tarikh_mula_mohon, B.tarikh_tamat_mohon, E.bilangan_baru, F.tarikh_ulasan
+FROM jrp_permohonan A
+LEFT JOIN jrp_permohonan_lokasi B ON A.id = B.id_permohonan
+LEFT JOIN ruj_bandar C ON B.id_bandar = C.id
+LEFT JOIN ruj_negeri D ON C.id_negeri = D.id
+LEFT JOIN jrp_kakitangan E ON A.id = E.id_permohonan
+LEFT JOIN jrp_ulasan_teknikal F ON A.id = F.id_permohonan
+WHERE A.id = $P{idPermohonan}
+AND B.flag_lokasi = "B"
+AND F.id_agensi = 1306]]></queryString>
+
+	<field name="alamat_1" class="java.lang.String"/>
+	<field name="alamat_2" class="java.lang.String"/>
+	<field name="alamat_3" class="java.lang.String"/>
+	<field name="poskod" class="java.lang.String"/>
+	<field name="BANDAR" class="java.lang.String"/>
+	<field name="NEGERI" class="java.lang.String"/>
+	<field name="luas_mp" class="java.lang.String"/>
+	<field name="luas_kp" class="java.lang.String"/>
+	<field name="sewa" class="java.lang.Double"/>
+	<field name="sewa_mp" class="java.lang.Double"/>
+	<field name="sewa_kp" class="java.lang.Double"/>
+	<field name="luas_jpph_mp" class="java.lang.String"/>
+	<field name="luas_jpph_kp" class="java.lang.String"/>
+	<field name="nilaian_jpph_mp" class="java.lang.Double"/>
+	<field name="nilaian_jpph_kp" class="java.lang.Double"/>
+	<field name="flag_keputusan" class="java.lang.String"/>
+	<field name="tempoh_sewa" class="java.lang.Integer"/>
+	<field name="tarikh_mula_mohon" class="java.sql.Date"/>
+	<field name="tarikh_tamat_mohon" class="java.sql.Date"/>
+	<field name="bilangan_baru" class="java.lang.String"/>
+	<field name="tarikh_ulasan" class="java.sql.Date"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="150"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="60"
+						y="6"
+						width="271"
+						height="63"
+						key="textField-1"/>
+					<box></box>
+					<textElement verticalAlignment="Top">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{alamat_1} == null ? "" : " " + $F{alamat_1}) + ($F{alamat_2} == null ? "" : " " + $F{alamat_2}) + ($F{alamat_3} == null ? "" : " " + $F{alamat_3}) + ($F{poskod} == null ? "" : " " + $F{poskod}) + ($F{BANDAR} == null ? "" : " " + $F{BANDAR}) + ($F{NEGERI} == null ? "" : " " + $F{NEGERI})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="2"
+						width="20"
+						height="20"
+						key="textField-7"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["SK"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="40"
+						y="2"
+						width="20"
+						height="20"
+						key="textField-9"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["i"]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

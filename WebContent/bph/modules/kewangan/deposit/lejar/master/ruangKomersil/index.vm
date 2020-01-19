@@ -1,0 +1,142 @@
+<fieldset>
+
+	<legend class="legend">MASTER LEJAR</legend>
+    <table width="100%" border="0" cellspacing="1" cellpadding="1">
+
+		<tr>
+			<td width="5%"></td>
+			<td width="10%"></td>
+			<td width="10%"></td>
+			<td width="35%"></td>
+			<td width="15%"></td>
+			<td width="15%"></td>
+			<td width="10%"></td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" valign="middle" rowspan="2">BIL.</td>
+			<td class="row_header" valign="middle" colspan="2"></td>
+			<td class="row_header" style="text-align:left" valign="middle" rowspan="2"></td>
+			<td class="row_header" valign="middle" colspan="1">DEBIT</td>
+			<td class="row_header" valign="middle" colspan="1">KREDIT</td>
+			<td class="row_header" valign="middle" >BAKI</td>
+		</tr>
+		
+		<tr>
+			<td class="row_header">TARIKH</td>
+			<td class="row_header">RUJ.</td>
+			<td class="row_header">RM</td>
+			<td class="row_header">RM</td>
+			<td class="row_header">RM</td>
+		</tr>
+
+		#if ( $listdep.size() > 0 )
+    		#set ( $count = 0 )
+    		#set ( $totalDebit = 0.00 )
+			#set ( $totalDeposit = 0.00 )
+			#set( $baki = 0.00) ##baki setelah pulang duit
+    		#foreach( $d in $listdep )
+				#set ($debit = 0.00) ##jumlah pulangan duit
+				#set ($kredit = 0.00) ##jumlah pulangan duit
+    			#set ( $totalDeposit = $totalDeposit + $!d.jumlahDeposit)
+    			#set ( $totalDebit = $totalDebit + $!d.amaunPelarasanDeposit)
+    			#set ( $kredit = $!d.jumlahDeposit)
+    			#set ( $debit = $!d.amaunPelarasanDeposit)
+    			#set( $baki = $baki + $kredit - $debit)
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+##				#if( $d.flagPulangDeposit.equalsIgnoreCase("Y") ) 
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+        			<td align="center">
+						$!util.getDateTime($!d.tarikhBaucer,'dd-MM-yyyy')
+						$!util.getDateTime($!d.tarikhBayaran,'dd-MM-yyyy')
+					</td>
+					<td align="center">
+						$!d.noBaucerPulanganDeposit
+						$!d.noResit
+					</td>
+            		<td align="left">&nbsp; $!d.penuntut.userName.toUpperCase()
+            		$!d.pendeposit.userName.toUpperCase()</td>
+            		<td align="right">$!util.formatDecimal($!d.amaunPelarasanDeposit)</td>
+					<td align="right">$!util.formatDecimal($!d.jumlahDeposit)</td>
+					<td align="right">$!util.formatDecimal($baki)</td>
+                </tr>
+##                #else
+##                <tr bgcolor="$rowcolor">
+##        			<td align="center">
+##						2 $!util.getDateTime($!d.tarikhBayaran,'dd-MM-yyyy')
+##					</td>
+##					<td align="center">
+##						$!d.noResit
+##					</td>
+##            		<td align="left">&nbsp; $!d.pendeposit.userName.toUpperCase()</td>
+##            		<td align="right"></td>
+##					<td align="right">$!util.formatDecimal($!d.jumlahDeposit)</td>
+##					<td align="right">$!util.formatDecimal($!d.bakiDeposit)</td>
+##                </tr>
+##                #end
+			#end
+			<tr bgcolor="$rowcolor">
+        			<td align="center"></td>
+					<td align="center"></td>
+					<td align="center"></td>
+            		<td align="left"></td>
+            		<td align="right"><b>$!util.formatDecimal($totalDebit)</b></td>
+					<td align="right"><b>$!util.formatDecimal($totalDeposit)</b></td>
+					<td align="right"><b>$!util.formatDecimal($baki)</b></td>
+                </tr>
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="8">Tiada Rekod</td>
+			</tr>
+		#end
+
+	</table>
+		
+</fieldset>
+##start Report
+<table width="100%">
+	<tr>
+		<td align="right">
+			<input type="button" value="Cetak"  id="cmdCetak"/>
+		</td>
+	</tr>
+</table>
+<fieldset id="tableReport" style="display:none;">
+<legend class="legend">SENARAI LAPORAN</legend>
+<table width="100%" >
+	<tr>
+		<td><a href="#" style="color:blue" id="cmdMLajer">Master Lejar</a></td>		
+	</tr>
+</table>
+</fieldset>	
+<br/>
+##start Report
+<script>
+_jq('#cmdCetak').on('click', function(){
+
+			if(document.getElementById('tableReport').style.display=="none"){
+				document.getElementById('tableReport').style.display="block";
+				}
+			else if(document.getElementById('tableReport').style.display=="block"){
+				document.getElementById('tableReport').style.display="none";
+				}
+});
+
+_jq('#cmdMLajer').on('click', function(){
+	
+	var url = "../servlet/bph.laporan.kewangan.LaporanMasterLejar?kodHasil='79503'&idJenisBayaran='04'";
+	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	if ((document.window != null) && (!hWnd.opener))
+	hWnd.opener = document.window;
+	if (hWnd.focus != null) hWnd.focus();
+});
+##end Report
+</script>
+
+

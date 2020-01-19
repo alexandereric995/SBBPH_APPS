@@ -1,0 +1,69 @@
+
+	
+#parse("${viewPath}/label_titles.vm")
+
+<table width="100%">
+  <tr>
+    <td align="right"> 
+    	#if ( !$record_readonly && !$readonly && !$r && !$disableKosongkanUpperButton)
+      		<input type="button" value="Kosongkan" onClick="doDivAjaxCall3$formname('div_main_entry','add_new_record','')">
+      	#end
+      	#if ( !$disableUpperBackButton )
+      	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    	#end
+    </td>
+  </tr>
+</table>
+#parse("$data_entry_page")
+
+#if ( !$record_readonly && !$readonly && !$disabledInfoNextTab )
+<table width="100%">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td> 
+	  <span style="color:red;font-size:11px">PERHATIAN :</span> Medan yang bertanda <span style="color:red;font-size:11px">*</span> adalah <span style="font-weight:bold">MANDATORI.</span>
+	</td>
+  </tr>
+</table>
+#end
+
+#set ( $queryParam = "record_id=$!r.id" )
+#if ( $idType == "ICompositeId2" )
+	#set ( $queryParam = "id1=$!r.id1&id2=$!r.id2" )
+#elseif ( $idType == "ICompositeId3" )
+	#set ( $queryParam = "id1=$!r.id1&id2=$!r.id2&id3=$!r.id3" )
+#elseif ( $idType == "ICompositeId4" )
+	#set ( $queryParam = "id1=$!r.id1&id2=$!r.id2&id3=$!r.id3&id4=$r.id4" )
+#end
+ 
+#set ( $flagSaveAndAddButton = "true" )
+#if ($!saveAndAddButton != '')
+	#set ( $flagSaveAndAddButton = $!saveAndAddButton )
+#end
+
+<table width="100%">
+  <tr>
+    <td align="right"> 
+    	#if ( !$record_readonly && !$readonly )
+		    #if ( !$r )
+			    #if ( $flagSaveAndAddButton )
+			    	#if ( !$disableSaveAddNewButton )
+			    		<input type="button" id="btnSaveAddNewRecordTemplate" name="btnSaveAddNewRecordTemplate" value="Simpan & Daftar Baru" onClick="if ( validateField() ) doDivAjaxCall3$formname('div_main_entry','save_add_new_record','$queryParam')">
+			    	#end
+			    #end
+		    #end
+		    #if ( !$disableDefaultButton )
+			    <input type="button" id="btnSaveRecordTemplate" name="btnSaveRecordTemplate" value="Simpan" onClick="if ( validateField() ) doDivAjaxCall$formname('div_main_entry','save_data','$queryParam')">
+			    #if ( !$r )
+			    	<input type="button" value="Kosongkan" onClick="doDivAjaxCall3$formname('div_main_entry','add_new_record','')">
+			    #end
+		    #end
+	    #end
+	    #if ( !$disableBackButton )
+			<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    	#end
+    </td>
+  </tr>
+</table>

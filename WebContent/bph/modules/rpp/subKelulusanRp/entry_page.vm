@@ -1,0 +1,74 @@
+
+<fieldset>
+<legend class="legend">maklumat permohonan</legend>
+<table width="100%">
+  <tr>
+    <td width="50%" valign="top"><table width="100%">
+        #show("No. Tempahan" "$!r.noTempahan")
+        #show("Lokasi Peranginan" "$!r.rppPeranginan.namaPeranginan.toUpperCase()")
+        #show("Jenis Unit" "$!r.jenisUnitRpp.keterangan.toUpperCase()")
+        #show("Tarikh Masuk" "$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy')")
+        #show("Tarikh Keluar" "$!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')")
+        #show("Sebab Mohon RT" "$!r.sebabMohonRT.keterangan.toUpperCase()")
+      </table></td>
+    <td width="50%" valign="top"><table width="100%">
+        #show("Nama" "$!r.pemohon.userName.toUpperCase()")
+        #show("No. Kad Pengenalan" "$!r.pemohon.noKP.toUpperCase()")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+<fieldset>
+<legend class="legend">maklumat kelulusan</legend>
+<table width="100%">
+  <tr>
+    <td style="width:170px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  #date_input_required("tarikhKelulusanSub" "Tarikh Semakan" "$!util.getDateTime($!r.tarikhKelulusanSub,'dd-MM-yyyy')")
+  <tr>
+    <td valign="top">Keputusan &nbsp;<span style='color:#FF2A00'>*</span></td>
+    <td valign="top">:</td>
+    <td valign="top"><input name="flagKelulusanSub" id="lulus" type="radio" value="Y" #if($!r.flagKelulusanSub=="Y") checked #end onClick=" $('err_flagKelulusanSub').innerHTML=''; at(this, event);" />
+      <label for="lulus">Lulus</label>
+      <input name="flagKelulusanSub" id="gagal" type="radio" value="T" #if($!r.flagKelulusanSub=="T") checked #end onClick=" $('err_flagKelulusanSub').innerHTML=''; at(this, event);" />
+      <label for="gagal">Tidak Lulus</label>
+      <div id="err_flagKelulusanSub" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #textarea("catatanSub" "Catatan" "$!r.catatanSub")
+##  <tr>
+##    <td colspan="3"><a style="color:blue" href="javascript:void()" id="linkDetailKekosongan">Semak Kekosongan</a>
+##      <script>
+##			_jq('#linkDetailKekosongan').on('click', function(){
+##    			doDivAjaxCall3$formname('popupDetail','openPopupDetailKekosongan','');
+##                jQuery('#popupDetail').fadeIn();
+##         	});
+##      	</script>
+##    </td>
+  </tr>
+</table>
+</fieldset>
+
+#parse("$path/semakanKekosonganUnit.vm")
+
+<div id="popupDetail" class="popup"></div>
+<input type="hidden" name="idpermohonan" id="idpermohonan" value="$!r.id" />
+<table width="100%">
+  <tr>
+    <td align="right"> #set ( $queryParam = "record_id=$!r.id" )
+      #if ($!r.flagKelulusanSub != 'Y')
+      <input type="button" value="Simpan" onClick="if ( validateField() ) doDivAjaxCall$formname('div_main_entry','save_data','$queryParam')">
+      #end
+      <input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

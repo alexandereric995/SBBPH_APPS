@@ -1,0 +1,25 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%" id="entryLeft">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+    #input_normal("noPermohonan" "No. Daftar" "$!r.permohonan.noPermohonan")
+	#input_normal("lokasiPermohonan" "Lokasi Kuarters" "$!r.permohonan.lokasi.lokasi")
+	#if ( $r.permohonan.tarikhPermohonan )
+		#set( $tarikhPermohonan = $util.getDateTime($r.permohonan.tarikhPermohonan, 'dd-MM-yyyy'))
+	#else
+		#set( $tarikhPermohonan = "-" )
+	#end
+    #input_normal("tarikhPermohonan" "TarikhPermohonan" "$tarikhPermohonan")
+	#if ( $!kelas2 != "" )
+		#input_normal("kelasLayak" "Kelas Layak" "$!kelas1")
+		#input_normal("kelasDowngrade" "Kelas Downgrade" "$!kelas2")
+	#else
+		#if ( $r.jenisKelasKuarters == "D" )
+			#input_normal("kelasDowngrade" "Kelas Downgrade" "$!kelas1")
+		#else
+			#input_normal("kelasLayak" "Kelas Layak" "$!kelas1")
+		#end
+	#end
+</table>

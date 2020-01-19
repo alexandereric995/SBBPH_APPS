@@ -1,0 +1,31 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%" id="entryLeft">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+    ##input_readonly_label("noPermohonan" "No. Daftar" "$!r.agihan.permohonan.noPermohonan")
+    #input_normal("noPermohonan" "No. Daftar" "$!r.agihan.permohonan.noPermohonan")
+	#input_normal("lokasiPermohonan" "Lokasi Kuarters" "$!r.agihan.permohonan.lokasi.lokasi")
+	#if ( $r.agihan.permohonan.tarikhPermohonan )
+		#set( $tarikhPermohonan = $util.getDateTime($r.agihan.permohonan.tarikhPermohonan, 'dd-MM-yyyy'))
+	#else
+		#set( $tarikhPermohonan = "-" )
+	#end
+    #input_normal("tarikhPermohonan" "Tarikh Daftar" "$tarikhPermohonan")
+	#if ( $r.agihan.permohonan.perakuan == 1 )
+		#set( $perakuan = "YA")
+	#elseif ( $r.agihan.permohonan.perakuan == 0 )
+		#set( $perakuan = "TIDAK" )
+	#else
+		#set( $perakuan = "-" )
+	#end
+	#input_normal("perakuan" "Permohonan Downgrade" "$!perakuan")
+	#if ( $!r.getDescGenEmail() == "Ya" ) 
+		#set( $GenEmail = "YA" )
+	#else
+		#set( $GenEmail = "TIDAK" )
+	#end
+	#input_normal("generateEmail" "Emel telah dihantar" "$GenEmail")
+	#input_normal("statusPerkahwinan" "Status Perkahwinan" "$!r.agihan.pemohon.statusPerkahwinan.keterangan")
+</table>

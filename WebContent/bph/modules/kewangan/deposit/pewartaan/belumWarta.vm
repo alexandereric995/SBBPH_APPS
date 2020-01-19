@@ -1,0 +1,263 @@
+
+<style>
+.scrollitpopup {
+	height:200px; width: 100%; overflow: auto;
+}
+</style>
+
+
+##TAB
+#parse("$templateDir/tab.vm")
+
+<br/>
+
+<fieldset>
+
+	<legend class="legend">SENARAI DEPOSIT YANG TIDAK DITUNTUT</legend>
+	
+	<div class="scrollitpopup">
+    <table width="100%" border="0" cellspacing="1" cellpadding="1">
+		<tr>
+            <td colspan="6" align="center">
+				<span style="font-weight:bold;font-size:13px">
+					JADUAL <br/>
+					AKAUN DEPOSIT KUARTERS KERAJAAN (72310) <br/><br/>
+				</span>
+			</td>
+        </tr>
+		
+		<tr>
+			<td class="row_header" width="5%" valign="middle">BIL.</td>
+			<td class="row_header" style="text-align:left" width="35%" valign="middle">NAMA</td>
+			<td class="row_header" width="20%" valign="middle">NO. RESIT</td>
+			<td class="row_header" width="15%" valign="middle">TARIKH</td>
+			<td class="row_header" width="15%" valign="middle">AMAUN (RM)</td>
+			<td class="row_header" width="10%">
+				#if ( $listWtd.size() > 1 )
+					PILIH SEMUA <br/> <input type="checkbox" name="cbSelectAll" id="cbSelectAll" value="Y" onclick="checkAll();$('err_cbDeposit').innerHTML=''; at(this, event)" />
+				#end
+			</td>
+		</tr>
+		
+		#if ( $listWtd.size() > 0 )
+    		#set ( $count = 0 )
+			#set ( $jumlahAmaun = 0.00)
+    		#foreach( $d in $listWtd )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+				#set ( $jumlahAmaun = $jumlahAmaun + $!d.jumlahDeposit )
+    				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+					<td align="left">$!d.pendeposit.userName.toUpperCase()</td>
+            		<td align="center">$!d.noResit</td>
+            		<td align="center">$!util.getDateTime($!d.tarikhBayaran,'dd-MM-yyyy')</td>
+					<td align="center">$!util.formatDecimal($!d.jumlahDeposit)</td>
+					<td align="center"><input type="checkbox" name="cbDeposit" id="cbDeposit$!d.id" value="$!d.id" onclick="doUpdateCheckAll();$('err_cbDeposit').innerHTML=''; at(this, event)" /></td>
+                </tr>
+			#end
+			<tr><td colspan="6">&nbsp;</td></tr>
+			<tr>
+				<td colspan="4" align="right"><b>JUMLAH : </b></td>
+				<td align="center"><b><u>$!util.formatDecimal($jumlahAmaun)</u></b></td>
+				<td>&nbsp;</td>
+			</tr>
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="6">Tiada Rekod</td>
+			</tr>
+		#end
+		
+		<tr>
+			<td colspan="6"><div id="err_cbDeposit" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		</tr>
+		
+	</table>
+	</div>
+	
+</fieldset>
+	
+<br/>
+
+
+#if ( $listWtd.size() > 0 )
+    <fieldset>
+    
+    	<legend class="legend">MAKLUMAT PEWARTAAN</legend>
+        <table width="100%" border="0" cellspacing="1" cellpadding="1">
+    		<tr>
+    			<td width="180px"></td>
+    			<td width="10px"></td>
+    			<td></td>
+    		</tr>
+    		
+    		<tr>
+            	<td class="label" valign="top">TARIKH HANTAR WARTA &nbsp;<span style="color:#FF2A00">*</span></td>
+            	<td class="label" valign="top">:</td>
+            	<td valign="top">
+            		<div>
+                		<input type="text" id="tarikhHantarWarta" name="tarikhHantarWarta" value="" >
+                		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+            			<script>
+                        	_jq("#tarikhHantarWarta").Zebra_DatePicker({ 
+                				format: 'd-m-Y',
+            					readonly_element: false,
+    							direction:1,
+            					onSelect: function(view, elements) {
+            						$('err_tarikhHantarWarta').innerHTML='';
+            						at(this, event);
+            					}
+                        	});
+            				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+                		</script>
+                		<div id="err_tarikhHantarWarta" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            		</div>
+            	</td>
+            </tr>
+    		
+    		<tr>
+    			<td class="label" valign="top">CATATAN</td>
+            	<td class="label" valign="top">:</td>
+            	<td valign="top"><textarea id="catatanHantarWarta" name="catatanHantarWarta" onBlur="this.value=this.value.toUpperCase();"></textarea></td>
+    		</tr>
+    
+    	</table>
+    	
+    </fieldset>	
+    		
+    <br/>
+    
+    	<table width="100%">
+        	<tr>
+        		<td align="right">
+        			<input type="button" value="Cetak"  id="cmdCetak"/>
+        			<input id="btnHantarWarta" style="width:220px" type="button" value="SIMPAN PILIHAN PEWARTAAN" />
+        		</td>
+        	</tr>
+        </table>
+#end	
+<fieldset id="tableReport" style="display:none;">
+<legend class="legend">SENARAI LAPORAN</legend>
+<table width="100%" >
+	<tr>
+		<td><a href="#" style="color:blue" id="cmdCetakDepositBelumDituntut">Deposit Yang Tidak Dituntut</a></td>		
+	</tr>
+</table>
+</fieldset>	
+<script>
+	function checkAll() {
+		if (document.${formName}.cbSelectAll.checked == true){
+	
+    	        if (document.${formName}.cbDeposit.length == null){
+    	            document.${formName}.cbDeposit.checked = true;
+    	        } else {
+    	            for (i = 0; i < document.${formName}.cbDeposit.length; i++){
+    	                document.${formName}.cbDeposit[i].checked = true;
+    	            }
+    	        }
+				
+    	 } else {
+    
+    	        if (document.${formName}.cbDeposit.length == null){
+    	            document.${formName}.cbDeposit.checked = false;
+    	        } else {
+    	            for (i = 0; i < document.${formName}.cbDeposit.length; i++){
+    	                document.${formName}.cbDeposit[i].checked = false;
+    	            }
+    	        }
+    	 }
+	}
+	
+	function doUpdateCheckAll(){  
+    	var c = 0;
+    	if(document.${formName}.cbDeposit.length > 1){     
+    		
+    		for (i = 0; i < document.${formName}.cbDeposit.length; i++){
+    	      if (document.${formName}.cbDeposit[i].checked == false){	 
+    		  	c++
+    	      }
+    		}  
+    	}else{
+    		
+    		if (document.${formName}.cbDeposit.checked == false){				 
+    			c++;
+    		}	 	
+    	}	 
+    	if(c>0){
+    		document.${formName}.cbSelectAll.checked = false;
+    	}
+    	else{
+    		document.${formName}.cbSelectAll.checked = true;
+    	}       
+    }
+	
+	function validateHantar() {
+
+    	var err_count = 0;
+		
+		var checking = 0;
+		var size = $count;
+		
+		if( size > 1 ){
+			
+    		for( var i = 0; i < document.${formName}.cbDeposit.length; i++ ){
+        		if(document.${formName}.cbDeposit[i].checked){ 
+        			checking += 1; 
+        		};
+        	}
+		}else{
+		
+			if( document.${formName}.cbDeposit.checked == true ){
+				checking += 1; 
+			}
+		}
+		
+    	if ( checking == 0 ){$('err_cbDeposit').innerHTML = "* Sila pilih senarai pendeposit terlebih dahulu"; err_count++;  }
+		
+		var tarikhHantarWarta = $('tarikhHantarWarta').value;
+		if ( tarikhHantarWarta == "" ) {$('err_tarikhHantarWarta').innerHTML = "Tarikh Hantar Warta adalah mandatori!"; err_count++;  }
+	
+		if (err_count == 0) {
+			if ( !window.confirm("Anda pasti?") ){
+    			return;
+    		}
+		}
+    	
+    	return err_count == 0;
+    }
+	
+	_jq('#btnHantarWarta').on('click', function(){
+		if(validateHantar()){
+			doDivAjaxCall3$formname('divMainPage','getSavePilihanHantarWarta','')	
+		}
+	});
+##start Report
+_jq('#cmdCetak').on('click', function(){
+
+			if(document.getElementById('tableReport').style.display=="none"){
+				document.getElementById('tableReport').style.display="block";
+				}
+			else if(document.getElementById('tableReport').style.display=="block"){
+				document.getElementById('tableReport').style.display="none";
+				}
+});
+
+_jq('#cmdCetakDepositBelumDituntut').on('click', function(){
+	
+	var userLogin = '$!userLogin';
+		
+	var url = "../servlet/bph.laporan.kewangan.KEWDepositTidakDituntut?userLogin="+userLogin;
+	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	if ((document.window != null) && (!hWnd.opener))
+	hWnd.opener = document.window;
+	if (hWnd.focus != null) hWnd.focus();
+});
+##end Report
+</script>
+

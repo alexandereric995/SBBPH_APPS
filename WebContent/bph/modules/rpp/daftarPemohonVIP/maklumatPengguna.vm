@@ -1,0 +1,133 @@
+ <div id="divKemaskiniPengguna"></div>
+
+<fieldset>
+<legend class="legend">MAKLUMAT PENGGUNA</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #show("ID Pengguna" "<b>$!r.id</b>")
+        <tr>
+          <td class="label" valign="top">Gelaran &nbsp;</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectGelaran.vm")
+            <div id="err_idGelaran" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        #input_required("nama" "Nama" "$!r.userName")
+        <tr>
+          <td class="label" valign="top">Gred Perkhidmatan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectGredPerkhidmatan.vm")
+            <div id="err_idGredPerkhidmatan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Jantina &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectJantina.vm")
+            <div id="err_idJantina" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bangsa &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectBangsa.vm")
+            <div id="err_idBangsa" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Agama &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectAgama.vm")
+            <div id="err_idAgama" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        #input_email("emel" "E-mel" "$!r.emel")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+       	#input_required("alamat1" "Alamat" "$!r.alamat1")
+        #input("alamat2" "" "$!r.alamat2")
+        #input("alamat3" "" "$!r.alamat3")
+        #postcode_required("poskod" "Poskod" "$!r.poskod")
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectNegeri.vm")
+            <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="listBandar">
+            #parse("$path/selectBandar.vm")
+            <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        #phone_number_required("noTelefon" "No. Telefon" "$!r.noTelefon")
+        #phone_number_required("noTelefonBimbit" "No. Telefon Bimbit" "$!r.noTelefonBimbit")        
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top">
+      <fieldset>
+	  <legend class="legend">MAKLUMAT PASANGAN</legend>	
+      <table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input("noPengenalanPasangan" "No. Pengenalan Pasangan" "$!pasangan.namaPasangan")
+        #input("namaPasangan" "Nama Pasangan" "$!pasangan.namaPasangan")		
+      </table>
+      </fieldset>
+      </td>
+    <td width="50%" valign="top">
+	<fieldset>
+	  <legend class="legend">MAKLUMAT BANK</legend>	
+      <table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input("noAkaunBank" "No. Akaun Bank" "$!r.noAkaunBank")
+        <tr>
+          <td class="label" valign="top">Bank</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectBank.vm")
+            <div id="err_idBank" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>		
+      </table>
+      </fieldset>
+	</td>
+  </tr>
+</table>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+			<input id="btnKemaskini" type="button" value="Simpan" onclick="javascript:kemaskiniPengguna()">	
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+ 
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

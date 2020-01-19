@@ -1,0 +1,116 @@
+
+#parse("$path/tabbed.vm")
+
+
+<fieldset>
+<legend class="legend">Maklumat Maklumbalas</legend>
+    <table width="100%">
+      <tr>
+        <td style="width:200px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+      </tr>
+	  
+		#if( $mb )
+		<tr>
+        	<td class="label" valign="top">Status</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top"><span style="color:blue">$!mb.status.keterangan.toUpperCase()</span></td>
+        </tr>
+	  
+		<tr>
+        	<td class="label" valign="top">Jawapan dari HQ</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top"><span style="color:blue">$util.replaceIfNull($!mb.ulasanHq.toUpperCase(),'-')</span></td>
+        </tr>
+		
+		<tr><td colspan="3">&nbsp;</td></tr>
+		#end
+		
+		<tr>
+        	<td class="label" valign="top">No. Maklumbalas &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input id="noMaklumbalas" name="noMaklumbalas" value="$!mb.noMaklumbalas" onKeyUp=" $('err_noMaklumbalas').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();" type="text">
+				<div id="err_noMaklumbalas" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+
+      <tr>
+        <td class="label" valign="top">Jenis Maklumbalas &nbsp;<span style="color:#FF2A00">*</span></td>
+        <td valign="top">:</td>
+        <td valign="top">
+			<select class="texts" id="selectJenisMaklumBalas" name="selectJenisMaklumBalas" style="width:100%">
+                <option value="">SILA PILIH</option>
+                #foreach( $n in $selectJenisMaklumBalas)
+                	<option #if ( $n.id == $!mb.jenisMaklumBalas.id ) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+                #end
+            </select>
+			<div id="err_selectJenisMaklumBalas" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+      </tr>
+	  
+		<tr>
+        	<td class="label" valign="top">Keterangan &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input id="keteranganMaklumbalas" name="keteranganMaklumbalas" value="$!mb.keterangan" onKeyUp=" $('err_keteranganMaklumbalas').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();" type="text">
+				<div id="err_keteranganMaklumbalas" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+		
+		<tr>
+        	<td class="label" valign="top">Ulasan &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+                <textarea id="ulasanMaklumbalas" name="ulasanMaklumbalas" onKeyUp=" $('err_ulasanMaklumbalas').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">$!mb.ulasanMaklumbalas</textarea>
+				<div id="err_ulasanMaklumbalas" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+		
+       <tr>
+    	<td class="label" valign="top">Tarikh Maklumbalas &nbsp;<span style="color:#FF2A00">*</span></td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">
+    		<input type="text" id="tarikhMaklumbalas" style="width:150px;" onChange=" $('err_tarikhMaklumbalas').innerHTML=''; at(this, event);" name="tarikhMaklumbalas" value="$!util.getDateTime($!mb.tarikhMaklumbalas,'dd-MM-yyyy')" style="width: 50%">
+    		<script>
+            _jq(function() {
+            	jQuery("#tarikhMaklumbalas").datepicker({ 
+            		dateFormat: "dd-mm-yy",
+    				showOn: "both",
+    				buttonImageOnly: true,
+    				buttonImage: "../img/calendar_icon.gif",
+    				buttonText: "Calendar",
+            	});
+            });
+    		</script>
+			<div id="err_tarikhMaklumbalas" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    	</td>
+    	</tr>
+    </table>
+</fieldset>
+
+	#set ( $dateIn = "$!util.getDateTime($r.tarikhMasukRpp,'dd-MM-yyyy')")
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+    			<input id="btnSave" type="button" value="Simpan" onClick="doSimpanMaklumbalas('$dateIn')">
+        		<input id="btnClearForm" type="button" value="Kosongkan" onClick="doKosongkanMaklumBalas()">
+        		<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>
+
+	
+<div id="maklumbalas"></div>
+	
+
+<script>
+_jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+});
+</script>

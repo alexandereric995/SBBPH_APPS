@@ -1,0 +1,87 @@
+<style>
+	.uppercasefont{
+		text-transform: uppercase !important;
+	}
+</style>	
+
+<fieldset>
+<legend class="legend">MAKLUMAT PERMOHONAN</legend>
+	<table width="100%" style="padding-bottom:0.2cm">
+      
+	<tr>
+        <td class="label" width="20%" valign="top">TAJUK</td>
+        <td class="label" width="2%" valign="top">:</td>
+        <td width="78%" valign="top">$!r.tajuk</td>
+	</tr>
+  
+	<tr>
+    	<td class="label" valign="top">UNIT</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">$!r.unit</td>
+    </tr>
+
+	<tr>
+    	<td class="label" valign="top">JENIS PEROLEHAN</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">$!r.kodJenisPerolehan.keterangan</td>
+    </tr>
+
+	<tr>
+    	<td class="label" valign="top">JUSTIFIKASI</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">$!r.justifikasi</td>
+    </tr>
+</table>
+</fieldset>
+
+
+<fieldset>
+<legend class="legend">SOKONGAN PERMOHONAN</legend>
+
+<table width="100%" style="padding-top:0.2cm">
+	<tr>
+    	<td class="label" valign="top" width="20%">SOKONGAN KPSU&nbsp;<span style="color:#FF2A00">*</span></td>
+    	<td class="label" valign="top" width="2%">:</td>
+    	<td valign="top" width="78%">
+			<input type="radio" #if($!r.flagSokong=='S')checked#end id="radio1" name="sokongan" value="S" onclick=" $('err_sokong').innerHTML=''; at(this, event);">&nbsp;DISOKONG
+			<input type="radio" #if($!r.flagSokong=='TS')checked#end id="radio2" name="sokongan" value="TS" onclick=" $('err_sokong').innerHTML=''; at(this, event);">&nbsp;TIDAK DISOKONG
+			<div id="err_sokong" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+    </tr>
+	
+	<tr>
+    	<td class="label" valign="top">CATATAN</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top"><textarea id="catatanSokongan" style="width:40%" class="uppercasefont" name="catatanSokongan" onKeyUp="this.value=this.value.toUpperCase();" onBlur="this.value=this.value.toUpperCase();">$!r.catatanSokongan</textarea></td>
+    </tr>
+	
+</table>
+</fieldset>
+
+
+<table width="100%" style="padding-top:0.4cm">
+	<tr>
+		<td>
+			Sila lengkapkan medan yang mandatori!
+			<div style="color:blue">Nota: Sila tekan butang TAB untuk bergerak ke field seterusnya.</div>
+		</td>
+	</tr>	
+	<tr>
+		<td align="right">
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+			<input type="button" value="Kosongkan" onclick="doKosongkan()" />
+			<input type="button" value="Simpan" onclick="if ( validateField() ) doDivAjaxCall$formname('div_main_entry','save_data','id=$!r.id&record_id=$!r.id')">
+		</td>
+	</tr>
+</table>
+
+
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

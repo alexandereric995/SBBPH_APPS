@@ -1,0 +1,37 @@
+##<nav class="breadcrumbs">
+##  <ul>
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getMaklumatPermohonan','')">Maklumat Permohonan</a></li>
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getMaklumatDokumenSokongan','')">Dokumen Sokongan</a></li>
+##    #if ($!r.status.id != '1424860634472') ##PERMOHONAN BARU
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getMaklumatUlasan','')">Ulasan Ahli JRP</a></li>
+##    #if ($!r.status.id != '1424860634475') ##ULASAN JRP
+##    #if(!$!userRole.equalsIgnoreCase("(JRP) Pemohon"))
+##   	#if($!userRole.equalsIgnoreCase("(JRP) Penyemak"))
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getAgihanTugas','')">Agihan Tugas</a></li>
+##    #end
+##    #if ($!r.status.id != '1424860634478') ##PERMOHONAN LENGKAP
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getKelulusanPermohonan','')">Kelulusan Permohonan</a></li>
+##    #if ($!r.status.id == '1424860634493') ##LULUS
+##    <li class="active"><a href="javascript:void()">Kontrak Perjanjian</a></li>
+##    #end
+##    #end
+##    #end
+##    #end
+##    #end
+##  </ul>
+##</nav>
+
+<div id="divTab">	
+	#parse("$path/maklumatPerjanjian/form.vm")
+</div>
+
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>
+	

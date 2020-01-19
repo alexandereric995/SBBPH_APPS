@@ -1,0 +1,84 @@
+<fieldset>
+<legend class="legend">Laporan Jumlah Bayaran Penginapan</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+<tr>
+	<td class="label">Tarikh Mula &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label">:</td>
+	<td>
+		<input type="text" id="tarikhMula" name="tarikhMula" value="$!r.tarikhMula" style="width:40%">
+		<script>
+        _jq(function() {
+        	jQuery("#tarikhMula").datepicker({ 
+        		dateFormat: "dd-mm-yy",
+				showOn: "both",
+				buttonImageOnly: true,
+				buttonImage: "../img/calendar_icon.gif",
+				buttonText: "Calendar",
+        	});
+        });
+		</script>
+		<div id="err_tarikhMula" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+<tr>
+	<td class="label">Tarikh Tamat &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label">:</td>
+	<td>
+		<input type="text" id="tarikhTamat" name="tarikhTamat" value="$!r.tarikhTamat" style="width:40%">
+		<script>
+        _jq(function() {
+        	jQuery("#tarikhTamat").datepicker({ 
+        		dateFormat: "dd-mm-yy",
+				showOn: "both",
+				buttonImageOnly: true,
+				buttonImage: "../img/calendar_icon.gif",
+				buttonText: "Calendar",
+        	});
+        });
+		</script>
+		<div id="err_tarikhTamat" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+<tr>
+    <td class="label">Status</td>
+    <td>:</td>
+    <td><select class="texts" name="lokasi" id="lokasi" style="width:40%">
+    		<option value="" selected="selected">SILA PILIH</option>
+    		<option value="PJ" #if ( $r.lokasi == "PJ" ) selected #end>PUTRAJAYA</option>
+    		<option value="KL" #if ( $r.lokasi == "KL" ) selected #end>KUALA LUMPUR</option>
+    		<option value="KLIA" #if ( $r.lokasi == "KLIA" ) selected #end>KLIA</option>
+    		<option value="PD" #if ( $r.lokasi == "PD" ) selected #end>PORT DICKSON</option>
+    		<option value="TK" #if ( $r.lokasi == "TK" ) selected #end>TANJUNG KUPANG</option>
+    		<option value="TK" #if ( $r.lokasi == "TK" ) selected #end>TASIK KENYIR</option>
+    		<option value="MB" #if ( $r.lokasi == "MB" ) selected #end>MORIB</option>
+    		<option value="PP" #if ( $r.lokasi == "PP" ) selected #end>PULAU PINANG</option>
+    		<option value="LW" #if ( $r.lokasi == "LW" ) selected #end>LANGKAWI</option>
+    		<option value="BF" #if ( $r.lokasi == "BF" ) selected #end>BUKIT FREASER</option>
+    		<option value="CH" #if ( $r.lokasi == "CH" ) selected #end>CAMERON HIGHLAND</option>
+    		<option value="TT" #if ( $r.lokasi == "TT" ) selected #end>TANJUNG TUAN</option>
+    		<option value="LB" #if ( $r.lokasi == "LB" ) selected #end>LABUAN</option>
+    		<option value="SG" #if ( $r.lokasi == "SG" ) selected #end>SINGAPURA</option>
+    		<option value="LN" #if ( $r.lokasi == "LN" ) selected #end>LONDON</option>    		
+    	</select></td>
+  </tr>
+<tr>
+	<td></td>
+	<td class="label"></td>
+	<td><input type="button" name="cmdCetak" id="cmdCetak" value="Cetak" onclick="javascript:doCetakLaporanBayaranPenginapan()"/><input type="reset" value="Kosongkan" /><input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/></td>
+</tr>
+</table>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

@@ -1,0 +1,15 @@
+<br/>
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatRuang','')" #end >Maklumat Ruang / Aras / Bangunan</a></li>
+	<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divTab','getMaklumatPremis','')" #end >Maklumat Premis</a></li>
+  </ul>
+</nav>	
+
+#if ($!selectedTab=='1')
+	#parse("$path/maklumatRuang.vm")
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/maklumatPremis.vm")
+#end

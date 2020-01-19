@@ -1,0 +1,218 @@
+
+<style>
+	.notInList{
+		opacity: 0.4; filter: alpha(opacity=40);
+	}
+</style>
+
+
+<table width="100%">
+	<tr>
+		
+		##LEFT
+		<td valign="top" width="65%">
+			<fieldset style="min-height:160px">
+            <legend class="legend">MAKLUMAT BIL</legend>
+                
+				<table width="100%" cellpadding="1" cellspacing="1">
+					
+					#if (!$resit)
+					##<tr>
+					##	<td colspan="8" style="padding-bottom:0.2cm"><input type="button" name="linkBayaranLain" id="linkBayaranLain" value="Tambah Bayaran Lain - Lain" /></td>
+					##</tr>
+					#end
+					
+            		<tr>
+            			<td class="row_header" width="5%">Bil.</td>
+            			<td style="text-align:left !important" class="row_header" width="10%">Kod Hasil</td>
+            			<td style="text-align:left !important" class="row_header" width="15%">No. Tempahan</td>
+            			<td style="text-align:left !important" class="row_header" width="28%">Perihal</td>
+            			<td style="text-align:left !important" class="row_header" width="12%">Dari</td>
+            			<td style="text-align:left !important" class="row_header" width="13%">Hingga</td>
+            			<td style="text-align:left !important" class="row_header" width="12%">Amaun (RM)</td>
+						<td class="row_header" width="5%">Pilih</td>
+            		</tr>
+
+					#set ( $totalByr = 0.00 )
+					#if ( $listBayaran.size() > 0 )
+                		#set ( $count = 0 )
+                		#foreach( $b in $listBayaran )
+                			
+                			#set ( $count = $count + 1)
+                        	#if ( $count % 2 == 0 ) 
+                    			#set ( $rowcolor = "#D0CFCE" ) 
+                    		#else 
+                    			#set ( $rowcolor = "#F0F0F0" ) 
+            				#end
+            				
+							#if($b.flagQueue.equalsIgnoreCase("Y"))
+								#set ( $totalByr = $totalByr + $!b.jumlahAmaunBayaran)
+							#end
+                				
+                    		<tr bgcolor="$rowcolor" > 
+                    			<td align="center" #if($b.flagQueue.equalsIgnoreCase("T")) class="notInList" #end >$count</td>
+                        		<td #if($b.flagQueue.equalsIgnoreCase("T")) class="notInList" #end >$!b.kodHasil.kod.toUpperCase()</td>
+                                <td #if($b.flagQueue.equalsIgnoreCase("T")) class="notInList" #end >$!b.noTempahan</td>
+                        		<td #if($b.flagQueue.equalsIgnoreCase("T")) class="notInList" #end >$!b.perihal.toUpperCase()</td>
+                    			<td #if($b.flagQueue.equalsIgnoreCase("T")) class="notInList" #end >$!util.getDateTime($!b.tarikhDari,'dd-MM-yyyy')</td>
+                    			<td #if($b.flagQueue.equalsIgnoreCase("T")) class="notInList" #end >$!util.getDateTime($!b.tarikhHingga,'dd-MM-yyyy')</td>
+            					<td align="right" #if($b.flagQueue.equalsIgnoreCase("T")) class="notInList" #end >$!b.jumlahAmaunBayaran</td>
+								<td align="center">
+									<div >
+										<input type="checkbox" name="cbPilih" id="cbPilih" value="$!r.id" onclick="doDivAjaxCall3$formname('divMainForm','deleteMaklumatBil','idPembayar=$!r.id&idBayaran=$!b.id')" #if($b.flagQueue.equalsIgnoreCase("Y")) checked #end  />
+									</div>
+									##<a href="javascript:void()" onclick="if ( !confirm('Keluarkan Dari Senarai ?') ) return; $('_wait').innerHTML='Please wait...';doDivAjaxCall3$formname('divMainForm','deleteMaklumatBil','idPembayar=$!r.id&idBayaran=$!b.id')"><img src="../img/delete.gif" border="0"></a>
+								</td>
+                            </tr>
+            			#end
+            		#else
+            			<tr bgcolor="#F0F0F0">
+            				<td colspan="8">Tiada Rekod</td>
+            			</tr>
+					#end
+					
+					<tr><td colspan="8">&nbsp;</td></tr>
+					
+					<tr>
+						<td colspan="6" align="right">Jumlah Amaun Yang Perlu Dibayar : &nbsp;</td>
+						<td align="right">$!totalByr</td>
+						<td>&nbsp;</td>
+					</tr>
+					
+					<tr>
+						<td colspan="6" align="right">Jumlah Bayaran Yang Dibuat : &nbsp;</td>
+						<td align="right">
+							<div style="float:left" id="">&nbsp; -</div>
+							<div style="float:right" id="">
+								$!jumlahBayaran
+								<input type="hidden" name="txtJumlahBayaran" id="txtJumlahBayaran" value="$!jumlahBayaran" />
+							</div>
+						</td>
+						<td>&nbsp;</td>
+					</tr>
+					
+					<tr>
+						<td colspan="6" align="right">&nbsp;</td>
+						<td align="right"><hr /></td>
+						<td>&nbsp;</td>
+					</tr>
+					
+					<tr>
+						<td colspan="6" align="right">Baki Bayaran : &nbsp;</td>
+						<td align="right">
+							$!jumlahBaki
+							<input type="hidden" name="txtBaki" id="txtBaki" value="$!jumlahBaki" />
+						</td>
+						<td>&nbsp;</td>
+					</tr>
+					
+				</table>	
+			
+            </fieldset>
+            
+			
+            <fieldset style="height:193px;min-height:193px">
+            <legend class="legend">MAKLUMAT BAYARAN</legend>
+
+				<div id="divSenaraiMaklumatBayaran">#parse("$path/form/senaraiMaklumatBayaran.vm")</div>
+			
+            </fieldset>
+			
+		</td>
+		
+		##RIGHT
+		<td valign="top" width="35%">
+			<fieldset style="height:400px;min-height:400px">
+            <legend class="legend">MAKLUMAT PEMBAYAR</legend>
+                <table width="100%" cellpadding="1" cellspacing="6">
+                  <tr>
+                    <td style="width:30%"></td>
+                    <td style="width:5%"></td>
+                    <td style="width:65%"></td>
+                  </tr>
+				  
+				  <tr>
+					<td>No. Pengenalan</td>
+					<td>:</td>
+					<td><input type="text" name="txtNoKp" id="txtNoKp" value="$!r.noKP" readonly style="background-color:#F0F0F0" /></td>
+				  </tr>
+				  
+				  <tr>
+					<td>Nama</td>
+					<td>:</td>
+					<td><input type="text" name="txtNama" id="txtNama" value="$!r.userName.toUpperCase()" readonly style="background-color:#F0F0F0" /></td>
+				  </tr>
+				  
+				  <tr>
+					<td>Alamat</td>
+					<td>:</td>
+					<td><input type="text" name="txtAlamat1" id="txtAlamat1" value="$!r.alamat1.toUpperCase()" readonly style="background-color:#F0F0F0" /></td>
+				  </tr>
+				  
+				  <tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td><input type="text" name="txtAlamat2" id="txtAlamat2" value="$!r.alamat2.toUpperCase()" readonly style="background-color:#F0F0F0" /></td>
+				  </tr>
+				  
+				  <tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td><input type="text" name="txtAlamat3" id="txtAlamat3" value="$!r.alamat3.toUpperCase()" readonly style="background-color:#F0F0F0" /></td>
+				  </tr>
+				  
+				  <tr>
+					<td>Poskod</td>
+					<td>:</td>
+					<td><input type="text" name="txtPoskod" id="txtPoskod" value="$!r.poskod" readonly style="background-color:#F0F0F0" /></td>
+				  </tr>
+				  
+				  <tr>
+					<td>Negeri</td>
+					<td>:</td>
+					<td><input type="text" name="txtNegeri" id="txtNegeri" value="$!r.negeri.keterangan" readonly style="background-color:#F0F0F0" /></td>
+				  </tr>
+				  
+                </table>
+            </fieldset>
+		</td>
+	</tr>
+</table>	
+
+<table width="100%" border="0">
+	<tr>
+		<td align="left" width="19%">
+		##	<span style="padding-left:0.1cm;font-weight:bold">JUMLAH AMAUN : <input style="padding:0.1cm;border-radius: 5px;width:40%;text-align:right;" type="text" readonly name="txtJumlahAmaun" id="txtJumlahAmaun" value="$!jumlahAmaun" /></span>
+		</td>
+		<td align="left" width="50%">
+			##<div id="divResultBayaran">
+    		##	#parse("$path/form/resultBayaran.vm")
+			##</div>
+		</td>
+		<td align="right" width="31%">
+			#if ( $listBayaran.size() > 0 )
+			<input type="button" value="Selesai" id="btnSelesai" onclick="doSelesaiBayaran('$!r.id')" />
+			<input type="button" value="Batal" id="btnBatal" onclick="doBatalBayaran('$!r.id')" />
+			#else
+			<input type="button" value="Cetak Resit" id="btnCetakResit" onclick="doCetakResit('$!resit.id')" />
+			#end
+			<input id="cmdKembali" type="button" value="Kembali" onclick="document.location = '$!tabIdAndClassName'" />
+		</td>
+	</tr>
+</table>
+	
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+  
+  _jq('#linkBayaranLain').on('click', function(){
+	doDivAjaxCall3$formname('divPopup','openBayaranLain','');
+    jQuery('#divPopup').fadeIn();
+  });
+
+</script>

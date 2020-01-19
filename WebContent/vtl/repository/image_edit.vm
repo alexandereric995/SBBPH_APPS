@@ -1,0 +1,61 @@
+<form name="f" method="post">
+
+				<table cellpadding="0" cellspacing="2" border="0">
+		<tr>
+		<td>
+				<a href="javascript:imageWindow('$item.fileName')">
+												<img src="../download?file=$item.thumbFilename" border="0">
+				</a>
+								</td>
+								</tr>
+				
+				<br>
+								<tr>
+				<td valign="top">
+	<textarea name="description" cols="60" rows="5">$item.description</textarea>
+	<br>
+	<input type="button" value="Save" onclick="updateItem()">
+				</td>
+				</tr>
+				</table>
+				
+				<table width="100%">
+				<tr>
+				<td>
+											[
+				<a href="javascript:addImage()">
+			Add New Image
+				</a>
+				]			
+				[
+				<a href="javascript:goBack()">
+	Back to Gallery
+				</a>
+				]
+				
+				</td>
+				</tr>
+				</table>
+								
+<input type="hidden" name="command">
+<input type="hidden" name="item_id" value="$item.id">
+</form>
+
+<script>
+function imageWindow(filename) {
+window.open('../download?file=' + filename,'imageWindow','width=600,height=400,toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,copyhistory=yes,resizable=yes');
+}
+function addImage() {
+document.f.command.value = "addImage";
+document.f.submit();
+}
+function goBack() {
+document.f.command.value = "";
+document.f.submit();
+}
+function updateItem() {
+document.f.command.value = "updateItem";
+document.f.submit();
+}
+
+</script>

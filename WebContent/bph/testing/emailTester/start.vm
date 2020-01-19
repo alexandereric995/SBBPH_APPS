@@ -1,0 +1,48 @@
+<link href="../sample.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../fck/fckeditor.js"></script>
+
+
+<fieldset>
+	<legend class="legend">Email Tester</legend>
+	<table cellpadding="5" cellspacing="0" width="50%" align="center">
+		<tr>
+            <td style="width:75px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+        </tr>
+		<tr>
+            <td align="right">Emel</td>
+            <td>:</td>
+            <td><input type="text" id="emel" name="emel" value="" /></td>
+        </tr>
+        <tr>
+            <td align="right">CC</td>
+            <td>:</td>
+            <td><input type="text" id="cc" name="cc" value="" /></td>
+        </tr>
+        <tr>
+            <td align="right">Message</td>
+            <td>:</td>
+            <td>
+                    <script type="text/javascript">
+					var oFCKeditor = new FCKeditor( 'fckInstance_' ) ;
+					//oFCKeditor.ToolbarSet = 'Simple';
+					//oFCKeditor.ToolbarSet = 'Basic';
+					oFCKeditor.BasePath = '/${appname}/fck/' ;
+					oFCKeditor.Height	= '350' ;
+					oFCKeditor.Value	= '' ;
+					oFCKeditor.Create() ;
+					</script>
+            </td>
+        </tr>
+		<tr>
+			<td colspan="2"></td>
+			<td>
+				<input type="button" id="btnTestEmail" name="btnTestEmail" value="Test Email" onclick="doDivAjaxCall$formname('testEmail','testEmail','')" />
+			</td>
+		</tr>
+	</table>
+		
+	<div id="testEmail"></div>
+</fieldset>
+

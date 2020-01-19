@@ -1,0 +1,17 @@
+<style>
+	.fontBold{
+		font-weight:bold;
+	}
+</style>	
+
+#set ( $queryParam = "id=$r.id&record_id=$r.id&data_size=$data_size&total_page=$total_page&page_num=$!current_page_num" )
+
+<td>$!r.tajuk</td>
+<td>$!r.unit</td>
+<td>$!r.kodJenisPerolehan.keterangan</td>
+<td>$!r.idStatus.keterangan</td>
+<td align="center">
+	<input #if($!r.flagSokong=='TS' || $!r.flagLulus=='TL') disabled #else class="fontBold" #end
+	 type="button" value="Hantar" onclick="if ( !confirm('Hantar Permohonan ?') ) return; $('_wait').innerHTML='Please wait...';doDivAjaxCall3$formname('div_list','doHantarSokongan','$queryParam')">
+</td>
+

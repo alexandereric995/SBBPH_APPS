@@ -1,0 +1,10 @@
+<select id="idTarafBumiputera" name="idTarafBumiputera" style="width:100%">
+    <option value="">SILA PILIH</option>
+    #if ($!command == 'getMaklumatSyarikatBerdaftar' || $!command == 'getPilihanSyarikat')
+    <option #if ( "Y" ==  $!syarikat.tarafBumiputera ) selected #end value="Y">YA</option>
+    <option #if ( "T" ==  $!syarikat.tarafBumiputera ) selected #end value="T">TIDAK</option>
+    #else
+    <option #if ( "Y" ==  $fail.pemohon.syarikat.tarafBumiputera ) selected #end value="Y">YA</option>
+    <option #if ( "T" ==  $fail.pemohon.syarikat.tarafBumiputera ) selected #end value="T">TIDAK</option>
+    #end
+</select>

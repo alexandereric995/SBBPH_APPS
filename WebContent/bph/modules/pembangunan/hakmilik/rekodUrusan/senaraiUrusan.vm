@@ -1,0 +1,87 @@
+<fieldset>
+<legend class="legend">Senarai Urusan</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:84%">&nbsp;</td>
+  </tr>
+  <tr>
+  	#if ($allowUpdate)
+    <td colspan="3" class="label"><input type="button" id="addUrusan" name="addUrusan" value="Tambah">
+      <script>
+        _jq('#addUrusan').on('click', function(){
+			doDivAjaxCall3$formname('popupMaklumatUrusan','addUrusan','');
+			jQuery('#popupMaklumatUrusan').fadeIn();
+        });
+    </script>
+      <br />
+      <br />
+      #end
+      <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+          <td class="row_header" width="5%">Bil.</td>
+          <td class="row_header" >No. Fail</td>
+          <td class="row_header" >No. Rujukan</td>
+          #if ($!selectedSubTab == '1') <td class="row_header" >Urusan JKPTG</td> #end
+          #if ($!selectedSubTab == '2') <td class="row_header" >Nilaian JPPH (RM)</td> #end
+          <td class="row_header" >Keterangan</td>
+          <td class="row_header" width="5%">Papar</td>
+          #if ($allowUpdate)
+          <td class="row_header" width="5%">Hapus</td>
+          #end </tr>
+        #set ( $count = 0 )
+        #if ( $listRekodUrusan.size() > 0) 
+        #foreach( $c in $listRekodUrusan )
+        #set ( $count = $count + 1)
+        
+        #if ( $count % 2 == 0 ) 
+        #set ( $rowcolor = "#D0CFCE" ) 
+        #else 
+        #set ( $rowcolor = "#F0F0F0" ) 
+        #end
+        <tr bgcolor="$rowcolor">
+          <td align="center">$!count</td>
+          <td align="center">$!c.noFail</td>
+          <td align="center">$!c.noRujukan</td>
+          #if ($!selectedSubTab == '1') <td >$!c.urusanJKPTG.keterangan</td> #end
+          #if ($!selectedSubTab == '2') <td align="right">$util.formatDecimal($!c.nilaian)</td> #end
+          <td >$!c.keterangan</td>
+          <td align="center"><a href="javascript:void()" id="linkPaparUrusan$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> 
+	      	<script>
+				_jq('#linkPaparUrusan$c.id').on('click', function(){
+					doDivAjaxCall3$formname('popupMaklumatUrusan','doPaparUrusan','idUrusan=$c.id');
+					jQuery('#popupMaklumatUrusan').fadeIn();
+				});                    
+			</script>
+		  </td>
+		  #if ($allowUpdate)
+          <td align="center"><a href="javascript:void()" onClick="javascript:doHapusUrusan('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>	
+		#end
+		</tr>
+        #end
+        #else
+        <tr >
+          <td align="center">&nbsp;</td>
+          <td >Tiada Rekod</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          #if ($allowUpdate)
+          <td align="center">&nbsp;</td> 
+          #end
+        </tr>
+        #end
+      </table></td>
+  </tr>
+</table>
+<table width="100%">
+  <tr>
+    <td align="right"><input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+</fieldset>
+
+<div id="popupMaklumatUrusan" class="popup"></div>

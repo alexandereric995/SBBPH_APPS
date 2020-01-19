@@ -1,0 +1,88 @@
+function validate() {
+	var err_count = 0;
+	
+	var peranginan = $('peranginan').value;
+	if ( peranginan == "" ) {$('err_peranginan').innerHTML = "Peranginan adalah mandatori!"; err_count++;  }
+	
+	var jenisUnit = $('jenisUnit').value;
+	if ( jenisUnit == "" ) {$('err_jenisUnit').innerHTML = "Jenis adalah mandatori!"; err_count++;  }
+	
+	var tarikhMasukRpp = $('tarikhMasukRpp').value;
+	if ( tarikhMasukRpp == "" ) {$('err_tarikhMasukRpp').innerHTML = "Tarikh Masuk adalah mandatori!"; err_count++;  }
+	
+	var tarikhKeluarRpp = $('tarikhKeluarRpp').value;
+	if ( tarikhKeluarRpp == "" ) {$('err_tarikhKeluarRpp').innerHTML = "Tarikh Keluar adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function filterJenisUnit() {
+	doDivAjaxCall3$formname('divJenisUnit','filterJenisUnit','');
+}
+
+function checkingExistUser(nokp) {
+	var length = nokp.length;
+	if(nokp.length==12){
+		doDivAjaxCall3$formname('divDetailPemohon','checkDataPemohon','');
+	}
+}
+
+function luluskanPermohonan() {
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall3$formname('div_main_entry','luluskanPermohonan','');
+	}
+}
+
+function luluskanPermohonan() {
+	if ( !confirm('Adakah anda pasti ?') ){ 
+		return; 
+	}else{
+		$('_wait').innerHTML='Please wait...';
+		doDivAjaxCall3$formname('div_main_entry','luluskanPermohonan','');
+	}	
+}
+
+function doTidakLulusPermohonan() {
+	if ( !confirm('Adakah anda pasti ?') ){ 
+		return; 
+	}else{
+		$('_wait').innerHTML='Please wait...';
+		doDivAjaxCall3$formname('div_main_entry','tidakLulusPermohonan','');
+	}	
+}
+
+function doBayarTempahanFPX(){
+	doDivAjaxCall3$formname('pilihanFPX','paparPilihan','');
+}
+
+function hantarBayaran() {
+	startFPX();
+}
+
+function startFPX() {
+	document.${formName}.method='post';
+	document.${formName}.target='_self';
+	document.${formName}.action='https://www.mepsfpx.com.my/FPXMain/sellerNVPReceiver.jsp';
+	document.${formName}.submit();
+}
+
+function doBatalPermohonan(){
+	if ( !confirm('Adakah anda pasti ?') ){ 
+		return; 
+	}else{
+		$('_wait').innerHTML='Please wait...';
+		doDivAjaxCall3$formname('div_main_entry','batalPermohonan','');
+	}	
+}
+
+
+
+
+
+
+

@@ -1,0 +1,304 @@
+##<fieldset>
+##	<legend class="legend">Maklumat Hilang Kelayakan</legend>
+##	<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+##		<tr>
+##	        <td style="width:160px"></td>
+##	        <td style="width:10px"></td>
+##	        <td></td>
+##	    </tr>
+##		<tr>
+##			<td class="label">Sebab Hilang Kelayakan&nbsp;<span style="color:#FF2A00">*</span></td>
+##			<td>:</td>
+##			<td><div id="selectSebabHk">#parse("$path/hilangKelayakan/selectSebabHilangKelayakan.vm")</div>
+##			<div id="err_idSebabHk" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td></td>
+##	  	</tr>
+##		#date_input_required("tarikh" "Tarikh Hilang Kelayakan" "$!util.getDateTime($rekod.tarikh,'dd-MM-yyyy')")
+##	 	<tr>
+##			<td>Status Tindakan</td>
+##			<td>:</td>
+##			<td>#parse("$path/pelanggaranSyarat/selectStatusTindakan.vm")</td>
+##		</tr>
+##	 	#textarea("catatan" "Catatan" "$!rekod.catatan")
+##	</table>
+##	<p align="center">
+##		<input type="button" value="Simpan" align='left' id="cmdSimpanHilang">
+##		<input type="button" value="Kembali" align='left' id="cmdKembali">
+##	</p>
+##</fieldset>
+
+<style>
+.popup fieldset {
+    width: 80%;
+}
+textarea {
+    height: 50px;
+}
+
+.scrollitpopup {
+	height:500px; width: 100%; overflow: auto;
+}
+
+</style>
+
+<fieldset>
+	<legend class="legend">Maklumat Hilang Kelayakan</legend>
+	<div class="scrollitpopup">
+		<table cellpadding="5" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">	
+	    	<tr>
+	    		<td>
+					##PART ATAS
+	    			<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+	    				<tr>
+	                        <td style="width:160px"></td>
+	                        <td style="width:10px"></td>
+	                        <td></td>
+	                    </tr>
+	                    
+	                    #input_readonly_all_label("status" "Status Semasa" "<b>$!rekod.status</b>")
+						
+						<tr>
+							<td class="label">Sebab Hilang Kelayakan &nbsp;<span style="color:#FF2A00">*</span></td>
+							<td>:</td>
+							<td>
+								#parse("$path/hilangKelayakan/selectSebabHilangKelayakan.vm")
+								<div id="err_idSebabHk" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>Status Tindakan</td>
+							<td>:</td>
+							<td>#parse("$path/hilangKelayakan/selectStatusTindakan.vm")</td>
+						</tr>
+						
+						## #date_input_required("tarikh" "Tarikh Hilang Kelayakan" "$!util.getDateTime($r.tarikh,'dd-MM-yyyy')")
+						
+						#date_input("tarikhHilangKelayakan" "Tarikh Hilang Kelayakan" "$!util.getDateTime($rekod.tarikhHilangKelayakan,'dd-MM-yyyy')")
+						
+						#date_input("tarikhTamatHilangKelayakan" "Tarikh Tamat Hilang Kelayakan" "$!util.getDateTime($rekod.tarikhTamatHilangKelayakan,'dd-MM-yyyy')")
+	    			</table>
+					<br />
+					##	KADAR BIASA
+					<div><b><u>IMBUHAN TETAP PERUMAHAN</u></b></div>
+					<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+						<tr>
+							<td>
+								<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+									<tr>
+				                        <td style="width:147px"></td>
+				                        <td style="width:10px"></td>
+				                        <td style="width:150px"></td>
+				                    </tr>
+				                    ## #input("kadarBiasa" "Kadar Biasa" "$!rekod.kadarBiasa") ##dimintak tukar "Kadar Biasa" kepada ITP pada comment PAT
+				                    #currency("kadarBiasa" "ITP (RM)" "$!rekod.kadarBiasa") 
+								</table>
+							</td>
+							<td>
+								<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+									<tr>
+				                        <td style="width:80px"></td>
+				                        <td style="width:10px"></td>
+				                        <td style="width:150px"></td>
+				                    </tr>
+				                    #date_input("tarikhMulaBiasa" "Tarikh Mula ITP" "$!util.getDateTime($rekod.tarikhMulaBiasa,'dd-MM-yyyy')")
+								</table>
+							</td>
+							<td>
+								<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+									<tr>
+				                        <td style="width:80px"></td>
+				                        <td style="width:10px"></td>
+				                        <td style="width:150px"></td>
+				                    </tr>
+				                    #date_input("tarikhTamatBiasa" "Tarikh Tamat ITP" "$!util.getDateTime($rekod.tarikhTamatBiasa,'dd-MM-yyyy')")
+								</table>
+							</td>
+						</tr>
+					</table>
+				
+					##	KADAR PASARAN
+					<b><u>KADAR PASARAN</u></b>
+					<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+						<tr>
+							<td>
+								<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+									<tr>
+				                        <td style="width:147px"></td>
+				                        <td style="width:10px"></td>
+				                        <td style="width:150px"></td>
+				                    </tr>
+				                    ## #input("kadarPasaran" "Kadar Pasaran" "$!rekod.kadarPasaran")
+				                    #currency("kadarPasaran" "Kadar Pasaran (RM)" "$!rekod.kadarPasaran")
+								</table>
+							</td>
+							<td>
+								<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+									<tr>
+				                        <td style="width:80px"></td>
+				                        <td style="width:10px"></td>
+				                        <td style="width:150px"></td>
+				                    </tr>
+				                    #date_input("tarikhMulaPasaran" "Tarikh Mula Pasaran" "$!util.getDateTime($rekod.tarikhMulaPasaran,'dd-MM-yyyy')")
+								</table>
+							</td>
+							<td>
+								<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+									<tr>
+				                        <td style="width:80px"></td>
+				                        <td style="width:10px"></td>
+				                        <td style="width:150px"></td>
+				                    </tr>
+				                    #date_input("tarikhTamatPasaran" "Tarikh Tamat Pasaran" "$!util.getDateTime($rekod.tarikhTamatPasaran,'dd-MM-yyyy')")
+								</table>
+							</td>
+						</tr>
+					</table>
+					
+					##	IWK
+					<b><u>INDAH WATER KONSORTIUM</u></b>
+					<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+						<tr>
+							<td>
+								<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+									<tr>
+				                        <td style="width:147px"></td>
+				                        <td style="width:10px"></td>
+				                        <td style="width:150px"></td>
+				                    </tr>
+				                   	## #input("iwk" "iwk" "$!rekod.iwk")
+				                   	#currency("iwk" "IWK (RM)" "$!rekod.iwk")
+								</table>
+							</td>
+							<td>
+								<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+									<tr>
+				                        <td style="width:80px"></td>
+				                        <td style="width:10px"></td>
+				                        <td style="width:150px"></td>
+				                    </tr>
+				                    #date_input("tarikhMulaIwk" "Tarikh Mula Iwk" "$!util.getDateTime($rekod.tarikhMulaIwk,'dd-MM-yyyy')")
+								</table>
+							</td>
+							<td>
+								<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+									<tr>
+				                        <td style="width:80px"></td>
+				                        <td style="width:10px"></td>
+				                        <td style="width:150px"></td>
+				                    </tr>
+				                    #date_input("tarikhTamatIwk" "Tarikh Tamat Iwk" "$!util.getDateTime($rekod.tarikhTamatIwk,'dd-MM-yyyy')")
+								</table>
+							</td>
+						</tr>
+					</table>
+					
+					##	COLA
+					<b><u>COLA</u></b>
+					<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+						<tr>
+							<td>
+								<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+									<tr>
+				                        <td style="width:147px"></td>
+				                        <td style="width:10px"></td>
+				                        <td style="width:150px"></td>
+				                    </tr>
+				                   	## #input("cola" "cola" "$!rekod.cola")
+				                   	#currency("cola" "Cola (RM)" "$!rekod.cola")
+								</table>
+							</td>
+							<td>
+								<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+									<tr>
+				                        <td style="width:80px"></td>
+				                        <td style="width:10px"></td>
+				                        <td style="width:150px"></td>
+				                    </tr>
+				                    #date_input("tarikhMulaCola" "Tarikh Mula Cola" "$!util.getDateTime($rekod.tarikhMulaCola,'dd-MM-yyyy')")
+								</table>
+							</td>
+							<td>
+								<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+									<tr>
+				                        <td style="width:80px"></td>
+				                        <td style="width:10px"></td>
+				                        <td style="width:150px"></td>
+				                    </tr>
+				                    #date_input("tarikhTamatCola" "Tarikh Tamat Cola" "$!util.getDateTime($rekod.tarikhTamatCola,'dd-MM-yyyy')")
+								</table>
+							</td>
+						</tr>
+					</table>
+					
+					##PART BAWAH
+	    			<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+	    				<tr>
+	                        <td style="width:160px;"></td>
+	                        <td style="width:10px"></td>
+	                        <td  style="height:30px;"></td>
+	                    </tr>
+						#textarea("catatan" "Catatan" "$!rekod.catatan")
+						##	#input("surathilangKelayakan" "Surat Hilang Kelayakan" "$!r.surathilangKelayakan")
+						##	#input("slipGaji" "Slip Gaji" "$!r.slipGaji")
+						
+						<tr>
+							<td class="label" valign="top">Senarai Semak Dokumen</td> ##<span style="color:#FF2A00">*</span>
+							<td valign="top">:</td>
+							<td>
+					          	#if ($!rekod.surathilangKelayakan == 'Y') 
+									#set ($checkStatusSuratHk = "checked")
+								#else 
+									#set ($checkStatusSuratHk = "") 
+								#end
+					          	<input id="suratHk" name="suratHk" type="checkbox" value="Y" onclick=" $('err_bidang').innerHTML=''; at(this, event);" $!checkStatusSuratHk>
+					            Surat Hilang Kelayakan
+					            <div id="err_bidang" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+							</td>
+				        </tr>
+				        
+				        <tr>
+							<td class="label" valign="top"></td> ##<span style="color:#FF2A00">*</span>
+							<td valign="top">:</td>
+							<td> 
+					            #if ($!rekod.slipGaji == 'Y') 
+									#set ($checkStatusSlipGaji = "checked")
+								#else 
+									#set ($checkStatusSlipGaji = "") 
+								#end
+								<input id="slipGaji" name="slipGaji" type="checkbox" value="Y" onclick=" $('err_bidang').innerHTML=''; at(this, event);" $!checkStatusSlipGaji>
+					          	Slip Gaji
+					            <div id="err_bidang" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+							</td>
+				        </tr>
+	    			</table>
+					
+	    		</td>
+			</tr>
+		</table>
+	</div>
+	<p align="center">
+		<input type="button" value="Simpan" align='left' id="cmdSimpanHilang">
+		<input type="button" value="Kembali" align='left' id="cmdKembali">
+	</p>
+</fieldset>	
+	  
+<div id="simpanHilang"></div> 
+<input type= "hidden" id = "idHK" name = "idHK" value = "$!rekod.id">
+
+<script>
+##_jq(function($) {
+##	$('.currency').autoNumeric('init'); 
+##	$('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+##	$('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+##	$('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+##});
+	
+_jq('#cmdKembali').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getHilangKelayakan','');
+    jQuery('#cmdKembali').fadeOut();
+});
+
+_jq('#cmdSimpanHilang').on('click', function(){
+	saveHilangKelayakan();
+});
+</script>

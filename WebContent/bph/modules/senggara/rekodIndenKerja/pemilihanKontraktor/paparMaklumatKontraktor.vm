@@ -1,0 +1,60 @@
+<fieldset>
+<legend class="legend">MAKLUMAT KONTRAKTOR</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="label" valign="centre">No. Pendaftaran</td>
+          <td class="label" valign="centre">:</td>
+          <td class="label" valign="centre">$!r.kontraktor.id</td>
+        </tr>
+        #input_readonly_all_label("namaKontraktor" "Nama Kontraktor" "$!r.kontraktor.namaKontraktor") 
+        #input_readonly_all_label("namaPemilik" "Nama Pemilik" "$!r.kontraktor.namaPemilik")
+        #input_readonly_all_label("noTelefon" "No. Telefon" "$!r.kontraktor.noTelefon")
+        #input_readonly_all_label("noTelefonBimbit" "No. Telefon Bimbit" "$!r.kontraktor.noTelefonBimbit")
+        #input_readonly_all_label("noFaks" "No. Faks" "$!r.kontraktor.noFaks")
+        #input_readonly_all_label("emel" "E-mel" "$!r.kontraktor.emel")
+        #input_readonly_all_label("bank" "Bank" "$!r.kontraktor.bank.keterangan")
+        #input_readonly_all_label("noAkaun" "No. Akaun" "$!r.kontraktor.noAkaun")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #set ($bidangKontraktor = "")
+        #if ($r.kontraktor)
+        #if ($!r.kontraktor.flagAwam == 'Y' && $!r.kontraktor.flagElektrik == 'Y') 
+        #set ($bidangKontraktor = "AWAM DAN ELEKTRIK")
+        #elseif ($!r.kontraktor.flagAwam == 'Y' && $!r.kontraktor.flagElektrik != 'Y') 
+        #set ($bidangKontraktor = "AWAM")
+        #elseif ($!r.kontraktor.flagAwam != 'Y' && $!r.kontraktor.flagElektrik != 'Y') 
+        #set ($bidangKontraktor = "ELEKTRIK")
+        #end     
+        #end
+        #input_readonly_all_label("bidang" "Bidang" "$bidangKontraktor")
+        #input_readonly_all_label("kawasan" "Kawasan" "$!r.kontraktor.kawasan.lokasi")
+        #input_readonly_all_label("alamat1" "Alamat" "$!r.kontraktor.alamat1")
+        #input_readonly_all_label("alamat2" "" "$!r.kontraktor.alamat2")
+        #input_readonly_all_label("alamat3" "" "$!r.kontraktor.alamat3")
+        #input_readonly_all_label("poskod" "Poskod" "$!r.kontraktor.poskod")
+        #input_readonly_all_label("bandar" "Bandar" "$!r.kontraktor.bandar.keterangan")
+        #input_readonly_all_label("negeri" "Negeri" "$!r.kontraktor.bandar.negeri.keterangan")
+        #input_readonly_all_label("catatan" "Catatan" "$!r.r.kontraktor.catatan")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+<table width="100%">
+  <tr>
+    <td align="right">   	
+      <input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

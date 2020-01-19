@@ -1,0 +1,65 @@
+
+<fieldset>
+<legend class="legend">MAKLUMAT PENGKHUSUSAN BIDANG</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:84%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3" class="label"><input type="button" id="addMaklumatPengkhususan" name="addMaklumatPengkhususan" value="Tambah">
+      <script>
+        _jq('#addMaklumatPengkhususan').on('click', function(){
+			doDivAjaxCall3$formname('editMaklumatPengkhususan','addMaklumatPengkhususan','');
+            jQuery('#editMaklumatPengkhususan').fadeIn();
+        });
+    </script>
+      <br />
+      <br />
+      <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+		    <td class="row_header" width="5%">Bil.</td>		    
+		    <td class="row_header" width="20%">Gred</td>
+		    <td class="row_header" width="30%">Kategori</td>
+		    <td class="row_header" width="40%">Pengkhususan</td>
+		    <td class="row_header" width="5%">Hapus</td>
+        </tr>
+        #set ( $count = 0 )
+        #if ( $listMaklumatPengkhususan.size() > 0) 
+        #foreach( $c in $listMaklumatPengkhususan )
+        #set ( $count = $count + 1)
+        
+        #if ( $count % 2 == 0 ) 
+        #set ( $rowcolor = "#D0CFCE" ) 
+        #else 
+        #set ( $rowcolor = "#F0F0F0" ) 
+        #end
+        <tr bgcolor="$rowcolor">
+          	<td align="center">$count</td>			
+		    <td align="center">$c.gred.id</td>
+		    <td align="left">$c.pengkhususan.kategori.id - $c.pengkhususan.kategori.keterangan</td>
+		    <td align="left">$c.pengkhususan.id - $c.pengkhususan.keterangan</td>
+          	<td align="center"><a href="javascript:void()" onClick="deleteMaklumatPengkhususan('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+        </tr>
+        #end
+        #else
+        <tr >
+          <td align="center">&nbsp;</td>
+          <td >Tiada Rekod</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+        </tr>
+        #end
+      </table></td>
+  </tr>
+</table>
+
+
+</fieldset>
+## Popup popupMaklumatPengkhususan.vm
+<div id="editMaklumatPengkhususan" class="popup"></div>
+## Blank status page
+<div id="removeMaklumatPengkhususan"></div>

@@ -1,0 +1,69 @@
+
+<style>
+.scrollit {
+	height:100%; width: 100%; overflow: auto;
+}
+</style>
+
+<fieldset style="height:300px;min-height:300px">
+	<legend class="legend">SENARAI ULASAN</legend>
+    
+	<div class="scrollit">
+		
+    	<table width="100%" cellpadding="0" cellspacing="0">
+			
+    		#if ( $listCatatan.size() > 0 )
+        		#set ( $count = 0 )
+        		#foreach( $d in $listCatatan )
+        			
+        			#set ( $count = $count + 1)
+                	#if ( $count % 2 == 0 ) 
+            			#set ( $rowcolor = "#D0CFCE" ) 
+            		#else 
+            			#set ( $rowcolor = "#F0F0F0" ) 
+    				#end
+    				
+            		<tr bgcolor="$rowcolor">
+                		<td width="20%" height="50px">
+							<div style="font-weight:bold">$!d.pengguna.userName.toUpperCase()</div>
+							<div style="font-size:9px">$!d.tarikhCatatan</div>
+						</td>
+						<td width="1%">:</td>
+    					<td width="79%">$!d.catatan.toUpperCase()</td>
+                    </tr>
+    			#end
+    		#else
+    			<tr bgcolor="#F0F0F0">
+    				<td colspan="2"><b>TIADA ULASAN</b></td>
+    			</tr>
+    		#end
+    	  
+        </table>	
+	</div>
+	
+</fieldset>
+	
+<fieldset>
+	<legend class="legend">ULASAN</legend>
+	
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+            <td>
+				<textarea style="height:90px;" placeholder="TAMBAH ULASAN..." id="catatanBalas" name="catatanBalas" onKeyUp="$('err_catatanBalas').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();"></textarea>
+				<div id="err_catatanBalas" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+	</table>	
+	
+</fieldset>
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+    			<input id="btnSave" type="button" value="Simpan" onClick="doSaveCatatanBalas('$!r.id')">
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>
+
+

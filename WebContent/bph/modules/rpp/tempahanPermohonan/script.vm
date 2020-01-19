@@ -1,0 +1,345 @@
+
+
+_jq( document ).ready(function() {
+	var redirect = "$!redirectSkrinTempahan";
+	if(redirect=="true"){
+		$('div_main').style.display='none';$('div_main_entry').style.display='block';
+		doDivAjaxCall$formname('div_main_entry','add_new_record','');
+		##doDivAjaxChainCall$formname('div_main_entry','add_new_record','','divListKekosongan','paparSemuaKekosongan','');
+	}
+});
+
+function validate() {
+	var err_count = 0;
+	return err_count == 0;
+}
+
+function doCarianKekosongan() {
+	doDivAjaxCall3$formname('divListKekosongan','carianKekosongan','');
+}
+
+function doPaparSemuaKekosongan() {
+	##$('qGred').value = "";
+	##$('qBulan').value = "";
+	##$('qTarikhMasukRpp').value = "";
+	##$('qTarikhKeluarRpp').value = "";
+	##$('qPeranginan').value = "";
+	doDivAjaxCall3$formname('divListKekosongan','paparSemuaKekosongan','');
+}
+
+function doPilihRP(idrp) {
+	doDivAjaxCall3$formname('divListKekosongan','paparJenisUnitByRP','idrp='+idrp);
+}
+
+function doPaparMaklumatPermohonan(idju) {
+	doDivAjaxCall3$formname('divMaklumatTempahan','paparMaklumatPermohonan','idju='+idju);
+}
+
+function doFilterCarianPeranginan(){
+	doDivAjaxCall3$formname('divCarianPeranginan','filterCarianRpp','')
+}
+
+function doBatalTempahan(){
+	if ( window.confirm("Adakah anda pasti untuk membatalkan tempahan?") ){
+		doDivAjaxCall3$formname('div_list','batalTempahan','page_num=$!current_page_num');
+		$('div_main_entry').style.display='none';
+		$('div_main').style.display='block';
+	}	
+}
+
+function validateKemaskini() {
+
+	var err_count = 0;
+	
+	var noAkaunBank = $('noAkaunBank').value;
+	if ( noAkaunBank == "" ) {$('err_noAkaunBank').innerHTML = "No. Akaun adalah mandatori!"; err_count++;  }
+	
+	var bank = $('bank').value;
+	if ( bank == "" ) {$('err_bank').innerHTML = "Bank adalah mandatori!"; err_count++;  }
+	
+	var cbSyarat = $('cbSyarat').checked;
+	if ( cbSyarat == false ) {$('err_cbSyarat').innerHTML = "Sila tanda untuk mengesahkan maklumat yang dimasukkan adalah benar."; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doKemaskiniBank(){
+	if (validateKemaskini()) {
+		doDivAjaxCall3$formname('div_main_entry','kemaskiniBank','')
+	}
+}
+
+function checkUpload() {
+	
+	$('err_dokumen').innerHTML = '';
+	var error = 0;
+	var err_count = 0;
+
+	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+		error++;
+		$('dokumen').value = "";
+		$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf) ';
+	}
+	if ($('dokumen').value != "" && $('dokumen').files[0].size > 2097152) {
+		error++;
+		$('err_dokumen').innerHTML = "Saiz fail adalah "+($('dokumen').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumen').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('dokumenMuatnaik').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_doc';
+		document.${formName}.action='?command=uploadDoc&idPermohonan='+$('idPermohonan').value;
+		document.${formName}.submit();
+		$('dokumen').value = "";
+	}
+	
+	return err_count == 0;	
+}
+
+##CHECK IF ONLY PICTURE/IMAGE
+function checkDoc(val) {
+	var arr = val.split(".");
+	var arr1 = val.split("\\");
+	if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" || arr[1] == "docx" || arr[1] == "pdf" || arr[1] == "doc") {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function doHapusResit(){
+	if ( window.confirm("Adakah anda pasti?") ){
+		doDivAjaxCall3$formname('div_main_entry','deleteResit','')
+	}
+}
+
+function doHantarBuktiPembayaran(){
+	if ( window.confirm("Adakah anda pasti?") ){
+		doDivAjaxCall3$formname('div_main_entry','hantarBuktiPembayaran','')
+	}
+}
+
+
+##ONLINE PAYMENT
+
+function alertFPX() {
+	alert("UNTUK MAKLUMAN TUAN/PUAN, PIHAK KAMI MENGHADAPI MASALAH BAGI PEMBAYARAN SECARA ONLINE PADA MASA INI,\nSILA BUAT BAYARAN MELALUI KAUNTER HASIL.");			
+}
+
+function doBayarTempahanFPX(){
+	alert("Sila pastikan anda memuatnaik DOKUMEN PENYATA BANK bagi memudahkan PROSES PEMULANGAN DEPOSIT.");
+	doDivAjaxCall3$formname('pilihanFPX','paparPilihan','');
+}
+
+function hantarBayaran() {
+		startFPX();
+}
+
+function hantarKredit() {
+		startMIGS();
+}
+
+function startFPX() {
+	document.${formName}.method='post';
+	document.${formName}.target='_self';
+	document.${formName}.action='https://www.mepsfpx.com.my/FPXMain/sellerNVPReceiver.jsp';
+	document.${formName}.submit();
+}
+
+function startMIGS() {
+	document.${formName}.method='post';
+	document.${formName}.target='_self';
+	document.${formName}.action='../migs/vpc_jsp_serverhost_DO.jsp';
+	document.${formName}.submit();
+}
+
+function validateMaklumatPemohon() {
+	var err_count = 0;
+     
+	var had = $!hadTempohMenginap;
+	
+	var tarikhMasukRpp = $('tarikhMasukRpp').value;
+	var tarikhKeluarRpp = $('tarikhKeluarRpp').value;
+	
+	var dt1   = parseInt(tarikhMasukRpp.substring(0,2),10);
+   	var mon1  = parseInt(tarikhMasukRpp.substring(3,5),10)-1;
+   	var yr1   = parseInt(tarikhMasukRpp.substring(6,10),10);
+   	var date1 = new Date(yr1, mon1, dt1);
+	
+	var dt2   = parseInt(tarikhKeluarRpp.substring(0,2),10);
+   	var mon2  = parseInt(tarikhKeluarRpp.substring(3,5),10)-1;
+   	var yr2   = parseInt(tarikhKeluarRpp.substring(6,10),10);
+   	var date2 = new Date(yr2, mon2, dt2);
+	
+	var dayss = (date2 - date1) / (24 * 60 * 60 * 1000);
+
+	/* CHECKING BADAN BERKANUN */
+	var jsrole = '$!userRole';
+	if(jsrole=="(AWAM) Badan Berkanun" && tarikhMasukRpp != ""){
+		var strtoday = "$!util.getCurrentDate('dd-MM-yyyy')";
+		var dttdy   = parseInt(strtoday.substring(0,2),10);
+       	var montdy  = parseInt(strtoday.substring(3,5),10)-1;
+       	var yrtdy   = parseInt(strtoday.substring(6,10),10);
+       	var datetdy = new Date(yrtdy, montdy, dttdy);
+		var bilday = (date1 - datetdy) / (24 * 60 * 60 * 1000);
+		if(bilday >= 7){
+			$('err_tarikhKeluarRpp').innerHTML = "Permohonan tempahan hanya boleh dibuat pada 7 hari sebelum menginap" ; err_count++; 
+		}
+	}
+	
+	if ( tarikhMasukRpp == "" ) {$('err_tarikhMasukRpp').innerHTML = "Tarikh Daftar Masuk adalah mandatori!"; err_count++;  }
+	
+	var bilDewasa = $('bilDewasa').value;
+	if ( bilDewasa == "" ) {$('err_bilDewasa').innerHTML = "Bilangan Dewasa adalah mandatori!"; err_count++;  }
+	
+	if ( tarikhKeluarRpp == "" ) {$('err_tarikhKeluarRpp').innerHTML = "Tarikh Daftar Keluar adalah mandatori!"; err_count++;  }
+
+	if(date2 <= date1){
+		$('err_tarikhKeluarRpp').innerHTML = "Tarikh Daftar Keluar tidak kurang dan tidak sama dengan Tarikh Daftar Masuk" ; err_count++;  
+	}else{
+		if(dayss > had){
+			$('err_tarikhKeluarRpp').innerHTML = "Tarikh Menginap tidak lebih dari "+had+" hari" ; err_count++;  
+		}
+	}
+
+	var checkSelectDate = $('checkSelectDate').value;
+	if ( checkSelectDate != "" && checkSelectDate == "false" ) {
+		err_count++; 
+	}
+
+	##Checking by jenis unit yang dah dipilih
+    var hadDewasaKosong = $('hadDewasaKosong').value;
+	var bdewasa = parseInt(bilDewasa);
+	var hdewasa = parseInt(hadDewasaKosong);
+	if(bdewasa > hdewasa) {
+		var balance = bdewasa - hdewasa;
+		$('bilTambahanDewasa').value = balance;
+		$('bilDewasa').value = hdewasa;
+		##$('err_bilDewasa').innerHTML = "Caj Tambahan Dewasa Dikenakan Kerana Telah Melebihi Had Yang Ditetapkan. "; err_count++;  
+	}
+
+	var bilUnit = $('bilUnit').value;
+	var hadKuantitiKosong = $('hadKuantitiKosong').value;
+    if(parseInt(bilUnit) > parseInt(hadKuantitiKosong)) {$('err_bilUnit').innerHTML = "Telah Melebihi Had Yang Ditetapkan "; err_count++;  }
+
+	var bilKanakKanak = $('bilKanakKanak').value;
+	var hadKanakKanakKosong = $('hadKanakKanakKosong').value;
+    if(parseInt(bilKanakKanak) > parseInt(hadKanakKanakKosong)) {$('err_bilKanakKanak').innerHTML = "Telah Melebihi Had Yang Ditetapkan "; err_count++;  }
+
+	var chkJenisPeranginan = $('chkJenisPeranginan').value;
+	var chkflagKelulusan = $('chkflagKelulusan').value;
+	if(chkJenisPeranginan == "RT" && chkflagKelulusan == "Y"){
+    	var sebabMohonRT = $('sebabMohonRT').value;
+    	if ( sebabMohonRT == "" ) {$('err_sebabMohonRT').innerHTML = "Sebab Mohon RT adalah mandatori!"; err_count++;  }
+	}
+	return err_count == 0;
+
+}
+
+
+function tempahNow() {
+	if ( validateMaklumatPemohon() ){ 
+	doDivAjaxCall3$formname('popupTempahan','openPopupTempahan','');
+     	jQuery('#popupTempahan').fadeIn();
+	}
+}
+
+function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+     document.body.innerHTML = printContents;
+     window.print();
+     document.body.innerHTML = originalContents;
+}
+
+function simpanCatatanHq() {
+	doDivAjaxCall3$formname('divCatatanBookingHq','saveCatatanBookingHq','');
+	swal("", "Catatan HQ berjaya disimpan.", "success");
+}
+
+function doCalculateHad() {
+	$('bilTambahanDewasa').value = 0;
+	$('bilTambahanKanakKanak').value = 0;
+	doDivAjaxCall3$formname('divRefreshHad','calculateHad','');
+}
+
+function doOpenPopupSenaraiSelenggara() {
+	doDivAjaxCall3$formname('popupSelenggara','openPopupSenaraiSelenggara','');
+    jQuery('#popupSelenggara').fadeIn();
+}
+
+function doPilihCaraBayaran() {
+	doDivAjaxCall$formname('divNoResit','pilihCaraBayaran','');
+}
+
+function validateSimpanBayaran(enabledEditDate) {
+	var err_count = 0;
+	
+	var radio1 = document.${formname}.flagJenisBayaran[0].checked;
+	var radio2 = document.${formname}.flagJenisBayaran[1].checked;
+	
+	if ( radio1 == false && radio2 == false ) {$('err_flagJenisBayaran').innerHTML = "Pilihan Penjanaan Resit adalah mandatori!"; err_count++;  }
+	
+	if(radio1 == true){
+		var noResitSewaDeposit = $('noResitSewaDeposit').value;
+		if ( noResitSewaDeposit == "" ) {$('err_noResitSewaDeposit').innerHTML = "No. Resit adalah mandatori!"; err_count++;  }
+	}
+	
+	if (enabledEditDate=="true") {
+		var tarikhBayaran = $('tarikhBayaran').value;
+		if ( tarikhBayaran == "" ) {$('err_tarikhBayaran').innerHTML = "Tarikh Bayaran adalah mandatori!"; err_count++;  }
+	}
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function doSimpanBayaran(enabledEditDate,idp) {
+	if( validateSimpanBayaran(enabledEditDate) ){
+		doDivAjaxCall3$formname('divSummary','simpanBayaran','idPermohonan='+idp);
+	}
+}
+
+
+
+
+##TEMP  POPUP DATE RANGE
+function doOpenPopupDateRange(idju) {
+	doDivAjaxCall3$formname('divPopupDateRange','openPopupDateRange','idju='+idju);
+    jQuery('#divPopupDateRange').fadeIn();
+}
+function validateDateRange() {
+	var err_count = 0;
+	
+	var tarikhDari = $('tarikhDari').value;
+	if ( tarikhDari == "" ) {$('err_tarikhDari').innerHTML = "Tarikh Dari adalah mandatori!"; err_count++;  }
+	
+	var tarikhHingga = $('tarikhHingga').value;
+	if ( tarikhHingga == "" ) {$('err_tarikhHingga').innerHTML = "Tarikh Hingga adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {}
+    return err_count == 0;
+}
+function doPaparMaklumatPermohonanWithDateRange(idju) {
+    if( validateDateRange() ){
+    	doDivAjaxCall3$formname('divMaklumatTempahan','paparMaklumatPermohonan','idju='+idju);
+    	jQuery('#divPopupDateRange').fadeOut();
+	}
+}
+
+
+
+
+

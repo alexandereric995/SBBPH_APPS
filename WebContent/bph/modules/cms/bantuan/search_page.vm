@@ -1,0 +1,30 @@
+<table width="80%" cellpadding="5" cellspacing="0">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+	#input("findTajuk" "Tajuk" "")
+	<tr>
+	    <td class="label">Status</td>
+	    <td>:</td>
+		<td> #parse("$path/findFlagAktif.vm") </td>
+	</tr>
+	
+	<tr>
+                    	<td class="label" valign="top">Tahun &nbsp;<span style='color:#FF2A00'">*</span></td>
+                    	<td class="label" valign="top">:</td>
+                    	<td valign="top">
+                    		<div>
+                        		<input type="text" id="tahun" name="tahun" value="" onclick="$('err_tahun').innerHTML=''">
+                    			<script>
+                                	_jq("#tahun").Zebra_DatePicker({ 
+                        				view: 'years',
+										format: 'Y'
+                                	});
+                    				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+                        		</script>
+                    		</div><div id="err_tahun" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                    	</td>
+                    </tr>
+</table>

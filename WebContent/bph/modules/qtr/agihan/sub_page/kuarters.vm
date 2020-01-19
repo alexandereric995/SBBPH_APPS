@@ -1,0 +1,73 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#agihanKuarters').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+
+<fieldset>
+    <legend class="legend">Kuarters</legend>
+	
+	<table id="agihanKuarters" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Bil.</th>
+                <th>No. Unit</th>
+                <th>No. Rujukan</th>
+                <th>Lokasi</th>
+                <th>Alamat</th>
+                <th>Jenis Kuarters</th>
+                <th>Kelas Kuarters</th>
+                <th>Status Kuarters</th>
+				<th>Pilihan</th>
+            </tr>
+        </thead>
+		
+		<tbody>
+			#set( $count = 0 )
+    		#foreach ( $k in $listKuarters )
+    			#set ( $count = $count + 1 )
+                <tr>
+                    <td>$count</td>
+                    <td>$!k.noUnit</td>
+                    <td>$!k.noRujukan</td>
+                    <td>$!k.lokasi.keterangan<br>$!k.fasa.keterangan</td>
+					<td>
+						#if($k.alamat1) $!k.alamat1<br /> #end 
+						#if($k.alamat2) $!k.alamat2<br /> #end
+						#if($k.alamat3) $!k.alamat3<br /> #end
+						#if($k.poskod) $!k.poskod #end #if($k.bandar.keterangan) $!k.bandar.keterangan<br /> #end
+						#if($k.bandar.negeri.keterangan) $!k.bandar.negeri.keterangan</td> #end
+                    <td>$!k.jenisKediaman.keterangan</td>
+					#if ( $!kelas2 != "" )
+    					#if ( $k.kelas.id == $kelas2 )
+    						#set( $jenisKelas = " &#40;<i style='color: #FF0000'>Kelas Downgrade</i>&#41;" )
+    					#else
+    						#set( $jenisKelas = " &#40;<i style='color: #008000'>Kelas Layak</i>&#41;" )
+    					#end
+    				#else
+    					#if ( $r.jenisKelasKuarters == "D" )
+    						#set( $jenisKelas = " &#40;<i style='color: #FF0000'>Kelas Downgrade</i>&#41;" )
+    					#else
+    						#set( $jenisKelas = " &#40;<i style='color: #008000'>Kelas Layak</i>&#41;" )
+    					#end
+    				#end
+                    <td>$k.kelas.id$!jenisKelas</td>
+                    <td>$!k.statusKuarters.keterangan</td>
+					<td><input type="radio" id="pilihKuarters" name="pilihKuarters" value="$!k.id" /></td>
+                </tr>
+			#end
+		</tbody>
+    </table>
+	
+</fieldset>
+<input type="hidden" id="valuePilihKuarters" name="valuePilihKuarters" value="" />
+<script>
+	_jq("input[name='pilihKuarters']").change(function() {
+		_jq('#valuePilihKuarters').val(this.value);
+		_jq('#err_valuePilihKuarters').html(''); 
+	});
+</script>

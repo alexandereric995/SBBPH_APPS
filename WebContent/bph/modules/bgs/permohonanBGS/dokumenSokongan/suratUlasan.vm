@@ -1,0 +1,66 @@
+<fieldset>
+<legend class="legend">Surat Ulasan</legend>
+<table width="100%">
+  <tr>
+    <td style="width:250px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Surat Ulasan Pengerusi Bangunan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> 
+    #if ( $!r.dokumenPengerusi ) 
+    	#if ($!r.dokumenPengerusi  != "") 
+        	<a href="../download?file=$!uploadDir$!r.dokumenPengerusi" > <font color="#0000FF"><strong>SURAT ULASAN PENGERUSI BANGUNAN</strong></font> </a> &nbsp;&nbsp;
+      		#if ($!userRole == '(BGS) Pemohon')
+      			#if ($!r.status.id == '1428384412943' || $!r.status.id == '1423568441685') ## DRAF PERMOHONAN || PERMOHONAN TIDAK LENGKAP
+      				<input type="button" value="Hapus" id="btnHapusDokumenPengerusi" name="btnHapusDokumenPengerusi" onclick="deleteDokumenPengerusi()">
+      			#end
+      		#end
+      		#if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441671' || $!r.status.id == '1423568441694')) ## PERMOHONAN BARU
+      			<input type="button" value="Hapus" id="btnHapusDokumenPengerusi" name="btnHapusDokumenPengerusi" onclick="deleteDokumenPengerusi()">
+      		#end
+      	#end
+    #else
+      	#if ($!userRole == '(BGS) Pemohon')
+      		#if ($!r.status.id == '1428384412943' || $!r.status.id == '1423568441685') ## DRAF PERMOHONAN || PERMOHONAN TIDAK LENGKAP
+      			<input class="texts" type="file" id="dokumenPengerusi" name="dokumenPengerusi" style="width:100%" onFocus="$('err_dokumenPengerusi').innerHTML = '';" onChange="checkUploadDokumenPengerusi()"><div id="dokumenPengerusiMuatnaik" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div><div id="err_dokumenPengerusi" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      		#end
+      		#end
+            #if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441671' || $!r.status.id == '1423568441694')) ## PERMOHONAN BARU
+      			<input class="texts" type="file" id="dokumenPengerusi" name="dokumenPengerusi" style="width:100%" onFocus="$('err_dokumenPengerusi').innerHTML = '';" onChange="checkUploadDokumenPengerusi()"><div id="dokumenPengerusiMuatnaik" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div><div id="err_dokumenPengerusi" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      		#end	
+    #end 
+  	</td>
+  </tr>
+  <tr>
+    <td>Surat Ulasan Pengurus Bangunan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> 
+    #if ( $!r.dokumenPengurus ) 
+    	#if ($!r.dokumenPengurus  != "") 
+        	<a href="../download?file=$!uploadDir$!r.dokumenPengurus" > <font color="#0000FF"><strong>SURAT ULASAN PENGURUS BANGUNAN</strong></font> </a> &nbsp;&nbsp;
+      		#if ($!userRole == '(BGS) Pemohon')
+      			#if ($!r.status.id == '1428384412943' || $!r.status.id == '1423568441685') ## DRAF PERMOHONAN || PERMOHONAN TIDAK LENGKAP
+      				<input type="button" value="Hapus" id="btnHapusDokumenPengurus" name="btnHapusDokumenPengurus" onclick="deleteDokumenPengurus()">
+      			#end
+      		#end
+      		#if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441671' || $!r.status.id == '1423568441694')) ## PERMOHONAN BARU
+      			<input type="button" value="Hapus" id="btnHapusDokumenPengurus" name="btnHapusDokumenPengurus" onclick="deleteDokumenPengurus()">
+      		#end
+      	#end
+    #else
+      	#if ($!userRole == '(BGS) Pemohon')
+      		#if ($!r.status.id == '1428384412943' || $!r.status.id == '1423568441685') ## DRAF PERMOHONAN || PERMOHONAN TIDAK LENGKAP
+      			<input class="texts" type="file" id="dokumenPengurus" name="dokumenPengurus" style="width:100%" onFocus="$('err_dokumenPengurus').innerHTML = '';" onChange="checkUploadDokumenPengurus()"><div id="dokumenPengurusMuatnaik" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div><div id="err_dokumenPengurus" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      		#end
+      		#end
+            #if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441671' || $!r.status.id == '1423568441694')) ## PERMOHONAN BARU
+      			<input class="texts" type="file" id="dokumenPengurus" name="dokumenPengurus" style="width:100%" onFocus="$('err_dokumenPengurus').innerHTML = '';" onChange="checkUploadDokumenPengurus()"><div id="dokumenPengurusMuatnaik" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div><div id="err_dokumenPengurus" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      		#end	
+    #end 
+  	</td>
+  </tr>
+</table>
+</fieldset>

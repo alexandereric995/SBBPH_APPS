@@ -1,0 +1,16 @@
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedSubTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='1') onClick="doDivAjaxCall3$formname('divTab','getCadanganPembangunan','')" #end >Projek Dalam Perancangan</a></li>
+	<li #if($!selectedSubTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='2') onClick="doDivAjaxCall3$formname('divTab','getProjekDalamPembinaan','')" #end >Projek Dalam Pembinaan</a></li>
+	<li #if($!selectedSubTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='3') onClick="doDivAjaxCall3$formname('divTab','getProjekTelahSiap','')" #end >Projek Telah Siap</a></li>
+  </ul>
+</nav>
+#if($!selectedSubTab=='1')
+		#parse("$path/cadanganPembangunan/projekDalamPerancangan/cadanganPembangunan.vm")
+#end
+#if($!selectedSubTab=='2')
+		#parse("$path/cadanganPembangunan/projekDalamPembinaan/cadanganPembangunan.vm")
+ #end
+ #if($!selectedSubTab=='3')
+		#parse("$path/cadanganPembangunan/projekTelahSiap/cadanganPembangunan.vm")
+ #end

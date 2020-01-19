@@ -1,0 +1,24 @@
+<fieldset>
+<legend class="legend">MAKLUMAT TERIMAAN KUNCI</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #if ($!r.tarikhTerimaKunci) 
+  #set ($dateTerimaKunci = "$!util.getDateTime($!r.tarikhTerimaKunci,'dd-MM-yyyy')")
+  #else #set ($dateTerimaKunci = "-") #end
+  #input_readonly_all_label("tarikhTerimaKunci" "Tarikh Terima Kunci" "$dateTerimaKunci")
+  #input_readonly_all_label("penerimaKunci" "Terima Oleh" "$!r.penerimaKunci.userName.toUpperCase()")
+  #textarea_readonly("catatanTerimaanKunci" "Catatan" "$!r.catatanTerimaanKunci")
+</table>
+</fieldset>
+
+<br>
+<table width="100%">
+  <tr>
+    <td align="right"><input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

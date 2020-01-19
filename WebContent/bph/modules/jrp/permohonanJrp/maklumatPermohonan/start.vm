@@ -1,0 +1,34 @@
+##<nav class="breadcrumbs">
+##  <ul>
+##    <li class="active"><a href="javascript:void()">Maklumat Permohonan</a></li>
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getMaklumatDokumenSokongan','')">Dokumen Sokongan</a></li>
+##    #if ($!r.status.id != '1424860634472') ##PERMOHONAN BARU
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getMaklumatUlasan','')">Ulasan Ahli JRP</a></li>
+##    #if($!userRole.equalsIgnoreCase("(JRP) Pemohon"))
+##    #if ($!r.status.id == '1424860634475') ##ULASAN JRP
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getSemakanUlasan','')">Semakan Ulasan Ahli JRP</a></li>
+##    #end
+##    #end
+##    #if ($!r.status.id == '1424860634502') ##BATAL PERMOHONAN
+##	 <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getMaklumatBatalPermohonan','')">Maklumat Pembatalan</a></li>
+##	#end
+##    #if ($!r.status.id != '1424860634475') ##ULASAN JRP
+##    #if(!$!userRole.equalsIgnoreCase("(JRP) Pemohon"))
+##    #if($!userRole.equalsIgnoreCase("(JRP) Penyemak"))
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getAgihanTugas','')">Agihan Tugas</a></li>
+##    #end
+##    #if ($!r.status.id != '1424860634478') ##PERMOHONAN LENGKAP
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getKelulusanPermohonan','')">Kelulusan Permohonan</a></li>
+##    #if ($!r.status.id == '1424860634493') ##LULUS
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getMaklumatPerjanjian','')">Kontrak Perjanjian</a></li>
+##    #end
+##    #end
+##    #end
+##    #end
+##    #end
+##  </ul>
+##</nav>
+
+<div id="divTab">	
+	#parse("$path/maklumatPermohonan/senaraiSubTab.vm")
+</div>

@@ -1,0 +1,102 @@
+	      _jq(document).ready(function () { 
+            _jq('#btnAddNewRecordTemplate').val('Daftar Aduan'); ##ubah nama kepada nama yang diperlukan
+      	  });
+
+function validate() {
+	var err_count = 0;
+	
+	var tarikhAduan = $('tarikhAduan').value;
+	if ( tarikhAduan == "" ) {$('err_tarikhAduan').innerHTML = "Tarikh Aduan adalah mandatori!"; err_count++;  }
+	
+	var barangDeposit = $('barangDeposit').value;
+	if ( barangDeposit == "" ) {$('err_barangDeposit').innerHTML = "Jenis Kerosakan adalah mandatori!"; err_count++;  }
+	
+	var kuantiti = $('kuantiti').value;
+	if ( kuantiti == "" ) {$('err_kuantiti').innerHTML = "Kuantiti adalah mandatori!"; err_count++;  }
+	
+	var harga = $('harga').value;
+	if ( harga == "" ) {$('err_harga').innerHTML = "Harga adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function kosongkan() {
+	$('tarikhAduan').value = "";
+	$('barangDeposit').value = "";
+	$('keterangan').value = "";
+	$('kuantiti').value = "";
+	$('harga').value = "";
+}
+
+function checkUpload() {
+	
+	$('err_dokumen').innerHTML = '';
+	var idAduanKerosakan = $('idAduanKerosakan').value;
+	var error = 0;
+	var err_count = 0;
+	
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {
+		$('err_tajuk').innerHTML = "Tajuk dokumen adalah mandatori!"; 
+		$('dokumen').value = "";
+		err_count++;  
+	}
+
+	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+		error++;
+		$('dokumen').value = "";
+		$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg atau jpg)';
+	}
+	if ($('dokumen').value != "" && $('dokumen').files[0].size > 2097152) {
+		error++;
+		$('err_dokumen').innerHTML = "Saiz fail adalah "+($('dokumen').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumen').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('dokumenMuatnaik').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_doc';
+		document.${formName}.action='?command=uploadDoc&idAduanKerosakan='+idAduanKerosakan+'&tajuk='+$('tajuk').value+'&keteranganDokumen='+$('keteranganDokumen').value;
+		document.${formName}.submit();
+		$('tajuk').value = "";
+		$('keteranganDokumen').value = "";
+		$('dokumen').value = "";
+	}
+	
+	return err_count == 0;	
+}
+
+##CHECK IF ONLY PICTURE/IMAGE
+function checkDoc(val) {
+	var arr = val.split(".");
+	var arr1 = val.split("\\");
+	if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function doGetHarga(val){
+	doDivAjaxCall$formname('divFieldHarga','getHargaJenisKerosakan','idBarangDeposit='+val);
+	$('kuantiti').value = "1";
+	$('err_harga').innerHTML="";
+	$('err_kuantiti').innerHTML="";
+}
+
+function multiplyHarga(val){
+	if(val!=""){
+    	var hargaseunitVal = $('hargaseunitVal').value;
+    	var total = parseInt(val) * parseFloat(hargaseunitVal);
+    	$('harga').value = total.toFixed(2);
+	}
+}
+
+
+

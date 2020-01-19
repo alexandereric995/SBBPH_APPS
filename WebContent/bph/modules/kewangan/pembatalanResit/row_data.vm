@@ -1,0 +1,11 @@
+
+<td>$!r.noResit.toUpperCase()</td>
+<td>#if($!r.pembayar) $r.pembayar.userName.toUpperCase() #else $r.getMaklumatPembayarLain().nama #end</td>
+<td>#if($!r.pembayar) $!r.pembayar.noKP #else $!r.getMaklumatPembayarLain().nokpsm #end</td>
+#if ($!r.tarikhBayaran)
+	#set($dateBayaran = $util.getDateTime($!r.tarikhBayaran,"dd-MM-yyyy"))
+#else 
+	#set($dateBayaran = "-") 
+#end
+<td>$dateBayaran</td>
+<td align="right">$util.formatDecimal($!r.jumlahAmaunBayaran)</td>

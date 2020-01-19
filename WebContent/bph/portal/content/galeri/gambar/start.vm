@@ -1,0 +1,25 @@
+<div id="content-format">
+  <pinLeft></pinLeft>
+  <pinRight></pinRight>
+  <header>ARKIB GAMBAR</header>
+  <section>
+    <div id="tabs">
+      <div id="tabs-1">
+        <table cellpadding="5" cellspacing="0" border="0" width="100%">
+          #if ($listGaleriGambar.size() > 0)
+          #foreach ( $gg in $listGaleriGambar )
+          <tr>
+            <td><li><a href="javascript:void()" onclick="doDivAjaxCall3$formname('contentGaleri','getListSubGaleriGambar','idGaleri=$!gg.id')">$!gg.tajuk</li></td>
+          </tr>
+          #end
+          #else
+          <tr>
+            <td style="text-align:center;"><font color="black"><b>GALERI SEDANG DIKEMASKINI.</b></font> </td>
+          </tr>
+          #end
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+<div id="contentGaleri"></div>

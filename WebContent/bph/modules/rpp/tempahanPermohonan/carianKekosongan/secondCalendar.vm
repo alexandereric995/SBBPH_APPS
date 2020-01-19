@@ -1,0 +1,59 @@
+
+
+<input type="hidden" id="dtto" name="dtto" value="" style="width: 150px" />
+<span style="font-weight:bold;text-align:justify;font-size:12px;color:red">SILA PILIH TARIKH DAFTAR KELUAR :</span>
+<div id="tDateto" style="position: relative; z-index: 0; margin: 10px 0 0 0; width: 220px; height: 240px"></div>
+	
+
+<script>
+_jq( document ).ready(function() {
+				
+	_jq('#dtto').Zebra_DatePicker({
+    	always_visible: _jq('#tDateto'),
+        show_select_today: 'Hari Ini',
+       	lang_clear_date: 'Buang Tarikh',
+       	months: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'],
+       	days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],
+        format: 'd-m-Y',
+		direction: $!cal2Direction,
+		disabled_dates: ['* * * *'] ,
+		enabled_dates : $!listEnableDate,
+		onSelect: function() {
+		
+			var datefrom = $('tarikhMasukRpp').value;
+			var dateto = _jq(this).val();
+		
+        	_jq('#tarikhKeluarRpp').val(dateto);
+            _jq('#err_tarikhKeluarRpp').html(''); 
+			
+			if ( (datefrom != "" && dateto != "") ){
+			
+				var dt1   = parseInt(datefrom.substring(0,2),10);
+               	var mon1  = parseInt(datefrom.substring(3,5),10)-1;
+               	var yr1   = parseInt(datefrom.substring(6,10),10);
+               	var date1 = new Date(yr1, mon1, dt1);
+            	
+            	var dt2   = parseInt(dateto.substring(0,2),10);
+               	var mon2  = parseInt(dateto.substring(3,5),10)-1;
+               	var yr2   = parseInt(dateto.substring(6,10),10);
+               	var date2 = new Date(yr2, mon2, dt2);
+			
+				if(date2 > date1){
+					##doDivAjaxCall3$formname('divErrorSelectDate','checkingSelectedDate','listDisabledDate='+$!previousListDisabledDate+'&datefrom='+datefrom+'&dateto='+dateto);
+					##doDivAjaxChainCall$formname('divErrorSelectDate','checkingSelectedDate','listDisabledDate='+$!previousListDisabledDate+'&datefrom='+datefrom+'&dateto='+dateto,'divBilUnit','checkingBilUnit','datefrom='+datefrom+'&dateto='+dateto);       
+					doDivAjaxCall3$formname('divBilUnit','checkingBilUnit','datefrom='+datefrom+'&dateto='+dateto);
+				}else{
+    				_jq('#checkSelectDate').val("");
+    			}
+				
+			}else{
+				_jq('#checkSelectDate').val("");
+			}
+			
+       	},
+ 	});
+	
+});
+</script>
+
+

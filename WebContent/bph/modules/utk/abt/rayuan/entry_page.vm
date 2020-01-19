@@ -1,0 +1,39 @@
+<fieldset>
+<legend class="legend">Rayuan</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+     #input("noSurat" "No Surat" "$!r.noSurat")
+     #input("rayuan" "No Rayuan" "$!r.rayuan")
+  	 #if ($r.tarikh) 
+  	 	#set ($tarikh="$!util.getDateTime($r.tarikh,'dd-MM-yyyy')") 
+  	 #else 
+  	 	#set ($tarikh="") 
+  	 #end
+	 #date_input("tarikh" "Tarikh" "$tarikh")
+	 #input("keputusan" "Keputusan" "$!r.keputusan")
+	 #input("catatan" "Catatan" "$!r.catatan")
+  	 <input type= "hidden" id = "idPenghuni" name = "idPenghuni" value = "$!r.id">
+</table>
+
+	<p align="center">
+	<input type="button" value="Simpan" align='left' id="cmdSimpanRayuan">
+ 	<input type="button" value="Kembali" align='left' id="cmdKembali">
+	</p>
+</fieldset>
+
+
+
+<script>
+_jq('#cmdKembali').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getRayuan','');
+    jQuery('#cmdKembali').fadeOut();
+});
+_jq('#cmdSimpanRayuan').on('click', function(){
+	doDivAjaxCall3$formname('cmdSimpanRayuan','simpanRayuan','');
+    jQuery('#cmdSimpanRayuan').fadeOut();
+});
+</script>

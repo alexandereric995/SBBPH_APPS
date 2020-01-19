@@ -1,0 +1,23 @@
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+#if ($!userRole == '(BGS) Penyemak' && $!r.status.id == '1423568441682') ## SEMAKAN KERTAS PERTIMBANGAN
+  #textarea_required("ulasanPenyemak" "Catatan" "$!kertasPertimbangan.ulasanPenyemak")	
+#else
+  #input_readonly_all_label("ulasanPenyemak" "Catatan" "$!kertasPertimbangan.ulasanPenyemak")
+  #input_readonly_all_label("penyemak" "Disemak Oleh" "$!kertasPertimbangan.penyemak.userName")	
+  #if ($!kertasPertimbangan.tarikhSemakan) 
+	#set ($dateSemakan = "$!util.getDateTime($!kertasPertimbangan.tarikhSemakan,'dd-MM-yyyy')")
+  #else #set ($dateSemakan="-") #end
+  #input_readonly_all_label("tarikhSemakan" "Tarikh Semakan" "$dateSemakan")	
+  #if ($!kertasPertimbangan.flagKeputusanSemakan == 'Y') 
+  	#set ($keputusanSemakan = "SOKONG")
+  #elseif ($!kertasPertimbangan.flagKeputusanSemakan == 'T') 
+  	#set ($keputusanSemakan = "TIDAK SOKONG")
+  #else #set ($keputusanSemakan = "") #end
+  #input_readonly_all_label("flagKeputusanSemakan" "Keputusan" "$keputusanSemakan")	
+#end
+</table>

@@ -1,0 +1,150 @@
+
+<fieldset>
+<legend class="legend">MAKLUMAT KELUASAN RUANG DIKEHENDAKI</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:84%">&nbsp;</td>
+  </tr>
+  <tr>
+##    #if(!$!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal"))
+##    <td colspan="3" class="label"><input type="button" id="addKeluasanRuang" name="addKeluasanRuang" value="Tambah">
+##      <script>
+##        _jq('#addKeluasanRuang').on('click', function(){
+##			doDivAjaxCall3$formname('editKeluasanRuang','addKeluasanRuang','');
+##            jQuery('#editKeluasanRuang').fadeIn();
+##        });
+##    </script>
+##      <br />
+##      <br />
+##    #end
+      <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+          <td class="row_header" width="5%">Bil.</td>
+          <td class="row_header" width="45%">Perkara</td>
+          <td class="row_header" width="25%">Ruang Pejabat Sedia Ada (MP)</td>
+          <td class="row_header" width="25%">Ruang Pejabat Sedia Baru (MP)</td>
+##          <td class="row_header" width="5%">Papar</td>
+##          #if(!$!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal"))
+##          <td class="row_header" width="5%">Hapus</td>
+##          #end
+        </tr>
+        #set ( $count = 0 )
+       
+        #if ( $listKeluasanRuang.size() > 0) 
+        #set ($jumBil = 0)
+		#set ($jumLuas = 0)
+		
+        #foreach( $c in $listKeluasanRuang )
+        #set ( $count = $count + 1)
+        
+        #set ( $jumBil = $jumBil + $util.getDouble($util.RemoveComma($c.luasSediaAda)))
+		#set ( $jumLuas = $jumLuas + $util.getDouble($util.RemoveComma($c.luasBaru)))
+  
+##  		#set ( $jumLuas = $jumLuas + $c.luasBaru)      
+        #if ( $count % 2 == 0 ) 
+        #set ( $rowcolor = "#D0CFCE" ) 
+        #else 
+        #set ( $rowcolor = "#F0F0F0" ) 
+        #end
+        <tr bgcolor="$rowcolor">
+          <td align="center">$count</td>
+          <td>$c.perkara</td>
+          <td align="center">$c.luasSediaAda</td>
+          <td align="center">$c.luasBaru</td>
+##          <td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> </td>
+##          #if(!$!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal"))
+##          <td align="center"><a href="javascript:void()" onClick="deleteKeluasanRuang('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+##          #end
+##        </tr>
+##        <script>
+##                    _jq('#link$c.id').on('click', function(){
+##						doDivAjaxCall3$formname('editKeluasanRuang','editKeluasanRuang','idKeluasanRuang=$c.id');
+##                        jQuery('#editKeluasanRuang').fadeIn();
+##                    });
+##                </script>
+        #end
+##         #if(!$!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal"))
+##        <tr>
+##          <td>&nbsp;</td>
+##          <td><input type="text" id="perkara1" name="perkara1" value="" onKeyUp=" $('err_perkara1').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+##          <div id="err_perkara1" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##          <td><input type="text" id="luasSediaAda1" class="currency" name="luasSediaAda1" value="" onKeyUp=" $('err_luasSediaAda1').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+##          <div id="err_luasSediaAda1" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##         <td><input type="text" id="luasBaru1" class="currency" name="luasBaru1" value="" onKeyUp=" $('err_luasBaru1').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+##			<div id="err_luasBaru1" style="color:#CC0000;font-weight:bold;border:2px #000"></div>         
+####          <td><input style="font-weight:bold" type="button" name="btnTambahMaklumatKeluasanRuang" id="btnTambahMaklumatKeluasanRuang" value="+"  onclick="saveKeluasanRuang1();" /></td>
+##          <td align="center">&nbsp;</td>
+##        </tr>
+##         #end
+        <tr>
+        	<td colspan="2">&nbsp;</td>
+        	<td colspan="4" style="padding-top:0.3cm" ><hr /></td>
+        </tr>
+        <tr>
+			<td colspan="2" align="right"><b>JUMLAH : </b></td>
+			<td align="center"><b>$util.formatDecimal($jumBil)</b></td>
+			<td align="center"><b>$util.formatDecimal($jumLuas)</b></td>
+			<td colspan="3">&nbsp;</td>
+		</tr>
+		
+        #else
+        <tr >
+          <td align="center">&nbsp;</td>
+          <td >Tiada Rekod</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          #if(!$!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal"))
+          <td align="center">&nbsp;</td>
+          #end
+        </tr>
+##          #if(!$!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal"))
+##		<tr>
+##          <td>&nbsp;</td>
+##          <td><input type="text" id="perkara" name="perkara" value="" onKeyUp=" $('err_perkara').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+##          <div id="err_perkara" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##          <td><input type="text" id="luasSediaAda" class="currency" name="luasSediaAda" value="" onKeyUp=" $('err_luasSediaAda').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+##          <div id="err_luasSediaAda" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##         <td><input type="text" id="luasBaru" class="currency" name="luasBaru" value="" onKeyUp=" $('err_luasBaru').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+##			<div id="err_luasBaru" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##          <td><input style="font-weight:bold" type="button" name="btnTambahMaklumatKeluasanRuang" id="btnTambahMaklumatKeluasanRuang" value="+"  onclick="saveKeluasanRuang();" /></td>
+##          <td align="center">&nbsp;</td>
+##        </tr>
+##        #else
+##        <tr >
+##          <td align="center">&nbsp;</td>
+##          <td >Tiada Rekod</td>
+##          <td align="center">&nbsp;</td>
+##          <td align="center">&nbsp;</td>
+##          <td align="center">&nbsp;</td>
+##        </tr>
+##        #end
+        #end
+      </table></td>
+  </tr>
+</table>
+
+
+</fieldset>
+## Popup popupMaklumatKeluasanRuang.vm
+<div id="editKeluasanRuang" class="popup"></div>
+## Blank status page
+<div id="removeKeluasanRuang"></div>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

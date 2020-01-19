@@ -1,0 +1,98 @@
+<style type="text/css">
+
+.style1 {
+	color: #0033FF
+}
+.style2 {
+	color: #FF0000;
+	font-weight: bold;
+}
+.blink {
+	animation: blink 1s steps(5, start) infinite;
+}
+@keyframes blink {
+ to {
+ visibility: hidden;
+}
+</style>
+
+<td>$!r.noAduan</td>
+<td>$!r.sumberAduan.keterangan</td>
+<td>$!r.jenisAduan.keterangan</td>
+
+#if ($!r.tarikhAduan)
+	#set($dateAduan = $util.getDateTime($!r.tarikhAduan,"dd-MM-yyyy"))
+	## #set($dateAduan = $util.getDateTime($!r.tarikhAduan,"dd-MM-yyyy hh:mm:ss a"))
+#else 
+	#set($dateAduan = "-") 
+#end
+<td>$dateAduan</td>
+
+<td>$!r.tajuk</td>
+<td>$!r.noPengenalan</td>
+<td>$!r.nama</td>
+
+
+##1434787994722	BARU	13	1
+##1434787994725	DALAM TINDAKAN	13	2
+##1434787994728	SELESAI	13	3
+##1434787994731	TIDAK BERASAS	13	4
+##1440506568971	TELAH DIMAJUKAN	13	5
+##1440506568974	MAKLUMBALAS UNIT	13	6
+##1440506568977	TINDAKAN UNIT	13	7
+#if ( $!r.status.id == "1434787994722" ) ##1434787994722 = BARU
+	<td>
+		<b><i id='$r.id' style='color: #0000FF;'>$!r.status.keterangan</i></b>
+##		<font size="0.2" class="blink"><span class="style2">$r.getStatusPeringatan()</span></font>
+		<script>
+			function blinker() {
+		        _jq('#$r.id').fadeOut(750);
+		        _jq('#$r.id').fadeIn(750);
+		    }
+		    setInterval(blinker, 1500);
+		</script>
+	</td>
+#elseif($!r.status.id == "1434787994725") ##1434787994725 = DALAM TINDAKAN
+	<td>
+		<b><i id='$r.id' style='color: #207144;'>$!r.status.keterangan</i></b>
+		<font size="0.2" class="blink"><span class="style2">$r.getStatusPeringatan()</span></font>
+		<script>
+			function blinker() {
+		        _jq('#$r.id').fadeOut(750);
+		        _jq('#$r.id').fadeIn(750);
+		    }
+		    setInterval(blinker, 1500);
+		</script>
+	</td>
+#elseif($!r.status.id == "1434787994728") ##1434787994728 = SELESAI
+	<td>
+		<b><i id='$r.id' style='color: #000000;'>$!r.status.keterangan</i></b>
+	</td>
+#elseif($!r.status.id == "1434787994731") ##1434787994731 = TIDAK BERASAS
+	<td>
+		<b><i id='$r.id' style='color: #000000;'>$!r.status.keterangan</i></b>
+	</td>
+#elseif($!r.status.id == "1440506568971") ##1440473608806 = TELAH DIMAJUKAN 
+	<td>
+		<b><i id='$r.id' style='color: #000000;'>$!r.status.keterangan</i></b>
+	</td>
+#elseif($!r.status.id == "1440506568974")##1440473608809 = MAKLUMBALAS UNIT
+	<td>
+		<b><i id='$r.id' style='color: #C100C1;'>$!r.status.keterangan</i></b>
+		<script>
+			function blinker() {
+		        _jq('#$r.id').fadeOut(750);
+		        _jq('#$r.id').fadeIn(750);
+		    }
+		    setInterval(blinker, 1500);
+		</script>
+	</td>
+#elseif($!r.status.id == "1440506568977") ##1440506568977 = TINDAKAN UNIT
+	<td>
+		<b><i id='$r.id' style='color: #C100C1;'>$!r.status.keterangan</i></b>
+	</td>
+#else
+	<td><b>$!r.status.keterangan</b></td>
+#end
+
+

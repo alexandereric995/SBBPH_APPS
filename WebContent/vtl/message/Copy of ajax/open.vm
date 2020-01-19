@@ -1,0 +1,117 @@
+<form name="${formname}" method="post">
+
+#if ( $total_pages > 1 || $allowUpdate )
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+	<tr>	
+	
+		<td>
+
+		$!message_page of $!total_pages
+		</td>	
+		
+		<td align="right">
+				#if ( $hasPrevious )
+			<input type="button" value="PREVIOUS" onclick="goPage_${formname}('${prev_page}')">
+		#end
+
+		#if ($hasNext )
+			<input type="button" value="NEXT" onclick="goPage_${formname}('${next_page}')">
+		#end
+		&nbsp;
+			#if ( $allowPost )
+			<input type="button" value="ADD NEW" onclick="addNewTopic_${formname}()">
+			#end
+			<input type="button" value="LIST..." onclick="goMain_${formname}()">
+		</td>
+
+	</tr>	
+</table>
+#end
+
+<table width="100%" cellpadding="2" cellspacing="0" border="0">	
+	#if ( $showSubject )
+	<tr>
+		<td>
+			<i>$forum.title</i>
+		</td>
+	</tr>
+		<tr>
+		<td>
+<br>
+		</td>
+	</tr>
+	#end
+	<tr>
+		<td>
+##			$forum.displayMessage()
+$forum.notes
+		</td>
+	</tr>	
+	<tr>
+		<td>
+			#if ($allowAttachment && $forum.hasAttachment())
+				<b>Attachment(s):</b> Click on the filename to download..<br>
+				<table>
+				#foreach ( $file in $attachments )
+				<tr>
+				<td>&nbsp;</td>
+				<td>
+					<a href="javascript:download_${formname}('${files_dir}${file}')">
+					<u>$file</u>
+					</a>
+					</td>
+					</tr>
+				#end
+				<tr height="20">
+				<td></td>
+				<td></td>
+				</tr>
+				</table>
+			#end
+		</td>
+	</tr>	
+	
+		<tr>
+		<td >
+			#if ( $allowUpdate )
+				<input class="button" type="button" value="MODIFY" onclick="goUpdate_${formname}()">
+			#end
+			#if ( $allowDelete )
+				<input class="button" type="button" value="DELETE" onclick="goDelete_${formname}()">
+			#end
+		</td>
+	</tr>	
+</table>
+<input type="hidden" name="$formname" value="$formname">
+</form>
+<script>
+function goUpdate_${formname}() {
+	document.${formname}.action = "?command=Update&subjectId=$!subjectId&forum_id=$forum.id&message_page=$message_page";
+	document.${formname}.submit();
+}
+function goDelete_${formname}() {
+	if ( !window.confirm('Are you sure?') ) return;
+	document.${formname}.action = "?command=Delete&subjectId=$!subjectId&forum_id=$forum.id&parent_id=$parent_id";
+	document.${formname}.submit();
+}
+function goMain_${formname}() {
+	document.${formname}.action = "?command=ListTopics&subjectId=$!subjectId";	
+	document.${formname}.submit();
+}
+function goPage_${formname}(p) {
+	document.${formname}.action = "?command=GoPage&subjectId=$!subjectId&page=" + p;	
+	document.${formname}.submit();
+}
+function download_${formname}(filename) {
+	document.${formname}.action = "../download?file=" + filename;	
+	document.${formname}.submit();
+}
+function addNewTopic_${formname}() {
+	document.${formname}.action = "?command=AddNewTopic&subjectId=$!subjectId";
+	document.${formname}.submit();	
+}
+function removeAttachment_${formname}() {
+	document.${formname}.action = "?command=RemoveAttachment&subjectId=$!subjectId";
+	document.${formname}.submit();	
+}
+</script>

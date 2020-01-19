@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="JRPKertasPertimbangan_subreport1"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="idPermohonan" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="flag" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT  B.jenis_bangunan, B.luas_mp, B.luas_kp, B.sewa_sebulan, B.sewa_mp, B.sewa_kp, B.tarikh_mula_mohon, 
+B.tarikh_tamat_mohon, C.bilangan_sedia_ada, C.bilangan_baru
+FROM jrp_permohonan_lokasi B
+LEFT JOIN jrp_kakitangan C ON B.id_permohonan = C.id_permohonan
+WHERE B.id_permohonan =  $P{idPermohonan}
+AND B.flag_lokasi = $P{flag}]]></queryString>
+
+	<field name="jenis_bangunan" class="java.lang.String"/>
+	<field name="luas_mp" class="java.lang.String"/>
+	<field name="luas_kp" class="java.lang.String"/>
+	<field name="sewa_sebulan" class="java.lang.Double"/>
+	<field name="sewa_mp" class="java.lang.Double"/>
+	<field name="sewa_kp" class="java.lang.String"/>
+	<field name="tarikh_mula_mohon" class="java.sql.Date"/>
+	<field name="tarikh_tamat_mohon" class="java.sql.Date"/>
+	<field name="bilangan_sedia_ada" class="java.lang.String"/>
+	<field name="bilangan_baru" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="117"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="141"
+						height="117"
+						key="textField-1"
+						positionType="Float"/>
+					<box></box>
+					<textElement isStyledText="true">
+						<font isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{jenis_bangunan}!=null ? $F{jenis_bangunan}: "") +"\n" +
+($F{luas_mp}!=null ? $F{luas_mp} + " mp" : "")  + " / " + ($F{luas_kp}!=null ? $F{luas_kp} + " kp" : "") + "\n" +
+($F{sewa_sebulan}!=null ? "RM" + $F{sewa_sebulan} + " sebulan\n" : "") +
+($F{sewa_mp}!=null ? "@RM" + $F{sewa_mp} + " smp\n" : "") +
+($F{sewa_kp}!=null ? "@RM" + $F{sewa_kp} + " skp\n" : "\n") +
+" -\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="89"
+						width="141"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($P{flag}.equals("S") ? $F{bilangan_sedia_ada}  : 
+$P{flag}.equals("B") ? $F{bilangan_baru} : "") + " orang"]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

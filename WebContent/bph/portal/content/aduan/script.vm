@@ -1,0 +1,93 @@
+_jq("#pilihanAduan").hide();
+
+_jq("#btnHantarAduan").click(function() {
+	validate();
+});
+	
+function validate() {
+	
+	var err_count = 0;
+	
+	var noPengenalan = $('noPengenalan').value;
+	if ( noPengenalan == "" ) {$('err_noPengenalan').innerHTML = "No. Pengenalan adalah mandatori!"; err_count++;  }
+	
+	var nama = $('nama').value;
+	if ( nama == "" ) {$('err_nama').innerHTML = "Nama adalah mandatori!"; err_count++;  }
+	
+	var alamat1 = $('alamat1').value;
+	if ( alamat1 == "" ) {$('err_alamat1').innerHTML = "Alamat adalah mandatori!"; err_count++;  }
+	
+	var poskod = $('poskod').value;
+	if ( poskod == "" ) {$('err_poskod').innerHTML = "Poskod adalah mandatori!"; err_count++;  }
+	
+	var idNegeri = $('idNegeriAduan').value;
+	if ( idNegeri == "" ) {$('err_idNegeriAduan').innerHTML = "Negeri adalah mandatori!"; err_count++;  }
+	
+	var idBandar = $('idBandarAduan').value;
+	if ( idBandar == "" ) {$('err_idBandarAduan').innerHTML = "Bandar adalah mandatori!"; err_count++;  }
+	
+	var noTelefon = $('noTelefon').value;
+	if ( noTelefon == "" ) {$('err_noTelefon').innerHTML = "No. Telefon adalah mandatori!"; err_count++;  }
+	
+	var emel = $('emel').value;
+	if ( emel == "" ) {$('err_emel').innerHTML = "Emel adalah mandatori!"; err_count++;  }
+	
+	var idJenisAduan = $('idJenisAduan').value;
+	if ( idJenisAduan == "" ) {$('err_idJenisAduan').innerHTML = "Jenis Aduan adalah mandatori!"; err_count++;  }
+	
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "Tajuk adalah mandatori!"; err_count++;  }
+	
+	var butiran = $('butiran').value;
+	if ( butiran == "" ) {$('err_butiran').innerHTML = "Butiran adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( window.confirm("Anda pasti?") ){
+			doDivAjaxCall3$formname('hantarAduan','hantarAduan','')
+		}
+		return;	
+	}
+	return err_count == 0;		
+}
+
+_jq("#dokumen").change(function(){
+	$('err_dokumen').innerHTML = '';
+    var error = 0;
+    if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+    	error++;
+    	$('dokumen').value = "";
+    	$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+    }
+    	
+    if ($('dokumen').value != "" && $('dokumen').files[0].size > 2097152) {
+    	error++;
+    	$('err_dokumen').innerHTML = "Saiz fail adalah "+($('dokumen').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+    	$('dokumen').value = "";
+    }
+    	
+    if (error == 0) {
+    	$('dokumenMuatnaik').style.display = "";
+    	document.${formName}.enctype='multipart/form-data';
+    	document.${formName}.encoding ='multipart/form-data';
+    	document.${formName}.target='upload_lampiran_aduan';
+    	document.${formName}.action='?command=uploadLampiranAduan&idAduan='+$('idAduan').value;
+    	document.${formName}.submit();
+    }
+});
+	
+function checkDoc(val){
+	var arr = val.split(".");
+    var arr1 = val.split("\\");
+    if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" || arr[1] == "PDF" || arr[1] == "pdf" || arr[1] == "doc" || arr[1] == "DOC" || arr[1] == "docx" || arr[1] == "DOCX" ) {
+    	return true;
+    } else {
+    	return false;
+    }
+}
+    
+_jq(function($) {
+	$('.currency').autoNumeric('init'); 
+ 	$('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	$('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	$('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+ });

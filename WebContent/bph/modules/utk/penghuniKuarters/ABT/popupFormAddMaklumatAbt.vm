@@ -1,0 +1,117 @@
+<style>
+textarea{
+    height: 100px;
+}
+</style>
+<fieldset>
+	<legend class="legend">Maklumat ABT</legend>
+	<table width="100%">
+	  <tr>
+	    <td style="width:170px"></td>
+	    <td style="width:10px"></td>
+	    <td></td>
+	  </tr>
+	  
+	## --------------- Start field keyin data --------------- 
+		
+		#input("noFail" "No Fail" "$!rekod.noFail")
+
+		#if ($!rekod.tarikhMulaTunggakan)
+			#set ($dateMulaTunggakan = "$!util.getDateTime($!rekod.tarikhMulaTunggakan,'dd-MM-yyyy')")
+		#else 
+			#set ($dateMulaTunggakan = "") 
+		#end
+		#date_input("tarikhMulaTunggakan" "Tarikh Mula Tunggakan" "$dateMulaTunggakan")
+	
+		#if ($!rekod.tarikhTamatTunggakan)
+			#set ($dateTamatTunggakan = "$!util.getDateTime($!rekod.tarikhTamatTunggakan,'dd-MM-yyyy')")
+		#else 
+			#set ($dateTamatTunggakan = "") 
+		#end
+		#date_input("tarikhTamatTunggakan" "Tarikh Tamat Tunggakan" "$dateTamatTunggakan")
+		
+		<tr>
+			<td class="label">Bulan Tunggakan</td>
+			<td>:</td>
+			<td>
+				<select class="texts"  id="bulanTunggakan" name="bulanTunggakan"style="width:100%">
+					<option value="0" selected="selected">SILA PILIH</option>
+					<option value="1" #if ($!rekod.bulanTunggakan == "1") selected #end>JANUARY</option>
+					<option value="2" #if ($!rekod.bulanTunggakan == "2") selected #end>FEBRUARY</option>
+					<option value="3" #if ($!rekod.bulanTunggakan == "3") selected #end>MARCH</option>
+					<option value="4" #if ($!rekod.bulanTunggakan == "4") selected #end>APRIL</option>
+					<option value="5" #if ($!rekod.bulanTunggakan == "5") selected #end>MAY</option>
+					<option value="6" #if ($!rekod.bulanTunggakan == "6") selected #end>JUNE</option>
+					<option value="7" #if ($!rekod.bulanTunggakan == "7") selected #end>JULY</option>
+					<option value="8" #if ($!rekod.bulanTunggakan == "8") selected #end>AUGUST</option>
+					<option value="9" #if ($!rekod.bulanTunggakan == "9") selected #end>SEPTEMBER</option>
+					<option value="10" #if ($!rekod.bulanTunggakan == "10") selected #end>OCTOBER</option>
+					<option value="11" #if ($!rekod.bulanTunggakan == "11") selected #end>NOVEMBER</option>
+					<option value="12" #if ($!rekod.bulanTunggakan == "12") selected #end>DECEMBER</option>
+				</select>
+			</td>
+			</td>
+		</tr>
+			
+		#currency("bakiTunggakan" "Baki Tunggakan" "$!rekod.bakiTunggakan")
+		
+		## #currency("bezaTunggakan" "Beza Tunggakan" "$!rekod.bezaTunggakan") disable dahulu.. sepatuknya beza tunggakan terus kira secara auto
+		
+		## #currency("amaun" "Jumlah Tunggakan (RM)" "$!rekod.amaun")
+	    
+	    #currency_required("jumlahTunggakan" "Jumlah Tunggakan (RM)" "$!rekod.jumlahTunggakan")
+	    
+	    #currency_required("jumlahBayaran" "Jumlah Bayaran (RM)" "$!rekod.jumlahBayaran")
+	   
+	    #if ($!rekod.tarikhBayaran)
+			#set ($dateTarikhBayaran = "$!util.getDateTime($!rekod.tarikhBayaran,'dd-MM-yyyy')")
+		#else 
+			#set ($dateTarikhBayaran = "") 
+		#end
+		#date_input("tarikhBayaran" "Tarikh Bayaran" "$dateTarikhBayaran")
+	
+		<tr>
+			<td>Status Bayaran &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td>:</td>
+			<td>
+				#parse("$path/ABT/selectStatusBayaran.vm")
+				<div id="err_flagBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		
+	   #textarea("catatan" "Catatan" "$!rekod.catatan")
+	##  --------------- End field keyin data  ---------------
+	</table>
+	
+	## -------------------- Start Buttom --------------------
+	<p align="center">
+		<input type="button" value="Simpan" align='left' id="btnSimpanAtauKemaskiniAbt">
+	 	<input type="button" value="Kembali" align='left' id="cmdKembali">
+	</p>
+	## -------------------- End Buttom --------------------
+</fieldset>
+<input type="hidden" id ="idABT" name ="idABT" value ="$!rekod.id">
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>
+<script>
+	
+_jq('#cmdKembali').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getABT','');
+    jQuery('#cmdKembali').fadeOut();
+});
+
+##_jq('#btnSimpanAtauKemaskiniAbt').on('click', function(){
+##	doDivAjaxChainCall$formname('addpopup','funcSimpanAtauKemaskiniAbt','','divTab','getABT','');
+##    jQuery('#btnSimpanAtauKemaskiniAbt').fadeOut();
+##});
+_jq('#btnSimpanAtauKemaskiniAbt').on('click', function(){
+	saveAbt();
+});
+
+</script>

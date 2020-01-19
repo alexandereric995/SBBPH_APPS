@@ -1,0 +1,58 @@
+#if ($rekod == true)##jika rekod ada dalam senarai menunggu
+#if ($dontPapar == true)
+	 <h2><span style="color: #0000ff;">
+<span style="color: #000000;">
+<center>UNTUK MENDAPATKAN NOMBOR GILIRAN KUARTERS, BOLEH MENGHUBUNGI PEGAWAI BERIKUT :<br><br> 
+EN. LUQMAN BIN MOHD TASRIB<br>
+PENOLONG SETIAUSAHA ( PENAWARAN KUARTERS)<br>
+03 - 8880 0152 / luqman@bph.gov.my<br><br>
+HARAP MAKLUM.</center>
+</span></span></h2>
+#else
+<div id="SenaraiMenungguResult" align="center">
+<table border="1" style="width:100%;">
+	<tr>
+		<td class="record_header" nowrap>Kelas</td>
+		<td class="record_header" nowrap>No.Giliran</td>
+		<td class="record_header" nowrap>Lokasi</td>
+		<td class="record_header" nowrap>Tarikh Akhir Kemaskini</td>
+	</tr>
+	#foreach( $a in $giliran )
+	<tr>
+		<td style="padding-left: 5px;padding-bottom: 3px;"><strong style="font-size: 13px;">$a.kelasKuarters</strong></td>
+		<td style="padding-left: 5px;padding-bottom: 3px;"><strong style="font-size: 13px;">$a.noGiliran</strong></td>
+		<td style="padding-left: 5px;padding-bottom: 3px;"><strong style="font-size: 13px;">$a.lokasiPermohonan.lokasi</strong></td>
+		#if ($a.tarikhKemaskini)
+	   		#set ($dateKemaskini = "$!util.getDateTime($!a.tarikhKemaskini,'dd-MM-yyyy')")
+	   	#else 
+	   		#set ($dateKemaskini = "") 
+	   	#end
+		<td style="padding-center: 5px;padding-bottom: 3px;"><strong style="font-size: 13px; color=" align="center">$dateKemaskini</strong></td>
+	</tr>
+    #end
+</table>	
+</div>
+##<h3><span style="color: #0000ff;"><span style="color: #FF2419;">(***kali terakhir dikemaskini sehingga tarikh 25/05/2018 )</span></span></h3>
+#end
+#else
+<h3><span style="color: #0000ff;"><span style="color: #FF2419;">***HARAP MAAF, TIADA REKOD DALAM SENARAI MENUNGGU DITEMUI BUAT MASA INI.</span></span></h3>	
+
+<div id="SenaraiMenungguResult" align="center">
+<table border="1" style="width:100%;">
+	<tr>
+		<td class="record_header" nowrap>No.Daftar</td>
+		<td class="record_header" nowrap>Kelas</td>
+		<td class="record_header" nowrap>No.Giliran</td>
+		<td class="record_header" nowrap>Lokasi</td>
+	</tr>
+	#foreach( $a in $giliran )
+	<tr>
+		<td style="padding-left: 5px;padding-bottom: 3px;"><strong style="font-size: 13px;">$a.noDaftar</strong></td>
+		<td style="padding-left: 5px;padding-bottom: 3px;"><strong style="font-size: 13px;">$a.kelasKuarters</strong></td>
+		<td style="padding-left: 5px;padding-bottom: 3px;"><strong style="font-size: 13px;">$a.noGiliran</strong></td>
+		<td style="padding-left: 5px;padding-bottom: 3px;"><strong style="font-size: 13px;">$a.lokasiPermohonan.lokasi</strong></td>
+	</tr>
+    #end
+</table>	
+</div>
+#end

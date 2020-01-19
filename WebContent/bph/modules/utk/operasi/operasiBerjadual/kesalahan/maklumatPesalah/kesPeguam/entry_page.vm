@@ -1,0 +1,38 @@
+<fieldset><legend class="legend">Kes Peguam</legend>
+	<table cellpadding="5" cellspacing="0" border="0" width="100%">	
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+
+	 #date_input_required("tarikh" "Tarikh" "$!util.getDateTime($!rekod.tarikhKeputusan,'dd-MM-yyyy')")
+##	 #input("kesalahan" "Kesalahan" "$!rekod.kesalahan")
+	 <tr>
+		<td>Keputusan &nbsp;<span style="color:#FF2A00">*</span></td>
+		<td>:</td>
+		<td>
+		#parse("$path/kesPeguam/selectKeputusan.vm")
+		<div id="err_flagKeputusan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+	</tr>
+	 #textarea("catatan" "Catatan" "$!rekod.catatan")
+ 
+</table>
+   <p align="center">
+ 		<input type="button" value="Simpan" align='left' id="cmdSimpanPeguam">
+		<input type="button" value="Kembali" align='left' id="cmdKembali">
+   </p>
+
+<div id="simpanPeguam"></div> 
+<input type= "hidden" id = "idKP" name = "idKP" value = "$!rekod.id">
+
+<script>
+_jq('#cmdKembali').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getKesPeguam','');
+    jQuery('#cmdKembali').fadeOut();
+});
+_jq('#cmdSimpanPeguam').on('click', function(){
+	saveKesPeguam();
+});
+</script>

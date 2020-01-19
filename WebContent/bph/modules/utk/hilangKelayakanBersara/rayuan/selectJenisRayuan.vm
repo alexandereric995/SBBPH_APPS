@@ -1,0 +1,26 @@
+#if($command == 'addRayuan')
+	##	JIKA ADD BARU PAPAR SELECT DROPDOWN
+	<select class="texts" id="idJenisRayuan" name="idJenisRayuan" style="width:80%" onChange="$('err_idJenisRayuan').innerHTML=''; doDivAjaxCall3$formname('selectFlagRayuan','selectFlagRayuan','')">
+	    <option value="">SILA PILIH</option>
+	##    <option #if ( $rekod.flagJenisRayuan == '1' ) selected #end value="1">RAYUAN KUARTERS</option> ganti bawah
+		<option #if ( $rekod.flagJenisRayuan == '1' ) selected #end value="1">RAYUAN PELANJUTAN MENDUDUKI KUARTERS</option>
+	    <option #if ( $rekod.flagJenisRayuan == '2' ) selected #end value="2">RAYUAN BAYARAN SEWA</option>
+	    <option #if ( $rekod.flagJenisRayuan == '3' ) selected #end value="3">RAYUAN PENGURANGAN BAYARAN TUNGGAKAN</option> ## tambah baru comment uat  10/10/2016
+	    <option #if ( $rekod.flagJenisRayuan == '4' ) selected #end value="4">RAYUAN BAYARAN SECARA ANSURAN</option> ## tambah baru comment uat  10/10/2016
+	</select>
+#else
+	##	JIKA EDIT HANYA DISPLAY LABEL
+	<input type="hidden" id="idJenisRayuan" name="idJenisRayuan" value="$rekod.flagJenisRayuan"/>
+##	#if($rekod.flagJenisRayuan == '1')
+##		#set($flagRayuan = 'RAYUAN KUARTERS') tukar bawah
+	#if($rekod.flagJenisRayuan == '1')
+		#set($flagRayuan = 'RAYUAN PELANJUTAN MENDUDUKI KUARTERS')
+	#elseif($rekod.flagJenisRayuan == '2')
+		#set($flagRayuan = 'RAYUAN BAYARAN SEWA')
+	#elseif($rekod.flagJenisRayuan == '3')
+		#set($flagRayuan = 'RAYUAN PENGURANGAN BAYARAN TUNGGAKAN')
+	#elseif($rekod.flagJenisRayuan == '4')
+		#set($flagRayuan = 'RAYUAN BAYARAN SECARA ANSURAN')
+	#end
+	$flagRayuan
+#end

@@ -1,0 +1,114 @@
+
+<style>
+.scrollit {
+	##width:100%; overflow-x: hidden; max-height: 150px; border:#000 solid 1px;
+	height:80%; width: 100%; overflow: auto;
+}
+</style>
+
+<input type="hidden" id="payerId" name="payerId" value="$!pembayar.id" />
+<input type="hidden" id="selectedTab" name="selectedTab" value="$!selectedTab" />
+
+
+<fieldset style="height:210px;min-height:210px">
+		
+	<nav class="breadcrumbs">
+    	<ul>
+    		<li #if($!selectedTab=='1') class="active" #end ><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divSenaraiBayaranAsal','skrinBayaranSewa','')" #end >BAYARAN SEWA</a></li>
+    		<li #if($!selectedTab=='2') class="active" #end ><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divSenaraiBayaranAsal','skrinBayaranDeposit','')" #end >DEPOSIT</a></li>
+    		##<li #if($!selectedTab=='3') class="active" #end ><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('divSenaraiBayaranAsal','skrinBayaranAnsur','selectedTab=3')" #end >BAYARAN ANSUR</a></li>	
+			<li ><a href="javascript:void()" id="btnTerimaanLain"  >TERIMAAN LAIN - LAIN</a></li>
+			
+			<script>
+				_jq('#btnTerimaanLain').on('click', function(){
+					var payerId = $('payerId').value;
+					if( payerId == "" ){
+						alert("Sila Pilih Pembayar Terlebih Dahulu");
+					}else{
+						doDivAjaxCall3$formname('divPopupBayaranLain','callPopupBayaranLain','');
+						jQuery('#divPopupBayaranLain').fadeIn();
+					}
+				});
+			</script>
+					
+    	</ul>
+    </nav>
+	
+	<div class="scrollit">
+	<table width="100%" cellpadding="1" cellspacing="1">
+		
+		<tr>
+			<td class="row_header" width="5%">&nbsp;</td>
+			<td class="row_header" width="15%">NO. INVOIS</td>
+			<td class="row_header" width="10%">KOD HASIL</td>
+			<td class="row_header" width="35%">KETERANGAN</td>
+			<td class="row_header" width="25%">TARIKH TEMPAHAN</td>
+			<td class="row_header" width="15%">AMAUN (RM)</td>
+		</tr>
+		
+		#if ( $listInvoisAsal.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listInvoisAsal )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center" >
+						<input type="checkbox" name="cbPilihanAsal" id="cbPilihanAsal$!d.id" value="$!d.id" onclick="javascript:pilihBayarAsal('$!d.id')" />
+					</td>
+            		<td align="center">
+						#if($!selectedTab.equalsIgnoreCase("2"))
+							$!d.noInvois.toUpperCase()
+						#else
+							$!d.noInvois.toUpperCase()
+						#end
+					</td>
+					<td align="center">$!d.kodHasil.kod</td>
+					<td align="center">
+						#if($!selectedTab.equalsIgnoreCase("2"))
+							$!d.keteranganDeposit.toUpperCase()
+						#else
+							$!d.keteranganBayaran.toUpperCase()
+						#end
+					</td>
+					<td align="center">
+						#if($!selectedTab.equalsIgnoreCase("2"))
+							$!util.getDateTime($!d.getMaklumatPermohonanRPP().tarikhMasukRpp,'dd-MM-yyyy') - $!util.getDateTime($!d.getMaklumatPermohonanRPP().tarikhKeluarRpp,'dd-MM-yyyy')
+						#else
+							$!util.getDateTime($!d.tarikhDari,'dd-MM-yyyy') - $!util.getDateTime($!d.tarikhHingga,'dd-MM-yyyy')
+						#end
+						</td>
+					<td align="center">
+						#if($!selectedTab.equalsIgnoreCase("2"))
+							$!util.formatDecimal($!d.jumlahDeposit)
+						#else
+							$!util.formatDecimal($!d.debit)
+						#end
+					</td>
+                </tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="6">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+	</div>
+	
+</fieldset>
+	
+
+<script>
+function pilihBayarAsal(idPilihan){
+	doDivAjaxChainCall$formname('divSenaraiBayaranAsal','savePilihanBayar','idPilihan='+idPilihan,'divSenaraiBayaranPilihan','refreshDivQueue','');
+}
+</script>
+
+
+

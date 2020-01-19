@@ -1,0 +1,69 @@
+
+<fieldset>
+<legend class="legend">Maklumat Perjawatan Terkini</legend>
+<table cellpadding="5" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td class="label" style="width:15%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:84%">&nbsp;</td>
+  </tr>
+  #input_required("jawatan" "Jawatan" "$!x.jawatan")
+  #input_required("gred" "Gred" "$!x.gred")
+ 
+  <tr>
+    	<td class="label" valign="top">Bilangan &nbsp;<span style="color:#FF2A00">*</span></td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top"><input id="bilangan" class="number" name="bilangan" value="$!x.bilangan" onKeyUp=" $('err_bilangan').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();" type="text">
+    	<div id="err_bilangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    	</td>
+    </tr>
+
+	<tr>
+    	<td class="label" valign="top">Keluasan (Meter Persegi) &nbsp;<span style="color:#FF2A00">*</span></td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top"><input id="luas" class="number" name="luas" value="$!x.luas" onKeyUp=" $('err_luas').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();" type="text">
+    	<div id="err_luas" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    	</td>
+    </tr>
+  
+  <tr>
+    <td></td>
+    <td></td>
+    <td> #if ( $command == "addPerjawatanTerkini" )
+      <input type="button" id="savePerjawatanTerkini" name="savePerjawatanTerkini" value="Simpan">
+      <input type="button" id="batalPerjawatanTerkini" name="batalPerjawatanTerkini" value="Keluar">
+      #elseif ( $command == "editPerjawatanTerkini" )
+      <input type="button" id="saveExitPerjawatanTerkini" name="saveExitPerjawatanTerkini" value="Simpan">
+      <input type="button" id="batalPerjawatanTerkini" name="batalPerjawatanTerkini" value="Keluar">
+      #end </td>
+  </tr>
+</table>
+<input type="hidden" id="idPerjawatanTerkini" name="idPerjawatanTerkini" value="$x.id">
+<div id="statusPerjawatanTerkini"></div>
+</fieldset>
+
+<script>
+_jq('#batalPerjawatanTerkini').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getMaklumatPerjawatanTerkini','');
+    jQuery('#editPerjawatanTerkini').fadeOut();
+});
+
+_jq('#savePerjawatanTerkini').on('click', function(){
+    savePerjawatanTerkini();
+});
+
+_jq('#saveExitPerjawatanTerkini').on('click', function(){
+	savePerjawatanTerkini();
+});
+
+</script>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>
+

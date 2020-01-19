@@ -1,0 +1,82 @@
+<script>
+	_jq( document ).ready(function() {
+		swal({
+			title: "Makluman!",
+			text: "Dimaklumkan temujanji pengosongan kuarters bagi kuarters di Kuala Lumpur / Petaling Jaya perlu dilaksanakan secara manual. Penghuni boleh berhubung dengan Puan Rahiza binti Abdul Talib atau Encik Wan Mohd Khairul di talian atau emel seperti berikut:-  rahiza@bph.gov.my/ 03 8880 0031 atau wmdkahirul@bph.gov.my/ 03 8880 0027 bagi kuarters landed. Manakala bagi kuarters apartment, boleh berhubung dengan pejabat cawangan BPH di kompleks kuarters masing masing. Sila pastikan maklumat peribadi dan rekod pekerjaan anda telah dikemaskini terlebih dahulu sebelum anda membuat permohonan temujanji bagi mengelakkan sebarang kesulitan yang mungkin berlaku",
+			type: "info",
+			showCancelButton: false,
+			confirmButtonText: "Tutup",
+			closeOnConfirm: false
+		});
+		
+		_jq('#tarikhTemujanji').Zebra_DatePicker({
+			format: 'd-m-Y',
+			direction: [8, 59],
+			disabled_dates: ['* * * 0,6'],
+			onSelect: function() {
+				_jq('#err_tarikhTemujanji').html(''); 
+				doDivAjaxCall3$formname('divMasaTemujanji','getMasaTemujanji','');
+			}
+        });
+	});
+</script>
+
+<div align="left" style="color:black;border: 2px solid purple; height: 70px; padding:5px">
+  <p> <b><strong> <font size="2"> 
+  	1. Prosedur Keluar Kuarters - <a href="../download?file=Z:/SBBPH/qtr/temujanji/prosedur_keluar_kuarters.pdf"> <span class="print"><font color="blue">Klik Disini</font><span> </span></span></a>.<br>
+    2. Borang Perakuan Bahagian Sumber Manusia Kementerian / Jabatan - <a href="../download?file=Z:/SBBPH/qtr/temujanji/borang_perakuan_BPH_1_2015_Pin._2017.pdf"> <span class="print"><font color="blue">Klik Disini</font><span> </span></span></a>.<br>
+    3. Manual Ringkas eTemujanji - <a href="../download?file=Z:/SBBPH/qtr/temujanji/panduan_temujanji.pdf"> <span class="print"><font color="blue">Klik Disini</font><span> </span></span></a>.<br>
+    </font></strong></b> </p>
+</div>
+
+<fieldset>
+    <legend class="legend">MAKLUMAT E-TEMUJANJI</legend>
+    <table width="100%" cellpadding="5">
+		<tr>
+			<td width="50%" style="border-right: 1px dotted #CCC" valign="top">
+				<table cellpadding="5" cellspacing="0" border="0" align="left">
+					<tr>
+                        <td style="width:150px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+					<tr>
+						<td>Tarikh Temujanji &nbsp;<span style="color:#FF2A00">*</span></td>
+            			<td>:</td>
+                		<td>
+                			<input type="text" id="tarikhTemujanji" name="tarikhTemujanji" value="" />
+                			<div id="err_tarikhTemujanji" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                		</td>
+					</tr>
+					<tr>
+			          <td class="label" valign="top">Sebab Keluar Kuarters &nbsp;<span style="color:#FF2A00">*</span></td>
+			          <td valign="top">:</td>
+			          <td> #parse("$path/maklumatTemujanji/selectSebabTukarKuarters.vm")
+			            <div id="err_idSebabBertukar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+			        </tr>
+			        #textarea("keterangan" "Keterangan" "$!r.keterangan")
+				</table>
+			</td>
+			<td width="50%" id="divMasaTemujanji" valign="top">
+			</td>
+		</tr>
+    </table>
+</fieldset>
+
+#parse("$path/maklumatPenghuni/maklumatPenghuni.vm")
+
+<div id="divMaklumatSelepasKeluarKuarters">
+	#parse("$path/maklumatSelepasKeluarKuarters/maklumatSelepasKeluarKuarters.vm")
+</div>
+
+<div id="divMaklumatPertukaranJabatan">
+	#parse("$path/maklumatPertukaranJabatan/start.vm")	
+</div>
+
+<table width="100%">
+  <tr>
+    <td align="right">
+    	<input id="btnSimpan" type="button" value="Simpan" onClick="javascript:doSimpanMaklumatTemujanji();">
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,28 @@
+<fieldset>
+<legend class="legend">MAKLUMAT SERAHAN KUNCI</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #if ($!r.tarikhSerahKunci) 
+  #set ($dateSerahKunci = "$!util.getDateTime($!r.tarikhSerahKunci,'dd-MM-yyyy')")
+  #else #set ($dateSerahKunci = "") #end
+  #date_input_required("tarikhSerahKunci" "Tarikh Serah Kunci" "$dateSerahKunci")
+  #textarea("catatanSerahanKunci" "Catatan" "$!r.catatanSerahanKunci")
+</table>
+</fieldset>
+
+
+<br>
+</fieldset>
+<br>
+<table width="100%">
+  <tr>
+    <td align="right">
+    	<input type="button" value="Simpan" onclick="javascript:simpanSerahanKunci();">
+    	<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

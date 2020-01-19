@@ -1,0 +1,21 @@
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedSubSubTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedSubSubTab!='1') onClick="doDivAjaxCall3$formname('divCadanganPembangunan','doPaparCadanganPembangunan','')" #end >Maklumat Projek</a></li>
+	<li #if($!selectedSubSubTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedSubSubTab!='2') onClick="doDivAjaxCall3$formname('divCadanganPembangunan','getSkopCadanganPembangunan','')" #end >Skop Projek</a></li>
+  	#if ($!cadanganPembangunan.statusCadangan != '1')
+  		<li #if($!selectedSubSubTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedSubSubTab!='3') onClick="doDivAjaxCall3$formname('divCadanganPembangunan','getEOT','')" #end >EOT</a></li>
+	#end
+  </ul>
+</nav>	
+
+#if ($!selectedSubSubTab=='1')
+	#parse("$path/cadanganPembangunan/maklumatCadanganPembangunan.vm")
+#end
+
+#if ($!selectedSubSubTab=='2')
+	#parse("$path/cadanganPembangunan/senaraiSkopCadanganPembangunan.vm")
+#end
+
+#if ($!selectedSubSubTab=='3')
+	#parse("$path/cadanganPembangunan/senaraiEOT.vm")
+#end

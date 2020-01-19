@@ -1,0 +1,24 @@
+<style>
+.print {
+	color:blue;
+}
+.print:hover {
+	color:blue;
+	text-decoration:underline;
+}
+</style>
+
+#if ($listGambar.size() > 0)
+#foreach ($i in $listGambar)
+<div style="vertical-align:top;float:left;margin: 10px 10px 20px 20px;width:10%">
+  <table width="100%" cellpadding="5" cellspacing="1">
+    <tr>
+      <td class="$row" align="center"><a href="../download?file=$!uploadDir$!i.fileName" > <img style="margin:4px 0 4px;" id="photoImg" src="../download?file=$!uploadDir$i.avatarName" border="0"> </a> </td>
+    </tr>
+    <tr>
+      <td class="$row" align="center"><input name="hapusGambar" type="button" value="Hapus" onClick="javascript:deleteGambar($!i.id)"></td>
+    </tr>
+  </table>
+</div>
+#end
+#end

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="QTRSuratAkuan"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="590"
+		 pageHeight="840"
+		 columnWidth="530"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="50"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idTawaran" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT kua_kuarters.alamat_1, kua_kuarters.alamat_2, kua_kuarters.alamat_3,
+kua_kuarters.kawasan, kua_kuarters.poskod, ruj_bandar.keterangan bandar, ruj_negeri.keterangan negeri,
+users.user_name, users.no_kp
+FROM kua_agihan 
+JOIN kua_penghuni ON (kua_agihan.id_pemohon = kua_penghuni.id_pemohon)
+JOIN kua_temujanji ON (kua_temujanji.id_agihan = kua_agihan.id)
+JOIN kua_kuarters ON (kua_penghuni.id_kuarters = kua_kuarters.id)
+JOIN ruj_bandar ON (kua_kuarters.id_bandar = ruj_bandar.id)
+JOIN ruj_negeri ON (ruj_bandar.id_negeri = ruj_negeri.id)
+JOIN users ON (kua_penghuni.id_pemohon = users.user_login)
+WHERE kua_temujanji.id = '$P!{idTawaran}']]></queryString>
+
+	<field name="alamat_1" class="java.lang.String"/>
+	<field name="alamat_2" class="java.lang.String"/>
+	<field name="alamat_3" class="java.lang.String"/>
+	<field name="kawasan" class="java.lang.String"/>
+	<field name="poskod" class="java.lang.String"/>
+	<field name="bandar" class="java.lang.String"/>
+	<field name="negeri" class="java.lang.String"/>
+	<field name="user_name" class="java.lang.String"/>
+	<field name="no_kp" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="770"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="62"
+						y="39"
+						width="410"
+						height="20"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["SURAT AKUAN PATUH"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="98"
+						width="410"
+						height="20"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Tuan,"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="134"
+						width="488"
+						height="217"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Dengan ini saya      "+$F{user_name}.toUpperCase() +
+"\nberalamat di        "+
+($F{alamat_1} == null ?"":$F{alamat_1}.trim())+" "+
+($F{alamat_2}== null ?"":$F{alamat_2}.trim())+" "+
+($F{alamat_3}== null ?"":$F{alamat_3}.trim())+" "+
+($F{poskod}== null ?"":$F{poskod}.trim())+" "+
+($F{kawasan}== null ?"":$F{kawasan}.trim())+" "+
+($F{bandar}== null ?"":$F{bandar}.trim())+" "+
+($F{negeri}== null ?"":$F{negeri}.trim())+
+"\ntidak akan menuntut barang-barang yang telah saya tinggalkan di kuarters tersebut di atas dan sedia maklum bahawa pihak BPH tidak akan dipertanggungjawabkan sekiranya berlaku apa-apa tuntutan di masa hadapan. "+
+"\n\nSekian, Terima kasih."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="351"
+						width="488"
+						height="94"
+						key="textField-8"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["(                                                   )\n\n" +
+"     Tandatangan Penghuni \n\n" + 
+"Nama	           : " + $F{user_name} + "\n" +
+"No.KP	           : " + $F{no_kp} + "\n" +
+"Perhubungan	: "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="447"
+						width="488"
+						height="94"
+						key="textField-9"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["(                                                   )\n\n" +
+"   Tandatangan Pegawai BPH \n\n" + 
+"Nama              :\n"  +
+"No.KP             :\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="550"
+						width="488"
+						height="20"
+						key="textField-10"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true" isUnderline="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["CATATAN KEROSAKAN "]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="19"
+						y="579"
+						width="483"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="19"
+						y="599"
+						width="483"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="19"
+						y="620"
+						width="483"
+						height="0"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="19"
+						y="640"
+						width="483"
+						height="0"
+						key="line-4"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="19"
+						y="660"
+						width="483"
+						height="0"
+						key="line-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="19"
+						y="681"
+						width="483"
+						height="0"
+						key="line-6"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="19"
+						y="699"
+						width="483"
+						height="0"
+						key="line-7"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

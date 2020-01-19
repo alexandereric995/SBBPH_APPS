@@ -1,0 +1,12 @@
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedSubSubTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedSubSubTab!='1') onClick="doDivAjaxCall3$formname('divTab','getDetailAras','')" #end >Maklumat Aras</a></li>
+	<li #if($!selectedSubSubTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedSubSubTab!='2') onClick="doDivAjaxCall3$formname('divTab','getMaklumatRuang','')" #end >Senarai Ruang</a></li>
+  </ul>
+</nav>
+#if($!selectedSubSubTab=='1')
+		#parse("$path/maklumatBangunan/maklumatAras/detailMaklumatAras.vm")
+#end
+#if($!selectedSubSubTab=='2')
+		#parse("$path/maklumatBangunan/maklumatAras/maklumatRuang/maklumatRuang.vm")
+#end

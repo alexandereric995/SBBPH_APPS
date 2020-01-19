@@ -1,0 +1,209 @@
+<input type="hidden" id="idTawaran" name="idTawaran" value="$!r.id" />
+<div id="simpanPermohonan">
+<script>
+##	var x = "$!r.cetakSurat";
+##	var z = "$!r.statusTawaran";
+##	var jp= "$!r.jenisPenolakan";
+##	var sp= "$!r.sebabPenolakan";
+	
+##	if ( x == "" ) _jq('#btnSimpan').hide();
+##	if ( z != "" ) _jq('#btnSimpan').hide();
+##	
+##	_jq('#btnSimpanMaklumatSurat').hide();
+##	_jq('#btnCetakSuratTawaran').hide();
+##	_jq('#divMaklumatCetakanSurat').hide();
+	_jq('#jenisPenolakan').hide();
+	_jq('#sebabPenolakan').hide();
+##	
+##	if ( z == "02" ) _jq('#jenisPenolakan').show();
+##	if ( jp == "1" ) _jq('#sebabPenolakan').show();
+</script>
+
+<fieldset>
+    <legend class="legend">Maklumat Pemohon</legend>
+    <table width="100%">
+        <tr>
+            <td width="50%" align="center" valign="top">
+                #parse("$path/entry_sub/entry_page_sub_left.vm")
+            </td>
+            <td width="50%" align="center" valign="top">
+                #parse("$path/entry_sub/entry_page_sub_right.vm")
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+##if ( $r.agihan.kuarters )
+	#parse("$path/sub_page/detailKuarters.vm")
+##end
+
+#if ( $currentRole == "(QTR) Pelulus")
+
+<fieldset>
+    <legend class="legend">Status Tawaran</legend>
+    
+    <table width="100%">
+        <tr>
+            <td width="50%" align="center" valign="top">
+                <table cellpadding="5" cellspacing="0" border="0" width="95%" id="entryLeft">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+    #if ( $r.tarikhSuratDiterima )
+		#set( $tarikhTerima = $util.getDateTime($r.tarikhSuratDiterima, 'dd-MM-yyyy'))
+	#else
+		#set( $tarikhTerima = "-" )
+	#end
+    #input_normal("tarikhDiterima" "Tarikh Diterima" "$tarikhTerima")
+
+	#if ( $!r.statusTawaran == '01' )
+		#set( $statusTawaran = "TERIMA")
+	#elseif ( $!r.statusTawaran == '02' )
+		#set( $statusTawaran = "BATAL")
+	#else
+		#set( $statusTawaran = "-")
+	#end	
+	#input_normal("statusTawaran" "Status Tawaran" "$statusTawaran")
+	#input_normal("jenisPenolakan" "Jenis Penolakan" "$!r.jenisPenolakan.keterangan")
+	#if ( $!r.sebabPenolakan)
+		#input_normal("sebabPenolakan" "Sebab Penolakan" "$!r.sebabPenolakan.keterangan")
+	#end
+	#input_normal("catatan" "Catatan" "$!r.catatan")
+	
+</table>
+            </td>
+            <td width="50%" align="center" valign="top">
+               
+            </td>
+        </tr>   
+    </table>
+</fieldset>
+<br>
+<div align="right">
+	<td>
+	#if ( $!r.sebabPenolakan)
+		<input type="button" id="btnPengesahanTerima" name="btnPengesahanTerima" value="Pengesahan Hantar Menunggu Bersyarat" onclick="pengesahanTerimaTawaran()" />
+	#end
+	<input type="button" id="btnPengesahanBatal" name="btnPengesahanBatal" value="Batal" onclick="pengesahanBatalTawaran()" />
+	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	</td>
+</div>
+#else
+## <div id="divMaklumatCetakanSurat">
+    <fieldset>
+    <legend class="legend">Maklumat Cetakan Surat</legend>
+    <table width="100%">
+        <tr>
+            <td width="50%" align="center" valign="top">
+                #parse("$path/sub_page/entry_page_sub_left.vm")
+                <br>
+                <input type="button" id="btnCetakSuratTawaran" name="btnCetakSuratTawaran" value="Simpan & Cetak Surat Tawaran" onclick="if ( validateField() ) doDivAjaxCall3$formname('suratTawaran','getSuratTawaran','')" />
+            </td>
+            <td width="50%" align="center" valign="top">
+                #parse("$path/sub_page/entry_page_sub_right.vm")
+            </td>
+        </tr>   
+    </table>
+    </fieldset>
+     <div id="suratTawaran"></div>
+##</div>
+##if ( $r.cetakSurat == "ya" )
+    <fieldset><legend class="legend">Status Tawaran</legend>
+    	<table cellpadding="5" cellspacing="0" border="0" width="100%" align="left">
+    		<thead>
+    			<tr>
+                    <td style="width:150px"></td>
+                    <td style="width:10px"></td>
+                    <td></td>
+                </tr>
+                <tbody id="paparTarikhTerima">
+					#if ($!r.tarikhSuratDiterima)
+	                    #set($tarikhSuratDiterima = $util.getDateTime($!r.tarikhSuratDiterima, "dd-MM-yyyy"))
+	                #else
+	                    #set($tarikhSuratDiterima = "")
+	                #end
+	                #date_input("tarikhSuratDiterima" "Tarikh Diterima" "$tarikhSuratDiterima")
+	            </tbody>
+                <tr>
+                    <td class="label" valign="middle">Status Tawaran&nbsp;<span style="color:#FF2A00">*</span>
+                    </td>
+                    <td valign="middle">:</td>
+                    <td>
+                        <select id="statusTawaran" name="statusTawaran" style="width:100%">
+                        	<option value="">SILA PILIH</option>
+    						<option #if ( $r.statusTawaran == "01" ) selected #end value="01">TERIMA</option>
+    						<option #if ( $r.statusTawaran == "02" ) selected #end value="02">BATAL</option>
+                        </select>
+                        #if ( $r.statusTawaran == "02" )
+							<script>
+								_jq('#jenisPenolakan').show();
+						    </script>
+						#end
+    					<script>
+    						_jq("#statusTawaran").change(function() {
+                            	if ( this.value == "02" ) {
+                            		_jq('#jenisPenolakan').show();
+                            	} else {
+                            		_jq('#jenisPenolakan').hide();
+                            		_jq('#sebabPenolakan').hide();
+                        
+                            	} 
+                            });
+    					</script>
+                    </td>
+                </tr>
+    		</thead>
+    		
+    		
+    		<tbody id="jenisPenolakan">
+    			<tr>
+                    <td class="label" valign="middle">Jenis Penolakan&nbsp;<span style="color:#FF2A00">*</span>
+                    </td>
+                    <td valign="middle">:</td>
+                    <td>
+                        <span id="listJenisPenolakan">
+                            #parse("$path/select/selectJenisPenolakan.vm")
+                        </span>
+                        <div id="err_idJenisPenolakan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                    </td>
+                </tr>
+    		</tbody>
+
+    		<tbody id="sebabPenolakan">
+    			<tr>
+                    <td class="label" valign="middle">Sebab Penolakan&nbsp;<span style="color:#FF2A00">*</span>
+                    </td>
+                    <td valign="middle">:</td>
+                    <td>
+                        <span id="listSebabPenolakan">
+                            #parse("$path/select/selectSebabPenolakan.vm")
+                        </span>
+                        <div id="err_idSebabPenolakan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                    </td>
+                </tr>
+    		</tbody>
+    				#textarea("catatan" "Catatan" "$!r.catatan")
+    		    <tr>
+                    <td style="width:150px"></td>
+                    <td style="width:10px"></td>
+                    #if ( $flaghantar == "1" )
+					<td>
+						<input type="button" id="btnSimpan" name="btnSimpan" value="Hantar" onclick="simpanPermohonan()" />
+                    	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+                 	</td>					
+                 	#else	
+					<td>
+						<input type="button" id="btnSimpan" name="btnSimpan" value="Hantar" onclick="simpanPermohonan()" />
+                    	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+                 	</td>
+					#end
+                </tr>
+    	</table>
+
+    </fieldset>
+   
+#end
+	
+	

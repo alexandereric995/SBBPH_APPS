@@ -1,0 +1,89 @@
+<input type="hidden" id="idFlagJenisBangunanSediaAda" name="idFlagJenisBangunanSediaAda" value="$!rekod.jenisBangunan"/>
+<fieldset>
+<legend class="legend">MAKLUMAT RUANG SEDIA ADA</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #if($ruangSediaAdaLanjutan.id != $rekod.id)
+		#set ($rekod = $!ruangSediaAdaLanjutan)
+	#else
+		#set ($$rekod = $!$rekod)
+	#end
+  <input type="hidden" id="idPermohonanLokasiSediaAda" name="idPermohonanLokasiSediaAda" value="$!rekod.id">
+  #input("cawanganSediaAda" "Bahagian/Cawangan" "$!rekod.cawangan")
+  <tr>
+    <td class="label" valign="top">Jenis Bangunan</td>
+    <td valign="top">:</td>
+    <td><select class="texts" id="jenisBangunanSediaAda" name="jenisBangunanSediaAda" style="width:100%" onChange="javascript=doChangeJenisBangunan()">
+    	<option value="">SILA PILIH</option>
+    	<option value="RUMAH KEDAI"  #if ( $!rekod.jenisBangunan == "RUMAH KEDAI" ) selected #end>RUMAH KEDAI</option>
+    	<option value="KEDIAMAN" #if ( $!rekod.jenisBangunan == "KEDIAMAN" ) selected #end>KEDIAMAN</option>
+    	<option value="LAIN - LAIN" #if ( $!rekod.jenisBangunan != "KEDIAMAN" && $!rekod.jenisBangunan != "RUMAH KEDAI" && $!rekod.jenisBangunan != "") selected #end>LAIN - LAIN</option>
+	</select>
+  	</td>
+  </tr>
+  </table>
+  <span id="selectJenisBangunanSediaAda"></span>
+
+	<div id="selectJenisBangunanSediaAda1" name="selectJenisBangunanSediaAda1" #if ($!rekod.jenisBangunan != "RUMAH KEDAI" && $!rekod.jenisBangunan != "KEDIAMAN" && $!rekod.jenisBangunan != "") style="display:block" #else style="display:none" #end>#parse("$path/maklumatPermohonan/selectJenisBangunanSediaAda.vm")</div>
+  <table>
+  	<tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #input("namaBangunanSediaAda" "Nama Bangunan" "$!rekod.namaBangunan")
+  #input_required("alamat1SediaAda" "Alamat" "$!rekod.alamat1")
+  #input("alamat2SediaAda" "" "$!rekod.alamat2")
+  #input("alamat3SediaAda" "" "$!rekod.alamat3")  
+  <td></td><td></td>
+  <td><div id="err_alamat1SediaAda" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  #postcode_required("poskodSediaAda" "Poskod" "$!rekod.poskod")  
+  <tr>
+    <td class="label">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td>#parse("$path/maklumatPermohonan/selectNegeriSediaAda.vm")
+      <div id="err_idNegeriSediaAda" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><div id="selectBandarSediaAda">
+      #parse("$path/maklumatPermohonan/selectBandarSediaAda.vm")</div>
+      <div id="err_idBandarSediaAda" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+   #input("namaPemilikPremisSediaAda" "Nama Pemilik Premis" "$!rekod.namaPemilikPremis") 
+   <tr>
+    <td class="label">Sewa Sebulan (RM)</td>
+    <td>:</td>
+   <td><input type="text" id="sewaSebulanSediaAda" class="currency" name="sewaSebulanSediaAda" value="$!rekod.sewaSebulan"/></td>
+   </tr>
+   <tr>
+    <td class="label">Sewa Bagi Satu Meter Persegi (RM)</td>
+    <td>:</td>
+   <td><input type="text" id="sewaMpSediaAda" class="currency" name="sewaMpSediaAda" value="$!rekod.sewaMp"/></td>
+   </tr>  
+</table>
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+##			#if(!$!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal"))
+##			<input type="button" value="Simpan" onclick="javascript:doSaveMaklumatRuangSediaAda('$!rekod.id');">
+##			#end
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

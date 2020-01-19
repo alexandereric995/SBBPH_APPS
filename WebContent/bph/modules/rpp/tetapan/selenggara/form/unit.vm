@@ -1,0 +1,48 @@
+<fieldset>
+<legend class="legend">pilihan unit untuk diselenggara</legend>
+	
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+    		<td style="width:150px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+    	</tr>
+    	<tr>
+    		<td valign="top">Lokasi Peranginan &nbsp;<span style='color:#FF2A00'>*</span></td>
+			<td valign="top">:</td>
+			<td valign="top">
+				<select class="texts" id="peranginan" name="peranginan" style="width:100%" onChange="doListingUnit(); $('err_peranginan').innerHTML=''; at(this, event);">
+                    <option value="">SILA PILIH</option>
+                    #foreach( $n in $selectPeranginan)
+                    	<option value="$n.id" #if($objsl.rppPeranginan.id == $n.id) selected #end >$n.namaPeranginan.toUpperCase()</option>
+                    #end
+                </select>
+				<div id="err_peranginan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+    	</tr>
+		
+		<tr>
+    		<td colspan="3">
+				<div id="divListRppDanUnit">
+					#if( $objsl )
+					#parse("$path/form/listingUnit.vm")
+					#end
+				</div>
+				<div id="err_cbPilihan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+    	</tr>
+		
+	</table>
+	
+</fieldset>
+	
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">##Fatin 13/06/2015
+    			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+				<input id="btnSimpanUnit" type="button" value="Simpan" onClick="doSimpanPilihanUnit()">
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>

@@ -1,0 +1,40 @@
+<table width="100%" cellpadding="1" cellspacing="0" border="0">
+	<tr>
+		<td align="left" width="35%">
+			#if ( $userIsLogged )
+				#if ( $userTracker.dateTrack && $userTracker.timeTrack )
+					#set ( $lastLoginDate = $shortDate.format($userTracker.dateTrack) )
+					#set ( $lastLoginTime = $shortTime.format($userTracker.timeTrack) )
+				#elseif ( $userTracker == "pegawai" )
+					#set ( $lastLoginDate = Log Kali Pertama )
+					#set ( $lastLoginTime = "" )
+				#else
+					#set ( $lastLoginDate = Log Kali Pertama )
+					#set ( $lastLoginTime = "" )
+				#end
+				<font class="font_welcome_1" style="font-size: 8pt;">Selamat Datang&nbsp;$!{session.getAttribute("_portal_username")}</font>
+				&nbsp;<br />
+				<font class="font_welcome_date_1"><i>Log Masuk Terakhir&nbsp;:&nbsp;$lastLoginDate&nbsp;$lastLoginTime</i></font>
+			#end
+		</td> 
+		<td align="right" width="65%">
+			<table cellpadding="1" cellspacing="0" border="0" style="width: 100%">
+				<tr>
+					<td valign="middle" align="left">
+						#parse ( "vtl/main/user_role_tabs_menu-1.vm" )
+					</td>
+					##<td align="right" width="175px">
+						<!-- <span class="font_language">Pilih Bahasa</span>
+						#if ( $lang == "en" ) <a href="?lang=bm"><span class="lang" onclick="changeLanguage('bm')" />BM</a> #elseif ( $lang == "bm" ) <a href="?lang=en"><span class="lang" onclick="changeLanguage('en')" />EN</a> #else <img src="../images/blank.gif" /> #end -->
+					##</td>
+			        <td align="right" width="175px">
+						##<span class="straight">|</span>
+				        <a href='javascript:document.location.href = "logout"' class="font_welcome_1" style="font-size: 8pt">
+							<input type="button" value="Log Keluar">
+						</a>
+    				</td>						
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>

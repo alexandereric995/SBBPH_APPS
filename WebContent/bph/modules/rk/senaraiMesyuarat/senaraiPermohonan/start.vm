@@ -1,0 +1,20 @@
+#parse("$path/senaraiPermohonan/senaraiPermohonanBaru.vm")
+<br><br>
+#parse("$path/senaraiPermohonan/senaraiPermohonanTangguh.vm")
+
+<div id="popupSenaraiPermohonan" class="popup"></div>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if ($!r.status == "B")
+				<input id="btnSelesai" type="button" value="Selesai Mesyuarat" onClick="javascript:doSelesaiMesyuarat();">
+			#end
+	    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	</tr>
+</table>
+
+#if ($!command == 'doSelesaiMesyuarat')
+	#parse("$path/senaraiPermohonan/status.vm")
+#end

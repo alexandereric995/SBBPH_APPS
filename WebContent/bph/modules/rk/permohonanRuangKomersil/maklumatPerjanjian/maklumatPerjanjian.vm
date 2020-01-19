@@ -1,0 +1,86 @@
+<input type="hidden" id="idSST" name="idSST" value="$!sst.id">	
+
+<fieldset>
+<legend class="legend">MAKLUMAT PERJANJIAN</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">No. Fail &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td> <input type="text" id="noFail" name="noFail" value="$!sst.permohonan.fail.noFail" onChange="doDivAjaxCall3$formname('divTab','doSemakNoFail','')" onKeyUp="$('err_noFail').innerHTML='';$('err_noFailWujud').innerHTML=''; at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+            <div id="err_noFail" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            #if ( $existNoFail )
+            <div id="err_noFailWujud" style="color:#CC0000;font-weight:bold;border:2px #000">NO. FAIL TELAH WUJUD</div>
+            #end
+            </td>
+        </tr>
+        #input_required("noRujukan" "No. Siri Perjanjian" "$!sst.noRujukan") 
+        #input_normal("idJenisSewa" "Jenis Sewaan" "<b>$!sst.getKeteranganIdJenisSewa()</b>")
+        #set ($labelKadarSewa = '')
+        #set ($labelTempoh = '')
+        #if ($!sst.idJenisSewa == 'H')
+        	#set ($labelKadarSewa = ' / HARI')
+        	#set ($labelTempoh = ' HARI')
+        #elseif ($!sst.idJenisSewa == 'B')
+        	#set ($labelKadarSewa = ' / BULAN')
+        	#set ($labelTempoh = ' BULAN')
+        #elseif ($!sst.idJenisSewa == 'T')
+        	#set ($labelKadarSewa = ' / TAHUN')
+        	#set ($labelTempoh = ' TAHUN')
+        #end
+        #if ($!sst.tarikhMula) #set ($dateMula = "$!util.getDateTime($!sst.tarikhMula,'dd-MM-yyyy')")
+        #else #set ($dateMula = "") #end
+        #input_normal("tarikhMula" "Tarikh Mula Sewa" "<b>$dateMula</b>")
+        #input_normal("tempoh" "Tempoh" "<b>$!sst.tempoh $labelTempoh</b>") 
+		#if ($!sst.tarikhTamat) #set ($dateTamat = "$!util.getDateTime($!sst.tarikhTamat,'dd-MM-yyyy')")
+        #else #set ($dateTamat = "") #end
+        #input_normal("tarikhTamat" "Tarikh Tamat" "<b>$dateTamat</b>")
+        	  
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+       
+        #input_normal("kadarSewa" "Kadar Sewa (RM)" "<b>$!util.formatDecimal($!sst.kadarSewa) $labelKadarSewa</b>") 
+	   	#input_normal("deposit" "Deposit (RM)" "<b>$!util.formatDecimal($!sst.deposit)</b>")	
+	   	#set ($keteranganFlagCajIWK = '')
+	   	#if ($!sst.flagCajIWK == 'Y')
+        	#set ($keteranganFlagCajIWK = 'YA')
+        #elseif ($!sst.flagCajIWK == 'T')
+        	#set ($keteranganFlagCajIWK = 'TIDAK')
+        #end
+	   	#input_normal("flagCajIWK" "Caj IWK Pukal ?" "<b>$keteranganFlagCajIWK</b>")	  	    	  
+        #if ($!sst.flagCajIWK == 'Y')
+	   		#input_normal("kadarBayaranIWK" "Kadar Bayaran IWK (RM)" "<b>$!util.formatDecimal($!sst.kadarBayaranIWK)</b>")	
+	   	#end
+        #input_normal("catatan" "Catatan" "<b>$!sst.catatan</b>")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<script>  
+	_jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+	});
+  
+	_jq('#kadarSewa').on('blur', function(){
+		var kadarSewa = $('kadarSewa').value;
+		var parseKadarSewa = parseFloat(kadarSewa.replace(/,/g, ''));
+		var deposit = parseKadarSewa * 3;
+		$('deposit').value = deposit;
+	});
+</script>

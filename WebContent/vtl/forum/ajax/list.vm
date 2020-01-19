@@ -1,0 +1,144 @@
+
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+	<tr><td>
+
+		<table align="center" width="100%" border="0" cellpadding="2" cellspacing="0">
+		#**	
+			<tr class="table_header">
+				<td colspan="2">
+					<b>Forum List</b>
+				</td>
+**#
+			</tr>		
+			#foreach ( $forum in $topic_items)
+			<tr>
+				
+				<td valign="top">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+					<td style="width:48px; height:6px; background: url(../img/forum/top_left.png)"></td>
+										<td style="height:6px; background: url(../img/forum/top.png)"></td>
+					<td style="width:7px; height:6px; background: url(../img/forum/top_right.png)"></td>
+</tr>
+
+
+<tr>
+					<td style="height:6px; background: url(../img/forum/left.png)" align="center" valign="top">
+					
+										##<a href="javascript:doAjaxCall${formname}('Open', 'subjectId=$!subjectId&forum_id=$forum.id&parent_id=$forum.id')" style="text-decoration:none;">
+						##<img src="../img/forum/folder.png" border="0">
+						##</a>
+					
+</td>
+<td style="background: url(../img/forum/bg.png)">
+<br>
+					$forum.getMessage(200) ... 
+(<a href="javascript:doAjaxCall${formname}('Open', 'subjectId=$!subjectId&forum_id=$forum.id&parent_id=$forum.id')" style="text-decoration:none;"><u>open</u></a>)
+		<br><br>
+						</td>
+						
+					<td style="background: url(../img/forum/right.png)">
+						</td>
+</tr>
+
+<tr>
+					<td style="height:28px; background: url(../img/forum/bottom_left.png)"></td>
+					<td style="height:6px; background: url(../img/forum/bottom.png)"></td>
+					<td style="height:28px; background: url(../img/forum/bottom_right.png)"></td>
+</tr>
+
+<tr>
+
+<td></td> 
+			<td colspan="2">
+			<table cellpadding="0" cellspacing="0">
+			<tr><td>
+								<a href="javascript:doAjaxCall${formname}('Open', 'subjectId=$!subjectId&forum_id=$forum.id&parent_id=$forum.id')" style="text-decoration:none;">
+			#if ( $forum.avatar == "" )
+<img src="../img/forum/noavatar.png" border="0">
+			#else
+			<img src="../download?file=${forum.avatar}" border="0">
+			#end
+			</a>
+			</td><td style="font-weight:bold">
+			$forum.postedBy<br>
+								$forum.getDatePosted().display()
+			
+			</td></tr></table>
+			
+			</td>
+</tr>
+
+</table>
+										
+				</td>
+			</tr>
+
+			#end
+		</table>
+		
+		<table width="100%">
+			<tr>
+				<td align="right">	
+				#if ( $topic_pages > 0 )
+					Page $topic_page_number of $topic_pages&nbsp;
+				#end
+				#if ( !$topic_bol )
+				<input class="button" type="button" value="&lt;" 
+				onclick="doAjaxCall$formname('PreviousTopic', 'forum_id=$forum.id')">	
+				##onclick="previous_${formname}()">
+				#end
+				#if ( !$topic_eol )
+				<input class="button" type="button" value="&gt;" 
+				onclick="doAjaxCall$formname('NextTopic', 'forum_id=$forum.id')">	
+				##onclick="next_${formname}()">
+				#end
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					#if ( $topic_pages > 0 )
+						#foreach ($num in [ 1..$topic_pages ])
+							[
+							#if ( $num == $topic_page_number )
+								<b>$num</b>
+							#else
+								##<a href="javascript:goPage_${formname}($num)">
+								<a href="javascript:doAjaxCall$formname('GoTopicPage', 'pagenum=$num')">	
+								<u>$num</u>
+								</a>
+							#end
+							]
+						#end
+					#end
+				</td>
+			</tr>	
+		</table> 		
+		
+		#if ( $userid == "anon" )
+		<table align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td  align="center">
+					<b>You could post a topic if you are logged in.</b>
+				</td>
+			</tr>	
+		</table>		
+		#else
+		<table align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td  align="right">
+					## if ( $allowPost )
+						<input class="button" type="button" value="Add New Topic" onclick="doAjaxCall${formname}('AddNewTopic');">
+					##end
+				</td>
+			</tr>	
+		</table>
+		#end
+				
+##<input type="hidden" name="subjectId" value="$!subjectId">
+##<input type="hidden" name="forum_id">
+<input type="hidden" name="pagenum">
+
+
+	</td></tr>
+</table>

@@ -1,0 +1,88 @@
+#if ($!success == 'Y')
+<table width="100%" border="0">
+  <tr>
+    <td><font color="blue"> <b> SEMAKAN MAKLUMAT PENGGUNA BERJAYA<u> </b> </font> </td>
+  </tr>
+</table>
+#elseif ($!success == 'T')
+<table width="100%" border="0">
+  <tr>
+    <td><font color="red"> <b> SEMAKAN MAKLUMAT PENGGUNA GAGAL<u> </b> </font> </td>
+  </tr>
+</table>
+#end
+
+<fieldset>
+<legend class="legend">MAKLUMAT PENGGUNA</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("nama" "Nama" "$!r.nama")
+        #input_normal("noPengenalan" "No. Pengenalan" "$!r.noPengenalan")
+        #input_normal("noPengenalanLama" "No. Pengenalan Lama" "$!r.noPengenalanLama")
+        #if ($!r.tarikhPencen) 
+        #set ($datePencen = "$!util.getDateTime($!r.tarikhPencen,'dd-MM-yyyy')")
+        #else #set ($datePencen = "") #end
+        #input_normal("tarikhPencen" "Tarikh Bersara" "$datePencen")       
+        #input_normal("jenisPersaraan" "Jenis Persaraan" "$!r.jenisPersaraan")
+        #input_normal("jawatan" "Jawatan Terakhir" "$!r.jawatanTerakhir")
+        #input_normal("kodGajiTerakhir" "Kod Gaji Terakhir" "$!r.kodGajiTerakhir")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("cawangan" "Cawangan" "$!r.cawangan")
+        #input_normal("alamat1" "Alamat" "$!r.alamat1")
+        #input_normal("alamat2" "" "$!r.alamat2")
+        #input_normal("alamat3" "" "$!r.alamat3")
+        #input_normal("poskod" "Poskod" "$!r.poskod")
+        #input_normal("bandar" "Bandar" "$!r.bandar")
+        #input_normal("negeri" "Negeri" "$!r.negeri")
+        #input_normal("statusHidup" "Status Hidup" "$!r.getKeteranganStatusHidup()")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">MAKLUMAT SEMAKAN</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!r.tarikhTerima) 
+        #set ($dateTerima = "$!util.getDateTime($!r.tarikhTerima,'dd-MM-yyyy hh:mm:ss a')")
+        #else #set ($dateTerima = "") #end
+        #input_normal("tarikhTerima" "Tarikh Kemaskini" "$dateTerima")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+    		<input id="btnSemak" name="btnSemak" type="button" value="Semakan PESARA" onclick="javascript:semakPESARA();"/>
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>

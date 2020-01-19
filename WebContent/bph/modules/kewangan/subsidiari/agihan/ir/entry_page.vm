@@ -1,0 +1,261 @@
+  
+<fieldset>
+<legend class="legend">maklumat permohonan</legend>
+		<tr>
+		  	<td style="width:200px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+		</tr>
+		
+		<tr>
+			<td colspan="3" valign="top">
+				<table width="100%" border="0">
+					<tr>
+						<td width="50%" valign="top">
+							<table width="100%">
+								#show("NAMA PEMOHON" "$!permohonan.pemohon.userName.toUpperCase()")
+                        		#show("NO. KP" "$!permohonan.pemohon.id.toUpperCase()")
+                        		#show("NO. TEMPAHAN" "$!permohonan.noTempahan.toUpperCase()")
+                        		#show("LOKASI" "$!permohonan.rppPeranginan.namaPeranginan.toUpperCase()")
+                        		#show("JENIS UNIT" "<b>$!permohonan.kuantiti UNIT</b> $!permohonan.jenisUnitRpp.keterangan.toUpperCase()")
+                        		#show("TARIKH PERMOHONAN" "$!util.getDateTime($!permohonan.tarikhPermohonan,'dd/MM/yyyy')")
+                        		#show("TARIKH CHECKIN" "$!util.getDateTime($!permohonan.tarikhMasukRpp,'dd/MM/yyyy')")
+                        		#show("TARIKH CHECKOUT" "$!util.getDateTime($!permohonan.tarikhKeluarRpp,'dd/MM/yyyy')")
+								<tr>
+                        			<td style="width:190px"></td>
+                                    <td style="width:10px"></td>
+                                    <td></td>
+                        		</tr>
+							</table>
+						</td>
+						<td width="50%" valign="top">
+							<table width="100%">
+								#show("NO. TELEFON" "$!permohonan.pemohon.noTelefon")
+								#show("NO. TELEFON BIMBIT" "$!permohonan.pemohon.noTelefonBimbit")
+								#show("EMEL" "$!permohonan.pemohon.emel")
+								#show("STATUS TEMPAHAN" "<b>$!permohonan.status.keterangan.toUpperCase()</b>")
+								#if($!permohonan.status.id == "1425259713418" || $!permohonan.status.id == "1435093978588")
+									#show("SEBAB PEMBATALAN" "<b>$!permohonan.catatanPembatalan</b>")
+									#show("DIBATALKAN OLEH" "<b>$!permohonan.pemohonBatal.userName</b>")
+									#show("TARIKH BATAL" "<b>$!util.getDateTime($!permohonan.tarikhPembatalan,'dd/MM/yyyy')</b>")
+								#end
+								<tr>
+                        			<td style="width:200px"></td>
+                                    <td style="width:10px"></td>
+                                    <td></td>
+                        		</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+</fieldset>
+
+<fieldset>
+<legend class="legend">maklumat bayaran</legend>
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+		  	<td style="width:200px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+		</tr>
+			
+		<tr>
+			<td colspan="3" valign="top">
+				<table width="100%" border="0">
+					<tr>
+						<td width="50%" valign="top">
+							<table width="100%">
+								<tr>
+                        			<td style="width:190px"></td>
+                                    <td style="width:10px"></td>
+                                    <td></td>
+                        		</tr>
+								#show("JUMLAH BAYARAN" "<b>RM $!util.formatDecimal($!permohonan.amaunTotalSewaRpWithoutDeposit())</b>")
+								#show("STATUS BAYARAN" "<b>$!permohonan.statusBayaran</b>")
+								#show("TARIKH BAYARAN" "<b>$!util.getDateTime($!permohonan.tarikhBayaran,'dd/MM/yyyy')</b>")
+								#show("NO.RESIT SEWA" "<b>$!permohonan.resitSewa.noResit</b>")
+								#if($!r.status.id == "1425259713418" || $!r.status.id == "1435093978588")
+									#show("SEBAB PEMBATALAN" "<b>$!permohonan.catatanPembatalan.toUpperCase()</b>")
+									#show("DIBATALKAN OLEH" "<b>$!permohonan.pemohonBatal.userName.toUpperCase()</b>")
+								#end
+							</table>
+						</td>
+						<td width="50%" valign="top">
+							<table width="100%">
+								<tr>
+                        			<td style="width:200px"></td>
+                                    <td style="width:10px"></td>
+                                    <td></td>
+                        		</tr>
+                        		#show("TARIKH. BAUCER" "<b>$!util.getDateTime($!r.tarikhBaucer,'dd/MM/yyyy')</b>")
+								#show("NO. BAUCER" "<b>$!r.noBaucerBayaran</b>")
+								#show("TARIKH. EFT" "<b>$!util.getDateTime($!r.tarikhEFT,'dd/MM/yyyy')</b>")
+								#show("NO. EFT" "<b>$!r.noEFT</b>")
+								##show("TARIKH. EFT" "$!util.getDateTime($!permohonan.getObjKewSubsidiari().tarikhEft,'dd/MM/yyyy')")
+								##show("NO. EFT" "$!permohonan.getObjKewSubsidiari().noEft")
+								##show("TARIKH. BAUCER" "$!util.getDateTime($!permohonan.getObjKewSubsidiari().tarikhBaucer,'dd/MM/yyyy')")
+								##show("NO. BAUCER" "$!permohonan.getObjKewSubsidiari().noBaucerPulanganDeposit")
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>	
+	</table>
+</fieldset>
+<fieldset>
+<legend class="legend">senarai semak</legend>
+<table width="100%">
+		<tr>
+	<table width="100%">
+		<tr>
+##			<td style="width:2%"></td>
+			<td style="width:1%"></td>
+			<td style="width:30%">&nbsp;</td>
+			<td style="width:67%">&nbsp;</td>
+		</tr>
+##		<tr>
+##			<td colspan="4">
+##				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">SENARAI SEMAK</span>
+##			</td>
+##		</tr>
+##		<tr><td colspan="4">&nbsp;</td></tr>
+		
+		<tr>
+##			<td valign="middle">
+##				<input type="checkbox" disabled #if($!r.flagResitBayaran=="Y") checked #end name="flagResitBayaran" id="flagResitBayaran" value="Y" style="width:18px;height:18px;display:block;" onclick="$('err_flagResitBayaran').innerHTML='';at(this, event)" />
+##			</td>
+			<td valign="middle">&nbsp;</td>
+			<td colspan="2" valign="middle">
+				#if( $!permohonan.rppPeranginan.id.equalsIgnoreCase("3") || $!permohonan.rppPeranginan.id.equalsIgnoreCase("14") )
+    				#if( $!permohonan.photofilename && !$!permohonan.photofilename.equalsIgnoreCase("") )
+    					<a href="../download?file=$!uploadDir$!permohonan.photofilename"><span class="print" style="color:#0000FF">SLIP PEMBAYARAN<span></a>
+					#end
+				#else
+					<a href="#" style="color:blue" id="cmdResitInv">RESIT SEWA</a>
+				#end
+				##<a href="#" style="color:blue" id="cmdResitInv">RESIT SEWA</a>
+			</td>
+			<td valign="middle">&nbsp;</td>
+		</tr>
+		
+		<tr>
+##			<td valign="middle">
+##				<input type="checkbox" disabled #if($!r.flagSuratTawaran=="Y") checked #end name="flagSuratTawaran" id="flagSuratTawaran" value="Y" style="width:18px;height:18px;display:block;" onclick="$('err_flagSuratTawaran').innerHTML='';at(this, event)" />
+##			</td>
+			<td valign="middle">&nbsp;</td>
+			##langkawi
+			#if( $!permohonan.rppPeranginan.id.equalsIgnoreCase("3"))
+				<td colspan="2" valign="middle"><a href="#" style="color:blue" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!permohonan.id&jenisSurat=suratKelulusanLangkawi&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN LANGKAWI</a></td>
+			##port dickson
+			#elseif($!permohonan.rppPeranginan.id.equalsIgnoreCase("14") )
+				<td colspan="2" valign="middle"><a href="#" style="color:blue" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!permohonan.id&jenisSurat=suratKelulusanPD&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN PORT DICKSON</a></td>
+			#else
+				<td colspan="2" valign="middle"><a href="#" style="color:blue" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!permohonan.id&jenisSurat=suratKelulusan&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN</a></td>
+			#end
+			<td valign="middle">&nbsp;</td>
+		</tr>
+		
+##		<tr>
+##			<td valign="middle">
+##				<input type="checkbox" disabled #if($!r.flagSuratSokongan=="Y") checked #end name="flagSuratSokongan" id="flagSuratSokongan" value="Y" style="width:18px;height:18px;display:block;" onclick="$('err_flagSuratSokongan').innerHTML='';at(this, event)" />
+##			</td>
+##			<td valign="middle">&nbsp;</td>
+##			<td valign="middle">
+##				SURAT SOKONGAN
+##			</td>
+##			<td valign="middle">&nbsp;</td>
+##		</tr>
+		<tr>
+##			<td valign="middle">
+##				<input type="checkbox" checked disabled name="resitBayaranDeposit" id="resitBayaranDeposit" value="Y" style="width:18px;height:18px;display:block;" onclick="$('err_resitBayaranDeposit').innerHTML='';at(this, event)" />
+##			</td>
+			<td valign="middle">&nbsp;</td>
+			<td colspan="2" valign="middle">
+				<a href="#" style="color:blue" id="cmdBorangTuntutan">BORANG TUNTUTAN DEPOSIT</a>
+			</td>
+			<td valign="middle">&nbsp;</td>
+		</tr>
+		<tr>
+##			<td valign="middle">
+##				<input type="checkbox" disabled #if($!r.flagSalinanAkaunBank=="Y") checked #end name="flagSalinanAkaunBank" id="flagSalinanAkaunBank" value="Y" style="width:18px;height:18px;display:block;" onclick="$('err_flagSalinanAkaunBank').innerHTML='';at(this, event)" />
+##			</td>
+			<td valign="middle">&nbsp;</td>
+			<td colspan="2" valign="middle">
+				#if( $!r.pemohon.dokumenBank && !$!r.pemohon.dokumenBank.equalsIgnoreCase("") )
+				<a href="../download?file=$!uploadDir$!r.pemohon.dokumenBank"><span class="print" style="color:#0000FF">SALINAN AKAUN BANK<span></a>
+				#else
+				SALINAN AKAUN BANK
+				#end
+			</td>
+			<td valign="middle">&nbsp;</td>
+		</tr>
+	</table>
+</fieldset>
+<fieldset>
+<legend class="legend">pengesahan dan agihan</legend>
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+			<td style="width:230px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		
+		#date_input_required("tarikhAgihan" "TARIKH PENGESAHAN DAN AGIHAN" "$!util.replaceIfNull($!util.getDateTime($!r.agihan.tarikhAgihan,'dd-MM-yyyy'),$!util.getCurrentDate('dd-MM-yyyy'))")
+		
+		<tr>
+			<td valign="top">PEGAWAI PENYEDIA <span style='color:#FF2A00'>*</span></td>
+			<td valign="top">:</td>
+			<td valign="top">
+				<select class="texts" id="penyedia" name="penyedia" style="width:100%" onChange="$('err_penyedia').innerHTML=''; at(this, event);">
+                    <option value="">SILA PILIH</option>
+                    #foreach( $n in $listPenyedia)
+                    	<option value="$n.id" #if($n.id == $r.agihan.penyedia.id) selected #end>$n.userName.toUpperCase()</option>
+                    #end
+                </select>
+				<div id="err_penyedia" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		
+		#textarea("catatanPenyelia" "CATATAN" "$!r.agihan.catatanPenyelia.toUpperCase()")
+		
+	</table>
+</fieldset>
+		
+		
+<script>
+_jq(document).ready(function () {
+	var statusId = "$!r.status.id";
+	if(statusId=="1436510785697"){
+		_jq('#btnSaveRecordTemplate').val('Sahkan dan Agih Permohonan');
+	}else{
+		_jq('#btnSaveRecordTemplate').val('Kemaskini');
+	}
+});
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+ _jq('#cmdResitInv').on('click', function(){
+	    var idResit = '$!permohonan.getIdResitSewa()';
+	    
+		var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+		hWnd.opener = document.window;
+		if (hWnd.focus != null) hWnd.focus();	
+});
+  _jq('#cmdBorangTuntutan').on('click', function(){
+    		var idPermohonan = '$!permohonan.id';
+    		var url = "../servlet/bph.laporan.rpp.BayaranBalikDeposit?idPermohonan="+idPermohonan;
+    		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+    		if ((document.window != null) && (!hWnd.opener))
+    		hWnd.opener = document.window;
+    		if (hWnd.focus != null) hWnd.focus();
+    });
+</script>

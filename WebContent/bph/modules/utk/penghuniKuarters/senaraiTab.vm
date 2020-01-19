@@ -1,0 +1,29 @@
+<nav class="breadcrumbs">
+    <ul>
+        <li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatPenghuni','')" #end >Maklumat Penghuni</a></li>
+		<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onclick="doDivAjaxCall3$formname('divTab','getPelanggaranSyarat','')" #end >Pelanggaran Syarat</a></li>
+		<li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3')onclick="doDivAjaxCall3$formname('divTab','getHilangKelayakan','')" #end >Hilang Kelayakan</a></li>
+		<li #if($!selectedTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedTab!='4')onclick="doDivAjaxCall3$formname('divTab','getABT','')" #end >ABT</a></li>
+		<li #if($!selectedTab=='5') class="active" #end><a href="javascript:void()" #if($!selectedTab!='5')onclick="doDivAjaxCall3$formname('divTab','getKesPeguam','')" #end >Kes Peguam</a></li>
+    </ul>	
+</nav>
+<br/>
+#if ($!selectedTab=='1')
+	#parse("$path/rekod_penghuni.vm")
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/pelanggaranSyarat/start.vm")
+#end
+
+#if ($!selectedTab=='3')
+	#parse("$path/hilangKelayakan/start.vm")
+#end
+
+#if ($!selectedTab=='4')
+	#parse("$path/ABT/start.vm")
+#end
+
+#if ($!selectedTab=='5')
+	#parse("$path/kesPeguam/start.vm")
+#end

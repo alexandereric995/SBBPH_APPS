@@ -1,0 +1,254 @@
+
+	#if( $!r )
+    	#parse("$path/form/tab.vm")
+    	<br/>
+	#end
+
+
+<style>
+	.uppercasefont{
+		text-transform: uppercase !important;
+	}
+</style>	
+
+	#if( !$!r )	
+    	<table width="100%">
+    		<tr>
+                <td style="width:150px"></td>
+                <td style="width:10px"></td>
+                <td></td>
+            </tr>
+    	  
+    		<tr>
+    			<td colspan="3">
+    				<span style="font-size:12px;font-weight:bold;text-decoration: underline;">MAKLUMAT TETAMU</span>
+    			</td>
+    		</tr>
+			
+			<tr><td colspan="3">&nbsp;</td></tr>
+    		
+        	<tr>
+        		<td width="50%" valign="top">
+        			<input type="text" style="height:23px !important" class="uppercasefont" placeholder="CARIAN NAMA / NO. KP" name="txtSearchGuest" id="txtSearchGuest" value="$!txtSearchGuest" 
+        				onKeyUp="$('err_txtSearchGuest').innerHTML='';$('err_maklumatTetamu').innerHTML=''" />
+        			<div id="err_txtSearchGuest" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        		</td>
+        		<td width="50%" valign="top">
+        			&nbsp;<input type="button" value="CARIAN NAMA" id="btnSearchGuest" onclick="javascript:doSearchGuest()" />
+        		</td>
+        	</tr>
+    	</table>
+	#end
+
+	
+	#if( $!guest )
+		
+    	<br/>
+    	
+    	<input type="hidden" id="guestId" name="guestId" value="$!guest.id" />
+    
+    	<table width="100%" cellpadding="1" cellspacing="1">
+    		<tr>
+    			<td width="48%" valign="top">
+    				<table width="100%">
+    					<tr>
+    						<td width="30%">NO. KAD PENGENALAN</td>
+    						<td width="2%">:</td>
+    						<td width="68%">$!guest.noKP</td>
+    					</tr>
+    					<tr>
+    						<td>NAMA</td>
+    						<td>:</td>
+    						<td>$!guest.userName.toUpperCase()</td>
+    					</tr>
+    					<tr>
+    						<td>GRED</td>
+    						<td>:</td>
+    						<td>$!guest.gredPerkhidmatan.keterangan.toUpperCase()</td>
+    					</tr>
+    				</table>
+    			</td>
+    			
+    			<td width="2%">&nbsp;</td>
+    			
+    			<td width="50%" valign="top">
+    				<table width="100%">
+    					<tr>
+    						<td width="30%">NO. TEL. PEJABAT</td>
+    						<td width="2%">:</td>
+    						<td width="68%">$!guest.noTelefon</td>
+    					</tr>
+    					<tr>
+    						<td>NO. TELEFON BIMBIT</td>
+    						<td>:</td>
+    						<td>$!guest.noTelefonBimbit</td>
+    					</tr>
+    					<tr>
+    						<td>EMEL</td>
+    						<td>:</td>
+    						<td>$!guest.emel</td>
+    					</tr>
+    				</table>
+    			</td>
+    		</tr>
+    		
+    		<tr><td colspan="3"><div id="err_maklumatTetamu" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td></tr>
+    	</table>
+    	
+    	<br/>
+    	
+    	<table width="100%" cellpadding="1" cellspacing="1">
+    		<tr>
+    			<td style="width:170px"></td>
+                <td style="width:10px"></td>
+                <td></td>
+    		</tr>
+        	<tr>
+    			<td colspan="3">
+    				<span style="font-size:12px;font-weight:bold;text-decoration: underline;">MAKLUMAT PASANGAN</span>
+    			</td>
+    		</tr>
+    		#show("NAMA" "$!util.replaceIfNull($!guest.rekodSpouse().namaPasangan.toUpperCase(),'-')")
+    		#show("NO. KAD PENGENALAN" "$!util.replaceIfNull($!guest.rekodSpouse().noKPPasangan,'-')")
+    	</table>
+	
+	#end
+	
+	
+	#if($!blockBooking)
+    	<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+    		<p>
+    			<strong>* HAD PERMOHONAN PEMOHON TELAH MELEBIHI 3 KALI UNTUK TAHUN $!util.getCurrentDate("yyyy")</strong>
+    	    </p>
+    	</div>
+	#end
+	
+	
+	#if($!blacklisted)
+    	<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+    		<p>
+    			<strong>* PEMOHON TELAH DISENARAI HITAM.</strong>
+    	    </p>
+    	</div>
+	#end
+	
+	
+	#if(!$!accountInfoExist)
+		
+		<br/>
+		
+		<fieldset id="makluman" style="font-weight:bold;color:red; background-color:#D8CEF6">
+            <table cellpadding="5" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td style="font-weight:bold;text-align:justify;">
+						SILA KEMASKINI MAKLUMAT AKAUN BANK UNTUK MENERUSKAN PROSES TEMPAHAN.
+					</td>
+                </tr>
+            </table>
+        </fieldset>
+				
+		<fieldset>
+        <legend class="legend">maklumat akaun bank</legend>
+        	<table width="100%" cellpadding="1" cellspacing="1">
+        		<tr>
+        			<td style="width:49%"></td>
+        			<td style="width:1%"></td>
+        			<td style="width:50%"></td>
+        		</tr>
+        		<tr>
+        			<td valign="top">
+        				<table width="100%" cellpadding="1" cellspacing="1">
+        					<tr>
+                    			<td style="width:30%"></td>
+                    			<td style="width:1%"></td>
+                    			<td style="width:69%"></td>
+                    		</tr>
+        					#number_required("noAkaunBank" "NO. AKAUN BANK" "$!guest.noAkaunBank")
+        				</table>
+        			</td>
+        			<td>&nbsp;</td>
+        			<td valign="top">
+        				<table width="100%" cellpadding="1" cellspacing="1">
+        					<tr>
+                    			<td style="width:30%"></td>
+                    			<td style="width:1%"></td>
+                    			<td style="width:69%"></td>
+                    		</tr>
+							<tr>
+								<td>BANK &nbsp;<span style="color:#FF2A00">*</span></td>
+								<td>:</td>
+								<td>
+									<select class="texts" id="bank" name="bank" style="width:100%" onChange="$('err_bank').innerHTML=''; at(this, event);">
+                                		<option value="">SILA PILIH</option>
+                                		#foreach( $n in $listBank)
+                                			<option value="$n.id" #if($n.id == $!guest.bank.id) selected #end>$n.keterangan.toUpperCase()</option>
+                                		#end
+                                	</select>
+        							<div id="err_bank" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+								</td>
+							</tr>
+        				</table>
+        			</td>
+        		</tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
+				<tr>
+					<td colspan="3">
+						<input type="checkbox" name="cbSyarat" id="cbSyarat" value="Y" onclick=" $('err_cbSyarat').innerHTML=''; at(this, event);" />
+						<span style="font-size:12px;font-weight:bold;border:2px #000">Pemohon mengesahkan bahawa maklumat akaun adalah benar bagi tujuan pemulangan bayaran balik.</span>
+						<div id="err_cbSyarat" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+					</td>
+				</tr>
+        	</table>
+        </fieldset> 
+		<table width="100%">
+    		<tr>
+    			<td align="center">
+					<input id="btnUpdateBank" style="width:30%" type="button" value="KEMASKINI MAKLUMAT BANK" onClick="doKemaskiniBank()">
+    			</td>
+           </tr>
+    	</table>
+	
+	#else
+		
+		#if( $!guest )
+			
+    		<br/><br/>
+    		
+    		<table width="100%" cellpadding="1" cellspacing="1">
+    			<tr>
+                    <td style="width:170px"></td>
+                    <td style="width:10px"></td>
+                    <td></td>
+                </tr>
+        		<tr>
+        			<td colspan="3">
+        				<span style="font-size:12px;font-weight:bold;text-decoration: underline;">MAKLUMAT BANK</span>
+        			</td>
+        		</tr>
+    			#show("NO. AKAUN BANK" "$!util.replaceIfNull($!guest.noAkaunBank,'-')")
+    			#show("BANK" "$!util.replaceIfNull($!guest.bank.keterangan.toUpperCase(),'-')")
+    		</table>
+    		
+        	<br/>
+        		
+        	<div id="divMaklumatTempahan">
+            	#parse("$path/form/maklumatTempahan.vm")
+            </div>
+			
+		#end
+		
+	#end
+	
+	
+	<div id="divPopupSearchGuest" class="popup"></div>
+	
+    <script>
+      _jq(function($) {
+          $('.currency').autoNumeric('init'); 
+     	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+     	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+    	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+     	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+      });
+    </script>
+	

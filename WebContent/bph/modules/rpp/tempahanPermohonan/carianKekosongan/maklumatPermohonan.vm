@@ -1,0 +1,290 @@
+
+<br/>
+
+<fieldset>
+<legend class="legend">maklumat permohonan</legend>
+	
+	<table width="100%" cellpadding="2" cellspacing="2" border="0">
+		
+		<tr>
+			<td colspan="3">
+				<span style="font-weight:bold;font-size:13px">
+					<u>$!jenisUnit.keterangan.toUpperCase()</u> 
+				</span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="180px"></td>
+			<td width="10px"></td>
+			<td></td>
+		</tr>
+		
+		<tr>
+			<td colspan="3">
+				<span style="font-weight:bold;text-align:justify;font-size:12px;color:red">
+					PAPARAN KEKOSONGAN ADALAH BERDASARKAN PILIHAN TARIKH DARI $!selectedTarikhDari HINGGA $!selectedTarikhHingga. 
+					&nbsp; &nbsp; <input id="btnPilihDateRange" type="button" value="PILIH SEMULA JULAT SEMAKAN KEKOSONGAN" onClick="doOpenPopupDateRange('$!jenisUnit.id')">
+				</span>
+			</td>
+		</tr>
+			
+		<tr>
+			<td colspan="3"><hr/></td>
+		</tr>
+		
+		<tr>
+			<td colspan="3">&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td colspan="3">
+				
+				
+				<table width="100%" border="0">
+					<tr>
+						<td width="30%" valign="top">
+							<input type="hidden" id="dtfrom" name="dtfrom" value="" style="width: 150px" />
+							<span style="font-weight:bold;text-align:justify;font-size:12px;color:red">SILA PILIH TARIKH DAFTAR MASUK :</span>
+							<div id="tDatefrom" style="position: relative; z-index: 0; margin: 10px 0 0 0; width: 220px; height: 240px"></div>
+						</td>
+						
+						<td width="30%" valign="top">
+							<div id="divSecondCalendar">
+								##parse("$path/carianKekosongan/secondCalendar.vm")
+							</div>
+						</td>
+						
+						<td width="40%" valign="top">
+							
+							<table width="100%" border="0">
+								
+								<tr>
+									<td valign="top"><b>RUMAH PERANGINAN</b></td>
+									<td valign="top"><b>:</b></td>
+									<td valign="top"><b>$!jenisUnit.peranginan.namaPeranginan.toUpperCase()</b></td>
+								</tr>
+								
+								<tr>
+									<td><b>JENIS UNIT</b></td>
+									<td><b>:</b></td>
+									<td><b>$!jenisUnit.keterangan.toUpperCase()</b></td>
+								</tr>
+								
+								<tr>
+									<td><b>KADAR SEWA (RM)</b></td>
+									<td><b>:</b></td>
+									<td><b>$!util.formatDecimal($!jenisUnit.kadarSewa)/malam</b></td>
+								</tr>
+								
+								<tr>
+									<td><b>HAD DEWASA</b></td>
+									<td><b>:</b></td>
+									<td><b>$!jenisUnit.hadDewasa Orang/unit</b></td>
+								</tr>
+								
+								<tr>
+									<td><b>HAD KANAK - KANAK</b></td>
+									<td><b>:</b></td>
+									<td><b>$!jenisUnit.hadKanakKanak Orang/unit</b></td>
+								</tr>
+								
+                                ## ADD BY PEJE - SEMAKAN KEKOSONGAN UNTUK PENYELIA
+                                #if ($!userRole != '(RPP) Penyelia')
+								<tr><td colspan="3"><hr/></td></tr>
+								
+								##if( !$!controllerName.equalsIgnoreCase("bph.modules.rpp.SemakanKekosonganRecordModule") )
+								##if( $userRole.equalsIgnoreCase("(AWAM) Penjawat Awam") )
+									
+								<tr>
+									<td width="40%" valign="top">TARIKH DAFTAR MASUK</td>
+									<td width="2%" valign="top">:</td>
+									<td width="58%" valign="top">
+										<input type="text" id="tarikhMasukRpp" name="tarikhMasukRpp" value="" disabled="disabled" />
+										<div id="err_tarikhMasukRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+									</td>
+								</tr>
+								<tr>
+									<td valign="top">TARIKH DAFTAR KELUAR</td>
+									<td valign="top">:</td>
+									<td valign="top">
+										<input type="text" id="tarikhKeluarRpp" name="tarikhKeluarRpp" value="" disabled="disabled" />
+										<div id="err_tarikhKeluarRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+										<div id="divErrorSelectDate" style="color:#CC0000;font-weight:bold;border:2px #000">
+											<input type="hidden" name="checkSelectDate" id="checkSelectDate" value="" />
+										</div>
+									</td>
+								</tr>
+								
+								<tr>
+									<td valign="top">BIL. UNIT</td>
+									<td valign="top">:</td>
+									<td valign="top">
+										#set($hadUnit = $!jenisUnit.hadKuantiti)
+										<div id="divBilUnit">#parse("$path/carianKekosongan/bilUnit.vm")</div>
+									</td>
+								</tr>
+								
+								<tr>
+									<td valign="top">BIL. DEWASA <span style='color:#FF2A00'>*</span></td>
+									<td valign="top">:</td>
+									<td valign="top">
+										<select class="texts" id="bilDewasa" name="bilDewasa" style="width:100%" onChange=" $('err_bilDewasa').innerHTML=''; at(this, event);">
+                                            <option value="">SILA PILIH</option>
+                                            #foreach($bildw in [1..$!jenisUnit.hadDewasa])
+                                            	<option value="$bildw" #if($!jenisUnit.hadDewasa==$bildw) selected #end >$bildw</option>
+                                            #end
+                                        </select>
+            							<div id="err_bilDewasa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>	
+									</td>
+								</tr>
+								<tr>
+									<td valign="top">BIL. KANAK - KANAK</td>
+									<td valign="top">:</td>
+									<td valign="top">
+										<select class="texts" id="bilKanakKanak" name="bilKanakKanak" style="width:100%" onChange=" $('err_bilKanakKanak').innerHTML=''; at(this, event);">
+                                            <option value="">SILA PILIH</option>
+                                            #foreach($bilknk in [1..$!jenisUnit.hadKanakKanak])
+                                            	<option value="$bilknk" #if($!jenisUnit.hadKanakKanak==$bilknk) selected #end >$bilknk</option>
+                                            #end
+                                        </select>
+										<div id="err_bilKanakKanak" style="color:#CC0000;font-weight:bold;border:2px #000"></div>	
+									</td>
+								</tr>
+								
+    								#if( !$!rp.id.equalsIgnoreCase("3") && !$!rp.id.equalsIgnoreCase("14") )
+        								<tr>
+        									<td valign="top">TAMBAHAN DEWASA</td>
+        									<td valign="top">:</td>
+        									<td valign="top">
+        										<select class="texts" id="bilTambahanDewasa" name="bilTambahanDewasa" style="width:100%" onChange=" $('err_bilTambahanDewasa').innerHTML=''; at(this, event);">
+                                                    <option value="">SILA PILIH</option>
+                                                    #foreach($bilpdw in [1..$!jenisUnit.hadDewasa])
+                                                    	<option value="$bilpdw" >$bilpdw</option>
+                                                    #end
+                                                </select>
+        										<div style="color:blue;font-size:10px">(caj tambahan sebanyak RM$!extbedcharge seorang)</div>
+        									</td>
+        								</tr>
+        								
+        								<tr>
+        									<td valign="top">TAMBAHAN KANAK-KANAK</td>
+        									<td valign="top">:</td>
+        									<td valign="top">
+        										<select class="texts" id="bilTambahanKanakKanak" name="bilTambahanKanakKanak" style="width:100%" onChange=" $('err_bilTambahanKanakKanak').innerHTML=''; at(this, event);">
+                                                    <option value="">SILA PILIH</option>
+                                                    #foreach($bilpdw in [1..$!jenisUnit.hadKanakKanak])
+                                                    	<option value="$bilpdw" >$bilpdw</option>
+                                                    #end
+                                                </select>
+        										<div style="color:blue;font-size:10px">(caj tambahan sebanyak RM$!extChargeKid seorang)</div>
+        									</td>
+        								</tr>
+										
+										 <br/>
+										
+    								#else
+    									<input type="hidden" name="bilTambahanDewasa" id="bilTambahanDewasa" value="" />
+    									<input type="hidden" name="bilTambahanKanakKanak" id="bilTambahanKanakKanak" value="" />
+    								#end
+    								
+    								#if( $!rp.jenisPeranginan.id.equalsIgnoreCase("RT") && $!rp.flagKelulusanSub.equalsIgnoreCase("Y") )
+        								<tr>
+                                			<td valign="top">SEBAB MOHON RT <span style='color:#FF2A00'>*</span></td>
+                                			<td valign="top">:</td>
+                                			<td valign="top">
+                                				<select class="texts" id="sebabMohonRT" name="sebabMohonRT" style="width:100%" onChange=" $('err_sebabMohonRT').innerHTML=''; at(this, event);">
+                                                <option value="">SILA PILIH</option>
+												#foreach($d in $!listSebabMohonRT)
+                                				<option value="$d.id" #if($d.id == $r.sebabMohonRT.id) selected #end >$!d.keterangan.toUpperCase()</option>
+                                				#end
+                                                </select>
+                                				<div id="err_sebabMohonRT" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                                			</td>
+                                		</tr>
+    								#end
+								
+								#end
+								
+								<input type="hidden" name="chkJenisPeranginan" id="chkJenisPeranginan" value="$!rp.jenisPeranginan.id" />
+								<input type="hidden" name="chkflagKelulusan" id="chkflagKelulusan" value="$!rp.flagKelulusanSub" />
+								
+							</table>
+							
+							
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="3">
+							<span style='color:#FF2A00'>* Jika tarikh tidak dapat dipilih bermakna tiada kekosongan pada tarikh tersebut. </span>
+							<br/>
+							<span style='color:#FF2A00'>*</span> <a href="#" style="color:blue;font-weight:bold" id="lnkSelenggara" onclick="doOpenPopupSenaraiSelenggara()"><u>KLIK SINI</u></a> <span style='color:#FF2A00'>untuk paparan senarai tarikh yang diselenggara.</span> 
+						</td>
+					</tr>
+				</table>
+				
+			</td>
+		</tr>
+		
+	</table>
+	
+</fieldset>
+	
+#if ($!userRole != '(RPP) Penyelia')	
+##if( $!controllerName.equalsIgnoreCase("bph.modules.rpp.TempahanRPRecordModule") || $!controllerName.equalsIgnoreCase("bph.modules.rpp.RppSkrinTempahan") )
+	##if( $userRole.equalsIgnoreCase("(AWAM) Penjawat Awam") )
+    	<table width="100%">
+        	<tr>
+        		<td align="right">
+        		
+					<input id="btnx" onclick="tempahNow()" style="width:30%" type="button" value="TEMPAH SEKARANG" />
+
+        		</td>
+        	</tr>
+        </table>
+	##end	
+##end
+#end
+
+<div id="popupSelenggara" class="popup"></div>
+<div id="popupTempahan" class="popup"></div>
+
+<input type="hidden" name="idJenisUnit" id="idJenisUnit" value="$!jenisUnit.id" />
+<input type="hidden" name="hadKuantitiKosong" id="hadKuantitiKosong" value="$!jenisUnit.hadKuantiti" />
+
+#set($defaultHadDewasa = $!jenisUnit.hadDewasa)
+#set($defaultHadKanakKanak = $!jenisUnit.hadKanakKanak)
+<div id="divRefreshHad">#parse("$path/carianKekosongan/divRefreshHad.vm")</div>
+
+
+<script>
+_jq( document ).ready(function() {
+
+	_jq('#dtfrom').Zebra_DatePicker({
+    	always_visible: _jq('#tDatefrom'),
+        show_select_today: 'Hari Ini',
+      	lang_clear_date: 'Buang Tarikh',
+        months: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'],
+        days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],
+        format: 'd-m-Y',
+		direction: $!calDirection,
+		disabled_dates: $!listDisabledDate,
+		pair: _jq('#dtto'),
+        onSelect: function() {
+		
+			var datefrom = _jq(this).val();
+			_jq('#tarikhMasukRpp').val(_jq(this).val());
+          	_jq('#err_tarikhMasukRpp').html('');
+			_jq('#checkSelectDate').val("");
+			
+			_jq('#tarikhKeluarRpp').val("");
+			
+			doDivAjaxCall3$formname('divSecondCalendar','plusNextDay','listDisabledDate='+$!listDisabledDate+'&datefrom='+datefrom);
+			
+     	},
+ 	});
+	
+});
+</script>
+

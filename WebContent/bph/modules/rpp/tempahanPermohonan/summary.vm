@@ -1,0 +1,636 @@
+
+<input type="hidden" name="idPermohonan" id="idPermohonan" value="$!r.id" />
+
+#if( $!r && $!userRole.equalsIgnoreCase("(RPP) Penyelia") && $r.statusBayaran == "T" )
+	#parse("$path/tab.vm")
+    <br/>
+#end
+
+
+#if( $!r.status.id != "1425259713415" )
+<fieldset id="makluman" style="font-weight:bold;color:red; background-color:#D8CEF6">
+    <table cellpadding="5" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td style="font-weight:bold;text-align:justify;">
+				#if( $!r.rppPeranginan.flagKelulusanSub.equalsIgnoreCase("Y") )
+					#if( $r.statusBayaran == "T")
+						#if( $!r.status.id == "1430809277096" )
+            				PERMOHONAN TELAH DIHANTAR KE HQ BAGI PROSES KELULUSAN. 
+            			#elseif( $!r.status.id == "1430809277102" )
+            				PERMOHONAN TELAH DILULUSKAN. SILA TERUSKAN PROSES BAYARAN.
+            			#elseif( $!r.status.id == "1430809277099" )
+            				PERMOHONAN TIDAK DILULUSKAN. 
+            			#end 
+					#end
+				#else	
+    				#if( $r.statusBayaran == "T" && $!r.status.id != "1425259713418")
+						
+						<table width="100%">
+							
+							
+							#if( $r.catatanPulangTempahan && !$r.catatanPulangTempahan.equalsIgnoreCase(""))
+								<tr>
+    								<td valign="top" >*</td>
+    								<td valign="top">
+										<div style="font-weight:bold;color:red" id="notaBayaranTidakSah">
+											$!r.catatanPulangTempahan.toUpperCase()
+										</div
+									</td>
+    							</tr>
+								
+								<script>
+                                	function blinker() {
+                                   		_jq('#notaBayaranTidakSah').fadeOut(750);
+                                        _jq('#notaBayaranTidakSah').fadeIn(750);
+                                  	}
+                                  	setInterval(blinker, 100);
+                            	</script>
+								
+							#else	
+								#if($!bookingFailed.equalsIgnoreCase("Y"))
+        							<tr>
+        								<td valign="top" >
+											<div style="font-weight:bold;color:red;font-size:16px">
+											*
+											</div>
+										</td>
+        								<td valign="top">
+											<div style="font-weight:bold;color:red;font-size:16px" id="bookingfail">
+												PERMOHONAN TEMPAHAN TIDAK BERJAYA DIBUAT. SILA BUAT TEMPAHAN SEMULA.
+											</div>
+										</td>
+        							</tr>
+									<script>
+                                    	function blinker() {
+                                       		_jq('#bookingfail').fadeOut(750);
+                                            _jq('#bookingfail').fadeIn(750);
+                                      	}
+                                      	setInterval(blinker, 100);
+                                	</script>
+								#else
+									<tr>
+        								<td valign="top" >
+											<div style="font-weight:bold;color:blue;font-size:16px">
+											*
+											</div>
+										</td>
+        								<td valign="top">
+											<div style="font-weight:bold;color:blue;font-size:16px" id="bookingSuccess">
+												PERMOHONAN TEMPAHAN TELAH BERJAYA DIBUAT
+											</div>
+										</td>
+        							</tr>
+									<script>
+                                    	function blinkers() {
+                                       		_jq('#bookingSuccess').fadeOut(750);
+                                            _jq('#bookingSuccess').fadeIn(750);
+                                      	}
+                                      	setInterval(blinkers, 100);
+                                	</script>
+									
+									#if( !$!r.rppPeranginan.id.equalsIgnoreCase("3") && !$!r.rppPeranginan.id.equalsIgnoreCase("14") )
+									<tr>
+        								<td valign="top" >
+											<div style="font-weight:bold;color:blue;font-size:16px">
+											*
+											</div>
+										</td>
+        								<td valign="top">
+											<div style="font-weight:bold;color:blue;font-size:15px" id="alertStatusPayment">
+												SEKIRANYA BAYARAN TELAH DIBUAT, STATUS BAYARAN AKAN DIKEMASKINI DALAM MASA 24 JAM.
+											</div>
+										</td>
+        							</tr>
+									<script>
+                                    	function blinkers() {
+                                       		_jq('#alertStatusPayment').fadeOut(750);
+                                            _jq('#alertStatusPayment').fadeIn(750);
+                                      	}
+                                      	setInterval(blinkers, 100);
+                                	</script>
+									#end
+									
+									#if( !$!r.rppPeranginan.jenisPeranginan.id.equalsIgnoreCase("RP") )
+									<tr>
+        								<td valign="top" >
+											<div style="font-weight:bold;color:red;font-size:16px">
+											*
+											</div>
+										</td>
+        								<td valign="top">
+											<div style="font-weight:bold;color:red;font-size:15px" id="alertAutoBatal">
+												#if($!balanceDay==0) 
+													SILA BUAT PEMBAYARAN DENGAN SEGERA BAGI MENGELAKKAN TEMPAHAN DIBATALKAN.
+												#else
+													SILA BUAT PEMBAYARAN DALAM MASA $!balanceDay HARI BAGI MENGELAKKAN TEMPAHAN DIBATALKAN.
+												#end
+											</div>
+										</td>
+        							</tr>
+									<script>
+                                    	function blinkers() {
+                                       		_jq('#alertAutoBatal').fadeOut(750);
+                                            _jq('#alertAutoBatal').fadeIn(750);
+                                      	}
+                                      	setInterval(blinkers, 100);
+                                	</script>
+									#end
+									
+								#end
+							#end
+							
+							#if( !$!r.rppPeranginan.id.equalsIgnoreCase("3") && !$!r.rppPeranginan.id.equalsIgnoreCase("14") )
+##							<tr>
+##								<td valign="top">*</td>
+##								<td valign="top">
+##									UNTUK MAKLUMAN TUAN/PUAN, PIHAK KAMI MENGHADAPI MASALAH BAGI PEMBAYARAN SECARA ONLINE PADA MASA INI,
+##									SILA BUAT BAYARAN MELALUI KAUNTER HASIL BLOK B1, JPM PUTRAJAYA.
+##								</td>
+##							</tr>
+##							<tr>
+##								<td valign="top">*</td>
+##								<td valign="top">
+##									<span style="color:red" id="notaFpx">
+##									BAYARAN TEMPAHAN AKAN DILANJUTKAN DARI SEMASA KE SEMASA DARI TARIKH TEMPAHAN DIBUAT KERANA MASALAH TEKNIKAL (BAYARAN ONLINE).
+##									MAKLUMAN AKAN DIBUAT MELALUI EMEL APABILA SISTEM BAYARAN ONLINE BOLEH DIBUAT.
+##									</span>
+##								</td>
+##							</tr>
+##							
+##							<script>
+##                            	function blinker() {
+##                                   	 _jq('#notaFpx').fadeOut(750);
+##                                    _jq('#notaFpx').fadeIn(750);
+##                                }
+##                                setInterval(blinker, 1500);
+##                            </script>	
+							
+							#end
+							
+						</table>
+						
+    				#end
+    				
+    				#if( $!r.statusBayaran=="Y" )
+    					PEMBAYARAN TELAH DIBUAT PADA $!util.getDateTime($!r.tarikhBayaran,'dd-MM-yyyy')
+    				#end	
+				#end
+            </td>
+        </tr>
+    </table>
+</fieldset>
+#else
+
+	
+    #if( $!r.statusBayaran=="Y" )	
+    	
+        <fieldset id="makluman" style="font-weight:bold;color:red; background-color:#D8CEF6">
+            <table cellpadding="5" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td style="color:blue;font-size:15px;font-weight:bold;text-align:justify;" id="notaLulusOperator">
+        				PERMOHONAN TELAH DILULUSKAN. <br/>SILA KLIK SENARAI CETAKAN BAGI MENDAPATKAN SURAT KELULUSAN PERMOHONAN UNTUK DISIMPAN SEBAGAI RUJUKAN. 
+        			</td>
+                </tr>
+            </table>
+        </fieldset>	
+    
+    	<script>
+            function blinker() {
+            	_jq('#notaLulusOperator').fadeOut(750);
+                _jq('#notaLulusOperator').fadeIn(750);
+           	}
+          	setInterval(blinker, 100);
+       	</script>
+    				
+    	##<fieldset id="tableReport" style="display:none;">
+    	<fieldset>	
+        <legend class="legend">SENARAI CETAKAN</legend>
+        <table width="100%" >
+    		#if( !$!r.rppPeranginan.id.equalsIgnoreCase("3") && !$!r.rppPeranginan.id.equalsIgnoreCase("14") )
+    			#if ($!r.status.id == '1425259713415')
+    ##        	<tr>
+    ##        		<td><a href="#" style="color:blue" id="cmdResit" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!r.id&jenisSurat=resitBayaran&pdfName=ResitBayaran','Resit Bayaran','width=900,height=600')">RESIT </a></td>		
+    ##        	</tr>
+            	<tr>
+            		<td><a href="#" style="color:blue" id="cmdResitInv">RESIT SEWA</a></td>		
+            	</tr>
+    			#if(!$!r.getIdResitDeposit().equals(null) && $!r.getIdResitSewa() != "" && $!r.getIdResitDeposit() != $!r.getIdResitSewa())
+            	<tr>
+            		<td><a href="#" style="color:blue" id="cmdResitDep">RESIT DEPOSIT </a></td>		
+            	</tr>
+            	#end
+            	<script>
+            		_jq('#cmdResitDep').on('click', function(){
+            		    var idResit = '$!r.getIdResitDeposit()';
+            		    
+    					var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+    					var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+    					if ((document.window != null) && (!hWnd.opener))
+    					hWnd.opener = document.window;
+    					if (hWnd.focus != null) hWnd.focus();	
+        			});
+        			_jq('#cmdResitInv').on('click', function(){
+            		    var idResit = '$!r.getIdResitSewa()';
+            		    
+    					var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+    					var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+    					if ((document.window != null) && (!hWnd.opener))
+    					hWnd.opener = document.window;
+    					if (hWnd.focus != null) hWnd.focus();	
+        			});
+    	        </script>
+    			#end
+    		#end
+    		
+        	<tr>##Fatin
+    			##langkawi
+    			#if($!r.rppPeranginan.id.equalsIgnoreCase("3"))
+					<td><a href="#" style="color:blue" id="cmdRPPSuratKelulusan">SURAT KELULUSAN LANGKAWI</a></td>
+    			##port dickson
+    			#elseif($!r.rppPeranginan.id.equalsIgnoreCase("14"))
+    				<td><a href="#" style="color:blue" id="cmdRPPSuratKelulusan">SURAT KELULUSAN PORT DICKSON</a></td>
+    			#else
+    				<td><a href="#" style="color:blue" id="cmdRPPSuratKelulusan">SURAT KELULUSAN</a></td>
+    			#end	
+        	</tr>
+        </table>
+        </fieldset>
+    				
+    #end
+    
+#end
+
+#if($!bookingFailed.equalsIgnoreCase("T"))
+    <div id="printableArea">
+    <fieldset>
+    <legend class="legend">maklumat permohonan</legend>
+    	
+    	<table width="100%" cellpadding="2" cellspacing="2" border="0">
+    		
+    		<tr>
+    			<td colspan="3">
+    				<span style="font-weight:bold;font-size:13px">
+    					<u>$!r.jenisUnitRpp.peranginan.namaPeranginan.toUpperCase() - $!r.jenisUnitRpp.keterangan.toUpperCase()</u> 
+    				</span>
+    			</td>
+    		</tr>
+    		
+    		<tr>
+    			<td width="180px"></td>
+    			<td width="10px"></td>
+    			<td></td>
+    		</tr>
+    		
+    		<tr>
+    			<td colspan="3">
+    				
+    				<table width="100%" border="0">
+    					<tr>
+    						<td width="25%" valign="top">
+    							<input type="hidden" id="dtfrom" name="dtfrom" value="$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy')" style="width: 150px" />
+    							<div id="tDatefrom" style="position: relative; z-index: -1, margin: 10px 0 0 0; width: 220px; height: 240px"></div>
+    						</td>
+    						
+    						<td width="30%" valign="top">
+    							<input type="hidden" id="dtto" name="dtto" value="$!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')" style="width: 150px" />
+    							<div id="tDateto" style="top:-10px;position: relative; z-index: 0; margin: 10px 0 0 0; width: 220px; height: 240px"></div>
+    						</td>
+    						
+    						<td width="45%" valign="top">
+    							
+    							<table width="100%" border="0">
+    								
+    								<tr>
+    									<td width="35%"></td>
+    									<td width="2%"></td>
+    									<td width="63%"></td>
+    								</tr>
+    								
+    								#show("<b>NO. TEMPAHAN</b>" "<b>$!r.noTempahan.toUpperCase()</b>")
+    								#show("<b>NAMA</b>" "<b>$!r.pemohon.userName.toUpperCase()</b>")
+    								#show("<b>NO. PENGENALAN</b>" "<b>$!r.pemohon.id.toUpperCase()</b>")
+    								#show("<b>GRED</b>" "<b>$!r.pemohon.gredPerkhidmatan.keterangan.toUpperCase()</b>")
+    								#show("<b>NO. TEL</b>" "<b>$!r.pemohon.noTelefonBimbit / $!r.pemohon.noTelefon</b>")
+    								#show("<b>EMEL</b>" "<b>$!r.pemohon.emel.toUpperCase()</b>")
+    								#show("<b>RUMAH PERANGINAN</b>" "<b>$!r.jenisUnitRpp.peranginan.namaPeranginan.toUpperCase()</b>")
+    								#show("<b>JENIS UNIT</b>" "<b>$!r.jenisUnitRpp.keterangan.toUpperCase()</b>")
+    								#show("<b>KADAR SEWA (RM)" "<b>$!util.formatDecimal($!r.jenisUnitRpp.kadarSewa)/malam</b>")
+    								#show("<b>STATUS TEMPAHAN</b>" "<b>$!r.status.keterangan.toUpperCase()</b>")
+    								#show("<b>STATUS BAYARAN</b>" "<b>$!r.keteranganStatusBayaran()</b>")
+									
+									#if( $!r.tarikhBayaran )
+										#show("<b>TARIKH BAYARAN</b>" "<b>$!util.getDateTime($!r.tarikhBayaran,'dd-MM-yyyy')</b>")
+									#end
+									
+									#if( $!r.rppPeranginan.jenisPeranginan.id.equalsIgnoreCase("RT") && $!r.rppPeranginan.flagKelulusanSub.equalsIgnoreCase("Y") )
+										#show("<b>SEBAB MOHON RT</b>" "<b>$!r.sebabMohonRT.keterangan.toUpperCase()</b>")
+									#end
+									
+    								<tr><td colspan="3"><hr/></td></tr>
+    								
+    								#show("TARIKH MOHON" "$!util.getDateTime($!r.tarikhPermohonan,'dd-MM-yyyy')")
+    								#show("TARIKH DAFTAR MASUK" "$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy')")
+    								#show("TARIKH DAFTAR KELUAR" "$!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')")
+    								#show("BIL. UNIT" "$!r.kuantiti")
+    								#show("BIL. DEWASA" "$!r.bilDewasa")
+    								#show("BIL. KANAK - KANAK" "$!r.bilKanakKanak")
+    								
+    								#if( !$!r.rppPeranginan.id.equalsIgnoreCase("3") && !$!r.rppPeranginan.id.equalsIgnoreCase("14") )
+    									#show("TAMBAHAN DEWASA" "$!r.bilTambahanDewasa")
+    									#show("TAMBAHAN KANAK-KANAK" "$!r.bilTambahanKanakKanak")
+									#end
+									
+    							</table>
+    							
+    						</td>
+    					</tr>
+    				</table>
+    				
+    			</td>
+    		</tr>
+    		
+    	</table>
+    	
+    </fieldset>
+    	
+    	#if($!listTempahanDanBayaran.size() > 0)
+        	#if(!$!bookingFailed.equalsIgnoreCase("Y"))	
+        		#parse("bph/modules/rpp/templates/maklumatTempahan.vm")
+			#end
+		#else
+			#if($!r.rppPeranginan.jenisPeranginan.id=="RP")
+				<div id="blinkNotisTungguKelulusan" align="left" style="color:red;font-size:12px">
+            		<p><strong>* TUAN/PUAN DINASIHATKAN AGAR MENDAPATKAN KELULUSAN PERMOHONAN SEBELUM MELAKUKAN SEBARANG PERANCANGAN SELANJUTNYA.</strong></p>
+            	</div>
+				
+				<script>
+                	function blinker() {
+                    	_jq('#blinkNotisTungguKelulusan').fadeOut(800);
+                        _jq('#blinkNotisTungguKelulusan').fadeIn(800);
+                 	}
+                   	setInterval(blinker, 100);
+             	</script>
+			#end
+    	#end
+    </div>
+#end
+
+
+	<!--
+	#if( $!r.rppPeranginan.flagKelulusanSub.equalsIgnoreCase("Y") )
+    	<fieldset>
+    	<legend class="legend">maklumat kelulusan sub</legend>
+    	
+        	<table width="100%" cellpadding="2" cellspacing="2" border="0">
+        		<tr>
+					<td width="160px"></td>
+					<td width="10px"></td>
+					<td></td>
+				</tr>
+				#show("TARIKH KELULUSAN" "$util.replaceIfNull($!util.getDateTime($!r.tarikhKelulusanSub,'dd-MM-yyyy'),'-')")
+        		#if($!r.flagKelulusanSub=="Y") #set($kelulusanSub = "LULUS") #end
+        		#if($!r.flagKelulusanSub=="T") #set($kelulusanSub = "TIDAK LULUS") #end	
+        		#show("KEPUTUSAN" "$util.replaceIfNull($!kelulusanSub,'-')")
+        		#show("CATATAN" "$util.replaceIfNull($!r.catatanSub,'-')")
+				<tr><td colspan="3">&nbsp;</td></td></tr>
+				<tr>
+					#if( $!r.statusBayaran == "T")
+					<td colspan="3">
+						<span style="color:red;font-size:10px">NOTA : PEMBAYARAN HANYA BOLEH DIBUAT SETELAH PERMOHONAN DILULUSKAN OLEH SUB.</span>
+					</td>
+					#end
+				</tr>
+        	</table>
+    	
+    	</fieldset>
+	#end
+		-->
+	
+	<br/>
+	
+	#if( $!r.rppPeranginan.id.equalsIgnoreCase("3") || $!r.rppPeranginan.id.equalsIgnoreCase("14") )
+		
+		#if(!$!bookingFailed.equalsIgnoreCase("Y"))	
+			
+    		#if( $!r.photofilename && !$!r.photofilename.equalsIgnoreCase("") )
+    			&nbsp;&nbsp;
+    			<a href="../download?file=$!uploadDir$!r.photofilename"><span class="print" style="color:#0000FF"><strong>SLIP PEMBAYARAN</strong><span></a> 
+    			#if ($!r.status.id != '1435512646303') ##selesai
+    			&nbsp;&nbsp;
+    			
+    			### ADD BY PEJE - SETELAH BAYARAN DIBUAT, XBOLEH HAPUS SLIP BAYARAN
+            	#if( $!r.statusBayaran != "Y")
+        			<input id="hapusSlip" name="hapusSlip" type="button" value="Hapus" onClick="javascript:doHapusResit();"/>
+        			<br/><br/>			
+        			<div style="color:#CC0000;font-weight:bold;border:2px #000" id="notaHantar">
+        			* Sila klik [Hantar Bukti Pembayaran] selepas memuatnaik slip bayaran.
+        			</div>
+        			
+        			<script>
+                    	function blinker() {
+                       		_jq('#notaHantar').fadeOut(750);
+                            _jq('#notaHantar').fadeIn(750);
+                      	}
+                      	setInterval(blinker, 100);
+                	</script>
+    			#end
+    			
+    			#end 
+    			
+    		#else	
+        		Muat naik slip pembayaran : <input class="texts" type="file" id="dokumen" name="dokumen" style="width:50%" onfocus="$('err_dokumen').innerHTML = '';" onChange="checkUpload()">
+        		<div id="dokumenMuatnaik" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span></div>
+        		<div id="err_dokumen" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    			
+    			<br/><br/>
+    			
+    			<div style="color:#CC0000;font-weight:bold;border:2px #000">
+    				
+    				##langkawi
+    				#if( $!r.rppPeranginan.id.equalsIgnoreCase("3") )
+    					* Bagi RPP Langkawi, sila buat pembayaran penuh ke dalam akaun Langkawi Holiday Villa Sdn. Bhd bernombor 002072115903 (Maybank Berhad) dan 
+    					sila muat naik bukti pembayaran dalam tempoh 7 hari dari tarikh tempahan dibuat bagi mendapatkan surat kelulusan tempahan.
+    					
+    				##pd	
+    				#elseif( $!r.rppPeranginan.id.equalsIgnoreCase("14")  )
+    					* Bagi RPP Port Dickson, sila buat pembayaran penuh ke dalam akaun Tunas Larut Enterprise bernombor 
+						##0804-0006695-05-8 (CIMB Bank)
+						8004802984 (CIMB Bank)
+    					dan sila muat naik bukti pembayaran dalam tempoh 7 hari dari tarikh tempahan dibuat bagi mendapatkan surat kelulusan tempahan.
+    				#end	
+    				
+    				<br/><br/>
+    				
+    				* Sila klik [Hantar Bukti Pembayaran] selepas memuatnaik slip bayaran.
+    			
+    				<br/>
+    				
+    				<br/>
+    				* Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)
+    				<br/>
+    				* Sila pastikan saiz fail tidak melebihi 2MB. 
+					<br/>
+    				* Sila pastikan nama dokumen tidak mengandungi [ . ]  &nbsp;Contoh : fail.29.12.2015.pdf  ditukar kepada fail-29-12-2015.pdf
+    				</div>
+    		#end
+		#end
+	#end
+	
+	
+	##fieldset report lama
+	
+	<iframe id="upload_doc" name="upload_doc" width="0px" height="0px" style="visibility:hidden"></iframe>
+	
+	
+	#if($!userRole.equalsIgnoreCase("(RPP) Penyedia") || $!userRole.equalsIgnoreCase("(RPP) Penyemak") || $!userRole.equalsIgnoreCase("(RPP) Pelulus") )
+		<div id="divCatatanBookingHq">#parse("$path/catatanBookingHq.vm")</div>
+		<br/>
+	#end
+	
+	<table width="100%">
+		<tr>
+			
+			<td align="right">
+				
+				#if( $!r.photofilename && !$!r.photofilename.equalsIgnoreCase("") )
+					#if ($!r.status.id != '1425259713415') ##selesai
+						<input type="button" style="font-weight:bold" value="Hantar Bukti Pembayaran" onClick="doHantarBuktiPembayaran()"></b>
+					#end
+				#end
+				
+				#if(!$!userRole.equalsIgnoreCase("(RPP) Penyelia") && !$!userRole.equalsIgnoreCase("(HASIL) Juruwang") && !$!userRole.equalsIgnoreCase("(HASIL) Penyelia"))
+    				#if( $!r.statusBayaran == "T")
+						#if(!$!bookingFailed.equalsIgnoreCase("Y") || $!r.status.id == '1430809277096')
+							<input type="button" value="Batal Permohonan" onClick="doBatalTempahan()">
+						#end
+    				#end	
+				#end
+				
+        		##<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+					
+				#if( $!r.statusBayaran == "Y")	
+					<input type="button" onclick="printDiv('printableArea')" value="Cetak Skrin" />	
+				#end	
+        		
+				#if(!$!userRole.equalsIgnoreCase("(RPP) Penyelia") && !$!userRole.equalsIgnoreCase("(HASIL) Juruwang") && !$!userRole.equalsIgnoreCase("(HASIL) Penyelia"))
+            		### ADD BY PEJE - CETAK SURAT KELULUSAN SETELAH BAYARAN DIBUAT SAHAJA
+            		#if( $!r.statusBayaran == "Y")
+            		##<input type="button" value="Cetak Surat Kelulusan/Resit"  id="cmdCetak1"/>
+            		#end
+				
+    				#if( ($!r.rppPeranginan.flagKelulusanSub.equalsIgnoreCase("Y") && $!r.status.id == "1430809277102" && $!r.statusBayaran == "T") 
+    					  || ( !$!r.rppPeranginan.flagKelulusanSub.equalsIgnoreCase("Y") && $!r.statusBayaran == "T" ) ) ##PERMOHONAN DILULUSKAN SUB
+    					  #if( !$!r.rppPeranginan.id.equalsIgnoreCase("3") && !$!r.rppPeranginan.id.equalsIgnoreCase("14") )
+								
+							#if(!$!bookingFailed.equalsIgnoreCase("Y"))
+    						<input id="btnFpx" type="button" value="Bayar" onClick="doBayarTempahanFPX()">
+							##<input id="btnBypass" type="button" value="Bayar" onClick="doDivAjaxCall3$formname('div_main_entry','bayarTempahan','idRppPermohonan=$!r.id');">
+							#end	
+    						##rozai tutup sekejap
+    						##<input id="btnFpx" type="button" value="Bayar" onClick="alertFPX()">
+    						
+    					  #end
+    				#end
+				#end
+				
+				#if($!bookingFailed.equalsIgnoreCase("Y"))
+					<input id="btnBack" type="button" value="Buat Tempahan Baru" onClick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','add_new_record','');">
+				#else
+					<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+				#end
+			</td>
+       </tr>
+	</table>
+	
+	
+##	<fieldset id="tableReport" style="display:none;">
+##    <legend class="legend">SENARAI LAPORAN</legend>
+##    <table width="100%" >
+##		#if( !$!r.rppPeranginan.id.equalsIgnoreCase("3") && !$!r.rppPeranginan.id.equalsIgnoreCase("14") )
+##			#if ($!r.status.id == '1425259713415')
+##        	<tr>
+##        		<td><a href="#" style="color:blue" id="cmdResit" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!r.id&jenisSurat=resitBayaran&pdfName=ResitBayaran','Resit Bayaran','width=900,height=600')">RESIT </a></td>		
+##        	</tr>
+##			#end
+##		#end
+##		
+##    	<tr>
+##			##langkawi
+##			#if( $!r.rppPeranginan.id.equalsIgnoreCase("3"))
+##				<td><a href="#" style="color:blue" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!r.id&jenisSurat=suratKelulusanLangkawi&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN LANGKAWI</a></td>
+##			##port dickson
+##			#elseif($!r.rppPeranginan.id.equalsIgnoreCase("14") )
+##				<td><a href="#" style="color:blue" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!r.id&jenisSurat=suratKelulusanPD&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN PORT DICKSON</a></td>
+##			#else
+##				<td><a href="#" style="color:blue" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!r.id&jenisSurat=suratKelulusan&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN</a></td>
+##			#end	
+##    	</tr>
+##    </table>
+##    </fieldset>
+	
+<div id="pilihanFPX"></div>	
+	
+<script>
+_jq( document ).ready(function() {
+
+	_jq('#dtfrom').Zebra_DatePicker({
+    	always_visible: _jq('#tDatefrom'),
+        show_select_today: 'Hari Ini',
+      	lang_clear_date: 'Buang Tarikh',
+        months: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'],
+        days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],
+        format: 'd-m-Y',
+		pair: _jq('#dtto'),
+		show_clear_date:false,
+		show_select_today:false,
+ 	});
+						
+	_jq('#dtto').Zebra_DatePicker({
+    	always_visible: _jq('#tDateto'),
+        show_select_today: 'Hari Ini',
+       	lang_clear_date: 'Buang Tarikh',
+       	months: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'],
+       	days: ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'],
+        format: 'd-m-Y',
+		show_clear_date:false,
+		show_select_today:false,
+ 	});
+	
+});
+</script>	
+
+<script>
+	_jq('#cmdCetak1').on('click', function(){ 
+			if(document.getElementById('tableReport').style.display=="none"){
+				document.getElementById('tableReport').style.display="block";
+				}
+			else if(document.getElementById('tableReport').style.display=="block"){
+				document.getElementById('tableReport').style.display="none";
+				}
+	});
+	
+##		_jq('#cmdResit').on('click', function(){
+##		
+##				var url = "../servlet/bph.laporan.rpp.Resit?idRppPermohonan=$!r.id";
+##				var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+##				if ((document.window != null) && (!hWnd.opener))
+##				hWnd.opener = document.window;
+##				if (hWnd.focus != null) hWnd.focus();
+##	
+##		});
+		##Fatin
+		_jq('#cmdRPPSuratKelulusan').on('click', function(){
+		#if($!r.rppPeranginan.id.equalsIgnoreCase("3"))
+			var url = "../servlet/bph.laporan.rpp.SuratKelulusanRPPLangkawi?idRppPermohonan=$!r.id";
+		#elseif($!r.rppPeranginan.id.equalsIgnoreCase("14"))
+			var url = "../servlet/bph.laporan.rpp.SuratKelulusanRPPPortDickson?idRppPermohonan=$!r.id";
+		#else
+			var url = "../servlet/bph.laporan.rpp.RPPSuratLulusPermohonan?idRppPermohonan=$!r.id";
+		#end
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		});
+		
+</script>

@@ -1,0 +1,176 @@
+#parse("bph/dashboard/style.vm")
+#parse("$path/script.vm")
+<table width="100%" border="0" cellspacing="0" cellpadding="5">
+  ## LAYER 1
+  <tr>
+    <td width="60%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img src="../bph/dashboard/picture/myprofile.png"  width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Profil</b></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoProfile()" class="help" title="Profil Pengguna">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Profil Pengguna</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoKataLaluan()" class="help" title="Tukar Kata Laluan">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Tukar Kata Laluan</font></li>
+                              </a></td>
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+                <td width="50%" valign="top">&nbsp;</td>
+              </tr>
+            </table></td>
+        </tr>
+        ## LAYER 2
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Senarai Tugasan</b></td>
+                          </tr>
+                          #if ($!portal_role == '(SENGGARA) Penyelia Kunci')
+                          <tr>
+                            <td><a href="javascript:gotoTerimaanKunci()" class="help" title="Terimaan Kunci">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Terimaan Kunci</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoSerahanKunci()" class="help" title="Serahan Kunci">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Serahan Kunci</font></li>
+                              </a></td>
+                          </tr>
+                          #end
+                          #if ($!portal_role == '(SENGGARA) Penyelia Inden')
+                          <tr>
+                            <td><a href="javascript:gotoSenaraiJKHLulus()" class="help" title="Senarai Jadual Kadar Harga">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Senarai Jadual Kadar Harga</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoSenaraiIndenKerja()" class="help" title="Penyediaan Inden Kerja">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Penyediaan Inden Kerja</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoCetakanIndenKerja()" class="help" title="Cetakan Inden Kerja / Nota Minta">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Cetakan Inden Kerja / Nota Minta</font></li>
+                              </a></td>
+                          </tr>
+                          #end
+                          #if ($!portal_role == '(SENGGARA) Penyedia')
+                          <tr>
+                            <td><a href="javascript:gotoSemakanKuarters()" class="help" title="Semakan Kuarters">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Semakan Kuarters</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoPenyediaanJKH()" class="help" title="Penyediaan  Jadual Kadar Harga">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Penyediaan Jadual Kadar Harga</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoPemantauanKerja()" class="help" title="Pemantauan Kerja Pembaikan">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Pemantauan Kerja Pembaikan</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoPenilaianKontraktor()" class="help" title="Penilaian Kontraktor">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Penilaian Kontraktor</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoProsesBayaran()" class="help" title="Proses Bayaran">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Proses Bayaran</font></li>
+                              </a></td>
+                          </tr>
+                          #end
+                          #if ($!portal_role == '(SENGGARA) Penyemak')
+                          <tr>
+                            <td><a href="javascript:gotoAgihanTugasSemakanKuarters()" class="help" title="Agihan Tugas Semakan Kuarters">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Agihan Tugas Semakan Kuarters</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoPembaikanAgensi()" class="help" title="Pembaikan Oleh Agensi Pelaksana / Pemaju">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Pembaikan Oleh Agensi Pelaksana / Pemaju</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoSemakanJKH()" class="help" title="Semakan Jadual Kadar Harga">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Semakan Jadual Kadar Harga</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoAgihanTugasPemantauanKerja()" class="help" title="Agihan Tugas Pemantauan Kerja">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Agihan Tugas Pemantauan Kerja</font></li>
+                              </a></td>
+                          </tr>
+                          #end
+                          #if ($!portal_role == '(SENGGARA) Pengesyor')
+                          <tr>
+                            <td><a href="javascript:gotoPengesyoranJKH()" class="help" title="Pengesyoran Jadual Kadar Harga">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Pengesyoran Jadual Kadar Harga</font></li>
+                              </a></td>
+                          </tr>
+                          #end
+                        </table></td>
+                    </tr>
+                  </table></td>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Rekod</b></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoRekodTerimaanKunci()" class="help" title="Rekod Terimaan Kunci">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Rekod Terimaan Kunci</font></li>
+                              </a></td>
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+              </tr>
+            </table></td>
+        </tr>
+        ## LAYER 3
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/images_stat.png" width="30" height="30" align="center"/>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Laporan</b></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoSenaraiLaporan()" class="help" title="Senarai Laporan">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Senarai Laporan</font></li>
+                              </a></td>
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+                <td width="50%" valign="top">&nbsp;</td>
+              </tr>
+            </table></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>

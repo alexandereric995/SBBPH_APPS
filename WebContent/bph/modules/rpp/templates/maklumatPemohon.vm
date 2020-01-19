@@ -1,0 +1,138 @@
+<fieldset>
+<legend class="legend">MAKLUMAT PEMOHON</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top">
+		
+		<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+   
+			        <tr>
+            			<td valign="top" width="30%">Gelaran</td>
+            			<td valign="top" width="1%" align="right">:</td>
+            			<td valign="top" width="69%">$!util.replaceIfNull($!r.pemohon.gelaran.keterangan.toUpperCase(),'TIADA')</td>
+            		</tr>
+					
+            		<tr>
+            			<td valign="top">Nama Pemohon</td>
+            			<td valign="top" align="right">:</td>
+            			<td valign="top">
+							$!r.pemohon.userName.toUpperCase()
+							#if(!$!userRole.equalsIgnoreCase("(AWAM) Penjawat Awam"))
+    							#if($!listAduan.size() > 0)
+    								&nbsp;<span style="font-size:9px;color:blue">Terdapat $!listAduan.size() aduan kerosakan dilaporkan</span>
+    							#end	
+							#end
+						</td>
+            		</tr>
+            		<tr>
+            			<td valign="top">No. Pengenalan</td>
+            			<td valign="top" align="right">:</td>
+            			<td valign="top">$!r.pemohon.noKP</td>
+            		</tr>
+					
+					<!--
+            		<tr>
+            			<td valign="top">Jawatan</td>
+            			<td valign="top" align="right">:</td>
+            			<td valign="top">
+							$!r.pemohon.jawatan.keterangan.toUpperCase()
+						</td>
+            		</tr>
+					-->
+					
+            		<tr>
+            			<td valign="top">Gred Jawatan</td>
+            			<td valign="top" align="right">:</td>
+            			<td valign="top">$!r.pemohon.gredPerkhidmatan.keterangan.toUpperCase()</td>
+            		</tr>
+					
+					<tr>
+            			<td valign="top">Kelas Perkhidmatan</td>
+            			<td valign="top" align="right">:</td>
+            			<td valign="top">$!util.replaceIfNull($!r.pemohon.kelasPerkhidmatan.keterangan.toUpperCase(),"-")</td>
+            		</tr>
+					
+					<tr>
+            			<td valign="top">Unit / Bahagian</td>
+            			<td valign="top" align="right">:</td>
+            			<td valign="top">$!util.replaceIfNull($!r.pemohon.bahagian.toUpperCase(),"-")</td>
+            		</tr>
+					
+					<tr>
+                    	<td colspan="3">&nbsp;</td>
+					</tr>
+					
+					<tr>
+                    	<td colspan="3">
+                    		<span style="font-size:11px;font-weight:bold;text-decoration: underline;">MAKLUMAT PASANGAN</span>
+							
+                    	</td>
+					</tr>
+					
+					#show("Nama" "$!util.replaceIfNull($!r.pemohon.rekodSpouse().namaPasangan.toUpperCase(),'-')")
+					#show("No. Kad Pengenalan" "$!util.replaceIfNull($!r.pemohon.rekodSpouse().noKPPasangan,'-')")
+					
+      </table>
+	</td>
+    
+	<td width="50%" valign="top">
+    <table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+		
+		<!--
+        <tr>
+            			<td valign="top">Jenis Perkhidmatan</td>
+            			<td valign="top">:</td>
+            			<td valign="top">$!r.pemohon.jenisPerkhidmatan.keterangan.toUpperCase()</td>
+         </tr>
+		 --> 
+        ## <tr>
+        ##    			<td valign="top">Kategori Jawatan</td>
+        ##    			<td valign="top" align="right">:</td>
+        ##    			<td valign="top">$!r.jenisPerkhidmatan.keterangan</td>
+        ##    		</tr>
+		<tr>
+			<td>No.Telefon</td>
+			<td>:</td>
+			<td>$!r.pemohon.noTelefon</td>
+		</tr>
+		
+		<tr>
+			<td valign="top">No.Telefon Bimbit</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				$!r.pemohon.noTelefonBimbit
+			</td>
+		</tr>
+		
+		<tr>
+			<td valign="top">Emel</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				$!r.pemohon.emel
+			</td>
+		</tr>
+		
+		#show("Alamat" "$!util.replaceIfNull($!r.pemohon.alamat1.toUpperCase(),'-')")
+		#alamat_readonly("" "" "$!util.replaceIfNull($!r.pemohon.alamat2.toUpperCase(),'-')")
+		#alamat_readonly("" "" "$!util.replaceIfNull($!r.pemohon.alamat3.toUpperCase(),'-')")
+    	#alamat_readonly("" "" "$!util.replaceIfNull($!r.pemohon.bandar.keterangan.toUpperCase(),'-')")
+			
+      </table></td>
+  </tr>
+  
+</table>
+
+
+
+</fieldset>
+

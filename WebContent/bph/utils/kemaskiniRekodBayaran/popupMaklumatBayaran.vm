@@ -1,0 +1,118 @@
+
+
+<fieldset style="width:50% !important">
+<legend class="legend">maklumat bayaran</legend>
+	
+	<table width="100%">
+		<tr>
+			<td style="width:200px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+		</tr>
+		
+		<tr>
+        	<td class="label" valign="top">NO. RESIT SEWA</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top"><input type="text" id="noResitSewa" name="noResitSewa" value="$!resitSewa.noResit" onKeyUp=" $('err_noResitSewa').innerHTML='';" onBlur="this.value=this.value.toUpperCase();">
+        	<div id="err_noResitSewa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+		
+		#input("noResitDeposit" "NO. RESIT DEPOSIT" "$!resitDeposit.noResit")
+		#date_input_required("tarikhBayaran" "TARIKH BAYARAN" "$!util.getDateTime($!r.tarikhBayaran,'dd-MM-yyyy')")
+		
+		<tr>
+			<td>KAEDAH BAYARAN &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td>:</td>
+			<td>
+				<select class="texts" id="kaedahBayaran" name="kaedahBayaran" style="width:100%" onChange=" $('err_kaedahBayaran').innerHTML='';">
+					<option value="">SILA PILIH</option>
+                    #foreach($d in $!selectModBayaran)
+					<option value="$!d.id" #if($!kaedahBayaran.modBayaran.id.equalsIgnoreCase("$!d.id") ) selected #end>$!d.keterangan.toUpperCase()</option>
+                    #end
+				</select>
+            	<div id="err_kaedahBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>JENIS BAYARAN &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td>:</td>
+			<td>
+				<select class="texts" id="jenisBayaran" name="jenisBayaran" style="width:100%" onChange=" $('err_jenisBayaran').innerHTML='';">
+					<option value="">SILA PILIH</option>
+					<option value="ONLINE" #if($!resitSewa.flagJenisBayaran=="ONLINE") selected #end>ONLINE</option>
+					<option value="KAUNTER" #if($!resitSewa.flagJenisBayaran=="KAUNTER") selected #end>KAUNTER</option>
+					<option value="MANUAL" #if($!resitSewa.flagJenisBayaran=="MANUAL") selected #end>MANUAL</option>	
+				</select>
+            	<div id="err_jenisBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		#input("idTransaksiBank" "ID TRANSAKSI BANK" "$!resitSewa.idTransaksiBank")
+		
+	</table>
+
+	
+	<br />
+	<table width="100%">
+		<tr>
+			<td>
+				<div id="err_chkmsg" style="color:#CC0000;font-weight:bold;border:2px #000">
+					* Kosongkan medan no.resit untuk jana no.resit baru <br/>
+					* Penjanaan resit kaunter hanya melibatkan no.resit manual sahaja
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				<input id="btnKemaskiniData" type="button"  value="KEMASKINI DATA" />
+				<input id="btnExit" type="button"  value="TUTUP" />
+			</td>
+		</tr>
+	</table>
+
+</fieldset>		
+
+<script>
+	_jq('#btnExit').on('click', function(){
+     	jQuery('#popupMaklumatBayaran').fadeOut();
+  	});
+	
+	function validateInput() {
+
+    	var err_count = 0;
+    	
+        var tarikhBayaran = $('tarikhBayaran').value;
+		if ( tarikhBayaran == "" ) {$('err_tarikhBayaran').innerHTML = "Tarikh Bayaran adalah mandatori!"; err_count++;  }
+		
+		var kaedahBayaran = $('kaedahBayaran').value;
+		if ( kaedahBayaran == "" ) {$('err_kaedahBayaran').innerHTML = "Kaedah Bayaran adalah mandatori!"; err_count++;  }
+		
+		var jenisBayaran = $('jenisBayaran').value;
+		if ( jenisBayaran == "" ) {
+			$('err_jenisBayaran').innerHTML = "Jenis Bayaran adalah mandatori!"; 
+			err_count++;  
+		}else{
+			if( jenisBayaran == "KAUNTER" || jenisBayaran == "MANUAL" ){
+				var noResitSewa = $('noResitSewa').value;
+				if ( noResitSewa == "" ) {$('err_noResitSewa').innerHTML = "No. Resit adalah mandatori!"; err_count++;  }
+			}
+		}
+    	
+		
+		if (err_count == 0) {
+    		if ( !window.confirm("Anda pasti?") ){
+    			return;
+    		}
+    	}
+	
+    	return err_count == 0;
+    }
+	
+	_jq('#btnKemaskiniData').on('click', function(){
+		if(validateInput()){
+			doDivAjaxChainCall$formname('divStatus','janaSemulaMaklumatBayaran','','divMaklumatBayaran','getMaklumatBayaran','idpermohonan=$!r.id');
+			jQuery('#popupMaklumatBayaran').fadeOut();
+		}
+  	});
+</script>

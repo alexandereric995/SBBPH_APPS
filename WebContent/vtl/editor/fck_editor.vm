@@ -1,0 +1,24 @@
+<form name="f" method="post" action="?command=save">
+	#parse("vtl/editor/fck.vm")
+	<br />
+    <table width="100%">
+    	<tr>
+    		<td align="right">
+    			<input type="submit" value="Save">
+    		</td>
+    	</tr>
+    </table>
+	<textarea name="content" cols="40" rows="10" style="visibility:hidden">$!content</textarea>
+	<input type="hidden" name="command">
+	<input type="hidden" name="fileName" value="${fileName}">
+</form>
+
+<script>
+document.f.message.value = document.f.content.value;
+
+function save() {
+    document.f.action = "?";
+    document.f.command.value = "save";
+    document.f.submit();
+}
+</script>

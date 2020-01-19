@@ -1,0 +1,201 @@
+
+	#if( $!r )
+    	#parse("$path/tab.vm")
+        <br/>
+    #end
+	
+	
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+            <td colspan="7">&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="45%">Keterangan</td>
+			<td class="row_header" width="10%">Kuantiti</td>
+			<td class="row_header" width="15%">Tarikh Masuk</td>
+			<td class="row_header" width="15%">Tarikh Keluar</td>
+			<td class="row_header" width="10%">Jumlah Amaun (RM)</td>
+		</tr>
+		
+		#if ( $listTempahanDanBayaran.size() > 0 )
+    		#set ( $count = 0 )
+			#set ( $jumlahAmaun = 0.00 )
+    		#foreach( $d in $listTempahanDanBayaran )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+				#set ( $jumlahAmaun = $jumlahAmaun + $!d.debit )
+    				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+					<td align="left">$!d.keterangan</td>
+					<td align="center">$!d.bilanganUnit</td>
+            		<td align="center">$!util.getDateTime($!d.permohonan.tarikhMasukRpp,'dd-MM-yyyy')</td>
+        			<td align="center">$!util.getDateTime($!d.permohonan.tarikhKeluarRpp,'dd-MM-yyyy')</td>
+					<td align="center">$!d.debit</td>
+                </tr>
+			#end
+			<tr>
+				<td colspan="5" align="right"><b>JUMLAH : </b></td>
+				<td align="center"><b>$!util.formatDecimal($jumlahAmaun)</b></td>
+			</tr>
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="6">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+	
+	<br/>
+		
+	
+	<table width="100%">
+		<tr>
+			<td style="width:200px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+		</tr>
+		
+		#show("STATUS" "$!r.keteranganStatusBayaran()")
+		#show("JUMLAH BAYARAN" "RM $!util.formatDecimal($!r.amaunTotalSewaRpWithDeposit())")
+		#show("KAEDAH BAYARAN" "TUNAI")
+		
+		#if( $!r.statusBayaran=="T" )
+			
+			#if( $enabledEditDate )
+				
+				<tr>
+					<td valign="top">TARIKH BAYARAN &nbsp;<span style="color:#FF2A00">*</span></td>
+        			<td valign="top">:</td>
+        			<td valign="top">
+						<input type="text" id="tarikhBayaran" name="tarikhBayaran" value="$!util.getDateTime($!r.tarikhBayaran,'dd-MM-yyyy')" onChange=" $('err_tarikhBayaran').innerHTML='';">
+						<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+						<script>
+                    		_jq("#tarikhBayaran").Zebra_DatePicker({ 
+                        		format: 'd-m-Y',
+                        		readonly_element: true,
+    							onSelect: function(view, elements) {
+                                	$('err_tarikhBayaran').innerHTML='';
+                                }
+                    		});
+                   		</script>
+                    	<div id="err_tarikhBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>	
+        			</td>
+        		</tr>
+				
+			#else
+				#show("TARIKH BAYARAN" "$!util.getCurrentDate('dd-MM-yyyy')")
+			#end
+			
+    		<tr>
+            	<td class="label" valign="top">PENJANAAN RESIT &nbsp;<span style="color:#FF2A00">*</span></td>
+            	<td class="label" valign="top">:</td>
+            	<td valign="top">
+    				<input type="radio" #if($!r.flagJenisBayaran =='KAUNTER') checked #end id="flagJenisBayaran1" name="flagJenisBayaran" value="KAUNTER" onclick="javascript:doPilihCaraBayaran(); $('err_flagJenisBayaran').innerHTML='';" />
+                    <label for="flagJenisBayaran1" >RESIT MANUAL</label>
+            		&nbsp;<input type="radio" #if($!r.flagJenisBayaran == 'ONLINE') checked #end id="flagJenisBayaran2" name="flagJenisBayaran" value="ONLINE" onclick="javascript:doPilihCaraBayaran(); $('err_flagJenisBayaran').innerHTML='';" />
+            		<label for="flagJenisBayaran2" >SISTEM (AUTO)</label>
+    				<div id="err_flagJenisBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            	</td>
+            </tr>
+			
+		#else
+			#show("TARIKH BAYARAN" "$!util.getDateTime($!r.tarikhBayaran,'dd-MM-yyyy')")
+		#end
+		
+	</table>
+	
+	<div id="divNoResit">
+		##parse("$path/form/noResit.vm")
+	</div>
+	
+	<br/>
+	
+	#if( $!r.statusBayaran=="T" )
+    	<table width="100%">
+        	<tr>
+        		<td align="center">
+        			<input type="button" style="font-weight:bold;height:30px;width:30%" id="btnSimpanBayaran" value="SIMPAN MAKLUMAT BAYARAN" onclick="doSimpanBayaran('$!enabledEditDate','$!r.id')">
+        		</td>
+        	</tr>
+        </table>
+	#else
+		
+		<fieldset>	
+        <legend class="legend">SENARAI CETAKAN</legend>
+        <table width="100%" >
+    		#if( !$!r.rppPeranginan.id.equalsIgnoreCase("3") && !$!r.rppPeranginan.id.equalsIgnoreCase("14") )
+            	
+				#if( $!r.getIdResitSewa() != "" && $!r.getIdResitSewa() )
+					<tr>
+                		<td><a href="#" style="color:blue" id="cmdResitInv">RESIT SEWA</a></td>		
+                	</tr>
+				#end
+										
+    			#if(!$!r.getIdResitDeposit().equals(null) && $!r.getIdResitSewa() != "" && $!r.getIdResitDeposit() != $!r.getIdResitSewa())
+					<tr>
+                		<td><a href="#" style="color:blue" id="cmdResitDep">RESIT DEPOSIT </a></td>		
+                	</tr>
+    			#end
+				
+            	<script>
+            		_jq('#cmdResitDep').on('click', function(){
+            		    var idResit = '$!r.getIdResitDeposit()';
+            		    
+    					var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+    					var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+    					if ((document.window != null) && (!hWnd.opener))
+    					hWnd.opener = document.window;
+    					if (hWnd.focus != null) hWnd.focus();	
+        			});
+        			_jq('#cmdResitInv').on('click', function(){
+            		    var idResit = '$!r.getIdResitSewa()';
+            		    
+    					var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+    					var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+    					if ((document.window != null) && (!hWnd.opener))
+    					hWnd.opener = document.window;
+    					if (hWnd.focus != null) hWnd.focus();	
+        			});
+    	        </script>
+    		#end
+    		
+        	<tr>
+				<td><a href="#" style="color:blue" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!r.id&jenisSurat=suratKelulusan&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN</a></td>
+        	</tr>
+			
+			<tr>
+        		<td><a href="#" style="color:blue" id="cmdBorangPendaftaranTetamu">SURAT PENDAFTARAN TETAMU</a></td>		
+        	</tr>
+			
+			<script>
+				_jq('#cmdBorangPendaftaranTetamu').on('click', function(){
+        			var url = "../servlet/bph.laporan.rpp.BorangPendaftaranTetamu?idRppPermohonan=$!r.id";
+        			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+        			if ((document.window != null) && (!hWnd.opener))
+        			hWnd.opener = document.window;
+        			if (hWnd.focus != null) hWnd.focus();
+        		});
+			</script>
+			
+        </table>
+        </fieldset>
+		
+	#end
+	
+	
+	
+	
+	
+	
+	
+	

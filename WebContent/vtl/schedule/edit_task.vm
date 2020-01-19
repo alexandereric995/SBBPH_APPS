@@ -1,0 +1,261 @@
+#set ( $m_arr = ["00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"])
+#set ( $h_arr = ["5 AM", "6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"] )
+#set ( $ihr = 4 )
+
+#set ( $inCollabModule = $session.getAttribute("inCollabModule") )
+
+<b>Edit Task</b><br>
+<form name="planner" method="post">
+<table>
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+		<td>
+			Year: <input name="year1" value="$year" size="5" style="text-align:center">
+			Month:
+			<select name="month1">
+			#set ( $selected = "" )
+			#set ( $x = 0 )
+			#foreach( $m_name in $month_name )
+				#set ( $x = $x + 1 )
+				#if ( $x == $month.intValue() )
+					#set ( $selected = "selected" )
+				#else
+					#set ( $selected = "" )
+				#end
+				<option value="$x" $selected>$m_name</option>
+			#end			
+			</select>
+			Day:			
+			<select name="day1">
+			#set ( $selected = "" )
+			#foreach( $x in [1..31] )
+				#if ( $x == $day.intValue() )
+					#set ( $selected = "selected" )
+				#else
+					#set ( $selected = "" )
+				#end
+				<option value="$x" $selected>$x</option>
+			#end
+			</select>
+		</td>
+	</tr>
+</table>
+<table>
+		<td>
+			<u>Task Description:</u>
+			<br>
+			<textarea name="description" cols="60" rows="3">$task.task_description</textarea>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<u>Time:</u>
+			<br>
+			#set ( $selected = "" )
+			<select name="hour1" onChange="changeOnTime()">
+			#set ( $x = $ihr )
+			#foreach( $h in $h_arr )
+				#set ( $x = $x + 1 )
+				#if ( $x == $task.hour_start.intValue() )
+					#set ( $selected = "selected")
+				#else
+					#set ( $selected = "" )
+				#end
+				<option value="$x" $selected>$h</option>
+			#end
+			</select>
+			<select name="minute1"  onChange="changeOnTime()">
+			#foreach( $x in $m_arr )
+				#if ( $x == $task.minute_start.intValue() )
+					#set ( $selected = "selected")
+				#else
+					#set ( $selected = "" )
+				#end			
+				<option value="$x" $selected>$x</option>
+			#end
+			</select>
+
+			To:
+			<select name="hour2" onChange="changeOnTime()">
+			#set ( $x = $ihr )
+			#foreach( $h in $h_arr )
+				#set ( $x = $x + 1 )
+				#if ( $x == $task.hour_end.intValue() )
+					#set ( $selected = "selected")
+				#else
+					#set ( $selected = "" )
+				#end				
+				<option value="$x" $selected>$h</option>
+			#end
+			</select>
+			<select name="minute2" onChange="changeOnTime()">
+			#foreach( $x in $m_arr)
+				#if ( $x == $task.minute_end.intValue() )
+					#set ( $selected = "selected")
+				#else
+					#set ( $selected = "" )
+				#end			
+				<option value="$x" $selected>$x</option>
+			#end
+			</select>
+		</td>
+	</tr>
+	<!--
+	#if ( $inCollabModule == "true" )
+	
+	#else
+	
+	<tr>
+		<td>
+		<a href="javascript:listUsers()">
+		Invites: 
+		</a>
+		(*)
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+		<select name="invitees" style="width:200px;" size="5">
+			#foreach ( $userid in $inviteList)
+				<option value="$userid">$userid</option>
+			#end					
+		</select> 
+		#foreach ( $userid in $inviteList)
+			<input type="hidden" name="invitelist" value="$userid">
+		#end						
+		</td>
+	</tr>	
+	
+	
+	#end
+	-->
+	
+	<tr>
+		<td>
+			<input type="button" value="Update This Task" onclick="dotask('updatetask')">
+			<input type="button" value="Cancel" onclick="dotask('listmytask')">
+		</td>
+	</tr>
+
+	
+
+</table>
+<input type="hidden" name="dejavu" value="$dejavu">
+<input type="hidden" name="planner_action">
+<input type="hidden" name="task_id" value="$task.task_id">
+</form>
+<script>
+function dotask(id) {
+	if ( checkDate() ) {
+		document.planner.action = "";
+		document.planner.planner_action.value = id;
+		document.planner.submit();
+	}
+}
+function changeOnTime() {
+	var h1 = parseInt(document.planner.hour1.value);
+	var h2 = parseInt(document.planner.hour2.value);
+	var m1 = parseInt(document.planner.minute1.value);
+	var m2 = parseInt(document.planner.minute2.value);
+	document.planner.hour2.value = h2 < h1 ? h1:h2;	
+	if ( h2 == h1 ) {
+		document.planner.minute2.value = m2 < m1 ? m1:m2;
+	}
+}
+
+/**
+ * DHTML date validation script. Courtesy of SmartWebby.com (http://www.smartwebby.com/dhtml/)
+ */
+// Declaring valid date character, minimum year and maximum year
+var dtCh= "/";
+var minYear=1900;
+var maxYear=2100;
+
+function isInteger(s){
+	var i;
+    for (i = 0; i < s.length; i++){   
+        // Check that current character is number.
+        var c = s.charAt(i);
+        if (((c < "0") || (c > "9"))) return false;
+    }
+    // All characters are numbers.
+    return true;
+}
+
+function stripCharsInBag(s, bag){
+	var i;
+    var returnString = "";
+    // Search through string's characters one by one.
+    // If character is not in bag, append to returnString.
+    for (i = 0; i < s.length; i++){   
+        var c = s.charAt(i);
+        if (bag.indexOf(c) == -1) returnString += c;
+    }
+    return returnString;
+}
+
+function daysInFebruary (year){
+	// February has 29 days in any year evenly divisible by four,
+    // EXCEPT for centurial years which are not also divisible by 400.
+    return (((year % 4 == 0) && ( (!(year % 100 == 0)) || (year % 400 == 0))) ? 29 : 28 );
+}
+function DaysArray(n) {
+	for (var i = 1; i <= n; i++) {
+		this[i] = 31
+		if (i==4 || i==6 || i==9 || i==11) {this[i] = 30}
+		if (i==2) {this[i] = 29}
+   } 
+   return this
+}
+
+function isDate(dtStr){
+	var daysInMonth = DaysArray(12)
+	var pos1=dtStr.indexOf(dtCh)
+	var pos2=dtStr.indexOf(dtCh,pos1+1)
+	var strMonth=dtStr.substring(0,pos1)
+	var strDay=dtStr.substring(pos1+1,pos2)
+	var strYear=dtStr.substring(pos2+1)
+	strYr=strYear
+	if (strDay.charAt(0)=="0" && strDay.length>1) strDay=strDay.substring(1)
+	if (strMonth.charAt(0)=="0" && strMonth.length>1) strMonth=strMonth.substring(1)
+	for (var i = 1; i <= 3; i++) {
+		if (strYr.charAt(0)=="0" && strYr.length>1) strYr=strYr.substring(1)
+	}
+	month=parseInt(strMonth)
+	day=parseInt(strDay)
+	year=parseInt(strYr)
+	if (pos1==-1 || pos2==-1){
+		alert("The date format should be : mm/dd/yyyy")
+		return false
+	}
+	if (strMonth.length<1 || month<1 || month>12){
+		alert("Please enter a valid month")
+		return false
+	}
+	if (strDay.length<1 || day<1 || day>31 || (month==2 && day>daysInFebruary(year)) || day > daysInMonth[month]){
+		alert("Please enter a valid day")
+		return false
+	}
+	if (strYear.length != 4 || year==0 || year<minYear || year>maxYear){
+		alert("Please enter a valid 4 digit year between "+minYear+" and "+maxYear)
+		return false
+	}
+	if (dtStr.indexOf(dtCh,pos2+1)!=-1 || isInteger(stripCharsInBag(dtStr, dtCh))==false){
+		alert("Please enter a valid date")
+		return false
+	}
+return true
+}
+
+function checkDate() {
+	var d = document.planner.day1.value;
+	var m = document.planner.month1.value;
+	var y = document.planner.year1.value;
+	var dt = m + "/" + d + "/" + y;
+	return isDate(dt);
+}
+
+</script>

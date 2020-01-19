@@ -1,0 +1,66 @@
+<fieldset>
+<legend class="legend">Senarai Log Semakan</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:84%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3" class="label"><table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+          <td class="row_header" width="5%">Bil.</td>
+          <td class="row_header" >Tugasan Dari</td>
+          <td class="row_header" >Tugasan Untuk</td>
+          <td class="row_header" >Catatan</td>          
+          <td class="row_header" >Tarikh</td>
+        </tr>
+        #set ( $count = 0 )
+        #if ( $listLogSemakan.size() > 0) 
+        #foreach( $c in $listLogSemakan )
+        #set ( $count = $count + 1)
+        
+        #if ( $count % 2 == 0 ) 
+        #set ( $rowcolor = "#D0CFCE" ) 
+        #else 
+        #set ( $rowcolor = "#F0F0F0" ) 
+        #end
+        <tr bgcolor="$rowcolor">
+          <td align="center">$!count</td>
+          <td align="center">$!c.petugas.userName</td>
+          <td align="center">$!c.pegawai.userName</td>
+          <td align="left">$!c.catatan</td>          
+          <td align="center">$!util.getDateTime($!c.tarikh,'dd-MM-yyyy hh:mm a')</td>
+        </tr>
+        #end
+        #else
+        <tr >
+          <td align="center">&nbsp;</td>
+          <td >Tiada Rekod</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+        </tr>
+        #end
+      </table></td>
+  </tr>
+</table>
+
+#if ($!semakan.status == 'B' && $!userRole == '(TNH) Penyemak' && $!semakan.getLogSemakanSemasa().pegawai.id == $!userId.toUpperCase())
+	#parse("$path/logSemakan/catatanSemakan.vm")	
+#end
+#if ($!semakan.status == 'P' && $!userRole == '(TNH) Penyedia' && $!semakan.getLogSemakanSemasa().pegawai.id == $!userId.toUpperCase())
+	#parse("$path/logSemakan/catatanSemakan.vm")	
+#end
+
+<table width="100%">
+  <tr> &nbsp;
+    </td>
+  </tr>
+  <tr>
+    <td align="right">
+      <input id="button" type="button" value="Kembali" onClick="doDivAjaxCall3$formname('divTab','getLogSemakan','')">
+    </td>
+  </tr>
+</table>
+</fieldset>

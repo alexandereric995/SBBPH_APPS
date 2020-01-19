@@ -1,0 +1,23 @@
+function validate() {
+	var err_count = 0;
+	
+	var id = $('id').value;
+	if ( id == "" ) {$('err_id').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var tarikhBayaran = $('tarikhBayaran').value;
+	if ( tarikhBayaran == "" ) {$('err_tarikhBayaran').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var sellerOrderNo = $('sellerOrderNo').value;
+	if ( sellerOrderNo == "" ) {$('err_sellerOrderNo').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var txnAmount = $('txnAmount').value;
+	if ( txnAmount == "" ) {$('err_txnAmount').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}

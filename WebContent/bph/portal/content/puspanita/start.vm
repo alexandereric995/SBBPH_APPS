@@ -1,0 +1,49 @@
+<div id="divPuspanita">
+  <div id="content-format">
+    <pinLeft></pinLeft>
+    <pinRight></pinRight>
+    <header><img src="../images/puspanita/puspanita.gif" /></header>
+    <section> 
+    #if ($listPuspanita.size() > 0)
+      <div id="tabs">
+        <nav class="breadcrumbs">
+          <ul>
+            #foreach ( $puspanita in $listPuspanita )
+            <li #if($!selectedTab == $!puspanita.id) class="active" #end><a href="javascript:void()" #if($!selectedTab != $!puspanita.id) onClick="doDivAjaxCall3$formname('divPuspanita','getTabPuspanita','idPuspanita=$!puspanita.id')" #end >Tahun $!puspanita.tahun</a></li>
+            #end
+          </ul>
+        </nav>
+        
+        #if ($puspanita)
+        <div id="tabs-1">
+          <p class="title">Aktiviti-aktiviti PUSPANITA Tahun $!puspanita.tahun :</p>
+          <p>$!puspanita.keterangan</p>
+          <ul>
+            #foreach ( $aktiviti in $listAktivitiPuspanita )
+            <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('content','getAktivitiPuspanita','idAktiviti=$!aktiviti.id')">$!aktiviti.namaAktiviti</a></li>
+            #end
+          </ul>
+        </div>
+        #else
+        <div id="tabs-1">
+          <table cellpadding="5" cellspacing="0" border="0" width="100%">
+            <tr>
+              <td style="text-align:center;"><font color="black"><b>SEDANG DIKEMASKINI.</b></font> </td>
+            </tr>
+          </table>
+        </div>
+        #end 
+      </div>
+      #else
+      <div id="tabs-1">
+        <table cellpadding="5" cellspacing="0" border="0" width="100%">
+          <tr>
+            <td style="text-align:center;"><font color="black"><b>SEDANG DIKEMASKINI.</b></font> </td>
+          </tr>
+        </table>
+      </div>
+      #end 
+  	</section>
+  </div>
+</div>
+

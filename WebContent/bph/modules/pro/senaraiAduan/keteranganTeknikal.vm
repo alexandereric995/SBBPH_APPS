@@ -1,0 +1,88 @@
+<fieldset>
+	<legend class="legend">KETERANGAN TEKNIKAL</legend>
+	<table width="100%" cellpadding="1" cellspacing="2">
+		<tr>
+			<td class="label" style=""></td>
+			<td style=""></td>
+			<td style=""></td>
+		</tr>
+##		  #set ($checkCbE = '')
+##		  #set ($checkCbM = '')
+##		  #set ($checkCbB = '')
+##		  #set ($checkCbP = '')
+##		  #if ( $!listKategoriTeknikal.size() > 0)
+##		  	#foreach( $c in $!listKategoriTeknikal )
+##		  		#if ($!c.kategori == 'E') #set ($checkCbE = 'checked') #end
+##		  		#if ($!c.kategori == 'M') #set ($checkCbM = 'checked') #end
+##		  		#if ($!c.kategori == 'B') #set ($checkCbB = 'checked') #end
+##		  		#if ($!c.kategori == 'P') #set ($checkCbP = 'checked') #end
+##			#end  	
+##		  #end
+##	 
+##	    <tr>
+##	      	<td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="E" $checkCbE >&nbsp;Elektrikal (Bekalan Eletrik / Kerosakan Lampu / Soket / Kipas)</td>
+##	    </tr>
+##	    <tr>
+##	      	<td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="M" $checkCbM >&nbsp;Mekanikal (Lif / Paip Bekalan Air / Sistem Pencegahan Kebakaran)</td>
+##	    </tr>
+##	    <tr>
+##	      	<td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="B" $checkCbB >&nbsp;Bangunan (Bumbung / Siling / Dinding / Pintu / Tingkap / Jubin / Paip Sanitari / Water Proofing)</td>
+##	    </tr>
+##	    <tr>
+##	      	<td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="P" $checkCbP >&nbsp;Pembersihan / Landskap (Rumput / Kebersihan / Taman Permainan / Longkang)</td>
+##	    </tr>
+##
+##		  #set ($checkCb1 = '')
+##		  #set ($checkCb2 = '')
+##		  #set ($checkCb3 = '')
+##		  #set ($checkCb4 = '')
+##		  #set ($checkCb5 = '')
+##		  #if ( $!listKategoriTeknikal.size() > 0)
+##		  	#foreach( $c in $!listKategoriTeknikal )
+##		  		#if ($!c.kategori == '1') #set ($checkCb1 = 'checked') #end
+##		  		#if ($!c.kategori == '2') #set ($checkCb2 = 'checked') #end
+##		  		#if ($!c.kategori == '3') #set ($checkCb3 = 'checked') #end
+##		  		#if ($!c.kategori == '4') #set ($checkCb4 = 'checked') #end
+##		  		#if ($!c.kategori == '5') #set ($checkCb5 = 'checked') #end
+##			#end  	
+##		  #end
+##		<tr>
+##		  	<td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="1" $checkCb1 >&nbsp;Mempercepatkan Permohonan Kuarters</td>
+##		</tr>
+##		<tr>
+##		  	<td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="2" $checkCb2 >&nbsp;Penurunan Kelas Permohonan Kuarters</td>
+##		</tr>
+##		<tr>
+##		  	<td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="3" $checkCb3 >&nbsp;Perlanjutan Tempoh Menduduki Kuarters (Bersara / Bertukar Tempat Bertugas / Kematian / Perceraian / Lain-lain)</td>
+##		</tr>
+##		<tr>
+##		  	<td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="4" $checkCb4 >&nbsp;Pertukaran Penama Kuarters (Bersara / Bertukar Tempat Bertugas / Kematian / Perceraian / Lain-lain)</td>
+##		</tr>
+##		<tr>
+##		  	<td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="5" $checkCb5 >&nbsp;Permohonan Kuarters Mengikut Kelayakan (Kenaikan Pangkat)</td>
+##		</tr>
+##		<tr>
+##		  	<td valign="top"><br /></td>
+##		</tr>
+##		<tr>
+##			<td colspan="3" align="left"><input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:doSaveKeteranganTeknikal();"/></td>
+##		</tr>
+				
+		## ****************** CheckBox Pilih Keterangan Teknikal ******************	
+		#if($listCheckboxKeteranganTeknikal.size() > 0)
+    		#foreach($c in $listCheckboxKeteranganTeknikal)
+	    		<tr height="30">
+	    			<td width="10"><input type="checkbox" name="kategori" id="radPegawai$c.id" value="$c.id" $util.getChecked($c.id, $!r.id) /></td>
+					<td>$!c.keterangan</td>
+	    		</tr>
+    		#end
+		#end
+		<tr>
+			<td colspan="3" align="left"><input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:doSaveKeteranganTeknikal();"/></td>
+		</tr>
+		## ****************** End CheckBox Pilih Keterangan Teknikal ******************
+		
+	</table>
+</fieldset>
+
+<div id="divRefreshKeteranganTeknikal"></div>

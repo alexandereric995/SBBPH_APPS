@@ -1,0 +1,37 @@
+<fieldset>
+<legend class="legend">Maklumat Semakan</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_required("perkara" "Perkara" "$!semakan.tajuk")
+        #textarea_required("keterangan" "Keterangan" "$!semakan.keterangan")
+        <tr>
+          <td class="label" valign="top">Pegawai Penyemak &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td> #parse("$path/logSemakan/selectPenyemak.vm")
+            <div id="err_idPenyemak" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<table width="100%">
+  <tr>
+    <td align="right"><input type="button" id="saveSemakan" name="saveSemakan" value="Hantar" onClick="javascript:doHantarMaklumatSemakan();">
+      <input type="button" id="batalSemakan" name="batalSemakan" value="Kembali" onClick="doDivAjaxCall3$formname('divTab','getLogSemakan','')">
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SuratSetujuTerima"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="600"
+		 pageHeight="850"
+		 columnWidth="540"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="40"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.zoom" value="1.3310000000000006" />
+	<property name="ireport.x" value="0" />
+	<property name="ireport.y" value="620" />
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["C:\\Eclipse\\workspace\\sbbphv2\\WebContent\\reports\\senggara\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idIndenKerja" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="jumlahIndenKerja" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[select a.no_rujukan_sst, a.no_inden, a.tarikh_sst, a.kerja, a.tarikh_akhir_siap_kerja
+from mtn_inden_kerja a
+where a.id = $P{idIndenKerja}]]></queryString>
+
+	<field name="no_rujukan_sst" class="java.lang.String"/>
+	<field name="no_inden" class="java.lang.String"/>
+	<field name="tarikh_sst" class="java.sql.Date"/>
+	<field name="kerja" class="java.lang.String"/>
+	<field name="tarikh_akhir_siap_kerja" class="java.sql.Date"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="721"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="547"
+						width="539"
+						height="174"
+						key="textField-2"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica" isItalic="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Mengikut syarat-syarat berikut :\n\n" +
+
+"1.  Kontraktor tidak dibernarkan tanpa kebenaran bertulis daripada Pegawai Inden menyerah hak atau menyewa mana-mana bahagian kerja di bawah Inden ini.\n\n" +
+
+"2.  Kerja ini hendaklah dimulakan dalam tempoh TIGA (3) minggu dari tarikh Inden kerja ini dan hendaklah disiapkan pada atau sebelum " + $F{tarikh_akhir_siap_kerja} +" .\n\n"+
+
+"3.  Kegagalan kontraktor untuk memulakan dan menyiapkan Inden Kerja ini dalam tempoh masa yang ditetapkan tanpa sebab-sebab yang munasabah akan mengakibatkan Inden Kerja ini samada ditarik balik dan diserahkan kepada pihak ketiga untuk menyiapkannya, pengambilan kerja tuan di bawah Inden ditamatkan serta tindakan tatatertib akan diambil terhadap pendaftaran kontraktor.\n\n"]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="0"
+						width="534"
+						height="93"
+						key="subreport-1"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\senggara\\headerSurat.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="0"
+						y="113"
+						width="535"
+						height="19"
+						key="staticText-1"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true" isUnderline="true"/>
+					</textElement>
+				<text><![CDATA[SURAT SETUJU TERIMA INDEN KERJA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="440"
+						width="232"
+						height="18"
+						key="staticText-12"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica" isItalic="false"/>
+					</textElement>
+				<text><![CDATA[Tuan / Puan,]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="468"
+						width="60"
+						height="18"
+						key="staticText-13"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica" isItalic="false"/>
+					</textElement>
+				<text><![CDATA[Perkara]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="61"
+						y="468"
+						width="13"
+						height="18"
+						key="staticText-14"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica" isItalic="false"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="1"
+						y="312"
+						width="534"
+						height="1"
+						key="line-1"
+						positionType="Float"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="1"
+						y="142"
+						width="232"
+						height="90"
+						key="staticText-18"
+						positionType="Float"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Setiausaha Bahagian
+Bahagian Pengurusan Hartanah
+Jabatan Perdana Menteri
+Aras 4 & 7, Blok B3
+Kompleks Jabatan Perdana Menteri
+Pusat Pentadbiran Kerajaan Persekutuan
+62502 Putrajaya]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="303"
+						y="232"
+						width="232"
+						height="53"
+						key="textField-5"
+						positionType="Float"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica" isItalic="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Berdaftar Dengan\n"+
+"Lembaga Pembangunan Industri Pembinaan (CIDB) dan Pusat Khidmat Kontraktor (PKK)"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="302"
+						y="285"
+						width="232"
+						height="18"
+						key="textField-4"
+						positionType="Float"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica" isItalic="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["No. Pendaftaran :"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="302"
+						y="332"
+						width="74"
+						height="18"
+						key="staticText-22"
+						positionType="Float"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica" isItalic="false"/>
+					</textElement>
+				<text><![CDATA[Ruj. Tuan]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="302"
+						y="351"
+						width="74"
+						height="18"
+						key="staticText-23"
+						positionType="Float"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica" isItalic="false"/>
+					</textElement>
+				<text><![CDATA[Ruj. Kami		]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="302"
+						y="370"
+						width="74"
+						height="18"
+						key="staticText-24"
+						positionType="Float"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica" isItalic="false"/>
+					</textElement>
+				<text><![CDATA[No. Inden]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="302"
+						y="389"
+						width="74"
+						height="18"
+						key="staticText-25"
+						positionType="Float"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica" isItalic="false"/>
+					</textElement>
+				<text><![CDATA[Tarikh]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="376"
+						y="332"
+						width="13"
+						height="18"
+						key="staticText-26"
+						positionType="Float"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica" isItalic="false"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="376"
+						y="351"
+						width="13"
+						height="18"
+						key="staticText-27"
+						positionType="Float"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica" isItalic="false"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="376"
+						y="370"
+						width="13"
+						height="18"
+						key="staticText-28"
+						positionType="Float"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica" isItalic="false"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="376"
+						y="389"
+						width="13"
+						height="18"
+						key="staticText-29"
+						positionType="Float"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica" isItalic="false"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="496"
+						width="539"
+						height="41"
+						key="textField-1"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Adalah tuan diarah menjalankan kerja-kerja berikut seperti yang dinyatakan di dalam Inden Kerja ini dengan harga sebanyak <style isBold='true' pdfFontName='Helvetica-Bold'> " + $P{jumlahIndenKerja} + ".</style>"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="389"
+						y="370"
+						width="100"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{no_inden}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="389"
+						y="389"
+						width="100"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{tarikh_sst}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="389"
+						y="351"
+						width="100"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{no_rujukan_sst}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="74"
+						y="468"
+						width="466"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{kerja}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="22"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="0"
+						width="533"
+						height="22"
+						key="subreport-2"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\senggara\\SuratSetujuTerima_subreport1.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</summary>
+</jasperReport>

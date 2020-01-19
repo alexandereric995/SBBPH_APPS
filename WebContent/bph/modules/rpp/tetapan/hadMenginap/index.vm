@@ -1,0 +1,50 @@
+
+
+<fieldset>
+<legend class="legend">TETAPAN HAD TEMPOH MENGINAP</legend>
+<table width="100%">
+  <tr>
+    <td style="width:200px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td>Had Tempoh Menginap (Hari)</td>
+    <td>:</td>
+    <td>
+		<input style="width:50%" type="text" class="number99" id="bilHari" name="bilHari" value="$!r.bilHari" />
+	</td>
+  </tr>
+  
+  #textarea("catatan" "Catatan" "$!r.catatan")
+  
+</table>
+</fieldset>
+	
+	<table width="100%">
+    	<tr>
+    		<td align="right">##Fatin 13/06/2015
+    			<input style="width:120px" type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+    			<input style="width:120px" id="btnSimpan" type="button" value="Simpan" onClick="javascript:doSave()">
+    		</td>
+    	</tr>
+    </table>
+	
+<script>
+  _jq(function($) {
+ 	  $('.number99').autoNumeric('init', {aSep: '', vMin: '0', vMax: '99', lZero: 'keep'} );
+  });
+</script>
+
+<script>
+function doSave() {
+	document.${formName}.command.value = "saveRecord";
+	document.${formName}.action = "?_portal_module=bph.modules.rpp.tetapan.HadMenginapController";
+	document.${formName}.submit();
+}
+</script>
+
+
+
+

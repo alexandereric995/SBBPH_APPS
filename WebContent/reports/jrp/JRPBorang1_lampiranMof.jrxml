@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="JRPBorang1_lampiranMof"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idPermohonan" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT ruj_agensi.keterangan AS agensi,
+       jrp_ulasan_teknikal.cawangan,
+       jrp_permohonan_lokasi.alamat_1,
+       jrp_permohonan_lokasi.alamat_2,
+       jrp_permohonan_lokasi.alamat_3,
+       jrp_permohonan_lokasi.sewa_sebulan,          
+       jrp_permohonan_lokasi.sewa_mp AS bsewa_mp,
+       jrp_permohonan_lokasi.luas_mp AS bluas_mp,
+       jrp_permohonan_lokasi.sewa_kp AS bsewa_kp,
+       jrp_permohonan_lokasi.luas_kp AS bluas_kp,
+       jrp_ulasan_teknikal.flag_keputusan,
+       jrp_ulasan_teknikal.nama_pegawai,
+       jrp_ulasan_teknikal.tarikh_ulasan,
+       jrp_ulasan_teknikal.tarikh_lawatan,
+       jrp_ulasan_teknikal.nilaian_mp AS anilai_mp,
+       jrp_ulasan_teknikal.luas_mp AS aluas_mp,
+       jrp_ulasan_teknikal.nilaian_kp AS anilai_kp,
+       jrp_ulasan_teknikal.luas_kp AS aluas_kp,
+	jrp_ulasan_teknikal.ulasan,
+	jrp_ulasan_teknikal.nama_pegawai_periksa
+FROM  (   sbbphdb.jrp_ulasan_teknikal jrp_ulasan_teknikal
+ LEFT JOIN
+         ruj_agensi ruj_agensi
+           ON (jrp_ulasan_teknikal.id_agensi = ruj_agensi.id))
+ LEFT JOIN
+         jrp_permohonan_lokasi jrp_permohonan_lokasi
+           ON (jrp_ulasan_teknikal.id_permohonan = jrp_permohonan_lokasi.id_permohonan)
+WHERE jrp_ulasan_teknikal.id_permohonan = $P{idPermohonan}
+AND jrp_ulasan_teknikal.id_agensi = '1301']]></queryString>
+
+	<field name="agensi" class="java.lang.String"/>
+	<field name="cawangan" class="java.lang.String"/>
+	<field name="alamat_1" class="java.lang.String"/>
+	<field name="alamat_2" class="java.lang.String"/>
+	<field name="alamat_3" class="java.lang.String"/>
+	<field name="sewa_sebulan" class="java.lang.Double"/>
+	<field name="bsewa_mp" class="java.lang.Double"/>
+	<field name="bluas_mp" class="java.lang.String"/>
+	<field name="bsewa_kp" class="java.lang.String"/>
+	<field name="bluas_kp" class="java.lang.String"/>
+	<field name="flag_keputusan" class="java.lang.String"/>
+	<field name="nama_pegawai" class="java.lang.String"/>
+	<field name="tarikh_ulasan" class="java.sql.Date"/>
+	<field name="tarikh_lawatan" class="java.sql.Date"/>
+	<field name="anilai_mp" class="java.lang.Double"/>
+	<field name="aluas_mp" class="java.lang.String"/>
+	<field name="anilai_kp" class="java.lang.Double"/>
+	<field name="aluas_kp" class="java.lang.String"/>
+	<field name="ulasan" class="java.lang.String"/>
+	<field name="nama_pegawai_periksa" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="363"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="51"
+						y="67"
+						width="459"
+						height="20"
+						key="staticText-8"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-BoldOblique" size="10" isBold="true" isItalic="true"/>
+					</textElement>
+				<text><![CDATA[BAHAGIAN PENGURUSAN BELANJAWAN, KEMENTERIAN KEWANGAN MALAYSIA ( MOF )]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="50"
+						y="312"
+						width="33"
+						height="30"
+						key="staticText-10"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true" isUnderline="true"/>
+					</textElement>
+				<text><![CDATA[Nota :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="89"
+						y="312"
+						width="440"
+						height="40"
+						key="staticText-11"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-BoldOblique" size="10" isBold="true" isItalic="true"/>
+					</textElement>
+				<text><![CDATA[Sila sertakan satu salinan borang JRP dan salinan ulasan Jabatan Penilaian semasa mengemukakan permohonan kelulusan kepada Bahagian Pengurusan Belanjawan, Kementerian Kewangan Malaysia.]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="41"
+						y="34"
+						width="0"
+						height="326"
+						forecolor="#000000"
+						key="line-7"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="11"
+						y="67"
+						width="20"
+						height="20"
+						key="staticText-12"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[E.]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="541"
+						y="34"
+						width="0"
+						height="326"
+						forecolor="#000000"
+						key="line-8"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="2.0"/>
+</graphicElement>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="1"
+						y="54"
+						width="539"
+						height="0"
+						forecolor="#000000"
+						key="line-9"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="1"
+						y="34"
+						width="539"
+						height="0"
+						forecolor="#000000"
+						key="line-10"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="2.0"/>
+</graphicElement>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="1"
+						y="34"
+						width="0"
+						height="326"
+						forecolor="#000000"
+						key="line-11"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="2.0"/>
+</graphicElement>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="1"
+						y="360"
+						width="539"
+						height="0"
+						forecolor="#000000"
+						key="line-12"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="2.0"/>
+</graphicElement>
+				</line>
+				<staticText>
+					<reportElement
+						x="391"
+						y="12"
+						width="140"
+						height="20"
+						key="staticText-13"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[LAMPIRAN MOF]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="391"
+						y="2"
+						width="139"
+						height="10"
+						key="staticText-14"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Oblique" size="7" isItalic="true"/>
+					</textElement>
+				<text><![CDATA[Surat Pekeliling Am Bil. 3 Tahun 2011]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="51"
+						y="141"
+						width="447"
+						height="81"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{ulasan} == null ? "" : $F{ulasan})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="51"
+						y="107"
+						width="332"
+						height="27"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{flag_keputusan}.equals("S")) ? "PENYEWAAN DISOKONG" :
+($F{flag_keputusan}.equals("TS")) ? "PENYEWAAN TIDAK DISOKONG" :
+"TIADA MAKLUMAT"]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

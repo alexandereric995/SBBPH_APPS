@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Resit Bayaran</title>
+        <style type="text/css" media="print">
+            @page {
+                size: 8.27in 11.69in;
+                margin: 0.5in;
+                -fs-flow-top: "header";
+                -fs-flow-bottom: "footer";
+            }
+            body {
+                font-size: 12px;
+                font-family: arial;
+            }
+			td {
+				line-height: 15.5px;
+			}
+        </style>
+    </head>
+	<body>
+		<table cellpadding="5" cellspacing="0" border="0" style="width: 95%" align="center">
+			<tr>
+				<td width="100px" align="center">
+					<img src="$imageUrl/images/jata.png" height="75px" />
+				</td>
+				<td width="70%">
+					<table cellpadding="0" cellspacing="0" border="0" style="letter-spacing: 0.5px; font-size: 14px" align="center">
+						<tr>
+							<td>
+								Bahagian Pengurusan Hartanah, Aras 7, Blok B3,
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Kompleks Jabatan Perdana Menteri
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Pusat Pentadbiran Kerajaan Persekutuan,
+							</td>
+						</tr>
+						<tr>
+							<td>
+								62502 Putrajaya
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td width="100px" align="center">
+					<img src="$imageUrl/images/logo-bph-baru.png" height="50px" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+			<tr>
+				<td colspan="3" align="center" style="font-weight: 700; font-size: 22px">RESIT</td>
+			</tr>
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<table cellpadding="0" cellspacing="0" border="0" width="90%" align="center">
+						<tr>
+							<td width="60%" valign="top">
+								<table cellpadding="5" cellspacing="0" border="0">
+									<tr>
+			                            <td style="width:110px"></td>
+			                            <td style="width:10px"></td>
+			                            <td></td>
+			                        </tr>
+			                        <tr>
+			                            <td valign="top" style="font-weight: 700">No. Resit</td>
+			                            <td valign="top">:</td>
+			                            <td valign="top">$!resit.noResit.toUpperCase()</td>
+			                        </tr>
+			                        <tr>
+			                            <td valign="top" style="font-weight: 700">Nama</td>
+			                            <td valign="top">:</td>
+			                            <td valign="top">$!p.pemohon.userName.toUpperCase()</td>
+			                        </tr>
+			                        <tr>
+			                            <td valign="top" style="font-weight: 700">No. Fail</td>
+			                            <td valign="top">:</td>
+			                            <td valign="top">$!p.noTempahan.toUpperCase()</td>
+			                        </tr>
+			                        <tr>
+			                            <td valign="top" style="font-weight: 700">No. MyKad</td>
+			                            <td valign="top">:</td>
+			                            <td valign="top">$!p.pemohon.noKP</td>
+			                        </tr>
+			                        <tr>
+			                            <td valign="top" style="font-weight: 700">Alamat</td>
+			                            <td valign="top">:</td>
+			                            <td valign="top">
+											$!p.pemohon.alamat1.toUpperCase()
+											#if( $!p.pemohon.alamat2 )
+												<br/>$!p.pemohon.alamat2.toUpperCase()
+											#end	
+											#if( $!p.pemohon.alamat3 )
+												<br/>$!p.pemohon.alamat3.toUpperCase()
+											#end	
+										</td>
+			                        </tr>
+								</table>
+							</td>
+							<td width="40%" valign="top">
+								<table cellpadding="5" cellspacing="0" border="0">
+									<tr>
+			                            <td style="width:125px"></td>
+			                            <td style="width:10px"></td>
+			                            <td></td>
+			                        </tr>
+			                        <tr>
+			                            <td valign="top" style="font-weight: 700">Tarikh</td>
+			                            <td valign="top">:</td>
+			                            <td valign="top">$!util.getDateTime($!resit.tarikhResit,"dd/MM/yyyy")</td>
+			                        </tr>
+			                        <tr>
+			                            <td valign="top" style="font-weight: 700">Mesin</td>
+			                            <td valign="top" >:</td>
+			                            <td valign="top">-</td>
+			                        </tr>
+			                        <tr>
+			                            <td valign="top" style="font-weight: 700">Kod PTJ</td>
+			                            <td valign="top">:</td>
+			                            <td valign="top">060101</td>
+			                        </tr>
+			                        <tr>
+			                            <td valign="top" style="font-weight: 700">Juruwang</td>
+			                            <td valign="top">:</td>
+			                            <td valign="top">-</td>
+			                        </tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<table cellpadding="5" cellspacing="1" border="0" width="100%">
+						<thead>
+							<tr>
+								<td align="center" width="1%">Bil.</td>
+								<td align="center" width="10%">Kod</td>
+								<td width="44%">Perihal</td>
+								<td align="center" width="15%">Dari</td>
+								<td align="center" width="15%">Hingga</td>
+								<td align="center" width="15%">Amaun (RM)</td>
+							</tr>
+							<tr>
+								<td colspan="6" style="border-top: 1px solid #666;"></td>
+							</tr>
+						</thead>
+						<tbody>
+							
+							#if ( $listInvois.size() > 0 )
+                        		#set ( $count = 0 )
+								#set ( $jumlahAmaun = 0.00 )
+                        		#foreach( $d in $listInvois )
+                        			#set ( $count = $count + 1)
+                                	#if ( $count % 2 == 0 ) 
+                            			#set ( $rowcolor = "#D0CFCE" ) 
+                            		#else 
+                            			#set ( $rowcolor = "#F0F0F0" ) 
+									#end
+									
+									#set ( $jumlahAmaun = $jumlahAmaun + $!d.debit )
+									
+                            		<tr bgcolor="$rowcolor">
+                            			<td align="center">$count</td>
+                    					<td align="center">$!d.kodHasil.id</td>
+                    					<td align="left" style="font-size:10px">$!d.keteranganBayaran.toUpperCase()</td>
+                                		<td align="center">$!util.getDateTime($!d.tarikhDari,'dd-MM-yyyy')</td>
+                            			<td align="center">$!util.getDateTime($!d.tarikhHingga,'dd-MM-yyyy')</td>
+                    					<td align="right">$!util.formatDecimal($!d.debit)</td>
+                                    </tr>
+                    			#end
+                    		#else
+                    			<tr bgcolor="#F0F0F0">
+                    				<td colspan="6">Tiada Rekod</td>
+                    			</tr>
+                    		#end
+							
+						</tbody>
+						<tfoot>
+							<tr>
+								<td align="right" colspan="5" style="padding-right: 15px">Jumlah Bayaran (RM)</td>
+								<td style="border-top: 1px solid #666; border-bottom: 1px solid #666;" align="right">$!jumlahAmaun</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td style="border-top: 1px solid #666;"></td>
+							</tr>
+						</tfoot>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<table cellpadding="5" cellspacing="1" border="0" width="100%">
+						<thead>
+							<tr>
+								<td align="center" width="25px">Bil.</td>
+								<td align="center" width="200px">Mod Bayaran</td>
+								<td>Bank</td>
+								<td>No. Dokumen</td>
+								<td align="center" width="125px">Amaun (RM)</td>
+							</tr>
+							<tr>
+								<td colspan="7" style="border-top: 1px solid #666;"></td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>$!util.replaceIfNull($!rkb.modBayaran.keterangan.toUpperCase(),"")</td>
+								<td>$!util.replaceIfNull($!rkb.bank.keterangan.toUpperCase(),"")</td>
+								<td>$!util.replaceIfNull($!rkb.noRujukan.toUpperCase(),"")</td>
+								<td align="right">$!util.formatDecimal($!rkb.amaunBayaran)</td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td align="right" colspan="4" style="padding-right: 15px">Jumlah Bayaran (RM)</td>
+								<td style="border-top: 1px solid #666; border-bottom: 1px solid #666;" align="right">$!util.formatDecimal($!rkb.amaunBayaran)</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td style="border-top: 1px solid #666;"></td>
+							</tr>
+						</tfoot>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="3"><hr /></td>
+			</tr>
+			<tr>
+				<td colspan="3" align="center" style="color: #555">2011 - 2015 &copy; Bahagian Pengurusan Hartanah ( Jabatan Perdana Menteri )</td>
+			</tr>
+		</table>
+	</body>
+</html>

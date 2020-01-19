@@ -1,0 +1,14 @@
+<div id="divCadanganPembangunan">
+	#if ($!command == 'addCadanganPembangunan')
+		#parse("$path/cadanganPembangunan/senaraiSubTab.vm")
+		#parse("$path/cadanganPembangunan/maklumatCadanganPembangunan.vm")	
+	#elseif ($!command == 'doPaparCadanganPembangunan' || $!command == 'getSkopCadanganPembangunan' || $!command == 'getEOT' || $!command == 'doSaveCadanganPembangunan' || $!command == 'doSaveSkop' || $!command == 'doHapusSkop' || $!command == 'doSaveEOT' || $!command == 'doHapusEOT')
+		<input type="hidden" id="idCadanganPembangunan" name="idCadanganPembangunan" value="$!cadanganPembangunan.id">
+		#parse("$path/cadanganPembangunan/senaraiSubTab.vm")
+		#parse("$path/cadanganPembangunan/senaraiSubSubTab.vm")	
+	#else
+		#parse("$path/cadanganPembangunan/senaraiSubTab.vm")
+		#parse("$path/cadanganPembangunan/senaraiCadanganPembangunan.vm")
+	#end	
+</div>
+

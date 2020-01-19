@@ -1,0 +1,84 @@
+#set ( $subject = $session.getAttribute("subject"))
+#set ( $message = $session.getAttribute("message"))
+
+<form name="${formname}" method="post">
+
+<table width="100%" border="0" cellspacing="1" cellpadding="1">
+	<tr>
+		<td>
+
+			<table width="100%" align="center" border="0" cellspacing="1" cellpadding="1">
+				<tr>
+					<td>
+<b>						Subject:</b><br>
+						<input type="text" class="text" id="title_${formname}" name="title_${formname}" value="$!subject" style="font-weight:bold;width:625px;height:25px">
+					</td>
+				</tr>
+								<tr>
+				<td>
+				<b>Message:</b>
+				</td>
+				</tr>
+				<tr>
+					<td>
+					#parse("vtl/editor/fck.vm")
+##						<textarea id="message" name="message"  rows="20" cols="80">$!{message}</textarea>
+						<textarea name="message_${formname}" style="visibility:hidden">$!{message}</textarea>
+
+					</td>
+				</tr>
+				#if ( $allowAttachment )
+				<tr>
+					<td class="table_row" >
+						<b>File(s):</b>&nbsp;
+						#foreach ( $file in $attachments )
+							[$file]
+							&nbsp
+						#end
+					</td>
+				</tr>	
+				#end			
+				<tr>
+					<td>
+						<input class="button" type="button" value="SAVE" onclick="add_${formname}()">
+						#if ( $allowAttachment )
+							<input class="button" type="button" value="FILE ATTACHMENTS" onclick="attachment_${formname}()">
+						#end
+						<input class="button" type="button" value="CANCEL" onclick="cancel_${formname}()">
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<input type="hidden" name="$formname" value="$formname">
+<input type="hidden" name="command_${formname}">
+<input type="hidden" name="subject_id_${formname}" value="$!{subjectId}">
+##<script type="text/javascript">
+##initEditor();
+##</script>
+</form>
+
+<script>
+function add_${formname}() {
+	var title = document.getElementById("title_${formname}");
+	if(title.value == "") {
+		alert("Please enter the subject.");
+		title.getFocus();
+		return;
+	}	
+	document.${formname}.command_${formname}.value = "Add";
+	document.${formname}.submit();	
+}
+
+function cancel_${formname}() {
+	document.${formname}.command_${formname}.value = "";
+	document.${formname}.submit();
+}
+function attachment_${formname}() {
+	document.${formname}.command_${formname}.value = "AttachmentTopic";
+	document.${formname}.submit();
+}
+
+</script>

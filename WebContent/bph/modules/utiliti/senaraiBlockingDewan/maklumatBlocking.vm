@@ -1,0 +1,117 @@
+<fieldset>
+<legend class="legend">MAKLUMAT REKOD</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+ 
+        
+        <tr>
+          <td class="label" valign="top">Nama Dewan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandar">
+            #parse("$path/selectDewan.vm")
+            <div id="err_dewan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+       
+        #if ($!r.tarikhTempahan)
+        	#set ($dateMula = "$!util.getDateTime($!r.tarikhTempahan,'dd-MM-yyyy')")
+        #else 
+        	#set ($dateMula = "-")
+        #end
+  <tr>
+			<td class="label" valign="top">Tarikh Mula &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top">
+				<div>
+		    		<input type="text" id="tarikhMula" name="tarikhMula" value="$dateMula">
+		    		<script>
+
+		            	_jq("#tarikhMula").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+		    				direction: true,
+  							pair: _jq('#tarikhTamat'),
+		    				onSelect: function(){
+		    				_jq('#tarikhTamat').val(_jq(this).val());
+		    					javascript:doPaintJadual()
+		    				},
+		            	});
+		    		</script>
+				</div>
+				<div id="err_tarikhMula" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+			</td>
+		</tr>
+		#if ($!r.tarikhTempahan)
+        	#set ($dateTamat = "$!util.getDateTime($!r.tarikhTempahan,'dd-MM-yyyy')")
+        #else 
+        	#set ($dateTamat = "-")
+        #end
+		<tr>
+			<td class="label" valign="top">Tarikh Tamat &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top">
+				<div>
+		    		<input type="text" id="tarikhTamat" name="tarikhTamat" value="$dateTamat">
+		    		<script>
+		            	_jq("#tarikhTamat").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+		    				direction: 1
+		            	});
+		    		</script>
+				</div>
+				<div id="err_tarikhTamat" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+			</td>
+		</tr>
+		<tr>
+            
+            <td class="label" valign="top">Hari &nbsp;<span style="color:#FF2A00">*</span></td>
+            <td valign="top">:</td>
+		    <td>ISNIN
+		    <input id="flagIsnin" name="flagHari" type="checkbox" value="monday" onClick="javascript:doClickIsnin();" $!checkFlagIsnin>
+            SELASA
+		    <input id="flagSelasa" name="flagHari" type="checkbox" value="tuesday" onClick="javascript:doClickSelasa();" $!checkFlagSelasa>
+		    RABU
+		    <input id="flagRabu" name="flagHari" type="checkbox" value="wednesday" onClick="javascript:doClickRabu();" $!checkFlagRabu>
+		    KHAMIS
+		    <input id="flagKhamis" name="flagHari" type="checkbox" value="thursday" onClick="javascript:doClickKhamis();" $!checkFlagKhamis>
+		    JUMAAT
+		    <input id="flagJumaat" name="flagHari" type="checkbox" value="friday" onClick="javascript:doClickJumaat();" $!checkFlagJumaat>
+		    SABTU
+		    <input id="flagSabtu" name="flagHari" type="checkbox" value="saturday" onClick="javascript:doClickSabtu();" $!checkFlagSabtu>
+		    AHAD
+		    <input id="flagAhad" name="flagHari" type="checkbox" value="sunday" onClick="javascript:doClickAhad();" $!checkFlagAhad>
+		    SEMUA 
+		    <input id="flagSemua" name="flagSemua" type="checkbox" value="08" onClick="javascript:doClickSemua();" $!checkFlagSemua>
+            </td>
+   		</tr>
+
+  		<tr>
+          <td class="label" valign="top">Masa Mula &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectMasaMula">
+            #parse("$path/selectMasaMula.vm")
+            <div id="err_masaMula" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        
+		<tr>
+          <td class="label" valign="top">Masa Tamat &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectMasaTamat">
+            #parse("$path/selectMasaTamat.vm")
+            <div id="err_masaTamat" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+       #textarea("catatan" "Tujuan" "$!r.catatan")
+##        <tr>
+##          <td class="label" valign="top">Status &nbsp;<span style="color:#FF2A00">*</span></td>
+##          <td valign="top">:</td>
+##          <td><div id="selectMasaTamat">
+##            #parse("$path/selectStatus.vm")
+##            <div id="err_status" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+##        </tr>
+          
+</table>
+
+
+</fieldset>

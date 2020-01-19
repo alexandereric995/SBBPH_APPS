@@ -1,0 +1,158 @@
+
+<input type="hidden" id="permohonanId" name="permohonanId" value="$!r.id" />
+##<input type="hidden" id="depositId" name="depositId" value="$!dep.id" />
+
+#parse("bph/modules/rpp/templates/maklumatPemohon.vm")
+#parse("bph/modules/rpp/templates/maklumatPermohonan.vm")
+
+	<fieldset>
+    <legend class="legend">MAKLUMAT PEMBATALAN</legend>
+    	<table width="100%" cellpadding="2" cellspacing="2" >
+			
+			<tr>
+				<td style="width:150px"></td>
+				<td style="width:10px"></td>
+				<td></td>
+            </tr>
+			
+			#show("Catatan Pembatalan" "$!util.replaceIfNull($!r.catatanPembatalan,'-')")
+			#show("Dibatalkan Oleh" "$!util.replaceIfNull($!r.pemohonBatal.userName,'-')")
+			#show("Tarikh Pembatalan" "$!util.getDateTime($!r.tarikhPembatalan,'dd-MM-yyyy')")
+			
+    	</table>
+		
+		<fieldset>
+        	<table width="100%" cellpadding="2" cellspacing="2">
+    			<tr>
+    				<td colspan="3"><u><b>Maklumat Akaun Penginap</b></u> :</td>
+    			</tr>
+        		<tr>
+        			<td width="20%" valign="top">Bank</td>
+        			<td width="1%" valign="top">:</td>
+        			<td width="79%" valign="top">$!util.replaceIfNull($!r.pemohon.bank.keterangan,'Tiada Maklumat')</td>
+        		</tr>
+    			<tr>
+    				<td valign="top">No. Akaun</td>
+    				<td valign="top">:</td>
+    				<td valign="top">$!util.replaceIfNull($!r.pemohon.noAkaunBank,'Tiada Maklumat')</td>
+    			</tr>
+    			<tr><td colspan="3">&nbsp;</td></td></tr>
+    			<tr>
+    				<td colspan="3" valign="top"><div style="color:red;font-size:10px">* Sila pastikan penginap mengemaskini maklumat terbaru akaun bank.</div></td>
+    			</tr>
+        	</table>
+        </fieldset>
+		
+    </fieldset>
+
+<br/>
+
+#if( ($!r.getIdResitDeposit() && !$!r.getIdResitDeposit().equalsIgnoreCase(""))  || ($!r.getIdResitSewa() && !$!r.getIdResitSewa().equalsIgnoreCase("")) )
+<fieldset>
+<legend class="legend">SENARAI CETAKAN</legend>
+	
+	<table width="100%" >
+		
+    		#if( $!r.getIdResitSewa() && !$!r.getIdResitSewa().equalsIgnoreCase("") )
+            	<tr>
+            		<td><a href="#" style="color:blue" id="cmdResitInv">RESIT SEWA</a></td>		
+            	</tr>
+    		#end
+		
+        	#if( $!r.getIdResitDeposit() && !$!r.getIdResitDeposit().equalsIgnoreCase("") )
+			<tr>
+        		<td><a href="#" style="color:blue" id="cmdResitDep">RESIT DEPOSIT </a></td>		
+        	</tr>
+			#end
+			
+			<tr>
+    			##langkawi
+    			#if( $!r.rppPeranginan.id.equalsIgnoreCase("3"))
+    				<td><a href="#" style="color:blue" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!r.id&jenisSurat=suratKelulusanLangkawi&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN LANGKAWI</a></td>
+    			##port dickson
+    			#elseif($!r.rppPeranginan.id.equalsIgnoreCase("14") )
+    				<td><a href="#" style="color:blue" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!r.id&jenisSurat=suratKelulusanPD&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN PORT DICKSON</a></td>
+    			#else
+    				<td><a href="#" style="color:blue" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!r.id&jenisSurat=suratKelulusan&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN</a></td>
+    			#end	
+        	</tr>
+			
+			#if( $!dep && $!dep.tuntutanDeposit )
+			<tr>
+    			<td>
+						<a href="#" style="color:blue" id="cmdCetakPengesahanDeposit" >SURAT PENGESAHAN DEPOSIT</a>		
+    			</td>
+    		</tr>
+			#end
+			
+			#if( $!r.pemohon.dokumenBank && !$!r.pemohon.dokumenBank.equalsIgnoreCase("") )
+			<tr>
+    			<td>
+    				<a href="../download?file=$!uploadDir$!r.pemohon.dokumenBank"><span class="print" style="color:#0000FF">DOKUMEN PENYATA BANK<span></a> 
+    			</td>
+    		</tr>
+			#end
+
+        	<script>
+        		_jq('#cmdResitDep').on('click', function(){
+        		    var idResit = '$!r.getIdResitDeposit()';
+        		    
+					var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+					var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+					if ((document.window != null) && (!hWnd.opener))
+					hWnd.opener = document.window;
+					if (hWnd.focus != null) hWnd.focus();	
+    			});
+    			_jq('#cmdResitInv').on('click', function(){
+        		    var idResit = '$!r.getIdResitSewa()';
+        		    
+					var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+					var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+					if ((document.window != null) && (!hWnd.opener))
+					hWnd.opener = document.window;
+					if (hWnd.focus != null) hWnd.focus();	
+    			});
+	        </script>
+		
+    </table>
+
+</fieldset>
+#end
+
+<br/>
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+				<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+        		##<input type="button" value="Cetak Surat Tuntutan Deposit" id="cmdCetak" name="cmdCetak">	
+
+				#if( $!dep && !$!dep.tuntutanDeposit )
+    			<input id="btnPulangDeposit" type="button" value="Pengesahan Pulangkan Deposit" onClick="simpanPulanganDeposit()">
+				#end
+				
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>	
+
+	
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>
+
+<script>
+    _jq('#cmdCetakPengesahanDeposit').on('click', function(){
+    		var idp = '$!r.id';
+    		var url = "../servlet/bph.laporan.rpp.BayaranBalikDeposit?idPermohonan="+idp;
+    		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+    		if ((document.window != null) && (!hWnd.opener))
+    		hWnd.opener = document.window;
+    		if (hWnd.focus != null) hWnd.focus();
+    });
+</script>

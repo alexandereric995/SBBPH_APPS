@@ -1,0 +1,80 @@
+<input type="hidden" id="idMaklumatBon" name="idMaklumatBon" value="$!rekod.id">
+	<fieldset class="fieldset">
+	<legend class="legend">Maklumat Bon</legend>
+	<table cellpadding="5" cellspacing="0" border="0" width="100%">
+		<tr>
+			<td class="label" style="width:29%">&nbsp;</td>
+			<td style="width:1%">&nbsp;</td>
+			<td style="width:70%">&nbsp;</td>
+		</tr>
+		<tr>
+			<td class="label" valign="top">Jenis Jaminan &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td valign="top">:</td>
+			<td>#parse("$path/maklumatBon/selectJenisJaminan.vm")
+			<div id="err_idJenisJaminan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+		</tr>
+		
+		#input_required("noRujukan" "No. Rujukan Bon" "$!rekod.noRujukan")
+		#currency_required("nilaiBon" "Nilai Bon (RM)" "$!rekod.nilaiBon")
+		
+
+		#if ($!rekod.tarikhReleaseBon)
+			#set ($dateTarikhReleaseBon = "$!util.getDateTime($!rekod.tarikhReleaseBon,'dd-MM-yyyy')")
+		#else 
+			#set ($dateTarikhReleaseBon = "") 
+		#end        
+		#date_input("tarikhReleaseBon" "Tarikh Release Bon" "$dateTarikhReleaseBon")	
+## 		#input("tarikhReleaseBon" "Tarikh Release Bon" "$!rekod.tarikhReleaseBon")
+
+ 		#input("namaBank" "Nama Bank" "$!rekod.namaBank")
+ 		
+		#if ($rekod.tarikhLuput) 
+			#set ($dateLuput="$!util.getDateTime($rekod.tarikhLuput,'dd-MM-yyyy')") 
+		#else 
+			#set ($dateLuput="") 
+		#end
+		#date_input_required("tarikhLuput" "Tarikh Luput Bon" "$dateLuput")
+		
+		<tr>
+			<td class="label" valign="top">Status &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td valign="top">:</td>
+			<td>#parse("$path/maklumatBon/selectStatusBon.vm")
+			<div id="err_idStatusBon" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td> #if ( $command == "addMaklumatBon")
+			<input type="button" id="saveMaklumatBon" name="saveMaklumatBon" value="Simpan">
+			<input type="button" id="batalMaklumatBon" name="batalMaklumatBon" value="Keluar">
+			#elseif ( $command == "editMaklumatBon")
+			<input type="button" id="saveExitMaklumatBon" name="saveExitMaklumatBon" value="Simpan">
+			<input type="button" id="batalMaklumatBon" name="batalMaklumatBon" value="Keluar">
+			#end </td>
+		</tr>
+	</table>
+	<div id="statusMaklumatBon"></div>
+</fieldset>
+<script>
+	_jq('#batalMaklumatBon').on('click', function(){
+		doDivAjaxCall3$formname('divTab','getMaklumatBon','');
+		jQuery('#editMaklumatBon').fadeOut();
+	});
+
+	_jq('#saveMaklumatBon').on('click', function(){
+		saveMaklumatBon();
+	});
+
+	_jq('#saveExitMaklumatBon').on('click', function(){
+		saveMaklumatBon();
+	});
+</script>
+
+<script>
+	_jq(function($) {
+		$('.currency').autoNumeric('init'); 
+		$('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+		$('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+		$('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+	});
+</script>

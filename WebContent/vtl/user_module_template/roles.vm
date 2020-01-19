@@ -1,0 +1,28 @@
+<form name="f" method="post">
+    <fieldset>
+    	<legend class="legend_form">
+			<table cellpadding="2" cellspacing="0">
+                <tr>
+                    <td nowrap>Pilih Peranan :</td>
+                    <td>
+                        <select class="leg" name="role" onChange="selectRole()">
+                    		<option value="">Sila Pilih</option>
+                    		#foreach( $role in $roles )
+                    			<option value="$role.name">$role.description</option>
+                    		#end
+                    	</select>
+                    </td>
+                </tr>
+            </table>
+    	</legend>
+    	<input type="hidden" name="command">
+    </fieldset>
+</form>
+<br /><br />
+
+<script>
+function selectRole() {
+    document.f.command.value = "listTabs";
+    document.f.submit();
+}
+</script>

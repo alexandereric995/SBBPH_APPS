@@ -1,0 +1,49 @@
+<div id="content-format"><pinLeft></pinLeft><pinRight></pinRight>
+  <header>Log Masuk Permohonan</header>
+  <fieldset>
+      <section>
+    	#set($ajaxLogin = "submitAjaxLogin($('divPortalLoginResultPage'), $('usernameLogin').value, $('passwordLogin').value)")
+        <div class="portalLogin">
+            <form id="login_form2" name="login_form2">
+                <table width="35%" cellpadding="5" cellspacing="0" align="center" style="border: 1px dotted #CCC; padding: 15px;">
+    				<tr>
+            			<td colspan="2" width="100px">
+            			    <input class="input-style mykad" type="text" name="usernameLogin" id="usernameLogin" style="width: 100%" placeholder="MyID" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+            			</td>
+    				</tr>
+    				<tr>
+            			<td colspan="2" width="100px">
+            				<input class="input-style" type="password" name="passwordLogin" id="passwordLogin" style="width: 100%" placeholder="Kata Laluan" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+            			</td>
+    				</tr>
+    				<tr>
+                    	<td>
+                    		<input class="button-style" style="font-size: 0.8em" type="button" name="btnSubmitPage" id="btnSubmitPage" value="Daftar Masuk" onClick="if ( !checkIsEmpty($('usernameLogin').value, $('passwordLogin').value, $('divPortalLoginResultPage')) ) { $ajaxLogin; }" />
+                    	</td>
+                    	<td>
+                    		<input class="button-style" style="font-size: 0.8em" type="button" name="btnLupaKataLaluanPage" id="btnLupaKataLaluanPage" value="Lupa Kata Laluan" />
+                    	</td>
+                    </tr>
+    				<tr>
+        				<td colspan="2">
+    						<div id="divPortalLoginResultPage" align="center"></div>
+##        					<i class="loginTipsPage">** Daftar akaun hanya untuk penjawat awam yang ingin menggunakan perkhidmatan BPH.</i>
+        				</td>
+        			</tr>
+    			</table>
+            </form>
+        </div>
+    	<p>Sebarang permohonan, semakan dan pembayaran boleh dilakukan setelah log masuk sistem. Sekiranya anda tidak mempunyai ID Log Masuk, anda perlu mendaftar sebagai pengguna portal bagi sebarang permohonan, semakan dan pembayaran.</p>
+      </section>
+  </fieldset>
+</div>
+	
+<script>	
+	_jq(function($) {
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+	
+	_jq( "#btnSubmitPage" ).click(function() {
+    	_jq( ".loginTipsPage" ).toggle();
+    });
+</script>

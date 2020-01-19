@@ -1,0 +1,98 @@
+
+
+<fieldset>
+<legend class="legend">Kontrak Perjanjian</legend>
+	<table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+		<tr>
+        	<td class="label" valign="top">No. Siri Perjanjian</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="noSiriPerjanjian" class="uppercasefont" name="noSiriPerjanjian" value="$!r.noSiriPerjanjian" onKeyUp="$('err_noSiriPerjanjian').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_noSiriPerjanjian" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+		<tr>
+        	<td class="label" valign="top">Tarikh Mula Perjanjian</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input type="text" id="tarikhMulaPerjanjian" name="tarikhMulaPerjanjian" value="$!util.getDateTime($!r.tarikhMulaPerjanjian,'dd-MM-yyyy')" style="width: 18%" onChange=" $('err_tarikhMulaPerjanjian').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()">
+        		<script>
+                _jq(function() {
+                	jQuery("#tarikhMulaPerjanjian").datepicker({ 
+                		dateFormat: "dd-mm-yy",
+        				showOn: "both",
+        				buttonImageOnly: true,
+        				buttonImage: "../img/calendar_icon.gif",
+        				buttonText: "Calendar",
+                	});
+                });
+        		</script>
+				<div id="err_tarikhMulaPerjanjian" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+		<tr>
+        	<td class="label" valign="top">Tarikh Tamat Perjanjian</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input type="text" id="tarikhTamatPerjanjian" name="tarikhTamatPerjanjian" value="$!util.getDateTime($!r.tarikhTamatPerjanjian,'dd-MM-yyyy')" style="width: 18%" onChange=" $('err_tarikhTamatPerjanjian').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()">
+        		<script>
+                _jq(function() {
+                	jQuery("#tarikhTamatPerjanjian").datepicker({ 
+                		dateFormat: "dd-mm-yy",
+        				showOn: "both",
+        				buttonImageOnly: true,
+        				buttonImage: "../img/calendar_icon.gif",
+        				buttonText: "Calendar",
+                	});
+                });
+        		</script>
+				<div id="err_tarikhTamatPerjanjian" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+		<tr>
+        	<td class="label" valign="top">Kadar Sewa (RM)</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:60px" type="text" id="kadarSewa" class="currency" name="kadarSewa" value="$!r.kadarSewa" onKeyUp="$('err_kadarSewa').innerHTML='';at(this, event)">
+			</td>
+        </tr>
+	</table>
+</fieldset>	
+
+
+<table width="100%">
+	<tr>
+		<td align="right">
+##			#if(!$!userRole.equalsIgnoreCase("(JRP) Pemohon"))
+##			<input type="button" value="Simpan" id="cmdSavePerjanjian" />
+##			<input type="button" value="Kosongkan" id="cmdKosongkanPerjanjian" />
+##			#end
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+<div id="statusPerjanjian"></div>
+
+
+<script>
+_jq('#cmdKosongkanPerjanjian').on('click', function(){
+	$('noSiriPerjanjian').value = "";
+	$('tarikhMulaPerjanjian').value = "";
+	$('tarikhTamatPerjanjian').value = "";
+	$('kadarSewa').value = "";
+});
+_jq('#cmdSavePerjanjian').on('click', function(){
+	var idPermohonan = $!r.id;
+	if (window.confirm("Anda pasti?") ){
+		//doDivAjaxChainCall$formname('statusPerjanjian','saveKertasPertimbangan','idPermohonan='+idPermohonan+'&selectedSubTab='+tabNo+'','divTab','getKelulusanPermohonan','selectedSubTab=1');
+		doDivAjaxCall$formname('statusPerjanjian','savePerjanjian','idPermohonan='+idPermohonan);
+	}
+});
+</script>
+	

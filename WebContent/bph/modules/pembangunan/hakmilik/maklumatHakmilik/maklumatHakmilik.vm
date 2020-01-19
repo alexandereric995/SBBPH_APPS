@@ -1,0 +1,218 @@
+<fieldset>
+<legend class="legend">Maklumat Hakmilik</legend>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input("noFail" "No. Fail" "$!r.noFail")
+        <tr>
+          <td class="label">Kementerian &nbsp;<span style="color:#FF2A00"></span></td>
+          <td>:</td>
+          <td> #parse("$path/selectKementerian.vm")
+            <div id="err_idKementerian" style="color:#CC0000;font-weight:bold;border:2px #000">
+          </td>
+        </tr>
+        <tr>
+          <td class="label">Agensi / Jabatan &nbsp;<span style="color:#FF2A00"></span></td>
+          <td>:</td>
+          <td><div id="selectAgensi"> #parse("$path/selectAgensi.vm")
+              <div id="err_idAgensi" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </div></td>
+        </tr>
+        <tr>
+          <td class="label">Status Hakmilik &nbsp;</td>
+          <td>:</td>
+          <td>
+            #parse("$path/selectStatusDaftar.vm")
+            <div id="err_statusDaftar" style="color:#CC0000;font-weight:bold;border:2px #000">
+          </td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td> #parse("$path/selectNegeri.vm")
+            <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Daerah &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectDaerah"> #parse("$path/selectDaerah.vm")
+              <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar/Pekan/Mukim &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectMukim"> #parse("$path/selectMukim.vm")
+              <div id="err_idMukim" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </div></td>
+        </tr>
+        #input("lokasi" "Tajuk" "$!r.lokasi")
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="2"><hr /></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!command != 'add_new_record')
+        	#input_readonly_label("peganganHakmilik" "ID Hakmilik" "$!r.peganganHakmilik")
+        #end
+        <tr>
+          <td class="label" valign="top">Jenis Hakmilik <span style="color:#FF2A00"></span></td>
+          <td valign="top">:</td>
+          <td> #parse("$path/selectJenisHakmilik.vm")
+            <div id="err_idJenisHakmilik" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+<<<<<<< .mine
+        ##input_readonly_label("noHakmilik1" "" "$!r.jenisHakmilik.keterangan")
+        ##number_required("noHakmilik" "No. Hakmilik" "$!r.jenisHakmilik.keterangan $!r.noHakmilik")
+        #if ($!command == 'add_new_record')
+        	#number_required("noHakmilik" "No. Hakmilik" "$!r.noHakmilik")
+        #else
+        	#input_readonly_label("noHakmilik" "No. Hakmilik" "$!r.jenisHakmilik.keterangan $!r.noHakmilik")
+        #end
+||||||| .r9719
+        #number_required("noHakmilik" "No. Hakmilik" "$!r.noHakmilik")
+=======
+        ##input_readonly_label("noHakmilik1" "" "$!r.jenisHakmilik.keterangan")
+        #number_required("noHakmilik" "No. Hakmilik" "$!r.noHakmilik")
+>>>>>>> .r9730
+        <tr>
+          <td class="label" valign="top">Lot / PT &nbsp;</td>
+          <td valign="top">:</td>
+          <td> #parse("$path/selectLot.vm")
+            <div id="err_idLot" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #number("noLot" "No. Lot / PT" "$!r.noLot")
+        <tr>
+          <td class="label" valign="top">Unit Luas &nbsp;</td>
+          <td valign="top">:</td>
+          <td> #parse("$path/selectJenisLuas.vm")
+            <div id="err_idLuas" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #input("luas" "Luas" "$!r.luas")
+        #input("noWarta" "No. Warta" "$!r.noWarta")
+        #if ($r.tarikhWarta) 
+        #set ($tarikhWarta="$!util.getDateTime($r.tarikhWarta,'dd-MM-yyyy')")
+        #else 
+        #set ($tarikhWarta="") 
+        #end
+        #date_input("tarikhWarta" "Tarikh Warta" "$tarikhWarta")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Kategori Tanah &nbsp;</td>
+          <td valign="top">:</td>
+          <td> #parse("$path/selectKategoriTanah.vm")
+            <div id="err_idKategoriTanah" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        ##<tr>
+        ##  <td class="label" valign="top">Sub Kategori Tanah &nbsp;</td>
+        ##  <td valign="top">:</td>
+        ##  <td><div id="selectSubKategoriTanah"> ##parse("$path/selectSubKategoriTanah.vm")</div>
+        ##    <div id="err_idSubKategoriTanah" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        ##</tr>
+        
+        ##input("syarat" "Syarat Nyata" "$!r.syarat")
+        #textarea("syarat" "Syarat Nyata" "$!r.syarat")
+        #input("sekatan" "Sekatan Kepentingan" "$!r.sekatan")
+        #input("kegunaanTanah" "Kegunaan Tanah" "$!r.kegunaanTanah")
+        #textarea("catatan" "Catatan" "$!r.catatan") 
+        #input("hakmilikAsal" "Hakmilik Asal" "$!r.hakmilikAsal")        
+        ##input("hakmilikBerikut" "Hakmilik Berikut" "$!r.hakmilikBerikut")
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="2"><hr /></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input("noPelan" "No. Pelan Akui" "$!r.noPelan")         
+        #input("noSyit" "No. Syit" "$!r.noSyit")        
+        #input("noPu" "No PU" "$!r.noPu")
+        #if ($r.tarikhDaftar) 
+        #set ($tarikhDaftar="$!util.getDateTime($r.tarikhDaftar,'dd-MM-yyyy')") 
+        #else 
+        #set ($tarikhDaftar="") 
+        #end
+        #date_input("tarikhDaftar" "Tarikh Daftar Hakmilik" "$tarikhDaftar")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        ##input("tarafHakmilik" "Taraf Milik" "$!r.tarafHakmilik")
+        #if ($r.tarikhLuput) 
+        #set ($tarikhLuput="$!util.getDateTime($r.tarikhLuput,'dd-MM-yyyy')") 
+        #else 
+        #set ($tarikhLuput="") 
+        #end
+        ##date_input("tarikhLuput" "Tarikh Luput" "$tarikhLuput")
+        
+        #currency("cukai" "Cukai (RM)" "$!util.formatDecimal($!r.cukai)")        
+        #currency("cukaiTerkini" "Cukai Terkini (RM)" "$!util.formatDecimal($!r.cukaiTerkini)")
+        <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+#parse("$path/statusInfo.vm") 
+
+#if ($!command != 'add_new_record')
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if ($allowUpdate)
+			#if($!userId == '770312085623' || $!userId == '831009035128' || $!userId == 'faizal')
+				<input id="cmdHapus" name="cmdHapus" type="button" value="Hapus" onclick="deleteHakmilik('$r.id')"/>
+			#end
+			<input id="btnSaveKemaskiniHakmilik" name="btnSaveKemaskiniHakmilik" type="button" value="Kemaskini" onclick="javascript:saveKemaskiniHakmilik();">
+			<input id="cmdCetakMaklumatTanah" name="cmdCetakMaklumatTanah" type="button" value="Cetak">
+			#end
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+#end
+
+<script>
+    _jq('#cmdCetakMaklumatTanah').on('click', function(){
+		var idHakmilik = '$!r.id';
+    	var url = "../servlet/bph.laporan.pembangunan.MaklumatTanah?idHakmilik="+idHakmilik;
+    	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+    	if ((document.window != null) && (!hWnd.opener))
+    	hWnd.opener = document.window;
+    	if (hWnd.focus != null) hWnd.focus();
+    });
+</script>

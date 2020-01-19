@@ -1,0 +1,66 @@
+
+#parse("$path/senaraiTab.vm")
+
+<input type="hidden" name="idRppPermohonan" id="idRppPermohonan" value="$!r.id" />
+
+<fieldset>
+<legend class="legend">PILIHAN BILIK</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+			<td class="row_header" width="10%">Bil.</td>
+			<td class="row_header" style="text-align:left !important" width="25%">Jenis Unit</td>
+			<td class="row_header" style="text-align:left !important" width="65%">No. & Nama Unit</td>
+		</tr>
+		
+		#set ( $count = 0 )
+		#set ( $totalConfirm = 0 )
+		#if($listBilik.size() > 0 )
+    		#foreach($u in $listBilik)
+    		#set ( $count = $count + 1)
+			<tr>
+    			<td align="center">$count</td>
+				<td>$u.unit.jenisUnit.keterangan.toUpperCase()</td>
+    			<td align="left">
+    				#if( $u.flagStatusTempahan.equalsIgnoreCase("CONFIRM") )
+    					$u.unit.noUnit - $u.unit.namaUnit.toUpperCase()
+    					#if( $r.status.id=="1433097397170" ) ##PERMOHONAN KELOMPOK LENGKAP
+    					<a href="#" style="color:blue;" onclick="javascript:doCallPopup('$r.id','$u.unit.id')">&nbsp;[Tukar Bilik]</a>
+						#end
+						#set ( $totalConfirm = $totalConfirm + 1)
+    				#else
+    					<input id="btnPilihBilik" type="button" value="Pilih Bilik" onclick="javascript:doCallPopup('$r.id','$u.unit.id');$('err_roomselect').innerHTML='';at(this, event)" />
+    				#end	
+    			</td>
+    		</tr>
+			#end
+		#else
+			<tr><td colspan="2">Tiada Rekod</td></tr>
+		#end
+		<tr><td colspan="2">&nbsp;</td></tr>
+	</table>
+	
+	<div id="err_roomselect" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	
+</fieldset>
+
+<div id="divPopupPilihBilik" class="popup"></div>
+
+#set ( $dateIn = "$!util.getDateTime($r.tarikhMasukRpp,'dd-MM-yyyy')")
+#set ( $dateOut = "$!util.getDateTime($r.tarikhKeluarRpp,'dd-MM-yyyy')")
+	
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="right">##Fatin 13/06/2015
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+			#if( $r.status.id !="1425259713415" )
+			<input type="button" value="Permohonan Lulus" onClick="javascript:doSavePermohonanLulus('$!r.id','$!listBilik.size()','$!totalConfirm','$!dateIn','$!dateOut')">
+			#end	
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+
+
+

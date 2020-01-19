@@ -1,0 +1,86 @@
+<div id="divPemohon">	
+<fieldset>
+<legend class="legend">MAKLUMAT PEMOHON</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+       
+
+ 		<tr>
+          <td class="label">No. Pengenalan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td class="label">:</td>
+          <td><input type="text" id="noPendaftaran" name="noPendaftaran" value="$!noPendaftaran" onKeyUp=" $('err_noPendaftaran').innerHTML=''; at(this, event);" onBlur="doDivAjaxCall3$formname('divTab','getMaklumatPemohonBerdaftar','')">
+          <div id="err_noPendaftaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+       #if ($!pemohon != "")	
+       	  #input_required("nama" "Nama" "$!pemohon.userName")
+		  #number("noTel" "No. Telefon" "$!pemohon.noTelefon")
+		  #number("noTelBimbit" "No. Telefon Bimbit" "$!pemohon.noTelefonBimbit")
+		  #number("noFax" "No. Faks" "$!pemohon.noFaks")
+		  #input_required("emel" "E-mel" "$!pemohon.emel")
+		  
+	   #else
+	      #input_required("nama" "Nama" "$!r.pemohon.userName")
+		  #number("noTel" "No. Telefon" "$!r.pemohon.noTelefon")
+		  #number("noTelBimbit" "No. Telefon Bimbit" "$!r.pemohon.noTelefonBimbit")
+		  #number("noFax" "No. Faks" "$!r.pemohon.noFaks")
+		  #input_required("emel" "E-mel" "$!r.pemohon.emel")  
+       #end
+		  
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+         #if ($!pemohon != "")
+        	#input_required("alamat1" "Alamat" "$!pemohon.alamat1")
+        	#input("alamat2" "" "$!pemohon.alamat2")
+        	#input("alamat3" "" "$!pemohon.alamat3")
+         #else
+         	#input_required("alamat1" "Alamat" "$!r.pemohon.alamat1")
+        	#input("alamat2" "" "$!r.pemohon.alamat2")
+        	#input("alamat3" "" "$!r.pemohon.alamat3")
+         #end
+        
+        <td></td><td></td>
+        <td><div id="err_alamat" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        #if ($!pemohon != "")
+        #postcode_required("poskod" "Poskod" "$!pemohon.poskod")
+        <td></td><td></td>
+         <td><div id="err_poskod" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+         #input("idNegeri" "Negeri" "$!pemohon.bandar.negeri.keterangan")
+         #input("idBandar" "Bandar" "$!pemohon.bandar.keterangan")
+        #else
+        #postcode_required("poskod" "Poskod" "$!r.pemohon.poskod")
+        <td></td><td></td>
+         <td><div id="err_poskod" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+         #input("idNegeri" "Negeri" "$!r.pemohon.bandar.negeri.keterangan")
+         #input("idBandar" "Bandar" "$!r.pemohon.bandar.keterangan")
+        #end
+
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+#if ($!command != "add_new_record")	
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if ($!userRole != "(UTILITI) Pelulus")
+						<input id="cetak" name="cetak" type="button" value="Cetak" onclick=""/>
+    		<input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:doSaveDetailPemohon('$!r.id');"/>
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+			#end
+		</td>
+	</tr>
+</table>
+#end
+</div>	

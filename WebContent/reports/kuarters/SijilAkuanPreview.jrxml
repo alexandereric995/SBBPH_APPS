@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SijilAkuanPreview"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="idTemujanji" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT users.user_name
+          AS nama_pemohon,
+       users.user_login
+          AS no_pengenalan,
+       ruj_jawatan.keterangan
+          AS jawatan,
+       concat(users.id_kelas_perkhidmatan, users.id_gred_perkhidmatan)
+          AS gred_perkhidmatan,
+       ruj_kementerian.keterangan
+          AS kementerian_semasa,
+       ruj_agensi.keterangan
+          AS agensi_semasa,
+       users.bahagian
+          AS bahagian_semasa,
+       users.alamat_1
+          AS alamat_pejabat1_semasa,
+       users.alamat_2
+          AS alamat_pejabat2_semasa,
+       users.alamat_3
+          AS alamat_pejabat3_semasa,
+       users.poskod
+          AS poskod_pejabat_semasa,
+       ruj_bandar.keterangan
+          AS bandar_pejabat_semasa,
+       ruj_negeri.keterangan
+          AS negeri_pejabat_semasa,
+       users.no_telefon_bimbit,
+       users.no_telefon_pejabat,
+       ruj_kementerian_selepas.keterangan
+          AS kementerian_selepas,
+       ruj_agensi_selepas.keterangan
+          AS agensi_selepas,
+       kua_temujanji.bahagian
+          AS bahagian_selepas,
+       kua_temujanji.alamat_pejabat_1
+          AS alamat_pejabat1_selepas,
+       kua_temujanji.alamat_pejabat_2
+          AS alamat_pejabat2_selepas,
+       kua_temujanji.alamat_pejabat_3
+          AS alamat_pejabat3_selepas,
+       kua_temujanji.poskod_pejabat
+          AS poskod_pejabat_selepas,
+       ruj_bandar_selepas.keterangan
+          AS bandar_pejabat_selepas,
+       ruj_negeri_selepas.keterangan
+          AS negeri_pejabat_selepas,
+       kua_temujanji.no_telefon_pejabat
+          AS no_telefon_pejabat_selepas,
+       kua_temujanji.alamat_1
+          AS alamat_kediaman1_selepas,
+       kua_temujanji.alamat_2
+          AS alamat_kediaman2_selepas,
+       kua_temujanji.alamat_3
+          AS alamat_kediaman3_selepas,
+       kua_temujanji.poskod
+          AS poskod_kediaman_selepas,
+       ruj_bandar_kediaman_selepas.keterangan
+          AS bandar_kediaman_selepas,
+       ruj_negeri_kediaman_selepas.keterangan
+          AS negeri_kediaman_selepas,
+       ruj_sebab_bertukar.keterangan
+          AS sebab_bertukar,
+       kua_temujanji.keterangan as catatan
+FROM kua_temujanji
+     LEFT OUTER JOIN users ON kua_temujanji.id_pemohon = users.user_login
+     LEFT OUTER JOIN ruj_jawatan ON users.id_jawatan = ruj_jawatan.id
+     LEFT OUTER JOIN ruj_agensi ON users.id_agensi = ruj_agensi.id
+     LEFT OUTER JOIN ruj_kementerian
+        ON ruj_agensi.id_kementerian = ruj_kementerian.id
+     LEFT OUTER JOIN ruj_bandar ON users.id_bandar = ruj_bandar.id
+     LEFT OUTER JOIN ruj_negeri ON ruj_bandar.id_negeri = ruj_negeri.id
+     LEFT OUTER JOIN ruj_agensi ruj_agensi_selepas
+        ON kua_temujanji.id_agensi = ruj_agensi_selepas.id
+     LEFT OUTER JOIN ruj_kementerian ruj_kementerian_selepas
+        ON ruj_agensi_selepas.id_kementerian = ruj_kementerian_selepas.id
+     LEFT OUTER JOIN ruj_bandar ruj_bandar_selepas
+        ON kua_temujanji.id_bandar_pejabat = ruj_bandar_selepas.id
+     LEFT OUTER JOIN ruj_negeri ruj_negeri_selepas
+        ON ruj_bandar_selepas.id_negeri = ruj_negeri_selepas.id
+     LEFT OUTER JOIN ruj_bandar ruj_bandar_kediaman_selepas
+        ON kua_temujanji.id_bandar = ruj_bandar_kediaman_selepas.id
+     LEFT OUTER JOIN ruj_negeri ruj_negeri_kediaman_selepas
+        ON ruj_bandar_kediaman_selepas.id_negeri =
+           ruj_negeri_kediaman_selepas.id
+     LEFT OUTER JOIN ruj_sebab_bertukar
+        ON kua_temujanji.id_sebab_bertukar = ruj_sebab_bertukar.id
+WHERE kua_temujanji.id = '$P!{idTemujanji}']]></queryString>
+
+	<field name="nama_pemohon" class="java.lang.String"/>
+	<field name="no_pengenalan" class="java.lang.String"/>
+	<field name="jawatan" class="java.lang.String"/>
+	<field name="gred_perkhidmatan" class="java.lang.String"/>
+	<field name="kementerian_semasa" class="java.lang.String"/>
+	<field name="agensi_semasa" class="java.lang.String"/>
+	<field name="bahagian_semasa" class="java.lang.String"/>
+	<field name="alamat_pejabat1_semasa" class="java.lang.String"/>
+	<field name="alamat_pejabat2_semasa" class="java.lang.String"/>
+	<field name="alamat_pejabat3_semasa" class="java.lang.String"/>
+	<field name="poskod_pejabat_semasa" class="java.lang.String"/>
+	<field name="bandar_pejabat_semasa" class="java.lang.String"/>
+	<field name="negeri_pejabat_semasa" class="java.lang.String"/>
+	<field name="no_telefon_bimbit" class="java.lang.String"/>
+	<field name="no_telefon_pejabat" class="java.lang.String"/>
+	<field name="kementerian_selepas" class="java.lang.String"/>
+	<field name="agensi_selepas" class="java.lang.String"/>
+	<field name="bahagian_selepas" class="java.lang.String"/>
+	<field name="alamat_pejabat1_selepas" class="java.lang.String"/>
+	<field name="alamat_pejabat2_selepas" class="java.lang.String"/>
+	<field name="alamat_pejabat3_selepas" class="java.lang.String"/>
+	<field name="poskod_pejabat_selepas" class="java.lang.String"/>
+	<field name="bandar_pejabat_selepas" class="java.lang.String"/>
+	<field name="negeri_pejabat_selepas" class="java.lang.String"/>
+	<field name="no_telefon_pejabat_selepas" class="java.lang.String"/>
+	<field name="alamat_kediaman1_selepas" class="java.lang.String"/>
+	<field name="alamat_kediaman2_selepas" class="java.lang.String"/>
+	<field name="alamat_kediaman3_selepas" class="java.lang.String"/>
+	<field name="poskod_kediaman_selepas" class="java.lang.String"/>
+	<field name="bandar_kediaman_selepas" class="java.lang.String"/>
+	<field name="negeri_kediaman_selepas" class="java.lang.String"/>
+	<field name="sebab_bertukar" class="java.lang.String"/>
+	<field name="catatan" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="39"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="110"
+						y="10"
+						width="260"
+						height="19"
+						key="textField-1"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[" (PREVIEW) SIJIL AKUAN KELUAR RUMAH"]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="475"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						mode="Transparent"
+						x="11"
+						y="256"
+						width="509"
+						height="219"
+						key="rectangle-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						mode="Transparent"
+						x="11"
+						y="14"
+						width="509"
+						height="227"
+						key="rectangle-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="19"
+						width="120"
+						height="20"
+						key="textField-2"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["BAHAGIAN  A"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="40"
+						width="110"
+						height="15"
+						key="textField-3"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Nama"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="72"
+						width="110"
+						height="15"
+						key="textField-4"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Jawatan"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="56"
+						width="110"
+						height="15"
+						key="textField-5"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["No. Kad Pengenalan"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="88"
+						width="110"
+						height="15"
+						key="textField-6"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Gred"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="40"
+						width="20"
+						height="15"
+						key="textField-7"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="72"
+						width="20"
+						height="15"
+						key="textField-8"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="56"
+						width="20"
+						height="15"
+						key="textField-9"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="88"
+						width="20"
+						height="15"
+						key="textField-10"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="40"
+						width="362"
+						height="15"
+						key="textField-11"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nama_pemohon}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="72"
+						width="362"
+						height="15"
+						key="textField-12"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{jawatan}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="56"
+						width="362"
+						height="15"
+						key="textField-13"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{no_pengenalan}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="88"
+						width="362"
+						height="15"
+						key="textField-14"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{gred_perkhidmatan}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="104"
+						width="110"
+						height="15"
+						key="textField-15"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Kementerian"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="136"
+						width="110"
+						height="15"
+						key="textField-16"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Alamat Pejabat"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="120"
+						width="110"
+						height="15"
+						key="textField-17"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Jabatan"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="205"
+						width="110"
+						height="15"
+						key="textField-18"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["No. Tel Pejabat"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="104"
+						width="20"
+						height="15"
+						key="textField-19"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="136"
+						width="20"
+						height="15"
+						key="textField-20"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="120"
+						width="20"
+						height="15"
+						key="textField-21"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="205"
+						width="20"
+						height="15"
+						key="textField-22"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="104"
+						width="362"
+						height="15"
+						key="textField-23"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{kementerian_semasa}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="136"
+						width="362"
+						height="68"
+						key="textField-24"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{bahagian_semasa} != null && $F{bahagian_semasa} != "" ? $F{bahagian_semasa} + ",\n" : "")
++ ($F{alamat_pejabat1_semasa} != null && $F{alamat_pejabat1_semasa} != "" 
+	? $F{alamat_pejabat1_semasa} + ",\n"  : "")
++ ($F{alamat_pejabat2_semasa} != null && $F{alamat_pejabat2_semasa} != "" 
+	? $F{alamat_pejabat2_semasa} + ",\n"  : "")
++ ($F{alamat_pejabat3_semasa} != null && $F{alamat_pejabat3_semasa} != "" 
+	? $F{alamat_pejabat3_semasa} + ",\n"  : "")
++ ($F{poskod_pejabat_semasa} != null && $F{poskod_pejabat_semasa} != "" 
+	? $F{poskod_pejabat_semasa} : "")
++ ($F{bandar_pejabat_semasa} != null && $F{bandar_pejabat_semasa} != "" 
+	? $F{bandar_pejabat_semasa} + ",\n"  : "")
++ ($F{negeri_pejabat_semasa} != null && $F{negeri_pejabat_semasa} != "" 
+	? $F{negeri_pejabat_semasa} : "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="120"
+						width="362"
+						height="15"
+						key="textField-25"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{agensi_semasa}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="205"
+						width="362"
+						height="15"
+						key="textField-26"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{no_telefon_pejabat}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="221"
+						width="110"
+						height="15"
+						key="textField-27"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["No. Tel Bimbit"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="221"
+						width="20"
+						height="15"
+						key="textField-28"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="221"
+						width="362"
+						height="15"
+						key="textField-29"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{no_telefon_bimbit}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="139"
+						y="19"
+						width="372"
+						height="20"
+						key="textField-30"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["MAKLUMAT TERKINI PENGHUNI"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="265"
+						width="120"
+						height="20"
+						key="textField-31"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["BAHAGIAN  B"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="286"
+						width="110"
+						height="15"
+						key="textField-32"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Kementerian"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="318"
+						width="110"
+						height="15"
+						key="textField-33"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Bahagian"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="302"
+						width="110"
+						height="15"
+						key="textField-34"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Jabatan"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="334"
+						width="110"
+						height="15"
+						key="textField-35"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Alamat Pejabat"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="286"
+						width="20"
+						height="15"
+						key="textField-36"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="318"
+						width="20"
+						height="15"
+						key="textField-37"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="302"
+						width="20"
+						height="15"
+						key="textField-38"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="334"
+						width="20"
+						height="15"
+						key="textField-39"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="286"
+						width="362"
+						height="15"
+						key="textField-40"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{kementerian_selepas}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="318"
+						width="362"
+						height="15"
+						key="textField-41"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{bahagian_selepas}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="302"
+						width="362"
+						height="15"
+						key="textField-42"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{agensi_selepas}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="334"
+						width="362"
+						height="52"
+						key="textField-43"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{alamat_pejabat1_selepas} != null && $F{alamat_pejabat1_selepas} != "" 
+	? $F{alamat_pejabat1_selepas} + ",\n"  : "")
++ ($F{alamat_pejabat2_selepas} != null && $F{alamat_pejabat2_selepas} != "" 
+	? $F{alamat_pejabat2_selepas} + ",\n"  : "")
++ ($F{alamat_pejabat3_selepas} != null && $F{alamat_pejabat3_selepas} != "" 
+	? $F{alamat_pejabat3_selepas} + ",\n"  : "")
++ ($F{poskod_pejabat_selepas} != null && $F{poskod_pejabat_selepas} != "" 
+	? $F{poskod_pejabat_selepas} : "")
++ ($F{bandar_pejabat_selepas} != null && $F{bandar_pejabat_selepas} != "" 
+	? $F{bandar_pejabat_selepas} + ",\n"  : "")
++ ($F{negeri_pejabat_selepas} != null && $F{negeri_pejabat_selepas} != "" 
+	? $F{negeri_pejabat_selepas} : "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="387"
+						width="110"
+						height="15"
+						key="textField-44"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["No. Tel Pejabat"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="403"
+						width="110"
+						height="15"
+						key="textField-45"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Alamat Selepas Keluar Rumah"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="435"
+						width="110"
+						height="15"
+						key="textField-46"
+						positionType="Float"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Sebab Keluar"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="387"
+						width="20"
+						height="15"
+						key="textField-47"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="403"
+						width="20"
+						height="15"
+						key="textField-48"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="435"
+						width="20"
+						height="15"
+						key="textField-49"
+						positionType="Float"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="387"
+						width="362"
+						height="15"
+						key="textField-50"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{no_telefon_pejabat_selepas}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="403"
+						width="362"
+						height="31"
+						key="textField-51"
+						isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{alamat_kediaman1_selepas} != null && $F{alamat_kediaman1_selepas} != "" 
+	? $F{alamat_kediaman1_selepas} + " " : "")
++ ($F{alamat_kediaman2_selepas} != null && $F{alamat_kediaman2_selepas} != "" 
+	? $F{alamat_kediaman2_selepas} + " " : "")
++ ($F{alamat_kediaman3_selepas} != null && $F{alamat_kediaman3_selepas} != "" 
+	? $F{alamat_kediaman3_selepas} + ",\n"  : "")
++ ($F{poskod_kediaman_selepas} != null && $F{poskod_kediaman_selepas} != "" 
+	? $F{poskod_kediaman_selepas} + " " : "")
++ ($F{bandar_kediaman_selepas} != null && $F{bandar_kediaman_selepas} != "" 
+	? $F{bandar_kediaman_selepas} + ", "  : "")
++ ($F{negeri_kediaman_selepas} != null && $F{negeri_kediaman_selepas} != "" 
+	? $F{negeri_kediaman_selepas} : "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="435"
+						width="362"
+						height="15"
+						key="textField-52"
+						positionType="Float"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sebab_bertukar}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="451"
+						width="110"
+						height="15"
+						key="textField-53"
+						positionType="Float"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Catatan"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="129"
+						y="451"
+						width="20"
+						height="15"
+						key="textField-54"
+						positionType="Float"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="451"
+						width="362"
+						height="15"
+						key="textField-55"
+						positionType="Float"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{catatan}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="139"
+						y="265"
+						width="372"
+						height="20"
+						key="textField-56"/>
+					<box leftPadding="4" rightPadding="4"></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["MAKLUMAT SELEPAS KELUAR KUARTERS"]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="25"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

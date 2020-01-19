@@ -1,0 +1,39 @@
+<form name="list_group" method="post">
+
+<table class="table_row2" width="100%"align="center" cellpadding="1" cellspacing="1">
+
+	<tr>
+		<td>
+			<table>
+			#foreach ( $g in $groupList )
+				<tr>
+					<td>
+						<a href="javascript:doListItem('$g.id')">
+						$g.name
+						</a>
+					</td>
+				</tr>
+			#end
+			</table>
+		</td>
+	</tr>
+</table>
+
+
+<input type="hidden" name="command">
+<input type="hidden" name="group_id" value="$group_id">
+</form>
+<script>
+function doListGroup(id) {
+	document.list_group.command.value = "listGroup";
+	document.list_group.category_id.value = id;
+	document.list_group.action = "?";
+	document.list_group.submit();
+}
+function doListItem(id) {
+	document.list_group.command.value = "listItem";
+	document.list_group.group_id.value = id;
+	document.list_group.action = "?";
+	document.list_group.submit();
+}
+</script>

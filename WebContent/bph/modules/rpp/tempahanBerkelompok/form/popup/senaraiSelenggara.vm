@@ -1,0 +1,69 @@
+<style>
+.scrollitpopup {
+	height:150px; width: 100%; overflow: auto;
+}
+</style>
+
+
+<fieldset style="width:50% !important">
+<legend class="legend">SENARAI SELENGGARA BAGI RPP $!peranginan.namaPeranginan.toUpperCase()</legend>
+
+<br/>
+		<div class="scrollitpopup">
+        	<table cellpadding="1" cellspacing="1" width="100%">
+        		
+        		<tr>
+        			<td class="row_header" width="5%">Bil.</td>
+    				<td class="row_header" style="text-align:left !important" width="40%">&nbsp; Tarikh Selenggara</td>
+    				<td class="row_header" style="text-align:left !important" width="55%">&nbsp; Unit yang terlibat</td>
+        		</tr>
+        		
+        		#if ( $listSelenggara.size() > 0 )
+                		#set ( $count = 0 )
+                		#foreach( $d in $listSelenggara )
+                			
+                			#set ( $count = $count + 1)
+                        	#if ( $count % 2 == 0 ) 
+                    			#set ( $rowcolor = "#D0CFCE" ) 
+                    		#else 
+                    			#set ( $rowcolor = "#F0F0F0" ) 
+            				#end
+            				
+                    		<tr bgcolor="$rowcolor">
+                    			<td align="center">$count</td>
+                        		<td>&nbsp; $!util.getDateTime($!d.tarikhMula,'dd/MM/yyyy') sehingga $!util.getDateTime($!d.tarikhTamat,'dd/MM/yyyy')</td>
+        						<td>&nbsp; $!d.keteranganJenisSelenggara()</td>
+                            </tr>
+            			#end
+        		#end
+        		
+        	</table>
+    	</div>
+	
+	<br />
+	<table width="100%">
+		<tr>
+			<td><div id="err_chkmsg" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		</tr>
+		<tr>
+			<td align="right">
+				<input id="btnExitSelenggara" type="button"  value="KELUAR" />
+			</td>
+		</tr>
+	</table>
+
+</fieldset>		
+
+
+
+<script>
+	_jq('#btnExitSelenggara').on('click', function(){
+     	jQuery('#popupSelenggara').fadeOut();
+  	});
+</script>
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+
+<td>$!r.id</td>
+<td>$!r.debitAuthCode - $!r.getKeteranganDebitAuthCode()</td>
+<td>$!r.fpxTxnTime</td>
+<td>$!r.sellerOrderNo</td>
+<td>$!util.formatDecimal($!util.getDouble($!r.txnAmount))</td>	 
+<td>$!r.flagModul</td>
+<td>$!r.flagManagePayment</td>
+#if ($!r.createdDate) 
+	#set ($createdDate = "$!util.getDateTime($!r.createdDate,'dd-MM-yyyy hh:mm:ss a')")
+#else #set ($createdDate = "") #end	
+<td>$createdDate</td>

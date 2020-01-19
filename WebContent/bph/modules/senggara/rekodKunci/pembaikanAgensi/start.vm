@@ -1,0 +1,22 @@
+#parse("$path/header.vm")
+
+#if ( $listSemakanLama.size() > 0) 
+	#parse("$path/semakanKuarters/listSemakanKuarters.vm")
+#end
+
+#if ($!r.status.id == '1436163572107') ##PEMBAIKAN OLEH AGENSI PELAKSANA / PEMAJU
+	 #parse("$path/pembaikanAgensi/daftarPembaikanAgensi.vm")
+#end
+
+#if ($!r.status.id != '1436163572107') ##PEMBAIKAN OLEH AGENSI PELAKSANA / PEMAJU
+<br>
+<table width="100%">
+  <tr>
+    <td align="right">
+    	<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+#end
+
+#parse("$path/pembaikanAgensi/status.vm")

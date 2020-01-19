@@ -1,0 +1,391 @@
+
+    function paparLaporan(idLaporan) {
+    	
+    	var div1 = document.getElementById('senaraiLaporan');
+    	div1.style.display = 'none';
+    	
+    	var div2 = document.getElementById('paparLaporan');
+    	div2.style.display = 'block';
+    	
+    	doDivAjaxCall3$formname('paparLaporan','paparLaporan','idLaporan='+ idLaporan); 
+    }
+    
+   function doCetakLaporanSenaraiKutipanHarian() {
+	var err_count = 0;
+	
+	var id = $('tarikhBayar').value;
+	if ( id == "" ) {$('err_tarikhBayar').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	
+    var userName = $('userName').value;
+	if ( userName == "" ) {$('err_userName').innerHTML = "Nama Juruwang adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}
+		    var userName = document.getElementById('userName').value;
+			var tahun = document.getElementById('tarikhBayar').value;
+       		var url = "../servlet/bph.laporan.kewangan.LaporanSenaraiKutipanHarian?tarikhBayar="+id+"&userName="+userName;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();			
+	}
+	return err_count == 0;	
+       
+   }
+    
+   function doCetakLaporanSenaraiKutipanHarianTerperinci() {
+
+	var err_count = 0;
+
+	var tarikhMula = $('tarikhMula').value;	
+	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	
+	var tarikhTamat = $('tarikhTamat').value;	
+	if ( tarikhTamat == "" ) {$('err_tarikhTamat').innerHTML = "Tarikh Tamat adalah mandatori!"; err_count++;  }
+	
+    var userName = $('userName').value;
+	if ( userName == "" ) {$('err_userName').innerHTML = "Nama Juruwang adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}
+		    var url = "../servlet/bph.laporan.kewangan.LaporanSenaraiKutipanHarianTerperinci?tarikh_mula="+tarikhMula+"&tarikh_hingga="+tarikhTamat+"&userName="+userName;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+			
+	return err_count == 0;   
+   
+   }  
+ 
+    function doCetakLaporanSenaraiResit() {
+	
+	var err_count = 0;
+	
+	var bulan = $('bulan').value;	
+	if ( bulan == "" ) {$('err_bulan').innerHTML = "bulan adalah mandatori!"; err_count++;  }
+	
+	var tahun = $('tahun').value;	
+	if ( tahun == "" ) {$('err_tahun').innerHTML = "tahun adalah mandatori!"; err_count++;  }
+	
+	var kodPusat = $('kodPusatTerima').value;
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}		
+		    var url = "../servlet/bph.laporan.kewangan.LaporanSenaraiResit?bulan="+bulan+"&tahun="+tahun+"&kodPusat="+kodPusat;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();			
+	}
+    return err_count == 0;   
+   
+   }  
+   
+##   function doCetakLaporanSenaraiResit() {
+##	
+##	var bulan = $('bulan').value;	
+##	if ( bulan == "" ) {$('err_bulan').innerHTML = "bulan adalah mandatori!"; err_count++;  }
+##	
+##	var tahun = $('tahun').value;	
+##	if ( tahun == "" ) {$('err_tahun').innerHTML = "tahun adalah mandatori!"; err_count++;  }
+##	
+##	var err_count = 0;
+##	if (err_count == 0) {
+##		if ( !window.confirm("Anda pasti?") ){
+##		
+##			return;
+##		}		
+##		    var url = "../servlet/bph.laporan.kewangan.LaporanSenaraiResit?bulan="+bulan+"&tahun="+tahun;
+##			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+##			if ((document.window != null) && (!hWnd.opener))
+##			hWnd.opener = document.window;
+##			if (hWnd.focus != null) hWnd.focus();			
+##	}
+##    return err_count == 0;   
+##   
+##   } 
+   
+    
+   function doCetakPenyataPemungut() {
+
+	var err_count = 0;	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}
+            var url = "../servlet/bph.laporan.kewangan.KEWPenyataPemungut";
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();			
+	}
+				 
+	return err_count == 0;	
+       
+   }
+    
+   function doCetakLaporanSenaraiResitBatal() {
+
+	var err_count = 0;
+
+	var tarikhMula = $('tarikhMula').value;	
+	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	
+	var tarikhHingga = $('tarikhHingga').value;	
+	if ( tarikhHingga == "" ) {$('err_tarikhHingga').innerHTML = "Tarikh Hingga adalah mandatori!"; err_count++;  }
+	
+	var kodPusat = $('kodPusatTerima').value;
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}
+		
+       		 var url = "../servlet/bph.laporan.kewangan.LaporanSenaraiResitBatal?tarikhMula="+tarikhMula+"&tarikhHingga="+tarikhHingga+"&kodPusat="+kodPusat;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+			
+	return err_count == 0;   
+   
+   }
+    
+   function doCetakLaporanSerahanJuruwang() {
+
+	var err_count = 0;
+	
+	var tarikhBayar = $('tarikhBayar').value;
+	if ( tarikhBayar == "" ) {$('err_tarikhBayar').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	
+	var userName = $('userName').value;
+	if ( userName == "" ) {$('err_userName').innerHTML = "Nama Juruwang adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}
+	
+
+       		 var url = "../servlet/bph.laporan.kewangan.LaporanSerahanJuruwang?tarikhBayar="+tarikhBayar+"&userName="+userName;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}	
+	return err_count == 0;
+	
+   }
+	
+   function doCetakLaporanBukuTunaiCerakinanHarian() {
+		
+	var err_count = 0;
+	var tarikhBayar = $('tarikhBayar').value;
+	if ( tarikhBayar == "" ) {$('err_tarikhBayar').innerHTML = "Tarikh Bayar adalah mandatori!"; err_count++;  }
+	
+	var kodPusat = $('kodPusatTerima').value;
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}
+		
+		var tahun = document.getElementById('tarikhBayar').value;
+       		 var url = "../servlet/bph.laporan.kewangan.LaporanBukuTunaiCerakinanHarian?tarikhBayar="+tarikhBayar+"&kodPusat="+kodPusat;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();			
+	}
+	return err_count == 0;	
+       
+   }
+   
+    function doCetakLaporanBukuTunaiCerakinanBulanan() {
+
+	var err_count = 0;
+	
+	var bulan = $('bulan').value;	
+	if ( bulan == "" ) {$('err_bulan').innerHTML = "bulan adalah mandatori!"; err_count++;  }
+	
+	var tahun = $('tahun').value;	
+	if ( tahun == "" ) {$('err_tahun').innerHTML = "tahun adalah mandatori!"; err_count++;  }
+	
+	var kodPusat = $('kodPusatTerima').value;
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}		
+		    var url = "../servlet/bph.laporan.kewangan.LaporanBukuTunaiCerakinanBulanan?bulan="+bulan+"&tahun="+tahun+"&kodPusat="+kodPusat;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();			
+	}
+	
+			 
+	return err_count == 0;	
+       
+   }
+   
+    function doCetakLaporanUrusniagaHarianE_Payment() {
+
+	var err_count = 0;
+
+	var tarikhMula = $('tarikhMula').value;	
+	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	
+	var tarikhHingga = $('tarikhHingga').value;	
+	if ( tarikhHingga == "" ) {$('err_tarikhHingga').innerHTML = "Tarikh Hingga adalah mandatori!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}
+		
+       		 var url = "../servlet/bph.laporan.kewangan.LaporanUrusniagaHarianE_Payment?tarikhMula="+tarikhMula+"&tarikhHingga="+tarikhHingga;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+			
+	return err_count == 0;   
+   
+   }
+   
+    function doCetakLaporanSemakanResitE_Payment() {
+	var err_count = 0;
+
+	var tarikhMula = $('tarikhMula').value;	
+	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	
+	var tarikhHingga = $('tarikhHingga').value;	
+	if ( tarikhHingga == "" ) {$('err_tarikhHingga').innerHTML = "Tarikh Hingga adalah mandatori!"; err_count++;  }
+	
+	var flagStatus = $('flagStatus').value;
+	if ( flagStatus == "" ) {$('err_flagStatus').innerHTML = "Status adalah mandatori!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}
+		
+       		 var url = "../servlet/bph.laporan.kewangan.LaporanSemakanResitE_Payment?tarikhMula="+tarikhMula+"&tarikhHingga="+tarikhHingga+"&flagStatus="+flagStatus;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+   }
+    
+    function doCetakLaporanBukuTunaiCerakinanEpayment_MIGS() {
+
+	var err_count = 0;
+
+	var tarikhMula = $('tarikhMula').value;	
+	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	
+	var tarikhHingga = $('tarikhHingga').value;	
+	if ( tarikhHingga == "" ) {$('err_tarikhHingga').innerHTML = "Tarikh Hingga adalah mandatori!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}
+		
+       		 var url = "../servlet/bph.laporan.kewangan.LaporanBukuTunaiCerakinanKutipanEpayment_MIGS?tarikhMula="+tarikhMula+"&tarikhHingga="+tarikhHingga;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+    	}
+			
+	return err_count == 0;   
+   
+   }
+    
+    
+   function doCetakLaporanBukuTunaiCerakinanEpayment_FPX() {
+
+	var err_count = 0;
+
+	var tarikhMula = $('tarikhMula').value;	
+	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	
+	var tarikhHingga = $('tarikhHingga').value;	
+	if ( tarikhHingga == "" ) {$('err_tarikhHingga').innerHTML = "Tarikh Hingga adalah mandatori!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}
+		
+       		 var url = "../servlet/bph.laporan.kewangan.LaporanBukuTunaiCerakinanKutipanEpayment_FPX?tarikhMula="+tarikhMula+"&tarikhHingga="+tarikhHingga;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+    	}
+			
+	return err_count == 0;   
+   
+   }
+   
+    function doCetakLaporanKutipanBerdasarkanKod() {
+
+	var err_count = 0;
+
+	var findKodHasil = $('findKodHasil').value;	
+	if ( findKodHasil == "" ) {$('err_findKodHasil').innerHTML = "Kod Hasil adalah mandatori!"; err_count++;  }
+	
+	var findTarikhBayaran = $('findTarikhBayaran').value;	
+	if ( findTarikhBayaran == "" ) {$('err_findTarikhBayaran').innerHTML = "Tarikh adalah mandatori!"; err_count++;  }
+	
+	var findTarikhBayaranHingga = $('findTarikhBayaranHingga').value;	
+	if ( findTarikhBayaranHingga == "" ) {$('err_findTarikhBayaranHingga').innerHTML = "Tarikh adalah mandatori!"; err_count++;  }
+	
+	var kodPusat = $('kodPusatTerima').value;
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}
+			var findKodHasil = document.getElementById('findKodHasil').value;
+			var findTarikhBayaran = document.getElementById('findTarikhBayaran').value;
+			var findTarikhBayaranHingga = document.getElementById('findTarikhBayaranHingga').value;
+       		var url = "../servlet/bph.laporan.kewangan.LaporanKutipanBerdasarkanKod?findKodHasil="+findKodHasil+"&findTarikhBayaran="+findTarikhBayaran+"&findTarikhBayaranHingga="+findTarikhBayaranHingga+"&kodPusat="+kodPusat;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+    	}
+			
+	return err_count == 0;   
+   
+   }
+    function doKembali(){
+    
+    location.reload();
+    
+    }

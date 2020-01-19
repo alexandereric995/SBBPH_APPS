@@ -1,0 +1,122 @@
+<div align="left" style="color:black;border: 2px solid purple; height: 70px; padding:5px">
+  <p> <b><strong> <font size="2"> 
+  	1. Prosedur Keluar Kuarters - <a href="../download?file=Z:/SBBPH/qtr/temujanji/prosedur_keluar_kuarters.pdf"> <span class="print"><font color="blue">Klik Disini</font><span> </span></span></a>.<br>
+    2. Borang Perakuan Bahagian Sumber Manusia Kementerian / Jabatan - <a href="../download?file=Z:/SBBPH/qtr/temujanji/borang_perakuan_BPH_1_2015_Pin._2017.pdf"> <span class="print"><font color="blue">Klik Disini</font><span> </span></span></a>.<br>
+    3. Manual Ringkas eTemujanji - <a href="../download?file=Z:/SBBPH/qtr/temujanji/panduan_temujanji.pdf"> <span class="print"><font color="blue">Klik Disini</font><span> </span></span></a>.<br>
+    </font></strong></b> </p>
+</div>
+
+<table cellpadding="5" cellspacing="0" border="0" width="100%" style="margin-top: 10px;">
+  <tr>
+    <td style="background: #22C322; color: #FFF; font-weight: bold; box-shadow: 0px 2px 5px #999;"><div align="left" style="color:black;border: 1px solid silver; height: 100px; padding:5px">
+        <p><strong>* PERMOHONAN SLOT TEMUJANJI TELAH BERJAYA DIREKODKAN.</strong></p>
+        <p><strong>* SILA GUNAKAN BUTANG PREVIEW DIBAWAH BAGI MENYEMAK REKOD MAKLUMAT ANDA TELAH LENGKAP DIISI.</strong></p>
+        <p><strong>* SILA PASTIKAN TUAN/PUAN MENERIMA EMEL PENGESAHAN E-TEMUJANJI SELEPAS PROSES TEMUJANJI DILAKUKAN.</strong></p>
+        <p><strong>* E-TEMUJANJI HANYA BOLEH DIBATALKAN 3 HARI SEBELUM TARIKH TEMUJANJI DIBUAT.</strong></p>
+      </div></td>
+  </tr>
+</table>
+<br><br>
+
+<div id="divMaklumatTemujanji">
+<fieldset>
+<legend class="legend">MAKLUMAT E-TEMUJANJI</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #if ($!temujanji.tarikhMohonTemujanji) #set ($dateMohonTemujanji = "$!util.getDateTime($!temujanji.tarikhMohonTemujanji,'dd-MM-yyyy')")
+        #else #set ($dateMohonTemujanji = "") #end
+        #input_normal("tarikhMohonTemujanji" "Tarikh Mohon" "<b>$dateMohonTemujanji</b>")
+        
+        #if ($!temujanji.tarikhTemujanji) #set ($dateTemujanji = "$!util.getDateTime($!temujanji.tarikhTemujanji,'dd-MM-yyyy')")
+        #else #set ($dateTemujanji = "") #end
+        #input_normal("tarikhTemujanji" "Tarikh Temujanji" "<b>$dateTemujanji</b>")
+        
+        #if ($!temujanji.tarikhMulaTemujanji) #set ($dateMulaTemujanji = "$!util.getDateTime($!temujanji.tarikhMulaTemujanji,'hh:mm a')")
+        #else #set ($dateMulaTemujanji = "") #end
+        #input_normal("tarikhMulaTemujanji" "Masa Temujanji" "<b>$dateMulaTemujanji</b>")           
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("sebabBertukar" "Sebab Bertukar" "<b>$!temujanji.sebabBertukar.keterangan</b>")
+        #input_normal("keterangan" "Keterangan" "<b>$!temujanji.keterangan</b>")
+        #if ($!temujanji.getFlagTemujanjiTamat() == 'Y')
+        	#input_normal("statusTemujanji" "Status" "<b><span style='color: #FF0000'>TEMUJANJI TELAH LEPAS</span></b>")
+		#else
+			#input_normal("statusTemujanji" "Status" "<b><span style='color: #228B22'>$!temujanji.getKeteranganStatusTemujanji()</span></b>")
+		#end        
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+#parse("$path/maklumatPenghuni/maklumatPenghuni.vm")
+
+#parse("$path/maklumatSelepasKeluarKuarters/paparMaklumatSelepasKeluarKuarters.vm")
+
+#if ($!temujanji.sebabBertukar.id == '01')
+	#parse("$path/maklumatPertukaranJabatan/paparMaklumatPertukaranJabatan.vm")
+#end
+
+#if ($!temujanji.statusTemujanji == '1')
+	#if ($!allowBatalTemujanji == 'Y')
+		<fieldset>
+		<legend class="legend">CATATAN PEMBATALAN E-TEMUJANJI</legend>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		  <tr>
+		    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+		        <tr>
+		          <td style="width:29%"></td>
+		          <td style="width:1%"></td>
+		          <td style="width:70%"></td>
+		        </tr>
+		        #textarea_required("catatan" "Catatan" "$!temujanji.catatan")          
+		      </table></td>
+		    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+		        <tr>
+		          <td style="width:29%"></td>
+		          <td style="width:1%"></td>
+		          <td style="width:70%"></td>
+		        </tr>  
+		      </table></td>
+		  </tr>
+		</table>
+		</fieldset>
+	#end
+#end
+
+<table width="100%">
+  <tr>
+    <td align="right">
+    	<input type="button" id="btnPreview" name="btnPreview" value="Preview Sijil Akuan" onclick="javascript:previewRekodTemujanji('$!temujanji.id');" />
+    	#if ($!temujanji.statusTemujanji == '1')
+    		#if ($!allowBatalTemujanji == 'Y')
+	      		<input id="btnBatal" type="button" value="Batal Temujanji" onClick="javascript:doBatalMaklumatTemujanji();"> 
+	      	#end     
+	    #end
+      </td>
+  </tr>
+</table>
+
+</div>
+
+<script>
+## START BLINK NOTIFICATION
+function blinker() {
+	_jq('#blinkBatalTemujanji').fadeOut(1000);
+    _jq('#blinkBatalTemujanji').fadeIn(1000);     
+}
+setInterval(blinker, 1000);
+## END BLINK NOTIFICATION
+</script>
+
+

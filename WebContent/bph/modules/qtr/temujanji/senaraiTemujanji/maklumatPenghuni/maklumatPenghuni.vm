@@ -1,0 +1,83 @@
+#if ($!command == 'getMaklumatPenghuni')
+<input type="hidden" id="idPenghuni" name="idPenghuni" value="$!penghuni.id" />
+<input type="hidden" id="idKuarters" name="idKuarters" value="$!penghuni.kuarters.id" />
+
+<fieldset>
+<legend class="legend">Maklumat Penghuni</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">No. Pengenalan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><input type="text" id="noPengenalan" name="noPengenalan" value="$!noPengenalan" onchange="doDivAjaxCall3$formname('divPenghuni','getMaklumatPenghuni','')" onKeyUp="$('err_noPengenalan').innerHTML=''; at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+            <div id="err_noPengenalan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            <br>
+            </br>
+            #if ( !$penghuni )
+            	<div id="err_penghuni" style="color:#CC0000;font-weight:bold;border:2px #000">REKOD PENGHUNI TIDAK DITEMUI.</div>
+            #else
+            	#if ( !$penghuni.kuarters )
+	            	<div id="err_kuarters" style="color:#CC0000;font-weight:bold;border:2px #000">REKOD KUARTERS BAGI PENGHUNI TIDAK DITEMUI.</div>
+	            #end
+	            #if ( $temujanji )
+	            	<div id="err_temujanji" style="color:#CC0000;font-weight:bold;border:2px #000">REKOD TEMUJANJI BAGI PENGHUNI TELAH DIDAFTARKAN. SILA SEMAK REKOD TEMUJANJI.</div>
+	            #end
+            #end            
+            </td>
+        </tr>         
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("nama" "Nama" "<b>$!penghuni.pemohon.userName</b>")    
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+#parse("$path/maklumatPenghuni/maklumatKuarters.vm")
+
+#else
+<input type="hidden" id="idPenghuni" name="idPenghuni" value="$!r.penghuni.id" />
+<input type="hidden" id="idKuarters" name="idKuarters" value="$!r.penghuni.kuarters.id" />
+
+<fieldset>
+<legend class="legend">Maklumat Penghuni</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">No. Pengenalan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><input type="text" id="noPengenalan" name="noPengenalan" value="$!r.penghuni.pemohon.id" onchange="doDivAjaxCall3$formname('divPenghuni','getMaklumatPenghuni','')" onKeyUp="$('err_noPengenalan').innerHTML=''; at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+            <div id="err_noPengenalan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>        
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("nama" "Nama" "<b>$!r.penghuni.pemohon.userName</b>")  
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+#parse("$path/maklumatPenghuni/maklumatKuarters.vm")
+#end

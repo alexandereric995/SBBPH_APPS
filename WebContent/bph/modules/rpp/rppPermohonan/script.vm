@@ -1,0 +1,333 @@
+
+_jq( document ).ready(function() {
+	var redirect = "$!redirectSkrinTempahan";
+	if(redirect=="true"){
+		$('div_main').style.display='none';$('div_main_entry').style.display='block';
+		doDivAjaxCall$formname('div_main_entry','add_new_record','')
+	}
+});
+
+_jq(document).ready(function () {
+	_jq('#btnAddNewRecordTemplate').val('Tempahan Baru'); ##ubah nama kepada nama yang diperlukan
+});
+
+function doCallForm(){
+	doDivAjaxCall3$formname('divTerma','getMaklumatPermohonan','')
+}
+
+function doFilterPeranginan(){
+	doDivAjaxCall$formname('divPeranginan','filterPeranginan','');
+}
+
+function doFilterJenisUnit(){
+	doDivAjaxCall3$formname('divFilterJenisUnit','filterJenisUnit','')
+}
+
+function doFilterCarianPeranginan(){
+	doDivAjaxCall3$formname('divCarianPeranginan','filterCarianRpp','')
+}
+
+function doGetDetailUser(){
+	##doDivAjaxCall$formname('divDetailUser','getDetailUser','');
+	doDivAjaxChainCall$formname('divDetailUser','getDetailUser','','divCheckingHad','checkingHadPemohon','');
+}
+
+function doKosongkanFormPemohon(userRole) {
+	if(userRole != "(AWAM) Penjawat Awam"){
+		$('socPemohon').value = "";
+		document.getElementById("divDetailUser").innerHTML="";
+	}
+	$('socJenisPeranginan').value = "";
+	$('socPeranginan').value = "";
+	$('socJenisUnit').value = "";
+	$('tarikhMasukRpp').value = "";
+	$('bilDewasa').value = "";
+	$('kuantiti').value = "";
+	$('tarikhKeluarRpp').value = "";
+	$('bilKanakKanak').value = "";
+	
+	##var inputs = document.${formname}.jenisPemohon;
+    ##for(var i = inputs.length-1;i>=0;i--){
+    ##    if(inputs[i].getAttribute("type")==="radio"){
+    ##        inputs[i].checked=false;
+    ##    }
+    ##}
+}
+
+function validateMaklumatPemohon(userRole,hadTempohMenginap) {
+
+	var err_count = 0;
+	
+	var tarikhMasukRpp = $('tarikhMasukRpp').value;
+	var tarikhKeluarRpp = $('tarikhKeluarRpp').value;
+	
+	var dt1   = parseInt(tarikhMasukRpp.substring(0,2),10);
+   	var mon1  = parseInt(tarikhMasukRpp.substring(3,5),10)-1;
+   	var yr1   = parseInt(tarikhMasukRpp.substring(6,10),10);
+   	var date1 = new Date(yr1, mon1, dt1);
+	
+	var dt2   = parseInt(tarikhKeluarRpp.substring(0,2),10);
+   	var mon2  = parseInt(tarikhKeluarRpp.substring(3,5),10)-1;
+   	var yr2   = parseInt(tarikhKeluarRpp.substring(6,10),10);
+   	var date2 = new Date(yr2, mon2, dt2);
+	
+	var dayss = (date2 - date1) / (24 * 60 * 60 * 1000);
+	
+	if(userRole != "(AWAM) Penjawat Awam"){
+    	var socPemohon = $('socPemohon').value;
+    	if ( socPemohon == "" ) {
+			$('err_socPemohon').innerHTML = "Pilihan No. Kad Pengenalan adalah mandatori!"; 
+			err_count++; 
+		}
+	}
+	
+	var socJenisPeranginan = $('socJenisPeranginan').value;
+	if ( socJenisPeranginan == "" ) {$('err_socJenisPeranginan').innerHTML = "Jenis Peranginan adalah mandatori!"; err_count++;  }
+	
+	var socPeranginan = $('socPeranginan').value;
+	if ( socPeranginan == "" ) {$('err_socPeranginan').innerHTML = "Lokasi Peranginan adalah mandatori!"; err_count++;  }
+	
+	var socJenisUnit = $('socJenisUnit').value;
+	if ( socJenisUnit == "" ) {$('err_socJenisUnit').innerHTML = "Jenis Unit adalah mandatori!"; err_count++;  }
+	
+	##var jenisPemohon1 = document.${formname}.jenisPemohon[0].checked;
+	##var jenisPemohon2 = document.${formname}.jenisPemohon[1].checked;
+	##if ( jenisPemohon1 == false && jenisPemohon2 == false ) {$('err_jenisPemohon').innerHTML = "Pilihan Jenis Pemohon adalah mandatori!"; err_count++;  }
+	
+	if ( tarikhMasukRpp == "" ) {$('err_tarikhMasukRpp').innerHTML = "Tarikh Masuk RPP/RP adalah mandatori!"; err_count++;  }
+	
+	var bilDewasa = $('bilDewasa').value;
+	if ( bilDewasa == "" ) {$('err_bilDewasa').innerHTML = "Bilangan Dewasa adalah mandatori!"; err_count++;  }
+	
+	var kuantiti = $('kuantiti').value;
+	if ( kuantiti == "" ) {$('err_kuantiti').innerHTML = "Bilangan Bilik adalah mandatori!"; err_count++;  }
+	
+	if ( tarikhKeluarRpp == "" ) {$('err_tarikhKeluarRpp').innerHTML = "Tarikh Keluar RPP/RP adalah mandatori!"; err_count++;  }
+	
+	if(date2 <= date1){
+		$('err_tarikhKeluarRpp').innerHTML = "Tarikh Keluar tidak kurang dan tidak sama dengan Tarikh Masuk" ; err_count++;  
+	}else{
+		if(dayss > hadTempohMenginap){
+			$('err_tarikhKeluarRpp').innerHTML = "Tarikh Menginap tidak lebih dari "+hadTempohMenginap+" hari" ; err_count++;  
+		}
+	}
+	
+	##Checking by jenis unit yang dah dipilih
+    var hadDewasaKosong = $('hadDewasaKosong').value;
+	var bdewasa = parseInt(bilDewasa);
+	var hdewasa = parseInt(hadDewasaKosong);
+    if(bdewasa > hdewasa) {
+		var balance = bdewasa - hdewasa;
+		$('bilTambahanDewasa').value = balance;
+		$('bilDewasa').value = hdewasa;
+		$('err_bilDewasa').innerHTML = "Caj Tambahan Dewasa Dikenakan Kerana Telah Melebihi Had Yang Ditetapkan. "; err_count++;  
+	}
+	
+	var hadKuantitiKosong = $('hadKuantitiKosong').value;
+    if(parseInt(kuantiti) > parseInt(hadKuantitiKosong)) {$('err_kuantiti').innerHTML = "Telah Melebihi Had Yang Ditetapkan "; err_count++;  }
+	
+	var bilKanakKanak = $('bilKanakKanak').value;
+	var hadKanakKanakKosong = $('hadKanakKanakKosong').value;
+    if(parseInt(bilKanakKanak) > parseInt(hadKanakKanakKosong)) {$('err_bilKanakKanak').innerHTML = "Telah Melebihi Had Yang Ditetapkan "; err_count++;  }
+	
+	##if (err_count == 0) {
+	##	if ( !window.confirm("Anda pasti?") ){
+	##		return;
+	##	}
+	##}
+	
+	return err_count == 0;
+}
+
+function doSaveMaklumatPemohon(idPermohonan,userRole,hadTempohMenginap) {
+	if ( validateMaklumatPemohon(userRole,hadTempohMenginap) ){
+		doDivAjaxCall$formname('div_main_entry','save_data','record_id='+idPermohonan);
+	}
+}
+
+function doTempahPermohonan(idRppPermohonan,userRole){
+	doDivAjaxChainCall$formname('statusUpdate','tempahPermohonan','idRppPermohonan='+idRppPermohonan,'divForm','getMaklumatPermohonan','');
+}
+
+function doKosongkanMaklumatPermohonan(userRole) {
+	
+	if(userRole != "(AWAM) Penjawat Awam"){
+		$('socPemohon').value = "";
+		document.getElementById("divDetailUser").innerHTML="";
+	}
+	
+	$('socJenisPeranginan').value = "";
+	$('socPeranginan').value = "";
+	$('socJenisUnit').value = "";
+	$('tarikhMasukRpp').value = "";
+	$('tarikhKeluarRpp').value = "";
+	
+	##var inputs = document.${formname}.jenisPemohon;
+    ##for(var i = inputs.length-1;i>=0;i--){
+    ##    if(inputs[i].getAttribute("type")==="radio"){
+    ##        inputs[i].checked=false;
+    ##    }
+    ##}
+	
+}
+
+
+function validateCheckingRoom(userRole,hadTempohMenginap) {
+
+	var err_count = 0;
+	
+	var tarikhMasukRpp = $('tarikhMasukRpp').value;
+	var tarikhKeluarRpp = $('tarikhKeluarRpp').value;
+	
+	var dt1   = parseInt(tarikhMasukRpp.substring(0,2),10);
+   	var mon1  = parseInt(tarikhMasukRpp.substring(3,5),10)-1;
+   	var yr1   = parseInt(tarikhMasukRpp.substring(6,10),10);
+   	var date1 = new Date(yr1, mon1, dt1);
+	
+	var dt2   = parseInt(tarikhKeluarRpp.substring(0,2),10);
+   	var mon2  = parseInt(tarikhKeluarRpp.substring(3,5),10)-1;
+   	var yr2   = parseInt(tarikhKeluarRpp.substring(6,10),10);
+   	var date2 = new Date(yr2, mon2, dt2);
+	
+	var dayss = (date2 - date1) / (24 * 60 * 60 * 1000);
+	
+	if(userRole != "(AWAM) Penjawat Awam"){
+    	var socPemohon = $('socPemohon').value;
+    	if ( socPemohon == "" ) {
+			$('err_socPemohon').innerHTML = "Pilihan No. Kad Pengenalan adalah mandatori!"; 
+			err_count++; 
+		}
+	}
+	
+	var socJenisPeranginan = $('socJenisPeranginan').value;
+	if ( socJenisPeranginan == "" ) {$('err_socJenisPeranginan').innerHTML = "Jenis Peranginan adalah mandatori!"; err_count++;  }
+	
+	var socPeranginan = $('socPeranginan').value;
+	if ( socPeranginan == "" ) {$('err_socPeranginan').innerHTML = "Lokasi Peranginan adalah mandatori!"; err_count++;  }
+	
+	var socJenisUnit = $('socJenisUnit').value;
+	if ( socJenisUnit == "" ) {$('err_socJenisUnit').innerHTML = "Jenis Unit adalah mandatori!"; err_count++;  }
+	
+	##var jenisPemohon1 = document.${formname}.jenisPemohon[0].checked;
+	##var jenisPemohon2 = document.${formname}.jenisPemohon[1].checked;
+	##if ( jenisPemohon1 == false && jenisPemohon2 == false ) {$('err_jenisPemohon').innerHTML = "Pilihan Jenis Pemohon adalah mandatori!"; err_count++;  }
+	
+	if ( tarikhMasukRpp == "" ) {$('err_tarikhMasukRpp').innerHTML = "Tarikh Masuk RPP/RP adalah mandatori!"; err_count++;  }
+	
+	if ( tarikhKeluarRpp == "" ) {$('err_tarikhKeluarRpp').innerHTML = "Tarikh Keluar RPP/RP adalah mandatori!"; err_count++;  }
+	
+	if(date2 <= date1){
+		$('err_tarikhKeluarRpp').innerHTML = "Tarikh Keluar tidak kurang dan tidak sama dengan Tarikh Masuk" ; err_count++;  
+	}else{
+		if(dayss > hadTempohMenginap){
+			$('err_tarikhKeluarRpp').innerHTML = "Tarikh Menginap tidak lebih dari "+hadTempohMenginap+" hari" ; err_count++;  
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function doCheckAvailableRoom(userRole,hadTempohMenginap){
+	if ( validateCheckingRoom(userRole,hadTempohMenginap) ){
+		doDivAjaxCall$formname('divMaklumatDanPilihanKekosongan','checkBilikKosong','');
+	}
+}
+
+function checkUpload() {
+	
+	$('err_dokumen').innerHTML = '';
+	var idRppPermohonan = $('idRppPermohonan').value;
+	var error = 0;
+	var err_count = 0;
+	
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {
+		$('err_tajuk').innerHTML = "Tajuk dokumen adalah mandatori!"; 
+		$('dokumen').value = "";
+		err_count++;  
+	}
+	
+	var idJenisDokumen = $('idJenisDokumen').value;
+	if ( idJenisDokumen == "" ) {
+		$('err_socJenisDokumen').innerHTML = "Jenis dokumen adalah mandatori!"; 
+		$('dokumen').value = "";
+		err_count++;  
+	}
+
+	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+		error++;
+		$('dokumen').value = "";
+		$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+	}
+	if ($('dokumen').value != "" && $('dokumen').files[0].size > 2097152) {
+		error++;
+		$('err_dokumen').innerHTML = "Saiz fail adalah "+($('dokumen').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumen').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('dokumenMuatnaik').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_doc';
+		document.${formName}.action='?command=uploadDoc&idRppPermohonan='+idRppPermohonan+'&tajuk='+$('tajuk').value+'&keteranganDokumen='+$('keteranganDokumen').value+'&idJenisDokumen='+$('idJenisDokumen').value;
+		document.${formName}.submit();
+		$('tajuk').value = "";
+		$('idJenisDokumen').value = "";
+		$('keteranganDokumen').value = "";
+		$('dokumen').value = "";
+	}
+	
+	return err_count == 0;	
+}
+
+##CHECK IF ONLY PICTURE/IMAGE
+function checkDoc(val) {
+	var arr = val.split(".");
+	var arr1 = val.split("\\");
+	if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" || arr[1] == "PDF" || arr[1] == "pdf" || arr[1] == "doc" || arr[1] == "DOC" || arr[1] == "docx" || arr[1] == "DOCX" ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function doBayarTempahan(idRppPermohonan){
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall3$formname('divForm','bayarTempahan','idRppPermohonan='+idRppPermohonan);
+	}	
+}
+
+function doBatalTempahan(idRppPermohonan){
+	if ( window.confirm("Adakah anda pasti untuk membatalkan tempahan?") ){
+		doDivAjaxCall3$formname('div_list','batalTempahan','page_num=$!current_page_num&idRppPermohonan='+idRppPermohonan);
+		$('div_main_entry').style.display='none';
+		$('div_main').style.display='block';
+	}	
+}
+
+function validateBatal() {
+
+	var err_count = 0;
+	
+	var catatanPembatalan = $('catatanPembatalan').value;
+	if ( catatanPembatalan == "" ) {$('err_catatanPembatalan').innerHTML = "Catatan Pembatalan adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function doSaveBatal(){
+	if ( validateBatal() ){
+		doDivAjaxCall$formname('divForm','saveBatalManual','');
+	}
+}
+
+
+
+
+

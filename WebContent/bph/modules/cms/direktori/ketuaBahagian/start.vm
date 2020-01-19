@@ -1,0 +1,79 @@
+<fieldset>
+	<legend class="legend">Maklumat Ketua Bahagian</legend>
+	<p align="left">
+ 		<input type="button" value="Tambah" align='left' id="addKetuaBahagian">
+ 		<script>
+			_jq('#addKetuaBahagian').on('click', function(){
+				doDivAjaxCall3$formname('divPopupMaklumatKetuaBahagian','addKetuaBahagian','');
+	            jQuery('#divPopupMaklumatKetuaBahagian').fadeIn();
+        	});
+		</script>
+	</p>
+	<br />
+    <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+            <td class="record_header" width="5%">Bil.</td>            
+            <td class="record_header" width="15%">Nama</td>
+			<td class="record_header" width="10%">Jawatan</td>
+			<td class="record_header" width="10%">No. Telefon</td>
+			<td class="record_header" width="10%">No. Faks</td>
+			<td class="record_header" width="10%">E-mel</td>
+			<td class="record_header" width="10%">Status</td>
+			<td class="record_header" width="10%">Turutan</td>
+			<td class="record_header" width="10%">Gambar</td>
+            <td class="record_header" width="5%">Papar</td>
+		    <td class="record_header" width="5%">Hapus</td>
+        </tr>
+        #if ( $listKetuaBahagian.size() > 0) 
+    		#set ( $count = 0 )
+    		#foreach( $c in $listKetuaBahagian)
+    			#set ( $count = $count + 1)
+				
+    			#if ( $count % 2 == 0 ) 
+					#set ( $rowcolor = "#D0CFCE" ) 
+				#else 
+					#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+    			<tr bgcolor="$rowcolor">
+    				<td align="center">$count</td>    				
+    				<td align="left">$!c.nama</td>
+					<td align="left">$!c.jawatan</td>
+					<td align="left">$!c.noTelefon</td>
+					<td align="left">$!c.noFaks</td>
+					<td align="left">$!c.email</td>
+					<td align="left">$!c.getKeteranganFlagAktif()</td>
+					<td align="left">#parse("$path/selectTurutanKetuaBahagian.vm")</td>
+					<td align="left">#parse("$path/divPhoto.vm")</td>
+					<td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> </td>
+          			<td align="center"><a href="javascript:void()" onClick="deleteKetuaBahagian('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+        		</tr>
+        		<script>
+        			_jq('#link$c.id').on('click', function(){
+						doDivAjaxCall3$formname('divPopupMaklumatKetuaBahagian','editKetuaBahagian','idKetuaBahagian=$!c.id');
+	            		jQuery('#divPopupMaklumatKetuaBahagian').fadeIn();
+            		});
+       			</script>
+    		#end
+		#else
+			<tr >
+				<td align="center">&nbsp;</td>
+				<td >Tiada Rekod</td>
+				<td align="center">&nbsp;</td>
+				<td align="center">&nbsp;</td>
+				<td align="center">&nbsp;</td>
+				<td align="center">&nbsp;</td>
+				<td align="center">&nbsp;</td>
+				<td align="center">&nbsp;</td>
+				<td align="center">&nbsp;</td>
+				<td align="center">&nbsp;</td>
+			</tr>
+		#end
+    </table>
+</fieldset>
+<p align="right">
+	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+</p>
+## Popup
+<div id="divPopupMaklumatKetuaBahagian" class="popup"></div>
+## Blank status page
+<div id="deleteMaklumat"></div>

@@ -1,0 +1,68 @@
+#if ($!command == "add_new_record")
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("tahunPendaftaran" "Tahun Pendaftaran" "<b>$!tahunPendaftaran</b>")
+        <input type=hidden name="tahun" id="tahun" value="$!tahunPendaftaran">
+        <tr>
+          <td class="label">No. Pendaftaran &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td class="label">:</td>
+          <td><input type="text" id="noPendaftaran" name="noPendaftaran" value="$!r.kontraktor.noPendaftaran" onKeyUp=" $('err_noPendaftaran').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();doDivAjaxCall3$formname('getRegisteredKontraktor','getRegisteredKontraktor','')">
+            <div id="err_noPendaftaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!tarikhPendaftaran) 
+        #set ($datePendaftaran = "$!util.getDateTime($!tarikhPendaftaran,'dd-MM-yyyy')")
+        #else #set ($datePendaftaran = "") #end
+        #date_input("tarikhPendaftaran" "Tarikh Pendaftaran" "$datePendaftaran")
+        #if ($!r.tarikhTerimaProfil) 
+        #set ($dateTerimaProfil = "$!util.getDateTime($!r.tarikhTerimaProfil,'dd-MM-yyyy')")
+        #else #set ($dateTerimaProfil = "") #end
+        #date_input("tarikhTerimaProfil" "Tarikh Terima Profil" "$dateTerimaProfil")
+      </table></td>
+  </tr>
+</table>
+
+#else
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("tahun" "Tahun Pendaftaran" "<b>$!r.tahun</b>")
+        #input_normal("noProfil" "No. Profil" "<b>$!r.noProfil</b>")
+        #input("turutan" "No. Giliran" "$!r.turutan")     
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!r.tarikhPendaftaran) 
+        #set ($datePendaftaran = "$!util.getDateTime($!r.tarikhPendaftaran,'dd-MM-yyyy')")
+        #else #set ($datePendaftaran = "") #end
+        #date_input("tarikhPendaftaran" "Tarikh Pendaftaran" "$datePendaftaran")
+        #if ($!r.tarikhTerimaProfil) 
+        #set ($dateTerimaProfil = "$!util.getDateTime($!r.tarikhTerimaProfil,'dd-MM-yyyy')")
+        #else #set ($dateTerimaProfil = "") #end
+        #date_input("tarikhTerimaProfil" "Tarikh Terima Profil" "$dateTerimaProfil")
+      </table></td>
+  </tr>
+</table>
+#end

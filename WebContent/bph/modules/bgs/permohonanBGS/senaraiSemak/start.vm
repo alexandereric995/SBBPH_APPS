@@ -1,0 +1,127 @@
+<input type="hidden" id="checkPermohonan" name="checkPermohonan" value="$!checkPermohonan">	  
+<input type="hidden" id="checkMaklumatPejabat" name="checkMaklumatPejabat" value="$!checkMaklumatPejabat">	  
+<input type="hidden" id="checkMasalah" name="checkMasalah" value="$!checkMasalah">	  
+<input type="hidden" id="checkPerjawatan" name="checkPerjawatan" value="$!checkPerjawatan">	  
+<input type="hidden" id="checkKeperluanPejabat" name="checkKeperluanPejabat" value="$!checkKeperluanPejabat">	  
+<input type="hidden" id="ulasanPengerusi" name="ulasanPengerusi" value="$!ulasanPengerusi">	  
+<input type="hidden" id="ulasanPengurus" name="ulasanPengurus" value="$!ulasanPengurus">
+<input type="hidden" id="kuiriBaru" name="kuiriBaru" value="$!kuiriBaru">
+<input type="hidden" id="jawapanKuiri" name="jawapanKuiri" value="$!jawapanKuiri">		 	 	  
+
+<fieldset>
+<legend class="legend">SENARAI SEMAK</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:29%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+  <tr>
+    <td class="label" style="width:29%"><strong>1. MAKLUMAT PERMOHONAN</strong></td>
+    <td style="width:1%"><strong>:</strong></td>
+    #if ($!checkPermohonan == 'Y')
+    <td style="width:70%"><b><font color="#0000FF">LENGKAP</font></b></td>
+    #else
+    <td style="width:70%"><b><font color="#FF0000">TIDAK LENGKAP</font></b></td>
+    #end </tr>
+  <tr>
+    <td class="label" style="width:29%"><strong>2. MAKLUMAT PEJABAT</strong></td>
+    <td style="width:1%"><strong>:</strong></td>
+    #if ($!checkMaklumatPejabat == 'Y')
+    <td style="width:70%"><b><font color="#0000FF">LENGKAP</font></b></td>
+    #else
+    <td style="width:70%"><b><font color="#FF0000">TIDAK LENGKAP</font></b></td>
+    #end </tr>
+  <tr>
+    <td class="label" style="width:29%"><strong>3. MASALAH RUANG PEJABAT SEMASA</strong></td>
+    <td style="width:1%"><strong>:</strong></td>
+    #if ($!checkMasalah == 'Y')
+    <td style="width:70%"><b><font color="#0000FF">LENGKAP</font></b></td>
+    #else
+    <td style="width:70%"><b><font color="#FF0000">TIDAK LENGKAP</font></b></td>
+    #end </tr>
+  <tr>
+    <td class="label" style="width:29%"><strong>4. MAKLUMAT PERJAWATAN</strong></td>
+    <td style="width:1%"><strong>:</strong></td>
+    #if ($!checkPerjawatan == 'Y')
+    <td style="width:70%"><b><font color="#0000FF">LENGKAP</font></b></td>
+    #else
+    <td style="width:70%"><b><font color="#FF0000">TIDAK LENGKAP</font></b></td>
+    #end </tr>
+  <tr>
+    <td class="label" style="width:29%"><strong>5. MAKLUMAT KEPERLUAN PEJABAT</strong></td>
+    <td style="width:1%"><strong>:</strong></td>
+    #if ($!checkKeperluanPejabat == 'Y')
+    <td style="width:70%"><b><font color="#0000FF">LENGKAP</font></b></td>
+    #else
+    <td style="width:70%"><b><font color="#FF0000">TIDAK LENGKAP</font></b></td>
+    #end </tr>
+  <tr>
+    <td class="label" style="width:29%"><strong>6. SURAT ULASAN PENGERUSI BANGUNAN</strong></td>
+    <td style="width:1%"><strong>:</strong></td>
+    #if ($!ulasanPengerusi == 'Y')
+    <td style="width:70%"><b><font color="#0000FF">LENGKAP</font></b></td>
+    #else
+    <td style="width:70%"><b><font color="#FF0000">TIDAK LENGKAP</font></b></td>
+    #end </tr>
+  <tr>
+    <td class="label" style="width:29%"><strong>7. SURAT ULASAN PENGURUS BANGUNAN</strong></td>
+    <td style="width:1%"><strong>:</strong></td>
+    #if ($!ulasanPengurus == 'Y')
+    <td style="width:70%"><b><font color="#0000FF">LENGKAP</font></b></td>
+    #else
+    <td style="width:70%"><b><font color="#FF0000">TIDAK LENGKAP</font></b></td>
+    #end </tr>
+  <tr>
+    <td class="label" style="width:29%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:70%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3" class="label" style="width:29%"><b><font color="#FF0000">**PERHATIAN**</font></b> : <b><font color="#0000FF">SEMUA ITEM DIDALAM SENARAI SEMAK PERLU DILENGKAPKAN.</font></b></td>
+  </tr>
+</table>
+</fieldset>
+
+#if ($!r.status.id != '1428384412943') ## != DRAF PERMOHONAN
+	#parse("$path/kuiri/start.vm")
+#end
+
+<table width="100%">
+	<tr>
+		<td align="right">
+					    	          	
+			#if ($!r.status.id != '1428384412943') ## DRAF PERMOHONAN
+      			<input id="cetakBorangPermohonan" name="cetakBorangPermohonan" type="button" value="Cetak Borang Permohonan"/>
+      		#end
+      			
+			#if ($!userRole == '(BGS) Pemohon')
+				#if ($!r.status.id == '1428384412943' || $!r.status.id == '1423568441685') ## DRAF PERMOHONAN || KUIRI DARI BPH
+					<input id="btnHantar" name="btnHantar" type="button" value="Hantar Permohonan" onclick="javascript:hantarPermohonan();"/>
+				#end 
+			#end
+			
+			#if ($!userRole == '(BGS) Penyedia' && $!r.status.id == '1423568441671') ## PERMOHONAN BARU
+			    <input id="kuiri" name="kuiri" type="button" value="Hantar Kuiri" onclick="javascript:hantarKuiri();"/>
+			    <input id="btnDaftar" name="btnDaftar" type="button" value="Daftar Fail" onclick="javascript:daftarFail();"/>
+			#end
+    		
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+#parse("$path/status.vm")
+
+
+<script>
+	_jq('#cetakBorangPermohonan').on('click', function(){
+    	var idPermohonan = '$!r.id';
+        		    
+		var url = "../servlet/bph.laporan.bgs.BGSBorangPermohonanRuangPejabat?idPermohonan="+idPermohonan;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();	
+    	});
+</script>

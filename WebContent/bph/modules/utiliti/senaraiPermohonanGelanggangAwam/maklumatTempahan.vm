@@ -1,0 +1,155 @@
+
+<input type="hidden" id="idResit" name="idResit" value="$!r.resitSewa.id">
+
+<div id="divPermohonan">
+	
+<fieldset>
+<legend class="legend">MAKLUMAT PERMOHONAN</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!r.tarikhMula)
+          #set ($dateTempahan = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+          #else 
+          #set ($dateTempahan = "") 
+          #end
+          <tr>
+            <td class="label" valign="top">Tarikh Tempahan</td>
+            <td class="label" valign="top">:</td>
+            <td valign="top"><div>
+                <input type="text" id="tarikhTempahan" name="tarikhTempahan" value="$dateTempahan">
+                <script>
+		            	_jq("#tarikhTempahan").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+		    				onSelect: function(){
+		    					javascript:doPaintJadual()
+		    				},
+		    				direction: [4, 9]
+		            	});
+		    		</script>
+              </div></td>
+          </tr>
+        <tr>
+          <td class="label" valign="top">Lokasi Dewan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectDewan">
+            #parse("$path/selectDewan.vm")
+            <div id="err_dewan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+         <tr>
+          <td class="label" valign="top">Nama Gelanggang &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectGelanggang">
+            #parse("$path/selectGelanggang.vm")
+            <div id="err_gelanggang" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+
+##		#if ($!r.tarikhMula)
+##        	#set ($dateTempahan = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+##        #else 
+##        	#set ($dateTempahan = "") 
+##        #end
+##		##date_input_required("tarikhTempahan" "Tarikh Permohonan" "$dateTempahan")
+####		<tr>
+####		<td class="label" valign="top">Tarikh Permohonan &nbsp;<span style="color:#FF2A00">*</span></td>
+####		<td class="label" valign="top">:</td>
+####		<td valign="top">
+####		<input type="text" id="tarikhTempahan" name="tarikhTempahan" value="$dateTempahan" style="width: 50%" onChange="javascript:doPaintJadual();">
+####	</td>
+####</tr>
+##<tr>
+##			<td class="label" valign="top">Tarikh Tempahan</td>
+##			<td class="label" valign="top">:</td>
+##			<td valign="top">
+##				<div>
+##		    		<input type="text" id="tarikhTempahan" name="tarikhTempahan" value="$dateTempahan">
+##		    		<script>
+##		            	_jq("#tarikhTempahan").Zebra_DatePicker({ 
+##		    				format: 'd-m-Y',
+##		    				onSelect: function(){
+##		    					javascript:doPaintJadual()
+##		    				},
+##		    				direction: [3, 14]
+##		            	});
+##		    		</script>
+##				</div>
+##			</td>
+##		</tr>
+		<tr>
+          <td class="label" valign="top">Masa Mula &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectMasaMula">
+            #parse("$path/selectMasaMula.vm")
+            <div id="err_masaMula" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        
+		<tr>
+          <td class="label" valign="top">Masa Tamat &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectMasaTamat">
+            #parse("$path/selectMasaTamat.vm")
+            <div id="err_masaTamat" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+		##textarea("tujuan" "Tujuan" "$!r.tujuan")
+		
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<div id="divJadual">
+		#parse("$path/jadualTempahan.vm")
+</div>
+
+
+#if ($!command != "add_new_record")	
+<table width="100%">
+	<tr>
+		#if ($!save != "N")
+		<td align="right">
+			#if ($!r.statusPermohonan!="B")
+    		<input id="simpan" name="simpan" type="button" value="Semak dan Bayar" onclick="javascript:doBayarPermohonan('$!r.id');"/>
+			<input id="hapus" name="hapus" type="button" value="Batal" onclick="javascript:doBatalTempahan('$!r.id');"/>
+			#end
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+		#else
+		<td align="right">
+    		<input type="button" value="Cetak Resit Bayaran"  id="cmdCetakResit" align="right"/>
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+		#end
+	</tr>
+</table>
+#else
+##rozai tambah 27/2/2017
+<table width="100%">
+	<tr>
+		<td align="right">
+    		<input id="simpan" name="simpan" type="button" value="Simpan" onclick="simpanPermohonan()"/>
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+#end
+
+</div>
+<script>
+
+_jq('#cmdCetakResit').on('click', function(){
+				var idResit = '$!r.resitSewa.id';	
+				var masaMula = '$!r.masaMula';
+			    var masaTamat = '$!r.masaTamat';
+				var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit+"&masaMula="+masaMula+"&masaTamat="+masaTamat;
+				var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+				if ((document.window != null) && (!hWnd.opener))
+				hWnd.opener = document.window;
+				if (hWnd.focus != null) hWnd.focus();
+	
+});	
+</script>

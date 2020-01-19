@@ -1,0 +1,21 @@
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divProfil','getMaklumatProfil','')" #end >Profil Pengguna</a></li>
+	#if ($!pengguna.role.name != '(AWAM) Pengguna Awam' && $!pengguna.role.name != '(JRP) Pemohon' && $!pengguna.role.name != '(BGS) Pemohon')
+		<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divProfil','getMaklumatPerjawatan','')" #end >Maklumat Perjawatan</a></li>
+		<li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('divProfil','getDokumenSokongan','')" #end >Maklumat Bank</a></li>
+	#end
+  </ul>
+</nav>
+
+#if ($!selectedTab == '1')
+	#parse("$path/maklumatProfil.vm")
+#end
+
+#if ($!selectedTab == '2')
+	#parse("$path/maklumatPerjawatan.vm")
+#end
+
+#if ($!selectedTab == '3')
+	#parse("$path/dokumenSokongan.vm")
+#end

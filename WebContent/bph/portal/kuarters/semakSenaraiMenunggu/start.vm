@@ -1,0 +1,60 @@
+<script>
+	 _jq("#btnPadam").click(function() {
+        _jq( "#noPengenalan" ).val('');
+    });
+    _jq("#btnSemak").click(function() {
+        doDivAjaxCall3$formname('content','getNoGiliran','')
+    });
+</script>
+<div id="content-format"><pinLeft></pinLeft><pinRight></pinRight>
+  <header>Semak Senarai Menunggu Kuarters</header>
+  <section>
+	<table border="1" style="width:100%;">
+	<tr>
+		<td>No. Kad Pengenalan</td>
+		<td>
+			<form>
+			<input class="input-style mykad" type="text" name="noPengenalan" id="noPengenalan" max-length="12" style="width: 100%" placeholder="Contoh : 830221079898"/>
+			</form>
+		</td>
+		
+	</tr>
+	            <tr>
+              <td align="right" width="50%"><input class="button-style" style="font-size: 0.8em" type="button" name="btnPadam" id="btnPadam" value="PADAM" />
+              </td>
+              <td width="50%"><input class="button-style" style="font-size: 0.8em" type="button" name="btnSemak" id="btnSemak" value="SEMAK" />
+              </td>
+            </tr>
+</table>	
+<br>
+	<br>
+</br>
+  </section>
+  #if ($rekod == true)
+  <div id="SenaraiMenungguResult" align="center">
+  <table border="1" style="width:100%;">
+	<tr>
+		<td>No.Daftar</td>
+		<td>Kelas</td>
+		<td>No.Giliran</td>
+		<td>Lokasi</td>
+	</tr>
+	#foreach( $a in $giliran )
+	<tr>
+		<td>$a.noDaftar</td>
+		<td>$a.kelasKuarters</td>
+		<td>$a.noGiliran</td>
+		<td>$a.lokasiPermohonan.lokasi</td>
+	</tr>
+    #end
+	
+</table>	
+  </div>
+  #else
+  HARAP MAAF.TIADA MAKLUMAT DIJUMPAI.
+  #end
+  
+</div>
+
+
+

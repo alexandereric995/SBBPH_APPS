@@ -1,0 +1,30 @@
+
+<fieldset>
+<legend class="legend">MAKLUMAT REKOD</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  #if ($!command == "add_new_record")
+ #input_required("jenisKesalahan" "Jenis Kesalahan" "$!r.jenisKesalahan")
+  #input_required("catatan" "Catatan" "$!r.catatan")
+  #input_required("status" "Status" "$!r.status")
+  #else
+  #input_normal_hidden("jenisKesalahan" "Jenis Kesalahan" "$!r.jenisKesalahan")
+  #input_required("catatan" "Catatan" "$!r.catatan")
+  #input_required("status" "Status" "$!r.status")
+  #end
+  
+</table>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

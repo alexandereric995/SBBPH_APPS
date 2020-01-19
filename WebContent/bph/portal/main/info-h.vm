@@ -1,0 +1,30 @@
+<span class="titleInfo">Makluman penting:</span>
+<marquee behavior="scroll" scrollamount="2" direction="left">
+	#if ($listMakluman)
+		#foreach($makluman in $listMakluman)
+			$!makluman.butiran
+		#end
+	#end
+</marquee>
+	
+<script>
+	function blinker() {
+        _jq('.titleInfo').fadeOut(750);
+        _jq('.titleInfo').fadeIn(750);
+    }
+    setInterval(blinker, 1500);
+    
+    _jq('marquee').marquee('pointer').mouseover(function () {
+		_jq(this).trigger('stop');
+			}).mouseout(function () {
+		_jq(this).trigger('start');
+			}).mousemove(function (event) {
+				if (_jq(this).data('drag') == true) {
+					this.scrollLeft = _jq(this).data('scrollX') + (_jq(this).data('x') - event.clientX);
+				}
+			}).mousedown(function (event) {
+		_jq(this).data('drag', true).data('x', event.clientX).data('scrollX', this.scrollLeft);
+			}).mouseup(function () {
+		_jq(this).data('drag', false);
+	});
+</script>

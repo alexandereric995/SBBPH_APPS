@@ -1,0 +1,98 @@
+<fieldset>
+	<legend class="legend">Aktiviti Naziran</legend>
+
+	<table width="100%">
+		<tr>
+			<td style="width:150px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="label">Jenis Operasi &nbsp;</td> ## <span style="color:#FF2A00">*</span>
+			<td>:</td>
+			<td>
+				<div id="selectJenisOperasi"> 
+					#parse("$path/pelanggaranSyarat/selectJenisOperasi.vm") 
+				</div>
+				<div id="err_idJenisOperasi" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">Jenis Kes &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td>:</td>
+			<td>
+				#parse("$path/pelanggaranSyarat/selectKes.vm")
+				<div id="err_idKes" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">Jenis Kesalahan&nbsp;<span style="color:#FF2A00">*</span></td>
+			<td>:</td>
+			<td>
+				<div id="selectPelanggaran">
+					#parse("$path/pelanggaranSyarat/selectJenisPelanggaranSyarat.vm")
+				</div>
+				<div id="err_idJenisPelanggaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+	</table>
+	
+	##------------ START DISPLAY ---------------
+	<div id="hideKes" name="hideKes">		  	
+		#if($rekod.jenisOperasi.id  == 'CP' || ($rekod.jenisOperasi.id  == 'PS' && $rekod.jenisPelanggaranSyarat.id == '1435633886800'))
+		<table width="100%">
+			<tr>
+				<td style="width:150px"></td>
+				<td style="width:10px"></td>
+				<td></td>
+			</tr>
+			#input_required("jenisKenderaan" "Jenis Kenderaan" "$!rekod.jenisKenderaan") 	
+			#input_required("noPlat" "No Plat Kenderaan" "$!rekod.noPlat")
+			#currency_required("amaun" "Amaun (RM)" "$!ak.debit")
+		</table>
+		#end
+	</div>
+	##------------END DISPLAY ---------------
+		
+	<div id="divKes" name="divKes"></div>	
+			
+	<table width="100%">
+		<tr>
+			<td style="width:150px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+			#date_input("tarikh" "Tarikh Operasi" "$!util.getDateTime($!rekod.tarikh,'dd-MM-yyyy')")
+		<tr>
+			<td>Status Tindakan</td>
+			<td>:</td>
+			<td>#parse("$path/pelanggaranSyarat/selectStatusTindakan.vm")</td>
+		</tr>
+			#textarea("catatan" "Catatan" "$!rekod.catatan")	 
+			<input type= "hidden" id = "idPS" name = "idPS" value = "$!rekod.id">
+	</table>
+
+	<p align="center">
+		<input type="button" value="Simpan" align='left' id="cmdSimpanLanggarSyart">
+	 	<input type="button" value="Kembali" align='left' id="cmdKembali">
+	</p>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>
+<script>
+_jq('#cmdKembali').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getPelanggaranSyarat','');
+    jQuery('#cmdKembali').fadeOut();
+});
+
+_jq('#cmdSimpanLanggarSyart').on('click', function(){
+	savePelanggaranSyarat();
+});
+</script>

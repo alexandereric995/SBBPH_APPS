@@ -1,0 +1,48 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><fieldset>
+      <legend class="legend">MAKLUMAT KUARTERS</legend>
+      <table width="100%" cellpadding="1" cellspacing="2">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+ 		#input_readonly_all_label("noRujukan" "No. Rujukan" "$!r.kuarters.noRujukan")
+        #input_readonly_all_label("noUnit" "No. Unit" "$!r.kuarters.noUnit, $!r.kuarters.fasa.keterangan")
+        #input_readonly_all_label("alamat1" "Alamat" "$!r.kuarters.alamat1.toUpperCase() , $!r.kuarters.alamat2.toUpperCase()")
+        #input_readonly_all_label("kawasan" "Kawasan" "$!r.kuarters.lokasi.lokasi.lokasi")
+        #input_readonly_all_label("lokasi" "Lokasi" "$!r.kuarters.lokasi.keterangan")
+        #input_readonly_all_label("kelas" "Kelas Kuarters" "$!r.kuarters.kelas.id")
+  		#input_readonly_all_label("jenisKediaman" "Jenis Kuarters" "$!r.kuarters.jenisKediaman.keterangan")
+      </table>
+      </fieldset></td>
+    <td width="50%" valign="top"><fieldset>
+      <legend class="legend">MAKLUMAT LAPORAN</legend>
+      <table width="100%" cellpadding="1" cellspacing="2">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #if ($!r.tarikhTerimaLaporan) 
+        #set ($dateTerimaLaporan = "$!util.getDateTime($!r.tarikhTerimaLaporan,'dd-MM-yyyy')")
+        #else #set ($dateTerimaLaporan="") #end
+        #input_readonly_all_label("tarikhTerimaLaporan" "Tarikh Terima Laporan" "$dateTerimaLaporan")
+        #if ($!r.jenisLaporan == "D")
+        #input_readonly_all_label("jenisLaporan" "Jenis Laporan" "KUARTERS KOSONG")	
+        #elseif($!r.jenisLaporan == "A")
+        #input_readonly_all_label("tarikhTerimaLaporan" "Jenis Laporan" "ADUAN KEROSAKAN")	
+        #end  	
+        #textarea_readonly("keteranganLaporan" "Keterangan" "$!r.keteranganLaporan")
+        #textarea_readonly("tugasanDari" "Tugasan Dari" "$!r.tugasan.pegawaiAgihan.userName")
+        #if ($!r.tugasan.tarikhTugasan) 
+        #set ($dateTugasan = "$!util.getDateTime($!r.tugasan.tarikhTugasan,'dd-MM-yyyy')")
+        #else #set ($dateTugasan="") #end
+        #input_readonly_all_label("tarikhTugasan" "Tarikh Tugasan" "$dateTugasan")
+        #textarea_readonly("catatanTugasan" "Catatan Tugasan" "$!r.tugasan.catatan")
+        #input_readonly_all_label("status" "Status" "<b>$!r.status.keterangan</b>")
+      </table>
+      </fieldset></td>
+  </tr>
+</table>

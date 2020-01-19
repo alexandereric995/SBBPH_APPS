@@ -1,0 +1,256 @@
+#parse("bph/dashboard/style.vm")
+#parse("$path/script.vm")
+<table width="100%" border="0" cellspacing="0" cellpadding="5">
+   <tr>
+      <td width="60%" valign="top">
+         <table width="100%" border="0" cellspacing="0" cellpadding="5">
+            
+            ## LAYER 1
+            <tr>
+               <td>
+                  <table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+                     <tr>
+                        <td width="50%" valign="top">
+                           <table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                              <tr>
+                                 <td width="15%" valign="top" align="center"><img src="../bph/dashboard/picture/myprofile.png"  width="30" height="30" align="center"/></td>
+                                 <td width="85%" valign="top">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                                       <tr>
+                                          <td><font color="black" style="font-size:120%"><b>Profil</b></td>
+                                       </tr>
+                                       <tr>
+                                          <td>
+                                             <a href="javascript:gotoKataLaluan()" class="help" title="Tukar Kata Laluan">
+                                                <li><font color="blue" style="font-size:110%">Tukar Kata Laluan</font></li>
+                                             </a>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td>
+                                             <a href="javascript:gotoProfile()" class="help" title="Profil Pengguna">
+                                                <li><font color="blue" style="font-size:110%">Profil Pengguna</font></li>
+                                             </a>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td>
+                                             <a href="javascript:gotoKalendar()" class="help" title="Kalendar Aktiviti">
+                                                <li><font color="blue" style="font-size:110%">Kalendar Aktiviti</font></li>
+                                             </a>
+                                          </td>
+                                       </tr>
+                                    </table>
+                                 </td>
+                              </tr>
+                           </table>
+                        </td>
+                        <td width="50%" valign="top">&nbsp;</td>
+                     </tr>
+                  </table>
+               </td>
+            </tr>
+          
+            ## LAYER 2
+            <tr>
+               <td>
+                  <table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+                     <tr>
+                        <td width="50%" valign="top">
+                           <table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                              <tr>
+                                 <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                                 <td width="85%" valign="top">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                                       <tr>
+                                          <td><font color="black" style="font-size:120%"><b>Senarai Operasi</b></td>
+                                       </tr>
+                                       <tr>
+                                          <td>
+                                             <li>
+                                                <a href="javascript:gotoSenaraiOperasiBerjadual()" class="help" title="Operasi Berjadual">
+                                                <font color="blue" style="font-size:110%">Operasi Berjadual</font>
+                                                #if ($senaraiOperasiBerjadual)
+                                                <span id="blinkSenaraiOperasiBerjadual">
+                                                <font color="red"><b>($!senaraiOperasiBerjadual)</b></font>
+                                                </span>
+                                                #end
+                                                </a>
+                                             </li>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td>
+                                             <li>
+                                                <a href="javascript:gotoSenaraiOperasiTidakBerjadual()" class="help" title="Senarai Operasi Tidak Berjadual">
+                                                <font color="blue" style="font-size:110%">Operasi Tidak Berjadual </font>
+                                                #if ($senaraiOperasiTidakBerjadual)
+                                                <span id="blinkSenaraiOperasiTidakBerjadual">
+                                                <font color="red"><b>($!senaraiOperasiTidakBerjadual)</b></font>
+                                                </span>
+                                                #end
+                                                </a>
+                                             </li>
+                                          </td>
+                                       </tr>
+                                    </table>
+                                 </td>
+                              </tr>
+                           </table>
+                        </td>
+                        <td width="50%" valign="top">
+                           <table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                              <tr>
+                                 <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                                 <td width="85%" valign="top">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                                       <tr>
+                                          <td><font color="black" style="font-size:120%"><b>Senarai Penghuni</b></td>
+                                       </tr>
+                                       <tr>
+                                          <td>
+                                             <li>
+                                                <a href="javascript:gotoSenaraiPenghuni()" class="help" title="Senarai Penghuni">
+                                                <font color="blue" style="font-size:110%">Senarai Penghuni</font>
+##                                                #if ($senaraiPenghuni)
+##                                                <span id="blinkSenaraiPenghuni">
+##                                                <font color="red"><b>($!senaraiPenghuni)</b></font>
+##                                                </span>
+##                                                #end
+                                                </a>
+                                             </li>
+                                          </td>
+                                       </tr>
+                                    </table>
+                                 </td>
+                              </tr>
+                           </table>
+                        </td>
+                     </tr>
+                  </table>
+               </td>
+            </tr>
+			
+			## LAYER 3
+            <tr>
+               <td>
+                  <table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+                     <tr>
+                        <td width="50%" valign="top">
+                           <table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                              <tr>
+                                 <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                                 <td width="85%" valign="top">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                                       <tr>
+                                          <td><font color="black" style="font-size:120%"><b>Pelanggaran Syarat</b></td>
+                                       </tr>
+                                       <tr>
+                                          <td>
+                                             <li>
+                                                <a href="javascript:gotoSenaraiPelanggaranSyarat()" class="help" title="Senarai Pelanggaran Syarat">
+                                                <font color="blue" style="font-size:110%">Senarai Pelanggaran Syarat</font>
+                                                #if ($senaraiPelanggaranSyarat)
+                                                <span id="blinkSenaraiPelanggaranSyarat">
+                                                <font color="red"><b>($!senaraiPelanggaranSyarat)</b></font>
+                                                </span>
+                                                #end
+                                                </a>
+                                             </li>
+                                          </td>
+                                       </tr>
+                                    </table>
+                                 </td>
+                              </tr>
+                           </table>
+                        </td>
+                        <td width="50%" valign="top">
+                           <table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                              <tr>
+                                 <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                                 <td width="85%" valign="top">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                                       <tr>
+                                          <td><font color="black" style="font-size:120%"><b>Pengurusan Pembersihan</b></td>
+                                       </tr>
+                                       <tr>
+                                          <td>
+                                             <li>
+                                                <a href="javascript:gotoSenaraiPengurusanPembersihan()" class="help" title="Senarai Pengurusan Pembersihan">
+                                                <font color="blue" style="font-size:110%">Senarai Pengurusan Pembersihan</font>
+                                                #if ($senaraiPengurusanPembersihan)
+                                                <span id="blinkSenaraiPengurusanPembersihan">
+                                                <font color="red"><b>($!senaraiPengurusanPembersihan)</b></font>
+                                                </span>
+                                                #end
+                                                </a>
+                                             </li>
+                                          </td>
+                                       </tr>
+                                 </td>
+                              </tr>
+                           </table>
+                        </td>
+                     </tr>
+                  </table>
+               </td>
+            </tr>
+            
+         </table>
+      </td>
+   </tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="5">
+   <tr>
+      <td width="60%" valign="top">
+         <table width="100%" border="0" cellspacing="0" cellpadding="5">
+           
+            ##Laporan
+            <tr>
+               <td>
+                  <table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+                     <tr>
+                        <td width="50%" valign="top">
+                           <table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                              <tr>
+                                 <td width="15%" valign="top" align="center">
+                                    <img  src="../bph/dashboard/picture/images_stat.png" width="30" height="30" align="center"/>
+                                 </td>
+                                 <td width="85%" valign="top">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                                       <tr>
+                                          <td><font color="black" style="font-size:120%"><b>Laporan</b></td>
+                                       </tr>
+                                       <tr>
+                                          <td>
+                                             <li>
+                                                <a href="javascript:gotoSenaraiLaporan()" class="help" title="Senarai Laporan">
+                                                <font color="blue" style="font-size:110%">Senarai Laporan</font>
+                                                #if ($senaraiLaporan)
+                                                <span id="blinkSenaraiLaporan">
+                                                <font color="red"><b>($!senaraiLaporan)</b></font>
+                                                </span>
+                                                #end
+                                                </a>
+                                             </li>
+                                          </td>
+                                       </tr>
+                                    </table>
+                                 </td>
+                              </tr>
+                           </table>
+                        </td>
+                        <td width="50%" valign="top">
+                           <table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                           </table>
+                        </td>
+                     </tr>
+                  </table>
+               </td>
+            </tr>
+            
+         </table>
+      </td>
+   </tr>
+</table>

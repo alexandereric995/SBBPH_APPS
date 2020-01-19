@@ -1,0 +1,93 @@
+_jq( document ).ready(function() {
+	$('div_main').style.display='none';$('div_main_entry').style.display='block';
+	doDivAjaxCall$formname('div_main_entry','add_new_record','');
+});
+
+function validate() {
+	var err_count = 0;
+	return err_count == 0;
+}
+
+function validatePilihanUnit() {
+	var err_count = 0;
+
+	var bilDewasa = $('bilDewasa').value;
+	if ( bilDewasa == "" ) {$('err_bilDewasa').innerHTML = "Bilangan Dewasa adalah mandatori!"; err_count++;  }
+	
+	var tarikhKeluar = $('tarikhKeluar').value;
+	if ( tarikhKeluar == "" ) {$('err_tarikhKeluar').innerHTML = "Tarikh Keluar adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) { }
+	return err_count == 0;
+}
+
+function doPilihUnit(idJenisUnit) {
+	if( validatePilihanUnit() ){
+		doDivAjaxChainCall$formname('divListUnit','getUnitByJenis','idJenisUnit='+idJenisUnit,'divMaklumatBayaran','getMaklumatBayaran','idJenisUnit='+idJenisUnit);
+	}
+}
+
+function validateDaftarMasuk(sizeUnit) {
+	var err_count = 0;
+
+	var checking = 0;
+	var size = sizeUnit;
+		
+	if( size > 1 ){
+			
+        for( var i = 0; i < document.${formName}.radUnit.length; i++ ){
+    		if(document.${formName}.radUnit[i].checked){ 
+    			checking += 1; 
+    		};
+        }
+	}else{
+		
+		if( document.${formName}.radUnit.checked == true ){
+			checking += 1; 
+		}
+	}
+		
+    if ( checking == 0 ){$('err_radUnit').innerHTML = "* Sila pilih bilik terlebih dahulu."; err_count++;  }
+	
+	var guestId = $('guestId').value;
+	if ( guestId == "" ) {$('err_maklumatTetamu').innerHTML = "* Sila masukkan maklumat tetamu terlebih dahulu."; err_count++;  }
+	
+	
+	
+	if (err_count == 0) { }
+	return err_count == 0;
+}
+
+function daftarMasuk(sizeUnit) {
+	if( validateDaftarMasuk(sizeUnit) ){
+		doDivAjaxCall$formname('div_main_entry','daftarMasuk','record_id=');
+		$('carianTetamu').value = "";
+	}
+}
+
+function validateKemaskini() {
+
+	var err_count = 0;
+	
+	var noAkaunBank = $('noAkaunBank').value;
+	if ( noAkaunBank == "" ) {$('err_noAkaunBank').innerHTML = "No. Akaun adalah mandatori!"; err_count++;  }
+	
+	var bank = $('bank').value;
+	if ( bank == "" ) {$('err_bank').innerHTML = "Bank adalah mandatori!"; err_count++;  }
+	
+	var cbSyarat = $('cbSyarat').checked;
+	if ( cbSyarat == false ) {$('err_cbSyarat').innerHTML = "Sila tanda untuk mengesahkan maklumat yang dimasukkan adalah benar."; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doKemaskiniBank(){
+	if (validateKemaskini()) {
+		doDivAjaxCall3$formname('divMaklumatTetamu','kemaskiniBank','')
+	}
+}

@@ -1,0 +1,21 @@
+<script>
+	var x = "$!success";
+	if ( x != "" ) {
+		swal({
+				title: "Makluman",
+				text: "Permohonan agihan berjaya dihantar!",
+				type: "success"
+				},
+				 function(){
+						##doDivAjaxCall3$formname('agihKuarters','pengesahanAgihKuarters','');
+						doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num');
+						##doDivAjaxChainCall$formname('agihKuarters','pengesahanAgihKuarters','','div_list','list_page','page_num=$!current_page_num');
+			    });	
+	} else {
+		swal({
+				title: "Perhatian",
+				text: "Permohonan agihan tidak berjaya dihantar. Sila semak semula agihan dan cuba sekali lagi...!",
+				type: "error"
+				});
+	}
+</script>

@@ -1,0 +1,243 @@
+<script>
+	_jq("#alamatPejabat").hide();
+    _jq("#mandatoriTelefon").hide();
+    _jq('#listBadanBerkanun').hide();
+	_jq('#muatnaik').hide();	
+	
+    _jq( "#btnRegClear").click(function() {
+        $('err_idKategoriPengguna').innerHTML = "";
+        $('err_regUsername').innerHTML = ""; 
+        $('validate_ic').innerHTML = ""; 
+        $('err_nama').innerHTML = "";  
+        $('err_idJantina').innerHTML = ""; 
+        $('err_idBangsa').innerHTML = "";  
+        $('err_idAgama').innerHTML = "";
+        $('err_alamat').innerHTML = ""; 
+        $('err_poskod').innerHTML = "";
+        $('err_idNegeri').innerHTML = "";
+        $('err_idBandar').innerHTML = "";
+        $('err_noTelefon').innerHTML = ""; 
+        $('err_noTelefonBimbit').innerHTML = ""; 
+        $('err_email').innerHTML = "";err_dokumen
+        $('err_emailChecking').innerHTML = "";
+        $('err_idBadanBerkanun').innerHTML = "";
+        $('err_dokumen').innerHTML = "";
+        _jq( "#idKategoriPengguna" ).val('');
+        _jq( "#regUsername" ).val("");
+        _jq( "#regName" ).val("");
+        _jq( "#idJantina" ).val('');
+        _jq( "#idBangsa" ).val('');
+        _jq( "#idAgama" ).val('');
+        _jq( "#userAddress" ).val("");
+        _jq( "#userAddress2" ).val("");
+        _jq( "#userAddress3" ).val("");
+        _jq( "#poskod" ).val("");
+        _jq( "#idNegeri" ).val('');
+        _jq( "#idBandar" ).val('');
+        _jq( "#noTelefon" ).val("");
+        _jq( "#noTelefon" ).val("");
+        _jq( "#noTelefonBimbit" ).val("");
+        _jq( "#regEmail" ).val("");
+        _jq( "#idBadanBerkanun" ).val('');
+        _jq( "#dokumen" ).val("");
+    });
+	
+    _jq("#idKategoriPengguna").change(function() {
+		_jq('#muatnaik').hide();		
+		_jq('#listBadanBerkanun').hide();
+		_jq("#idBadanBerkanun").val('');
+        _jq("#dokumen").val("");
+        
+        
+        if ( this.value == "01" || this.value == "03" || this.value == "04") {
+        	_jq("#alamatPejabat").show();
+            _jq("#mandatoriTelefon").show();
+        } else {
+        	_jq("#alamatPejabat").hide();
+            _jq("#mandatoriTelefon").hide();
+        }
+        
+        if ( this.value == "03" || this.value == "04" || this.value == "05" ) {
+			_jq('#muatnaik').show();	
+		}
+		if ( this.value == "03" ) {
+			_jq('#listBadanBerkanun').show();	
+		}
+        
+        validateIC();
+    });
+    
+    _jq('#regUsername').blur(function() {
+    	validateIC()
+    });
+    
+    _jq('#regName').blur(function() {
+    	validateIC()
+    }); 
+    
+    function validateIC() {
+	    if ( $('idKategoriPengguna').value != "") {
+	    	if ( $('regUsername').value != "") {
+	    		if ( $('regName').value != "") {
+	    			doDivAjaxCall3$formname('validate_ic','validateIC','');
+	    		}
+	    	}
+	    }        
+    }
+	
+	_jq('#dokumen').change(function() {
+		$('err_dokumen').innerHTML = '';
+    	var error = 0;
+    	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+    		error++;
+    		$('dokumen').value = "";
+    		$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+    	}
+    	if ($('dokumen').value != "" && $('dokumen').files[0].size > 2097152) {
+    		error++;
+    		$('err_dokumen').innerHTML = "Saiz fail adalah "+($('dokumen').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+    		$('dokumen').value = "";
+    	}
+    	if ( $('regUsername').value == "") {
+    		error++;
+    		$('err_dokumen').innerHTML = "SILA MASUKKAN NO. MYKAD TERLEBIH DAHULU";
+    		$('dokumen').value = "";
+    	}
+    	if (error == 0) {
+    		$('dokumenMuatnaik').style.display = "";
+    		document.${formName}.enctype='multipart/form-data';
+    		document.${formName}.encoding ='multipart/form-data';
+    		document.${formName}.target='dokumenSokongan';
+    		document.${formName}.action='?command=uploadDokumenPengesahan&noPengenalan='+$('regUsername').value+'&dokumenPengesahan='+$('dokumenPengesahan').value;
+    		document.${formName}.submit();
+    	}
+	});
+	
+	function checkDoc(val) {
+    	var arr = val.split(".");
+    	var arr1 = val.split("\\");
+		
+    	if (arr[arr.length-1] == "jpeg" || arr[arr.length-1] == "jpg" || arr[arr.length-1] == "JPEG" || arr[arr.length-1] == "JPG" || arr[arr.length-1] == "PDF" || arr[arr.length-1] == "pdf" || arr[arr.length-1] == "doc" || arr[arr.length-1] == "DOC" || arr[arr.length-1] == "docx" || arr[arr.length-1] == "DOCX" ) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+	
+    _jq("#btnRegSubmit").click(function() {
+        validate();
+    });
+	
+    function validate() {
+        var err_count = 0;
+
+        var idKategoriPengguna = $('idKategoriPengguna').value;
+        if ( idKategoriPengguna == "" ) { 
+        	$('err_idKategoriPengguna').innerHTML = "** mandatori"; err_count++;  
+        }
+
+        var regUsername = $('regUsername').value;
+		if ( regUsername == "" ) { 
+			$('err_regUsername').innerHTML = "** mandatori"; err_count++;  
+		}
+		
+		var nama = $('regName').value;
+	    if ( nama == "" ) { 
+			$('err_nama').innerHTML = "** mandatori"; err_count++;  
+	    }
+			
+        var idJantina = $('idJantina').value;
+	    if ( idJantina == "" ) { 
+	        $('err_idJantina').innerHTML = "** mandatori"; err_count++;  
+	    }
+			
+	    var idBangsa = $('idBangsa').value;
+	    if ( idBangsa == "" ) { 
+	    	$('err_idBangsa').innerHTML = "** mandatori"; err_count++;  
+	    }
+			
+	    var idAgama = $('idAgama').value;
+	    	if ( idAgama == "" ) { 
+	        $('err_idAgama').innerHTML = "** mandatori"; err_count++;  
+	    }          
+
+        var alamat = $('userAddress').value;
+        if ( alamat == "" ) { 
+        	$('err_alamat').innerHTML = "** mandatori"; err_count++;  
+        }
+
+        var poskod = $('poskod').value;
+        if ( poskod == "" ) { 
+        	$('err_poskod').innerHTML = "** mandatori"; err_count++;  
+        }
+
+        var idNegeri = $('idNegeri').value;
+        if ( idNegeri == "" ) { 
+        	$('err_idNegeri').innerHTML = "** mandatori"; err_count++;  
+        }
+
+        var idBandar = $('idBandar').value;
+        if ( idBandar == "" ) { 
+        	$('err_idBandar').innerHTML = "** mandatori"; err_count++;  
+        }   
+
+        if(idKategoriPengguna == "01" || idKategoriPengguna == "03" || idKategoriPengguna == "04") {
+        	var noTelefon = $('noTelefon').value;
+        	if ( noTelefon == "" ) { 
+        		$('err_noTelefon').innerHTML = "** mandatori"; err_count++;  
+        	}
+    	}
+
+        var noTelefonBimbit = $('noTelefonBimbit').value;
+        if ( noTelefonBimbit == "" ) { 
+        	$('err_noTelefonBimbit').innerHTML = "** mandatori"; err_count++;  
+        }          
+
+        var email = $('regEmail').value;        
+        if ( email == "" ) { 
+        	$('err_email').innerHTML = "** mandatori"; err_count++;
+        } else {
+	        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	        if (!filter.test(email)) {
+	        	$('err_emailChecking').innerHTML = "Sila masukkan format email yang betul"; err_count++;
+	        }
+        }
+        
+        if(idKategoriPengguna == "03") {            
+			var idBadanBerkanun = $('idBadanBerkanun').value;
+			if ( idBadanBerkanun == "" ) { 
+				$('err_idBadanBerkanun').innerHTML = "** mandatori"; err_count++;  
+            }			
+        }	
+        
+		if(idKategoriPengguna == "03" || idKategoriPengguna == "04" || idKategoriPengguna == "05") {            
+			var dokumenSokongan = $('dokumen').value;
+			if ( dokumenSokongan == "" ) { 
+				$('err_dokumen').innerHTML = "** mandatori"; err_count++;  
+            }			
+        }		
+		
+        if (err_count == 0) {
+
+        	var validIC = $('validIC').value;
+        	var replyMsg = $('replyMsg').value;
+
+        	if (validIC == "true") {
+	        	if ( window.confirm("Anda pasti?") ){
+	            	doDivAjaxCall3$formname('daftarPengguna','getDaftar','')
+	            }
+	        } else {
+	        	$('validate_ic').innerHTML = replyMsg; err_count++;  
+	        }
+        	return;	
+        }
+    	return err_count == 0;	
+    }	   
+
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

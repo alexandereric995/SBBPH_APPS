@@ -1,0 +1,76 @@
+function validate() {
+	var err_count = 0;
+	
+	var idDewan = $('idDewan').value;
+	if ( idDewan == "" ) {$('err_dewan').innerHTML = "Lokasi Dewan adalah mandatori!"; err_count++;  }
+
+	var idGelanggang = $('idGelanggang').value;
+	if ( idGelanggang == "" ) {$('err_gelanggang').innerHTML = "Nama gelanggang adalah mandatori!"; err_count++;  }
+	
+	var tarikhTempahan = $('tarikhTempahan').value;
+	if ( tarikhTempahan == "-" || tarikhTempahan == "" ) {$('err_tarikhTempahan').innerHTML = "Tarikh adalah mandatori!"; err_count++;  }
+	
+	var masaMula = $('masaMula').value;
+	if ( masaMula == "" ) {$('err_masaMula').innerHTML = "Masa mula adalah mandatori!"; err_count++;  }
+	
+	var masaTamat = $('masaTamat').value;
+	if ( masaTamat == "" ) {$('err_masaTamat').innerHTML = "Masa tamat adalah mandatori!"; err_count++;  }
+	
+	err_count=checkTempahan(err_count);
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function doSavePermohonan(idTempahan) {
+	if (validate()){
+		doDivAjaxCall$formname('divPermohonan','savePermohonan','idTempahan='+idTempahan);
+	}
+}
+
+function doSaveDetailPemohon(idTempahan) {
+		if (validatePemohon())
+		{
+			doDivAjaxCall$formname('divPemohon','saveDetailPemohon','idTempahan='+idTempahan);
+		}
+}
+
+function doBayarTempahan(idTempahan){
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall3$formname('statusButton','bayarTempahan','idTempahan='+idTempahan);
+	}	
+}
+
+##start jadual tempahhan--------------
+function doPaintJadual() {
+		doDivAjaxCall$formname('divJadual','paintJadual','');
+}
+
+function checkTempahan(err) {
+
+	var masaMula = $('masaMula').value;
+	var masaTamat = $('masaTamat').value;
+	var jumlah=masaTamat-masaMula;
+	
+	if(masaMula==9 || masaMula==8)
+	{
+		masaMula=parseInt( masaMula, 10 );
+	}
+	
+	for(i=masaMula; i<masaTamat; i++)
+	{
+		var warna=document.getElementById(i).bgColor;
+		if(warna=='#bb0000')
+		{
+			alert("Masa yang dipilih telah ditempah!");
+			err++;
+			return err;
+		}		
+	}
+	return err;	
+}

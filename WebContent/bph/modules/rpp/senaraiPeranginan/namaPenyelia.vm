@@ -1,0 +1,44 @@
+
+<table cellpadding="5" cellspacing="0" border="0" width="100%">	
+	
+	<tr>
+		<td class="label" style="width:25%"></td>
+        <td style="width:1%"></td>
+        <td style="width:74%"></td>
+	</tr>
+			
+    #if ($command == 'getPenyelia')
+    
+    	<tr>
+    		<td class="label">
+    			Nama Penyelia &nbsp;<span style="color:#FF2A00">*</span>
+    		</td>
+            <td>:</td>
+            <td>
+    			<input class="texts" #if($!rekod!="") readonly #end type="text" id="namaPenyelia" name="namaPenyelia" value="$!existPenyelia.userName" onKeyUp="at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+                <div id="err_namaPenyelia" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    		</td>
+        </tr>
+    		
+    	#phone_number("noTelefon" "No. Telefon" "$!existPenyelia.noTelefon")
+        #input_email("emel" "E-mel" "$!existPenyelia.emel")
+    
+    #else
+    
+    	<tr>
+    		<td class="label">
+    			Nama Penyelia &nbsp;<span style="color:#FF2A00">*</span>
+    		</td>
+            <td>:</td>
+            <td>
+    			<input class="texts" #if($!rekod!="") readonly #end type="text" id="namaPenyelia" name="namaPenyelia" value="$!rekod.penyelia.userName" onKeyUp="at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+                <div id="err_namaPenyelia" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    		</td>
+        </tr>
+    		
+    	#phone_number("noTelefon" "No. Telefon" "$!rekod.penyelia.noTelefon")
+        #input_email("emel" "E-mel" "$!rekod.penyelia.emel")
+    
+    #end
+
+</table>

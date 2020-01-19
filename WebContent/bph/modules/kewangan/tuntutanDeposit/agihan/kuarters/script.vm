@@ -1,0 +1,14 @@
+function validate() {
+	var err_count = 0;
+	
+	var penyedia = $('penyedia').value;
+	if ( penyedia == "" ) {$('err_penyedia').innerHTML = "Penyedia adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}

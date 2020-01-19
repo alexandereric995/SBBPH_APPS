@@ -1,0 +1,325 @@
+<input type="hidden" id="idKuiri" name="idKuiri" value="$!kuiri.id"/>
+<fieldset>
+<legend class="legend">Kuiri</legend>
+
+    <table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+		#set($tarikhUlasan = $!kuiri.tarikhUlasan)
+		#if($tarikhUlasan.equals(""))
+			#set($tarikhUlasan = $tarikhUlasan)
+		#end
+		#input_normal_hidden("tarikhUlasan" "Tarikh ulasan" "$!util.getDateTime($!tarikhUlasan,'dd-MM-yyyy')")
+		
+		#if($!kuiri.ulasan.length() > 0)
+        		#set($totalAksara1 = 512 - $!kuiri.ulasan.length())
+        #else
+        		#set($totalAksara1 = 512)
+	    #end
+		<tr>
+		<td class="label" valign="top">Ulasan &nbsp;<span style="color:#FF2A00">*</span></td>
+		<td class="label" valign="top">:</td>
+		<td valign="top">
+			<textarea id="ulasan" maxlength="512" name="ulasan" onKeyUp="$('err_ulasan').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">$!kuiri.ulasan</textarea>
+			<div id="err_ulasan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			<span style="color:#FF2A00" id="jumlahAksara">Baki Aksara: $totalAksara1</span>
+	</td>
+</tr>
+	</table>
+</fieldset>
+
+	</table>
+	<table width="100%">
+	<tr>
+		<td align="right">
+				#if($!userRole.equalsIgnoreCase("(JRP) Penyedia"))
+					#if($r.status.id == "1424860634478" || $r.status.id == "1424860634481" || $r.status.id == "1436921583144" || $r.status.id == "471300128898077")
+						#if($!kuiri && $!kuiri.flagHantar == 'T')
+						<input type="button" value="Hantar Kuiri kepada Agensi" id="cmdHantarKuiri" />
+						#end
+						#if(!$!kuiri || $!kuiri.flagHantar == 'T')
+						<input type="button" value="Simpan" id="cmdSaveKuiri" />
+	    				<input type="button" value="Kosongkan" id="cmdKosongkanKuiri" />
+						<input id="cmdKembali" type="button" value="Kembali" onclick="doDivAjaxCall3$formname('divTab','getKuiri','')" />
+	    				#end
+					#else
+						#if($kuiri.flagHantar == 'T')
+	    				<input id="cmdKembali" type="button" value="Kembali" onclick="doDivAjaxCall3$formname('divTab','getKuiri','')" />
+	    				#end
+	    			#end
+	    		#else
+	    			#if($kuiri.flagHantar == 'T')
+	    			<input id="cmdKembali" type="button" value="Kembali" onclick="doDivAjaxCall3$formname('divTab','getKuiri','')" />
+	    			#end
+    			#end
+    			
+    			#if($!userRole.equalsIgnoreCase("(JRP) Penyemak"))
+					#if($r.status.id == "1424860634484")
+						#if($!kuiri && $!kuiri.flagHantar == 'T')
+						<input type="button" value="Hantar Kuiri kepada Penyedia" id="cmdHantarKuiriInternal" />
+						#end
+						#if(!$!kuiri || $!kuiri.flagHantar == 'T')
+						<input type="button" value="Simpan" id="cmdSaveKuiri" />
+	    				<input type="button" value="Kosongkan" id="cmdKosongkanKuiri" />
+						<input id="cmdKembali" type="button" value="Kembali" onclick="doDivAjaxCall3$formname('divTab','getKuiri','')" />
+	    				#end
+					#else
+						#if($kuiri.flagHantar == 'T')
+	    				<input id="cmdKembali" type="button" value="Kembali" onclick="doDivAjaxCall3$formname('divTab','getKuiri','')" />
+	    				#end
+	    			#end
+	    		#else
+	    			#if($kuiri.flagHantar == 'T')
+	    			<input id="cmdKembali" type="button" value="Kembali" onclick="doDivAjaxCall3$formname('divTab','getKuiri','')" />
+	    			#end
+    			#end
+		</td>
+	</tr>
+</table>
+
+#if(!$!userRole.equalsIgnoreCase("(JRP) Pemohon") && $!kuiri.flagHantarMaklumbalas == 'Y')
+<fieldset>
+<legend class="legend">Maklumbalas</legend>
+
+    <table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+		#set($tarikhMb = $!kuiri.tarikhMaklumbalas)
+		#if($tarikhMb.equals(""))
+			#set($tarikhMb = $tarikhMb)
+		#end
+		#input_normal_hidden("tarikhMaklumbalas" "Tarikh Maklumbalas" "$!util.getDateTime($!tarikhMb,'dd-MM-yyyy')")
+		
+		#if($!kuiri.maklumbalas.length() > 0)
+        		#set($totalAksara2 = 512 - $!kuiri.maklumbalas.length())
+        #else
+        		#set($totalAksara2 = 512)
+	    #end
+		<tr>
+		<td class="label" valign="top">Maklumbalas &nbsp;<span style="color:#FF2A00">*</span></td>
+		<td class="label" valign="top">:</td>
+		<td valign="top">
+			<textarea id="maklumbalas" maxlength="512" name="maklumbalas" onKeyUp="$('err_maklumbalas').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">$!kuiri.maklumbalas</textarea>
+			<div id="err_maklumbalas" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			<span style="color:#FF2A00" id="jumlahAksara1">Baki Aksara: $totalAksara2</span>
+	</td>
+</tr>
+	</table>
+</fieldset>
+
+	<table width="100%">
+	<tr>
+		<td align="right">
+##			#if(!$!userRole.equalsIgnoreCase("(JRP) Pemohon") && $!r.status.id != '1438356583122')
+				#if($!userRole.equalsIgnoreCase("(JRP) Pemohon") && $!kuiri.flagHantarMaklumbalas != 'Y')
+					#if($!kuiri.flagHantarMaklumbalas == 'T')
+					<input type="button" value="Hantar Maklumbalas ke BPH" onclick="javascript:doHantarMaklumbalas('$!r.id');">
+					#end
+					#if($!kuiri.flagHantar == "Y")
+					<input type="button" value="Simpan" id="cmdSaveMaklumbalas" />
+    				<input type="button" value="Kosongkan" id="cmdKosongkanMaklumbalas" />
+    				#end
+				#end
+				
+				#if($!userRole.equalsIgnoreCase("(JRP) Penyedia"))
+					#if($!kuiri.flagHantarMaklumbalas == 'T')
+					<input type="button" value="Hantar Maklumbalas ke Penyemak" onclick="javascript:doHantarMaklumbalasToPenyemak('$!r.id');">
+    				#end
+    				#if($!kuiri.flagHantar == "Y" && $!kuiri.flagHantarMaklumbalas != 'Y')
+					<input type="button" value="Simpan" id="cmdSaveMaklumbalas" />
+    				<input type="button" value="Kosongkan" id="cmdKosongkanMaklumbalas" />
+    				#end
+				#end
+    			<input id="cmdKembali" type="button" value="Kembali" onclick="doDivAjaxCall3$formname('divTab','getKuiri','')" />
+		</td>
+	</tr>
+</table>
+#end
+
+#if($!userRole.equalsIgnoreCase("(JRP) Pemohon") && $!kuiri.flagHantar == 'Y')
+	<fieldset>
+	<legend class="legend">Maklumbalas</legend>
+	
+	    <table width="100%" cellspacing="2" cellpadding="2">
+			<tr>
+				<td style="width:24%"></td>
+	            <td style="width:1%"></td>
+	            <td style="width:75%"></td>
+			</tr>
+			#set($tarikhMb = $!kuiri.tarikhMaklumbalas)
+			#if($tarikhMb.equals(""))
+				#set($tarikhMb = $tarikhMb)
+			#end
+			#input_normal_hidden("tarikhMaklumbalas" "Tarikh Maklumbalas" "$!util.getDateTime($!tarikhMb,'dd-MM-yyyy')")
+			
+			#if($!kuiri.maklumbalas.length() > 0)
+	        		#set($totalAksara2 = 512 - $!kuiri.maklumbalas.length())
+	        #else
+	        		#set($totalAksara2 = 512)
+		    #end
+			<tr>
+			<td class="label" valign="top">Maklumbalas &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top">
+				<textarea id="maklumbalas" maxlength="512" name="maklumbalas" onKeyUp="$('err_maklumbalas').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">$!kuiri.maklumbalas</textarea>
+				<div id="err_maklumbalas" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+				<span style="color:#FF2A00" id="jumlahAksara1">Baki Aksara: $totalAksara2</span>
+		</td>
+	</tr>
+	</table>
+	</fieldset>
+
+	<table width="100%">
+	<tr>
+		<td align="right">
+##			#if(!$!userRole.equalsIgnoreCase("(JRP) Pemohon") && $!r.status.id != '1438356583122')
+				#if($!userRole.equalsIgnoreCase("(JRP) Pemohon"))
+					#if($!r.status.id != '1438356583123')##KUIRI DARI PENYEMAK
+						#if($!kuiri.flagHantarMaklumbalas == 'T')
+						<input type="button" value="Hantar Maklumbalas ke BPH" onclick="javascript:doHantarMaklumbalas('$!r.id');">
+	    				#end
+	    				#if($!kuiri.flagHantar == "Y" && $!kuiri.flagHantarMaklumbalas != 'Y')
+						<input type="button" value="Simpan" id="cmdSaveMaklumbalas" />
+	    				<input type="button" value="Kosongkan" id="cmdKosongkanMaklumbalas" />
+	    				#end
+					#end	
+				#end
+				
+				#if($!userRole.equalsIgnoreCase("(JRP) Penyedia"))
+					#if($!kuiri.flagHantarMaklumbalas == 'T')
+					<input type="button" value="Hantar Maklumbalas ke Penyemak" onclick="javascript:doHantarMaklumbalasToPenyemak('$!r.id');">
+    				#end
+    				#if($!kuiri.flagHantar == "Y" && $!kuiri.flagHantarMaklumbalas != 'Y')
+					<input type="button" value="Simpan" id="cmdSaveMaklumbalas" />
+    				<input type="button" value="Kosongkan" id="cmdKosongkanMaklumbalas" />
+    				#end
+				#end
+    			<input id="cmdKembali" type="button" value="Kembali" onclick="doDivAjaxCall3$formname('divTab','getKuiri','')" />
+		</td>
+	</tr>
+</table>
+#end
+
+###if($!userRole.equalsIgnoreCase("(JRP) Penyedia") && $!kuiri.flagHantar == 'Y')
+##	<fieldset>
+##	<legend class="legend">Maklumbalas3</legend>
+##	
+##	    <table width="100%" cellspacing="2" cellpadding="2">
+##			<tr>
+##				<td style="width:24%"></td>
+##	            <td style="width:1%"></td>
+##	            <td style="width:75%"></td>
+##			</tr>
+##			#set($tarikhMb = $!kuiri.tarikhMaklumbalas)
+##			#if($tarikhMb.equals(""))
+##				#set($tarikhMb = $tarikhMb)
+##			#end
+##			#input_normal_hidden("tarikhMaklumbalas" "Tarikh Maklumbalas" "$!util.getDateTime($!tarikhMb,'dd-MM-yyyy')")
+##			
+##			#if($!kuiri.maklumbalas.length() > 0)
+##	        		#set($totalAksara2 = 512 - $!kuiri.maklumbalas.length())
+##	        #else
+##	        		#set($totalAksara2 = 512)
+##		    #end
+##			<tr>
+##			<td class="label" valign="top">Maklumbalas &nbsp;<span style="color:#FF2A00">*</span></td>
+##			<td class="label" valign="top">:</td>
+##			<td valign="top">
+##				<textarea id="maklumbalas" maxlength="512" name="maklumbalas" onKeyUp="$('err_maklumbalas').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">$!kuiri.maklumbalas</textarea>
+##				<div id="err_maklumbalas" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##				<span style="color:#FF2A00" id="jumlahAksara1">Baki Aksara: $totalAksara2</span>
+##		</td>
+##	</tr>
+##	</table>
+##	</fieldset>
+##
+##	<table width="100%">
+##	<tr>
+##		<td align="right">
+####			#if(!$!userRole.equalsIgnoreCase("(JRP) Pemohon") && $!r.status.id != '1438356583122')
+##				#if($!userRole.equalsIgnoreCase("(JRP) Pemohon"))
+##					#if($!kuiri.flagHantarMaklumbalas == 'T')
+##					<input type="button" value="Hantar Maklumbalas ke BPH" onclick="javascript:doHantarMaklumbalas('$!r.id');">
+##    				#end
+##    				#if($!kuiri.flagHantar == "Y" && $!kuiri.flagHantarMaklumbalas != 'Y')
+##					<input type="button" value="Simpan" id="cmdSaveMaklumbalas" />
+##    				<input type="button" value="Kosongkan" id="cmdKosongkanMaklumbalas" />
+##    				#end	
+##				#end
+##				
+##				#if($!userRole.equalsIgnoreCase("(JRP) Penyedia"))
+##					#if($!kuiri.flagHantarMaklumbalas == 'T')
+##					<input type="button" value="Hantar Maklumbalas ke Penyemak" onclick="javascript:doHantarMaklumbalasToPenyemak('$!r.id');">
+##    				#end
+##    				#if($!kuiri.flagHantar == "Y" && $!kuiri.flagHantarMaklumbalas != 'Y')
+##					<input type="button" value="Simpan" id="cmdSaveMaklumbalas" />
+##    				<input type="button" value="Kosongkan" id="cmdKosongkanMaklumbalas" />
+##    				#end
+##				#end
+##    			<input id="cmdKembali" type="button" value="Kembali" onclick="doDivAjaxCall3$formname('divTab','getKuiri','')" />
+##		</td>
+##	</tr>
+##</table>
+###end
+<div id="statusKuiri"></div>
+
+
+<script>
+_jq('#ulasan').on('keyup', function(){
+
+	var ulasan = $('ulasan').value;
+	var field = jumlahAksara;
+	calculateJumlahAksara(ulasan, field);
+});
+_jq('#maklumbalas').on('keyup', function(){
+
+	var maklumbalas = $('maklumbalas').value;
+	var field = jumlahAksara1;
+	calculateJumlahAksara(maklumbalas,field);
+});
+
+_jq('#cmdHantarKuiri').on('click', function(){
+	var idKuiri = '$!kuiri.id';
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('editKuiri','hantarKuiri','idKuiri='+idKuiri);
+	}
+});
+
+_jq('#cmdHantarKuiriInternal').on('click', function(){
+	var idKuiri = '$!kuiri.id';
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('editKuiri','hantarKuiriInternal','idKuiri='+idKuiri);
+	}
+});
+
+_jq('#cmdKosongkanKuiri').on('click', function(){
+	$('tarikhUlasan').value = "";
+	$('ulasan').value = "";
+});
+
+_jq('#cmdSaveKuiri').on('click', function(){
+
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = $!r.id;
+	 saveKuiri(tabNo, idPermohonan);
+});
+
+_jq('#cmdKosongkanMaklumbalas').on('click', function(){
+	$('tarikhMaklumbalas').value = "";
+	$('maklumbalas').value = "";
+});
+
+_jq('#cmdSaveMaklumbalas').on('click', function(){
+
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = $!r.id;
+	 saveMaklumbalas(tabNo, idPermohonan);
+});
+
+</script>

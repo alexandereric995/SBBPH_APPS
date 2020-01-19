@@ -1,0 +1,43 @@
+<fieldset>
+<legend class="legend">STATISTIK</legend>
+<table width="60%" cellpadding="5" cellspacing="1">
+  <tr>
+    <td class="row_header" width="5%">Bil.</td>
+    <td class="row_header" style="text-align:left !important" width="75%">Keterangan</td>
+    <td class="row_header" width="20%">Jumlah</td>
+  </tr>
+  #set ( $count = 0 )
+  #set ( $jumlah = 0 )  
+  #if ( $listLaporan.size() > 0) 
+  #foreach( $c in $listLaporan )
+  #set ($jumlah = $jumlah + $util.getDouble($c.y))
+  #set ( $count = $count + 1)
+  
+  #if ( $count % 2 == 0 ) 
+  #set ( $rowcolor = "#D0CFCE" ) 
+  #else 
+  #set ( $rowcolor = "#F0F0F0" ) 
+  #end
+  <tr bgcolor="$rowcolor">
+    <td align="center">$!count</td>
+    <td align="left">$!c.keterangan</td>
+    <td align="center">$util.formatDecimal($!c.y)</td>
+  </tr>
+  #end
+  #else
+  <tr >
+    <td align="center">&nbsp;</td>
+    <td >Tiada Rekod</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  #end
+  <tr valign="top">
+    <td></td>
+    <td align="right"><strong>JUMLAH</strong></div></td>
+    <td align="center"><strong>$util.formatDecimal($jumlah)</strong></div></td>
+  </tr>
+</table>
+</fieldset>
+
+##LEGEND
+##parse("$path/legend.vm")

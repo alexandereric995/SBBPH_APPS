@@ -1,0 +1,28 @@
+<select id="idBilAnak" style="text-transform: uppercase" name="idBilAnak" style="width:100%" onChange="$('err_idBilAnak').innerHTML=''; at(this, event);">
+    <option value="">SILA PILIH</option>
+    <option #if ( $!users.flagAnak == "01" ) selected #end value="01">1</option>
+	<option #if ( $!users.flagAnak == "02" ) selected #end value="02">2</option>
+	<option #if ( $!users.flagAnak == "03" ) selected #end value="03">3</option>
+	<option #if ( $!users.flagAnak == "04" ) selected #end value="04">4</option>
+	<option #if ( $!users.flagAnak == "05" ) selected #end value="05">5</option>
+	<option #if ( $!users.flagAnak == "99" ) selected #end value="99">Lebih daripada 5 - Sila nyatakan</option>
+	<option #if ( $!users.flagAnak == "TB" ) selected #end value="TB">Tidak Berkaitan</option>
+</select>
+
+<script>
+    var x = "$!users.bilAnak";
+		
+	if ( x == "99" ) {
+		_jq("#bilanganAnak").show();
+	} else {
+		_jq("#bilanganAnak").hide();
+	}
+	
+    _jq("#idBilAnak").change(function() {
+		if ( this.value == "99" ) {
+			_jq("#bilanganAnak").show();
+    	} else {
+			_jq("#bilanganAnak").hide();
+    	}
+    });
+</script>

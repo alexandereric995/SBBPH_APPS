@@ -1,0 +1,74 @@
+function validate() {
+	var err_count = 0;
+	
+	var namaPegawai = $('namaPegawai').value;
+	if ( namaPegawai == "" ) {$('err_namaPegawai').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var noTelefon = $('noTelefon').value;
+	if ( noTelefon == "" ) {$('err_noTelefon').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var emel = $('emel').value;
+	if ( emel == "" ) {$('err_emel').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var idKementerian = $('idKementerian').value;
+	if ( idKementerian == "" ) {$('err_idKementerian').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var idAgensi = $('idAgensi').value;
+	if ( idAgensi == "" ) {$('err_idAgensi').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var namaJabatan = $('namaJabatan').value;
+	if ( namaJabatan == "" ) {$('err_namaJabatan').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var alamat1 = $('alamat1').value;
+	if ( alamat1 == "" ) {$('err_alamat1').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var poskod = $('poskod').value;
+	if ( poskod == "" ) {$('err_poskod').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var idNegeri = $('idNegeri').value;
+	if ( idNegeri == "" ) {$('err_idNegeri').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var idBandar = $('idBandar').value;
+	if ( idBandar == "" ) {$('err_idBandar').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var idPemohon = $('idPemohon').value;
+	if ( idPemohon != "" ) {
+		var tarikhLuput = $('tarikhLuput').value;
+		if ( tarikhLuput == "" ) {$('err_tarikhLuput').innerHTML = "** adalah mandatori!"; err_count++;  }
+		
+		var flagAktif = $('flagAktif').value;
+		if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+		
+		var flagHq = $('flagHQ').value;
+		if ( flagHq == "" ) {$('err_flagHq').innerHTML = "** adalah mandatori!"; err_count++;  }
+	}
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function kemaskiniPemohon(){
+	if ( validate() ){
+		doDivAjaxCall$formname('divMaklumat','kemaskiniPemohon','');
+	}
+}
+
+function setSemulaKatalaluan(){
+	var err_count = 0;
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+	if ( flagAktif == "T" ) {$('err_flagAktif').innerHTML = "Pemohon tidak aktif!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divMaklumat','setSemulaKatalaluan','');
+	}	
+}

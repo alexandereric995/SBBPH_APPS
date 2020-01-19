@@ -1,0 +1,89 @@
+
+
+<fieldset>
+<legend class="legend">MAKLUMAT PERMOHONAN</legend>
+	<table width="100%" cellpadding="2" cellspacing="2" >
+		<tr>
+			<td valign="top" width="49%">
+				<table width="100%" cellpadding="2" cellspacing="2" >
+            		<tr>
+            			<td valign="top" width="30%">No. Tempahan</td>
+            			<td valign="top" width="1%" align="right">:</td>
+            			<td valign="top" width="69%">$!r.noTempahan.toUpperCase()</td>
+            		</tr>
+					
+					<!--
+					<tr>
+            			<td valign="top">Jenis Peranginan</td>
+            			<td valign="top" align="right">:</td>
+            			<td valign="top">$!r.rppPeranginan.jenisPeranginan.id.toUpperCase() - $!r.rppPeranginan.jenisPeranginan.keterangan.toUpperCase()</td>
+            		</tr>
+					-->
+					
+					<tr>
+            			<td valign="top">Jenis Pemohon</td>
+            			<td valign="top" align="right">:</td>
+            			<td valign="top">$!r.jenisPemohon.toUpperCase()</td>
+            		</tr>
+            		<tr>
+            			<td valign="top">Lokasi</td>
+            			<td valign="top" align="right">:</td>
+            			<td valign="top">
+							$!r.rppPeranginan.namaPeranginan.toUpperCase()
+						</td>
+            		</tr>
+					<tr>
+            			<td valign="top">Tarikh Check-In</td>
+            			<td valign="top">:</td>
+            			<td valign="top">
+							$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy')
+						</td>
+            		</tr>
+					
+					<tr>
+            			<td valign="top">Tarikh Check-Out</td>
+            			<td valign="top">:</td>
+            			<td valign="top">
+							$!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')
+						</td>
+            		</tr>
+					
+            	</table>
+			</td>
+			
+			<td valign="top" width="2%">
+			</td>	
+			
+			<td valign="top" width="49%">
+				<table width="100%" cellpadding="2" cellspacing="2" >	
+            		<tr>
+            			<td valign="top" width="35%">Tarikh Permohonan</td>
+            			<td valign="top" width="1%"align="right">:</td>
+            			<td valign="top" width="64%">$!util.getDateTime($!r.tarikhPermohonan,'dd-MM-yyyy')</td>
+            		</tr>
+            		<tr>
+            			<td valign="top">Status Permohonan</td>
+            			<td valign="top" align="right">:</td>
+            			<td valign="top">$!r.status.keterangan.toUpperCase()</td>
+            		</tr>
+            		<tr>
+            			<td valign="top">Status Bayaran</td>
+            			<td valign="top" align="right">:</td>
+            			<td valign="top">
+							#if($!r.statusBayaran.equalsIgnoreCase("T"))
+                        		BELUM DIBAYAR
+                        	#else
+                        		TELAH DIBAYAR
+							#end
+						</td>
+            		</tr>
+					<tr>
+            			<td valign="top">Tarikh Bayaran</td>
+            			<td valign="top" align="right">:</td>
+            			<td valign="top">$!util.getDateTime($!r.tarikhBayaran,'dd-MM-yyyy')</td>
+            		</tr>
+            	</table>
+			</td>
+		</tr>
+	</table>
+</fieldset>

@@ -1,0 +1,52 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!r.kontraktor.tarikhMulaSTB) 
+        #set ($dateMulaSTB = "$!util.getDateTime($!r.kontraktor.tarikhMulaSTB,'dd-MM-yyyy')")
+        #else #set ($dateMulaSTB = "") #end
+        #date_input_required("tarikhMulaSTB" "Tarikh Mula" "$dateMulaSTB")
+        
+        #if ($!r.kontraktor.tarikhTamatSTB) 
+        #set ($dateTamatSTB = "$!util.getDateTime($!r.kontraktor.tarikhTamatSTB,'dd-MM-yyyy')")
+        #else #set ($dateTamatSTB = "") #end
+        #date_input_required("tarikhTamatSTB" "Tarikh Tamat" "$dateTamatSTB")
+        #if ($!r.kontraktor.getStatusSTB() == 'T') 
+        <tr>
+          <td style="width:150px">&nbsp;</td>
+          <td style="width:10px">&nbsp;</td>
+          <td><font class="blink" color="red"><b>( SIJIL TAMAT TEMPOH ) </b></font><br/></td>
+        </tr>
+        #end
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px">
+          	<input class="texts" type="file" id="dokumenSTB" name="dokumenSTB" style="width:500px" onFocus="$('err_dokumenSTB').innerHTML = '';" onChange="uploadSTB()">
+            <div id="muatNaikSijilSTB" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+            <div id="err_dokumenSTB" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!r.kontraktor.filenameSTB) 
+	        #if ($!r.kontraktor.filenameSTB  != "") 
+	        <tr>
+	          <td style="width:150px"> <a href="../download?file=$!uploadDir$!r.kontraktor.filenameSTB" > <span class="print">SIJIL TARAF BUMIPUTERA<span> </a> &nbsp;&nbsp;<input id="hapusSTB" name="hapusSTB" type="button" value="Hapus" onclick="javascript:doHapusSTB();"/> </td>
+	          <td style="width:10px"></td>
+	          <td></td>
+	        </tr>
+	        #end
+        #end
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<iframe id="upload_STB" name="upload_STB" width="0px" height="0px" style="visibility:hidden"></iframe>

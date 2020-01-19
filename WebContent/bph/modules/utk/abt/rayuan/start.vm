@@ -1,0 +1,81 @@
+## Author : zulfazdliabuas@gmail.com Data 2015-2017
+
+<div id="mainRayuan" name="mainRayuan">
+<fieldset><legend class="legend">Maklumat Rayuan</legend>
+<p align="left">
+ 		<input type="button" value="Tambah" align='left' id="addMaklumatRayuan">
+ 		<script>
+			_jq('#addMaklumatRayuan').on('click', function(){
+			$('mainRayuan').style.display = 'none';
+			doDivAjaxCall3$formname('editMaklumatRayuan','addRayuan','');
+##            jQuery('#editMaklumatRayuan').fadeIn();
+        	});
+		</script>
+	</p>
+	<br /><br />
+    <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+            <td align="center" class="row_header" width="5%">Bil.</td>
+##            <td align="center" class="row_header" width="25%">No Rayuan</td>
+            <td align="center" class="row_header" width="25%">Jenis Rayuan</td>
+			<td align="center" class="row_header" width="20%">Bilangan Rayuan</td>
+            <td align="center" class="row_header" width="10%">Tarikh Rayuan</td>
+            <td align="center" class="row_header" width="5%">Papar</td>
+		    <td class="row_header" width="5%">Hapus</td>
+        </tr>
+        #if ( $listRayuan.size() > 0) 
+    		#set ( $count = 0 )
+    		#foreach( $c in $listRayuan)
+    			#set ( $count = $count + 1)
+				
+    			#if ( $count % 2 == 0 ) 
+					#set ( $rowcolor = "#D0CFCE" ) 
+				#else 
+					#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+    			<tr bgcolor="$rowcolor">
+    				<td align="center">$count</td>
+##    				<td align="center">$!c.noRayuan</td>
+    				#if($!c.flagJenisRayuan == '1')
+    					#set($flagJenisRayuan = 'RAYUAN KUARTERS')
+    				#elseif($!c.flagJenisRayuan == '2')
+    					#set($flagJenisRayuan = 'RAYUAN BAYARAN SEWA')
+				    #end
+					<td align="center">$flagJenisRayuan</td>
+					#if($!c.flagRayuan == '1')
+    					#set($flagRayuan = 'RAYUAN PERTAMA')
+    				#else
+    					#set($flagRayuan = 'RAYUAN KE-' + $!c.flagRayuan)
+				    #end
+					<td align="center">$flagRayuan</td>
+					<td align="center">$util.getDateTime($c.tarikhRayuan, "dd/MM/yyyy")</td>
+					<td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> </td>
+          			<td align="center"><a href="javascript:void()" onClick="deleteMaklumatRayuan('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+        			</tr>
+        			<script>
+        			_jq('#link$c.id').on('click', function(){
+        			$('mainRayuan').style.display = 'none';
+					doDivAjaxCall3$formname('editMaklumatRayuan','editRayuan','idRayuan=$c.id');
+##            		jQuery('#editMaklumatRayuan').fadeIn();
+            		});
+       			</script>
+    		#end
+	#else
+	<tr >
+		<td align="center">&nbsp;</td>
+		<td >Tiada Rekod</td>
+		<td align="center">&nbsp;</td>
+		<td align="center">&nbsp;</td>
+		<td align="center">&nbsp;</td>
+	</tr>
+	#end
+    </table>
+</fieldset>
+<p align="right">
+ 	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+</p>
+</div>
+## Popup
+<div id="editMaklumatRayuan"></div>
+## Blank status page
+<div id="removeMaklumatRayuan"></div>

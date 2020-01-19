@@ -1,0 +1,164 @@
+
+<input type="hidden" name="id" id="id" value="$!r.id" />
+
+<fieldset>
+<legend class="legend">maklumat pemohon</legend>
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr>
+			<td style="width:166px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		
+		#show("NAMA" "$!r.penuntut.userName.toUpperCase()")
+		#show("NO. KAD PENGENALAN" "$!r.penuntut.noKP")
+		
+	</table>
+</fieldset>
+		
+<fieldset>
+<legend class="legend">maklumat permohonan</legend>
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr>
+			<td style="width:166px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">MAKLUMAT PERMOHONAN RUANG KOMERSIL</span>
+			</td>
+		</tr>
+		<tr><td colspan="3">&nbsp;</td></tr>
+		
+		#show("TUJUAN PERMOHONAN" "$!r.deposit.getMaklumatPermohonanRK().tujuanPermohonan.toUpperCase()")
+		#show("TARIKH PERMOHONAN" "$!util.getDateTime($!r.deposit.getMaklumatPermohonanRK().tarikhPermohonan,'dd-MM-yyyy')")
+		
+	</table>	
+</fieldset>
+
+<!--		
+<fieldset>
+<legend class="legend">maklumat permohonan</legend>
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr>
+			<td style="width:166px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">MAKLUMAT KUARTERS TERDAHULU</span>
+			</td>
+		</tr>
+		<tr><td colspan="3">&nbsp;</td></tr>
+		
+		#show("JENIS KUARTERS" "")
+		#show("ALAMAT" "")
+		#show("" "")
+		#show("" "")
+	</table>	
+</fieldset>
+-->
+
+<fieldset>
+<legend class="legend">maklumat deposit</legend>
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr><td colspan="9"></td></tr>
+		<tr>
+			<td colspan="9">
+				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">DEPOSIT</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="row_header" width="10%">TARIKH</td>
+			<td class="row_header" width="10%">NO. RESIT</td>
+			<td class="row_header" width="10%">AMAUN<br/>DEPOSIT (RM)</td>
+			<td class="row_header" width="10%">NO. BAUCER<br/> PEMULANGAN<br/>DEPOSIT</td>
+			<td class="row_header" width="10%">TARIKH BAUCER</td>
+			<td class="row_header" width="10%">NO.EFT</td>
+			<td class="row_header" width="10%">TARIKH EFT</td>
+			<td class="row_header" width="10%">AMAUN<br/> BAYARAN<br/> BALIK (RM)</td>
+			<td class="row_header" width="20%">CATATAN</td>
+		</tr>
+		
+		<tr bgcolor="#F0F0F0">
+			<td align="center">$!util.getDateTime($!r.deposit.tarikhDeposit,'dd-MM-yyyy')</td>
+			<td align="center">$!r.deposit.noResit.toUpperCase()</td>
+			<td align="right">$!util.formatDecimal($!r.deposit.jumlahDeposit)</td>
+			<td align="center"><input type="text" name="noBaucerPulanganDeposit" id="noBaucerPulanganDeposit" value="$!r.noBaucerPulanganDeposit" /></td>
+			<td align="center">
+				<div>
+            		<input type="text" id="tarikhBaucer" name="tarikhBaucer" value="$!util.getDateTime($!r.tarikhBaucer,'dd-MM-yyyy')" >
+        			<script>
+                    	_jq("#tarikhBaucer").Zebra_DatePicker({ 
+            				format: 'd-m-Y',
+        					readonly_element: false,
+                    	});
+        				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+            		</script>
+        		</div>
+			</td>
+			<td align="center"><input type="text" name="noEft" id="noEft" value="$!r.noEft" /></td>
+			<td align="center">
+				<div>
+            		<input type="text" id="tarikhEft" name="tarikhEft" value="$!util.getDateTime($!r.tarikhEft,'dd-MM-yyyy')" >
+        			<script>
+                    	_jq("#tarikhEft").Zebra_DatePicker({ 
+            				format: 'd-m-Y',
+        					readonly_element: false,
+                    	});
+        				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+            		</script>
+        		</div>
+			</td>
+			<td align="center"><input type="text" style="text-align:right" class="currency" name="amaunPelarasanDeposit" id="amaunPelarasanDeposit" value="$!r.amaunPelarasanDeposit" /></td>
+			<td align="center"><input type="text" name="catatanPelarasanDeposit" id="catatanPelarasanDeposit" value="$!r.catatanPelarasanDeposit" onBlur="this.value=this.value.toUpperCase();" /></td>
+		</tr>
+			
+	</table>	
+	
+</fieldset>
+		
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="right">
+			
+			#if( $!r.status.id == "1438023402975" && $!userRole.equalsIgnoreCase("(DEPOSIT) Pelulus") )	
+			<input type="button" value="Luluskan Pelarasan" onClick="javascript:lulusPelarasan()">
+			#end
+			
+			#if( $!r.status.id == "1438023402951" && $!userRole.equalsIgnoreCase("(DEPOSIT) Penyemak") )	
+			<input type="button" value="Hantar Kelulusan" onClick="javascript:hantarKelulusan()">
+			#end
+				
+			#if( $!r.status.id == "1436464445673" && $!userRole.equalsIgnoreCase("(DEPOSIT) Penyedia") )	
+			<input type="button" value="Hantar Pengesahan" onClick="javascript:hantarPengesahan()">
+			#end	
+			
+			#if( ($!r.status.id == "1436464445668" || $!r.status.id == "1436464445673") && $!userRole.equalsIgnoreCase("(DEPOSIT) Penyedia") )		
+			#set ( $queryParam = "record_id=$!r.id" )
+			<input type="button" value="Simpan" onClick="if ( validateField() ) doDivAjaxCall$formname('div_main_entry','save_data','$queryParam')">	
+			#end
+			
+			#if(($!r.status.id == "1438023402980") && $!userRole.equalsIgnoreCase("(DEPOSIT) Penyedia")) <!-- PERMOHONAN DILULUSKAN -->
+			<input type="button" value="Deposit Telah Dipulangkan" onClick="javascript:doPulangDeposit()">
+			#end
+			
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+
+<script>
+  _jq(function($) {
+  	  $('.bracketNumber').autoNumeric('init', {nBracket: '(,)', vMin: '-9999999999.99', vMax: '9999999999.99'} );
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

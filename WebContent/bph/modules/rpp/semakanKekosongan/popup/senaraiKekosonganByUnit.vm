@@ -1,0 +1,93 @@
+
+<style>
+.scrollitpopup {
+	height:500px; width: 100%; overflow: auto;
+}
+</style>
+
+
+    <fieldset style="width:80%; ">
+    <legend class="legend">Senarai Kekosongan bagi $!jns.keterangan, $!jns.peranginan.namaPeranginan</legend>
+    	
+    <br/>
+   
+	<div id="printableArea">
+    	
+		<div class="scrollitpopup">
+     		
+    	#if ( $listUnitAvailable.size() > 0 )
+    		#set( $count = 0 )
+    		#foreach ( $d in $listUnitAvailable )
+    		
+    			<div style="vertical-align:top;float:left;margin: 10px 10px 20px 20px;width:20%">
+    				
+        			<span style="font-size:12px;font-weight:bold;">
+						<span style="color:#000000;font-size:10px">
+    					$!d.namaUnit $!d.noUnit
+						</span>
+    					#if($!d.getCheckedSelenggara($!dtfrom,$!dtto).equalsIgnoreCase("Y"))
+    						<span style="color:#CC0000;font-size:10px">
+    						(SELENGGARA)
+    						</span>
+    					#end
+    				</span>
+        			
+    				<table cellpadding="1" cellspacing="1" width="100%" border="0">
+        				<tr>
+                			<th class="row_header" width="50%">TARIKH</th>
+                    		<th class="row_header" width="50%">KEKOSONGAN</th>
+                    	</tr>
+    					
+    					
+    					#foreach( $e in $d.listKekosonganByUnit($!tarikhMula,$!tarikhAkhir))
+    						#set ( $count = $count + 1)
+            				#if ( $count % 2 == 0 ) 
+            					#set ( $rowcolor = "#D0CFCE" ) 
+                        	#else 
+                        		#set ( $rowcolor = "#F0F0F0" ) 
+                			#end
+                				
+            				<tr bgcolor="$rowcolor">
+            					<td>$e.tarikhLoop</td>
+                            	<td align="center">
+    								#if($e.flagAvailable.equalsIgnoreCase("Y"))
+    									<img src="../img/check_present.png" style="width:20px;height:20px" border="0">
+    								#else
+    									<img src="../img/check_absent.png" style="width:20px;height:20px" border="0">
+    								#end
+    							</td>
+            				</tr>
+    					#end
+    						
+        			</table>
+    				
+    			</div>
+    		
+    		#end
+    	#else
+    		<p>TIADA REKOD</p>
+    	#end
+    	
+    	</div>
+	</div>   	
+    	<br/>
+    	
+    	<table width="100%">
+        	<tr>
+        		<td align="right">
+    				<input type="button" onclick="printDiv('printableArea')" value="Cetak Skrin" />
+        			<input type="button" id="btnKeluar" name="btnKeluar" value="Keluar">
+        		</td>
+        	</tr>
+        </table>
+    
+    </fieldset>
+
+			
+<script>
+  _jq('#btnKeluar').on('click', function(){
+    jQuery('#popupDetail').fadeOut();
+  });
+</script>
+
+

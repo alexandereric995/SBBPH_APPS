@@ -1,0 +1,166 @@
+
+
+#parse("$path/tabbed.vm")
+
+<fieldset>
+<legend class="legend">DAFTAR MASUK</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+			<td width="20%" valign="top"></td>
+			<td width="1%" valign="top"></td>
+			<td width="79%" valign="top"></td>
+		</tr>
+		
+		#if( !$!bilik.tarikhDaftarKeluar )
+		<tr>
+			<td valign="top">Tarikh Daftar Masuk &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td valign="top">:</td>
+			<td valign="top">
+				
+				#set( $dateChIn = "")
+				#if( !$!bilik )
+					#set( $dateChIn = "$!util.getDateTime($r.tarikhMasukRpp,'dd-MM-yyyy')")
+				#else
+					#set( $dateChIn = "$!util.getDateTime($!bilik.tarikhDaftarMasuk,'dd-MM-yyyy')")
+				#end	
+				
+				<input type="text" id="tarikhDaftarMasuk" name="tarikhDaftarMasuk" value="$!dateChIn" >
+            					<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+            		    		<script>
+            		            	_jq("#tarikhDaftarMasuk").Zebra_DatePicker({ 
+            		    				format: 'd-m-Y',
+            							readonly_element: false,
+										##direction: true,
+										onSelect: function(view, elements) {
+                    						$('err_tarikhDaftarMasuk').innerHTML='';
+                    					}
+            		            	});
+            		    		</script>
+						<div id="err_tarikhDaftarMasuk" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+          	</td>
+		</tr>
+		
+		<tr>
+			<td valign="top">Masa Masuk &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td valign="top">:</td>
+			<td valign="top">
+				<select class="texts" id="masaDaftarJam" name="masaDaftarJam" style="width:50px" onChange=" $('err_masaDaftarMasuk').innerHTML='' " >
+                    <option value="">JAM</option>
+                    #foreach( $n in [1..12])
+                    	<option value="$n" #if($n == $!bilik.masaDaftarJam) selected #end>$n</option>
+                    #end
+                </select>
+				&nbsp; : &nbsp;
+				<select class="texts" id="masaDaftarMinit" name="masaDaftarMinit" style="width:60px" onChange=" $('err_masaDaftarMasuk').innerHTML='' " >
+                    <option value="">MINIT</option>
+                    #foreach( $n in [0..59])
+                    	<option value="$n" #if($n == $!bilik.masaDaftarMinit) selected #end >$n</option>
+                    #end
+                </select>
+				&nbsp;
+				<select class="texts" id="masaDaftarAmPm" name="masaDaftarAmPm" style="width:50px">
+                    <option value="PM" #if($!bilik.masaDaftarAmPm == "PM") selected #end >PM</option>
+					<option value="AM" #if($!bilik.masaDaftarAmPm == "AM") selected #end >AM</option>
+                </select>
+				<div id="err_masaDaftarMasuk" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td valign="top">Catatan</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				<textarea id="catatanMasuk" class="uppercasefont" name="catatanMasuk" onKeyUp="$('err_catatanMasuk').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">$!bilik.catatanMasuk</textarea>
+				<div id="err_catatanMasuk" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		#else
+		
+		#show("Tarikh Masuk" "$!util.getDateTime($!bilik.tarikhDaftarMasuk,'dd-MM-yyyy')")	
+		#show("Catatan" "$!util.replaceIfNull($!bilik.catatanMasuk,'-')")
+		
+		#end
+	</table>
+
+</fieldset>
+	
+
+<div id="divPilihanBilik">
+	#parse("$path/daftarMasuk/pilihanBilik.vm")
+</div>
+
+
+<div id="divPopupPilihBilik" class="popup"></div>
+
+	#set ( $dateIn = "$!util.getDateTime($r.tarikhMasukRpp,'dd-MM-yyyy')")
+	#set ( $dateOut = "$!util.getDateTime($r.tarikhKeluarRpp,'dd-MM-yyyy')")
+	
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+				<input type="button" value="Cetak"  id="cmdCetak"/>
+				
+				#if( $r.status.id=="1425259713415" || $r.status.id=="1425259713421")
+					#set($btname = "Daftar Masuk")
+					#if( $r.status.id=="1425259713421" )
+						#set($btname = "Simpan")
+					#end
+					<input id="btnSemakKekosongan" type="button" value="$btname" onClick="doDaftarMasuk('$!r.id','$!dateIn','$!dateOut')">
+					##<input id="btnClearForm" type="button" value="Kosongkan" onClick="doKosongkanDaftarMasuk()">					
+        		#end
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>
+	
+    <fieldset id="tableReport" style="display:none;">
+    <legend class="legend">CETAKAN</legend>
+        <table width="100%" >
+
+			#if( $!r.getIdResitSewa() != "" && $!r.getIdResitSewa() )
+        	<tr>
+        		<td><a href="#" style="color:blue;font-size:10px" onclick="cetakResitSewa('$!r.getIdResitSewa()')" >RESIT SEWA</a></td>		
+        	</tr>
+        	#end
+        	
+        	#if( !$!r.getIdResitDeposit().equals(null) && $!r.getIdResitSewa() != "" && $!r.getIdResitDeposit() != $!r.getIdResitSewa() )
+        	<tr>
+        		<td><a href="#" style="color:blue;font-size:10px" onclick="cetakResitSewa('$!r.getIdResitDeposit()')" >RESIT DEPOSIT </a></td>		
+        	</tr>
+        	#end
+
+			#if( $r.status.id != "1425259713415" )
+            <tr>
+        		<td><a href="#" style="color:blue;font-size:10px" id="cmdBorangPendaftaranTetamu">SURAT PENDAFTARAN TETAMU</a></td>		
+        	</tr>
+        	#end
+        </table>
+    </fieldset>
+
+<script>
+	
+	_jq('#cmdCetak').on('click', function(){
+
+			if(document.getElementById('tableReport').style.display=="none"){
+				document.getElementById('tableReport').style.display="block";
+				}
+			else if(document.getElementById('tableReport').style.display=="block"){
+				document.getElementById('tableReport').style.display="none";
+				}
+	});
+	
+		_jq('#cmdBorangPendaftaranTetamu').on('click', function(){
+		
+				var url = "../servlet/bph.laporan.rpp.BorangPendaftaranTetamu?idRppPermohonan=$!r.id";
+				var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+				if ((document.window != null) && (!hWnd.opener))
+				hWnd.opener = document.window;
+				if (hWnd.focus != null) hWnd.focus();
+	
+		});
+		
+</script>
+
+

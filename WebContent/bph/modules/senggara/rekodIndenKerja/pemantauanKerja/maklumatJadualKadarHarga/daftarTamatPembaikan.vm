@@ -1,0 +1,35 @@
+<fieldset>
+<legend class="legend">TAMAT PEMBAIKAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #date_input_required("tarikhSelesaiPembaikan" "Tarikh Tamat" "$!dateSelesaiPembaikan")
+  <tr>
+    <td class="label" valign="top" style="width:15%">Catatan</td>
+    <td class="label" valign="top" style="width:1%">:</td>
+    <td valign="top" style="width:84%"><textarea id="catatanSelesaiPembaikan" name="catatanSelesaiPembaikan" onBlur="this.value=this.value.toUpperCase();">$!catatanSelesaiPembaikan</textarea></td>
+  </tr> 
+  <tr>
+    <td valign="top">Laporan Pembaikan &nbsp;</td>
+    <td valign="top">:</td>
+    <td valign="top">
+    	<input type=hidden name="dokumenLaporanPembaikan" id="dokumenLaporanPembaikan" value="$!jkh.fileLaporanPembaikan"> 
+	    #if ( $!jkh.fileLaporanPembaikan ) 
+			#if ($!jkh.fileLaporanPembaikan != "") 
+		    	<a href="../download?file=$!uploadDir$!jkh.fileLaporanPembaikan" ><font color="#0000FF"><strong>LAPORAN PEMBAIKAN</strong></font> </a> &nbsp;&nbsp;
+		    #end
+		#end
+		    
+      <input class="texts" type="file" id="lampiranLaporanPembaikan" name="lampiranLaporanPembaikan" style="width:500px" onFocus="$('err_lampiranLaporanPembaikan').innerHTML = '';" onChange="uploadLampiranLaporanPembaikan()">
+      <div id="uploadLampiranLaporanPembaikan" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+      <div id="err_lampiranLaporanPembaikan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+   </td>
+  </tr>  
+</table>
+</fieldset>
+
+<div id="lampiranLaporanPembaikanReload"></div>
+<iframe id="upload_lampiran_laporan_pembaikan" name="upload_lampiran_laporan_pembaikan" width="0px" height="0px" style="visibility:hidden"></iframe>

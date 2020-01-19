@@ -1,0 +1,41 @@
+
+<td>$!r.kuarters.noRujukan.toUpperCase()</td>
+<td>
+	<b>No. Unit :</b> $!r.kuarters.noUnit.toUpperCase() <br/>
+	<b>Blok :</b> $!r.kuarters.blok.toUpperCase() <br/>
+	<b>Fasa :</b> $!r.kuarters.fasa.keterangan <br/>
+	<b>Alamat :</b> $!r.kuarters.alamat1.toUpperCase() $!r.kuarters.alamat2.toUpperCase() $!r.kuarters.alamat3.toUpperCase()
+</td>
+<td>
+	<b>Lokasi :</b> $!r.kuarters.lokasi.keterangan.toUpperCase() <br/>
+	<b>Kawasan :</b> $!r.kuarters.lokasi.lokasi.lokasi.toUpperCase() 	
+</td>
+<td align="center">$!r.kuarters.kelas.id</td>
+<td>$!r.kuarters.jenisKediaman.keterangan</td>
+
+#if ($!r.tarikhTerimaLaporan) 
+	#set ($dateTerimaLaporan = "$!util.getDateTime($!r.tarikhTerimaLaporan,'dd-MM-yyyy')")
+#else #set ($dateTerimaLaporan="") #end
+<td align="center">$dateTerimaLaporan</td>
+
+#if ($!showTerimaanKunci) 
+	#if ($!r.tarikhTerimaKunci) 
+		#set ($dateTerimaKunci = "$!util.getDateTime($!r.tarikhTerimaKunci,'dd-MM-yyyy')")
+	#else #set ($dateTerimaKunci="") #end
+<td  align="center">$dateTerimaKunci</td>
+#end
+
+#if ($!showSerahanKunci) 
+	#if ($!r.tarikhSerahKunci) 
+		#set ($dateSerahKunci = "$!util.getDateTime($!r.tarikhSerahKunci,'dd-MM-yyyy')")
+	#else #set ($dateSerahKunci="") #end
+<td  align="center">$dateSerahKunci</td>
+#end
+
+#if ($!showTugasan) 
+	<td>$!r.tugasan.pegawaiTugasan.userName.toUpperCase()</td>
+#end
+
+#if ($!showStatus) 
+	<td><b>$!r.status.keterangan</b></td>
+#end

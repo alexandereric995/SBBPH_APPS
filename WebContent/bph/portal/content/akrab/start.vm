@@ -1,0 +1,69 @@
+## Author : zulfazdliabuas@gmail.com Date 14/06/2017
+
+<div id="divAkrab">
+  <div id="content-format">
+    <pinLeft></pinLeft>
+    <pinRight></pinRight>
+   
+    <section> 
+	    #if ($listAkrab.size() > 0)
+			<div id="tabs" style="margin-top: 60px;">
+				
+				<nav class="breadcrumbs">
+					<ul>
+						#foreach ( $akrab in $listAkrab )
+							<li #if($!selectedTab == $!akrab.id) class="active" #end><a href="javascript:void()" #if($!selectedTab != $!akrab.id) onClick="doDivAjaxCall3$formname('divAkrab','getTabAkrab','idAkrab=$!akrab.id')" #end >$!akrab.tajuk</a></li>
+						#end
+					</ul>
+				</nav>
+				<img src="../images/akrab/akrab.png" style="position: absolute; right: 25px; top: 0px;" width="100" height="100"/>
+##				<table border="0" width="100%">
+##					<tr>
+##						<td valing="bottom">
+##							<nav class="breadcrumbs">
+##								<ul>
+##									#foreach ( $akrab in $listAkrab )
+##										<li #if($!selectedTab == $!akrab.id) class="active" #end><a href="javascript:void()" #if($!selectedTab != $!akrab.id) onClick="doDivAjaxCall3$formname('divAkrab','getTabAkrab','idAkrab=$!akrab.id')" #end >$!akrab.tajuk</a></li>
+##									#end
+##								</ul>
+##							</nav>
+##						</td>
+##						<td width="100">
+##							 <header><img src="../images/akrab/akrab.png" width="100" height="100"/></header>
+##						</td>
+##					</tr>
+##				</table>
+					
+				#if ($akrab)
+					<div id="tabs-1">
+						##<p class="title">Aktiviti-aktiviti AKRAB $!akrab.tajuk :</p>
+						<p>$!akrab.keterangan</p>
+						<ul>
+						#foreach ( $aktiviti in $listAktivitiAkrab )
+							<li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('content','getAktivitiAkrab','idAktiviti=$!aktiviti.id')">$!aktiviti.namaAktiviti</a></li>
+						#end
+						</ul>
+					</div>
+				#else
+					<div id="tabs-1">
+						<table cellpadding="5" cellspacing="0" border="0" width="100%">
+							<tr>
+								<td style="text-align:center;"><font color="black"><b>SEDANG DIKEMASKINI.</b></font> </td>
+							</tr>
+						</table>
+					</div>
+				#end 
+			</div>
+		#else
+			<div id="tabs-1">
+				<table cellpadding="5" cellspacing="0" border="0" width="100%">
+					<tr>
+						<td style="text-align:center;"><font color="black"><b>SEDANG DIKEMASKINI.</b></font> </td>
+					</tr>
+				</table>
+			</div>
+		#end 
+  	</section>
+  </div>
+</div>
+

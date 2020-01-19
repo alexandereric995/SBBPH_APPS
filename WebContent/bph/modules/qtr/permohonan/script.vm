@@ -1,0 +1,550 @@
+function validate() {
+	var err_count = 0;
+	return err_count == 0;
+}
+
+function semakLokasi() {
+	var err_count = 0;
+	
+	var staff = $('hiddenRole').value;
+	if ( staff == "" ){
+		staff="false";
+	}
+	
+	var idLokasiPermohonan = $('idLokasiPermohonan').value;
+	if ( idLokasiPermohonan == "" ) {$('err_idLokasiPermohonan').innerHTML = "Lokasi Permohonan Kuarters adalah mandatori!"; err_count++;  }
+	
+	var poskodPekerjaan = $('poskodPekerjaan').value;
+	if ( poskodPekerjaan == "" ) {$('err_poskodPekerjaan').innerHTML = "Poskod Tempat Bekerja adalah mandatori!"; err_count++;  }
+	
+	var idNegeriPekerjaan = $('idNegeriPekerjaan').value;
+	if ( idNegeriPekerjaan == "" ) {$('err_idNegeriPekerjaan').innerHTML = "Negeri Tempat Bekerja adalah mandatori!"; err_count++;  }
+	
+	var idBandarPekerjaan = $('idBandarPekerjaan').value;
+	if ( idBandarPekerjaan == "" ) {$('err_idBandarPekerjaan').innerHTML = "Bandar Tempat Bekerja adalah mandatori!"; err_count++;  }
+	
+	var valuePinjamanPerumahan = $('valuePinjamanPerumahan').value;
+	if ( valuePinjamanPerumahan == "" ) {$('err_valuePinjamanPerumahan').innerHTML = "Pinjaman Perumahan adalah mandatori!"; err_count++;  }
+	
+	if ( staff == "false" ){
+	var statusPermohonan = $('statusPermohonan').value;
+		if(statusPermohonan=='1419601227590')
+		{
+			swal("Makluman", "Status semasa permohonan anda adalah MENUNGGU. Anda tidak dibenarkan untuk membuat pertukaran lokasi buat masa ini. Sekiranya anda ingin membuat pertukaran lokasi,sila maklumkan pertukaran bersama dokumen/bukti berkaitan dengan Puan Puan Rahiza binti Abdul Talib  (Unit Kuarters) di talian/ emel 03-88800096/rahiza@bph.gov.my.", "error");
+			err_count++;
+		}
+	}
+	
+	if ( valuePinjamanPerumahan == 1 ) {
+		
+		var valueJenisPerumahan = $('valueJenisPerumahan').value;
+        if ( valueJenisPerumahan == "" ) {$('err_valueJenisPerumahan').innerHTML = "Jenis Perumahan adalah mandatori!"; err_count++;  }
+	
+		if ( valueJenisPerumahan == "swasta" ) {
+    		var valuePembiayaan = $('valuePembiayaan').value;
+            if ( valuePembiayaan == "" ) {$('err_valuePembiayaan').innerHTML = "Pembiayaan adalah mandatori!"; err_count++;  }
+		}
+		
+        var valueStatusRumah = $('valueStatusRumah').value;
+        if ( valueStatusRumah == "" ) {$('err_valueStatusRumah').innerHTML = "Status Pembinaan Rumah adalah mandatori!"; err_count++;  }
+	
+		if ( valueStatusRumah == 2 ) {
+    		var tarikhJangkaSiap = $('tarikhJangkaSiap').value;
+            if ( tarikhJangkaSiap == "" ) {$('err_tarikhJangkaSiap').innerHTML = "Jangka Masa siap adalah mandatori!"; err_count++;  }
+		}
+		
+		var valuePembelian = $('valuePembelian').value;
+        if ( valuePembelian == "" ) {$('err_valuePembelian').innerHTML = "Pembelian adalah mandatori!"; err_count++;  }
+		
+		var poskodPinjaman = $('poskodPinjaman').value;
+        if ( poskodPinjaman == "" ) {$('err_poskodPinjaman').innerHTML = "Poskod adalah mandatori!"; err_count++;  }
+		
+		var idNegeriPinjaman = $('idNegeriPinjaman').value;
+        if ( idNegeriPinjaman == "" ) {$('err_idNegeriPinjaman').innerHTML = "Negeri adalah mandatori!"; err_count++;  }
+		
+		var idBandarPinjaman = $('idBandarPinjaman').value;
+        if ( idBandarPinjaman == "" ) {$('err_idBandarPinjaman').innerHTML = "Bandar adalah mandatori!"; err_count++;  }
+	}
+	
+	if (err_count == 0) {
+		doDivAjaxCall3$formname('entry_page', 'kelulusan1', '');
+	}
+	return err_count == 0;
+}
+
+function simpanPeribadi() {
+	var err_count = 0;
+	
+	var idGelaran = $('idGelaran').value;
+	if ( idGelaran == "" ) {$('err_idGelaran').innerHTML = "Gelaran adalah mandatori!"; err_count++;  }
+	
+	var userName = $('userName').value;
+	if ( userName == "" ) {$('err_userName').innerHTML = "Nama adalah mandatori!"; err_count++;  }
+	
+	var userNoKP = $('userNoKP').value;
+	if ( userNoKP == "" ) {$('err_userNoKP').innerHTML = "No. Kad Pengenalan adalah mandatori!"; err_count++;  }
+	
+	var idAgama = $('idAgama').value;
+	if ( idAgama == "" ) {$('err_idAgama').innerHTML = "Agama adalah mandatori!"; err_count++;  }
+	
+	var idJantina = $('idJantina').value;
+	if ( idJantina == "" ) {$('err_idJantina').innerHTML = "Jantina adalah mandatori!"; err_count++;  }
+	
+	var idBangsa = $('idBangsa').value;
+	if ( idBangsa == "" ) {$('err_idBangsa').innerHTML = "Bangsa adalah mandatori!"; err_count++;  }
+	
+	var idStatusPerkahwinan = $('idStatusPerkahwinan').value;
+	if ( idStatusPerkahwinan == "" ) {$('err_idStatusPerkahwinan').innerHTML = "Status Perkahwinan adalah mandatori!"; err_count++;  }
+	
+	var idBilAnak = $('idBilAnak').value;
+	if ( idBilAnak == "" ) {$('err_idBilAnak').innerHTML = "Bilangan Anak adalah mandatori!"; err_count++;  }
+	
+	if ( idBilAnak == "99" ) {
+		var userBilAnak = $('userBilAnak').value;
+        if ( userBilAnak == "0" ) {$('err_userBilAnak').innerHTML = "Sila nyatakan bilangan anak"; err_count++;  }
+	}
+	
+	var userNoTelBimbit = $('userNoTelBimbit').value;
+	if ( userNoTelBimbit == "" ) {$('err_userNoTelBimbit').innerHTML = "No. Telefon Bimbit adalah mandatori!"; err_count++;  }
+	
+	var email = $('email').value;
+	if ( email == "" ) {$('err_email').innerHTML = "Emel adalah mandatori!"; err_count++;  }
+	
+	var emailValidation = $('emailValidation').value;
+	if ( emailValidation == "false" ) {$('err_email').innerHTML = "Sila semak format emel yang dimasukkan"; err_count++;  }
+		
+	var userAlamat1 = $('userAlamat1').value;
+	if ( userAlamat1 == "" ) {$('err_userAlamat1').innerHTML = "Alamat adalah mandatori!"; err_count++;  }
+	
+	var userPoskod = $('userPoskod').value;
+	if ( userPoskod == "" ) {$('err_userPoskod').innerHTML = "Poskod adalah mandatori!"; err_count++;  }
+	
+	var idNegeri = $('idNegeri').value;
+	if ( idNegeri == "" ) {$('err_idNegeri').innerHTML = "Negeri adalah mandatori!"; err_count++;  }
+	
+	var idBandar = $('idBandar').value;
+	if ( idBandar == "" ) {$('err_idBandar').innerHTML = "Bandar adalah mandatori!"; err_count++;  }
+	
+	var userAlamatSemasa1 = $('userAlamatSemasa1').value;
+	if ( userAlamatSemasa1 == "" ) {$('err_userAlamatSemasa1').innerHTML = "Alamat Semasa adalah mandatori!"; err_count++;  }
+	
+	var userPoskodSemasa = $('userPoskodSemasa').value;
+	if ( userPoskodSemasa == "" ) {$('err_userPoskodSemasa').innerHTML = "Poskod Semasa adalah mandatori!"; err_count++;  }
+	
+	var idNegeriSemasa = $('idNegeriSemasa').value;
+	if ( idNegeriSemasa == "" ) {$('err_idNegeriSemasa').innerHTML = "Negeri Semasa adalah mandatori!"; err_count++;  }
+	
+	var idBandarSemasa = $('idBandarSemasa').value;
+	if ( idBandarSemasa == "" ) {$('err_idBandarSemasa').innerHTML = "Bandar Semasa adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		doDivAjaxCall3$formname('simpanPeribadi','simpanPeribadi','');
+	}
+	
+	return err_count == 0;
+}
+
+function simpanPekerjaan() {
+	var err_count = 0;
+	
+	var idKelasPerkhidmatan = $('idKelasPerkhidmatan').value;
+	if ( idKelasPerkhidmatan == "" ) {$('err_idKelasPerkhidmatan').innerHTML = "Kelas Perkhidmatan adalah mandatori!"; err_count++;  }
+	
+	##var idGredJawatan = $('idGredJawatan').value;
+	##if ( idGredJawatan == "" ) {$('err_idGredJawatan').innerHTML = "Gred Jawatan adalah mandatori!"; err_count++;  }
+	
+	var idJawatan = $('idJawatan').value;
+	if ( idJawatan == "" ) {$('err_idJawatan').innerHTML = "Jawatan adalah mandatori!"; err_count++;  }
+	
+	var tarikhLantikan = $('tarikhLantikan').value;
+	if ( tarikhLantikan == "" || tarikhLantikan == "-" ) {$('err_tarikhLantikan').innerHTML = "Tarikh Lantikan adalah mandatori!"; err_count++;  }
+	
+	var noGaji = $('noGaji').value;
+	if ( noGaji == "" ) {$('err_noGaji').innerHTML = "No. Gaji adalah mandatori!"; err_count++;  }
+	
+	var gajiPokok = $('gajiPokok').value;
+	if ( gajiPokok == "" ) {$('err_gajiPokok').innerHTML = "Gaji Pokok adalah mandatori!"; err_count++;  }
+	
+	var idJenisPerkhidmatan = $('idJenisPerkhidmatan').value;
+	if ( idJenisPerkhidmatan == "" ) {$('err_idJenisPerkhidmatan').innerHTML = "Jenis Perkhidmatan adalah mandatori!"; err_count++;  }
+	
+	if ( idJenisPerkhidmatan == "01" ) {
+    	var idKementerian = $('idKementerian').value;
+    	if ( idKementerian == "" ) {$('err_idKementerian').innerHTML = "Kementerian adalah mandatori!"; err_count++;  }
+    	
+    	var idJabatan = $('idJabatan').value;
+    	if ( idJabatan == "" ) {$('err_idJabatan').innerHTML = "Jabatan adalah mandatori!"; err_count++;  }
+	} else if ( idJenisPerkhidmatan == "03" ) {
+		var idBadanBerkanun = $('idBadanBerkanun').value;
+    	if ( idBadanBerkanun == "" ) {$('err_idBadanBerkanun').innerHTML = "Badan Berkanun adalah mandatori!"; err_count++;  }
+	}
+	
+	var idStatusPerkhidmatan = $('idStatusPerkhidmatan').value;
+	if ( idStatusPerkhidmatan == "" ) {$('err_idStatusPerkhidmatan').innerHTML = "Status Perkhidmatan adalah mandatori!"; err_count++;  }
+	
+	if ( idStatusPerkhidmatan == "02" ) {
+		var tarikhTamat = $('tarikhTamat').value;
+    	if ( tarikhTamat == "" || tarikhTamat == "-" ) {$('err_tarikhTamat').innerHTML = "Tarikh Tamat Kontrak adalah mandatori!"; err_count++;  }
+	}
+	
+	var valueFlagITP = $('valueFlagITP').value;
+	if ( valueFlagITP == "" ) {$('err_valueFlagITP').innerHTML = "Pilihan Imbuhan Tetap Perumahan adalah mandatori!"; err_count++;  }
+	
+	var valueFlagEPW = $('valueFlagEPW').value;
+	if ( valueFlagEPW == "" ) {$('err_valueFlagEPW').innerHTML = "Pilihan Elaun Perumahan Wilayah adalah mandatori!"; err_count++;  }
+	
+	var valueFlagCola = $('valueFlagCola').value;
+	if ( valueFlagCola == "" ) {$('err_valueFlagCola').innerHTML = "Bantuan Sara Hidup (COLA) adalah mandatori!"; err_count++;  }
+	
+	var bahagian = $('bahagian').value;
+	if ( bahagian == "" ) {$('err_bahagian').innerHTML = "Nama Bahagian adalah mandatori!"; err_count++;  }
+	
+	var alamatPekerjaan1 = $('alamatPekerjaan1').value;
+	if ( alamatPekerjaan1 == "" ) {$('err_alamatPekerjaan1').innerHTML = "Alamat adalah mandatori!"; err_count++;  }
+	
+	var noTelPejabat = $('noTelPejabat').value;
+	if ( noTelPejabat == "" ) {$('err_noTelPejabat').innerHTML = "No. Telefon Pejabat adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		doDivAjaxCall3$formname('simpanPekerjaan','simpanPekerjaan','');
+	}
+	
+	return err_count == 0;
+}
+
+function simpanPasangan() {
+	var err_count = 0;
+	
+	var namaPasangan = $('namaPasangan').value;
+	if ( namaPasangan == "" ) {$('err_namaPasangan').innerHTML = "Nama Pasangan adalah mandatori!"; err_count++;  }
+	
+	var pasanganNoKP = $('pasanganNoKP').value;
+	if ( pasanganNoKP == "" ) {$('err_pasanganNoKP').innerHTML = "No. Kad Pengenalan adalah mandatori!"; err_count++;  }
+	
+	var idStatusPekerjaanPasangan = $('idStatusPekerjaanPasangan').value;
+	if ( idStatusPekerjaanPasangan == "" ) {$('err_idStatusPekerjaanPasangan').innerHTML = "Status Pekerjaan  adalah mandatori!"; err_count++;  }
+	
+	if ( idStatusPekerjaanPasangan == 3 ) {
+    	var pasanganJenisPekerjaan = $('pasanganJenisPekerjaan').value;
+    	if ( pasanganJenisPekerjaan == "" ) {$('err_pasanganJenisPekerjaan').innerHTML = "Jenis Pekerjaan adalah mandatori!"; err_count++;  }
+		
+		var pasanganGaji = $('pasanganGaji').value;
+		if ( pasanganGaji == "" ) {$('err_pasanganGaji').innerHTML = "Pendapatan / Gaji adalah mandatori!"; err_count++;  }
+		
+		var pasanganSyarikat = $('pasanganSyarikat').value;
+		if ( pasanganSyarikat == "" ) {$('err_pasanganSyarikat').innerHTML = "Nama Syarikat adalah mandatori!"; err_count++;  }
+		
+		var pasanganAlamatKerja1 = $('pasanganAlamatKerja1').value;
+		if ( pasanganAlamatKerja1 == "" ) {$('err_pasanganAlamatKerja1').innerHTML = "Alamat Pejabat adalah mandatori!"; err_count++;  }
+		
+		var pasanganPoskodKerja = $('pasanganPoskodKerja').value;
+		if ( pasanganPoskodKerja == "" ) {$('err_pasanganPoskodKerja').innerHTML = "Poskod adalah mandatori!"; err_count++;  }
+		
+		var idNegeriPasangan = $('idNegeriPasangan').value;
+		if ( idNegeriPasangan == "" ) {$('err_idNegeriPasangan').innerHTML = "Negeri adalah mandatori!"; err_count++;  }
+		
+		var idBandarPasangan = $('idBandarPasangan').value;
+		if ( idBandarPasangan == "" ) {$('err_idBandarPasangan').innerHTML = "Bandar adalah mandatori!"; err_count++;  }
+	} else if ( idStatusPekerjaanPasangan == 99 ) {
+    	var pasanganJenisPekerjaan = $('pasanganJenisPekerjaan').value;
+    	if ( pasanganJenisPekerjaan == "" ) {$('err_pasanganJenisPekerjaan').innerHTML = "Jenis Pekerjaan adalah mandatori!"; err_count++;  }
+		
+		var pasanganGaji = $('pasanganGaji').value;
+		if ( pasanganGaji == "" ) {$('err_pasanganGaji').innerHTML = "Pendapatan / Gaji adalah mandatori!"; err_count++;  }
+	} 
+	
+	var pasanganNoTelBimbit = $('pasanganNoTelBimbit').value;
+	if ( pasanganNoTelBimbit == "" ) {$('err_pasanganNoTelBimbit').innerHTML = "No. Telefon Bimbit adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		doDivAjaxCall3$formname('simpanPasangan','simpanPasangan','');
+	}
+	
+	return err_count == 0;
+}
+
+function semakKelayakkan() {
+	var err_count = 0;
+	
+	var valuePinjamanPerumahan = $('valuePinjamanPerumahan').value;
+	if ( valuePinjamanPerumahan == "" ) {$('err_valuePinjamanPerumahan').innerHTML = "Pinjaman Perumahan adalah mandatori!"; err_count++;  }
+	
+	if ( valuePinjamanPerumahan == 1 ) {
+	
+        var valueStatusRumah = $('valueStatusRumah').value;
+        if ( valueStatusRumah == "" ) {$('err_valueStatusRumah').innerHTML = "Status Pembinaan Rumah adalah mandatori!"; err_count++;  }
+	
+		if ( valueStatusRumah == 0 ) {
+    		var tarikhJangkaSiap = $('tarikhJangkaSiap').value;
+            if ( tarikhJangkaSiap == "" ) {$('err_tarikhJangkaSiap').innerHTML = "Jangka Masa siap adalah mandatori!"; err_count++;  }
+		}
+		
+		var alamatPinjaman1 = $('alamatPinjaman1').value;
+        if ( alamatPinjaman1 == "" ) {$('err_alamatPinjaman1').innerHTML = "Alamat Rumah yang Dibeli adalah mandatori!"; err_count++;  }
+		
+		var poskodPinjaman = $('poskodPinjaman').value;
+        if ( poskodPinjaman == "" ) {$('err_poskodPinjaman').innerHTML = "Poskod adalah mandatori!"; err_count++;  }
+		
+		var idNegeriPinjaman = $('idNegeriPinjaman').value;
+        if ( idNegeriPinjaman == "" ) {$('err_idNegeriPinjaman').innerHTML = "Negeri adalah mandatori!"; err_count++;  }
+		
+		var idBandarPinjaman = $('idBandarPinjaman').value;
+        if ( idBandarPinjaman == "" ) {$('err_idBandarPinjaman').innerHTML = "Bandar adalah mandatori!"; err_count++;  }
+	}
+	
+	if (err_count == 0) {
+		doDivAjaxCall3$formname('semakKelayakkan','semakKelayakkan','');
+	}
+	
+	return err_count == 0;
+}
+
+function simpanPinjaman() {
+	var err_count = 0;
+	
+	var valuePinjamanPerumahan = $('valuePinjamanPerumahan').value;
+	if ( valuePinjamanPerumahan == "" ) {$('err_valuePinjamanPerumahan').innerHTML = "Pinjaman Perumahan adalah mandatori!"; err_count++;  }
+	
+	if ( valuePinjamanPerumahan == 1 ) {
+	
+        var valueStatusRumah = $('valueStatusRumah').value;
+        if ( valueStatusRumah == "" ) {$('err_valueStatusRumah').innerHTML = "Status Pembinaan Rumah adalah mandatori!"; err_count++;  }
+	
+		if ( valueStatusRumah == 2 ) {
+    		var tarikhJangkaSiap = $('tarikhJangkaSiap').value;
+            if ( tarikhJangkaSiap == "" ) {$('err_tarikhJangkaSiap').innerHTML = "Jangka Masa siap adalah mandatori!"; err_count++;  }
+		}
+		
+		var alamatPinjaman1 = $('alamatPinjaman1').value;
+        if ( alamatPinjaman1 == "" ) {$('err_alamatPinjaman1').innerHTML = "Alamat Rumah yang Dibeli adalah mandatori!"; err_count++;  }
+		
+		var poskodPinjaman = $('poskodPinjaman').value;
+        if ( poskodPinjaman == "" ) {$('err_poskodPinjaman').innerHTML = "Poskod adalah mandatori!"; err_count++;  }
+		
+		var idNegeriPinjaman = $('idNegeriPinjaman').value;
+        if ( idNegeriPinjaman == "" ) {$('err_idNegeriPinjaman').innerHTML = "Negeri adalah mandatori!"; err_count++;  }
+		
+		var idBandarPinjaman = $('idBandarPinjaman').value;
+        if ( idBandarPinjaman == "" ) {$('err_idBandarPinjaman').innerHTML = "Bandar adalah mandatori!"; err_count++;  }
+	}
+	
+	if (err_count == 0) {
+		doDivAjaxCall3$formname('simpanPinjaman','simpanPinjaman','');
+	}
+	
+	return err_count == 0;
+}
+
+function alamatSemasa() {
+	document.getElementById("userAlamatSemasa1").value = document.getElementById("userAlamat1").value;
+	document.getElementById("userAlamatSemasa2").value = document.getElementById("userAlamat2").value;
+	document.getElementById("userAlamatSemasa3").value = document.getElementById("userAlamat3").value;
+	document.getElementById("userPoskodSemasa").value = document.getElementById("userPoskod").value;
+}
+
+function hantarPermohonan() {
+	var err_count = 0;
+
+	
+	if (document.getElementById("valueFlagDowngrade")!=null)
+	{
+		var valueFlagDowngrade = $('valueFlagDowngrade').value;
+		if ( valueFlagDowngrade == "" ) {$('err_valueFlagDowngrade').innerHTML = "Pilihan untuk downgrade kuarters adalah mandatori!"; err_count++;  }
+	}
+	
+	
+	
+	var valuePerakuan = $('valuePerakuan').value;
+	if ( valuePerakuan == 0 ) {$('err_valuePerakuan').innerHTML = "Sila tanda kan pada kotak diatas sekiranya telah melengkap kan segala maklumat..."; err_count++;  }
+	
+	var valuePerakuan2 = $('valuePerakuan2').value;
+	if ( valuePerakuan2 == 0 ) {$('err_valuePerakuan2').innerHTML = "Sila tanda kan pada kotak diatas sekiranya telah melengkap kan segala maklumat..."; err_count++;  }
+	
+	var valuePerakuan3 = $('valuePerakuan3').value;
+	if ( valuePerakuan3 == 0 ) {$('err_valuePerakuan3').innerHTML = "Sila tanda kan pada kotak diatas sekiranya telah melengkap kan segala maklumat..."; err_count++;  }
+	
+	var btnHantarPermohonan = $('btnHantarPermohonan').value;
+	  
+	if (err_count == 0) {
+	
+	swal({
+        title: "Pengesahan",
+        text: "Adakah anda pasti?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK",
+        closeOnConfirm: false
+    },
+    function(){
+    	if (btnHantarPermohonan == "Kemaskini Permohonan") {
+				doDivAjaxCall$formname('hantarPermohonan','kemaskiniPermohonan','');
+				swal("Hantar", "Permohonan anda berjaya dikemaskini.", "success");
+			} else {
+				doDivAjaxCall$formname('hantarPermohonan','hantarPermohonan','');
+				swal("Hantar", "Permohonan anda berjaya dihantar.", "success");
+			}
+    });
+##		if ( window.confirm("Sila pastikan segala maklumat yang dimasukkan adalah benar. Hantar Permohonan?") ){
+##			if (btnHantarPermohonan == "Kemaskini Permohonan") {
+##				doDivAjaxCall$formname('hantarPermohonan','kemaskiniPermohonan','');
+##			} else {
+##				doDivAjaxCall$formname('hantarPermohonan','hantarPermohonan','');
+##			}
+##		}
+	}
+	
+	return err_count == 0;
+}
+
+function hantarSemakan() {
+	var err_count = 0;
+	
+	if (err_count == 0) {
+	
+	swal({
+        title: "Pengesahan",
+        text: "Adakah anda pasti?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK",
+        closeOnConfirm: false
+    },
+     function(){
+			doDivAjaxCall$formname('hantarPermohonan','hantarSemakan','');
+    });
+
+	}
+	
+	return err_count == 0;
+}
+
+function doSaveCatatanPermohonan() {
+
+	var err_count = 0;
+		
+	var catatan = $('catatan').value;
+	if ( catatan == 0 ) {$('err_catatan').innerHTML = "** mandatori!!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( window.confirm("Anda Pasti?") ){
+			doDivAjaxCall$formname('entry_page','doSaveCatatanPermohonan','');
+			jQuery('#popupCatatanPermohonan').fadeOut();	
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function deleteCatatan(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('entry_page','doDeleteCatatanPermohonan','idCatatan='+id);
+}
+
+##function simpanCatatan() {
+##	var err_count = 0;
+##	
+##	if (err_count == 0) {
+##	
+##	swal({
+##        title: "Pengesahan",
+##        text: "Kemaskini catatan anda?",
+##        type: "warning",
+##        showCancelButton: true,
+##        confirmButtonColor: "#DD6B55",
+##        confirmButtonText: "OK",
+##        closeOnConfirm: false
+##    },
+##    
+##    function(){
+##			doDivAjaxCall$formname('simpanCatatan','simpanCatatan','');
+##    });
+##	}
+##	return err_count == 0;
+##}
+
+
+function kemaskiniPermohonan() {
+
+	var err_count = 0;
+		
+	if (document.getElementById("valueFlagDowngrade")!=null)
+	{
+		var valueFlagDowngrade = $('valueFlagDowngrade').value;
+		if ( valueFlagDowngrade == "" ) {$('err_valueFlagDowngrade').innerHTML = "Pilihan untuk downgrade kuarters adalah mandatori!"; err_count++;  }
+	
+	}
+	var valuePerakuan = $('valuePerakuan').value;
+	if ( valuePerakuan == 0 ) {$('err_valuePerakuan').innerHTML = "Sila tanda kan pada kotak diatas sekiranya telah melengkap kan segala maklumat..."; err_count++;  }
+	
+	var valuePerakuan2 = $('valuePerakuan2').value;
+	if ( valuePerakuan2 == 0 ) {$('err_valuePerakuan2').innerHTML = "Sila tanda kan pada kotak diatas sekiranya telah melengkap kan segala maklumat..."; err_count++;  }
+	
+	var valuePerakuan3 = $('valuePerakuan3').value;
+	if ( valuePerakuan3 == 0 ) {$('err_valuePerakuan3').innerHTML = "Sila tanda kan pada kotak diatas sekiranya telah melengkap kan segala maklumat..."; err_count++;  }
+	
+	
+	var btnKemaskiniPermohonan = $('btnKemaskiniPermohonan').value;
+	
+	if (err_count == 0) {
+		if ( window.confirm("Sila pastikan segala maklumat yang dimasukkan adalah benar. Kemaskini Permohonan?") ){
+			doDivAjaxCall$formname('hantarPermohonan','kemaskiniPermohonan','');	
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function checkUpload() {
+	$('err_dokumen').innerHTML = '';
+	$('dokumenMuatnaik').style.display = "";
+	document.${formName}.enctype='multipart/form-data';
+	document.${formName}.encoding ='multipart/form-data';
+	document.${formName}.target='upload_doc';
+	document.${formName}.action='?command=uploadDoc';
+	document.${formName}.submit();
+}
+
+function uploadGambar(id) {
+	$('err_gambarPersonal').innerHTML = '';
+	$('divGambarPersonal').style.display = "";
+	document.${formName}.enctype='multipart/form-data';
+	document.${formName}.encoding ='multipart/form-data';
+	document.${formName}.target='upload_gambarPersonal';
+	document.${formName}.action='?command=uploadGambar&idPermohonan=' + id;
+	document.${formName}.submit();
+}
+
+function cetakRingkasanPermohonan(idPermohonan) {
+
+    var url = "../servlet/bph.laporan.qtr.QTRRingkasanPermohonan?idPermohonan="+idPermohonan;
+	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	if ((document.window != null) && (!hWnd.opener))
+	hWnd.opener = document.window;
+	if (hWnd.focus != null) hWnd.focus();
+}
+
+function tolakPermohonan() {
+	var err_count = 0;
+	
+	if (err_count == 0) {
+	
+	swal({
+        title: "Pengesahan",
+        text: "Anda pasti untuk tolak permohonan kuarters?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK",
+        closeOnConfirm: false
+    },
+    
+    function(){
+			doDivAjaxCall$formname('hantarPermohonan','tolakPermohonan','');
+    });
+	}
+	return err_count == 0;
+}

@@ -1,0 +1,49 @@
+<div id="divKeharta">
+  <div id="content-format">
+    <pinLeft></pinLeft>
+    <pinRight></pinRight>
+    <header>KEHARTA</header>
+    <section> 
+    #if ($listKeharta.size() > 0)
+      <div id="tabs">
+        <nav class="breadcrumbs">
+          <ul>
+            #foreach ( $keharta in $listKeharta )
+            <li #if($!selectedTab == $!keharta.id) class="active" #end><a href="javascript:void()" #if($!selectedTab != $!keharta.id) onClick="doDivAjaxCall3$formname('divKeharta','getTabKeharta','idKeharta=$!keharta.id')" #end >Tahun $!keharta.tahun</a></li>
+            #end
+          </ul>
+        </nav>
+        
+        #if ($keharta)
+        <div id="tabs-1">
+          <p class="title">Aktiviti-aktiviti KEHARTA Tahun $!keharta.tahun :</p>
+          <p>$!keharta.keterangan</p>
+          <ul>
+            #foreach ( $aktiviti in $listAktivitiKeharta )
+            <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('content','getAktivitiKeharta','idAktiviti=$!aktiviti.id')">$!aktiviti.namaAktiviti</a></li>
+            #end
+          </ul>
+        </div>
+        #else
+        <div id="tabs-1">
+          <table cellpadding="5" cellspacing="0" border="0" width="100%">
+            <tr>
+              <td style="text-align:center;"><font color="black"><b>SEDANG DIKEMASKINI.</b></font> </td>
+            </tr>
+          </table>
+        </div>
+        #end 
+      </div>
+      #else
+      <div id="tabs-1">
+        <table cellpadding="5" cellspacing="0" border="0" width="100%">
+          <tr>
+            <td style="text-align:center;"><font color="black"><b>SEDANG DIKEMASKINI.</b></font> </td>
+          </tr>
+        </table>
+      </div>
+      #end 
+  	</section>
+  </div>
+</div>
+

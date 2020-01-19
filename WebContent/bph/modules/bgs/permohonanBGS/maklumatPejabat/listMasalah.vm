@@ -1,0 +1,77 @@
+<fieldset>
+<legend class="legend">MASALAH BERKAITAN RUANG PEJABAT SEKARANG / SEMASA</legend>
+<table width="100%" cellpadding="5" cellspacing="1">
+  <tr>
+    <td class="row_header" width="5%">Bil.</td>
+    <td class="row_header" width="85%">Masalah</td>
+    <td class="row_header" width="5%">Papar</td>
+    #if ($!userRole == '(BGS) Pemohon')
+  		#if ($!r.status.id == '1428384412943' || $!r.status.id == '1423568441685') ## DRAF PERMOHONAN || PERMOHONAN TIDAK LENGKAP
+    		<td class="row_header" width="5%">Hapus</td>
+    	#end 
+  	#end
+  	#if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441671' || $!r.status.id == '1423568441694')) ## PERMOHONAN BARU/PINDAAN KERTAS PERTIMBANGAN
+  	##if ($!userRole == '(BGS) Penyedia' && $!r.status.id == '1423568441671') ## PERMOHONAN BARU
+  		<td class="row_header" width="5%">Hapus</td>
+	#end
+  </tr>
+  #set ( $count = 0 )
+  #if ( $listMasalah.size() > 0) 
+  #foreach( $c in $listMasalah )
+  #set ( $count = $count + 1)
+  
+  #if ( $count % 2 == 0 ) 
+  #set ( $rowcolor = "#D0CFCE" ) 
+  #else 
+  #set ( $rowcolor = "#F0F0F0" ) 
+  #end
+  <tr bgcolor="$rowcolor">
+    <td align="center">$count</td>
+    <td>$c.masalah</td>
+    <td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> </td>
+    #if ($!userRole == '(BGS) Pemohon')
+  		#if ($!r.status.id == '1428384412943' || $!r.status.id == '1423568441685') ## DRAF PERMOHONAN || PERMOHONAN TIDAK LENGKAP
+    		<td align="center"><a href="javascript:void()" onClick="deleteMasalah('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+    	#end 
+  	#end
+  	##if ($!userRole == '(BGS) Penyedia' && $!r.status.id == '1423568441671') ## PERMOHONAN BARU
+  	#if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441671' || $!r.status.id == '1423568441694')) ## PERMOHONAN BARU/PINDAAN KERTAS PERTIMBANGAN
+  		<td align="center"><a href="javascript:void()" onClick="deleteMasalah('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+	#end
+  </tr>
+  <script>
+                    _jq('#link$c.id').on('click', function(){
+						doDivAjaxCall3$formname('editMasalah','editMasalah','idMasalah=$c.id');
+                        jQuery('#editMasalah').fadeIn();
+                    });
+                </script>
+  #end
+  #end
+  
+  #if ($!userRole == '(BGS) Pemohon')
+  	#if ($!r.status.id == '1428384412943' || $!r.status.id == '1423568441685') ## DRAF PERMOHONAN || PERMOHONAN TIDAK LENGKAP
+	<tr>
+    	<td align="center"></td>
+    	<td><input type="text" id="iMasalah" class="text" name="iMasalah" value="" onKeyUp=" $('err_iMasalah').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+      	<div id="err_iMasalah" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+    	<td><input style="font-weight:bold" type="button" name="tambahMasalah" id="tambahMasalah" value="+" onclick="saveIMasalah();" /></td>
+  	</tr>
+	#end 
+  #end
+  ##if ($!userRole == '(BGS) Penyedia' && $!r.status.id == '1423568441671') ## PERMOHONAN BARU
+  #if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441671' || $!r.status.id == '1423568441694')) ## PERMOHONAN BARU/PINDAAN KERTAS PERTIMBANGAN
+  <tr>
+  	<td align="center"></td>
+    <td><input type="text" id="iMasalah" class="text" name="iMasalah" value="" onKeyUp=" $('err_iMasalah').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+    <div id="err_iMasalah" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+    <td><input style="font-weight:bold" type="button" name="tambahMasalah" id="tambahMasalah" value="+" onclick="saveIMasalah();" /></td>
+  </tr>	
+  #end
+</table>
+</fieldset>
+## Popup popupMasalahPejabat.vm
+<div id="editMasalah" class="popup"></div>
+## Blank status page
+<div id="removeMasalah"></div>
+
+#parse("$path/maklumatPejabat/status.vm")

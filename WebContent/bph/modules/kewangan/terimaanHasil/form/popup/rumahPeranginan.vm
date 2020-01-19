@@ -1,0 +1,85 @@
+
+
+<fieldset style="width:50% !important">
+    <legend class="legend">MAKLUMAT BIL RUMAH PERANGINAN</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2">
+        <tr>
+            <td width="5%">&nbsp;</td>
+            <td width="30%">&nbsp;</td>
+            <td width="23%">&nbsp;</td>
+            <td width="23%">&nbsp;</td>
+			<td width="14%">&nbsp;</td>
+			<td width="5%">&nbsp;</td>
+        </tr>
+		
+		<tr>
+            <td class="row_header">Bil.</td>
+            <td style="text-align:left !important" class="row_header">Lokasi</td>
+            <td style="text-align:left !important" class="row_header">Tarikh Mula</td>
+            <td style="text-align:left !important" class="row_header">Tarikh Akhir</td>
+            <td style="text-align:left !important" class="row_header">Amaun (RM)</td>
+			<td style="text-align:left !important" class="row_header"></td>
+        </tr>
+		
+		#if ( $listBayaranIr.size() > 0 )
+			#set ( $count = 0 )
+			#foreach( $b in $listBayaranIr )
+                			
+			#set ( $count = $count + 1)
+				#if ( $count % 2 == 0 ) 
+					#set ( $rowcolor = "#D0CFCE" ) 
+				#else 
+                    #set ( $rowcolor = "#F0F0F0" ) 
+				#end
+            				
+				<tr bgcolor="$rowcolor">
+					<td align="center">$count</td>
+                    <td>$!b.rppPermohonan.rppPeranginan.namaPeranginan.toUpperCase()</td>
+                    <td>$!util.getDateTime($!b.rppPermohonan.tarikhMasukRpp,'dd-MM-yyyy')</td>
+                    <td>$!util.getDateTime($!b.rppPermohonan.tarikhKeluarRpp,'dd-MM-yyyy')</td>
+            		<td>$!b.rppPermohonan.jumlahAmaun</td>
+					<td align="center">
+						<input type="checkbox" id="cbIr" name="cbIr" value="$!b.id" />
+					</td>
+             	</tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="7">Tiada Rekod</td>
+			</tr>
+		#end
+		
+    </table>
+	
+	<table width="100%" border="0">
+    	<tr>
+    		<td align="right" width="31%">
+    			<input type="button" value="Pilih" id="btnPilih" name="btnPilih"  />
+    			<input id="btnKeluarPopup" name="btnKeluarPopup" type="button" value="Keluar" />
+    		</td>
+    	</tr>
+    </table>
+
+</fieldset>
+
+
+	<script>
+    	_jq('#btnKeluarPopup').on('click', function(){
+            jQuery('#divPopup').fadeOut();
+    	});
+		
+		_jq('#btnPilih').on('click', function(){
+			doDivAjaxCall$formname('divMainForm','simpanPilihanIr','idPembayar=$!r.id');
+            jQuery('#divPopup').fadeOut();
+    	});
+    </script>
+	
+    <script>
+        _jq(function($) {
+        $('.currency').autoNumeric('init'); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+        });
+    </script>

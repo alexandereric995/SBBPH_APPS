@@ -1,0 +1,32 @@
+#set( $activePekerjaan = "" )
+#set( $activePasangan = "" )
+#set( $activePinjaman = "" )
+#if ( $activity == "pekerjaan" )
+	#set( $activePekerjaan = "active" )
+#elseif ( $activity == "pasangan" )
+	#set( $activePasangan = "active" )
+#elseif ( $activity == "pinjaman" )
+	#set( $activePinjaman = "active" )
+#end
+##<fieldset>
+    ##<legend>
+		<nav class="breadcrumbs">
+            <ul>
+                <li class="$activePekerjaan">
+                    <a href="javascript:void()" onclick="doDivAjaxCall3$formname('tabDetail','getPekerjaan','')">Maklumat Pekerjaan</a>
+                </li>
+                <li class="$activePasangan" id="infoPasangan">
+                    <a href="javascript:void()" onclick="doDivAjaxCall3$formname('tabDetail','getPasangan','')">Maklumat Pasangan</a>
+                </li>
+                <li class="$activePinjaman">
+                    <a href="javascript:void()" onclick="doDivAjaxCall3$formname('tabDetail','getPinjaman','')">Maklumat Pinjaman</a>
+                </li>
+            </ul>
+        </nav>
+	##</legend>
+	##<div id="tabDetail"></div>
+##</fieldset>
+	
+##<script>
+	##doDivAjaxCall3$formname('tabDetail','getPekerjaan','')
+##</script>

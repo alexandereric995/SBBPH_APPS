@@ -1,0 +1,78 @@
+<fieldset>
+	<legend class="legend">PULIH UNIT</legend>
+	<table width="100%" cellpadding="1" cellspacing="2" border="0">
+		<tr>
+			<td class="label" style=""></td>
+			<td style=""></td>
+			<td style=""><br /></td>
+		</tr>
+		<tr>
+			<td valign="top"><input type="checkbox" id="cbSeksyen" name="cbSeksyen" value="01" $checkCb1 >&nbsp;UNIT PEMBANGUNAN</td>
+		</tr>
+		<tr>
+			<td valign="top"><input type="checkbox" id="cbSeksyen" name="cbSeksyen" value="02" $checkCb2 >&nbsp;UNIT KUARTERS</td>
+		</tr>
+		<tr>
+			<td valign="top"><input type="checkbox" id="cbSeksyen" name="cbSeksyen" value="03" $checkCb3 >&nbsp;UNIT SENGGARA</td>
+		</tr>
+		<tr>
+			<td valign="top"><input type="checkbox" id="cbSeksyen" name="cbSeksyen" value="04" $checkCb4 >&nbsp;UNIT TEKNOLOGI MAKLUMAT</td>
+		</tr>
+		<tr>
+			<td valign="top"><input type="checkbox" id="cbSeksyen" name="cbSeksyen" value="05" $checkCb5 >&nbsp;UNIT NAZIRAN</td>
+		</tr>
+		<tr>
+			<td valign="top"><input type="checkbox" id="cbSeksyen" name="cbSeksyen" value="06" $checkCb6 >&nbsp;UNIT RUANG PEJABAT (BGS)</td>
+		</tr>
+		<tr>
+			<td valign="top"><input type="checkbox" id="cbSeksyen" name="cbSeksyen" value="07" $checkCb7 >&nbsp;UNIT UTILITI</td>
+		</tr>
+		<tr>
+			<td valign="top"><input type="checkbox" id="cbSeksyen" name="cbSeksyen" value="08" $checkCb8 >&nbsp;UNIT JAWATANKUASA RUANG PEJABAT</td>
+		</tr>
+		<tr>
+			<td valign="top"><input type="checkbox" id="cbSeksyen" name="cbSeksyen" value="9" $checkCb9 >&nbsp;UNIT RUMAH PERANGINAN</td>
+		</tr>
+		<tr>
+			<td valign="top"><input type="checkbox" id="cbSeksyen" name="cbSeksyen" value="10" $checkCb10 >&nbsp;UNIT HASIL</td>
+		</tr>
+		<tr>
+			<td valign="top"><input type="checkbox" id="cbSeksyen" name="cbSeksyen" value="11" $checkCb11 >&nbsp;UNIT JAWATANKUASA RUANG KOMERSIL</td>
+		</tr>
+		<tr>
+			<td valign="top"><input type="checkbox" id="cbSeksyen" name="cbSeksyen" value="12" $checkCb12 >&nbsp;UNIT PERHUBUNGAN AWAM</td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<td></td>
+			<td></td>
+			<td> 
+				#if ( $command == "addPilihUnit" )
+					<input type="button" id="savePilihUnit" name="savePilihUnit" value="Simpan">
+					<input type="button" id="batalPilihUnit" name="batalPilihUnit" value="Keluar">
+				#elseif ( $command == "editPilihUnit" )
+					<input type="button" id="saveExitPilihUnit" name="saveExitPilihUnit" value="Simpan">
+					<input type="button" id="batalPilihUnit" name="batalPilihUnit" value="Keluar">
+				#end 
+			</td>
+		</tr>
+	</table>
+</fieldset>
+
+<input type="hidden" id="idPilihUnit" name="idPilihUnit" value="$r.id">
+
+<script>
+	_jq('#batalPilihUnit').on('click', function(){
+		doDivAjaxCall3$formname('divTab','getMaklumatAgihan','');
+	    jQuery('#editPilihUnit').fadeOut();
+	});
+	
+	_jq('#savePilihUnit').on('click', function(){
+	    savePilihUnit();
+	});
+	
+	_jq('#saveExitPilihUnit').on('click', function(){
+		savePilihUnit();
+	});
+</script>

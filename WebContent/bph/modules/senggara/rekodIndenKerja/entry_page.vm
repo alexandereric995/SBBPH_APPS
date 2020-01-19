@@ -1,0 +1,64 @@
+<input type="hidden" id="flagSkrin" name="flagSkrin" value="$!flagSkrin">
+<input type="hidden" id="idIndenKerja" name="idIndenKerja" value="$!r.id">
+
+#if ($!flagSkrin == 'RekodIndenKerjaRecordModule')
+	<div id="divTab">
+		#parse("$path/senaraiTab.vm")
+	</div>
+#end
+
+#if ($!flagSkrin == 'PenyediaanIndenKerjaRecordModule')
+	<div id="divPenyediaanIndenKerja">
+		#parse("$path/indenKerja/start.vm")
+	</div>
+#end
+
+#if ($!flagSkrin == 'PemilihanKontraktorRecordModule')
+	<div id="divPemilihanKontraktorRecordModule">
+		#parse("$path/pemilihanKontraktor/start.vm")
+	</div>
+#end
+
+#if ($!flagSkrin == 'CetakanIndenKerjaNotaMintaRecordModule')
+	<div id="divCetakanIndenKerjaNotaMintaRecordModule">
+		#parse("$path/cetakanIndenKerjaNotaMinta/start.vm")
+	</div>
+#end
+
+#if ($!flagSkrin == 'AgihanTugasPemantauanKerjaRecordModule')
+	<div id="divAgihanTugasPemantauanKerjaRecordModule">
+		#parse("$path/agihanTugasPemantauanKerja/start.vm")
+	</div>
+#end
+
+#if ($!flagSkrin == 'PemantauanKerjaRecordModule')	
+	<div id="divPemantauanKerjaRecordModule">
+		#if ($!flagPaparMaklumatJadualKadarHarga == 'Y')
+			#parse("$path/pemantauanKerja/maklumatJadualKadarHarga/maklumatJadualKadarHarga.vm")
+		#else
+			#parse("$path/pemantauanKerja/start.vm")
+		#end		
+	</div>
+#end
+
+#if ($!flagSkrin == 'PenilaianKontraktorRecordModule')
+	<div id="divPenilaianKontraktorRecordModule">
+		#parse("$path/penilaianKontraktor/start.vm")
+	</div>
+#end
+
+#if ($!flagSkrin == 'ProsesBayaranRecordModule')
+	<div id="divProsesBayaranRecordModule">
+		#parse("$path/prosesBayaran/start.vm")
+	</div>
+#end
+
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

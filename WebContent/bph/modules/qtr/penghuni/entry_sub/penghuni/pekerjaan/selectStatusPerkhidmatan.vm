@@ -1,0 +1,16 @@
+<select id="idStatusPerkhidmatan" name="idStatusPerkhidmatan" style="width:100%" onChange="$('err_idStatusPerkhidmatan').innerHTML=''; at(this, event);">
+    <option value="">SILA PILIH</option>
+    #foreach( $n in $selectStatusPerkhidmatan )
+        <option #if ( $n.id ==  $!uj.statusPerkhidmatan.id) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+    #end
+</select>
+	
+<script>
+_jq("#idStatusPerkhidmatan").change(function() {
+	if ( this.value == "02" ) {
+		_jq("#perKontrak").show();
+	} else {
+		_jq("#perKontrak").hide();
+	}
+});
+</script>

@@ -1,0 +1,256 @@
+<script>
+	_jq("#bilanganAnak").hide();
+	
+	var iN = '$!imgName';
+	
+	if ( iN != '' ) {
+		_jq('#gambarPersonalImage').val(iN)	
+	}
+</script>
+
+#parse("$path/sub_page/nav_bread.vm")
+<br />
+<div id="simpanPeribadi"></div>
+<table cellpadding="5" cellspacing="0" border="0" width="50%">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:5px"></td>
+        <td></td>
+    </tr>
+##    <tr>
+##		<td align="center" colspan="3">
+##           #if ( $users.avatar != "" )
+##            	<img src="../download?file=$!users.avatar" border="0" width="126px" height="139px">
+##            #else
+##            	<img src="../img/nophoto.gif" border="0">
+##            #end
+##            <br />
+##        	Sila muatnaik gambar diruangan <i>`My Info`</i>.
+##        	<br />
+##        	<a href="javascript:void()" onclick="location.href='../c/1417102126035?_portal_module=portal.module.PublicUserProfileModule'" style="color: #0000FF; text-decoration: underline">Tekan Sini untuk Muatnaik</a>
+##    	</td>
+##    </tr>
+##    <tr>
+##    	<td align="center" colspan="3">
+##    		<input class="texts" type="file" id="gambarPersonal" name="gambarPersonal" onfocus="$('err_gambarPersonal').innerHTML = '';" onChange="uploadGambar($r.id)">
+##			<div id="divGambarPersonal" style="display:none">
+##				<img src="../img/indicator.gif">
+##				<span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span>
+##			</div>
+##			<input type="hidden" id="gambarPersonalImage" name="gambarPersonalImage" value="$!users.avatar" />
+##			<div id="err_gambarPersonal" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##    	</td>
+##    </tr>
+	<tr>
+        <td class="label">Gelaran&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listGelaran">
+                #parse("$path/sub_page/peribadi/selectGelaran.vm")
+            </span>
+            <div id="err_idGelaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+	#name_required_with_note("userName" "Nama" "$!users.userName")
+	#input_readonly_label("userNoKP" "No. MyKad" "$!users.noKP")
+	<tr>
+        <td class="label">Jenis Pengenalan Lain</td>
+        <td>:</td>
+        <td>
+            <span id="listJenisPengenalan">
+                #parse("$path/sub_page/peribadi/selectJenisPengenalan.vm")
+            </span>
+            <div id="err_idJenisPengenalan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+	#input("userNoKP2" "No. Pengenalan Lain" "$!users.noKP2")
+	#if ($!tarikhLahir)
+      	#set($tarikhLahirBaru = $util.getDateTime($!tarikhLahir, "dd-MM-yyyy"))
+  	#else
+      	#set($tarikhLahirBaru = "")
+  	#end	
+	#input_readonly_label("userTarikhLahir" "Tarikh Lahir" "$tarikhLahirBaru")
+##	#if ($!users.tarikhLahir)
+##      #set($tarikhLahir = $util.getDateTime($!users.tarikhLahir, "dd-MM-yyyy"))
+##  #else
+##      #set($tarikhLahir = "")
+##  #end
+##	#date_input_required("userTarikhLahir" "Tarikh Lahir" "$tarikhLahir")
+	<tr>
+        <td class="label">Agama&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listAgama">
+                #parse("$path/sub_page/peribadi/selectAgama.vm")
+            </span>
+            <div id="err_idAgama" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+	<tr>
+        <td class="label">Jantina&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listJantina">
+                #parse("$path/sub_page/peribadi/selectJantina.vm")
+            </span>
+            <div id="err_idJantina" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+	<tr>
+        <td class="label">Bangsa&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listBangsa">
+                #parse("$path/sub_page/peribadi/selectBangsa.vm")
+            </span>
+            <div id="err_idBangsa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+	<tr>
+        <td class="label">Etnik</td>
+        <td>:</td>
+        <td>
+            <span id="listEtnik">
+                #parse("$path/sub_page/peribadi/selectEtnik.vm")
+            </span>
+            ##<div id="err_idEtnik" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+	<tr>
+        <td class="label">Status Perkahwinan&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listStatusPerkahwinan">
+                #parse("$path/sub_page/peribadi/selectStatusPerkahwinan.vm")
+            </span>
+            <div id="err_idStatusPerkahwinan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+	<tr>
+        <td class="label">Bilangan Anak&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listBilAnak">
+                #parse("$path/sub_page/peribadi/selectBilAnak.vm")
+            </span>
+            <div id="err_idBilAnak" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+	<tbody id="bilanganAnak">
+		<tr>
+        	<td class="label" valign="top"></td>
+        	<td class="label" valign="top"></td>
+        	<td valign="top">
+        		<input class="number" type="text" id="userBilAnak" name="userBilAnak" value="$!users.bilAnak" onKeyUp=" $('err_userBilAnak').innerHTML=''; at(this, event);">
+        		<div id="err_userBilAnak" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+	</tbody>
+	##input("userNoTel" "No. Telefon" "$!users.noTelefon")
+	#input_required("userNoTelBimbit" "No. Telefon Bimbit" "$!users.noTelefonBimbit")
+	#input_email_required("email" "Emel" "$!users.emel")
+	<tr>
+		<td colspan="2"></td>
+		<td>
+			<script>
+				_jq("#email").on("blur", function() {
+    				doDivAjaxCall3$formname('checkEmail','checkEmail','');
+                });
+			</script>
+			<span id="checkEmail">
+				#parse("$path/sub_page/result/resultCheckEmail.vm")
+			</span>
+		</td>
+	</tr>
+	#input_required("userAlamat1" "Alamat Tetap" "$!users.alamat1")
+	#input("userAlamat2" "" "$!users.alamat2")
+	#input("userAlamat3" "" "$!users.alamat3")
+	#postcode_required("userPoskod" "Poskod" "$!users.poskod")
+	<tr>
+        <td class="label">Negeri&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listNegeri">
+                #parse("$path/sub_page/peribadi/selectNegeri.vm")
+            </span>
+            <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+	<tr>
+        <td class="label">Bandar&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listBandar">
+                #parse("$path/sub_page/peribadi/selectBandar.vm")
+            </span>
+            <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    <tr>
+    	<td colspan="2"></td>
+    	<td>
+    		<input type="button" id="btnAlamatSamaTetap" name="btnAlamatSamaTetap" value="Alamat Semasa Seperti Alamat Tetap" />
+    		<script>
+    			_jq('#btnAlamatSamaTetap').click(function() {
+    				_jq('#userAlamatSemasa1').val(_jq('#userAlamat1').val());
+    				_jq('#userAlamatSemasa2').val(_jq('#userAlamat2').val());
+    				_jq('#userAlamatSemasa3').val(_jq('#userAlamat3').val());
+    				_jq('#userPoskodSemasa').val(_jq('#userPoskod').val());
+    				_jq('#idNegeriSemasa').val(_jq('#idNegeri').val());
+    				_jq('#idBandarSemasa').val(_jq('#idBandar').val());
+    			});
+		    </script>
+    	</td>
+    </tr>
+	#input_required("userAlamatSemasa1" "Alamat Semasa" "$!users.userAddress")
+	#input("userAlamatSemasa2" "" "$!users.userAddress2")
+	#input("userAlamatSemasa3" "" "$!users.userAddress3")
+	#postcode_required("userPoskodSemasa" "Poskod" "$!users.userPostcode")
+	<tr>
+        <td class="label">Negeri&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listNegeriSemasa">
+                #parse("$path/sub_page/peribadi/selectNegeriSemasa.vm")
+            </span>
+            <div id="err_idNegeriSemasa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+	<tr>
+        <td class="label">Bandar&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listBandarSemasa">
+                #parse("$path/sub_page/peribadi/selectBandarSemasa.vm")
+            </span>
+            <div id="err_idBandarSemasa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+	##<tr>
+        ##<td colspan="2"></td>
+        ##<td>
+			##<input type="button" id="btnAlamatSama" name="btnAlamatSama" value="Guna Alamat Tetap" onclick="alamatSemasa()" />
+        ##</td>
+    ##</tr>
+	<tr>
+        <td colspan="2"></td>
+        <td>
+			#if ( !$statusPermohonanBaru )
+            <input type="button" id="btnSimpanPeribadi" name="btnSimpanPeribadi" value="Simpan / Kemaskini" onclick="simpanPeribadi()" />
+        	#end
+        </td>
+    </tr>
+</table>
+<div id="refreshListPeribadi"></div>
+<iframe id="upload_gambarPersonal" name="upload_gambarPersonal" width="0px" height="0px" style="visibility:hidden"></iframe>
+<input type="hidden" id="imgName" name="imgName" value="" />
+<p align="left" style="font-style: italic; color: #FF0000">** Sekiranya butiran telah lengkap sila klik butang Simpan / Kemaskini</p>
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+		$('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

@@ -1,0 +1,293 @@
+
+#parse("$path/form/tab.vm")
+
+<fieldset>
+	
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+            <td style="width:220px"></td>
+            <td style="width:10px"></td>
+			<td></td>
+		</tr>
+		
+		#show("NO. TEMPAHAN" "$!util.replaceIfNull($!r.noTempahan,'-')")
+		#show("STATUS" "$!util.replaceIfNull($!r.status.keterangan.toUpperCase(),'DRAF PERMOHONAN BERKELOMPOK')")
+		
+		#if( $!r )
+			#show("TARIKH PERMOHONAN" "$!util.getDateTime($!r.tarikhPermohonan,'dd-MM-yyyy')")
+		#else
+			#show("TARIKH PERMOHONAN" "$!util.getCurrentDate('dd-MM-yyyy')")
+		#end
+		
+		<tr><td colspan="3"><hr/></td></tr>
+		
+		<tr>
+			<td colspan="3">
+				<span style="font-size:12px;font-weight:bold;text-decoration: underline;"><br/>MAKLUMAT PENGINAPAN<br/><br/></span>
+			</td>
+		</tr>
+		
+		<tr>
+        	<td class="label" valign="top">TARIKH DAFTAR MASUK &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+        		<div>
+            		<input type="text" id="tarikhMasukRpp" name="tarikhMasukRpp" value="$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy')" >
+            		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+        			<script>
+                    	_jq("#tarikhMasukRpp").Zebra_DatePicker({ 
+            				format: 'd-m-Y',
+        					readonly_element: true,
+							direction: 1,
+							pair: _jq('#tarikhKeluarRpp'),
+        					onSelect: function(view, elements) {
+        						$('err_tarikhMasukRpp').innerHTML='';
+								$('idrp').value='';
+								$('tarikhKeluarRpp').value='';
+								$('divListJenisUnit').style.display = 'none';
+        					}
+                    	});
+        				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+            		</script>
+            		<div id="err_tarikhMasukRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        		</div>
+        	</td>
+        </tr>
+		
+		<tr>
+        	<td class="label" valign="top">TARIKH DAFTAR KELUAR &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+        		<div>
+            		<input type="text" id="tarikhKeluarRpp" name="tarikhKeluarRpp" value="$!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')" >
+            		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+        			<script>
+                    	_jq("#tarikhKeluarRpp").Zebra_DatePicker({ 
+            				format: 'd-m-Y',
+        					readonly_element: true,
+							direction: 1,
+        					onSelect: function(view, elements) {
+        						$('err_tarikhKeluarRpp').innerHTML='';
+								$('idrp').value='';
+								$('divListJenisUnit').style.display = 'none';
+        					}
+                    	});
+        				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+            		</script>
+            		<div id="err_tarikhKeluarRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        		</div>
+        	</td>
+        </tr>
+
+		<tr>
+    		<td valign="top">LOKASI &nbsp;<span style='color:#FF2A00'>*</span></td>
+    		<td valign="top">:</td>
+    		<td valign="top">
+    			<select class="texts" id="idrp" name="idrp" style="width:80%" onChange="doDisplayJenisUnit();$('err_idrp').innerHTML='';">
+                    <option value="">SILA PILIH</option>
+                    #foreach( $n in $listPeranginan)
+                    	<option value="$n.id" #if($n.id == $r.rppPeranginan.id) selected #end>$!n.namaPeranginan.toUpperCase()</option>
+                    #end
+                </select>
+    			<div id="err_idrp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    		</td>
+    	</tr>
+		
+	</table>
+		
+	
+	<div id="divListJenisUnit">
+		#if($r)
+			#parse("$path/form/senaraiJenisUnit.vm")
+        #end
+	</div>
+	
+	<div id="divListBayaran">
+		#if($r && ($!r.status.id=="1433097397170" || $!r.status.id == "1425259713415") ) ##Permohonan kelompok lengkap
+			#parse("$path/form/listBayaran.vm")
+        #end
+	</div>
+	
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr><td colspan="3"><hr/></td></tr>
+		
+		<tr>
+            <td style="width:220px"></td>
+            <td style="width:10px"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<span style="font-size:12px;font-weight:bold;text-decoration: underline;"><br/>MAKLUMAT PENGGUNAAN<br/><br/></span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td valign="middle">BILANGAN PESERTA</td>
+			<td valign="middle">:</td>
+			<td valign="top">
+				DEWASA &nbsp;<span style='color:#FF2A00'>*</span> :
+				<input type="text" style="width:10%;text-align:right" class="number2digit" name="bilDewasa" id="bilDewasa" value="$!r.bilDewasa" onKeyUp=" $('err_bilDewasa').innerHTML=''; at(this, event);" />
+				&nbsp; &nbsp;
+				KANAK - KANAK &nbsp;<span style='color:#FF2A00'>*</span> :
+				<input type="text" style="width:10%;text-align:right" class="number2digit" name="bilKanakKanak" id="bilKanakKanak" value="$!r.bilKanakKanak" onKeyUp=" $('err_bilDewasa').innerHTML=''; at(this, event);" />
+				<div id="err_bilDewasa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td valign="top">JENIS AKTIVITI &nbsp;<span style='color:#FF2A00'>*</span><br/><span style="font-size:9px;">(Sila tandakan di ruang berkenaan)</span></td>
+			<td valign="top">:</td>
+			<td valign="top">
+				#foreach($ak in $!listAktiviti)
+					<div>
+						<input type="checkbox" $!rppUtil.checkedActivity("$!r.id","$!ak.id") name="aktivitiRpp" id="$ak.id" value="$ak.id" onclick=" $('err_aktivitiRpp').innerHTML=''; at(this, event);" />$ak.keterangan.toUpperCase() 
+						#if($ak.id=="06")
+						&nbsp; :  <input type="text" style="width:40%" name="keteranganLain" id="keteranganLain" value="$!r.getKeteranganLainValue()" onKeyUp=" $('err_keteranganLain').innerHTML=''; at(this, event);" />
+						#end
+					</div>		
+				#end
+				<div id="err_aktivitiRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+				<div id="err_keteranganLain" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		
+		<tr><td colspan="3"></td></tr>
+				
+		<tr>
+			<td>SENARAI AKTIVITI UTAMA</td>
+			<td>i.</td>
+			<td><input type="text" style="width:80%" name="aktivitiUtama1" id="aktivitiUtama1" value="$!r.aktivitiUtama1" /></td>
+		</tr>
+		
+		<tr>
+			<td>&nbsp;</td>
+			<td>ii.</td>
+			<td><input type="text" style="width:80%"name="aktivitiUtama2" id="aktivitiUtama2" value="$!r.aktivitiUtama2" /></td>
+		</tr>
+		
+		<tr>
+			<td>&nbsp;</td>
+			<td>iii.</td>
+			<td><input type="text" style="width:80%" name="aktivitiUtama3" id="aktivitiUtama3" value="$!r.aktivitiUtama3" /></td>
+		</tr>
+		
+		<tr><td colspan="3"><hr/></td></tr>
+		
+		<tr>
+			<td colspan="3">
+				<span style="font-size:12px;font-weight:bold;text-decoration: underline;"><br/>MAKLUMAT PEMOHON<br/><br/></span>
+			</td>
+		</tr>
+		
+    </table>
+	
+	#parse("$path/form/maklumatPemohon.vm")
+	
+</fieldset>
+
+
+#if($!userRole.equalsIgnoreCase("(RPP) Penyemak") || $!userRole.equalsIgnoreCase("(RPP) Pelulus"))
+    <fieldset>
+    	
+    	 <table width="100%" cellpadding="2" cellspacing="2" >
+    		#textarea("catatanPenyemak" "CATATAN PENYEMAK" "$!r.catatanPenyemak")
+    		<tr>
+        		<td style="width:220px"></td>
+        		<td style="width:10px"></td>
+        		<td></td>
+        	</tr>
+    	 </table>
+    		
+    </fieldset>
+#end
+
+#if( $!r.status.id == "1433097397170" || $!r.status.id == "1425259713415" )
+    <fieldset>	
+            <legend class="legend">SENARAI CETAKAN</legend>
+            <table width="100%" >
+            
+            	#if( $!r )
+            	<tr>
+        			<td>
+						<a href="#" style="color:blue" id="cmdCetakSuratKelulusan" value="">SURAT KELULUSAN</a>
+						#if( $!r.status.id == "1425259713415" && $!r.kaedahBayaran.id=="T" && ($!r.getIdResitSewa() != "" && $!r.getIdResitSewa()) )
+						<br/><a href="#" style="color:blue;" onclick="cetakResitSewa('$!r.getIdResitSewa()')" >RESIT BAYARAN</a>
+						#end
+					</td>
+            	</tr>
+           		#end
+            
+            </table>
+    </fieldset>
+#end
+
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="left">
+			<div id="err_docSokongan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>	
+		</td>
+		<td align="right">
+			
+			#if( $!r )
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+			#end
+			
+			#if($!userRole.equalsIgnoreCase("(RPP) Penyemak") || $!userRole.equalsIgnoreCase("(RPP) Pelulus"))
+    			#if( $!r && $r.status.id=="1425259713412" )	##PERMOHONAN BARU
+					<input type="button" value="Permohonan Lengkap" onClick="javascript:doSavePermohonanLengkap()">	
+					<input id="btnTidakLulus" onclick="javascript:doOpenPopupTidakLulus()" type="button" value="Permohonan Tidak Diluluskan" />	
+				#end
+			#end
+			
+			#if( $r.status.id == "1439694210108" ) ##DRAF
+				<input type="button" value="Hantar Permohonan" onClick="javascript:doHantarPermohonan('$!listDokumen.size()')">	
+			#end	
+			
+			#if( !$r || ($r.status.id=="1439694210108" || ($r.status.id=="2155884463563036" && (!$!userRole.equalsIgnoreCase("(RPP) Penyemak") && !$!userRole.equalsIgnoreCase("(RPP) Pelulus")) ) ) )
+    			#if(!$!userRole.equalsIgnoreCase("(RPP) Penyedia"))	
+    			<input type="button" value="Simpan" onClick="javascript:doSavePermohonan('$!listDokumen.size()')">	
+    			#end
+			#end
+			
+			##Pembatalan. 
+			##1.Dah lengkap
+			##2.Penyemak dan pelulus shj
+			#if($!userRole.equalsIgnoreCase("(RPP) Penyemak") || $!userRole.equalsIgnoreCase("(RPP) Pelulus"))
+    			#if( $!r.status.id=="1433097397170" || $!r.status.id=="1425259713412" || $!r.status.id == "1425259713415" )
+    				<input type="button" id="btnPopupBatal" value="Batal Permohonan Kelompok" onClick="javascript:doBatalPermohonan()">
+    			#end
+			#end
+			
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+			
+		</td>
+	</tr>
+</table>
+	
+
+<div id="popupTidakLulus" class="popup"></div>
+
+<script>
+    _jq('#cmdCetakSuratKelulusan').on('click', function(){
+		var idRppPermohonan = '$!r.id';
+    	var url = "../servlet/bph.laporan.rpp.SuratKelulusanPermohonanBerkelompok?idRppPermohonan="+idRppPermohonan;
+    	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+    	if ((document.window != null) && (!hWnd.opener))
+    	hWnd.opener = document.window;
+    	if (hWnd.focus != null) hWnd.focus();
+    });
+</script>
+	
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number2digit').autoNumeric('init', {aSep: '', vMin: '0', vMax: '99', lZero: 'keep'} );
+	  $('.number5digit').autoNumeric('init', {aSep: '', vMin: '0', vMax: '99999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>
+
+

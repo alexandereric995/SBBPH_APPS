@@ -1,0 +1,16 @@
+#parse("$menu_template")
+
+<script>
+function loadModule(moduleName, moduleTitle) {
+	doDivAjaxCall$formname('app-container','__loadModule__','menuWidget=yes&loadModuleName=' + moduleName)
+	$('__application_container_title__').innerHTML = moduleTitle;
+}
+function openChild(childId) {
+	if ( $(childId).style.display == 'none' ) { 
+		_jq('#' + childId).show('slow'); 
+	} 
+	else { 
+		_jq('#' + childId).hide('slow'); 
+	}
+}
+</script>

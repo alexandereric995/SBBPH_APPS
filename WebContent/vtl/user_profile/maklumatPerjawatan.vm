@@ -1,0 +1,159 @@
+<fieldset>
+	<legend class="legend">MAKLUMAT PERJAWATAN</legend>
+	#parse("$path/status.vm")
+	<table width="90%" align="center" border="0" cellpadding="5" cellspacing="0">
+		<tr>
+			<td width="20%"></td>
+			<td width="2%"></td>
+			<td></td>
+			<td rowspan="20" width="40%" valign="top">&nbsp;</td>
+		</tr>
+		#input_normal("noKadPengenalan" "No. Kad Pengenalan" "<b>$!pengguna.id</b>")
+  		#input_normal("nama" "Nama" "<b>$!pengguna.gelaran.keterangan</b> <b>$!pengguna.userName</b>")
+		#if ($!userRole != '(AWAM) Badan Berkanun' && $!userRole != '(AWAM) Pegawai Tadbir' && $!userRole != '(AWAM) Pesara' && $!userRole != '(AWAM) Pesara Polis / Tentera' && $!userRole != '(AWAM) Polis / Tentera')
+			#input_normal("kementerian" "Kementerian" "<b>$!pengguna.agensi.kementerian.keterangan</b>")
+			#input_normal("agensi" "Agensi / Jabatan" "<b>$!pengguna.agensi.keterangan</b>")
+		#end
+		
+		#if ($!userRole != '(AWAM) Badan Berkanun' && $!userRole != '(AWAM) Pesara Polis / Tentera' && $!userRole != '(AWAM) Polis / Tentera')
+			#input_normal("bahagian" "Bahagian" "<b>$!pengguna.bahagian</b>")
+		#end
+		
+		#if ($!userRole == '(AWAM) Badan Berkanun')
+			#input_normal("badanBerkanun" "Badan Berkanun" "<b>$!pengguna.badanBerkanun.keterangan</b>")
+		#end
+		
+		<!-- EXCLUDE PENJAWAT AWAM BY PEJE SINCE HRMIS XHANTAR MAKLUMAT JAWATAN -->
+		#if ($!userRole == '(AWAM) Pesara')
+			#if ( $!pengguna.jawatan )
+				#input_normal("jawatan" "Jawatan" "<b>$!pengguna.jawatan.keterangan</b>")
+			#else	
+				#input_normal("jawatan" "Jawatan" "<b>$!pengguna.keteranganJawatan</b>")
+			#end
+		#end
+		
+		#if ($!userRole != '(AWAM) Badan Berkanun' && $!userRole != '(AWAM) Pesara Polis / Tentera' && $!userRole != '(AWAM) Polis / Tentera')
+			#input_normal("kelasPerkhidmatan" "Kelas Perkhidmatan" "<b>$!pengguna.kelasPerkhidmatan.id - $!pengguna.kelasPerkhidmatan.keterangan</b>")
+			#input_normal("gredPerkhidmatan" "Gred Perkhidmatan" "<b>$!pengguna.gredPerkhidmatan.keterangan</b>")
+		#end
+
+		#if ($!userRole != '(AWAM) Badan Berkanun' && $!userRole != '(AWAM) Pegawai Tadbir' && $!userRole != '(AWAM) Pesara' && $!userRole != '(AWAM) Pesara Polis / Tentera' && $!userRole != '(AWAM) Polis / Tentera')
+			#input_normal("tarikhSemakan" "Tarikh Semakan HRMIS" "<b>$!tarikhSemakan</b>")
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="3"><span style="color:#FF2A00"><strong>PERHATIAN :</strong></span> <span style="color:#000000"> <strong>MAKLUMAT PERJAWATAN YANG DIPAPARKAN ADALAH DATA INTERGRASI DARI SISTEM HRMIS.
+				SEKIRANYA MAKLUMAT PERJAWATAN TIDAK TEPAT, SILA SEMAK DENGAN PENTADBIR SISTEM HRMIS DI JABATAN TUAN/PUAN.</strong></span> </td>
+			</tr>
+			<tr>
+				<td colspan="3"><span ><strong> <a href="javascript:semakanHRMIS();" style="color:#0000FF">KLIK DI SINI</a> </strong></span> <span style="color:#000000"><strong>UNTUK MEMBUAT SEMAKAN SEMULA. SEMAKAN HANYA BOLEH DIBUAT DARI JAM 9.00AM HINGGA 6.00PM PADA HARI BEKERJA SAHAJA</strong></span> </td>
+			</tr>
+		#end
+
+		#if ($!userRole == '(AWAM) Pesara')
+			#input_normal("tarikhSemakan" "Tarikh Semakan PESARA" "<b>$!tarikhSemakan</b>")
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="3"><span style="color:#FF2A00"><strong>PERHATIAN :</strong></span> <span style="color:#000000"> <strong>MAKLUMAT PERJAWATAN YANG DIPAPARKAN ADALAH DATA INTERGRASI DARI SISTEM PESARA.</strong></span> </td>
+			</tr>
+			<tr>
+				<td colspan="3"><span ><strong> <a href="javascript:semakanPESARA();" style="color:#0000FF">KLIK DI SINI</a> </strong></span> <span style="color:#000000"><strong>UNTUK MEMBUAT SEMAKAN SEMULA. SEMAKAN HANYA BOLEH DIBUAT DARI JAM 9.00AM HINGGA 6.00PM PADA HARI BEKERJA SAHAJA</strong></span> </td>
+			</tr>
+		#end
+
+		## MAKLUMAT PENGESAHAN
+		#if ($!userRole == '(AWAM) Badan Berkanun' || $!userRole == '(AWAM) Pesara Polis / Tentera' || $!userRole == '(AWAM) Polis / Tentera')
+			<tr>
+				<td>Dokumen Pengesahan Jawatan / Perkhidmatan</td>
+				<td>:</td>
+				<td><input type=hidden name="lampiranPerjawatan" id="lampiranPerjawatan" value="$!pengguna.dokumenSokongan"> 
+					#if ( $!pengguna.dokumenSokongan ) 
+						#if ($!pengguna.dokumenSokongan  != "") 
+							<a href="../download?file=$!uploadDir$!pengguna.dokumenSokongan" > <font color="#0000FF"><strong>MUAT TURUN</strong></font> </a> &nbsp;&nbsp;
+							#if ($!pengguna.flagMenungguPengesahan == 'T')
+								<input type="button" value="Hapus" id="btnHapusDokumenPengesahan" name="btnHapusDokumenPengesahan">
+							#end
+						#else
+							<input class="texts" type="file" id="dokumenPengesahan" name="dokumenPengesahan" style="width:500px" onFocus="$('err_dokumenPengesahan').innerHTML = '';" onChange="uploadDokumenPengesahan()">
+							<div id="uploadDokumenPengesahan" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+							<div id="err_dokumenPengesahan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+						#end
+					#else
+						<input class="texts" type="file" id="dokumenPengesahan" name="dokumenPengesahan" style="width:500px" onFocus="$('err_dokumenPengesahan').innerHTML = '';" onChange="uploadDokumenPengesahan()">
+						<div id="uploadDokumenPengesahan" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+						<div id="err_dokumenPengesahan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+					#end 
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			#if ($!pengguna.flagAktif == 'Y')
+				<tr>
+					<td>Status Pengesahan</td>
+					<td>:</td>
+					<td><span style="color:#000000"><strong>AKTIF</strong></span></td>
+				</tr>
+				
+				#if ($!pengguna.tarikhPengesahan) 
+					#set ($datePengesahan = "$!util.getDateTime($!pengguna.tarikhPengesahan,'dd-MM-yyyy')")
+				#else 
+					#set ($datePengesahan = "") 
+				#end
+				<tr>
+					<td>Tarikh Pengesahan</td>
+					<td>:</td>
+					<td><span style="color:#000000"><strong>$datePengesahan</strong></span></td>
+				</tr>
+				
+				#if ($!pengguna.tarikhLuputPengesahan) 
+					#set ($dateLuputPengesahan = "$!util.getDateTime($!pengguna.tarikhLuputPengesahan,'dd-MM-yyyy')")
+				#else 
+					#set ($dateLuputPengesahan = "") 
+				#end
+				<tr>
+					<td>Tarikh Luput</td>
+					<td>:</td>
+					<td><span style="color:#000000"><strong>$dateLuputPengesahan</strong></span></td>
+				</tr>
+				#input_readonly_all_label ("idGredPerkhidmatan" "Gred Perkhidmatan" "$!pengguna.gredPerkhidmatan.keterangan")
+			#else
+				<tr>
+					<td>Status Pengesahan</td>
+					<td>:</td>
+					<td><span style="color:#FF2A00"><strong>TIDAK AKTIF</strong></span></td>
+				</tr>
+			#end
+			
+			<tr>
+				<td>Catatan Pengesahan</td>
+				<td>:</td>
+				<td><span style="color:#000000"><strong>$!pengguna.catatanPengesahan</strong></span></td>
+			</tr>
+		#end
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		#if ($!userRole == '(AWAM) Badan Berkanun' || $!userRole == '(AWAM) Pesara Polis / Tentera' || $!userRole == '(AWAM) Polis / Tentera')
+			#if ($!pengguna.flagAktif == 'T' && $!pengguna.flagMenungguPengesahan == 'T') 
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td><input type="button" value="Hantar Untuk Pengesahan" id="btnHantarPengesahan" name="btnHantarPengesahan"></td>
+			</tr>
+			#end
+		#end
+	</table>
+</fieldset>
+<iframe id="upload_dokumen_pengesahan" name="upload_dokumen_pengesahan" width="0px" height="0px" style="visibility:hidden"></iframe>

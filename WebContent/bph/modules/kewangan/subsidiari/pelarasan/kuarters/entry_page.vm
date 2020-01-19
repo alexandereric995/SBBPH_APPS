@@ -1,0 +1,147 @@
+  
+<fieldset>
+<legend class="legend">maklumat pemohon</legend>
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr>
+			<td style="width:166px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		
+		#show("NAMA" "$!r.pemohon.userName.toUpperCase()")
+		#show("NO. KAD PENGENALAN" "$!r.pemohon.noKP")
+		
+	</table>
+</fieldset>
+		
+		
+<fieldset>
+<legend class="legend">maklumat permohonan</legend>
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr>
+			<td style="width:166px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">MAKLUMAT KUARTERS</span>
+			</td>
+		</tr>
+		<tr><td colspan="3">&nbsp;</td></tr>
+		
+		#show("JENIS KUARTERS" "$!utilKewangan.getKuaPenghuni($!r.pemohon.noKP).kuarters.jenisKediaman.keterangan")
+		#show("ALAMAT" "$!utilKewangan.getKuaPenghuni($!r.pemohon.noKP).kuarters.noUnit")
+		#show("" "$!utilKewangan.getKuaPenghuni($!r.pemohon.noKP).kuarters.alamat1")
+		#show("" "$!utilKewangan.getKuaPenghuni($!r.pemohon.noKP).kuarters.alamat2")
+		#show("" "$!utilKewangan.getKuaPenghuni($!r.pemohon.noKP).kuarters.alamat3")
+		#show("POSKOD" "$!utilKewangan.getKuaPenghuni($!r.pemohon.noKP).kuarters.poskod")
+		#show("BANDAR" "$!utilKewangan.getKuaPenghuni($!r.pemohon.noKP).kuarters.bandar.keterangan")
+		#show("NEGERI" "$!utilKewangan.getKuaPenghuni($!r.pemohon.noKP).kuarters.bandar.negeri.keterangan")
+		
+	</table>	
+	
+	
+</fieldset>
+
+
+<fieldset>
+<legend class="legend">maklumat sewa penghuni</legend>
+	
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr><td colspan="7"></td></tr>
+		<tr>
+			<td colspan="7">
+				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">SEWA</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="row_header" width="4%">BIL</td>
+			<td class="row_header" width="10%">BLN-THN</td>
+			<td class="row_header" width="15%">PATUT BAYAR (RM)</td>
+			<td class="row_header" width="15%">TELAH BAYAR (RM)</td>
+			<td class="row_header" width="20%">JUMLAH TUNGGAKAN / LEBIHAN<br/>TERKUMPUL (RM)</td>
+			<td class="row_header" width="15%">NO. RESIT</td>
+			<td class="row_header" width="21%">CATATAN</td>
+		</tr>
+		
+		#if ( $listInvois.size() > 0 )
+    		#set ( $count = 0 )
+			#set ( $jumlahLebihanTunggakan = 0.00 )
+    		#foreach( $d in $listInvois )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+				#set ( $jumlahLebihanTunggakan = $jumlahLebihanTunggakan + $!d.tunggakanLebihan() )
+				
+			##UNIT DEPOSIT TAK LEH EDIT
+			
+    		<tr bgcolor="$rowcolor">
+				<td align="center">$count</td>
+    			<td align="center">$!util.getDateTime($!d.tarikhInvois,'MMM yyyy').toUpperCase()</td>
+				<td align="right">$!util.formatDecimal($!d.debit)</td>
+    			<td align="right">
+					
+					#if($!d.amaunPelarasan != 0.00 && $!d.amaunPelarasan)
+						#set ( $val = $!d.amaunPelarasan )
+					#else
+						#set ( $val = $!d.kredit )
+					#end
+					
+					<input type="text" style="text-align:right" class="currency" name="amaunPelarasan$!d.id" id="amaunPelarasan$!d.id" value="$!util.formatDecimal($val)" />
+				</td>
+    			<td align="right"><span class="bracketNumber">$!d.tunggakanLebihan()</span></td>
+    			<td align="center">$!d.lejar().noResit.toUpperCase()</td>
+    			<td align="center"><input type="text" name="catatanPelarasan$!d.id" id="catatanPelarasan$!d.id" value="$!d.catatanPelarasan" onBlur="this.value=this.value.toUpperCase();" /></td>
+    		</tr>
+			
+			#end
+    			<tr>
+    				<td colspan="4" align="right">TUNGGAKAN / LEBIHAN :</td>
+    				<td align="right">
+						<span class="bracketNumber">$!util.formatDecimal($jumlahLebihanTunggakan)</span>
+						<script>
+							var jum = "$jumlahLebihanTunggakan";
+							
+							var valPelarasan = parseInt(jum);
+							if(parseInt(jum) < 0){
+								valPelarasan = parseInt(jum) * -1;
+							}
+							
+							_jq('#amaunPelarasan').val(valPelarasan);
+						</script>
+					</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+    			</tr>
+    	#else
+    		<tr bgcolor="#F0F0F0">
+    			<td colspan="7">Tiada Rekod</td>
+    		</tr>
+    	#end
+		
+	</table>
+	
+</fieldset>
+		
+
+
+<script>
+_jq(document).ready(function () {
+	##_jq('#btnSaveRecordTemplate').val('Sahkan dan Agih Permohonan');
+});
+  _jq(function($) {
+  	  $('.bracketNumber').autoNumeric('init', {nBracket: '(,)', vMin: '-9999999999.99', vMax: '9999999999.99'} );
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

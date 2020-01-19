@@ -1,0 +1,123 @@
+<input type="hidden" name="idRppPermohonan" id="idRppPermohonan" value="$!r.id" />
+#parse("bph/modules/rpp/templates/summaryPermohonan.vm")
+
+#if( $!r.status.id=="1435093978588" || $!r.status.id=="1425259713418")	
+    <fieldset>
+    <legend class="legend">MAKLUMAT PEMBATALAN</legend>
+    	<table width="100%" cellpadding="2" cellspacing="2" >
+			
+			<tr>
+				<td style="width:150px"></td>
+				<td style="width:10px"></td>
+				<td></td>
+            </tr>
+			
+			#show("Catatan Pembatalan" "$!util.replaceIfNull($!r.catatanPembatalan,'-')")
+			#show("Dibatalkan Oleh" "$!util.replaceIfNull($!r.pemohonBatal.userName,'-')")
+			#show("Tarikh Pembatalan" "$!util.getDateTime($!r.tarikhPembatalan,'dd-MM-yyyy')")
+			
+    	</table>
+    </fieldset>
+	
+#end	
+
+#if( $!r.statusBayaran == "Y")
+<fieldset>
+<legend class="legend">SENARAI CETAKAN</legend>
+
+	<table width="100%" >
+		<tr>
+        	#if( $!r.rppPeranginan.id=="3" || $!r.rppPeranginan.id=="14" ) ##PD DAN LANGKAWI
+        		##langkawi
+        		#if( $!r.rppPeranginan.id.equalsIgnoreCase("3"))
+        			<a href="#" style="color:blue" id="cmdCetakSuratKelulusan">SURAT KELULUSAN LANGKAWI</a>
+        		##port dickson
+        		#elseif($!r.rppPeranginan.id.equalsIgnoreCase("14") )
+        			<a href="#" style="color:blue" id="cmdCetakSuratKelulusan">SURAT KELULUSAN PORT DICKSON</a>
+				#end
+					<br/>
+					<a href="../download?file=$!uploadDir$!r.photofilename" style="color:blue" >SLIP PEMBAYARAN</a>
+				</td>
+			#else ##RPP lain
+				#if( $!r.statusBayaran == "Y")
+				#if( $!userRole.equalsIgnoreCase("(RPP) Penyedia") || $!userRole.equalsIgnoreCase("(RPP) Penyelia") || $!userRole.equalsIgnoreCase("(RPP) Pelulus") || $!userRole.equalsIgnoreCase("(RPP) Penyemak"))
+				<tr>
+				<td><a href="#" style="color:blue" id="cmdBorangPendaftaranTetamu">SURAT PENDAFTARAN TETAMU</a></td>		
+				</tr>
+				#end
+        		<td>
+        			<a href="#" style="color:blue" id="cmdCetakSuratKelulusan">SURAT KELULUSAN</a>
+					<br/>
+					<a href="#" style="color:blue" id="cmdResitInv">RESIT</a>
+					<br/>
+					#if( $!r.resitDeposit && ($!r.resitDeposit.id != $!r.resitSewa.id))
+					<a href="#" style="color:blue" id="cmdResitDep">RESIT DEPOSIT </a>	
+					#end
+			  	#end
+					
+				</td>
+				<script>
+            		_jq('#cmdResitDep').on('click', function(){
+            		    var idResit = '$!r.getIdResitDeposit()';
+    					var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+    					var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+    					if ((document.window != null) && (!hWnd.opener))
+    					hWnd.opener = document.window;
+    					if (hWnd.focus != null) hWnd.focus();	
+        			});
+        			_jq('#cmdResitInv').on('click', function(){
+            		    var idResit = '$!r.getIdResitSewa()';
+    					var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+    					var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+    					if ((document.window != null) && (!hWnd.opener))
+    					hWnd.opener = document.window;
+    					if (hWnd.focus != null) hWnd.focus();	
+        			});
+        			_jq('#cmdBorangPendaftaranTetamu').on('click', function(){
+					var url = "../servlet/bph.laporan.rpp.BorangPendaftaranTetamu?idRppPermohonan=$!r.id";
+					var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+					if ((document.window != null) && (!hWnd.opener))
+					hWnd.opener = document.window;
+					if (hWnd.focus != null) hWnd.focus();
+					});
+					
+    	        </script>
+			#end
+		</tr>
+	</table>
+</fieldset>
+#end
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if( $!userRole.equalsIgnoreCase("(RPP) Penyedia") || $!userRole.equalsIgnoreCase("(RPP) Penyemak") || $!userRole.equalsIgnoreCase("(RPP) Pelulus"))
+				#if( ($!r.status.id == "1425259713418" || $!r.status.id == "1433083787409" || $!r.status.id == "1435093978588") && $!r.statusBayaran=="Y")
+			    		<input id="agih" name="agih" type="button" value="Agihan ke Unit Kewangan" onClick="javascript:saveAgihanSubsidari();"/>
+		    	#end
+			#end
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+<div id="divPermohonan">
+#parse("bph/modules/rpp/rppHistory/status.vm")	
+</div>
+<script>
+	
+		_jq('#cmdCetakSuratKelulusan').on('click', function(){
+		#if( $!r.rppPeranginan.id.equalsIgnoreCase("3"))
+			var url = "../servlet/bph.laporan.rpp.SuratKelulusanRPPLangkawi?idRppPermohonan=$!r.id";
+		#elseif($!r.rppPeranginan.id.equalsIgnoreCase("14") )
+			var url = "../servlet/bph.laporan.rpp.SuratKelulusanRPPPortDickson?idRppPermohonan=$!r.id";
+		#else
+			var url = "../servlet/bph.laporan.rpp.RPPSuratLulusPermohonan?idRppPermohonan=$!r.id";
+		#end
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		});	
+		
+</script>	
+				

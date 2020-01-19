@@ -1,0 +1,136 @@
+#if ( $isRoleSelected )
+    #set( $btnStatus = "" )
+#else
+    #set( $btnStatus = "disabled" )
+#end
+
+<fieldset>
+    <form name="roleEditorForm" method="post">
+        <table width="100%" border="0" cellpadding="2" cellspacing="0">
+            <tr>
+                <td align="left">
+                    <table cellpadding="2" cellspacing="0">
+                        <tr>
+                            <td nowrap>Pilih Peranan :</td>
+                            <td>
+                                <select name="role">
+                                    <option value="">Sila Pilih</option>
+                                    #foreach ( $role in $roleList )
+    									#set ( $description = $role.getDescription() )
+                                        #if ( $role.getName() != "root" )
+                                            #if ( $userRole ==  $role.getName() )
+    											<option value="$role.getName()" selected>$description</option>
+                                            #else
+    											<option value="$role.getName()">$description</option>
+                                            #end
+                                        #end
+                                    #end
+                                </select>
+                            </td>
+                            <td>
+    							<input type="button" value="Dapatkan Peranan" onclick="doGetModule()">
+    						</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <br />
+					<fieldset><legend class="legend">Peranan : #if ( $isRoleSelected ) <b>$description</b> #end</legend>
+                        <table width="100%" cellpadding="1" cellspacing="0">
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellpadding="2" cellspacing="1">
+                                        <tr>
+                                            <td class="table_header" width="5%"></td>
+                                            <td class="table_header" width="5%" valign="middle" align="center"><input type="checkbox" onClick="selectAll(this)"></td>
+                                            <td class="table_header" width="40%"><b>Nama</b></td>
+                                            <td class="table_header" width="50%"><b>Nama Peranan</b></td>
+                                            ##<td ><input type="button" value="Update Role" onclick="doRoleUpdate()" $btnStatus></td>
+                                        </tr>
+                                        #if ( !$isRoleSelected )
+                                            <tr>
+                                                <td class="table_row" colspan="4" align="center">
+													Tiada Peranan yang Dipilih
+												</td>
+                                            </tr>
+                                        #else
+                                            #set ( $group = "" )
+                                            #foreach ( $module in $moduleList )
+                                                #if ( $group != $module.getGroup() )
+                                                    #set ( $group = $module.getGroup() )
+                                                    <tr height="30px">
+                                                        <td colspan="5"><b>$group</b></td>
+                                                    </tr>
+                                                #end
+                                                #if ( $module.isSelected() )
+                                                    #set( $checked = "checked" )
+                                                    #set( $row = "row1" )
+                                                #else
+                                                    #set( $checked = "" )
+                                                    #set( $row = "row2" )
+                                                #end
+                                                <tr>
+                                                    <td class="$row" valign="middle" align="center">$velocityCount</td>
+                                                    <td class="$row" valign="middle" align="center">
+                                                        <input type="checkbox" name="module" value="$module.getId()" $checked>
+                                                    </td>
+                                                    <td class="$row" valign="middle">
+                                                        #if ( $module.title == "" )
+            												[&nbsp;<i>$module.id</i>&nbsp;]
+                                                        #else
+															#if ($label.get($module.title))
+    															$label.get($module.title)
+    														#else
+																[&nbsp;<i>$module.title</i>&nbsp;]
+    														#end
+                                                        #end
+                                                    </td>
+                                                    <td class="$row" valign="middle">
+            											$module.description
+                                                    </td>
+                                                </tr>
+                                            #end
+                                        #end
+                                        <tr>
+            								<td colspan="5" align="right">
+            									<input type="button" value="Kemaskini Peranan" onclick="doRoleUpdate()" $btnStatus>
+                                        	</td>
+            							</tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+					</fieldset>
+                </td>
+            </tr>
+        </table>
+    	<input type="hidden" name="form_action" value="">
+    </form>
+</fieldset>
+<br /><br />
+
+<script>
+function doSubmit() {
+    document.roleEditorForm.action = "";
+    document.roleEditorForm.submit();
+}
+
+function doGetModule() {
+    document.roleEditorForm.form_action.value = "get_modules";
+    doSubmit();
+}
+
+function doRoleUpdate() {
+    document.roleEditorForm.form_action.value = "update_role";
+    doSubmit(); 
+}
+
+function selectAll(source) {
+    checkboxes = document.getElementsByName('module');
+    for(var i=0, n=checkboxes.length;i<n;i++) {
+    	checkboxes[i].checked = source.checked;
+    }
+}
+</script>

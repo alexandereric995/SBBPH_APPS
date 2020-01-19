@@ -1,0 +1,36 @@
+<fieldset>
+<legend class="legend">MAKLUMAT TERIMAAN KUNCI</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #if ($!r.tarikhTerimaKunci) 
+  	#set ($dateTerimaKunci = "$!util.getDateTime($!r.tarikhTerimaKunci,'dd-MM-yyyy')")
+  #else 
+  	#set ($dateTerimaKunci = "$!util.getCurrentDate('dd-MM-yyyy')") 
+  #end
+  #date_input_required("tarikhTerimaKunci" "Tarikh Terima Kunci" "$dateTerimaKunci")
+  <tr>
+    <td class="label" valign="top">Agih Kunci Ke &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td>#parse("$path/selectPenyemakSenggara.vm")
+      <div id="err_idPenyemakSenggara" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  #textarea("catatanTerimaanKunci" "Catatan" "$!r.catatanTerimaanKunci")
+</table>
+</fieldset>
+
+
+<br>
+</fieldset>
+<br>
+<table width="100%">
+  <tr>
+    <td align="right">
+    	<input type="button" value="Simpan" onclick="javascript:simpanTerimaanKunci();">
+    	<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

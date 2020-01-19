@@ -1,0 +1,144 @@
+#if ($!command != "add_new_record")
+<input type="hidden" id="id" name="id" value="$!r.id">
+#end
+<style type="text/css">
+<!--
+.style4 {
+	color: #0000CC;
+	font-weight: bold;
+}
+-->
+</style>
+<div id="divTab">
+<iframe id="upload_photo" name="upload_photo" width="0px" height="0px" style="visibility:hidden"></iframe>
+<fieldset><legend class="legend">MAKLUMAT REKOD</legend>
+	##<div id="saveResult">#parse ("$path/saveSuccess.vm")</div>
+    <table width="90%" align="center" border="0" cellpadding="5" cellspacing="0">
+      <tr>
+        <td width="20%"></td>
+        <td width="2%"></td>
+        <td></td>
+    	<td rowspan="14" width="40%" valign="top">
+    		<fieldset><legend class="legend">GAMBAR PROFIL</legend>
+    			<div id="divPhoto">#parse ("$path/divPhoto.vm")</div>
+    			<center><input type="button" value="Muatnaik" onClick="uploadPhoto('')"></center>
+          	</fieldset>
+    	</td>
+      </tr>
+      #if ($!command != "add_new_record")
+	  <tr>
+		<td class="label" valign="top">Log Pengguna</td>
+		<td class="label" valign="top">:</td>
+		<td valign="top"><b>$!r.id</b></td>
+	  </tr>
+	  #else
+	  #input_required_no_case("id" "Log Pengguna" "$!r.id")
+	  #end
+	  
+      #input_required("userName" "Nama Pengguna" "$!r.userName")
+      
+      #if($userRole!="(AWAM) Pengguna Awam") 
+      <tr>
+        <td class="label">Peranan Pengguna &nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td> #parse("$path/selectRole.vm")
+        <div id="err_selectRole" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+  
+      <tr>
+        <td class="label">Jawatan</td>
+        <td>:</td>
+        <td> #parse("$path/selectJawatan.vm")
+          <div id="err_idJawatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+	  
+      <tr>
+        <td class="label">Seksyen</td>
+        <td>:</td>
+        <td> #parse("$path/selectSeksyen.vm")
+          <div id="err_idSeksyen" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>	 
+	  #end
+	  
+	  <tr>
+        <td class="label">Jantina</td>
+        <td>:</td>
+        <td> #parse("$path/selectJantina.vm")
+          <div id="err_idJantina" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+	  
+      <tr>
+        <td class="label">Bangsa</td>
+        <td>:</td>
+        <td> #parse("$path/selectBangsa.vm")
+          <div id="err_idBangsa" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>	 
+      
+      <tr>
+        <td class="label">Agama</td>
+        <td>:</td>
+        <td> #parse("$path/selectAgama.vm")
+          <div id="err_idAgama" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+	  
+      #input("userAddress" "Alamat" "$!r.userAddress")
+      #input("userAddress2" "" "$!r.userAddress2")
+      #input("userAddress3" "" "$!r.userAddress3")
+      #postcode("poskod" "Poskod" "$!r.poskod")
+      <tr>
+        <td class="label">Negeri</td>
+        <td>:</td>
+        <td> #parse("$path/selectNegeri.vm")
+          <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      <tr>
+        <td class="label">Bandar</td>
+        <td>:</td>
+        <td> <span id="selectBandar">#parse("$path/selectBandar.vm")</span>
+          <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      
+      #number("noTelefon" "No. Telefon" "$!r.noTelefon")
+      #number("noTelefonBimbit" "No. Telefon Bimbit" "$!r.noTelefonBimbit")
+      #input_email("emel" "E-mel" "$!r.emel") 
+   	 
+   	  #if($userRole=="(AWAM) Penjawat Awam") 
+   	   	 #input("gredPerkhidmatan" "Gred Perkhidmatan" "$!r.gredPerkhidmatan.id")
+   	  #end
+      
+      #if($userRole=="(AWAM) Badan Berkanun" || $userRole=="(AWAM) Polis / Tentera" || $userRole=="(AWAM) Pesara Polis / Tentera") 
+      <tr>
+		<td>Dokumen Sokongan</td>
+		<td>:</td>
+		<td><a href="../download?file=$!uploadDir$!r.dokumenSokongan" ><img style="margin:4px 0 4px;" id="photoImg" src="../download?file=$r.dokumenSokongan" border="0"></td>
+	  </tr>
+	  
+	  #end
+	   
+    </table>
+    #if ($!command != "add_new_record")
+	<table width="100%">
+		
+		<tr>
+			#if($userRole=="(AWAM) Badan Berkanun" || $userRole=="(AWAM) Polis / Tentera" || $userRole=="(AWAM) Pesara Polis / Tentera") 
+				#if($userFlagAktif=="Y")
+				<td align="right">
+	    			<input id="reset" name="reset" type="button" value="Reset Kata Laluan" onclick="javascript:doResetPassword();"/>
+	    		</td>
+	    		#else
+	    		<td align="right">
+	    			<input id="confirm" name="confirm" type="button" value="Pengesahan Pengguna" onclick="javascript:doSavePengesahan();"/>
+	    		</td>
+	    		#end
+	    	#else	
+	    	<td align="right">
+	    			<input id="reset" name="reset" type="button" value="Reset Kata Laluan" onclick="javascript:doResetPassword();"/>
+	    	</td>
+			#end
+		</tr>
+		
+	</table>
+	#end
+	##<input type="hidden" name="id" id="id" value="$!r.getId()">
+</fieldset>
+</div>

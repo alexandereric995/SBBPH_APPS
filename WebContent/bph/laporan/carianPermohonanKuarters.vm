@@ -1,0 +1,38 @@
+<fieldset><legend class="legend">Cetak</legend>
+	<table cellpadding="5" cellspacing="0" border="1" width="100%">
+		<tr>
+			<td>Bil.</td>
+			<td>No Daftar</td>
+			<td>Tarikh Daftar</td>
+			<td>Nama Pemohon</td>
+			<td>No. Kad Pengenalan</td>
+			<td>Gred</td>
+			<td>Kementerian</td>
+			<td>No. Tel</td>
+			<td>No. HP</td>
+		</tr>
+		#set( $count = 0 )
+		#foreach( $r in $qp )
+			#set( $count = $count + 1 )
+    		<tr>
+    			<td>$count</td>
+				<td>$!r.id</td>
+				<td>$!r.tarikhPermohonan</td>
+				<td>$!r.pemohon.nama</td>
+				<td>$!r.pemohon.noPengenalan</td>
+                <td>F29</td>
+                <td>KEMENTERIAN KEWANGAN</td>
+                <!-- <td>E</td> -->
+                <td>$!r.pemohon.noTel</td>
+                <td>$!r.pemohon.noTelBimbit</td>
+    		</tr>
+		#end
+    	<tr>
+    		<td colspan="9" align="center">
+    			<a href="../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSenaraiPermohonan?pdfName=SenaraiPermohonan">
+    				<input class="button" type="button" value="Cetak Permohonan">
+    			</a>
+    		</td>
+    	</tr>
+    </table>
+</fieldset>

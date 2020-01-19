@@ -1,0 +1,101 @@
+
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+	<tr><td>
+
+		<table align="center" width="100%" border="0" cellpadding="2" cellspacing="1">	
+	
+			#foreach ( $forum in $topic_items)
+			
+			#if ( $forum.title != "" )
+			<tr>
+				<td  class="table_row" valign="top">
+					<a href="javascript:doAjaxCall${formname}('Open', 'subjectId=$!subjectId&forum_id=$forum.id&parent_id=$forum.id')" style="text-decoration:none;">
+					<b>$forum.title</b>
+					</a>
+##										[<a href="javascript:doAjaxCall${formname}('Open', 'subjectId=$!subjectId&forum_id=$forum.id&parent_id=$forum.id')" style="text-decoration:none;"><i>Open</i></a>]
+</td>
+<tr>
+#end
+
+<td>
+
+
+					$forum.getMessage(200) ...
+					[<a href="javascript:doAjaxCall${formname}('Open', 'subjectId=$!subjectId&forum_id=$forum.id&parent_id=$forum.id')" style="text-decoration:none;"><i><u>Open</u></i></a>]
+					
+					<br>
+
+					$forum.getDatePosted().display()
+					
+				</td>
+			</tr>
+		
+			#end
+		</table>
+		
+		<table width="100%">
+			<tr>
+				<td align="right">	
+				#if ( $topic_pages > 0 )
+					Page $topic_page_number of $topic_pages&nbsp;
+				#end
+				#if ( !$topic_bol )
+				<input class="button" type="button" value="&lt;" 
+				onclick="doAjaxCall$formname('PreviousTopic', 'forum_id=$forum.id')">	
+				##onclick="previous_${formname}()">
+				#end
+				#if ( !$topic_eol )
+				<input class="button" type="button" value="&gt;" 
+				onclick="doAjaxCall$formname('NextTopic', 'forum_id=$forum.id')">	
+				##onclick="next_${formname}()">
+				#end
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					#if ( $topic_pages > 0 )
+						#foreach ($num in [ 1..$topic_pages ])
+							[
+							#if ( $num == $topic_page_number )
+								<b>$num</b>
+							#else
+								##<a href="javascript:goPage_${formname}($num)">
+								<a href="javascript:doAjaxCall$formname('GoTopicPage', 'pagenum=$num')">	
+								<u>$num</u>
+								</a>
+							#end
+							]
+						#end
+					#end
+				</td>
+			</tr>	
+		</table>		
+		
+		#if ( $userid == "anon" )
+		<table align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td  align="center">
+##					<b>You could post a topic if you are logged in.</b>
+				</td>
+			</tr>	
+		</table>		
+		#else
+		<table align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td  align="right">
+#if ( $allowPost )
+						<input class="button" type="button" value="Add New .." 						onclick="doAjaxCall$formname('AddNewTopic')">
+						##onclick="doAjaxCall${formname}('AddNewTopic');">
+#end
+				</td>
+			</tr>	
+		</table>
+		#end
+				
+<input type="hidden" name="subjectId" value="$!subjectId">
+<input type="hidden" name="forum_id">
+<input type="hidden" name="pagenum">
+
+
+	</td></tr>
+</table>

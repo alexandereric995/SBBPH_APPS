@@ -1,0 +1,66 @@
+<script>
+	_jq("#lainLainRayuan").hide();
+</script>
+<fieldset>
+    <legend class="legend">Maklumat Rayuan</legend>
+    <table width="95%" cellpadding="5" cellspacing="0" border="0" align="center">
+        <tr>
+            <td style="width:150px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+        </tr>
+		#if ($!rayuan.tarikhRayuan)
+			#set($tarikhRayuan = $util.getDateTime($!rayuan.tarikhRayuan, "dd-MM-yyyy"))
+        #else
+            #set($tarikhRayuan = "")
+        #end
+		#date_input_required("tarikhRayuan" "Tarikh Rayuan Diterima" "$tarikhRayuan")
+		#if ($!rayuan.tarikhRayuanDibuat)
+			#set($tarikhRayuanDibuat = $util.getDateTime($!rayuan.tarikhRayuanDibuat, "dd-MM-yyyy"))
+        #else
+            #set($tarikhRayuanDibuat = "")
+        #end
+		#date_input_required("tarikhRayuanDibuat" "Tarikh Rayuan Dibuat" "$tarikhRayuanDibuat")
+		#if ($!rayuan.tarikhMaklumbalas)
+			#set($tarikhMaklumbalas = $util.getDateTime($!rayuan.tarikhMaklumbalas, "dd-MM-yyyy"))
+        #else
+            #set($tarikhMaklumbalas = "")
+        #end
+		#date_input("tarikhMaklumbalas" "Tarikh Maklumbalas" "$tarikhMaklumbalas")
+		<tr>
+            <td class="label" valign="top">Jenis Rayuan&nbsp;<span style="color:#FF2A00">*</span>
+            </td>
+            <td valign="top">:</td>
+            <td>
+                <span id="listJenisRayuan">
+                    #parse("$path/sub_page/select/selectJenisRayuan.vm")
+                </span>
+                <div id="err_idJenisRayuan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+		<tbody id="lainLainRayuan">
+			#input_required("lainJenisRayuan" "Lain-Lain Jenis Rayuan" "$!rayuan.lainJenisRayuan")
+		</tbody>
+		#textarea("sebabRayuan" "Sebab Rayuan" "$!rayuan.sebabRayuan")
+		<tr>
+            <td class="label" valign="top">Status Rayuan&nbsp;<span style="color:#FF2A00">*</span>
+            </td>
+            <td valign="top">:</td>
+            <td>
+                <span id="listStatusRayuan">
+                    #parse("$path/sub_page/select/selectStatusRayuan.vm")
+                </span>
+                <div id="err_statusRayuan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+		#textarea("catatan" "Catatan" "$!rayuan.catatan")
+		<tr>
+			<td colspan="2"></td>
+			<td>
+				<input type="button" id="btnSimpan" name="btnSimpan" value="Simpan / Kemaskini" onclick="simpanRayuan()" />
+				<input type="button" id="btnKembali" name="btnKembali" value="Kembali" onclick="doDivAjaxCall3$formname('detailRayuan','listRayuan','')" />
+			</td>
+		</tr>
+    </table>
+</fieldset>
+<div id="simpanRayuan"></div>

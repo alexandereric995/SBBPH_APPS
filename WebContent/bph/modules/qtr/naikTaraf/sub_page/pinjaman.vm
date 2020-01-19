@@ -1,0 +1,219 @@
+<script>
+	_jq('#statusBinaanRumah').hide();
+	_jq('#pinjamanPerumahan1').hide();
+	_jq('#pembiayaanPinjaman').hide();
+	_jq('#pinjamanPerumahan2').hide();
+	_jq('#pinjamanPerumahan3').hide();
+	_jq('#btnSimpanPinjaman').hide();
+	
+	var k = "$!kpp.pinjamanPerumahan";
+	var v = "$!r.kelulusan1";
+	var y = "$!r.kelulusan3";
+	var j = "$!kpp.jenisPerumahan";
+	var x = "$!kpp.statusPembinaan";
+	
+	if ( k != "" ) {
+		if ( k == 1 ) {
+			_jq('#pinjamanPerumahan1').show();
+			_jq('#pinjamanPerumahan2').show();
+			_jq('#pinjamanPerumahan3').show();
+			_jq('#pembinaanRumah').html('');
+			if ( v == "true" ) {
+				if ( y == "true" ) {
+					_jq("#btnSemakLokasi").val("Simpan / Kemaskini");
+        		} else {
+					_jq("#btnSemakLokasi").val("Semak Kelayakan");
+        		}
+			} else {
+				_jq("#btnSemakLokasi").val("Semak Kelayakan");
+    		}
+    		
+    		if ( j != "" ) {
+				if ( j == "swasta" ) {
+					_jq('#pembiayaanPinjaman').show();
+				} else {
+					_jq('#pembiayaanPinjaman').hide();
+				}
+			}
+							
+			if ( x != "" ) {
+				if ( x == 2 ) {
+					doDivAjaxCall$formname('pembinaanRumah','tarikhJangkaSiap','');
+				} else {
+					_jq('#pembinaanRumah').html('');
+				}
+			}
+		} else {
+			_jq('#pinjamanPerumahan1').hide();
+			_jq('#pinjamanPerumahan2').hide();
+			_jq('#pinjamanPerumahan3').hide();
+			_jq('#pembiayaanPinjaman').hide();
+			_jq("#btnSemakLokasi").val("Simpan / Kemaskini");
+		}
+	}
+</script>
+
+<div id="semakKelayakkan" name="semakKelayakkan"></div>
+<div id="simpanPinjaman" name="simpanPinjaman"></div>
+<table cellpadding="5" cellspacing="0" border="0" width="100%" id="pemohonPinjaman">
+    <tr>
+        <td style="width:200px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+	<tr>
+        <td class="label">Pinjaman Perumahan&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <input type="radio" name="pinjamanPerumahan" value="1" #if($kpp.pinjamanPerumahan == 1) checked = "checked" #end/>Ada
+            <input type="radio" name="pinjamanPerumahan" value="0" #if($kpp.pinjamanPerumahan == 0) checked = "checked" #end/>Tiada
+    		<div id="err_valuePinjamanPerumahan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    		<input type="hidden" id="valuePinjamanPerumahan" name="valuePinjamanPerumahan" value="$!kpp.pinjamanPerumahan"/>
+    		<script>
+    		    _jq("input[name='pinjamanPerumahan']").change(function() {
+    				_jq('#valuePinjamanPerumahan').val(this.value);
+    				_jq('#err_valuePinjamanPerumahan').html("");
+					_jq("#btnSemakLokasi").val("Semak Kelayakan");
+					_jq('#pembinaanRumah').html('');
+					if (this.value==1) {
+						_jq('#pinjamanPerumahan1').show();
+						_jq('#pinjamanPerumahan2').show();
+						_jq('#pinjamanPerumahan3').show();
+					} else {
+						_jq('#pinjamanPerumahan1').hide();
+						_jq('#pinjamanPerumahan2').hide();
+						_jq('#pinjamanPerumahan3').hide();
+						_jq('#pembiayaanPinjaman').hide();
+					}
+                });
+    		</script>
+        </td>
+    </tr>
+	<tbody id="pinjamanPerumahan1">
+		<tr>
+            <td class="label">Jenis Perumahan&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <input type="radio" name="jenisPerumahan" value="prima" #if($kpp.jenisPerumahan == "prima") checked = "checked" #end/>PRIMA
+                <input type="radio" name="jenisPerumahan" value="pp1m" #if($kpp.jenisPerumahan == "pp1m") checked = "checked" #end/>PPA1M
+				<input type="radio" name="jenisPerumahan" value="swasta" #if($kpp.jenisPerumahan == "swasta") checked = "checked" #end/>Swasta
+				<div id="err_valueJenisPerumahan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        		<input type="hidden" id="valueJenisPerumahan" name="valueJenisPerumahan" value="$!kpp.jenisPerumahan"/>
+				<script>
+				    _jq("input[name='jenisPerumahan']").change(function() {
+						_jq('#valueJenisPerumahan').val(this.value);
+        				_jq('#err_valueJenisPerumahan').html("");
+                        if (this.value == "swasta") {
+							_jq('#pembiayaanPinjaman').show();
+                        } else {
+							_jq('#pembiayaanPinjaman').hide();
+                        }
+                    });
+				</script>
+            </td>
+        </tr>
+	</tbody>
+	<tbody id="pembiayaanPinjaman">
+		<tr>
+            <td class="label">Pembiayaan&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <input type="radio" name="pembiayaan" value="kerajaan" #if($kpp.pembiayaan == "kerajaan") checked = "checked" #end/>Kerajaan
+                <input type="radio" name="pembiayaan" value="bank" #if($kpp.pembiayaan == "bank") checked = "checked" #end/>Bank Komersil
+				<div id="err_valuePembiayaan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        		<input type="hidden" id="valuePembiayaan" name="valuePembiayaan" value="$!kpp.pembiayaan"/>
+				<script>
+				    _jq("input[name='pembiayaan']").change(function() {
+						_jq('#valuePembiayaan').val(this.value);
+        				_jq('#err_valuePembiayaan').html("");
+                    });
+				</script>
+            </td>
+        </tr>
+	</tbody>
+	<tbody id="pinjamanPerumahan2">
+		<tr>
+            <td class="label">Status Pembinaan Rumah&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <input type="radio" name="statusRumah" value="1" #if($kpp.statusPembinaan == 1) checked = "checked" #end/>Siap Diduduki
+                <input type="radio" name="statusRumah" value="2" #if($kpp.statusPembinaan == 2) checked = "checked" #end/>Dalam Pembinaan
+				<div id="err_valueStatusRumah" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        		<input type="hidden" id="valueStatusRumah" name="valueStatusRumah" value="$!kpp.statusPembinaan"/>
+				<script>
+				    _jq("input[name='statusRumah']").change(function() {
+						_jq('#valueStatusRumah').val(this.value);
+        				_jq('#err_valueStatusRumah').html('');
+                        if (this.value == 2) {
+							doDivAjaxCall$formname('pembinaanRumah','tarikhJangkaSiap','');
+                        } else {
+    						alert("Status pembinaan rumah tidak menepati kriteria yang ditetapkan");
+							_jq('#pembinaanRumah').html('');
+                        }
+                    });
+				</script>
+            </td>
+        </tr>
+	</tbody>
+	<tbody id="pembinaanRumah">
+		
+	</tbody>
+	<tbody id="pinjamanPerumahan3">
+		<tr>
+            <td class="label">Pembelian&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <input type="radio" name="pembelian" value="sendiri" #if($kpp.pembelian == "sendiri") checked = "checked" #end/>Sendiri
+                <input type="radio" name="pembelian" value="pasangan" #if($kpp.pembelian == "pasangan") checked = "checked" #end/>Pasangan
+				<input type="radio" name="pembelian" value="bersama" #if($kpp.pembelian == "bersama") checked = "checked" #end/>Bersama
+				<div id="err_valuePembelian" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        		<input type="hidden" id="valuePembelian" name="valuePembelian" value="$!kpp.pembelian"/>
+				<script>
+				    _jq("input[name='pembelian']").change(function() {
+						_jq('#valuePembelian').val(this.value);
+        				_jq('#err_valuePembelian').html("");
+                    });
+				</script>
+            </td>
+        </tr>
+		##input_required("alamatPinjaman1" "Alamat Rumah yang Dibeli" "$!kpp.alamatPinjaman1")
+        ##input("alamatPinjaman2" "" "$!kpp.alamatPinjaman2")
+        ##input("alamatPinjaman3" "" "$!kpp.alamatPinjaman3")
+		#postcode_required("poskodPinjaman" "Poskod" "$!kpp.poskodPinjaman")
+		<tr>
+            <td class="label" valign="top">Negeri&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td valign="top">:</td>
+            <td>
+                <span id="listNegeriPinjaman">
+                    #parse("$path/sub_page/pinjaman/selectNegeriPinjaman.vm")
+                </span>
+                <div id="err_idNegeriPinjaman" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Bandar&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <span id="listBandarPinjaman">
+                    #parse("$path/sub_page/pinjaman/selectBandarPinjaman.vm")
+                </span>
+				<div id="err_idBandarPinjaman" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+	</tbody>
+	##<tr>
+        ##<td colspan="2"></td>
+        ##<td>
+            ##<input type="button" id="btnSimpanPinjaman" name="btnSimpanPinjaman" value="Simpan / Kemaskini" onclick="simpanPinjaman()" />
+			##<input type="button" id="btnSemakKelayakkan" name="btnSemakKelayakkan" value="Semak Kelayakkan" onclick="semakKelayakkan()" />
+        ##</td>
+    ##</tr>
+</table>
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

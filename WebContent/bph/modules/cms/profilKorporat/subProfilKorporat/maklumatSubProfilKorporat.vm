@@ -1,0 +1,54 @@
+<fieldset>
+<legend class="legend">Maklumat SubProfil Korporat</legend>
+<table width="100%">
+  <tr>
+    <td style="width:200px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  <input type="hidden" name="idSubProfilKorporat" id="idSubProfilKorporat" value="$!subProfilKorporat.id">
+  #input_required("tajukSubProfilKorporat" "Tajuk" "$!subProfilKorporat.tajuk")
+  #if ($!subProfilKorporat.tarikhLuput) 
+	#set ($dateLuput = "$!util.getDateTime($!subProfilKorporat.tarikhLuput,'dd-MM-yyyy')")
+  #else #set ($dateLuput = "") #end
+  <tr>
+    <td class="label" valign="top">Status &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td>#parse("$path/subProfilKorporat/selectFlagAktif.vm")
+      <div id="err_flagAktifSubProfilKorporat" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  <tr>
+    <td>Muatnaik</td>
+    <td>:</td>
+    <td><table width="100%">
+        <tr>
+          <td align="left">
+          	
+          	#if ($!subProfilKorporat) 
+          	<a href="../download?file=$!uploadDir$!subProfilKorporat.fileName" > <span class="print"><strong>MUAT TURUN DOKUMEN</strong><span> </a> 
+          	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          	#end          	
+          	<input type="file" id="dokumen" name="dokumen">
+            <div id="err_dokumen" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            <div id="dokumenMuatnaik" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>
+    	#if ($!command == 'daftarSubProfilKorporat')
+    	<input id="btnSimpan" name="btnSimpan" type="button" value="Simpan" onclick="javascript:simpanSubProfilKorporat();"/>
+    	<input id="btnBatal" name="btnBatal" type="button" value="Batal" onclick="doDivAjaxCall3$formname('divTab','getSubProfilKorporat','')"/>
+    	#elseif ($!command == 'kemaskiniSubProfilKorporat')
+    	<input id="btnKemaskini" name="btnKemaskini" type="button" value="Kemaskini" onclick="javascript:simpanKemaskiniSubProfilKorporat();"/>
+    	<input id="btnBatal" name="btnBatal" type="button" value="Batal" onclick="doDivAjaxCall3$formname('divTab','getSubProfilKorporat','')"/>
+    	#end
+    </td>
+  </tr>
+</table>
+</fieldset>

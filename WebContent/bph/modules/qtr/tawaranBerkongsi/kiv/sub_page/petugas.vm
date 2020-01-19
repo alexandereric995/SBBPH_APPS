@@ -1,0 +1,61 @@
+<fieldset>
+    <legend class="legend">Petugas</legend>
+    <table cellpadding="5" cellspacing="1" border="0" width="95%" align="center">
+        <tr>
+            <td class="row_header">Bil.</td>
+            <td class="row_header" align="left">Nama</td>
+			<td class="row_header" align="left">No. Rujukan</td>
+            <td class="row_header" align="left">Lokasi</td>
+            ##<td class="row_header" align="left">Kapasiti</td>
+			##<td class="row_header" align="left">Kapasiti Semasa</td>
+            <td class="row_header" align="left">Jenis Kuarters</td>
+			##<td class="row_header" align="left">Jenis Penghuni</td>
+			<td class="row_header" align="left">Kelas Kuarters</td>
+            <td class="row_header" align="left">Pilihan</td>
+        </tr>
+		#set( $count = 0 )
+		#if ( $kuarters.size() > 0 )
+    		#foreach ( $k in $kuarters )
+    			#set ( $count = $count + 1 )
+    			#if ( $count % 2 == 0 ) #set ( $className = "record_row1" ) #else #set ( $className = "record_row2" ) #end
+    			<tr id="row_$count" class="$className">
+    				<td align="center">$count</td>
+    				<td align="center">$!k.noUnit</td>
+    				<td align="center">$!k.noRujukan</td>
+    				<td align="center">$!k.lokasi.keterangan</td>
+    				##<td align="center">$!k.kapasiti</td>
+					##<td align="center">$!k.kapasitiSemasa</td>
+    				<td align="center">$!k.jenisKediaman.keterangan</td>
+    				##<td align="center">$!k.kategoriPenghuni</td>
+    				#if ( $k.kelas.id == $kelas2 )
+    					#set( $jenisKelas = " &#40;<i style='color: #FF0000'>Kelas Downgrade</i>&#41;" )
+    				#else
+    					#set( $jenisKelas = " &#40;<i style='color: #008000'>Kelas Layak</i>&#41;" )
+    				#end
+    				<td align="center">$k.kelas.id$!jenisKelas</td>
+    				<td align="center">
+    					<input type="radio" id="pilihKuarters" name="pilihKuarters" value="$!k.id" />
+    				</td>
+    			</tr>
+			#end
+		#else
+			<tr>
+				<td align="center" colspan="9">
+					Tiada Rekod
+				</td>
+			</tr>
+		#end
+		<tr>
+			<td colspan="9">
+				<div id="err_valuePilihKuarters" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+    </table>
+</fieldset>
+<input type="hidden" id="valuePilihKuarters" name="valuePilihKuarters" value="" />
+<script>
+	_jq("input[name='pilihKuarters']").change(function() {
+		_jq('#valuePilihKuarters').val(this.value);
+		_jq('#err_valuePilihKuarters').html(''); 
+	});
+</script>

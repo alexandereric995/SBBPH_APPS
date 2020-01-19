@@ -1,0 +1,12 @@
+<input type="hidden" id="rssLoaded_$formname" name="rssLoaded_$formname">
+<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="right">
+<a href="javascript:void()" onclick="doDivAjaxCall$formname('div_rss_${formname}','getRSS','')">Reload</a>
+</td></tr></table>
+<div id="div_rss_$formname" style="overflow:auto;height:$height"></div>
+<script>
+var rssLoaded = false;
+_jq(document).ready(function () {
+	if ( $('rssLoaded_${formname}').value == "" ) doDivAjaxCall$formname('div_rss_${formname}','getRSS','');
+	$('rssLoaded_${formname}').value = "loaded";
+});
+</script>

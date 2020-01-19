@@ -1,0 +1,116 @@
+<fieldset>
+	<legend class="legend">Log Masuk</legend>
+	<table width="100%" cellpadding="5" cellspacing="0" class="login-panel">
+		<tr>
+			<td colspan="2" width="100px">
+			    <input class="input-style" type="text" name="usernameRoot" id="usernameRoot" style="width: 100%" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" width="100px">
+				<input class="input-style" type="password" name="passwordRoot" id="passwordRoot" style="width: 100%" onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)" />
+			</td>
+		</tr>
+		<tr>
+        	<td>
+        		<input class="button-login" type="button" name="btnSubmitRoot" id="btnSubmitRoot" value="Masuk" onClick="doLoginRoot()" />
+        	</td>
+			<td>
+        		<input class="button-login" type="button" name="btnCloseRoot" id="btnCloseRoot" value="Tutup" onClick="_jq('#rootLogin').hide();"/>
+        	</td>
+        </tr>
+		<tr>
+			<td align="center" colspan="2">
+				<div id="divPortalLoginResultRoot"></div>
+			</td>
+		</tr>
+	</table>
+</fieldset>
+	
+<script>
+    function doLoginRoot() {
+    	if ( !checkIsEmptyRoot(document.getElementById('usernameRoot').value, document.getElementById('passwordRoot').value, document.getElementById('divPortalLoginResultRoot')) ) {
+    		submitAjaxLoginRoot(document.getElementById('divPortalLoginResultRoot'), document.getElementById('usernameRoot').value, document.getElementById('passwordRoot').value);
+    	}
+    }
+    
+    function checkIsEmptyRoot(username, password, e) {
+    	if ( username == "" ) {
+    		e.style.backgroundColor = "rgba(255,69,0,0.9)";
+    		e.style.border = "1px solid #777";
+    		e.style.color = "#FFF";
+    		e.innerHTML = "<b> #if ( $lang == "en" ) username field is empty! #elseif ( $lang == "bm" ) ruangan MyID kosong! #end </b>";
+    		e.style.display='block';
+    		return true;
+    	}
+    	if ( password == "" ) {
+    		e.style.backgroundColor = "rgba(255,69,0,0.9)";
+    		e.style.color = "#fff";
+    		e.innerHTML = "<b> #if ( $lang == "en" ) password field is empty! #elseif ( $lang == "bm" ) ruangan kata laluan kosong! #end </b>";
+    		e.style.display='block';
+    		return true;
+    	}
+    	return false;
+    }
+    
+    function submitAjaxLoginRoot(e, username, password) {
+    	e.style.backgroundColor = "rgba(255,255,255,0.9)";
+    	e.style.border = "1px solid #777";
+    	e.style.color = "#000";
+    	e.innerHTML = "<b> #if ( $lang == "en" ) Validation... Please wait.... #elseif ( $lang == "bm" ) Pengesahan... Sila tunggu.... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+    	e.style.display='block';
+    
+    	var result = callAjaxLogin(username, password);
+    	var json = eval("(" + result + ")");
+    	if ( json.result == "true" ) {
+    		e.style.backgroundColor = "rgba(50,205,50,0.9)";
+    		e.style.color = "#FFF";
+    		e.innerHTML = "<b> #if ( $lang == "en" ) Login Success.. Transferring... #elseif ( $lang == "bm" ) Log Masuk Berjaya.. Memindahkan... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+    		window.location = "${serverUrl}";
+    	} else {
+    		e.style.backgroundColor = "rgba(255,69,0,0.9)";
+    		e.style.color = "#FFF";
+    		e.innerHTML = "<b> #if ( $lang == "en" ) Access Denied<br />Incorrect password or username #elseif ( $lang == "bm" ) Akses Ditolak<br />Salah Kata laluan atau MyID #end </b>";
+    	} 
+    }
+    
+    function submitAjaxLogin2(e, username, password, url) {
+    	e.style.backgroundColor = "rgba(255,255,255,0.9)";
+    	e.style.border = "1px solid #777";
+    	e.style.color = "#000";
+    	e.innerHTML = "<b> #if ( $lang == "en" ) Validation... Please wait.... #elseif ( $lang == "bm" ) Pengesahan... Sila tunggu.... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+    	e.style.display='block';
+    	
+    	var urls;
+    	
+    	if (url != "") urls = "${serverUrl}/c/"+url;
+    	else urls = "${serverUrl}";
+    
+    	var result = callAjaxLogin(username, password);
+    	var json = eval("(" + result + ")");
+    	if ( json.result == "true" ) {
+    		e.style.backgroundColor = "rgba(50,205,50,0.9)";
+    		e.style.color = "#FFF";
+    		e.innerHTML = "<b> #if ( $lang == "en" ) Login Success.. Transferring... #elseif ( $lang == "bm" ) Log Masuk Berjaya.. Memindahkan... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+    		window.location = urls;
+    	} else {
+    		e.style.backgroundColor = "rgba(255,69,0,0.9)";
+    		e.style.color = "#FFF";
+    		e.innerHTML = "<b> #if ( $lang == "en" ) Access Denied<br />Incorrect password or username #elseif ( $lang == "bm" ) Akses Ditolak<br />Salah Kata laluan atau MyID #end </b>";
+    	} 
+    }
+    
+    function loginInputKey(e, el) {
+    	var keynum;
+    	if (window.event) keynum = e.keyCode;
+    	else if (e.which) keynum = e.which;
+    	if ( keynum == 13 ) {
+    		if ( el.id == "username" ) {
+    			$('password').focus();
+    		} else if ( el.id == "password" ) {
+    			$('btnSubmit').focus();
+    		}
+    	}
+    }
+    
+</script>

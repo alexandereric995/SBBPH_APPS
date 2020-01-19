@@ -1,0 +1,30 @@
+
+
+<div id="content-format">
+<header>Senarai Kontraktor</header>
+  <pinLeft></pinLeft>
+  <pinRight></pinRight>
+  <header>$!kuarters.tajuk.toUpperCase()</header>
+  <fieldset>
+  <section>
+     <div>	
+        #set ($count=0)
+        #foreach ( $senaraikuarters in $listkuarters )
+        #set ($count=$count+1)
+        <ol>
+          $count. #if ($!senaraikuarters.fileName != '') <a href="../download?file=$!uploadDir$!senaraikuarters.fileName" > <span class="print">$!senaraikuarters.tajuk</strong><span> </a> #end
+        	#if ($!senaraikuarters.flagAktif == 'Y')
+				<img src="../images/new.gif"> 
+			#end 
+        </ol>
+        #end
+        
+        #if ($!kuarters.tajuk == '' && $count == '0')
+        	<strong>TIADA MAKLUMAT</strong>
+        #end        
+
+     </div>
+  </section>
+  </fieldset>
+</div>
+</div>

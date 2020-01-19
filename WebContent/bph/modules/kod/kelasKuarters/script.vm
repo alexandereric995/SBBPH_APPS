@@ -1,0 +1,21 @@
+function validate() {
+	var err_count = 0;
+	
+	var id = $('id').value;
+	if ( id == "" ) {$('err_id').innerHTML = "Kod adalah mandatori!"; err_count++;  }
+	
+	var keterangan = $('gredMula').value;
+	if ( keterangan == "" ) {$('err_gredMula').innerHTML = "Gred Mula adalah mandatori!"; err_count++;  }
+	
+	var keterangan = $('gredAkhir').value;
+	if ( keterangan == "" ) {$('err_gredAkhir').innerHTML = "Gred Akhir adalah mandatori!"; err_count++;  }
+	
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}

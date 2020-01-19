@@ -1,0 +1,124 @@
+    function paparLaporan(idLaporan) {
+    	
+    	var div1 = document.getElementById('senaraiLaporan');
+    	div1.style.display = 'none';
+    	
+    	var div2 = document.getElementById('paparLaporan');
+    	div2.style.display = 'block';
+    	
+    	doDivAjaxCall3$formname('paparLaporan','paparLaporan','idLaporan='+ idLaporan); 
+    }
+    
+    
+    function doCetakLaporanSenaraiPenghuniYangMelanggarSyarat() {
+ 	
+	var err_count = 0;
+	
+	var idJenisPelanggaran = $('idJenisPelanggaran').value;
+	
+	var tarikhTerima = $('tarikhTerima').value;	
+	if ( tarikhTerima== "" ) {$('err_tarikhTerima').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	
+	var tarikhTerimaHingga = $('tarikhTerimaHingga').value;	
+	if ( tarikhTerimaHingga == "" ) {$('err_tarikhTerimaHingga').innerHTML = "Tarikh Tamat adalah mandatori!"; err_count++;  }
+			
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){	
+		
+			return;
+		}
+																											
+       		var url = "../servlet/bph.laporan.penguatkuasa.LaporanSenaraiPenghuniYangMelanggarSyarat?tarikhTerima="+tarikhTerima+"&tarikhTerimaHingga="+tarikhTerimaHingga+"&idJenisPelanggaran="+idJenisPelanggaran;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		}
+	}
+ 
+    function doCetakLaporanSenaraiPenghuniYangHilangKelayakan() {
+
+	var err_count = 0;
+	
+	var idJenisPelanggaran = $('idJenisPelanggaran').value;
+	
+	var tarikhTerima = $('tarikhTerima').value;	
+	if ( tarikhTerima == "" ) {$('err_tarikhTerima').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	
+	var tarikhTerimaHingga = $('tarikhTerimaHingga').value;	
+	if ( tarikhTerimaHingga == "" ) {$('err_tarikhTerimaHingga').innerHTML = "Tarikh Tamat adalah mandatori!"; err_count++;  }
+			
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){	
+		
+			return;
+		}
+		
+       		var url = "../servlet/bph.laporan.penguatkuasa.LaporanSenaraiPenghuniYangHilangKelayakan?tarikhTerima="+tarikhTerima+"&tarikhTerimaHingga="+tarikhTerimaHingga+"&idJenisPelanggaran="+idJenisPelanggaran;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		}
+	}
+	
+	    function doCetakLaporanSenaraiPenghuniYangDikenakanClamping() {
+
+	var err_count = 0;
+	
+	var idJenisPelanggaran = $('idJenisPelanggaran').value;
+	
+	var tarikhTerima = $('tarikhTerima').value;	
+	if ( tarikhTerima == "" ) {$('err_tarikhTerima').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	
+	var tarikhTerimaHingga = $('tarikhTerimaHingga').value;	
+	if ( tarikhTerimaHingga == "" ) {$('err_tarikhTerimaHingga').innerHTML = "Tarikh Tamat adalah mandatori!"; err_count++;  }
+			
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){	
+		
+			return;
+		}
+		
+       		var url = "../servlet/bph.laporan.penguatkuasa.LaporanSenaraiPenghuniYangDikenakanClamping?tarikhTerima="+tarikhTerima+"&tarikhTerimaHingga="+tarikhTerimaHingga+"&idJenisPelanggaran="+idJenisPelanggaran;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		}
+	}
+	
+##  function doCetakLaporanSenaraiPenghuniYangDikenakanClamping() {
+##
+##	var err_count = 0;
+##	
+##	var idJenisPelanggaran = $('idJenisPelanggaran').value;
+##	
+##	var tarikhMula = $('tarikhMula').value;	
+##	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+##	
+##	var tarikhTamat = $('tarikhTamat').value;	
+##	if ( tarikhTamat == "" ) {$('err_tarikhTamat').innerHTML = "Tarikh Tamat adalah mandatori!"; err_count++;  }
+##			
+##	if (err_count == 0) {
+##		if ( !window.confirm("Anda pasti?") ){	
+##		
+##			return;
+##		}
+##		
+##       		var url = "../servlet/bph.laporan.penguatkuasa.LaporanSenaraiPenghuniYangDikenakanClamping="&tarikhMula="+tarikhMula+"&tarikhTamat="+tarikhTamat+"&idJenisPelanggaran="+idJenisPelanggaran;
+##			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+##			if ((document.window != null) && (!hWnd.opener))
+##			hWnd.opener = document.window;
+##			if (hWnd.focus != null) hWnd.focus();
+##		}
+##	}
+   
+        
+    function doKembali(){
+    
+    location.reload();
+    
+    }
+    
+    

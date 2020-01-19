@@ -1,0 +1,125 @@
+<div id="content-format">
+  <pinLeft></pinLeft>
+  <pinRight></pinRight>
+  <header>MAKLUMAT ADUAN</header>
+  <fieldset>
+  <section>
+    <table cellpadding="10" cellspacing="0" border="0" align="center"  width='100%'>
+      <tr>
+        <td colspan="3"><p class="title">Sila masukkan maklumat berikut dan aduan yang ingin dilakukan.</p></td>
+      </tr>
+      <tr>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="3" style="border: 1px dotted #CCC; padding: 15px" align="center">
+            <tr>
+              <td width="29%">&nbsp;</td>
+              <td width="1%">&nbsp;</td>
+              <td width="70%">&nbsp;</td>
+            </tr>
+            <tr>
+              <td valign="top">Nama Penuh &nbsp;<span style="color:#FF2A00">*</span></td>
+              <td valign="top">:</td>
+              <td valign="top"><input class="input-style" id="nama" name="nama" type="text" size="30" onBlur="this.value=this.value.toUpperCase();" onChange="$('err_nama').innerHTML=''; at(this, event);"/>
+                <div id="err_nama" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+            </tr>
+            <tr>
+              <td valign="top">No Kad Pengenalan &nbsp;<span style="color:#FF2A00">*</span></td>
+              <td valign="top">:</td>
+              <td valign="top"><input class="input-style mykad" id="noPengenalan" name="noPengenalan" type="text" size="30" onBlur="this.value=this.value.toUpperCase();" onChange="$('err_noPengenalan').innerHTML=''; at(this, event);" placeholder="Contoh : 000000110000"/>
+                <div id="err_noPengenalan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+            </tr>
+            <tr valign="top">
+              <td valign="top">Alamat &nbsp;<span style="color:#FF2A00">*</span></td>
+              <td valign="top">:</td>
+              <td valign="top"><input class="input-style" id="alamat1" name="alamat1" type="text" size="30" onBlur="this.value=this.value.toUpperCase();" onChange="$('err_alamat1').innerHTML=''; at(this, event);"/>
+                <div id="err_alamat1" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+            </tr>
+            <tr>
+              <td valign="top"></td>
+              <td valign="top"></td>
+              <td valign="top"><input class="input-style" id="alamat2" name="alamat2" type="text" size="30" onBlur="this.value=this.value.toUpperCase();" />
+                <div id="err_alamat2" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+            </tr>
+            <tr>
+              <td valign="top"></td>
+              <td valign="top"></td>
+              <td valign="top"><input class="input-style" id="alamat3" name="alamat3" type="text" size="30" onBlur="this.value=this.value.toUpperCase();"/>
+                <div id="err_alamat3" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+            </tr>
+            <tr>
+              <td valign="top">Poskod &nbsp;<span style="color:#FF2A00">*</span></td>
+              <td valign="top">:</td>
+              <td><input class="input-style postcode" id="poskod" name="poskod" class="postcode" type="text" size="30" maxlength="5" onBlur="this.value=this.value.toUpperCase();" onChange="$('err_poskod').innerHTML=''; at(this, event);"/>
+                <div id="err_poskod" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+            </tr>
+            <tr>
+              <td valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+              <td valign="top">:</td>
+              <td valign="top">#parse("$path/content/aduan/selectNegeriAduan.vm")
+                <div id="err_idNegeriAduan" style="color:#CC0000;font-weight:bold;border:2px #000">
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+              <td valign="top">:</td>
+              <td valign="top"><span id="listBandarAduan"> #parse("$path/content/aduan/selectBandarAduan.vm") </span>
+                <div id="err_idBandarAduan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+            </tr>
+            <tr>
+              <td valign="top">No. Telefon &nbsp;<span style="color:#FF2A00">*</span></td>
+              <td valign="top">:</td>
+              <td valign="top"><input class="input-style number" id="noTelefon" name="noTelefon" class="postcode" type="text" size="30" onBlur="this.value=this.value.toUpperCase();" onChange="$('err_noTelefon').innerHTML=''; at(this, event);" placeholder="Contoh : 0121234567"/>
+                <div id="err_noTelefon" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+            </tr>
+            <tr>
+              <td valign="top">Emel &nbsp;<span style="color:#FF2A00">*</span></td>
+              <td valign="top">:</td>
+              <td valign="top"><input class="input-style" id="emel" name="emel" type="text" size="30" onChange="$('err_emel').innerHTML=''; at(this, event);"/>
+                <div id="err_emel" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+            </tr>
+            <tr>
+              <td valign="top">Jenis Aduan &nbsp;<span style="color:#FF2A00">*</span></td>
+              <td valign="top">:</td>
+              <td valign="top">#parse("$path/content/aduan/selectJenisAduan.vm")
+                <div id="err_idJenisAduan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+            </tr>
+            <tr>
+              <td valign="top">Tajuk &nbsp;<span style="color:#FF2A00">*</span></td>
+              <td valign="top">:</td>
+              <td valign="top"><input class="input-style" id="tajuk" name="tajuk" type="text" size="30" onBlur="this.value=this.value.toUpperCase();" onChange="$('err_tajuk').innerHTML=''; at(this, event);"/>
+                <div id="err_tajuk" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+            </tr>
+            <tr>
+              <td valign="top">Butiran &nbsp;<span style="color:#FF2A00">*</span></td>
+              <td valign="top">:</td>
+              <td valign="top"><textarea style="height:150px;" class="input-style"  id="butiran" name="butiran" onBlur="this.value=this.value.toUpperCase();" onChange="$('err_butiran').innerHTML=''; at(this, event);"></textarea>
+                <div id="err_butiran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+            </tr>
+            <tr>
+              <td>Muatnaik Dokumen</td>
+              <td>:</td>
+              <td><input class="texts" type="file" id="dokumen" name="dokumen" onfocus="$('err_dokumen').innerHTML = '';">
+                <div id="dokumenMuatnaik" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+                <div id="err_dokumen" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+            </tr>
+            
+            <tr>
+		    	<td colspan="3"><span style="color:#FF2A00">PERHATIAN :</span> Medan yang bertanda <span style="color:#FF2A00">*</span> adalah <strong>MANDATORI</strong>.</td>
+		    </tr>
+      
+            <tr>
+              <td colspan="3"><br/>
+                <table align="center">
+                  <tr>
+                    <td><input class="button-style" id="btnHantarAduan" style="padding: 5px 15px;" type="button" value="Hantar" onclick="validate();"></td>
+                    <td><input class="button-style" id="btnKosongkan" style="padding: 5px 15px;" type="button" value="Kosongkan" onclick="reset();"></td>
+                  </tr>
+                </table></td>
+            </tr>
+          </table></td>
+      </tr>
+    </table>
+  </section>
+  <iframe id="upload_lampiran_aduan" name="upload_lampiran_aduan" width="0px" height="0px" style="visibility:hidden"></iframe>
+  <div id="refreshList"> </div>
+  </fieldset>
+</div>

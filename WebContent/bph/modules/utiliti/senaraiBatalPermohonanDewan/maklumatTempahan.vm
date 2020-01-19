@@ -1,0 +1,116 @@
+<div id="divPermohonan">
+
+<fieldset>
+<legend class="legend">MAKLUMAT PERMOHONAN</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top"> &nbsp;</td>
+          <td valign="top">:</td>
+
+		  <td>&nbsp;KAKITANGAN AWAM &nbsp;&nbsp;
+            #if ($!r.flagAwam == 'Y') 
+            #set ($checkFlagAwam = "checked")
+            #else #set ($checkFlagAwam = "") #end
+            <input id="flagAwam" name="flagAwam" type="checkbox" value="Y" onClick="javascript:doPaparMasa('$!r.id');" $!checkFlagAwam>
+            &nbsp; SWASTA &nbsp;&nbsp;
+            #if ($!r.flagSwasta == 'Y') 
+            #set ($checkFlagSwasta = "checked")
+            #else #set ($checkFlagSwasta = "") #end
+            <input id="flagSwasta" name="flagSwasta" type="checkbox" value="Y" onClick="javascript:doPaparMasa('$!r.id');" $!checkFlagSwasta>
+            <div id="err_flag" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+          </td>
+        </tr>
+        		#if ($!r.tarikhMula)
+        	#set ($dateTempahan = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+        #else 
+        	#set ($dateTempahan = "") 
+        #end
+		
+<tr>
+			<td class="label" valign="top">Tarikh Tempahan</td>
+			<td class="label" valign="top">:</td>
+			<td valign="top">
+				<div>
+		    		<input type="text" id="tarikhTempahan" name="tarikhTempahan" value="$dateTempahan">
+		    		<script>
+		            	_jq("#tarikhTempahan").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+		    				onSelect: function(){
+		    					javascript:doPaintJadual()
+		    				}
+		            	});
+		    		</script>
+				</div>
+			</td>
+		</tr>
+        <tr>
+          <td class="label" valign="top">Lokasi Dewan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandar">
+            #parse("$path/selectDewan.vm")
+            <div id="err_dewan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+
+	
+##		#if ($!r.tarikhTamat)
+##        #set ($dateTempahanTamat = "$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')")
+##        #else #set ($dateTempahanTamat = "-") #end
+##		#date_input_required("tarikhTempahanTamat" "Tarikh Tamat" "$dateTempahanTamat")
+		
+		<tr>
+          <td class="label" valign="top">Masa Mula &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectMasaMula">
+            #parse("$path/selectMasaMula.vm")
+            <div id="err_masaMula" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        
+		<tr>
+          <td class="label" valign="top">Masa Tamat &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectMasaTamat">
+            #parse("$path/selectMasaTamat.vm")
+            <div id="err_masaTamat" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+
+		
+		#textarea("tujuan" "Catatan" "$!r.tujuan")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<div id="divJadual">
+		#parse("$path/jadualTempahan.vm")
+</div>
+
+#if ($!command != "add_new_record")	
+<table width="100%">
+	<tr>
+		<td align="right">
+    		<input id="simpan" name="simpan" type="button" value="Pinda" onclick="javascript:doSavePermohonan('$!r.id');"/>
+    		<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+#end
+
+</div>
+<script>
+  
+  window.onload=new function Window_Onload() 
+  {
+		document.getElementById("flagAwam").disabled=true;
+		document.getElementById("flagSwasta").disabled=true;
+## 		document.getElementById("masaMula").disabled=true;
+## 		document.getElementById("masaTamat").disabled=true;
+
+  }
+</script>

@@ -1,0 +1,39 @@
+
+<fieldset>
+<legend class="legend">Maklumat Masalah</legend>
+<table cellpadding="5" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td class="label" style="width:15%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:84%">&nbsp;</td>
+  </tr>
+  #textarea_required("masalah" "Masalah" "$!rekod.masalah")
+  <tr>
+    <td></td>
+    <td></td>
+    <td>
+    	#if ($!userRole == '(BGS) Pemohon')
+  			#if ($!r.status.id == '1428384412943' || $!r.status.id == '1423568441685') ## DRAF PERMOHONAN || PERMOHONAN TIDAK LENGKAP
+    			<input type="button" id="kemaskiniMasalah" name="kemaskiniMasalah" value="Simpan">
+    		#end
+    	#end
+    	#if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441671' || $!r.status.id == '1423568441694')) ## PERMOHONAN BARU
+    		<input type="button" id="kemaskiniMasalah" name="kemaskiniMasalah" value="Simpan">
+	    #end
+      	<input type="button" id="batalMasalah" name="batalMasalah" value="Keluar">
+    </td>
+  </tr>
+</table>
+<input type="hidden" id="idMasalah" name="idMasalah" value="$rekod.id">
+</fieldset>
+<script>
+_jq('#batalMasalah').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getMaklumatPejabat','');
+    jQuery('#editMasalah').fadeOut();
+});
+
+_jq('#kemaskiniMasalah').on('click', function(){
+	kemaskiniMasalah();
+});
+
+</script>

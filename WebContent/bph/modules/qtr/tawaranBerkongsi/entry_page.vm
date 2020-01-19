@@ -1,0 +1,96 @@
+<fieldset>
+    <legend class="legend">Maklumat Pemohon</legend>
+    <table width="100%">
+        <tr>
+            <td align="center" valign="top" width="50%">
+                #parse("$path/entry_sub/entry_page_sub_left.vm")
+            </td>
+            <td align="center" valign="top" width="50%">
+                #parse("$path/entry_sub/entry_page_sub_right.vm")
+            </td>
+        </tr>
+    </table>
+</fieldset>
+<div id="agihKuarters"></div>
+#if ( $r.kuarters.id )
+	#parse("$path/sub_page/detailKuarters.vm")
+#else
+	#parse("$path/sub_page/kuarters.vm")
+#end
+
+<fieldset>
+    <legend class="legend">Petugas</legend>
+    <table width="85%" align="center">
+		<tr>
+            <td style="width:150px"></td>
+            <td style="width:5px"></td>
+            <td></td>
+        </tr>
+    	<tr>
+            <td class="label">Petugas&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <span id="listPetugas">
+                    #parse("$path/select/selectPetugas.vm")
+                </span>
+                <div id="err_idPetugas" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+###if( $r.status.id != "1431327994521" )##tolak tawaran
+##    	<fieldset>
+##    <legend class="legend">Sebab Penolakan</legend>
+##    <table width="85%" align="center">
+##		<tr>
+##            <td style="width:150px"></td>
+##            <td style="width:5px"></td>
+##            <td></td>
+##        </tr>
+##        <tr>
+##            <td class="label">Sebab Penolakan&nbsp;<span style="color:#FF2A00"></span></td>
+##            <td>:</td>
+##            <td>
+##                <span id="listPenolakan">
+##                    #parse("$path/select/selectPenolakan.vm")
+##                </span>
+##                <div id="err_idPenolakan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##            </td>
+##        </tr>
+##    </table>
+##    </fieldset>
+###end
+
+##<div id="suratTawaran"></div>
+<table cellpadding="5" cellspacing="0" border="0" width="100%">
+	<tr>
+		<td colspan="3" align="right">
+			#if( $r.status.id == "1431327994521" || $r.status.id == "1419601227590" || $r.permohonan.status.id == "1431405647231" )
+				#if( $currentRoleQTR == "Penyemak" || $currentRoleQTR == "Pelulus" )
+					#if( $r.status.id != "1431327994521" )					
+						<input type="button" id="btnHantarBersyarat" name="btnHantarBersyarat" value="Hantar ke Senarai Menunggu Bersyarat" onclick="hantarBersyarat()" />
+					#end
+					<input type="button" id="btnAgihKuarters" name="btnAgihKuarters" value="Agih dan Lulus" onclick="agihKuarters()" />
+				#end
+			##elseif( $r.status.id == "1431294274203" || $r.permohonan.status.id == "1431405647231" )
+			#end
+			##if ( $suratTawaran )
+    			##if( $r.permohonan.status.id == "1419601227595" ) 
+    				##<input type="button" id="btnSuratTawaran" name="btnSuratTawaran" value="Surat Tawaran" onclick="doDivAjaxCall3$formname('suratTawaran','getSuratTawaran','');" />
+				##end
+			##end
+			<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block'; doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')" />
+		</td>
+	</tr>
+</table>
+<input type="hidden" id="idAgihan" name="idAgihan" value="$!r.id" />
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+        $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

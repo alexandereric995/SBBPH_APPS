@@ -1,0 +1,150 @@
+#if ( $!kontraktor )
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_required("namaKontraktor" "Nama Kontraktor" "$!kontraktor.namaKontraktor")
+        <tr>
+          <td class="label" valign="top">Bidang &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>&nbsp; AWAM &nbsp;&nbsp;
+            #if ($!kontraktor.flagAwam == 'Y') 
+            #set ($checkFlagAwam = "checked")
+            #else #set ($checkFlagAwam = "") #end
+            <input id="flagAwam" name="flagAwam" type="checkbox" value="Y" onClick=" $('err_bidang').innerHTML=''; at(this, event);" $!checkFlagAwam>
+            &nbsp; ELEKTRIK &nbsp;&nbsp;
+            #if ($!kontraktor.flagElektrik == 'Y') 
+            #set ($checkFlagElektrik = "checked")
+            #else #set ($checkFlagElektrik = "") #end
+            <input id="flagElektrik" name="flagElektrik" type="checkbox" value="Y" onClick=" $('err_bidang').innerHTML=''; at(this, event);" $!checkFlagElektrik>
+            <div id="err_bidang" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #input_required("namaPemilik" "Nama Pemilik" "$!kontraktor.namaPemilik")
+        #phone_number_required("noTelefon" "No. Telefon" "$!kontraktor.noTelefon")
+        #phone_number_required("noTelefonBimbit" "No. Telefon Bimbit" "$!kontraktor.noTelefonBimbit")
+        #phone_number("noFaks" "No. Faks" "$!kontraktor.noFaks")
+        #input_email("emel" "E-mel" "$!kontraktor.emel")
+        <tr>
+          <td class="label" valign="top">Bank</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectBank.vm")
+            <div id="err_idBank" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        #input("noAkaun" "No. Akaun" "$!kontraktor.noAkaun")
+        #textarea("catatan" "Catatan" "$!r.kontraktor.catatan")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Kawasan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectKawasan.vm")
+            <div id="err_kawasan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        #input_required("alamat1" "Alamat" "$!kontraktor.alamat1")
+        #input("alamat2" "" "$!kontraktor.alamat2")
+        #input("alamat3" "" "$!kontraktor.alamat3")
+        #postcode_required("poskod" "Poskod" "$!kontraktor.poskod")
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectNegeri.vm")
+            <div id="err_negeri" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandar">
+            #parse("$path/selectBandar.vm")
+            <div id="err_bandar" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+#else
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!command != 'add_new_record' && $!command != 'getRegisteredKontraktor')
+        <tr>
+          <td style="width:150px">No. Pendaftaran</td>
+          <td style="width:10px">:</td>
+          <td><b>$!r.kontraktor.id</b> &nbsp;&nbsp; #if ($!r.kontraktor.getStatusSenaraiHitam() == 'Y') <font class="blink" color="red"><b>( SENARAI HITAM ) </b></font><br/> #end</td>
+        </tr>
+        #end
+        #input_required("namaKontraktor" "Nama Kontraktor" "$!r.kontraktor.namaKontraktor")        
+        #input_required("namaPemilik" "Nama Pemilik" "$!r.kontraktor.namaPemilik")
+        #phone_number_required("noTelefon" "No. Telefon" "$!r.kontraktor.noTelefon")
+        #phone_number_required("noTelefonBimbit" "No. Telefon Bimbit" "$!r.kontraktor.noTelefonBimbit")
+        #phone_number("noFaks" "No. Faks" "$!r.kontraktor.noFaks")
+        #input_email("emel" "E-mel" "$!r.kontraktor.emel")
+        <tr>
+          <td class="label" valign="top">Bank</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectBank.vm")
+            <div id="err_idBank" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        #input("noAkaun" "No. Akaun" "$!r.kontraktor.noAkaun")
+        #textarea("catatan" "Catatan" "$!r.kontraktor.catatan")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bidang &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>&nbsp; AWAM &nbsp;&nbsp;
+            #if ($!r.kontraktor.flagAwam == 'Y') 
+            #set ($checkFlagAwam = "checked")
+            #else #set ($checkFlagAwam = "") #end
+            <input id="flagAwam" name="flagAwam" type="checkbox" value="Y" onClick=" $('err_bidang').innerHTML=''; at(this, event);" $!checkFlagAwam>
+            &nbsp; ELEKTRIK &nbsp;&nbsp;
+            #if ($!r.kontraktor.flagElektrik == 'Y') 
+            #set ($checkFlagElektrik = "checked")
+            #else #set ($checkFlagElektrik = "") #end
+            <input id="flagElektrik" name="flagElektrik" type="checkbox" value="Y" onClick=" $('err_bidang').innerHTML=''; at(this, event);" $!checkFlagElektrik>
+            <div id="err_bidang" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Kawasan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectKawasan.vm")
+            <div id="err_kawasan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        #input_required("alamat1" "Alamat" "$!r.kontraktor.alamat1")
+        #input("alamat2" "" "$!r.kontraktor.alamat2")
+        #input("alamat3" "" "$!r.kontraktor.alamat3")
+        #postcode_required("poskod" "Poskod" "$!r.kontraktor.poskod")
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectNegeri.vm")
+            <div id="err_negeri" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandar">
+            #parse("$path/selectBandar.vm")
+            <div id="err_bandar" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+#end 

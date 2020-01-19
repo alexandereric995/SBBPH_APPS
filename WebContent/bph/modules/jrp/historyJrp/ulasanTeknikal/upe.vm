@@ -1,0 +1,132 @@
+
+##Main tab
+###parse("$path/ulasanTeknikal/senaraiMainTab.vm")
+
+##Sub tab
+#parse("$path/ulasanTeknikal/senaraiSubTab.vm")
+
+<fieldset>
+<legend class="legend">ulasan Epu</legend>
+
+    <table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+		
+		<tr>
+        	<td class="label" valign="top">Keputusan &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+    			<input type="radio" #if($!ut.flagKeputusan=='S')checked#end id="flagKeputusan1" name="flagKeputusan" value="S" onclick=" $('err_flagKeputusan').innerHTML=''; at(this, event);">&nbsp;Penyewaan disokong
+    			<input type="radio" #if($!ut.flagKeputusan=='TS')checked#end id="flagKeputusan2" name="flagKeputusan" value="TS" onclick=" $('err_flagKeputusan').innerHTML=''; at(this, event);">&nbsp;Penyewaan tidak disokong
+    			<div id="err_flagKeputusan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    		</td>
+        </tr>
+		<tr>
+        	<td class="label" valign="top">Ulasan &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<textarea id="ulasan" style="width:70% !important;height:150px" class="uppercasefont" name="ulasan" onKeyUp=" $('err_ulasan').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()" onBlur="this.value=this.value.toUpperCase();">$!ut.ulasan</textarea>
+				<div id="err_ulasan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+        <tr><td colspan="4" style="padding-top:0.3cm" ><hr /></td></tr>
+        <tr>
+        	<td class="label" valign="top">Nama pegawai &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="namaPegawai" class="uppercasefont" name="namaPegawai" value="$!ut.namaPegawai" onKeyUp="$('err_namaPegawai').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_namaPegawai" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+        
+        <tr>
+        	<td class="label" valign="top">Jawatan pegawai &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="jawatanPegawai" class="uppercasefont" name="jawatanPegawai" value="$!ut.jawatanPegawai" onKeyUp="$('err_jawatanPegawai').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_jawatanPegawai" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+		
+		<tr>
+        	<td  valign="top" class="label">Tarikh ulasan &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td  valign="top" class="label">:</td>
+        	<td valign="top">$!util.getDateTime($!ut.tarikhUlasan,'dd-MM-yyyy')
+##				<input type="text" id="tarikhUlasan" name="tarikhUlasan" value="$!util.getDateTime($!ut.tarikhUlasan,'dd-MM-yyyy')" style="width: 18%" onChange=" $('err_tarikhUlasan').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()">
+##        		<script>
+##                _jq(function() {
+##                	jQuery("#tarikhUlasan").datepicker({ 
+##                		dateFormat: "dd-mm-yy",
+##        				showOn: "both",
+##        				buttonImageOnly: true,
+##        				buttonImage: "../img/calendar_icon.gif",
+##        				buttonText: "Calendar",
+##                	});
+##                });
+##        		</script>
+##				<div id="err_tarikhUlasan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+	</table>
+	
+</fieldset>	
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if($!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal") && ($!idAgensiLogin.equalsIgnoreCase("1216")))
+				#if($!ut.id!="" && !$!ut.flagHantar.equalsIgnoreCase("Y"))
+					<input type="button" value="Hantar Ulasan kepada Agensi" id="cmdHantarUlasan" />
+				#end
+				#if(!$!ut || !$!ut.flagHantar.equalsIgnoreCase("Y"))
+					<input type="button" value="Simpan" id="cmdSaveUlasanUpe" />	
+					<input type="button" value="Kosongkan" id="cmdKosongkanUlasanUpe" />
+				#end					
+			#end
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+	
+
+<div id="statusUlasan"></div>
+
+
+<script>
+_jq('#cmdHantarUlasan').on('click', function(){
+	var idUlasanTeknikal = '$!ut.id';
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('statusUlasan','hantarUlasanKeAgensi','idUlasanTeknikal='+idUlasanTeknikal+'','divTab','getMaklumatUlasan','');
+	}
+});
+
+_jq('#cmdKosongkanUlasanUpe').on('click', function(){
+	$('tarikhUlasan').value = "";
+	$('ulasan').value = "";
+	$('namaPegawai').value = "";
+	$('jawatanPegawai').value = "";
+	
+	$('err_flagKeputusan').innerHTML='';
+	$('err_ulasan').innerHTML='';
+	$('err_namaPegawai').innerHTML='';
+	$('err_tarikhUlasan').innerHTML='';
+	$('err_jawatanPegawai').innerHTML='';
+	var inputs = document.${formname}.flagKeputusan;
+    for(var i = inputs.length-1;i>=0;i--){
+        if(inputs[i].getAttribute("type")==="radio"){
+            inputs[i].checked=false;
+        }
+    }
+});
+
+_jq('#cmdSaveUlasanUpe').on('click', function(){
+
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = $!r.id;
+	 saveUlasanUpe(tabNo, idPermohonan);
+});
+</script>
+	

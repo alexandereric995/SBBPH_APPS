@@ -1,0 +1,15 @@
+function validate() {
+	var err_count = 0;
+	##var id = $('id').value;
+	##if ( id == "" ) {$('err_id').innerHTML = "Kod adalah mandatori!"; err_count++;  }
+	
+	var keterangan = $('keterangan').value;
+	if ( keterangan == "" ) {$('err_keterangan').innerHTML = "Keterangan adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}

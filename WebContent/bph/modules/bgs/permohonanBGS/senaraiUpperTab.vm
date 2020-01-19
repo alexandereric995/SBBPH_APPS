@@ -1,0 +1,21 @@
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedUpperTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedUpperTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatPermohonan','')" #end >Maklumat Permohonan</a></li>
+	<li #if($!selectedUpperTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedUpperTab!='2') onClick="doDivAjaxCall3$formname('divTab','getKertasPertimbangan','')" #end >Kertas Pertimbangan</a></li>
+	#if ($!userRole != '(BGS) Pemohon' && ($!r.status.id == '1423568441691' || $!r.status.id == '1423568441697' || $!r.status.id == '1423568441700')) ## KEPUTUSAN SUB || LULUS || TOLAK
+  		<li #if($!selectedUpperTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedUpperTab!='3') onClick="doDivAjaxCall3$formname('divTab','getKeputusanSUB','')" #end >Keputusan SUB</a></li>	
+	#end
+  </ul>
+</nav>
+
+#if ($!selectedUpperTab=='1')
+	#parse("$path/senaraiTab.vm")
+#end
+
+#if ($!selectedUpperTab=='2')
+	#parse("$path/kertasPertimbangan/senaraiTab.vm")
+#end
+
+#if ($!selectedUpperTab=='3')
+	#parse("$path/keputusanSUB/start.vm")
+#end

@@ -1,0 +1,35 @@
+#set( $activePeribadi = "" )
+#set( $activePekerjaan = "" )
+#set( $activePasangan = "" )
+#set( $activePinjaman = "" )
+#set( $activeKelainanUpaya = "" )
+#if ( $activity == "peribadi" )
+	#set( $activePeribadi = "active" )
+#elseif ( $activity == "pekerjaan" )
+	#set( $activePekerjaan = "active" )
+#elseif ( $activity == "pasangan" )
+	#set( $activePasangan = "active" )
+#elseif ( $activity == "pinjaman" )
+	#set( $activePinjaman = "active" )
+#elseif ( $activity == "kelainanUpaya" )
+	#set( $activeKelainanUpaya = "active" )
+#end
+
+<nav class="breadcrumbs">
+    <ul>
+    	<li class="$activePeribadi">
+            <a href="javascript:void()" onclick="doDivAjaxCall3$formname('detailLain','getPeribadi','')">Maklumat Peribadi</a>
+        </li>
+        <li class="$activePekerjaan">
+            <a href="javascript:void()" onclick="doDivAjaxCall3$formname('detailLain','getPekerjaan','')">Maklumat Pekerjaan</a>
+        </li>
+		#if ( $users.statusPerkahwinan.id == "02" )
+            <li class="$activePasangan" id="infoPasangan">
+                <a href="javascript:void()" onclick="doDivAjaxCall3$formname('detailLain','getPasangan','')">Maklumat Pasangan</a>
+            </li>
+		#end
+		<li class="$activeKelainanUpaya">
+            <a href="javascript:void()" onclick="doDivAjaxCall3$formname('detailLain','getKelainanUpaya','')">Maklumat Kelainan Upaya</a>
+        </li>
+    </ul>
+</nav>

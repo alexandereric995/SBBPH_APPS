@@ -1,0 +1,45 @@
+
+
+	<table width="100%" border="0" cellspacing="0" cellpadding="3" >
+    
+		<tr>
+			<td width="15%" valign="top" align="center">
+				<img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/>
+    		</td>
+    		<td width="85%" valign="top">
+				<table width="100%" border="0" cellspacing="0" cellpadding="3">
+					<tr>
+						<td>
+							<font color="black" style="font-size:120%"><b>Bayaran Balik</b>
+    					</td>
+                  	</tr>
+    				<tr>
+						<td>
+							<li>
+								<a href="javascript:gotoBayaranBalik()" class="help" title="Senarai Bayaran Balik">
+									<font color="blue" style="font-size:110%">&nbsp;Senarai Permohonan</font>
+								</a>
+							</li>	
+						</td>
+					</tr>
+					
+					#if($!portal_role.equalsIgnoreCase("(RPP) Penyemak") || $!portal_role.equalsIgnoreCase("(RPP) Pelulus") || $!portal_role.equalsIgnoreCase("(RPP) Penyedia"))
+						<tr>
+    						<td>
+    							<li>
+    								<a href="javascript:gotoSenaraiDeposit()" class="help" title="Senarai Deposit">
+    									<font color="blue" style="font-size:110%">&nbsp;Senarai Deposit</font>
+										##if($!bilTuntutanDeposit > 0)
+										##	<span id="blinkBilTuntutanDeposit"><font color="red"><b>($!bilTuntutanDeposit)</b></font></span>
+    									###end
+    								</a>
+    							</li>	
+    						</td>
+    					</tr>
+					#end
+					
+             	</table>
+    		</td>
+   		</tr>
+		
+ 	</table>

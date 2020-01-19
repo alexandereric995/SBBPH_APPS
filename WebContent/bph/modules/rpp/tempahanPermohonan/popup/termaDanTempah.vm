@@ -1,0 +1,130 @@
+<style>
+.scrollitpopup {
+	height:500px; width: 100%; overflow: auto;
+}
+</style>
+
+<fieldset style="width:50% !important">
+<legend class="legend">terma dan syarat bagi $!rp.jenisPeranginan.id $!rp.namaPeranginan.toUpperCase()</legend>
+
+	<input type="hidden" name="idrp" id="idrp" value="$!rp.id" />
+	<input type="hidden" name="idJenisUnit" id="idJenisUnit" value="$!jenisUnit.id" />
+	
+	
+	#if($!blockBooking)
+		<br/>
+    	<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+    		<p>
+    			<strong>* MAAF, HAD PERMOHONAN TELAH MELEBIHI 3 KALI</strong>
+    	    </p>
+    	</div>
+	#elseif($!bookingOnSameDate)
+		<br/>
+    	<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+    		<p>
+    			<strong>* MAAF, TERDAPAT TEMPAHAN LAIN PADA TARIKH YANG SAMA</strong>
+    	    </p>
+    	</div>
+	#elseif($!bilAvailableUnit == 0)
+		<br/>
+    	<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+    		<p>
+    			<strong>* MAAF, TIADA KEKOSONGAN PADA TARIKH TERSEBUT. SILA BUAT TEMPAHAN PADA TARIKH LAIN.</strong>
+    	    </p>
+    	</div>	
+	#else
+		<div class="scrollitpopup">
+        	<table cellpadding="1" cellspacing="1" width="100%">
+        		
+        		<tr><td colspan="3">&nbsp;</td></tr>
+        		
+        		#if ( $listTermaSyaratPeranginan.size() > 0 )
+                		#set ( $count = 0 )
+                		#foreach( $d in $listTermaSyaratPeranginan )
+                			
+                			#set ( $count = $count + 1)
+                        	#if ( $count % 2 == 0 ) 
+                    			##set ( $rowcolor = "#D0CFCE" ) 
+                    		#else 
+                    			##set ( $rowcolor = "#F0F0F0" ) 
+            				#end
+            				
+                    		<tr bgcolor="#F0F0F0">
+                    			<td valign="middle" align="center" width="10%">$count</td>
+                        		<td valign="middle" width="70%">$!d.termaSyaratRpp.keterangan.toUpperCase()</td>
+        						<td valign="middle" align="center" width="20%">
+        							<input type="checkbox" name="setuju[]" id="setuju$!d.id" value="$!d.id" style="width:25px;height:20px;display:block;" onclick="$('err_chkmsg').innerHTML='';at(this, event)" />
+        						</td>
+                            </tr>
+            			#end
+        		#end
+        		
+        	</table>
+    	</div>
+	#end
+	
+	
+	<br />
+	<table width="100%">
+		<tr>
+			<td><div id="err_chkmsg" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		</tr>
+		<tr>
+			<td align="right">
+				#if($!blockBooking || $!bookingOnSameDate || $!bilAvailableUnit == 0)
+					<input id="btnDisagree" type="button"  value="KELUAR" />
+				#else
+					<input id="btnAgree" type="button" value="Setuju" />
+					<input id="btnDisagree" type="button"  value="Tidak Setuju" />
+				#end
+			</td>
+		</tr>
+	</table>
+
+</fieldset>		
+
+
+
+<script>
+	_jq('#btnDisagree').on('click', function(){
+     	jQuery('#popupTempahan').fadeOut();
+  	});
+	
+	function validateCheckbox() {
+
+    	var err_count = 0;
+    	
+		var inputs =  document.getElementsByName("setuju[]");
+		
+        var is_checked = false;
+        for(var x = 0; x < inputs.length; x++) {
+        	is_checked = inputs[x].checked;
+            if(!is_checked){ 
+				$('err_chkmsg').innerHTML = "* Anda mesti bersetuju dengan kesemua terma dan syarat yang ditetapkan"; err_count++;
+				break;
+			}
+        }
+    	
+		if (err_count == 0) {
+    		
+    	}
+    	
+    	return err_count == 0;
+    }
+	
+	_jq('#btnAgree').on('click', function(){
+		if(validateCheckbox()){
+			var recordId = "";
+			//doDivAjaxCall$formname('div_main_entry','save_data','record_id='+recordId);
+			doDivAjaxCall$formname('div_main_entry','saveBooking','');
+			jQuery('#popupTempahan').fadeOut();
+			window.scrollTo(0, 0);
+		}
+  	});
+</script>
+
+
+
+
+
+

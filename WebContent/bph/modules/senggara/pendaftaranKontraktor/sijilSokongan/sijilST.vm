@@ -1,0 +1,52 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!r.kontraktor.tarikhMulaST) 
+        #set ($dateMulaST = "$!util.getDateTime($!r.kontraktor.tarikhMulaST,'dd-MM-yyyy')")
+        #else #set ($dateMulaST = "") #end
+        #date_input("tarikhMulaST" "Tarikh Mula" "$dateMulaST")
+        
+        #if ($!r.kontraktor.tarikhTamatST) 
+        #set ($dateTamatST = "$!util.getDateTime($!r.kontraktor.tarikhTamatST,'dd-MM-yyyy')")
+        #else #set ($dateTamatST = "") #end
+        #date_input("tarikhTamatST" "Tarikh Tamat" "$dateTamatST")
+        #if ($!r.kontraktor.getStatusST() == 'T') 
+        <tr>
+          <td style="width:150px">&nbsp;</td>
+          <td style="width:10px">&nbsp;</td>
+          <td><font class="blink" color="red"><b>( SIJIL TAMAT TEMPOH ) </b></font><br/></td>
+        </tr>
+        #end
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px">
+          	<input class="texts" type="file" id="dokumenST" name="dokumenST" style="width:500px" onFocus="$('err_dokumenST').innerHTML = '';" onChange="uploadST()">
+            <div id="muatNaikSijilST" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+            <div id="err_dokumenST" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!r.kontraktor.filenameST) 
+	        #if ($!r.kontraktor.filenameST  != "") 
+	        <tr>
+	          <td style="width:150px"> <a href="../download?file=$!uploadDir$!r.kontraktor.filenameST" > <span class="print">SIJIL SURUHANJAYA TENAGA<span> </a> &nbsp;&nbsp;<input id="hapusST" name="hapusST" type="button" value="Hapus" onclick="javascript:doHapusST();"/> </td>
+	          <td style="width:10px"></td>
+	          <td></td>
+	        </tr>
+	        #end
+        #end
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<iframe id="upload_ST" name="upload_ST" width="0px" height="0px" style="visibility:hidden"></iframe>

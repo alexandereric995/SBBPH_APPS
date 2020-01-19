@@ -1,0 +1,73 @@
+#foreach ( $item in $forum_items )
+
+	<table width="100%" cellpadding="2" cellspacing="0" border="0">
+		<tr>
+			#foreach ( $i in [1..$item.level])
+			<td width="8">
+				&nbsp;
+			</td>
+			#end
+			
+			<td>
+				<table width="100%" cellpadding="2" cellspacing="0" border="0">
+					<tr>
+					
+						<td colspan="2">
+							<table width="100%" cellpadding="2" cellspacing="1" border="0" class="table_header" >
+								<tr>	
+									<td colspan="2">
+										##<a href="javascript:openForum_${formname}('$item.id')">
+										<a href="javascript:doAjaxCall$formname('Open', 'category_id=$!forum_category&forum_id=$!item.id&parent_id=$!forum.id')">
+										#if ( $item.title != "" )
+										$item.title &nbsp;
+										#end
+										<b>By: </b>$item.postedBy
+										($item.getDatePosted().display())
+										</a>
+									</td>
+								</tr>								
+							</table>
+						</td>
+							
+					<tr>
+						<td class="table_row" style="width:10px" valign="top">
+						#if ( $forum.avatar == "" )
+						<img src="../img/twoface.gif" border="0">
+			#else
+			<img src="../download?file=${photoDir}${forum.userId}/avatar${forum.avatar}" border="0">
+			#end
+						</td>
+												
+						<td class="table_row" valign="top">
+							$item.displayMessage()
+						</td>
+						
+					</tr>
+
+					#if ( $userid == "anon" )
+					
+					#else
+					<tr>
+						<td colspan="2" align="right">
+							#if ( $allowReply )
+							<input class="button" type="button" value="Reply to this thread" 
+							onclick="doAjaxCall$formname('Reply', 'forum_id=$item.id')">
+							##onclick="goReply_${formname}('$item.id')">
+							#end
+						</td>
+					</tr>
+					#end
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
+	</table>
+	
+	
+
+			
+#end

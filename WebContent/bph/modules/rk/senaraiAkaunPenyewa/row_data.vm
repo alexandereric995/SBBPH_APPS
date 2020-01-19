@@ -1,0 +1,68 @@
+<td>$!r.noFail</td>
+<td>
+	<b>No. Pengenalan : </b>$!r.pemohon.individu.id<br/>
+	<b>Nama : </b>$!r.pemohon.individu.nama<br/>
+	<b>No. Pendaftaran : </b>$!r.pemohon.syarikat.id<br/>
+	<b>Nama Syarikat : </b>$!r.pemohon.syarikat.nama<br/>
+</td>
+<td>
+	<b>ID Ruang : </b>$!r.ruang.idRuang<br/>	
+	<b>Nama Ruang : </b>$!r.ruang.namaRuang<br/>	
+	<b>Kegunaan : </b>$!r.ruang.jenisKegunaanRuang.keterangan<br/>	
+	<b>Lokasi : </b>$!r.ruang.lokasi<br/>	
+</td>
+<td>
+	<b>Kadar Sewa (RM) : </b>$!util.formatDecimal($!r.getPerjanjianSemasa().kadarSewa)<br/>	
+	#if ($!r.getPerjanjianSemasa().tarikhMula) #set ($dateMula = "$!util.getDateTime($!r.getPerjanjianSemasa().tarikhMula,'dd-MM-yyyy')")
+    #else #set ($dateMula = "") #end
+	<b>Tarikh Mula : </b>$dateMula<br/>	
+	#if ($!r.getPerjanjianSemasa().tarikhTamat) #set ($dateTamat = "$!util.getDateTime($!r.getPerjanjianSemasa().tarikhTamat,'dd-MM-yyyy')")
+    #else #set ($dateTamat = "") #end
+	<b>Tarikh Tamat : </b>$dateTamat<br/>	
+</td>
+<td><b>$!r.getPerjanjianSemasa().getStatusPerjanjian()</b></td>
+<td>
+	#if ($!r.getPerjanjianSemasa().getBilHariPerjanjianAkanTamat() != '')
+	<span id="blinkPerjanjianAkanTamat$!r.id">
+		<font color="green"><b>$!r.getPerjanjianSemasa().getBilHariPerjanjianAkanTamat() HARI PERJANJIAN AKAN TAMAT</b><br/></font>
+	</span>
+	#end
+	#if ($!r.abt == 0 && $!r.nilaiTunggakan < 0)
+	<span id="blinkLebihanBayaran$!r.id">
+		<font color="blue"><b>LEBIHAN BAYARAN RM $!util.formatDecimal($!r.nilaiTunggakan)</b><br/></font>
+	</span>
+	#end
+	#if ($!r.abt == 1)
+		<span id="blinkSewaTertunggak1$!r.id">
+			<font color="orange"><b>TERTUNGGAK RM $!util.formatDecimal($!r.nilaiTunggakan)</b><br/>
+			<b>USIA ABT : $!r.abt BULAN</b><br/>
+			</font>
+		</span>
+	#end
+	#if ($!r.abt > 1)
+		<span id="blinkSewaTertunggak2$!r.id">
+			<font color="red"><b>TERTUNGGAK : RM $!util.formatDecimal($!r.nilaiTunggakan)</b><br/>
+			<b>USIA ABT : $!r.abt BULAN</b><br/>
+			</font>
+		</span>
+	#end
+</td>
+
+<script>
+## START BLINK NOTIFICATION
+function blinker() {
+	_jq('#blinkPerjanjianAkanTamat$!r.id').fadeOut(1000);
+    _jq('#blinkPerjanjianAkanTamat$!r.id').fadeIn(1000);  
+    
+    _jq('#blinkLebihanBayaran$!r.id').fadeOut(1000);
+    _jq('#blinkLebihanBayaran$!r.id').fadeIn(1000);      
+    
+    _jq('#blinkSewaTertunggak1$!r.id').fadeOut(1000);
+    _jq('#blinkSewaTertunggak1$!r.id').fadeIn(1000);   
+    
+    _jq('#blinkSewaTertunggak2$!r.id').fadeOut(1000);
+    _jq('#blinkSewaTertunggak2$!r.id').fadeIn(1000);     
+}
+setInterval(blinker, 1000);
+## END BLINK NOTIFICATION
+</script>

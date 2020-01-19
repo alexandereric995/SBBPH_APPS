@@ -1,0 +1,87 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#tblDeposit').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+
+<fieldset >
+<legend class="legend">SENARAI Deposit</legend>
+  <table id="tblDeposit" class="display" width="100%" cellpadding="5" cellspacing="1">
+    
+    <a href="javascript:void()" id="linkCetakLejarPenyewa" onClick="javascript:doCetakLejarPenyewa('$!r.id');"><font color="#0000FF"><strong>CETAK LEJAR PENYEWA</strong></font></a><br/><br/>
+    
+    <thead>
+      <tr>
+        <td class="row_header" width="5%">Bil.</td>
+        <td class="row_header" >Tarikh</td>
+        <td class="row_header" >Keterangan</td>
+        <td class="row_header" >Tarikh Bayaran</td>
+        <td class="row_header" >No. Resit</td>
+        <td class="row_header" >Debit (RM)</td>
+        <td class="row_header" >Kredit (RM)</td>
+        <td class="row_header" >Baki (RM)</td>
+      </tr>
+    </thead>
+    <tbody>
+    
+    #set ( $count = 0 ) 
+    #set ( $jumlahDebit = 0 ) 
+    #set ( $jumlahKredit = 0 ) 
+    #set ( $baki = 0 ) 
+    #foreach( $c in $listDeposit )
+    #set ( $count = $count + 1)
+    #set ( $jumlahDebit = $jumlahDebit + $c.debit)
+    #set ( $jumlahKredit = $jumlahKredit + $c.kredit)
+    #set ( $baki = $baki + $c.debit - $c.kredit)
+    
+    #if ( $count % 2 == 0 ) 
+    #set ( $rowcolor = "#D0CFCE" ) 
+    #else 
+    #set ( $rowcolor = "#F0F0F0" ) 
+    #end
+    <tr bgcolor="$rowcolor">
+      <td align="center">$count</td>
+      #if ($!c.tarikhTransaksi) #set ($dateTransaksi = "$!util.getDateTime($!c.tarikhTransaksi,'dd-MM-yyyy')")
+      #else #set ($dateTransaksi = "") #end
+      <td align="center">$dateTransaksi</td>
+      <td >$c.keterangan</td>
+      #if ($c.idJenisTransaksi == '1' || $c.idJenisTransaksi == '2')
+	      #if ($!c.resit.tarikhBayaran) #set ($dateBayaran = "$!util.getDateTime($!c.resit.tarikhBayaran,'dd-MM-yyyy')")
+	      #else #set ($dateBayaran = "") #end
+      #else
+      	  #if ($!c.tarikhTransaksi) #set ($dateBayaran = "$!util.getDateTime($!c.tarikhTransaksi,'dd-MM-yyyy')")
+	      #else #set ($dateBayaran = "") #end
+      #end
+      <td align="center">$dateBayaran</td>
+      #if ($c.idJenisTransaksi == '2')
+      	<td align="center"><a href="javascript:void()" id="cetakResitDeposit$c.id"><font color="#0000FF"><strong>$!c.resit.noResit</strong></font></a></td>
+      #else
+      	<td align="center"><strong>$!c.noRujukanPelarasan</strong></td>
+      #end
+      <td align="center">$!util.formatDecimal($c.debit)</td>
+      <td align="center">$!util.formatDecimal($c.kredit)</td>
+      <td align="center">$!util.formatDecimal($baki)</td>
+      </td>
+    </tr>
+    <script>	
+		_jq('#cetakResitDeposit$c.id').on('click', function(){
+			doDivAjaxCall3$formname('divResit','doCetakResit','akaunId=$c.id');
+		});
+	</script>
+    #end
+    </tbody>
+    <tr>
+      <td bgcolor="#ABABAB" colspan="5" align="right"><strong>JUMLAH (RM) : </strong></td>
+      <td class="row_header" colspan="1" align="center"><strong>$!util.formatDecimal($jumlahDebit)</strong></td>
+      <td class="row_header" colspan="1" align="center"><strong>$!util.formatDecimal($jumlahKredit)</strong></td>
+      <td class="row_header" colspan="1" align="center"><strong>$!util.formatDecimal($baki)</strong></td>
+    </tr>
+    
+  </table>
+</fieldset>
+
+<div id="divResit"></div>

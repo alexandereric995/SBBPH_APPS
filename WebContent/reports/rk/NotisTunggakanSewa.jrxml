@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="NotisTunggakanSewa"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="idFail" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[select rk_permohonan.id, rk_fail.no_fail, rk_akaun.tarikh_transaksi, rk_akaun.tarikh_transaksi, rk_akaun.tarikh_resit, rk_akaun.no_resit, rk_akaun.tarikh_cek, rk_akaun.keterangan, 
+rk_akaun.debit, rk_akaun.kredit, rk_pemohon.nama, rk_pemohon.no_kp, rk_pemohon.id, rk_pemohon.nama_syarikat, rk_pemohon.alamat1_syarikat, rk_pemohon.alamat2_syarikat,
+rk_pemohon.alamat3_syarikat, rk_pemohon.poskod_syarikat, ruj_bandar.keterangan bandar, ruj_negeri.keterangan negeri,
+rk_ruang_komersil.nama_ruang, rk_ruang_komersil.alamat1, rk_ruang_komersil.alamat2, rk_ruang_komersil.alamat3,
+rk_ruang_komersil.poskod, ruj_bandar_1.keterangan bandarPremis, ruj_negeri_1.keterangan negeriPremis, rk_ruang_komersil.lokasi, ruj_jenis_kegunaan_ruang.keterangan jeniskegunaan,
+ruj_seksyen.keterangan seksyen, ruj_bahagian.keterangan bahagian
+from rk_fail
+left outer join rk_permohonan on rk_permohonan.id_fail = rk_fail.id
+left outer join rk_pemohon on rk_pemohon.id = rk_fail.id_pemohon
+left outer join rk_akaun on rk_akaun.id_fail = rk_fail.id
+left outer join rk_ruang_komersil on rk_fail.id_ruang = rk_ruang_komersil.id
+left outer join ruj_bandar on (rk_pemohon.id_bandar_syarikat = ruj_bandar.id)
+left outer join ruj_negeri on (ruj_bandar.id_negeri = ruj_negeri.id)
+left outer join sbbphdb.ruj_bandar ruj_bandar_1 on (rk_ruang_komersil.id_bandar = ruj_bandar_1.id)
+left outer join sbbphdb.ruj_negeri ruj_negeri_1 on (ruj_bandar_1.id_negeri = ruj_negeri_1.id)
+LEFT JOIN ruj_jenis_kegunaan_ruang ON (rk_ruang_komersil.id_jenis_kegunaan_ruang = ruj_jenis_kegunaan_ruang.id)
+LEFT JOIN ruj_seksyen ON (rk_ruang_komersil.id_seksyen = ruj_seksyen.id)
+LEFT JOIN ruj_bahagian ON (ruj_seksyen.id_bahagian = ruj_bahagian.id)
+WHERE rk_fail.no_fail = '$P!{idFail}']]></queryString>
+
+	<field name="id" class="java.lang.String"/>
+	<field name="no_fail" class="java.lang.String"/>
+	<field name="tarikh_transaksi" class="java.sql.Date"/>
+	<field name="tarikh_resit" class="java.sql.Date"/>
+	<field name="no_resit" class="java.lang.String"/>
+	<field name="tarikh_cek" class="java.sql.Date"/>
+	<field name="keterangan" class="java.lang.String"/>
+	<field name="debit" class="java.lang.Double"/>
+	<field name="kredit" class="java.lang.Double"/>
+	<field name="nama" class="java.lang.String"/>
+	<field name="no_kp" class="java.lang.String"/>
+	<field name="nama_syarikat" class="java.lang.String"/>
+	<field name="alamat1_syarikat" class="java.lang.String"/>
+	<field name="alamat2_syarikat" class="java.lang.String"/>
+	<field name="alamat3_syarikat" class="java.lang.String"/>
+	<field name="poskod_syarikat" class="java.lang.String"/>
+	<field name="bandar" class="java.lang.String"/>
+	<field name="negeri" class="java.lang.String"/>
+	<field name="nama_ruang" class="java.lang.String"/>
+	<field name="alamat1" class="java.lang.String"/>
+	<field name="alamat2" class="java.lang.String"/>
+	<field name="alamat3" class="java.lang.String"/>
+	<field name="poskod" class="java.lang.String"/>
+	<field name="bandarPremis" class="java.lang.String"/>
+	<field name="negeriPremis" class="java.lang.String"/>
+	<field name="lokasi" class="java.lang.String"/>
+	<field name="jeniskegunaan" class="java.lang.String"/>
+	<field name="seksyen" class="java.lang.String"/>
+	<field name="bahagian" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="659"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="189"
+						width="95"
+						height="21"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Tuan/Puan"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="268"
+						width="492"
+						height="20"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Saya dengan hormatnya diarah menarik perhatian tuan mengenai perkara di atas"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="288"
+						width="492"
+						height="56"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["2.        Adalah dimaklumkan bahawa, tempoh sewaan rumah kedai di atas oleh tuan akan tamat pada " + " "+" .Sekiranya tuan berminat melanjutkan tempoh penyewaan pihak tuan dikehendaki mengemukakan permohonan pelanjutan selewat-lewatnya dua (2) bulan dari tarikh tamat tempoh penyewaan "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="219"
+						width="492"
+						height="42"
+						key="textField-4"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["PENYEWAAN RUANG " + $F{jeniskegunaan} == null ? $F{jeniskegunaan}: ""+" DI"+$F{seksyen} == null ?"": $F{seksyen}+", "+$F{lokasi} == null ?"": $F{lokasi}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="344"
+						width="492"
+						height="42"
+						key="textField-5"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["3.        Permohonan perlanjutan akan dipertimbangkan dengan mengambil kira prestasi bayaran mengikut tarikh yang telah ditetapkan (sebelum 10 hari bulan setiap bulan) serta pematuhan syarat sewaan sepertimana terkandung dalam surat tawaran."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="386"
+						width="492"
+						height="40"
+						key="textField-6"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["4.        Bahagian ini tidak akan melanjutkan tempoh sewaan ruang tersebut sekiranya pihak tuan tidak mengemukakan permohonan perlanjutan dalam tempoh yang ditetapkan."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="431"
+						width="180"
+						height="26"
+						key="textField-7"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Sekian, terima kasih"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="297"
+						y="101"
+						width="210"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="29"
+						width="240"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nama_ruang}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="49"
+						width="240"
+						height="88"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{alamat1_syarikat} == null ?"":$F{alamat1_syarikat})+"\n"
++($F{alamat2_syarikat} == null ?"":$F{alamat2_syarikat})+" "
++($F{alamat3_syarikat} == null ?"":$F{alamat3_syarikat})+" "
++($F{poskod} == null ?"":$F{poskod}) + ", " +($F{bandar} == null ?"":$F{bandar}) + " " 
++($F{negeri} == null ?"":$F{negeri})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="9"
+						width="240"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nama}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="19"
+						y="465"
+						width="228"
+						height="17"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<text><![CDATA["BERKHIDMAT UNTUK NEGARA"]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="482"
+						width="251"
+						height="19"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<text><![CDATA["BERILTIZAM MEMENUHI HASRAT"]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="506"
+						width="202"
+						height="24"
+						key="textField-9"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Saya yang menurut perintah"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="587"
+						width="202"
+						height="24"
+						key="textField-10"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="611"
+						width="221"
+						height="22"
+						key="textField-11"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Bahagian Pengurusan Hartanah"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="633"
+						width="221"
+						height="26"
+						key="textField-12"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["b.p Ketua Setiausaha Negara"]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

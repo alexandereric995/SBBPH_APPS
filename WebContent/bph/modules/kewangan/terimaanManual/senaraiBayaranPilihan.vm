@@ -1,0 +1,149 @@
+
+<style>
+.scrollitright {
+	##width:100%; overflow-x: hidden; max-height: 150px; border:#000 solid 1px;
+	height:60%; width: 100%; font-size: 12px; overflow: auto;
+}
+</style>
+
+<fieldset style="height:210px;min-height:210px">
+	
+	<div class="scrollitright">
+	<table width="100%" cellpadding="1" cellspacing="1">
+		
+		<tr>
+			<td class="row_header" width="5%">&nbsp;</td>
+			<td class="row_header" width="25%">NO. INVOIS</td>
+			<td class="row_header" width="20%">KOD HASIL</td>
+			<td class="row_header" width="35%">KETERANGAN</td>
+			<td class="row_header" width="15%">AMAUN (RM)</td>
+		</tr>
+		
+		#set ( $totalBil = 0.00 )
+		#if ( $listInQueue.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listInQueue )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center" >
+						<input type="checkbox" name="cbRemovePilihan" id="cbRemovePilihan$!d.id" value="$!d.id" onclick="javascript:removePilihan('$!d.id')" />
+					</td>
+            		<td>
+						#if( $d.deposit )
+							$!d.deposit.noInvois.toUpperCase()
+						#else
+							$!d.invois.noInvois.toUpperCase()
+						#end
+					</td>
+					<td align="center">
+						#if( $d.deposit )
+							$!d.deposit.kodHasil.kod
+						#else
+							$!d.invois.kodHasil.kod
+						#end
+					</td>
+					<td align="center">
+						#if( $d.deposit )
+							$!d.deposit.keteranganDeposit.toUpperCase()
+						#else
+							$!d.invois.keteranganBayaran.toUpperCase()
+						#end
+					</td>
+					<td align="center">
+						#set($nilai = 0.00)
+						#if( $d.deposit )
+							$!util.formatDecimal($!d.deposit.jumlahDeposit)
+							#set($nilai = $!d.deposit.jumlahDeposit)
+						#else
+							$!util.formatDecimal($!d.invois.debit)
+							#set($nilai = $!d.invois.debit)
+						#end
+					</td>
+                </tr>
+				
+				#set ( $totalBil = $totalBil + $!nilai )
+				
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="5">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+	</div>
+	
+	
+	##CALCULATE
+	#set ( $totalBaki = 0.00 )
+	#set ( $totalBayar = 0.00 )
+	#foreach( $tb in $listTempBayar )
+		#set ( $totalBayar = $totalBayar + $tb.amaunBayaran)
+	#end
+	
+	#set ( $totalBaki = $!totalBil - $totalBayar )
+	
+	<table width="100%" cellpadding="1" cellspacing="1" border="0">
+		
+		<tr>
+			<td width="5%">&nbsp;</td>
+			<td width="25%">&nbsp;</td>
+			<td width="15%">&nbsp;</td>
+			<td width="40%">&nbsp;</td>
+			<td width="15%">&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td colspan="3">&nbsp;</td>
+			<td align="right"><b>JUMLAH AMAUN BIL / INVOIS : &nbsp;</b></td>
+			<td align="right">
+				<b>$!util.formatDecimal($!totalBil)</b>
+				<input type="hidden" name="txtJumlahInvois" id="txtJumlahInvois" value="$!totalBil" />
+			</td>
+		</tr>
+					
+		<tr>
+			<td colspan="3">&nbsp;</td>
+			<td align="right"><b>JUMLAH BAYARAN : &nbsp;</b></td>
+			<td align="right">
+				<div style="float:left">&nbsp; -</div>
+				<div style="float:right">
+					<b>$!util.formatDecimal($!totalBayar)</b>
+					<input type="hidden" name="txtJumlahBayaran" id="txtJumlahBayaran" value="$!totalBayar" />
+				</div>
+			</td>
+		</tr>
+					
+		<tr>
+			<td colspan="3" >&nbsp;</td>
+			<td align="right">&nbsp;</td>
+			<td align="right"><hr /></td>
+		</tr>
+					
+		<tr>
+			<td colspan="3">&nbsp;</td>
+			<td align="right"><b>BAKI : &nbsp;</b></td>
+			<td align="right">
+				<b>$!util.formatDecimal($!totalBaki)</b>
+				<input type="hidden" name="txtBaki" id="txtBaki" value="$totalBaki" />
+			</td>
+		</tr>
+					
+	</table>
+	
+	
+</fieldset>
+	
+<script>
+function removePilihan(idPilihan){
+	doDivAjaxChainCall$formname('divSenaraiBayaranPilihan','savePilihanRemoveQueue','idPilihan='+idPilihan,'divSenaraiBayaranAsal','refreshDivAsal','');
+}
+</script>
+

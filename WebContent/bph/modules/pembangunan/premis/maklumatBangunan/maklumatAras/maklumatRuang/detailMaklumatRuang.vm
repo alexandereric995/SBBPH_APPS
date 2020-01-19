@@ -1,0 +1,46 @@
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedSubSubSubTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedSubSubSubTab!='1') onClick="doDivAjaxCall3$formname('divTab','getDetailRuang','')" #end >Maklumat Ruang</a></li>
+  </ul>
+</nav>
+<fieldset>
+<legend class="legend">Maklumat Ruang</legend>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("kodDAK" "Kod DAK" "$!rekod.kodDAK")
+        #input_normal("namaRuang" "Nama Ruang" "$!rekod.namaRuang")	
+        #input_normal("fungsiRuang" "Fungsi Ruang" "$!rekod.fungsiRuang")
+        <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("luasRuang" "Luas Ruang (Meter Persegi)" "$!rekod.luasRuang")
+        #input_normal("tinggiSiling" "Tinggi Siling (M)" "$!rekod.tinggiSiling")        
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+<table width="100%">
+	<tr>
+		<td align="right">
+			<input id="kembali2" name="kembali2" type="button" value="Kembali">
+		</td>
+	</tr>
+</table>
+<script>
+_jq('#kembali2').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getMaklumatRuang','');
+});
+</script>

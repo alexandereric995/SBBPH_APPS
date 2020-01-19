@@ -1,0 +1,15 @@
+<br/>
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divPenyediaanIndenKerja','getMaklumatInden','')" #end >Maklumat Inden Kerja</a></li>
+	<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divPenyediaanIndenKerja','getSenaraiJKH','')" #end >Senarai Jadual Kadar Harga</a></li>			
+  </ul>
+</nav>	
+
+#if ($!selectedTab=='1')
+	#parse("$path/indenKerja/daftarMaklumatIndenKerja.vm")
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/indenKerja/senaraiJKH.vm")
+#end

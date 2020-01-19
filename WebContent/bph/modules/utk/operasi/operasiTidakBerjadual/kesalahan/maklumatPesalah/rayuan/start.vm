@@ -1,0 +1,52 @@
+<fieldset><legend class="legend">Maklumat Rayuan</legend>
+
+
+	<p align="left">
+ 		<input type="button" value="Tambah" align='left' id="cmdTambahRayuan">
+	</p>
+	<br /><br />
+    <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+            <td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="20%">No. Rujukan</td>
+            <td class="row_header" width="30%">Rayuan</td>
+			<td class="row_header" width="20%">Status</td>
+        </tr>
+        #if ( $listRayuan.size() > 0) 
+    		#set ( $count = 0 )
+    		#foreach( $c in $listLanggar)
+    			#set ( $count = $count + 1)
+				
+    			#if ( $count % 2 == 0 ) 
+					#set ( $rowcolor = "#D0CFCE" ) 
+				#else 
+					#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				#if($!c.penghuni.id == $!r.id)
+    			<tr bgcolor="$rowcolor">
+    				<td align="center">$count</td>
+					<td align="center">$c.id</td>
+        			<td align="center">$c.rayuan</td>
+					<td align="center">$util.getDateTime($c.tarikh, "dd/MM/yyyy")</td>
+				</tr>
+				#end
+    		#end
+	#else
+	<tr >
+		<td align="center">&nbsp;</td>
+		<td >Tiada Rekod</td>
+		<td align="center">&nbsp;</td>
+		<td align="center">&nbsp;</td>
+	</tr>
+	#end
+    </table>
+</fieldset>
+
+<div id="addpopup" class="popup"></div>
+
+<script>
+        _jq('#cmdTambahRayuan').on('click', function(){
+			doDivAjaxCall3$formname('addpopup','addRayuan','');
+            jQuery('#addpopup').fadeIn();
+        });
+</script>

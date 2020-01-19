@@ -1,0 +1,46 @@
+<script>
+## START BLINK NOTIFICATION
+function blinker() {
+    _jq('#blinkBilRuangKomersil').fadeOut(500);
+    _jq('#blinkBilRuangKomersil').fadeIn(500); 
+    
+    _jq('#blinkBilPermohonanPenyewaan').fadeOut(500);
+    _jq('#blinkBilPermohonanPenyewaan').fadeIn(500);
+    
+    _jq('#blinkBilAkaunPenyewa').fadeOut(500);
+    _jq('#blinkBilAkaunPenyewa').fadeIn(500);  
+}
+setInterval(blinker, 100);
+## END BLINK NOTIFICATION		
+
+function gotoProfile() {
+	document.${formName}.action = "$lebahUtil.getTabID("<i>My Info</i>",$portal_role)?_portal_module=portal.module.UserProfileModule";
+	document.${formName}.submit();
+}
+
+function gotoKataLaluan() {
+	document.${formName}.action = "$lebahUtil.getTabID("<i>My Info</i>",$portal_role)?_portal_module=lebah_app_UpdateUserProfileModule";
+	document.${formName}.submit();
+}
+
+function gotoSenaraiRuangKomersil() {
+	document.${formName}.action = "$lebahUtil.getTabID("Maklumat Ruang",$portal_role)?_portal_module=bph.modules.rk.SenaraiRuangKomersilRecordModule";
+	document.${formName}.submit();
+}
+
+function gotoPermohonanPenyewaan() {
+	document.${formName}.action = "$lebahUtil.getTabID("Maklumat Permohonan",$portal_role)?_portal_module=bph.modules.rk.SenaraiPermohonanRuangKomersilRecordModule";
+	document.${formName}.submit();
+}
+
+function gotoAkaunPenyewa() {
+	document.${formName}.action = "$lebahUtil.getTabID("Maklumat Akaun Penyewa",$portal_role)?_portal_module=bph.modules.rk.SenaraiAkaunPenyewaRecordModule";
+	document.${formName}.submit();
+}
+
+function gotoLaporan() {
+	document.${formName}.action = "$lebahUtil.getTabID("Laporan",$portal_role)?_portal_module=bph.modules.rk.SenaraiLaporanRecordModule";
+	document.${formName}.submit();
+}
+
+</script>

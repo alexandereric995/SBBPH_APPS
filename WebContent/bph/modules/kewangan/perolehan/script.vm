@@ -1,0 +1,88 @@
+function validate() {
+	var err_count = 0;
+	return err_count == 0;
+}
+
+function validateSavePerolehan() {
+	var err_count = 0;
+	
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "Tajuk adalah mandatori!"; err_count++;  }
+	
+	var unit = $('unit').value;
+	if ( unit == "" ) {$('err_unit').innerHTML = "Unit adalah mandatori!"; err_count++;  }
+	
+	var kodJenisPerolehan = $('kodJenisPerolehan').value;
+	if ( kodJenisPerolehan == "" ) {$('err_kodJenisPerolehan').innerHTML = "Jenis Perolehan adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doSavePerolehan(){
+	if (validateSavePerolehan()) {
+		doDivAjaxCall3$formname('div_main_entry','savePerolehan','')
+	}
+}
+
+function doHantarSokongan(){
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall3$formname('div_main_entry','hantarSokongan','')
+	}
+}
+
+function validateSaveSokongan() {
+	var err_count = 0;
+	
+	var radio1 = document.${formname}.sokongan[0].checked;
+	var radio2 = document.${formname}.sokongan[1].checked;
+	if ( radio1 == false && radio2 == false ) {$('err_sokong').innerHTML = "Pilihan Sokongan adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doSaveSokongan(){
+	if (validateSaveSokongan()) {
+		doDivAjaxCall3$formname('divForm','saveSokongan','')
+	}
+}
+
+function doHantarKelulusan(){
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall3$formname('divForm','hantarKelulusan','')
+	}
+}
+
+function validateSaveKelulusan() {
+	var err_count = 0;
+	
+	var radio1 = document.${formname}.kelulusan[0].checked;
+	var radio2 = document.${formname}.kelulusan[1].checked;
+	if ( radio1 == false && radio2 == false ) {$('err_lulus').innerHTML = "Pilihan Kelulusan adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doSaveKelulusan(){
+	if (validateSaveKelulusan()) {
+		doDivAjaxCall3$formname('divForm','saveKelulusan','')
+	}
+}
+
+
+
+

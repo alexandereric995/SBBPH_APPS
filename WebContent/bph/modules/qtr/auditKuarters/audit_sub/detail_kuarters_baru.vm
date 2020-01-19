@@ -1,0 +1,52 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%">
+    <h3>MAKLUMAT KUARTERS (SELEPAS)</h3>
+    <tr>
+        <td style="width:100px"></td>
+        <td style="width:5px"></td>
+        <td></td>
+    </tr>  
+	#input_normal("noRujukan" "No. ID Kuarters" "$!pilihan.noRujukan")
+	#input_normal("idKelasKuarters" "Kelas Kuarters" "$!pilihan.kelas.id")
+    #input_normal("jenisKediaman" "Jenis Kediaman" "$!pilihan.jenisKediaman.keterangan")
+  	#input_normal("jenisKegunaan" "Kegunaan Kuarters" "$!pilihan.jenisKegunaanKuarters.keterangan")
+    #input_normal("deposit" "Deposit" "$!pilihan.deposit")
+    #input_normal("sewa" "Sewa (RM)" "$!pilihan.sewa")
+    #input_normal("sewa" "Status Kuarters" "$!pilihan.statusKuarters.keterangan")
+    #input_normal("sewa" "Flag Aktif" "$!pilihan.flagAktif")
+	#input_normal("catatanFlagAktif" "Catatan" "$!pilihan.catatan")
+	#input_normal("kapasiti" "Kapasiti" "$!pilihan.kapasiti")
+	#input_normal("kapasitiSemasa" "Kapasiti Semasa" "$!pilihan.kapasitiSemasa")
+	#input_normal("kapasitiSemasa" "Lokasi Kuarters" "$!pilihan.lokasi.keterangan")
+    #input_normal("lotNo" "Lot Nombor" "$!pilihan.lotNo")
+    #input_normal("noUnit" "No. Unit" "$!pilihan.noUnit")
+    #input_normal("noUnit" "Fasa" "$!pilihan.fasa")
+    #input_normal("alamat1" "Alamat" "$!pilihan.alamat1")
+	#input_normal("alamat2" "" "$!pilihan.alamat2")
+	#input_normal("alamat3" "" "$!pilihan.alamat3")
+    #input_normal("poskod" "Poskod" "$!pilihan.poskod")
+    #input_normal("poskod" "Negeri" "$!pilihan.bandar.negeri.keterangan")
+    #input_normal("poskod" "Bandar" "$!pilihan.bandar.keterangan")
+    #if ($!pilihan.tarikhSerahan)
+       #set ($dateSerahan = "$!util.getDateTime($!pilihan.tarikhSerahan,'dd-MM-yyyy')")
+    #else 
+       #set ($dateSerahan = "-")
+    #end
+    #input_normal("tarikhSerahan" "Tarikh Serahan" "$dateSerahan")
+    #if ($!history.tarikhKemaskini)
+       #set ($dateKemaskini = "$!util.getDateTime($!pilihan.tarikhKemaskini,'dd-MM-yyyy hh:mm:ss')")
+    #else 
+       #set ($dateKemaskini = "-")
+    #end
+    #input_normal("tarikhKemaskini" "Tarikh Kemaskini" "$dateKemaskini")
+    #input_normal("kemaskiniOleh" "Dikemaskini Oleh" "$!pilihan.kemaskiniOleh")
+</table>
+
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+		$('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

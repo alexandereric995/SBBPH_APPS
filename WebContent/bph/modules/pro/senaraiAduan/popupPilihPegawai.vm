@@ -1,0 +1,75 @@
+
+<fieldset>
+	<legend class="legend">PILIH PEGAWAI</legend>
+	<table width="100%" cellpadding="1" cellspacing="2" border="0">
+		<tr>
+			<td class="label" style=""></td>
+			<td style=""></td>
+			<td style=""><br /></td>
+		</tr>
+		<tr>
+			<td valign="top">
+		  	 <tr>
+				<td class="row_header" width="10%">BIL.</td>
+				<td class="row_header" width="25%">NAMA PEGAWAI</td>
+				<td class="row_header" width="45%">UNIT</td>
+				<td class="row_header" width="20%">PILIH</td>
+			</tr>
+			#set ( $count = 0 )
+			#if($listpegawai.size() > 0)
+	    		#foreach($c in $listpegawai)
+	    		#set ( $count = $count + 1)
+	    		<tr>
+	    			<td align="center">$count</td>
+##	    			<td align="left">$!c.pegawai.id</td>
+					<td align="left">$!c.pegawai.userName</td>
+	    			<td align="center">$!c.seksyen.keterangan</td>
+	    			<td align="center">
+##	    				<input type="checkbox" name="pesalah" id="radPesalah$u.id" value="$u.id"/>
+						<input type="checkbox" name="pegawai" id="radPegawai$c.id" value="$c.pegawai.id"/>       
+	    			</td>
+	    		</tr>
+	    		#end
+			#else
+				<tr><td colspan="4">TIADA REKOD</td></tr>
+			#end
+			<td valign="top"> 
+		<tr>
+	</table>
+	<br />
+	<br />
+	<br />
+	<table>
+		<tr>
+			<td></td>
+			<td></td>
+			<td> 
+				#if ( $command == "addPilihPegawaiPertama" )
+					<input type="button" id="savePilihPegawaiPertama" name="savePilihPegawaiPertama" value="Simpan">
+					<input type="button" id="batalPilihPegawaiPertama" name="batalPilihPegawaiPertama" value="Keluar">
+				#elseif ( $command == "editPilihPegawaiPertama" )
+					<input type="button" id="saveExitPilihPegawaiPertama" name="saveExitPilihPegawaiPertama" value="Simpan">
+					<input type="button" id="batalPilihPegawaiPertama" name="batalPilihPegawaiPertama" value="Keluar">
+				#end 
+			</td>
+		</tr>
+	</table>
+</fieldset>
+
+##<div id="divPagePegawai"></div>
+<input type="hidden" id="idAgihanTugas" name="idAgihanTugas" value="$r.id">
+
+<script>
+	_jq('#batalPilihPegawaiPertama').on('click', function(){
+		doDivAjaxCall3$formname('divTab','getMaklumatAgihan','');
+	    jQuery('#editPilihPegawaiPertama').fadeOut();
+	});
+	
+	_jq('#savePilihPegawaiPertama').on('click', function(){
+	    savePilihPegawaiPertama();
+	});
+	
+	_jq('#saveExitPilihPegawaiPertama').on('click', function(){
+		savePilihPegawaiPertama();
+	});
+</script>

@@ -1,0 +1,143 @@
+
+
+#if($checkingPenyelia.equals(false))
+	<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+		<p>
+			<strong>* MAAF, SILA PASTIKAN ID ANDA BERDAFTAR DIBAWAH MANA-MANA RPP</strong>
+		</p>
+	</div>
+#else
+		
+	<input type="hidden" name="gredId" id="gredId" value="$!gredId" />
+
+    <fieldset>
+    <legend class="legend">semakan kekosongan</legend>
+    
+        <table width="100%" cellpadding="1" cellspacing="1">
+    		<tr>
+    			<td style="width:166px"></td>
+    			<td style="width:10px"></td>
+    			<td></td>
+    		</tr>
+    		<tr>
+    			<td colspan="3">
+    				<span style="font-size:12px;font-weight:bold;text-decoration: underline;">KRITERIA CARIAN</span>
+    			</td>
+    		</tr>
+    		<tr><td colspan="3">&nbsp;</td></tr>
+    		
+    		<tr>
+            	<td class="label" valign="top">Tarikh Masuk &nbsp;<span style="color:#FF2A00">*</span></td>
+            	<td class="label" valign="top">:</td>
+            	<td valign="top">
+            		<div>
+                		<input type="text" id="tarikhMasukRpp" name="tarikhMasukRpp" value="$!dtfrom">
+            			<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+                		<script>
+                        	_jq("#tarikhMasukRpp").Zebra_DatePicker({ 
+                				format: 'd-m-Y',
+            					readonly_element: false,
+    							##direction : 1,
+    							pair: _jq('#tarikhKeluarRpp'),
+    							onSelect: function(view, elements) {
+            						$('err_tarikhMasukRpp').innerHTML='';
+            						doChangeTarikhMula();
+            					}
+                        	});
+            				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+                		</script>
+            		</div>
+    				<div id="err_tarikhMasukRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            	</td>
+            </tr>
+    		
+    		<tr>
+            	<td class="label" valign="top">Tarikh Keluar &nbsp;<span style="color:#FF2A00">*</span></td>
+            	<td class="label" valign="top">:</td>
+            	<td valign="top">
+            		<div>
+                		<input type="text" id="tarikhKeluarRpp" name="tarikhKeluarRpp" value="$!dtto">
+            			<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+                		<script>
+                        	_jq("#tarikhKeluarRpp").Zebra_DatePicker({ 
+                				format: 'd-m-Y',
+            					readonly_element: false,
+    							direction : 1,
+    							onSelect: function(view, elements) {
+            						$('err_tarikhKeluarRpp').innerHTML='';
+    								doFilterByDate();
+            					}
+                        	});
+            				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+                		</script>
+            		</div>
+    				<div id="err_tarikhKeluarRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            	</td>
+            </tr>
+    		
+    		<tr>
+    			<td valign="top">Gred Jawatan</td>
+    			<td valign="top">:</td>
+    			<td valign="top">
+    				<select class="texts" id="carianGred" name="carianGred" style="width:25%" onChange="javascript:doFilterByGredJawatan()" >
+    					<option value="">SILA PILIH</option>
+    						#foreach( $n in $senaraiGred)
+    							<option value="$n.id" #if($!n.id == $!gredId) selected #end >$n.keterangan.toUpperCase()</option>
+    						#end
+    				</select>
+    			</td>
+    		</tr>
+    		
+    		##<tr><td colspan="3" align="left"><br/><input type="button" style="width:170px" value="CARI" onclick=""></td></tr>
+    		
+    		<tr><td colspan="3"><hr/></td></tr>
+    		
+    	</table>
+    	
+    	<br/>
+    	
+    	<table width="100%" cellpadding="1" cellspacing="1">
+    		
+    		<tr>
+    			<td style="width:166px"></td>
+    			<td style="width:10px"></td>
+    			<td></td>
+    		</tr>
+    		
+    		<tr>
+    			<td colspan="3">
+    				<span style="font-size:12px;font-weight:bold;text-decoration: underline;">SENARAI RUMAH PERANGINAN</span>
+    			</td>
+    		</tr>
+    		
+    		<tr>
+    			<td colspan="3">
+    				#set ( $count = 0 )
+    				#foreach( $d in $senaraiPeranginan )
+    					#set ( $count = $count + 1)
+    					<div>
+    						<a href="javascript:void()" style="color:blue" onClick="javascript:doViewListJenisUnit('$!d.id');">$!d.namaPeranginan</a>
+    					</div>
+    				#end
+    			</td>
+    		</tr>
+    		
+        </table>
+    	
+    	
+    	<div id="divResult"></div>
+    	
+    </fieldset>
+	
+#end
+
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

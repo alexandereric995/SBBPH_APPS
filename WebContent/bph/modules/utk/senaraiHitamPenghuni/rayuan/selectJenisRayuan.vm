@@ -1,0 +1,15 @@
+#if($command == 'addRayuan')
+<select class="texts" id="idJenisRayuan" name="idJenisRayuan" style="width:80%" onChange="$('err_idJenisRayuan').innerHTML=''; doDivAjaxCall3$formname('selectFlagRayuan','selectFlagRayuan','')">
+    <option value="">SILA PILIH</option>
+    <option #if ( $rekod.flagJenisRayuan == '1' ) selected #end value="1">RAYUAN KUARTERS</option>
+    <option #if ( $rekod.flagJenisRayuan == '2' ) selected #end value="2">RAYUAN BAYARAN SEWA</option>
+</select>
+#else
+<input type="hidden" id="idJenisRayuan" name="idJenisRayuan" value="$rekod.flagJenisRayuan"/>
+	#if($rekod.flagJenisRayuan == '1')
+		#set($flagRayuan = 'RAYUAN KUARTERS')
+	#elseif($rekod.flagJenisRayuan == '2')
+		#set($flagRayuan = 'RAYUAN BAYARAN SEWA')
+	#end
+$flagRayuan
+#end

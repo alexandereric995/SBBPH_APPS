@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="BGSSuratTolakPermohonanUbahsuaiRuangPejabat"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="451"
+		 columnSpacing="0"
+		 leftMargin="72"
+		 rightMargin="72"
+		 topMargin="50"
+		 bottomMargin="10"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idPermohonanUbahsuai" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT A.ID, MONTH(CURDATE()) AS BULAN,YEAR(CURDATE()) AS TAHUN,A.NO_PERMOHONAN, DATE_FORMAT(A.TARIKH_TERIMA,'%d') HARI_TERIMA, MONTH(A.TARIKH_TERIMA) BULAN_TERIMA, YEAR(A.TARIKH_TERIMA) TAHUN_TERIMA, A.ALAMAT_1, A.ALAMAT_2, A.ALAMAT_3, A.POSKOD, B.keterangan NAMA_AGENSI,C.keterangan NAMA_KEMENTERIAN, D.keterangan NAMA_BANDARB, E.keterangan NAMA_NEGERIB, F.keterangan NAMA_BANDARA, G.keterangan NAMA_NEGERIA,
+L.user_name, L.NO_TELEFON, L.EMEL
+FROM bgs_permohonan_ubahsuai H
+LEFT JOIN bgs_permohonan A ON A.ID = H.id_permohonan
+LEFT JOIN ruj_agensi B ON A.id_agensi = B.id
+LEFT JOIN ruj_kementerian C ON B.id_kementerian = C.id
+LEFT JOIN ruj_bandar D ON A.id_bandar_bangunan = D.id
+LEFT JOIN ruj_negeri E ON D.id_negeri = E.id
+LEFT JOIN ruj_bandar F ON A.id_bandar = F.id
+LEFT JOIN ruj_negeri G ON F.id_negeri = G.id
+LEFT JOIN users L ON H.id_pegawai_lulus = L.user_login
+WHERE H.id = $P{idPermohonanUbahsuai}]]></queryString>
+
+	<field name="ID" class="java.lang.String"/>
+	<field name="BULAN" class="java.lang.Long"/>
+	<field name="TAHUN" class="java.lang.Long"/>
+	<field name="NO_PERMOHONAN" class="java.lang.String"/>
+	<field name="HARI_TERIMA" class="java.lang.String"/>
+	<field name="BULAN_TERIMA" class="java.lang.Long"/>
+	<field name="TAHUN_TERIMA" class="java.lang.Long"/>
+	<field name="ALAMAT_1" class="java.lang.String"/>
+	<field name="ALAMAT_2" class="java.lang.String"/>
+	<field name="ALAMAT_3" class="java.lang.String"/>
+	<field name="POSKOD" class="java.lang.String"/>
+	<field name="NAMA_AGENSI" class="java.lang.String"/>
+	<field name="NAMA_KEMENTERIAN" class="java.lang.String"/>
+	<field name="NAMA_BANDARB" class="java.lang.String"/>
+	<field name="NAMA_NEGERIB" class="java.lang.String"/>
+	<field name="NAMA_BANDARA" class="java.lang.String"/>
+	<field name="NAMA_NEGERIA" class="java.lang.String"/>
+	<field name="user_name" class="java.lang.String"/>
+	<field name="NO_TELEFON" class="java.lang.String"/>
+	<field name="EMEL" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="278"  isSplitAllowed="false" >
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="132"
+						width="451"
+						height="14"
+						key="textField-8"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false" isUnderline="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Pengarah\n"
++($F{NAMA_AGENSI}!=null?$F{NAMA_AGENSI}+"\n":"")
++($F{NAMA_KEMENTERIAN}!=null?$F{NAMA_KEMENTERIAN}+"\n":"")
++($F{ALAMAT_1}!=null?$F{ALAMAT_1}+"\n":"")
++($F{ALAMAT_2}!=null?$F{ALAMAT_2}+"\n":"")
++($F{ALAMAT_3}!=null?$F{ALAMAT_3}+"\n":"")
++($F{POSKOD}!=null?$F{POSKOD}+" ":"")
++($F{NAMA_BANDARA}!=null?$F{NAMA_BANDARA}:"")+ ", " + ($F{NAMA_NEGERIA}!=null?$F{NAMA_NEGERIA}:"")+"\n\n"
++"\nTuan,\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="284"
+						y="79"
+						width="167"
+						height="14"
+						key="textField-13"
+						positionType="Float"
+						isPrintRepeatedValues="false"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{NO_PERMOHONAN}!=null ? $F{NO_PERMOHONAN}:"")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="284"
+						y="93"
+						width="167"
+						height="14"
+						key="textField-16"
+						positionType="Float"
+						isPrintRepeatedValues="false"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{BULAN}.intValue()== 1 ? "Januari" :
+$F{BULAN}.intValue()== 2 ? "Februari":
+$F{BULAN}.intValue()== 3 ? "Mac" :
+$F{BULAN}.intValue()== 4 ? "April" :
+$F{BULAN}.intValue()== 5 ? "Mei" :
+$F{BULAN}.intValue()== 6 ? "Jun" :    
+$F{BULAN}.intValue()== 7 ? "Julai" :
+$F{BULAN}.intValue()== 8 ? "Ogos" :
+$F{BULAN}.intValue()== 9 ? "September" :
+$F{BULAN}.intValue()== 10 ? "Oktober" :
+$F{BULAN}.intValue()== 11 ? "November" :
+$F{BULAN}.intValue()== 12 ? "Disember" : "") + " " + $F{TAHUN}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="155"
+						width="451"
+						height="15"
+						key="textField-18"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true" isUnderline="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["CADANGAN MENGUBAHSUAI RUANG PEJABAT UNTUK " + ($F{NAMA_AGENSI}!=null?$F{NAMA_AGENSI}:"") + ", " + ($F{NAMA_NEGERIA}!=null?$F{NAMA_NEGERIA}:"")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="264"
+						width="451"
+						height="14"
+						key="textField-27"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["3.         Walau bagaimanapun, permohonan pihak tuan tidak dapat dilulus buat masa ini. Bahagian ini akan mempertimbangkan semula permohonan pihak tuan di masa hadapan.\n\n" +
+
+"4.            Kerjasama serta tindakan pihak tuan dalam perkara ini amat diharapkan.\n\n" +
+
+"Sekian, terima kasih.\n\n"
+
++"<style isBold='true' pdfFontName='Helvetica-Bold'>“BERKHIDMAT UNTUK NEGARA”</style>\n\n"
++"<style isBold='true' pdfFontName='Helvetica-Bold'>“BERILTIZAM PENUH HASRAT”</style>\n\n"
++"Saya yang menurut perintah,\n\n\n\n\n"
++"<style isBold='true' pdfFontName='Helvetica-Bold'>(" + ($F{user_name}!=null?$F{user_name}.toUpperCase():"") + ")</style>\n"
++"b.p Ketua Setiausaha Negara\n"
++"No. Tel :" +  ($F{NO_TELEFON}!=null?$F{NO_TELEFON}:"") + "\n"
++"Emel :" + ($F{EMEL} !=null?$F{EMEL} :"") + "\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="183"
+						width="451"
+						height="43"
+						key="textField-28"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Dengan hormatnya saya diarah merujuk kepada perkara di atas.\n\n"+ 
+
+"2.       Bahagian ini mengambil maklum berkenaan permohonan pihak tuan untuk mengubahsuai ruang pejabat di:-"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="-20"
+						y="164"
+						width="0"
+						height="0"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Static Text]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="3"
+						width="449"
+						height="55"
+						key="subreport-1"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\bgs\\headerSurat.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="26"
+						y="236"
+						width="421"
+						height="18"
+						key="subreport-2"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idPermohonan">
+						<subreportParameterExpression><![CDATA[$F{ID}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\bgs\\BGSSuratTolakPermohonanUbahsuaiRuangPejabat_subreport1.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

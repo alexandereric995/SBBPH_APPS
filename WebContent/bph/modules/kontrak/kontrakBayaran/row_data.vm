@@ -1,0 +1,23 @@
+##Fatin 15/06/2015
+<td><a href="javascript:void()" style="color:blue" onclick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')">$!r.noDaftarKontrak</a></td>
+<td>$!r.perkhidmatan</td>
+<td>	
+	<b>No. Pendaftaran :</b> $!r.kontraktor.id<br/>  	
+  	<b>Nama Kontraktor :</b> $!r.kontraktor.namaKontraktor
+</td>
+
+#if ($!r.tarikhMula) 
+	#set ($dateMula = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+#else #set ($dateMula="") #end
+#if ($!r.tarikhTamat) 
+	#set ($dateTamat = "$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')")
+#else #set ($dateTamat="") #end
+<td>	
+	<b>Tarikh Mula :</b> $dateMula<br/>  	
+  	<b>Tarikh Tamat :</b> $dateTamat<br />
+##  	<b>$!r.getTempohKontrak()</b>
+</td>
+<td>
+	<b>$!r.getKeteranganStatus()</b><br />
+</td>
+

@@ -1,0 +1,135 @@
+
+
+<fieldset>
+<legend class="legend">Semakan Ulasan JRP</legend>
+	<table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:200px"></td>
+			<td style="width:20px"></td>
+    		<td style="width:20px"></td>
+    		<td></td>
+  		</tr>
+  		 
+		 <tr>
+		 	<td></td>
+			<td><input type="checkbox" name="ulasanJPPH" disabled="true" id="ulasanJPPH" value="Y" 
+			
+			#foreach( $s in $listSemakanUlasan ) 
+				#if( ($users.flagHq == 'T' && $countJpph != '3') ||  $users.flagHq == 'Y') 	
+					#if($!s.agensi.id == '1306' && $!s.flagAktif == 'Y' && ($!s.flagKeputusan == 'S' || $!s.flagKeputusan == 'SB')) 
+						#set($jpph = $!s.agensi.id) 
+						#set($flagJpph = $!s.flagKeputusan) 
+						checked 
+					#end
+				#else
+					#if($!s.agensi.id == '1306' && $!s.flagAktif == 'Y') 
+						#set($jpph = $!s.agensi.id) 
+						#set($flagJpph = $!s.flagKeputusan) 
+						checked 
+					#end 
+				#end 
+			#end/></td>
+			<td></td>
+			<td>&nbsp; Ulasan JPPH</td>
+  		</tr>
+  		#if($r.agensi.id != '0302') ##SELAIN PDRM
+		<tr>
+			<td></td>
+			<td><input type="checkbox" name="ulasanKPKK" disabled="disabled" id="ulasanKPKK" value="Y" #foreach( $s in $listSemakanUlasan ) #if($!s.agensi.id == '1262' && $!s.flagAktif == 'Y' && ($!s.flagKeputusan == 'S'|| $!s.flagKeputusan == 'SB')) #set($kpkk= $!s.agensi.id) #set($flagKpkk = $!s.flagKeputusan) checked  #end #end /></td>
+			<td></td>
+			<td>&nbsp; Ulasan KPKK</td>
+  		</tr>
+  		#end
+  		<tr>
+  			<td></td>
+			<td><input type="checkbox" name="ulasanJBPM" disabled="disabled" id="ulasanJBPM" value="Y" #foreach( $s in $listSemakanUlasan ) #if($!s.agensi.id == '2005' && $!s.flagAktif == 'Y' && ($!s.flagKeputusan == 'S'|| $!s.flagKeputusan == 'SB')) #set($jbpm = $!s.agensi.id) #set($flagJbpm = $!s.flagKeputusan) checked  #end #end /></td>
+			<td></td>
+			<td>&nbsp; Ulasan JBPM</td>
+  		</tr>
+  		<tr>
+  			<td></td>
+			<td><input type="checkbox" name="ulasanJKPTG" disabled="disabled" id="ulasanJKPTG" value="Y" #foreach( $s in $listSemakanUlasan ) #if($!s.agensi.id == '1804' && $!s.flagAktif == 'Y' && ($!s.flagKeputusan == 'S'|| $!s.flagKeputusan == 'SB')) #set($jkptg = $!s.agensi.id) #set($flagJkptg = $!s.flagKeputusan) checked  #end #end /></td>
+			<td></td>
+			<td>&nbsp; Ulasan JKPTG</td>
+  		</tr>
+  		#if(!$!userRole.equalsIgnoreCase("(JRP) Pemohon") || $users.flagHq == 'Y')
+  		#if($r.jenisPermohonanJrp.id == 'JRP1' || $r.jenisPermohonanJrp.id == 'JRP3' || $r.jenisPermohonanJrp.id == 'JRP5')
+  		<tr>
+  			<td></td>
+			<td><input type="checkbox" name="ulasanEUP" disabled="disabled" id="ulasanEUP" value="Y" #foreach( $s in $listSemakanUlasan ) #if($!s.agensi.id == '1216' && $!s.flagAktif == 'Y' && ($!s.flagKeputusan == 'S'|| $!s.flagKeputusan == 'SB')) #set($upe = $!s.agensi.id) #set($flagUpe = $!s.flagKeputusan) checked  #end #end /></td>
+			<td></td>
+			<td>&nbsp; Ulasan EPU</td>
+  		</tr>
+  		#end
+  		#if(!$!userRole.equalsIgnoreCase("(JRP) Pemohon") || $users.flagHq == 'Y')
+##  		#if($r.jenisPermohonanJrp.id == 'JRP1' || $r.jenisPermohonanJrp.id == 'JRP3' || $r.jenisPermohonanJrp.id == 'JRP5')
+##  		<tr>
+##  			<td></td>
+##			<td><input type="checkbox" name="ulasanMOF" disabled="disabled" id="ulasanMOF" value="Y" #foreach( $s in $listSemakanUlasan ) #if($!s.agensi.id == '1301' && $!s.flagAktif == 'Y' && ($!s.flagKeputusan == 'S' || $!s.flagKeputusan == 'SB')) #set($mof = $!s.agensi.id) #set($flagMof = $!s.flagKeputusan) checked  #end #end /></td>
+##			<td></td>
+##			<td>&nbsp; Ulasan MOF</td>
+##  		</tr>
+##  		#end
+  		#if(($r.jenisPermohonanJrp.id == 'JRP7' && $r.getSewaLatest() == 'Y') || $r.jenisPermohonanJrp.id != 'JRP7')
+  		<tr>
+  			<td></td>
+			<td><input type="checkbox" name="ulasanMOF" disabled="disabled" id="ulasanMOF" value="Y" #foreach( $s in $listSemakanUlasan ) #if($!s.agensi.id == '1301' && $!s.flagAktif == 'Y' && ($!s.flagKeputusan == 'S' || $!s.flagKeputusan == 'SB')) #set($mof = $!s.agensi.id) #set($flagMof = $!s.flagKeputusan) checked  #end #end /></td>
+			<td></td>
+			<td>&nbsp; Ulasan MOF</td>
+  		</tr>
+  		#end
+  		#end
+  		#end
+	</table>
+</fieldset>	
+
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if($r.agensi.id != '0302')
+			#if ($!r.status.id == '1424860634475' && $jpph == '1306' && $kpkk == '1262' && ($flagKpkk == 'S' || $flagKpkk == 'SB') && $jbpm == '2005' && ($flagJbpm == 'S' || $flagJbpm == 'SB') && $jkptg == '1804' && ($flagJkptg == 'S' ||$flagJkptg == 'SB')) ##ULASAN JRP NEGERI SELAIN PDRM
+			<input type="button" value="Hantar Permohonan ke HQ" onclick="javascript:doHantarPermohonanKeHq('$!r.id');">
+			#end
+			#else
+			#if ($!r.status.id == '1424860634475' && $jpph == '1306' && $jbpm == '2005' && ($flagJbpm == 'S' || $flagJbpm == 'SB') && $jkptg == '1804' && ($flagJkptg == 'S' ||$flagJkptg == 'SB')) ##ULASAN JRP NEGERI PDRM
+			<input type="button" value="Hantar Permohonan ke HQ" onclick="javascript:doHantarPermohonanKeHq('$!r.id');">
+			#end
+			#end
+			#if($r.agensi.id != '0302' && ($r.jenisPermohonanJrp.id == 'JRP1' || $r.jenisPermohonanJrp.id == 'JRP3' || $r.jenisPermohonanJrp.id == 'JRP5')) ##(JRP1 || JRP3 || JRP5) MEMERLUKAN ULASAN UPE
+			#if ($!r.status.id == '1436841294664' && $jpph == '1306' && $kpkk == '1262' && ($flagKpkk == 'S' || $flagKpkk == 'SB') && $jbpm == '2005' && ($flagJbpm == 'S' || $flagJbpm == 'SB') && $jkptg == '1804' && ($flagJkptg == 'S' ||$flagJkptg == 'SB') && $upe == '1216' && ($flagUpe == 'S' || $flagUpe == 'SB') && $mof == '1301' && $flagMof == 'S') ##ULASAN JRP HQ
+			<input type="button" value="Hantar Permohonan ke BPH" onclick="javascript:doHantarPermohonan('$!r.id');">
+			#end
+			#end
+			
+			#if($r.agensi.id == '0302' && ($r.jenisPermohonanJrp.id == 'JRP1' || $r.jenisPermohonanJrp.id == 'JRP3' || $r.jenisPermohonanJrp.id == 'JRP5')) ##PDRM (JRP1 || JRP3 || JRP5) MEMERLUKAN ULASAN UPE && TIDAK MEMERLUKAN KPKK
+			#if ($!r.status.id == '1436841294664' && $jpph == '1306' && $jbpm == '2005' && ($flagJbpm == 'S' || $flagJbpm == 'SB') && $jkptg == '1804' && ($flagJkptg == 'S' ||$flagJkptg == 'SB') && $upe == '1216' && ($flagUpe == 'S' || $flagUpe == 'SB') && $mof == '1301' && $flagMof == 'S') ##ULASAN JRP HQ
+			<input type="button" value="Hantar Permohonan ke BPH" onclick="javascript:doHantarPermohonan('$!r.id');">
+			#end
+			#end
+			
+			#if($r.agensi.id != '0302' && ($r.jenisPermohonanJrp.id == 'JRP2' || $r.jenisPermohonanJrp.id == 'JRP4' || $r.jenisPermohonanJrp.id == 'JRP6')) ##(JRP2 || JRP4 || JRP6) TIDAK MEMERLUKAN ULASAN UPE
+			#if ($!r.status.id == '1436841294664' && $jpph == '1306' && $kpkk == '1262' && ($flagKpkk == 'S' || $flagKpkk == 'SB') && $jbpm == '2005' && ($flagJbpm == 'S' || $flagJbpm == 'SB') && $jkptg == '1804' && ($flagJkptg == 'S' ||$flagJkptg == 'SB') && $mof == '1301' && $flagMof == 'S') ##ULASAN JRP HQ
+			<input type="button" value="Hantar Permohonan ke BPH" onclick="javascript:doHantarPermohonan('$!r.id');">
+			#end
+			#end
+			#if($r.agensi.id == '0302' && ($r.jenisPermohonanJrp.id == 'JRP2' || $r.jenisPermohonanJrp.id == 'JRP4' || $r.jenisPermohonanJrp.id == 'JRP6')) ##PDRM (JRP2 || JRP4 || JRP6) TIDAK MEMERLUKAN ULASAN UPE & KPKK
+			#if ($!r.status.id == '1436841294664' && $jpph == '1306' && $jbpm == '2005' && ($flagJbpm == 'S' || $flagJbpm == 'SB') && $jkptg == '1804' && ($flagJkptg == 'S' ||$flagJkptg == 'SB') && $mof == '1301' && $flagMof == 'S') ##ULASAN JRP HQ
+			<input type="button" value="Hantar Permohonan ke BPH" onclick="javascript:doHantarPermohonan('$!r.id');">
+			#end
+			#end
+			#if($r.jenisPermohonanJrp.id == 'JRP7' && $r.getSewaLatest() == 'Y') ##JRP7 && SEWA BARU 10% LEBIH DARI SEWA LAMA TIDAK MEMERLUKAN ULASAN UPE, MEMERLUKAN ULASAN MOF 
+			#if ($!r.status.id == '1436841294664' && $jpph == '1306' && $kpkk == '1262' && ($flagKpkk == 'S' || $flagKpkk == 'SB') && $jbpm == '2005' && ($flagJbpm == 'S' || $flagJbpm == 'SB') && $jkptg == '1804' && ($flagJkptg == 'S' ||$flagJkptg == 'SB') && $mof == '1301' && $flagMof == 'S') ##ULASAN JRP HQ
+			<input type="button" value="Hantar Permohonan ke BPH" onclick="javascript:doHantarPermohonan('$!r.id');">
+			#end
+			#end
+			#if($r.jenisPermohonanJrp.id == 'JRP7' && $r.getSewaLatest() == 'T') ##JRP7 && SEWA BARU 10% TIDAK LEBIH DARI SEWA LAMA TIDAK MEMERLUKAN ULASAN UPE DAN MOF 
+			#if ($!r.status.id == '1436841294664' && $jpph == '1306' && $kpkk == '1262' && ($flagKpkk == 'S' || $flagKpkk == 'SB') && $jbpm == '2005' && ($flagJbpm == 'S' || $flagJbpm == 'SB') && $jkptg == '1804' && ($flagJkptg == 'S' ||$flagJkptg == 'SB')) ##ULASAN JRP HQ
+			<input type="button" value="Hantar Permohonan ke BPH" onclick="javascript:doHantarPermohonan('$!r.id');">
+			#end
+			#end
+			<input id="cmdKembali" type="button" value="Kembali" onclick="document.location = '$!tabIdAndClassName'" />
+		</td>
+	</tr>
+</table>
+	

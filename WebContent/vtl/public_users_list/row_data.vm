@@ -1,0 +1,37 @@
+
+<td>$!r.id</td>
+<td>$!r.userName</td>
+<td>$!r.role.description</td>
+
+##if ($r.userLoginAlt)
+##<td>$!r.userLoginAlt</td>
+##else
+##<td align="center">-</td>
+##end
+
+##<td>$!r.jawatan.keterangan</td>
+##<td>$!r.seksyen.keterangan</td>
+
+##if ($r.userIPAddress)
+##<td>$!r.userIPAddress</td>
+##else
+##<td align="center">-</td>
+##end
+
+##if ($!r.role.description=="(AWAM) Penjawat Awam")
+##<td>$!r.gredPerkhidmatan.id</td>
+###else
+<td>$!r.gredPerkhidmatan.id</td>
+##end
+
+#if ($r.dateRegistered)
+<td>$util.getDateTime($!r.dateRegistered, "dd/MM/yyyy")</td>
+#else
+<td align="center">-</td>
+#end
+
+#if ($r.lastLoginDate)
+<td>$util.getDateTime($!r.lastLoginDate, "dd/MM/yyyy")</td>
+#else
+<td align="center">-</td>
+#end

@@ -1,0 +1,64 @@
+<fieldset>
+	<legend class="legend">MAKLUMAT PEMBAYARAN</legend>
+	<table width="100%" cellpadding="5" cellspacing="1">
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="8%">Tarikh Invoice</td>
+			<td class="row_header" width="10%">No Invoice</td>
+			<td class="row_header" width="19%">Keterangan</td>
+			<td class="row_header" width="10%">Debit (RM)</td>
+			<td class="row_header" width="10%">Kredit (RM)</td>
+		</tr>
+		
+			#set ( $count = 0 )
+			#if ( $listMaklumatPembayaran.size() > 0) 
+				#foreach( $!c in $listMaklumatPembayaran)
+					#set ( $count = $count + 1)
+							  
+					#if ( $count % 2 == 0 ) 
+						#set ( $rowcolor = "#D0CFCE" ) 
+					#else 
+						#set ( $rowcolor = "#F0F0F0" ) 
+					#end
+					<tr bgcolor="$rowcolor">
+					<td align="center">$count</td>
+					
+					#if ($!c.tarikhInvoice) 
+						#set ($tarikhInvoice = "$!util.getDateTime($!c.tarikhInvoice,'dd-MM-yyyy')")
+					#else 
+						#set ($tarikhInvoice = "")
+					#end
+					<td align="center">$tarikhInvoice</td>
+					
+					<td align="center">$!c.noInvoice</td>
+					
+					<td align="center">$!c.keterangan</td>
+					
+					<td align="right">$!util.formatDecimal($!c.debit)</td>
+					<td align="right">$!util.formatDecimal($!c.kredit)</td>
+					
+					
+				</tr>
+		 	 #end
+		  #else
+			<tr>
+				<td align="center">&nbsp;</td>
+				<td >Tiada Rekod</td>
+				<td align="center">&nbsp;</td>
+				<td align="center">&nbsp;</td>
+				<td align="center">&nbsp;</td>
+				<td align="center">&nbsp;</td>
+				<td align="center">&nbsp;</td>
+				<td align="center">&nbsp;</td>
+				<td align="center">&nbsp;</td>
+				<td align="center">&nbsp;</td>
+			</tr>
+		#end
+	</table>
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td align="right"><input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')"></td>
+	</tr>
+</table>

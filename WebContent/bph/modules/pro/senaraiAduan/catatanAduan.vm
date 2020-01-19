@@ -1,0 +1,48 @@
+<fieldset>
+<legend class="legend">CATATAN ADUAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:29%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+##  #if ($!command != 'tolakAduan')
+##  	#input_normal("urusetia" "Tolak Oleh" "<b>$!r.urusetia.userName.toUpperCase()</b>")
+##  	#if ($!r.tarikhSelesai) 
+##    #set ($dateSelesai = "$!util.getDateTime($!r.tarikhSelesai,'dd-MM-yyyy')")
+##    #else #set ($dateSelesai = '-') #end
+##  	#input_normal("tarikhSelesai" "Tarikh" "<b>$dateSelesai</b>")
+##  	#textarea_readonly("ulasanSelesai" "Maklumbalas kepada Pengadu" "$!r.ulasanSelesai")
+##  	#textarea_readonly("catatanSelesai" "Catatan" "$!r.catatanSelesai")
+##  #else
+	##  	#textarea_required("ulasanSelesai" "Maklumbalas kepada Pengadu" "$templatemsg")
+	<tr>
+		<td class="label" valign="top">Maklumbalas kepada Pengadu<span style="color:#FF2A00">*</span></td>
+		<td class="label" valign="top">:</td>
+		<td valign="top">
+			<textarea style="height:70px;" id="ulasanSelesai" name="ulasanSelesai"></textarea>
+			<div id="err_ulasanSelesai" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	</tr>
+	##  	#textarea("catatanSelesai" "Catatan" "")
+	<tr>
+		<td class="label" valign="top">Catatan</td>
+		<td class="label" valign="top">:</td>
+		<td valign="top">
+			<textarea style="height:70px;" id="catatanSelesai" name="catatanSelesai"></textarea>
+			<div id="err_catatanSelesai" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	</tr>
+##  #end
+
+	<tr>
+		<td class="label" valign="top"></td>
+		<td class="label" valign="top"></td>
+		<td valign="top">
+			<input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:();"/> 
+		</td>
+	</tr>
+
+</table>
+</fieldset>
+

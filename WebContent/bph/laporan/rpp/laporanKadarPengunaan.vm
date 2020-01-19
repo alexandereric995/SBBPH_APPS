@@ -1,0 +1,144 @@
+<fieldset>
+<legend class="legend">Laporan Kadar Pengunaan</legend>
+<table cellpadding="5" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        <tr>
+		   <td class="label">Jenis Peranginan &nbsp;<span style="color:#FF2A00">*</span></td>
+		   <td>:</td>
+		   <td><span id="findJenisPeranginan">#parse("$path/findJenisPeranginan.vm")</span>
+		   	<div id="err_idJenisPeranginan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		   	</td>
+		</tr>
+		<tr>
+			<td class="label">Nama Peranginan &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td>:</td>
+			<td><span id="findPeranginan">
+			     #parse("$path/findPeranginan.vm")
+			    </span>
+			    <div id="err_idPeranginan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		<tr>
+		   <td class="label">Jenis Unit &nbsp;<span style="color:#FF2A00">*</span></td>
+		   <td>:</td>
+		   <td><span id="selectJenisUnitRpp">#parse("$path/selectJenisUnitRPP.vm")</span>
+		   <div id="err_idJenisUnit" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		</tr>
+		<tr>
+		   <td class="label">Gred</td>
+		   <td>:</td>
+		   <td>
+		     <span id="listGredJawatan">
+		        #parse("$path/selectGredJawatan.vm")
+		     </span>
+		   </td>
+		</tr>		
+	<tr>
+		<td class="label">Status Tempahan</td>
+        <td>:</td>
+        <td colspan="5">
+			<select class="texts" id="findStatusPermohonan" name="findStatusPermohonan" style="width:80%">
+				<option value="">SILA PILIH</option>
+                #foreach( $n in $listStatusPermohonan)
+                <option value="$n.id">$n.keterangan.toUpperCase()</option>
+                #end
+			</select>
+		</td>
+	</tr>
+		<tr>
+		    <td class="label">Status Bayaran &nbsp;<span style="color:#FF2A00">*</span></td>
+		    <td>:</td>
+		    <td><select style="width:80%" name="idStatusBayaran" id="idStatusBayaran" class="texts" onChange="$('err_idStatusBayaran').innerHTML='';">
+		          <option value="">SILA PILIH</option>
+		          <option value="Y">SUDAH BAYAR</option>
+		          <option value="T">BELUM BAYAR</option>
+		        </select>
+		        <div id="err_idStatusBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		    </td>
+		</tr>
+      </table></td>
+      
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        
+        <tr>
+		    <td class="label">Kategori Permohonan &nbsp;<span style="color:#FF2A00">*</span></td>
+		    <td>:</td>
+		    <td><select style="width:80%" name="idJenisPermohonan" id="idJenisPermohonan" class="texts" onChange="$('err_idJenisPermohonan').innerHTML='';">
+		          <option value="">SILA PILIH</option>
+		          <option value="ONLINE">ONLINE</option>
+		          <option value="WALKIN">WALK-IN</option>
+		        </select>
+		        <div id="err_idJenisPermohonan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		    </td>
+		</tr>
+        
+		<tr>
+		    <td class="label">Waktu &nbsp;<span style="color:#FF2A00">*</span></td>
+		    <td>:</td>
+		    <td><select style="width:80%" name="idFlagWaktu" id="idFlagWaktu" class="texts" onChange="$('err_idFlagWaktu').innerHTML='';">
+		          <option value="">SILA PILIH</option>
+		          <option value="Y">WAKTU PUNCAK</option>
+		          <option value="T">LUAR WAKTU PUNCAK</option>
+		        </select>
+		        <div id="err_idFlagWaktu" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		    </td>
+		</tr>
+		<tr>
+		    <td class="label">Kategori Pemohon &nbsp;<span style="color:#FF2A00">*</span></td>
+		    <td>:</td>
+		    <td><select style="width:80%" name="jenisPemohon" id="jenisPemohon" class="texts" onChange="$('err_jenisPemohon').innerHTML='';">
+		          <option value="">SILA PILIH</option>
+		          <option value="INDIVIDU">INDIVIDU</option>
+		          <option value="KELOMPOK">KELOMPOK</option>
+		          <option value="TRANSIT">TRANSIT</option>
+		        </select>
+		        <div id="err_jenisPemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		    </td>
+		</tr>
+		
+	#if ($!r.tarikhMula)
+ 		   #set ($dateMula = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+	#else #set ($dateMula = "") #end
+	#date_input_required("tarikhMula" "Tarikh Mula" "$dateMula")
+
+
+	#if ($!r.tarikhTamat)
+ 		  #set ($dateTamat = "$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')")
+	#else #set ($dateTamat = "") #end
+	#date_input_required("tarikhTamat" "Tarikh Tamat" "$dateTamat")
+
+      </table>
+      </td>
+  </tr>
+</table>
+
+<table width="100%">
+  <tr>
+	  <td align="center">
+		  <input type="button" name="cmdCetak" id="cmdCetak" value="Jana Laporan" onclick="javascript:doCetakLaporanKadarPengunaan()"/>
+		  <input type="reset" value="Kosongkan" />
+		  <input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/>
+	  </td>
+  </tr>
+</table>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

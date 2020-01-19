@@ -1,0 +1,80 @@
+
+#set ( $subject = $session.getAttribute("subject"))
+#set ( $message = $session.getAttribute("message"))
+#if ( $subject == "")
+	#set ( $subject = $forum.title )
+	#set ( $message = $forum.notes )
+#end
+
+
+<form name="${formname}" method="post" action="javascript:save_${formname}()">
+
+
+<table width="100%" border="0" cellspacing="1" cellpadding="1">
+	<tr>
+		<td>
+		
+			<table border="0" cellspacing="1" cellpadding="1">
+				<tr>
+					<td>
+<b>						Title:</b>
+						<input class="text" name="title"  style="width:630px" value="$subject">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						$forum.postedBy
+					</td>
+				</tr>
+				<tr>
+					<td>
+						$forum.datePosted
+					</td>
+				</tr>				
+				</table>
+
+					#parse("vtl/editor/fck.vm")
+								
+								<table>
+				<tr>
+					<td>
+						<input class="button" type="button" value="Update" onclick="save_${formname}()">
+
+						<input class="button" type="button" value="Cancel" onclick="cancel_${formname}()">
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<textarea name="content" cols="40" rows="10" style="visibility:hidden">$!message</textarea>
+<input type="hidden" name="$formname" value="$formname">
+
+
+</form>
+
+<script>
+
+document.${formname}.message.value = document.${formname}.content.value;
+
+function save_${formname}() {
+update_${formname}();
+}
+
+function update_${formname}() {
+
+	document.${formname}.action = "?command=SubmitUpdate&subjectId=$!subjectId&forum_id=$forum.id";	
+	document.${formname}.submit();	
+}
+
+function cancel_${formname}() {
+	document.${formname}.action = "?command=Open&subjectId=$!subjectId&forum_id=$forum.id";
+	document.${formname}.submit();
+}
+
+function attachment_${formname}() {
+
+	document.${formname}.action = "?command=AttachmentTopic&subjectId=$!subjectId&forum_id=$forum_id";
+	document.${formname}.submit();
+}
+</script>

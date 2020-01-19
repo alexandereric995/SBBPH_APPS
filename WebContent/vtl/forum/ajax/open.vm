@@ -1,0 +1,274 @@
+
+
+#set ( $parent_id = "0" )
+#if ( $hasParent )
+	#set ( $parent_id = $forum_parent.id )
+#end
+
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+	<tr>
+		<td align="right">
+		#if ( $parent_id != "0" )
+		<input class="button" type="button" value="Up" 
+		onclick="doAjaxCall${formname}('Open', '&category_id=$forum_category&forum_id=$forum_parent.id&parent_id=$forum.id')">
+
+		#end
+
+					<input class="button" type="button" value="Back to topic list" 
+					onclick="doAjaxCall${formname}('')">
+		</td>
+	</tr>
+</table>
+
+<table width="100%" cellpadding="0" cellspacing="0">
+
+
+<tr>
+					<td style="width:48px; height:6px; background: url(../img/forum/top_left.png)"></td>
+										<td style="height:6px; background: url(../img/forum/top.png)"></td>
+					<td style="width:7px; height:6px; background: url(../img/forum/top_right.png)"></td>
+</tr>
+
+
+<tr>
+					<td style="height:6px; background: url(../img/forum/left.png)"  align="center" valign="top">
+																		##<a href="javascript:doAjaxCall$formname('Open', 'category_id=$!forum_category&forum_id=$!item.id&parent_id=$!forum.id')">
+						##<img src="../img/forum/folder.png" border="0">
+						##</a>
+					</td>
+		<td>
+		<br>
+			$forum.displayMessage()
+<br><br>
+		</td>
+							<td style="background: url(../img/forum/right.png)"></td>
+			</tr>
+			
+	<tr>
+					<td style="height:28px; background: url(../img/forum/bottom_left.png)"></td>
+					<td style="height:6px; background: url(../img/forum/bottom.png)"></td>
+					<td style="width:7px; height:28px; background: url(../img/forum/bottom_right.png)"></td>
+</tr>
+
+
+<tr>
+		<td></td>
+		<td>
+		<table cellpadding="0" cellspacing="0">
+		<tr><td>
+						#if ( $forum.avatar == "" )
+<img src="../img/forum/noavatar.png" border="0">
+			#else
+<img src="../download?file=${forum.avatar}" border="0">
+			#end
+			</td><td style="font-weight:bold">
+						$forum.postedBy<br>
+			$forum.getDatePosted().display()<br>
+			</td></tr></table>
+			
+			
+		</td>
+		</tr>
+
+	
+	</table>
+	
+	
+	<table>	
+	#if ( $allowAttachment )
+	<tr>
+		<td>
+		</td>
+		<td class="table_row" >
+			#if ($forum.hasAttachment())
+				<b>File(s):</b>&nbsp;
+				#foreach ( $file in $attachments )
+					<a href="javascript:download_${formname}('${files_dir}${file}')">
+					<u>$file</u>
+					&nbsp
+				#end
+			#end
+		</td>
+	</tr>	
+	#end
+	<tr>
+		<td>
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+	#if ( $userid == "anon" )
+	
+	#else	
+	<tr>
+		<td colspan="2" align="left">
+			#if ( $allowReply )
+				<input class="button" type="button" value="Reply to this topic" 
+				onclick="				doAjaxCall$formname('Reply', 'forum_id=$forum.id')">
+			#end
+			#if ( $allowUpdate )
+				<input class="button" type="button" value="Modify" 
+				onclick="doAjaxCall$formname('Update', 'forum_id=$forum.id')">
+
+			#end
+			#if ( $allowDelete )
+				<input class="button" type="button" value="Delete" 
+				onclick="doAjaxCall$formname('Delete', 'forum_id=$forum.id&parent_id=$parent_id')">
+
+			#end
+		</td>
+	</tr>
+	<tr>
+		<td>
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>		
+	#end
+
+
+</table>
+
+
+<table width="100%">
+	<tr>
+		<td align="right">	
+		#if ( $pages > 0 )
+			Page $page_number of $pages&nbsp;
+		#end
+		#if ( !$bol )
+		<input class="button" type="button" value="&lt;" 
+		onclick="doAjaxCall$formname('Previous', 'forum_id=$forum.id')">	
+
+		#end
+		#if ( !$eol )
+		<input class="button" type="button" value="&gt;" 
+		onclick="doAjaxCall$formname('Next', 'forum_id=$forum.id')">	
+
+		#end
+		</td>
+	</tr>
+</table>
+
+#parse ( "vtl/forum/ajax/child_iterator.vm" )
+
+<table width="100%">
+	<tr>
+		<td align="center">
+			<hr>
+		</td>
+	</tr>
+	<tr>
+		<td align="center">	
+		#if ( $pages > 0 )
+			Page $page_number of $pages&nbsp;
+		#end
+		#if ( !$bol )
+		<input class="button" type="button" value="&lt;" 
+				onclick="doAjaxCall$formname('Previous', 'forum_id=$forum.id')">
+		##onclick="previous_${formname}()">
+		#end
+		#if ( !$eol )
+		<input class="button" type="button" value="&gt;" 
+				onclick="doAjaxCall$formname('Next', 'forum_id=$forum.id')">
+		##onclick="next_${formname}()">
+		#end
+		</td>
+	</tr>
+	#if ( $pages > 1 )
+	
+	<tr>
+		<td align="center">
+			#foreach ($num in [ 1..$pages ])
+				[
+				#if ( $num == $page_number )
+					<b>$num</b>
+				#else
+##					<a href="javascript:goPage_${formname}($num)">
+					<a href="javascript:doAjaxCall$formname('GoPage', 'pagenum=$num')">	
+					<u>$num</u>
+					</a>
+				#end
+				]
+			#end
+		</td>
+	</tr>
+	#end	
+</table>
+
+<table>
+<tr>
+		<td align="left">
+		#if ( $userid != "anon" )
+		#if ( $allowReply )
+			<input class="button" type="button" value="Reply to this topic" 
+							onclick="				doAjaxCall$formname('Reply', 'forum_id=$forum.id')">
+##			onclick="goReply_${formname}('$forum.id')">
+		#end
+		#end
+		#if ( $parent_id != "0" )
+		<input class="button" type="button" value="Up" 
+				onclick="doAjaxCall${formname}('Open', '&category_id=$forum_category&forum_id=$forum_parent.id&parent_id=$forum.id')">
+##		onclick="openForum_${formname}('$forum_parent.id')">
+		#end
+		<input class="button" type="button" value="Back to topic list" 
+		onclick="doAjaxCall${formname}('')">
+		</td>
+	</tr>
+	#if ( $userid == "anon" )
+	<tr>
+		<td>
+			&nbsp;<b>You can participate in this forum, if you are logged in.</b>
+		</td>
+	</tr>
+	#end
+	</table>
+
+
+<input type="hidden" name="subjectId" value="$!subjectId">
+<input type="hidden" name="$formname" value="$formname">
+
+
+<script>
+
+function goReply_${formname}(forum_id) {
+//	document.${formname}.action = "?command=Reply&subjectId=$!subjectId&forum_id=$forum.id";
+	document.${formname}.action = "?command=Reply&subjectId=$!subjectId&forum_id=" + forum_id;
+	document.${formname}.submit();
+}
+function goUpdate_${formname}() {
+	document.${formname}.action = "?command=Update&subjectId=$!subjectId&forum_id=$forum.id";
+	document.${formname}.submit();
+}
+function openForum_${formname}(id) {
+	document.${formname}.action = "?command=Open&subjectId=$!subjectId&category_id=$forum_category&forum_id=" + id + "&parent_id=$forum.id";
+	document.${formname}.submit();	
+}
+function goDelete_${formname}() {
+	if ( !window.confirm('Are you sure?') ) return;
+	document.${formname}.action = "?command=Delete&subjectId=$!subjectId&forum_id=$forum.id&parent_id=$parent_id";
+	document.${formname}.submit();
+}
+function next_${formname}() {
+	document.${formname}.action = "?command=Next&subjectId=$!subjectId&forum_id=$forum.id";	
+	document.${formname}.submit();
+}
+function previous_${formname}() {
+	document.${formname}.action = "?command=Previous&subjectId=$!subjectId&forum_id=$forum.id";	
+	document.${formname}.submit();
+}
+function goPage_${formname}(num) {
+	document.${formname}.action = "?command=GoPage&subjectId=$!subjectId&pagenum=" + num;	
+	document.${formname}.submit();
+}
+function goMain_${formname}() {
+	document.${formname}.action = "?&subjectId=$!subjectId";	
+	document.${formname}.submit();
+}
+function download_${formname}(filename) {
+	document.${formname}.action = "../download?file=" + filename;	
+	document.${formname}.submit();
+}
+</script>

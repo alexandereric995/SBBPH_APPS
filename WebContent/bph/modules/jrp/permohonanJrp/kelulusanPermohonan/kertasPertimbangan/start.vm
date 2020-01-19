@@ -1,0 +1,112 @@
+<div id="mainPage">
+<fieldset><legend class="legend">Kertas Pertimbangan</legend>
+	<p align="left">
+		#if($!userRole.equalsIgnoreCase("(JRP) Penyedia") && ($r.status.id == '1424860634478' || $r.status.id == '1424860634481' || $r.status.id == '1436921583144' || $!r.status.id == "471300128898077"))
+ 		<input type="button" value="Tambah" align='left' id="addKp">
+ 		<script>
+			_jq('#addKp').on('click', function(){
+			$('mainPage').style.display = 'none';
+			doDivAjaxCall3$formname('editKp','addKelulusanPermohonan','');
+            jQuery('#editKp').fadeIn();
+        	});
+		</script>
+		#end
+	</p>
+	<br /><br />
+    <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+            <td class="row_header" width="5%">Bil.</td>
+            <td class="row_header" width="30%">Bil. Mesyuarat</td>
+			<td class="row_header" width="15%">Status</td>
+			<td class="row_header" width="15%">Tarikh</td>
+            <td class="row_header" width="5%">Papar</td>
+            #if($!userRole.equalsIgnoreCase("(JRP) Penyedia") && $!r.status.id=="1424860634481")
+		    <td class="row_header" width="5%">Hapus</td>
+		    #end
+        </tr>
+        #if ( $kpList.size() > 0) 
+    		#set ( $count = 0 )
+    		#foreach( $c in $kpList)
+    			#set ( $count = $count + 1)
+				
+    			#if ( $count % 2 == 0 ) 
+					#set ( $rowcolor = "#D0CFCE" ) 
+				#else 
+					#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+    			<tr bgcolor="$rowcolor">
+    				<td align="center">$count</td>
+					<td align="center">$c.bilMesyuarat</td>
+						#set($flagPindaan = '')
+##					#if($c.flagPindaan =='Y')
+##						#set($flagPindaan = 'DIPINDA')
+##					#elseif($c.flagPindaan =='T')
+##						#set($flagPindaan = 'TIDAK')
+##					#end
+					#if($c.flagPindaan =='Y')
+							#set($flagPindaan = 'PERLU DIPINDA')
+					#else
+						#if($!r.status.id == "1424860634481")
+							#set($flagPindaan = 'BELUM HANTAR')
+						#elseif($!r.status.id == "1424860634484")
+							#if(!$!c.disemakOleh)
+							#set($flagPindaan = 'BELUM DISEMAK')
+							#else
+							#set($flagPindaan = 'BELUM HANTAR')
+							#end
+						#elseif($!r.status.id == "1424860634487")
+							#if(!$!c.disahkanOleh)
+							#set($flagPindaan = 'BELUM DILULUSKAN')
+							#else
+							#set($flagPindaan = 'BELUM HANTAR')
+							#end
+						#elseif($!r.status.id == "1436921583144" || $!r.status.id == "471300128898077")
+							#set($flagPindaan = 'PERLU DIPINDA')
+						#else
+							#set($flagPindaan = 'TELAH DILULUSKAN')
+						#end
+					#end
+					<td align="center">$flagPindaan</td>
+					<td align="center">$!util.getDateTime($!c.tarikhMasuk,'dd-MM-yyyy')</td>
+					<td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> </td>
+          			#if($!userRole.equalsIgnoreCase("(JRP) Penyedia") && $!r.status.id=="1424860634481")
+          			<td align="center"><a href="javascript:void()" onClick="deleteKp('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+        			#end
+        			
+        			</tr>
+        			<script>
+        			_jq('#link$c.id').on('click', function(){
+        			$('mainPage').style.display = 'none';
+					doDivAjaxCall3$formname('editKp','getKelulusanPermohonan','idKertasPertimbangan=$c.id');
+            		jQuery('#editKp').fadeIn();
+            		});
+       			</script>
+    		#end
+	#else
+	<tr >
+		<td align="center">&nbsp;</td>
+		<td >Tiada Rekod</td>
+		<td align="center">&nbsp;</td>
+		<td align="center">&nbsp;</td>
+		#if($!userRole.equalsIgnoreCase("(JRP) Penyedia") && $!r.status.id=="1424860634481")
+		<td align="center">&nbsp;</td>
+		#end
+	</tr>
+	#end
+    </table>
+</fieldset>
+<p align="right">
+	#if($!userRole.equalsIgnoreCase("(JRP) Pemohon") && $!users.flagHq == 'Y' && $!r.status.id == '1438356583122')
+	<input type="button" value="Hantar Permohonan ke BPH" onclick="javascript:doHantarPermohonan('$!r.id');">
+	#end
+ 	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+</p>
+</div>
+## Popup
+<div id="editKp"></div>
+
+
+<div id="statusKp"></div>
+<div id="statusBp"></div>
+## Blank status page
+<div id="removeKp"></div>

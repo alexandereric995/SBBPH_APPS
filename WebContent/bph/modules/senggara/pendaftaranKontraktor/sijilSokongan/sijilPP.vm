@@ -1,0 +1,53 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!r.kontraktor.tarikhMulaPP) 
+        #set ($dateMulaPP = "$!util.getDateTime($!r.kontraktor.tarikhMulaPP,'dd-MM-yyyy')")
+        #else #set ($dateMulaPP = "") #end
+        #date_input_required("tarikhMulaPP" "Tarikh Mula" "$dateMulaPP")
+        
+        #if ($!r.kontraktor.tarikhTamatPP) 
+        #set ($dateTamatPP = "$!util.getDateTime($!r.kontraktor.tarikhTamatPP,'dd-MM-yyyy')")
+        #else #set ($dateTamatPP = "") #end
+        #date_input_required("tarikhTamatPP" "Tarikh Tamat" "$dateTamatPP")
+        
+        #if ($!r.kontraktor.getStatusPP() == 'T') 
+        <tr>
+          <td style="width:150px">&nbsp;</td>
+          <td style="width:10px">&nbsp;</td>
+          <td><font class="blink" color="red"><b>( SIJIL TAMAT TEMPOH ) </b></font><br/></td>
+        </tr>
+        #end
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px">
+          	<input class="texts" type="file" id="dokumenPP" name="dokumenPP" style="width:500px" onFocus="$('err_dokumenPP').innerHTML = '';" onChange="uploadPP()">
+            <div id="muatNaikSijilPP" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+            <div id="err_dokumenPP" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!r.kontraktor.filenamePP) 
+	        #if ($!r.kontraktor.filenamePP  != "") 
+	        <tr>
+	          <td style="width:150px"> <a href="../download?file=$!uploadDir$!r.kontraktor.filenamePP" > <span class="print">SIJIL PERAKUAN PENDAFTARAN CIDB<span> </a> &nbsp;&nbsp;<input id="hapusPP" name="hapusPP" type="button" value="Hapus" onclick="javascript:doHapusPP();"/> </td>
+	          <td style="width:10px"></td>
+	          <td></td>
+	        </tr>
+	        #end
+        #end
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<iframe id="upload_PP" name="upload_PP" width="0px" height="0px" style="visibility:hidden"></iframe>

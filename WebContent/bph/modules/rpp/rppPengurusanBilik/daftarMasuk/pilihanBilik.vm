@@ -1,0 +1,51 @@
+
+
+<fieldset>
+<legend class="legend">PILIHAN BILIK</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+			<td class="row_header" width="10%">Bil.</td>
+			<td class="row_header" style="text-align:left !important" width="25%">Jenis Unit</td>
+			<td class="row_header" style="text-align:left !important" width="65%">No. & Nama Unit</td>
+		</tr>
+		
+		#set ( $count = 0 )
+		#set ( $totalConfirm = 0 )
+		#if($listBilik.size() > 0 )
+    		#foreach($u in $listBilik)
+    		#set ( $count = $count + 1)
+			<tr>
+    			<td align="center">$count</td>
+				<td>$!u.unit.jenisUnit.keterangan.toUpperCase()</td>
+    			<td align="left">
+    				#if( $u.flagStatusTempahan.equalsIgnoreCase("CONFIRM") )
+						#if( $u.unitConfirm )
+							$!u.unitConfirm.noUnit $!u.unitConfirm.namaUnit.toUpperCase()
+						#else
+							$!u.unit.noUnit $!u.unit.namaUnit.toUpperCase()
+						#end
+    					
+    					#if( $r.status.id=="1425259713415" )
+    					<a href="#" style="color:blue;" onclick="javascript:doCallPopup('$u.unit.id')">&nbsp;[Tukar Bilik]</a>
+						#end
+						#set ( $totalConfirm = $totalConfirm + 1)
+    				#else
+    					<input id="btnPilihBilik" type="button" value="Pilih Bilik" onclick="javascript:doCallPopup('$u.unit.id');$('err_roomselect').innerHTML='';at(this, event)" />
+    				#end	
+					
+    			</td>
+    		</tr>
+			#end
+		#else
+			<tr><td colspan="2">Tiada Rekod</td></tr>
+		#end
+		<tr><td colspan="2">&nbsp;</td></tr>
+	</table>
+	
+	<div id="err_roomselect" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	
+</fieldset>
+	
+<input type="hidden" name="sizeListBilik" id="sizeListBilik" value="$!listBilik.size()" />
+<input type="hidden" name="totalConfirm" id="totalConfirm" value="$!totalConfirm" />

@@ -1,0 +1,87 @@
+##<nav class="breadcrumbs">
+##  <ul>
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getMaklumatPermohonan','')">Maklumat Permohonan</a></li>
+##    <li class="active"><a href="javascript:void()">Dokumen Sokongan</a></li>
+##    #if ($!r.status.id != '1424860634472') ##PERMOHONAN BARU
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getMaklumatUlasan','')">Ulasan Ahli JRP</a></li>
+##    #if($!userRole.equalsIgnoreCase("(JRP) Pemohon"))
+##    #if ($!r.status.id == '1424860634475') ##ULASAN JRP
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getSemakanUlasan','')">Semakan Ulasan Ahli JRP</a></li>
+##    #end
+##    #end
+##    #if ($!r.status.id == '1424860634502') ##BATAL PERMOHONAN
+##	<li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getMaklumatBatalPermohonan','')">Maklumat Pembatalan</a></li>
+##	#end
+##    #if ($!r.status.id != '1424860634475') ##ULASAN JRP
+##    #if(!$!userRole.equalsIgnoreCase("(JRP) Pemohon"))
+##   	#if($!userRole.equalsIgnoreCase("(JRP) Penyemak"))
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getAgihanTugas','')">Agihan Tugas</a></li>
+##    #end
+##    #if ($!r.status.id != '1424860634478') ##PERMOHONAN LENGKAP
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getKelulusanPermohonan','')">Kelulusan Permohonan</a></li>
+##    #if ($!r.status.id == '1424860634493') ##LULUS
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getMaklumatPerjanjian','')">Kontrak Perjanjian</a></li>
+##    #end
+##    #end
+##    #end
+##    #end
+##    #end
+##  </ul>
+##</nav>
+
+<fieldset>
+<legend class="legend">DOKUMEN SOKONGAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  <tr>
+    <td valign="top">Tajuk&nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td valign="top"><input style="width:50%" type="text" id="tajuk" class="uppercasefont" name="tajuk" value="" onKeyUp="$('err_tajuk').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+      <div id="err_tajuk" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td valign="top">Jenis Dokumen&nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td valign="top"> #parse("$path/dokumenSokongan/selectJenisDokumen.vm")
+      <div id="err_idJenisDokumen" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td valign="top">Keterangan</td>
+    <td valign="top">:</td>
+    <td valign="top"><textarea style="width:50%" id="keterangan" name="keterangan" class="uppercasefont" onBlur="this.value=this.value.toUpperCase();"></textarea></td>
+  </tr>
+##  <tr>
+##    <td valign="top">Muatnaik Dokumen</td>
+##    <td valign="top">:</td>
+##    <td valign="top"><input class="texts" type="file" id="dokumen" name="dokumen" style="width:50%" onfocus="$('err_dokumen').innerHTML = '';" onChange="checkUpload()">
+##      <div id="dokumenMuatnaik" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+##      <div id="err_dokumen" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+##  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center"><div id="refreshList">#parse("$path/dokumenSokongan/listDokumen.vm")</div></td>
+##    #parse("$path/dokumenSokongan/listDokumen.vm")
+  </tr>
+</table>
+<iframe id="upload_doc" name="upload_doc" width="0px" height="0px" style="visibility:hidden"></iframe>
+</fieldset>
+<table width="100%">
+	<tr>
+		<td align="right">
+				
+			#if ($!r.status.id == '1424860634472') ##PERMOHONAN BARU
+			<input type="button" value="Hantar Ulasan JRP" onclick="javascript:doHantarUlasanJRP('$!r.id');">
+			#end
+##			#if ($!r.status.id == '1424860634475') ##ULASAN JRP
+##			<input type="button" value="Hantar Permohonan Ke BPH" onclick="javascript:doHantarPermohonan('$!r.id');">
+##			#end	
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>

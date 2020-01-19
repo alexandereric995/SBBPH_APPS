@@ -1,0 +1,113 @@
+
+<input type="hidden" name="peranginanId" id="peranginanId" value="$!peranginan.id" />
+	
+	<br/><br/>
+	
+	<table id="tblResultJenisUnit" cellpadding="1" cellspacing="1" width="100%">
+		
+		<tr>
+			<td colspan="8">
+				<span style="font-size:12px;font-weight:bold;text-decoration: underline;">KEKOSONGAN JENIS UNIT BAGI $!peranginan.namaPeranginan.toUpperCase()</span>
+				<span style="font-size:13px;font-weight:bold;color:blue">( $!tarikhMasukRpp - $!tarikhKeluarRpp )</span> 
+			</td>
+		</tr>
+		
+		<tr><td colspan="8">&nbsp;</td></tr>
+		
+		<tr>
+			<th class="row_header" rowspan="2" width="5%">BIL.</th>
+    		<th class="row_header" rowspan="2" style="text-align:left !important" width="15%">JENIS UNIT / BIL.</th>
+    		<th class="row_header" rowspan="2" width="10%">BIL. YANG DITAWARKAN</th>
+			<th class="row_header" colspan="3" width="30%">BIL. YANG DITEMPAH</th>
+			<th class="row_header" rowspan="2" width="15%">BIL. TEMPAHAN TIDAK LENGKAP</th>
+			<th class="row_header" rowspan="2" width="10%">BIL. KEKOSONGAN</th>
+    	</tr>
+		
+		<tr>
+			<td class="row_header">INDIVIDU</td>
+			<td class="row_header">BERKELOMPOK</td>
+			<td class="row_header">BLOCKING<br/>SELENGGARA</td>
+		</tr>
+		
+			#if ( $senaraiJenisUnit.size() > 0 )
+				
+				##if(!$isSelenggaraKeseluruhan)
+        			#set( $count = 0 )
+            		#foreach ( $d in $senaraiJenisUnit )
+            			
+        				#set ( $count = $count + 1)
+                    	#if ( $count % 2 == 0 ) 
+                			#set ( $rowcolor = "#D0CFCE" ) 
+                		#else 
+                			#set ( $rowcolor = "#F0F0F0" ) 
+        				#end
+        				
+                        <tr bgcolor="$rowcolor">
+                			<td align="center">$count</td>
+                    		<td><a style="color:blue" href="javascript:void()" id="linkInfoJenisUnit$d.idJenisUnit">$!d.jenisUnit ($!d.bil_unit)</a></td>
+        					<td align="center"><a style="color:blue" href="javascript:void()" id="linkTawaranUnit$d.idJenisUnit">$!d.bilTotalUnit</a></td>
+        					<td align="center"><a style="color:blue" href="javascript:void()" id="linkIndividu$d.idJenisUnit">$!d.bilHariBookedIndividu</a></td>
+        					<td align="center"><a style="color:blue" href="javascript:void()" id="linkKelompok$d.idJenisUnit">$!d.bilHariBookedKelompok</a></td>
+    						<td align="center"><a style="color:blue" href="javascript:void()" id="linkSelenggara$d.idJenisUnit">$!d.bilSelenggara</a></td>
+    						<td align="center"><a style="color:blue" href="javascript:void()" id="linkTidakLengkap$d.idJenisUnit">$!d.bilHariTempahanRosak</a></td>
+        					<td align="center">
+    							#if($!d.bilKekosongan > 0)
+        							<a style="color:blue" href="javascript:void()" id="linkDetailKekosongan$d.idJenisUnit">
+        								$!d.bilKekosongan
+        							</a>
+    							#else
+    								$!d.bilKekosongan
+    							#end
+    						</td>
+                        </tr>
+    					
+    					<script>
+							_jq('#linkInfoJenisUnit$d.idJenisUnit').on('click', function(){
+        						doDivAjaxCall3$formname('popupDetail','openPopupInfoJenisUnit','listIdJenisUnit=$d.idJenisUnit');
+                                jQuery('#popupDetail').fadeIn();
+                            });
+    						_jq('#linkTawaranUnit$d.idJenisUnit').on('click', function(){
+        						doDivAjaxCall3$formname('popupDetail','openPopupTawaranUnit','listIdJenisUnit=$d.idJenisUnit');
+                                jQuery('#popupDetail').fadeIn();
+                            });
+    						_jq('#linkIndividu$d.idJenisUnit').on('click', function(){
+        						doDivAjaxCall3$formname('popupDetail','openPopupIndividu','listIdJenisUnit=$d.idJenisUnit');
+                                jQuery('#popupDetail').fadeIn();
+                            });
+        					_jq('#linkSelenggara$d.idJenisUnit').on('click', function(){
+        						doDivAjaxCall3$formname('popupDetail','openPopupSelenggara','listIdJenisUnit=$d.idJenisUnit');
+                                jQuery('#popupDetail').fadeIn();
+                            });
+    						_jq('#linkKelompok$d.idJenisUnit').on('click', function(){
+        						doDivAjaxCall3$formname('popupDetail','openPopupKelompok','listIdJenisUnit=$d.idJenisUnit');
+                                jQuery('#popupDetail').fadeIn();
+                            });
+    						_jq('#linkTidakLengkap$d.idJenisUnit').on('click', function(){
+        						doDivAjaxCall3$formname('popupDetail','openPopupTidakLengkap','listIdJenisUnit=$d.idJenisUnit');
+                                jQuery('#popupDetail').fadeIn();
+                            });
+    						_jq('#linkDetailKekosongan$d.idJenisUnit').on('click', function(){
+        						doDivAjaxCall3$formname('popupDetail','openPopupDetailKekosongan','listIdJenisUnit=$d.idJenisUnit');
+                                jQuery('#popupDetail').fadeIn();
+                            });
+                        </script>
+    				
+					#end
+				
+				##else
+				##	<tr bgcolor="#F0F0F0">
+        		##		<td colspan="8">&nbsp; TIADA KEKOSONGAN. KESELURUHAN RPP SEDANG DISELENGGARA.</td>
+        		##	</tr>
+				##end
+					
+    		#else
+    			<tr bgcolor="#F0F0F0">
+    				<td colspan="8">&nbsp; TIADA REKOD</td>
+    			</tr>
+    		#end
+    </table>
+	
+	
+	<div id="popupDetail" class="popup"></div>
+	
+	

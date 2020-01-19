@@ -1,0 +1,82 @@
+#parse("$path/header.vm")
+
+<br/>
+
+<nav class="breadcrumbs">
+  <ul>
+    <li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatDeposit','')" #end >Maklumat Deposit</a></li>
+    <li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divTab','getMaklumatSewa','')" #end >Maklumat Sewa</a></li> 
+    <li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('divTab','getMaklumatIWK','')" #end >Maklumat Caj IWK</a></li>
+    <li #if($!selectedTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedTab!='4') onClick="doDivAjaxCall3$formname('divTab','getMaklumatPerjanjian','')" #end >Maklumat Perjanjian</a></li>
+    <li #if($!selectedTab=='5') class="active" #end><a href="javascript:void()" #if($!selectedTab!='5') onClick="doDivAjaxCall3$formname('divTab','getMaklumatIndividu','')" #end >Maklumat Penyewa</a></li>   
+  	<li #if($!selectedTab=='6') class="active" #end><a href="javascript:void()" #if($!selectedTab!='6') onClick="doDivAjaxCall3$formname('divTab','getMaklumatSyarikat','')" #end >Maklumat Syarikat</a></li>
+  </ul>
+</nav>
+
+#if ($!selectedTab=='1')
+	#parse("$path/maklumatDeposit/start.vm")
+	<table width="100%">
+	  <tr>
+	    <td align="right">
+	    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	  </tr>
+	</table>	
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/maklumatSewa/start.vm")
+	<table width="100%">
+	  <tr>
+	    <td align="right">
+	    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	  </tr>
+	</table>
+#end
+
+#if ($!selectedTab=='3')
+	#parse("$path/maklumatIWK/start.vm")
+	<table width="100%">
+	  <tr>
+	    <td align="right">
+	    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	  </tr>
+	</table>
+#end
+
+#if ($!selectedTab=='4')
+	#parse("$path/maklumatPerjanjian/start.vm")
+	<table width="100%">
+	  <tr>
+	    <td align="right">
+	    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	  </tr>
+	</table>
+#end
+
+#if ($!selectedTab=='5')
+	<div id="divIndividu"> #parse("$path/maklumatIndividu/maklumatIndividu.vm") </div>
+	<table width="100%">
+	  <tr>
+	    <td align="right">
+	    	<input id="simpan" name="simpan" type="button" value="Simpan" onClick="javascript:doKemaskiniMaklumatIndividu();"/>
+	    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	  </tr>
+	</table>
+#end
+
+#if ($!selectedTab=='6')
+	<div id="divSyarikat"> #parse("$path/maklumatSyarikat/maklumatSyarikat.vm") </div>
+	<table width="100%">
+	  <tr>
+	    <td align="right">
+	    	<input id="simpan" name="simpan" type="button" value="Simpan" onClick="javascript:doKemaskiniMaklumatSyarikat();"/>
+	    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	  </tr>
+	</table>
+#end

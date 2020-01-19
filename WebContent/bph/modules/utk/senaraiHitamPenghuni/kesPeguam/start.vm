@@ -1,0 +1,32 @@
+<fieldset>
+<legend class="legend">Maklumat Kes Peguam</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+	 #date_input_required("tarikhKeputusan" "Tarikh Keputusan" "$!util.getDateTime($rekod.tarikhKeputusan,'dd-MM-yyyy')")
+	 <tr>
+		<td>Keputusan &nbsp;<span style="color:#FF2A00">*</span></td>
+		<td>:</td>
+		<td>
+		<select class="texts" id="flagKeputusan" name="flagKeputusan" style="width:40%" onChange="$('err_flagKeputusan').innerHTML=''">
+	    <option value="">SILA PILIH</option>
+	    <option #if ( $!rekod.flagKeputusan == '1' ) selected #end value="1">BERSALAH</option>
+	    <option #if ( $!rekod.flagKeputusan == '2' ) selected #end value="2">TIDAK BERSALAH</option>
+		</select>
+		<div id="err_flagKeputusan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+	</tr>
+	 #textarea("catatan" "Catatan" "$!rekod.catatan")
+</table>
+</fieldset>
+<input type="hidden" id="idKesPeguam" name="idKesPeguam" value="$rekod.id">
+	<p align="right">
+ 	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	</p>
+<script>
+_jq('#cmdSimpanKesPeguam').on('click', function(){
+	saveKesPeguam();
+});
+</script>

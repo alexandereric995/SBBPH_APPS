@@ -1,0 +1,14 @@
+##old koding hardcode
+##<select id="idStatusBon" name="idStatusBon" style="width: 100%">
+##  <option value="">SILA PILIH</option>
+##  <option #if ( $rekod.status == 'Y' ) selected #end value="Y">AKTIF</option>
+##  <option #if ( $rekod.status == 'T' ) selected #end value="T">TIDAK AKTIF</option>
+##</select>
+
+##add byzul new call data dari database
+<select id="idStatusBon" name="idStatusBon" style="width: 100%" onChange="$('err_idStatusBon').innerHTML=''; at(this, event);">
+    <option value="">SILA PILIH</option>
+    #foreach( $n in $selectStatusBon )
+		<option #if ( $n.id == $r.idStatusBon.id ) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+    #end
+</select>

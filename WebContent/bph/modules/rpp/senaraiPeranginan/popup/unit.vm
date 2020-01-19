@@ -1,0 +1,68 @@
+
+<fieldset style="width:50%">
+<legend class="legend">Maklumat Unit</legend>
+
+<input type="hidden" id="idJenisUnit" name="idJenisUnit" value="$!ju.id" />
+<input type="hidden" id="idUnit" name="idUnit" value="$!u.id" />
+<input type="hidden" id="idPeranginan" name="idPeranginan" value="$!r.id" />
+
+    <table width="100%">
+      <tr>
+        <td style="width:210px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+      </tr>
+    
+	  #input_required("noUnit" "No. Unit" "$!u.noUnit")
+      #input("namaUnit" "Nama Unit" "$!u.namaUnit")
+	  
+	  <tr>
+        <td class="label">Rizab ?</td>
+        <td>:</td>
+        <td>
+    		##<input type="checkbox" name="status" id="status" value="RESERVED" #if($!u.status=="RESERVED") checked #end />
+			<select class="texts" id="flagStatus" name="flagStatus" style="width:100px">
+			<option value="RESERVED" #if($!u.status=="RESERVED") selected #end >YA</option>
+			<option value="" #if( !$!u.status ) selected #end >TIDAK</option>
+            </select>	
+    	</td>
+      </tr>
+	  
+      #textarea("catatan" "Catatan" "$!u.catatan")
+      
+    </table>
+    
+    <table width="100%">
+    	<tr>
+    		<td align="right">
+    			#if( $!ju )
+    			<input type="button" value="Cetak" onclick="javascript:window.print()">
+    			#end	
+				#if( !$userRole.equalsIgnoreCase("(RPP) Penyelia") )
+    			<input type="button" id="btnSaveUnit" value="Simpan" name="btnSaveUnit" >
+				#end	
+    			<input type="button" id="btnKeluar" name="btnKeluar" value="Keluar">
+    		</td>
+    	</tr>
+    </table>
+
+
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+  
+  _jq('#btnKeluar').on('click', function(){
+	doDivAjaxCall3$formname('divSenaraiUnit','viewSenaraiUnit','');
+    jQuery('#popupUnit').fadeOut();
+  });
+  
+  _jq('#btnSaveUnit').on('click', function(){
+  	saveUnit();
+  });
+</script>

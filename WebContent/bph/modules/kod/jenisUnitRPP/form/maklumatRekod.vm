@@ -1,0 +1,61 @@
+
+<nav class="breadcrumbs">
+  <ul>
+	<li class="active"><a href="javascript:void()">Maklumat Rekod</a></li>
+	#if($r)
+    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getGambar','')">Gambar</a></li>
+	#end
+  </ul>
+</nav>
+
+<fieldset>
+<legend class="legend">MAKLUMAT REKOD</legend>
+<table width="100%">
+  <tr>
+    <td style="width:200px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  
+  #if ($userRole != '(RPP) Penyelia')
+   <tr>
+    <td class="label" valign="top">Lokasi Peranginan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td valign="top">#parse("$path/selectPeranginan.vm")
+      <div id="err_idPeranginan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+  </tr>
+  #end
+  
+  #input_required("keterangan" "Jenis Unit" "$!r.keterangan")
+  #number_required("hadDewasa" "Had Dewasa" "$!r.hadDewasa")
+  #number("hadKanakKanak" "Had Kanak-kanak" "$!r.hadKanakKanak")
+  #number_required("hadKuantiti" "Had Tempahan Unit" "$!r.hadKuantiti")
+  #currency_required("kadarSewa" "Kadar Sewa(RM)" "$!r.kadarSewa")
+  #currency_required("kadarSewaWaktuPuncak" "Kadar Sewa(RM) (waktu puncak)" "$!r.kadarSewaWaktuPuncak")
+  #input_required("gredMinimumKelayakan" "Gred Minimum Kelayakan" "$!r.gredMinimumKelayakan")
+  #input_required("gredKelayakanWaktuPuncak" "Gred Minimum Kelayakan (waktu puncak)" "$!r.gredKelayakanWaktuPuncak")
+  
+</table>
+</fieldset>
+
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="right">
+			#set ( $queryParam = "record_id=$!r.id" )
+			<input type="button" value="Cetak" onclick="javascript:window.print()">
+			<input type="button" value="Simpan" onClick="if ( validateField() ) doDivAjaxCall$formname('div_main_entry','save_data','$queryParam')">
+			<input type="button" value="Kosongkan" onclick="javascript:kosongkan();">
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+	
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

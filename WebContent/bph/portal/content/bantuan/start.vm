@@ -1,0 +1,47 @@
+<div id="content-format">
+	<pinLeft></pinLeft>
+	<pinRight></pinRight>
+	<header>$!bantuan.tajuk.toUpperCase()</header>
+	<section>
+		<div id="tabs">
+			<div id="tabs-2">
+				
+			#if ($!bantuan.butiran != '')
+				$!bantuan.butiran <br></br>
+			#end
+
+			#if ($!bantuan.fileName)
+				<ol>
+					<a href="../download?file=$!uploadDir$!bantuan.fileName" > <span class="print">$!bantuan.tajuk</strong><span> </a>
+				</ol>
+			#end
+
+			#set ($count=0)
+			#foreach ( $subBantuan in $listSubBantuan )
+				#set ($count=$count+1)
+				<ol>
+					$count. 
+					#if ($!subBantuan.fileName != '') 
+						<a href="../download?file=$!uploadDir$!subBantuan.fileName" > <span class="print">$!subBantuan.tajuk</strong><span> </a> 
+					#end
+					
+					#if ($!subBantuan.flagBaru == 'Y')
+						<img src="../images/new.gif"> 
+					#end 
+				</ol>
+			#end
+
+			#if ($!bantuan.butiran == '' && $!bantuan.fileName == '' && $count == '0')
+				<strong>TIADA MAKLUMAT</strong>
+			#end
+
+##		        SAMPLE OLD CODING
+##		        <div id="contentKSH022016">
+##		          <iframe src = "../ViewerJS/#../documents/sebutharga/KEPUTUSAN-SH02-2016.pdf" width="100%" height="700px" allowfullscreen webkitallowfullscreen></iframe>
+##		        </div>
+
+			</div>
+		</div>
+	</section>
+</div>
+

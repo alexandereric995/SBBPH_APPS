@@ -1,0 +1,120 @@
+
+
+	<table width="100%" cellpadding="1" cellspacing="1">
+		
+		<tr>
+			<td colspan="3">
+    			<span style="font-size:12px;font-weight:bold;text-decoration: underline;">MAKLUMAT TEMPAHAN</span>
+    		</td>
+		</tr>
+			
+	</table>
+	
+	<br/>
+	
+	<table width="100%" cellpadding="1" cellspacing="1">
+		
+		<tr>
+			<td width="48%" valign="top">
+				<table width="100%">
+					<tr>
+						<td width="30%">TARIKH MENGINAP</td>
+						<td width="2%">:</td>
+						<td width="68%">
+							<b>$!util.getCurrentDate("dd-MM-yyyy")</b>
+							<input type="hidden" id="tarikhMasuk" name="tarikhMasuk" value="$!util.getCurrentDate('dd-MM-yyyy')" />
+						</td>
+					</tr>
+					<tr>
+						<td valign="top">BIL. DEWASA &nbsp;<span style="color:#FF2A00">*</span></td>
+						<td valign="top">:</td>
+						<td valign="top">
+							<select class="texts" id="bilDewasa" name="bilDewasa" style="width:100%" onChange=" $('err_bilDewasa').innerHTML=''; at(this, event);">
+                                <option value="">SILA PILIH</option>
+                                #foreach($bildw in [1..10])
+                                	<option value="$bildw" >$bildw</option>
+                                #end
+                            </select>
+							<div id="err_bilDewasa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>	
+						</td>
+					</tr>
+					<tr>
+						<td>TAMBAHAN DEWASA</td>
+						<td>:</td>
+						<td>
+							<select class="texts" id="bilTambahanDewasa" name="bilTambahanDewasa" style="width:100%" onChange=" $('err_bilTambahanDewasa').innerHTML=''; at(this, event);">
+                                <option value="">SILA PILIH</option>
+                                #foreach($bilpdw in [1..10])
+                                	<option value="$bilpdw" >$bilpdw</option>
+                                #end
+                            </select>
+							<div style="color:blue;font-size:10px">(caj tambahan sebanyak RM$!extbedcharge seorang)</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="top">TAMBAHAN KANAK-KANAK</td>
+						<td valign="top">:</td>
+						<td valign="top">
+							<select class="texts" id="bilTambahanKanakKanak" name="bilTambahanKanakKanak" style="width:100%" onChange=" $('err_bilTambahanKanakKanak').innerHTML=''; at(this, event);">
+                            <option value="">SILA PILIH</option>
+                            #foreach($bilpdw in [1..10])
+								<option value="$bilpdw" >$bilpdw</option>
+                            #end
+                            </select>
+							<div style="color:blue;font-size:10px">(caj tambahan sebanyak RM$!extChargeKid seorang)</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+			
+			<td width="2%">&nbsp;</td>
+			
+			<td width="50%" valign="top">
+				<table width="100%">
+					<tr>
+						<td width="30%" valign="top">TARIKH KELUAR &nbsp;<span style="color:#FF2A00">*</span></td>
+						<td width="2%" valign="top">:</td>
+						<td width="68%" valign="top">
+							<input type="text" id="tarikhKeluar" name="tarikhKeluar" value="$!util.getDateTime($!r.tarikhKeluar,'dd-MM-yyyy')" onChange=" $('err_tarikhKeluar').innerHTML=''; at(this, event);">
+            					<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+            		    		<script>
+            		            	_jq("#tarikhKeluar").Zebra_DatePicker({ 
+            		    				format: 'd-m-Y',
+            							readonly_element: false,
+										direction:[1, 6],
+										onSelect: function(view, elements) {
+                    						$('err_tarikhKeluar').innerHTML='';
+                    						at(this, event);
+                    					}
+            		            	});
+            		    		</script>
+            				<div id="err_tarikhKeluar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>	
+						</td>
+					</tr>
+					<tr>
+						<td>BIL. KANAK-KANAK</td>
+						<td>:</td>
+						<td>
+							<select class="texts" id="bilKanakKanak" name="bilKanakKanak" style="width:100%" onChange=" $('err_bilKanakKanak').innerHTML=''; at(this, event);">
+                                <option value="">SILA PILIH</option>
+                                #foreach($bilknk in [1..10])
+                                	<option value="$bilknk" >$bilknk</option>
+                                #end
+                            </select>
+						</td>
+					</tr>
+					<tr>
+						<td>BIL. UNIT</td>
+						<td>:</td>
+						<td>
+							<select class="texts" id="bilUnit" name="bilUnit" style="width:100%" onChange=" $('err_bilUnit').innerHTML=''; at(this, event);">
+                                <option value="1">1</option>
+                                <option value="2" >2</option>
+                            </select>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		
+	</table>

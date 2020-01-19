@@ -1,0 +1,202 @@
+<!-- 
+# AUTHOR : zufazdliabuas@gmail.com
+# CREATE NEW FOR UNIT VIEW DATA BAYARAN YANG DIMASUKKAN OLEH KEWANGAN
+# 
+ -->
+
+<style>
+    .popupWide fieldset {
+    position: absolute;
+    margin-top: -15px;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 1);
+    /* box-shadow: 0px 15px 25px #555; */
+    border: none;
+    /* width: 80%; */
+}
+
+textarea {
+    width: 100%;
+    height: 50px;
+}
+
+.currency {
+    border: 1px solid #D9D9D9;
+}
+
+.scroll{
+ overflow-y: scroll;
+ height:500px;
+ width:100%;
+}
+
+.legend{
+	width:95%;
+}
+</style>
+
+<fieldset>
+	<div class="scroll">
+	<input type="hidden" id="idMaklumatBayaran" name="idMaklumatBayaran" value="$!rekodMb.id">
+	## ------- START DISPLAY DATA SAHAJE --------
+	<legend class="legend">MAKLUMAT KONTRAK</legend>
+	<br /><br />
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	  <tr>
+	    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+	        <tr>
+	          <td style="width:150px"></td>
+	          <td style="width:10px"></td>
+	          <td></td>
+	        </tr>
+	        #input_normal("noDaftarKontrak" "No Daftar Kontrak" "$!r.noDaftarKontrak")        
+	        #input_normal("perkhidmatan" "Tajuk Perolehan" "$!r.perkhidmatan")
+	         #if ($!r.tarikhMula)
+	        #set ($dateMula = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+	        #else 
+	        #set ($dateMula = "") 
+	        #end
+	        #input_normal("tarikhMula" "Tarikh Mula" "$dateMula")
+	        
+	        #if ($!r.tarikhTamat)
+	        #set ($dateTamat = "$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')")
+	        #else 
+	        #set ($dateTamat = "") 
+	        #end
+	        #input_normal("tarikhTamat" "Tarikh Tamat" "$dateTamat") 
+	      </table>
+	    </td>
+	    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+	        <tr>
+	          <td style="width:150px"></td>
+	          <td style="width:10px"></td>
+	          <td></td>
+	        </tr>
+	              
+	        #input_normal("nilaiKontrak" "Nilai Kontrak (RM)" "$!util.formatDecimal($!r.nilaiKontrak)")
+	        #input_normal("amaunAnsuran" "Amaun Bayaran (RM)" "$!util.formatDecimal($!r.amaunAnsuran)")
+	        
+	        #if ($!r.tarikhKeluarSst)
+	            #set ($dateKeluarSst = "$!util.getDateTime($!r.tarikhKeluarSst,'dd-MM-yyyy')")
+	        #else 
+	            #set ($dateKeluarSst = "") 
+	        #end        
+	        #input_normal("tarikhKeluarSst" "Tarikh SST" "$dateKeluarSst")
+	        
+	        #if ($!r.tarikhTerimaSst)
+	        #set ($dateTerimaSst = "$!util.getDateTime($!r.tarikhTerimaSst,'dd-MM-yyyy')")
+	        #else 
+	        #set ($dateTerimaSst = "") 
+	        #end
+	        #input_normal("tarikhTerimaSst" "Tarikh Terima SST" "$dateTerimaSst")               
+	        
+	      </table>
+	      </td>
+	  </tr>
+	</table>
+
+	<legend class="legend">Maklumat Pembayaran</legend>
+	<input type="hidden" id="idMaklumatBayaran" name="idMaklumatBayaran" value="$!rekodMb.id">
+	<br />
+	<br />
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	    <tr>
+	        <td valign="top" width="50%">
+	            <table cellpadding="3" cellspacing="0" border="0" width="100%"  style="padding: 0px 25px;">
+	                <tr>
+	                    <td style="width:30%"></td>
+	                    <td style="width:2%"></td>
+	                    <td style="width:68%"></td>
+	                </tr>
+	                ## diminta remove pada sesi PAT
+	##                #if ($!rekodMb.tarikhResit)
+	##                    #set ($dateTarikhResit = "$!util.getDateTime($!rekodMb.tarikhResit,'dd-MM-yyyy')")
+	##                #else 
+	##                    #set ($dateTarikhResit = "") 
+	##                #end
+	##                #date_input("tarikhResit" "Tarikh Resit" "$dateTarikhResit")
+	##                
+	##                #input("noResit" "No Resit" "$!rekodMb.noResit")
+	
+					#if ($!rekodMb.tarikhInvois)
+	                    #set ($dateTarikhInvois = "$!util.getDateTime($!rekodMb.tarikhInvois,'dd-MM-yyyy')")
+	                #else 
+	                    #set ($dateTarikhInvois = "") 
+	                #end
+	                #input_normal("tarikhInvois" "Tarikh Invois" "$dateTarikhInvois")
+	                
+	                #input_normal("noInvois" "No Invois" "$!rekodMb.noInvois")
+	                
+	                
+	                #if ($!rekodMb.tarikhBayaran)
+	                    #set ($dateTarikhBayaran = "$!util.getDateTime($!rekodMb.tarikhBayaran,'dd-MM-yyyy')")
+	                #else 
+	                    #set ($dateTarikhBayaran = "") 
+	                #end
+	                #input_normal("tarikhBayaran" "Tarikh Bayaran" "$dateTarikhBayaran")  
+	                
+	                
+	                #if ($!rekodMb.tarikhBaucer)
+	                    #set ($dateTarikhBaucer = "$!util.getDateTime($!rekodMb.tarikhBaucer,'dd-MM-yyyy')")
+	                #else 
+	                    #set ($dateTarikhBaucer = "") 
+	                #end
+	                #input_normal("tarikhBaucer" "Tarikh Baucer" "$dateTarikhBaucer")    
+	                
+					#input_normal("noBaucer" "No Baucer" "$!rekodMb.noBaucer")          
+
+	            </table>
+	        </td>
+	        <td valign="top" width="50%">
+	            <table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+	                <tr>
+	                   	<td style="width:30%"></td>
+	                    <td style="width:2%"></td>
+	                    <td style="width:68%"></td>
+	                </tr>
+	                					
+	                #currency_readonly_label("debit" "Debit" "$!rekodMb.debit")
+	                #currency_readonly_label("kredit" "Jumlah Bayaran" "$!rekodMb.kredit") ## asalnya nama 'Kredit' dimintak tukar kepada JUMLAH BAYARAN pada PAT
+	##                #currency_required("jumlah" "Jumlah" "$!rekodMb.jumlah")
+##	                #textarea("keterangan" "Keterangan" "$!rekodMb.keterangan")
+##					#textarea("catatanAmaunPotonganDenda" "Catatan Amaun Potongan Denda" "$!rekodMb.catatanAmaunPotonganDenda")
+##					#textarea("catatanAmaunPotonganCdc" "Catatan Amaun Potongan CDC" "$!rekodMb.catatanAmaunPotonganCdc")              
+	            </table>
+	        </td>
+	    </tr>
+	    <tr>
+	        <td valign="top" width="100%" colspan="2">
+	            <table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+	                <tr>
+	                   	<td style="width:20%"></td>
+	                    <td style="width:2%"></td>
+	                    <td style="width:78%"></td>
+	                </tr>
+	                #textarea_readonly("keterangan" "Keterangan" "$!rekodMb.keterangan")
+					#textarea_readonly("catatanAmaunPotonganDenda" "Catatan Amaun Potongan Denda" "$!rekodMb.catatanAmaunPotonganDenda")
+					#textarea_readonly("catatanAmaunPotonganCdc" "Catatan Amaun Potongan CDC" "$!rekodMb.catatanAmaunPotonganCdc")              
+	            </table>
+	        </td>
+	    </tr>
+	</table>
+	## ------- END DISPLAY DATA SAHAJE --------
+
+	
+	## ------- START BUTTON --------
+    <p align="center">
+        <input type="button" value="Kembali" align='left' id="cmdKembali">
+    </p>
+    ## ------- END BUTTON --------
+
+</div>
+</fieldset>
+
+<script>
+_jq('#cmdKembali').on('click', function(){
+    doDivAjaxCall3$formname('divTab','kembali','');
+    jQuery('#cmdKembali').fadeOut();
+});
+</script>

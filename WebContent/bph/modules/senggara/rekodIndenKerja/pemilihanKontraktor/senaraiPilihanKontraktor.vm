@@ -1,0 +1,57 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#tblKontraktor').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+
+<fieldset >
+<legend class="legend">SENARAI KONTRAKTOR</legend>
+<div class="scrollitpopup">
+  <table id="tblKontraktor" class="display" width="100%" cellpadding="5" cellspacing="1">
+    <thead>
+      <tr>
+        <td class="row_header" width="5%">Bil.</td>
+        <td class="row_header" width="15%">No. Pendaftaran</td>
+        <td class="row_header" >Nama Kontraktor</td>
+        <td class="row_header" >Nama Pemilik</td>
+        <td class="row_header" >Tahun Pendaftaran</td>
+        <td class="row_header" >No. Giliran Kerja</td>
+        <td class="row_header" >&nbsp;</td>
+      </tr>
+    </thead>
+    <tbody>
+    
+    #set ( $count = 0 ) #foreach( $c in $listKontraktor )
+    #set ( $count = $count + 1)
+    
+    #if ( $count % 2 == 0 ) 
+    #set ( $rowcolor = "#D0CFCE" ) 
+    #else 
+    #set ( $rowcolor = "#F0F0F0" ) 
+    #end
+    <tr bgcolor="$rowcolor">
+      <td align="center">$count</td>
+      <td >$c.kontraktor.id</td>
+      <td >$c.kontraktor.namaKontraktor</td>
+      <td >$c.kontraktor.namaPemilik</td>
+      <td align="center">$c.tahun</td>
+      <td align="center">$c.turutan</td>
+      <td align="center"><input type="button" id="btnPilihKontraktor" name="btnPilihKontraktor" value="Pilih Kontraktor" onclick="javascript:lantikKontraktor('$c.id');">
+      </td>
+    </tr>
+    #end
+    </tbody>
+    
+  </table>
+</div>
+</fieldset>
+<table width="100%">
+  <tr>
+    <td align="right"><input type="button" id="kembali" name="kembali" value="Kembali" onclick="doDivAjaxCall3$formname('divPemilihanKontraktorRecordModule','getMaklumatKontraktor','');">
+    </td>
+  </tr>
+</table>

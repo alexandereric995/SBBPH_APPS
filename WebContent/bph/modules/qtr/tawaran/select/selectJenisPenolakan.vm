@@ -1,0 +1,27 @@
+<select id="idJenisPenolakan" name="idJenisPenolakan" style="width:100%" onChange="$('err_idJenisPenolakan').innerHTML=''; at(this, event);">
+	<option value="">SILA PILIH</option>
+    #foreach( $jp in $selectJenisPenolakan )
+        <option #if ( $jp.id == $r.jenisPenolakan.id ) selected #end value="$jp.id">$jp.keterangan.toUpperCase()</option>
+    #end
+</select>
+
+#if ( $r.jenisPenolakan.id == "1" )
+	<script>
+		_jq('#sebabPenolakan').show();
+    </script>
+#end
+
+#if ( $r.jenisPenolakan.id == "2" )
+	<script>
+		_jq('#sebabPenolakan').hide();
+    </script>
+#end
+
+<script>
+	_jq('#idJenisPenolakan').on('change', function() {
+    	if ( this.value == 1) {
+			_jq('#sebabPenolakan').show();
+		} else {
+			_jq('#sebabPenolakan').hide();
+		}
+});</script>

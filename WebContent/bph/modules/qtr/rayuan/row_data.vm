@@ -1,0 +1,17 @@
+
+##<td>$!r.id</td>
+<td>$!r.pemohon.noKP</td>
+<td>$!r.pemohon.userName</td>
+#if ($r.tarikhPermohonan)
+    #set($tarikhPermohonan = $util.getDateTime($r.tarikhPermohonan, "dd-MM-yyyy"))
+#else
+    #set($tarikhPermohonan = "-")
+#end
+<td>$!tarikhPermohonan</td>
+#if ($r.tarikhKemaskini)
+    #set($tarikhKemaskini = $util.getDateTime($r.tarikhKemaskini, "dd-MM-yyyy"))
+	#set($masaKemaskini = $util.getDateTime($r.tarikhKemaskini, "hh:mm:ss a"))
+	<td>$tarikhKemaskini<br />( $masaKemaskini )</td>
+#else
+	<td>-</td>
+#end

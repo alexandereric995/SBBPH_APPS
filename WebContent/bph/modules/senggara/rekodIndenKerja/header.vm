@@ -1,0 +1,116 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><fieldset>
+      <legend class="legend">MAKLUMAT INDEN KERJA</legend>
+      <table width="100%" cellpadding="1" cellspacing="2">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+		  #input_readonly_all_label("kawasan" "Kawasan" "<b>$!r.lokasi.lokasi</b>")
+		  #input_readonly_all_label("noInden" "No. Inden" "$!r.noInden")
+		  #input_readonly_all_label("vot" "VOT" "$!r.vot")
+		  #input_readonly_all_label("kerja" "Kerja" "$!r.kerja")
+		  #if ($!r.tarikhIndenKerja) 
+		  #set ($dateInden = "$!util.getDateTime($!r.tarikhIndenKerja,'dd-MM-yyyy')")
+		  #else #set ($dateInden = "") #end
+		  #input_readonly_all_label("tarikhIndenKerja" "Tarikh Inden Kerja" "$dateInden")
+		  #input_readonly_all_label("jumlah" "Jumlah (RM)" "<b>$!util.formatDecimal($!r.jumlah)</b>")
+      </table>
+      </fieldset></td>
+    <td width="50%" valign="top"><fieldset>
+      <legend class="legend">MAKLUMAT KONTRAKTOR</legend>
+      <table width="100%" cellpadding="1" cellspacing="2">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_readonly_all_label("namaKontraktor" "Nama Kontraktor" "$!r.kontraktor.namaKontraktor") 
+        #input_readonly_all_label("namaPemilik" "Nama Pemilik" "$!r.kontraktor.namaPemilik")
+        #set ($bidangKontraktor = "")
+        #if ($r.kontraktor)
+        #if ($!r.kontraktor.flagAwam == 'Y' && $!r.kontraktor.flagElektrik == 'Y') 
+        #set ($bidangKontraktor = "AWAM DAN ELEKTRIK")
+        #elseif ($!r.kontraktor.flagAwam == 'Y' && $!r.kontraktor.flagElektrik != 'Y') 
+        #set ($bidangKontraktor = "AWAM")
+        #elseif ($!r.kontraktor.flagAwam != 'Y' && $!r.kontraktor.flagElektrik != 'Y') 
+        #set ($bidangKontraktor = "ELEKTRIK")
+        #end     
+        #end
+        #input_readonly_all_label("bidang" "Bidang" "$bidangKontraktor")
+        #input_readonly_all_label("noTelefon" "No. Telefon" "$!r.kontraktor.noTelefon")
+        #input_readonly_all_label("noTelefonBimbit" "No. Telefon Bimbit" "$!r.kontraktor.noTelefonBimbit")
+        #input_readonly_all_label("emel" "E-mel" "$!r.kontraktor.emel")
+      </table>
+      </fieldset></td>
+  </tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><fieldset>
+<legend class="legend">SENARAI JADUAL KADAR HARGA</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td colspan="3" class="label">
+      <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+		    <td class="row_header" width="5%">Bil.</td>		    
+		    <td class="row_header" width="20%">No. JKH</td>
+		    <td class="row_header" width="15%" align="right">Jumlah (RM)</td>
+		    <td class="row_header" >Jadual Kadar Harga</td>
+        </tr>
+        #set ( $count = 0 )
+        #if ( $listSenaraiJKH.size() > 0) 
+        #foreach( $c in $listSenaraiJKH )
+        #set ( $count = $count + 1)
+        
+        #if ( $count % 2 == 0 ) 
+        #set ( $rowcolor = "#D0CFCE" ) 
+        #else 
+        #set ( $rowcolor = "#F0F0F0" ) 
+        #end
+        <tr bgcolor="$rowcolor">
+          	<td align="center">$count</td>			
+		    <td align="center">$c.noJKH</td>
+		    <td align="right">$!util.formatDecimal($!c.jumlahKeseluruhan)</td>
+          	<td align="center">
+          		#if ( $!c.fileJKH ) 
+      				#if ($!c.fileJKH != "") 
+      					<a href="../download?file=$!uploadDir$!c.fileJKH" > <font color="#0000FF"><strong>MUAT TURUN</strong></font> </a> &nbsp;&nbsp;
+      				#end
+      			#end
+      		</td>
+        </tr>
+        #end
+        #else
+        <tr >
+          <td align="center">&nbsp;</td>
+          <td colspan="3">Tiada Rekod</td>
+        </tr>
+        #end
+      </table></td>
+  </tr>
+</table>
+</fieldset></td>
+    <td width="50%" valign="top"><fieldset>
+      <legend class="legend">MAKLUMAT TUGASAN</legend>
+      <table width="100%" cellpadding="1" cellspacing="2">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #textarea_readonly("tugasanDari" "Tugasan Dari" "$!r.tugasan.pegawaiAgihan.userName")
+        #if ($!r.tugasan.tarikhTugasan) 
+        #set ($dateTugasan = "$!util.getDateTime($!r.tugasan.tarikhTugasan,'dd-MM-yyyy')")
+        #else #set ($dateTugasan="") #end
+        #input_readonly_all_label("tarikhTugasan" "Tarikh Tugasan" "$dateTugasan")
+        #textarea_readonly("catatanTugasan" "Catatan Tugasan" "$!r.tugasan.catatan")
+        #input_readonly_all_label("status" "Status" "<b>$!r.status.keterangan</b>")
+      </table>
+      </fieldset></td>
+  </tr>
+</table>

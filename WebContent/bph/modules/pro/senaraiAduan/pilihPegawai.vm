@@ -1,0 +1,83 @@
+<fieldset>
+	
+	<legend class="legend">AGIHAN TUGAS</legend>
+	<table width="100%" cellpadding="1" cellspacing="2">
+		<tr>
+			<td class="label" style="width:15%">&nbsp;</td>
+			<td style="width:1%">&nbsp;</td>
+			<td style="width:84%">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="3" class="label">
+				##---End Button Tambah---
+				<input type="button" id="addPilihPegawaiPertama" name="addPilihPegawaiPertama" value="Tambah">
+				<script>
+					_jq('#addPilihPegawaiPertama').on('click', function(){
+						doDivAjaxCall3$formname('popupPilihPegawaiPertama','addPilihPegawaiPertama','');
+					    jQuery('#popupPilihPegawaiPertama').fadeIn();
+					});
+				</script>
+				<br />
+				<br />
+				##---End Button Tambah---
+				##---Table Data---
+				<table width="100%" cellpadding="5" cellspacing="1">
+					<tr>
+						<td class="row_header" width="5%">BIL.</td>
+						<td class="row_header" width="35%">UNIT</td>
+						<td class="row_header" width="35%">NAMA PEGAWAI</td>
+						<td class="row_header" width="15%">TARIKH TUGASAN</td>
+						<td class="row_header" width="5%">HAPUS</td>
+					</tr>
+					#set ( $count = 0 )
+					#if ( $listpegawai.size() > 0) 
+						#foreach( $c in $listpegawai )
+							#set ( $count = $count + 1)
+							
+							#if ( $count % 2 == 0 ) 
+								#set ( $rowcolor = "#D0CFCE" ) 
+							#else 
+								#set ( $rowcolor = "#F0F0F0" ) 
+							#end
+							<tr bgcolor="$rowcolor">
+								<td align="center">$count</td>
+								<td>$c.seksyen.keterangan</td>
+								<td>$c.pegawaiAgihan.userName</td>
+##								$!r.tarikhTugasan
+								<td align="center">$dateAduan</td>								
+								<td align="center"><a href="javascript:void()" onClick="deleteMaklumatPegawai('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a></td>
+							</tr>
+##							<script>
+##								_jq('#link$c.id').on('click', function(){
+##									doDivAjaxCall3$formname('editAgihanTugas','editAgihanTugas','idAgihanTugas=$c.id');
+##								    jQuery('#editAgihanTugas').fadeIn();
+##								});
+##							</script>
+						#end
+					#else
+						<tr >
+							<td align="center">&nbsp;</td>
+							<td align="center">Tiada Rekod</td>
+							<td align="center">&nbsp;</td>
+							<td align="center">&nbsp;</td>
+							<td align="center">&nbsp;</td>
+						</tr>
+					#end
+					##---End Table Data---
+				</table>
+			</td>
+		</tr>
+	</table>
+	
+</fieldset>
+
+<input type="hidden" id="idPilihPegawai" name="idPilihPegawai" value="$r.id">
+
+## Popup popupAgihanTugas.vm
+<div id="popupPilihPegawaiPertama" class="popupWide"></div>
+
+<div id="reloadMaklumatPegawai"></div>
+
+
+
+

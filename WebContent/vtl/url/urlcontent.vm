@@ -1,0 +1,35 @@
+<div style="margin:3px">
+$stringbuffer.toString()
+</div>
+
+#if ( $isLogin && $userId == "anon" )
+
+<!-- <table class="portlet-footnote"><tr><td> -->
+
+<form name="${formname}" method="post">
+<table cellpadding="2" cellspacing="0" class="contentEdit" border="0">
+<tr>
+<td align="center" valign="middle">
+<input type="button" value="Edit this content..." onclick="openInEditor('$url')" style="font-family:arial; font-size:7pt; font-weight:bold">&nbsp;[<i>&nbsp;$!url</i>]&nbsp;<input type="button" value="X" onclick="delete_${formname}()" style="font-family:arial; font-size:7pt; font-weight:bold">
+</td>
+</tr>
+</table>
+<input type="hidden" name="$formname" value="$formname">
+</form>
+
+<!-- </td></tr></table> -->
+<script>
+function change_${formname}() {
+	document.${formname}.action = "?command=changeProperties";
+	document.${formname}.submit();	
+}
+function delete_${formname}() {
+if ( !window.confirm('Are you sure to delete this HTML Module?') ) return;
+	document.${formname}.action = "../x/${securityToken}/lebah.portal.XModule?command=deleteModule&moduleId=$formname";
+	document.${formname}.submit();	
+}
+function openInEditor(url) {
+window.open('../x/${securityToken}/lebah.util.HtmlEditorModule?command=editContent&url=' + url,'mywindow','width=600,height=400,toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,copyhistory=yes,resizable=yes');
+}
+</script>
+#end

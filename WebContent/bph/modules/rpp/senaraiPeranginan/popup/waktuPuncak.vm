@@ -1,0 +1,36 @@
+
+#if($!flagPuncak.equalsIgnoreCase("HADWP"))
+	
+	&nbsp; GRED KELAYAKAN : &nbsp;
+	<select class="texts" id="gredKelayakanWaktuPuncak" name="gredKelayakanWaktuPuncak" style="width:auto" onChange=" $('err_gredKelayakanWaktuPuncak').innerHTML='';">
+		<option value="">SILA PILIH</option>
+		#foreach( $n in $listGredPerkhidmatan)
+			<option value="$n.id" #if($n.id == $!ju.gredKelayakanWaktuPuncak) selected #end>$n.keterangan.toUpperCase()</option>
+		#end
+	</select>
+	<div id="err_gredKelayakanWaktuPuncak" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+
+#elseif($!flagPuncak.equalsIgnoreCase("JULATWP"))
+	
+	&nbsp; GRED (DARI) : &nbsp;
+	<select class="texts" id="gredKelayakanWaktuPuncak" name="gredKelayakanWaktuPuncak" style="width:auto" onChange=" $('err_gredKelayakanWaktuPuncak').innerHTML='';">
+		<option value="">SILA PILIH</option>
+		#foreach( $n in $listGredPerkhidmatan)
+			<option value="$n.id" #if($n.id == $!ju.gredKelayakanWaktuPuncak) selected #end>$n.keterangan.toUpperCase()</option>
+		#end
+	</select>
+	
+	&nbsp; GRED (HINGGA) : &nbsp;
+	<select class="texts" id="gredMaksimumKelayakanWaktuPuncak" name="gredMaksimumKelayakanWaktuPuncak" style="width:auto" onChange=" $('err_gredMaksimumKelayakanWaktuPuncak').innerHTML='';">
+		<option value="">SILA PILIH</option>
+		#foreach( $n in $listGredPerkhidmatan)
+			<option value="$n.id" #if($n.id == $!ju.gredMaksimumKelayakanWaktuPuncak) selected #end>$n.keterangan.toUpperCase()</option>
+		#end
+	</select>
+	
+	<div id="err_gredKelayakanWaktuPuncak" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	<div id="err_gredMaksimumKelayakanWaktuPuncak" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	
+#end		
+	
+	

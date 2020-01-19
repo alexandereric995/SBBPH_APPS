@@ -1,0 +1,347 @@
+#parse("bph/dashboard/style.vm")
+#parse("$path/script.vm")
+<table width="100%" border="0" cellspacing="0" cellpadding="5">
+  <tr>
+    <td width="60%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img src="../bph/dashboard/picture/myprofile.png"  width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Profil</b></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoKataLaluan()" class="help" title="Tukar Kata Laluan">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Tukar Kata Laluan</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoProfile()" class="help" title="Profil Pengguna">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Profil Pengguna</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoKalendar()" class="help" title="Kalendar Aktiviti">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Kalendar Aktiviti</font></li>
+                              </a></td>
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+                <td width="50%" valign="top">&nbsp;</td>
+              </tr>
+            </table></td>
+        </tr>
+        
+        ## LAYER 2
+        #if( $portal_role.equalsIgnoreCase("(JRP) Penyedia") )
+        <tr>
+          <td>
+          	<table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Senarai Tugasan</b></td>
+                          </tr>
+                          <tr>
+                            <td><li>
+									<a href="javascript:goToPermohonanJRP()" class="help" title="Permohonan JRP">
+    									<font color="blue" style="font-size:110%">&nbsp;Permohonan JRP</font>
+    								</a>
+    							</li>	
+                            </td>
+                          </tr>
+                        </table></td>
+                    </tr>
+           	   </table>
+           	 </td>
+                  
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Aduan</b></td>
+                          </tr>
+                          <tr>
+                            <td><li>
+									<a href="javascript:goToSenaraiAduan()" class="help" title="Senarai Aduan">
+    									<font color="blue" style="font-size:110%">&nbsp;Senarai Aduan</font>
+    								</a>
+    							</li>
+    						</td>
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+              </tr>
+            </table></td>
+        </tr>
+        
+        ##Laporan
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center">
+                      	<img  src="../bph/dashboard/picture/images_stat.png" width="30" height="30" align="center"/>
+                      	</td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Laporan</b></td>
+                          </tr>
+                          <tr>
+                            <td><li>
+									<a href="javascript:goToSenaraiLaporan()" class="help" title="Senarai Laporan">
+    									<font color="blue" style="font-size:110%">&nbsp;Senarai Laporan</font>
+    								</a>
+    							</li>
+                            </td>
+                              
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                </table></td>
+              </tr>
+            </table></td>
+        </tr>
+        #end
+        
+        ## LAYER 3
+        #if( $portal_role.equalsIgnoreCase("(JRP) Penyemak") )
+        <tr>
+          <td>
+          	<table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Senarai Tugasan</b></td>
+                          </tr>
+                          <tr>
+                            <td><li>
+									<a href="javascript:goToPermohonanJRP()" class="help" title="Carian Permohonan JRP">
+    									<font color="blue" style="font-size:110%">&nbsp;Carian Permohonan JRP</font>
+    								</a>
+    							</li>	
+                            </td>
+                          </tr>
+                        </table></td>
+                    </tr>
+           	   </table>
+           	 </td>
+                  
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Aduan</b></td>
+                          </tr>
+                          <tr>
+                            <td><li>
+									<a href="javascript:goToSenaraiAduan()" class="help" title="Senarai Aduan">
+    									<font color="blue" style="font-size:110%">&nbsp;Senarai Aduan</font>
+    								</a>
+    							</li>
+    						</td>
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+              </tr>
+            </table></td>
+        </tr>
+        
+        ##Laporan
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center">
+                      	<img  src="../bph/dashboard/picture/images_stat.png" width="30" height="30" align="center"/>
+                      	</td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Laporan</b></td>
+                          </tr>
+                          <tr>
+                            <td><li>
+									<a href="javascript:goToSenaraiLaporan()" class="help" title="Senarai Laporan">
+    									<font color="blue" style="font-size:110%">&nbsp;Senarai Laporan</font>
+    								</a>
+    							</li>
+                            </td>
+                              
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                </table></td>
+              </tr>
+            </table></td>
+        </tr>
+        #end
+        
+        ## LAYER 4
+        #if( $portal_role.equalsIgnoreCase("(JRP) Pelulus") )
+        <tr>
+          <td>
+          	<table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Senarai Tugasan</b></td>
+                          </tr>
+                          <tr>
+                            <td><li>
+									<a href="javascript:goToPermohonanJRP()" class="help" title="Carian Permohonan JRP">
+    									<font color="blue" style="font-size:110%">&nbsp;Carian Permohonan JRP</font>
+    								</a>
+    							</li>	
+                            </td>
+                          </tr>
+                        </table></td>
+                    </tr>
+           	   </table>
+           	 </td>
+                  
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>
+    						</td>
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+              </tr>
+            </table></td>
+        </tr>
+        
+        ##Laporan
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center">
+                      	<img  src="../bph/dashboard/picture/images_stat.png" width="30" height="30" align="center"/>
+                      	</td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Laporan</b></td>
+                          </tr>
+                          <tr>
+                            <td><li>
+									<a href="javascript:goToSenaraiLaporan()" class="help" title="Senarai Laporan">
+    									<font color="blue" style="font-size:110%">&nbsp;Senarai Laporan</font>
+    								</a>
+    							</li>
+                            </td>
+                              
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                </table></td>
+              </tr>
+            </table></td>
+        </tr>
+        #end
+        
+        ## LAYER 5
+        #if( $portal_role.equalsIgnoreCase("(JRP) Jawatankuasa Teknikal") )
+        <tr>
+          <td>
+          	<table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Senarai Permohonan JRP</b></td>
+                          </tr>
+                          <tr>
+                            <td><li>
+									<a href="javascript:goToPermohonanJRP()" class="help" title="Senarai Permohonan JRP">
+    									<font color="blue" style="font-size:110%">&nbsp;Senarai Permohonan JRP</font>
+    								</a>
+    							</li>	
+                            </td>
+                          </tr>
+                        </table></td>
+                    </tr>
+           	   </table>
+           	 </td>
+                  
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>
+    						</td>
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+              </tr>
+            </table></td>
+        </tr>
+        
+        ##Laporan
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="3">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center">
+                      	</td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b></b></td>
+                          </tr>
+                          <tr>
+                            <td>
+                            </td>
+                              
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                </table></td>
+              </tr>
+            </table></td>
+        </tr>
+        #end
+      </table></td>
+  </tr>
+</table>

@@ -1,0 +1,103 @@
+<fieldset>
+<legend class="legend">Kegunaan Pejabat</legend>
+<table cellpadding="5" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="5" cellspacing="0" border="0" width="95%">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Petugas &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="divSenaraiPetugas"> #parse("$path/kegunaanPejabat/selectPetugas.vm") </div>
+            <div id="err_idPetugas" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td><a href="#" style="color:blue" id="cmdSuratAkuan"><u>Surat Akuan</u></a> </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td><a href="#" style="color:blue" id="cmdSijilAkuanKeluarRumah"><u>Sijil Akuan Keluar Rumah</u></a> </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td><a href="#" style="color:blue" id="cmdMemoPerhubungan"><u>Memo Perhubungan</u></a> </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td><a href="#" style="color:blue" id="cmdSuratPemberhentianPotongGaji"><u>Surat Pemberhentian Potong Gaji</u></a> </td>
+        </tr>
+        #if ($r.tarikhTerimaKunci)
+        #set($dateTerimaKunci = $util.getDateTime($r.tarikhTerimaKunci, "dd-MM-yyyy"))
+        #else #set($dateTerimaKunci = "") #end
+        #date_input_required("tarikhTerimaKunci" "Tarikh Terima Kunci" "$dateTerimaKunci")
+        #if ($r.tarikhKeluarKuarters)
+        #set($dateKeluarKuarters = $util.getDateTime($r.tarikhKeluarKuarters, "dd-MM-yyyy"))
+        #else #set($dateKeluarKuarters = "") #end
+        #date_input_required("tarikhKeluarKuarters" "Tarikh Keluar Kuarters" "$dateKeluarKuarters")
+        #if ($r.tarikhSerahKunci)
+        #set($dateSerahKunci = $util.getDateTime($r.tarikhSerahKunci, "dd-MM-yyyy"))
+        #else #set($dateSerahKunci = "") #end
+        #date_input_required("tarikhSerahKunci" "Tarikh Serah Kunci<br/>ke Unit Senggara" "$dateSerahKunci")
+        #textarea_required("catatan" "Catatan" "$!r.catatan")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="5" cellspacing="0" border="0" width="95%">
+        <tr>
+          <td align="center" colspan="3" style="background: #B2B0B0; color: #FFF; font-weight: bold"> Maklumat Memo Perhubungan </td>
+        </tr>
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_required("memoDaripada" "Daripada" "$!r.memoDaripada")
+        #input_required("memoKepada" "Kepada" "$!r.memoKepada")
+        #input_required("memoPerkara" "Perkara" "$!r.memoPerkara")
+        #input_required("memoRujukan" "Rujukan" "$!r.memoRujukan")
+        #input_required("memoSk" "s.k.:-" "$!r.memoSk")
+        #if ( $r.memoTarikh )
+        #set( $dateMemo = $util.getDateTime($r.memoTarikh, 'dd-MM-yyyy'))
+        #else #set( $dateMemo = "" ) #end
+        #date_input_required("memoTarikh" "Tarikh Memo" "$!dateMemo")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<script>
+		_jq('#cmdSuratAkuan').on('click', function(){
+			var idTawaran=$!r.id;
+			var url = "../servlet/bph.laporan.qtr.QTRSuratAkuan?idTawaran=$!r.id";
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		});	
+		_jq('#cmdSijilAkuanKeluarRumah').on('click', function(){
+			var idTemujanji=$!r.id;
+			var url = "../servlet/bph.laporan.qtr.QTRSijilAkuanKeluarRumah?idTemujanji=$!r.id";
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		});	
+		_jq('#cmdMemoPerhubungan').on('click', function(){
+			var idTemujanji=$!r.id;
+			var url = "../servlet/bph.laporan.qtr.QTRMemoPerhubungan?idTemujanji=$!r.id";
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		});
+		_jq('#cmdSuratPemberhentianPotongGaji').on('click', function(){
+			var idTemujanji=$!r.id;
+			var url = "../servlet/bph.laporan.qtr.QTRSuratPemberhentianPotongGaji?idTemujanji=$!r.id";
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		});
+</script>

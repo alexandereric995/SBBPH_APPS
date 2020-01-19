@@ -1,0 +1,34 @@
+<td><a href="javascript:void()" style="color:blue" onClick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')"> $!r.noTempahan </a></td>
+<td>
+	<b>Nama :</b> $!r.pemohon.userName<br/>
+	<b>MyID :</b> $!r.pemohon.noKP<br/>
+	<b>No. Telefon :</b> $!r.pemohon.noTelefon<br/>
+  	<b>No. Telefon Bimbit :</b> $!r.pemohon.noTelefonBimbit<br/>
+  	<b>Emel :</b> $!r.pemohon.emel
+</td>
+#if ($!r.tarikhPermohonan) #set($datePermohonan = $util.getDateTime($!r.tarikhPermohonan,"dd-MM-yyyy"))
+#else #set($datePermohonan = "-") #end
+<td align="center">$datePermohonan</td>
+
+#if ($!r.tarikhMasukRpp) #set($dateMasukRpp = $util.getDateTime($!r.tarikhMasukRpp,"dd-MM-yyyy"))
+#else #set($dateMasukRpp = "-") #end
+#if ($!r.tarikhKeluarRpp) #set($dateKeluarRpp = $util.getDateTime($!r.tarikhKeluarRpp,"dd-MM-yyyy"))
+#else #set($dateKeluarRpp = "-") #end
+<td align="center">$dateMasukRpp - $dateKeluarRpp</td>
+
+#if( $!r.photofilename && !$!r.photofilename.equalsIgnoreCase("") )
+	<td align="center">
+		<a href="../download?file=$!uploadDir$!r.photofilename">
+			<span class="print" style="color:#0000FF">
+				<strong>SLIP PEMBAYARAN</strong>
+			</span>
+		</a>
+	</td>
+#else
+	<td align="center">$!r.photofilename</td>
+#end
+
+
+
+
+

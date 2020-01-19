@@ -1,0 +1,122 @@
+<fieldset>
+<legend class="legend">Maklumat Permintaan</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr> 
+					  
+		#if ($!r.tarikHantar) 
+		#set ($datetarikHantar = "$!util.getDateTime($!r.tarikHantar,'dd-MM-yyyy')")
+		#else #set ($datetarikHantar = "") 
+		#end
+		#input_readonly_all_label("tarikHantar" "Tarikh Hantar" "$datetarikHantar")
+					  
+		#input_readonly_all_label("noPengenalan" "No. Pengenalan" "$!r.noPengenalan")
+		
+					  
+</table>	
+</fieldset>	
+
+<fieldset>
+<legend class="legend">Maklumat Jawapan</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr> 
+  
+  		#if ($!r.tarikhTerima) 
+		#set ($datetarikhTerima = "$!util.getDateTime($!r.tarikhTerima,'dd-MM-yyyy')")
+		#else #set ($datetarikhTerima = "") 
+		#end
+		#date_input_required("tarikhTerima" "Tarikh Terima" "$datetarikhTerima")
+		<td>
+	      <div id="err_tarikhTerima" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	    </td>
+					  
+		#input_required("flagJawapan" "Flag Jawapan" "$!r.flagJawapan")
+		<td>
+	      <div id="err_flagJawapan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	    </td>
+	    
+		#input_required("mesej" "Mesej" "$!r.mesej")
+		<td>
+	      <div id="err_mesej" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	    </td>
+	    
+	    #input_required("kodJenisPinjaman" "Kod Jenis Pinjaman" "$!r.kodJenisPinjaman")
+		<td>
+	      <div id="err_kodJenisPinjaman" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	    </td>
+		
+		#input_required("nama" "Nama" "$!r.nama")
+		<td>
+	      <div id="err_nama" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	    </td>
+		
+		<tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td> #parse("$path/findNegeri.vm")
+           		<div id="err_negeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+          </td>
+        </tr>
+        
+        <tr>
+		  <td>Daerah &nbsp;<span style="color:#FF2A00">*</span></td>
+		  <td>:</td>
+          <td> #parse("$path/findDaerah.vm")
+          		 <div id="err_daerah" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+          </td>
+        </tr>
+        
+        <tr>
+		  <td>Mukim &nbsp;<span style="color:#FF2A00">*</span></td>
+		  <td>:</td>
+          <td> #parse("$path/findMukim.vm")
+          		<div id="err_mukim" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+          </td>
+        </tr>
+##	  
+		#input_required("noAkaun" "No. Akaun" "$!r.noAkaun")
+		<td>
+	      <div id="err_noAkaun" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	    </td>
+
+		#input_required("statusPinjaman" "Status Pinjaman" "$!r.statusPinjaman")
+		<td>
+	      <div id="err_statusPinjaman" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	    </td>
+			  
+</table>
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+    		<input id="kemaskiniMaklumatBPP" name="kemaskiniMaklumatBPP" type="button" value="Simpan"/>
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+<script>
+
+ _jq('#kemaskiniMaklumatBPP').on('click', function(){
+## 		 alert("mmasukkk");
+      kemaskiniMaklumatBPP(); 
+  });
+
+</script>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

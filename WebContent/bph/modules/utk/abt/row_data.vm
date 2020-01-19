@@ -1,0 +1,20 @@
+##<td align="left">$!r.penghuni.id</td>
+<td align="left"><a href="javascript:void()" title="Klik untuk melihat maklumat lengkap."  onclick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')">$!r.penghuni.kuarters.noUnit</a></td>
+<td align="left">$!r.penghuni.pemohon.noKP</td>
+<td align="left">$!r.penghuni.pemohon.userName</td>
+<td align="center">$!r.jumlahTunggakan</td>
+
+	#if($!r.flagBayaran == '1')
+  		#set($statusBayaran = 'BELUM BAYAR')
+ 	#elseif($!r.flagBayaran == '2')
+  		#set($statusBayaran = 'TELAH BAYAR')
+  	#elseif($!r.flagBayaran == '3')
+  		#set($statusBayaran = 'TUNGGAKAN')
+  	#elseif($!r.flagBayaran == '4')
+  		#set($statusBayaran = 'SELESAI')
+  	#elseif($!r.flagBayaran == '5')
+  		#set($statusBayaran = 'ANSURAN')
+  	#else
+  		#set($statusBayaran = '')
+  	#end
+<td align="center" >$statusBayaran</td>

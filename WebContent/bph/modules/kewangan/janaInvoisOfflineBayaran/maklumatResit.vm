@@ -1,0 +1,70 @@
+
+<fieldset style="height:150px;min-height:150px">
+	<legend class="legend">MAKLUMAT RESIT</legend>
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr>
+		    <td class="label" style="width:15%"></td>
+		    <td style="width:1%"></td>
+		    <td style="width:84%"></td>
+		  </tr>		
+		#date_input_required("tarikhBayaran" "Tarikh Bayaran" "")
+##		<tr>
+##			<td>Jenis Bayaran &nbsp;<span style='color:#FF2A00'>*</span></td>
+##			<td>:</td>
+##			<td>
+##				<select class="texts" id="jenisBayaran" name="jenisBayaran" style="width:100%" onChange="$('err_jenisBayaran').innerHTML = '';doCheckJenisBayaran()">
+##				<option value="">SILA PILIH</option>
+##				<option value="ONLINE">ONLINE</option>
+##				<option value="MANUAL">MANUAL</option>
+##				<option value="KAUNTER">KAUNTER</option>
+##				</select>
+##				<div id="err_jenisBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##			</td>
+##		</tr>
+		 <tr>
+			<td valign="top">No. Resit &nbsp;<span id="mandatoryResit" style='color:#FF2A00'>*</span></td>
+			<td>:</td>
+			<td valign="top"><input type="text" id="noResit" name="noResit" value="" onBlur="this.value=this.value.toUpperCase();"/>
+			<div id="err_noResit" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		  </tr>
+		 <tr>
+			<td>Nama Juruwang</td>
+			<td>:</td>
+			<td>
+				<select id="findJuruwang" name="findJuruwang" style="width:100%" >
+		            <option value="">SILA PILIH</option>
+		            #foreach( $d in $listJuruwang )
+		            	<option value="$d.id">$d.userName.toUpperCase()</option>
+		            #end
+		        </select>
+			</td>
+		  </tr>
+		
+	</table>
+</fieldset>
+	
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+  
+  function doCheckJenisBayaran() {
+  	
+  	$('err_noResit').innerHTML = '';
+  	var jenisBayaran = $('jenisBayaran').value;
+  	if(jenisBayaran == 'ONLINE'){
+  		$('mandatoryResit').style.display = "none";
+  		$('noResit').disabled=true;
+  		$('err_noResit').innerHTML="No. Resit bagi Online Payment akan dijana secara Automatik.";
+  	}else{
+  		$('mandatoryResit').style.display = "";
+  		$('noResit').disabled=false;
+  	}
+  }
+  
+</script>	
+

@@ -1,0 +1,63 @@
+
+#if($!r.statusBayaran=="T")	
+    <table width="100%">
+    	<tr>
+    		<td align="right">
+    			<input type="button" value="Cetak" onclick="javascript:window.print()">
+				#if( $!r.status.id != "1425259713418" )	
+    			<input id="btnRecordTemplateSave" type="button" value="Bayar" onClick="doBayarTempahan($!r.id)">
+    			#end
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>
+#else
+	<table cellpadding="5" cellspacing="0" border="0" width="100%" style="margin-top: 5px;">
+		<tr>
+			<td style="background: #22C322; color: #FFF; font-weight: bold; box-shadow: 0px 2px 5px #999;">
+				PEMBAYARAN TELAH DIBUAT
+			</td>
+		</tr>
+		<tr>
+    		<td align="right"><input type="button" value="Cetak"  id="cmdCetak"/></td>
+    	</tr>
+	</table>
+#end
+
+<legend class="legend">SENARAI LAPORAN</legend>
+<table width="100%" >
+	<tr>
+		<td><a href="#" style="color:blue" id="cmdResit">Resit </a></td>		
+	</tr>
+	<tr>
+		<td><a href="#" style="color:blue" id="cmdSuratKelulusan">Surat Kelulusan </a></td>		
+	</tr>
+</table>
+
+<script>
+	
+		_jq('#cmdResit').on('click', function(){
+		
+		var idRppPermohonan = $!r.id;
+		
+				var url = "../servlet/bph.laporan.rpp.Resit?idRppPermohonan="+idRppPermohonan;
+				var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+				if ((document.window != null) && (!hWnd.opener))
+				hWnd.opener = document.window;
+				if (hWnd.focus != null) hWnd.focus();
+	
+		});
+		
+		_jq('#cmdSuratKelulusan').on('click', function(){
+		
+		var idRppPermohonan = $!r.id;
+		
+				var url = "../servlet/bph.laporan.rpp.RPPSuratKelulusanPermohonan?idRppPermohonan="+idRppPermohonan;
+				var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+				if ((document.window != null) && (!hWnd.opener))
+				hWnd.opener = document.window;
+				if (hWnd.focus != null) hWnd.focus();
+	
+		});
+	
+</script>

@@ -1,0 +1,35 @@
+
+<td>$!r.idRuang</td>
+<td>$!r.namaRuang</td>
+#if ($!r.idJenisSewa == 'H')
+	<td>HARIAN</td>
+#elseif ($!r.idJenisSewa == 'B')
+	<td>BULANAN</td>
+#elseif ($!r.idJenisSewa == 'T')
+	<td>TAHUNAN</td>
+#else
+	<td></td>
+#end
+<td><b>Mps :</b>$util.formatDecimal($!r.luasMps) <br /> 
+	<b>Kps :</b>$util.formatDecimal($!r.luasKps)</td>
+<td>
+	<b>Lokasi :</b> $!r.lokasi<br />
+	<b>Alamat :</b> $!r.alamat1 $!r.alamat2 $!r.alamat3 $!r.poskod<br />
+	<b>Negeri :</b> $!r.bandar.negeri.keterangan<br />
+	<b>Bandar :</b> $!r.bandar.keterangan<br />
+</td>
+#if ($!r.flagSewa == 'Y')
+	<td><b>SEDANG DISEWA</b></td>
+#elseif ($!r.flagSewa == 'T')
+	<td><b>KOSONG</b></td>
+#else
+	<td></td>
+#end
+
+#if($!r.flagAktif == 'Y')
+	<td><b>AKTIF</b></td>
+#elseif ($!r.flagAktif == 'T')
+	<td><b>TIDAK AKTIF</b></td>
+#else
+	<td></td>
+#end

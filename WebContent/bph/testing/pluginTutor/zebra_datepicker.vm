@@ -1,0 +1,630 @@
+<p>Note that any of the properties below may also be set via HTML5 data
+attributes. To do this you have prefix the name of the property you want to set
+with &#8220;data-zdp_&#8221;. One important thing to remember is that if the
+value of the property is an array you&#8217;ll have to use <strong>double
+quotes</strong> inside the square brackets and therefore single quotes around
+the attribute. See example 14 from above.</p>
+
+<table cellpadding="5" cellspacing="0">
+	<tbody>
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>always_visible</strong></td>
+
+            <td class="nowrap" valign="top"><em>boolean</em></td>
+
+            <td valign="top">
+                <p>Should the date picker be always visible?&nbsp;</p>
+
+                <p>Setting this property to a jQuery element will result in the
+                date picker being always visible, the indicated element acting
+                as the date picker&#8217;s container;</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>days</strong></td>
+
+            <td class="nowrap" valign="top"><em>array</em></td>
+
+            <td valign="top">
+                <p>Days of the week. Sunday to Saturday.</p>
+
+                <p>Default is<br>
+                [&#8216;Sunday&#8217;, &#8216;Monday&#8217;,
+                &#8216;Tuesday&#8217;, &#8216;Wednesday&#8217;,
+                &#8216;Thursday&#8217;, &#8216;Friday&#8217;,
+                &#8216;Saturday&#8217;]</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>days_abbr</strong></td>
+
+            <td class="nowrap" valign="top"><em>mixed</em></td>
+
+            <td valign="top">
+                <p>Abbreviated names of days.</p>
+
+                <p>By default, the abbreviated name of a day consists of the
+                first 2 letters from the day&#8217;s full name. While this is
+                common for most languages, there are also exceptions for
+                languages like Thai, Loa, Myanmar, etc. where this is not
+                correct. For these cases, specify an array with the
+                abbreviations to be used for the 7 days of the week; leave it
+                FALSE to use the first 2 letters of a day&#8217;s name as the
+                abbreviation.</p>
+
+                <p>Default is FALSE<br></p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>default_position</strong></td>
+
+            <td class="nowrap" valign="top"><em>string</em></td>
+
+            <td valign="top">
+                <p>The position of the date picker relative to the element it
+                is attached to.</p>
+
+                <p>Note that, regardless of this setting, the date
+                picker&#8217;s position will be automatically adjusted to fit
+                in the view port, if needed.<br>
+                Possible values are &#8220;above&#8221; and
+                &#8220;below&#8221;.<br>
+                Default is &#8220;above&#8221;<br></p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>direction</strong></td>
+
+            <td class="nowrap" valign="top"><em>mixed</em></td>
+
+            <td valign="top">
+                <p>Direction of the calendar.</p>
+
+                <p>A positive or negative integer: n (a positive integer)
+                creates a future-only calendar beginning at n days after today;
+                -n (a negative integer) creates a past-only calendar ending n
+                days before today; if n is 0, the calendar has no restrictions.
+                use boolean true for a future-only calendar starting with today
+                and use boolean false for a past-only calendar ending
+                today.</p>
+
+                <p>You may also set this property to an array with two elements
+                in the following combinations:</p>
+
+                <p>&#8211; first item is boolean TRUE (calendar starts today),
+                an integer &gt; 0 (calendar starts n days after today), or a
+                valid date given in the format defined by the
+                &#8220;format&#8221; attribute (calendar starts at the
+                specified date), and the second item is boolean FALSE (the
+                calendar has no ending date), an integer &gt; 0 (calendar ends
+                n days after the starting date), or a valid date given in the
+                format defined by the &#8220;format&#8221; attribute and which
+                occurs after the starting date (calendar ends at the specified
+                date)</p>
+
+                <p>&#8211; first item is boolean FALSE (calendar ends today),
+                an integer &lt; 0 (calendar ends n days before today), or a
+                valid date given in the format defined by the "format"
+                attribute (calendar ends at the specified date), and the second
+                item is an integer &gt; 0 (calendar ends n days before the
+                ending date), or a valid date given in the format defined by
+                the &#8220;format&#8221; attribute and which occurs before the
+                starting date (calendar starts at the specified date)</p>
+
+                <p>[1, 7] &#8211; calendar starts tomorrow and ends seven days
+                after that</p>
+
+                <p>[true, 7] &#8211; calendar starts today and ends seven days
+                after that</p>
+
+                <p>[&#8216;2013-01-01&#8242;, false] &#8211; calendar starts on
+                January 1st 2013 and has no ending date (&#8220;format&#8221;
+                is YYYY-MM-DD)</p>
+
+                <p>[false, &#8216;2012-01-01&#8242;] &#8211; calendar ends
+                today and starts on January 1st 2012 (&#8220;format&#8221; is
+                YYYY-MM-DD)</p>
+
+                <p><em>Note that &#8220;disabled_dates&#8221; property will
+                still apply!</em></p>
+
+                <p>Default is 0 (no restrictions).</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>disabled_dates</strong></td>
+
+            <td class="nowrap" valign="top"><em>mixed</em></td>
+
+            <td valign="top">
+                <p>An array of disabled dates in the following format:
+                &#8216;day month year weekday&#8217; where
+                &#8220;weekday&#8221; is optional and can be 0-6 (Saturday to
+                Sunday); The syntax is similar to cron&#8217;s syntax: the
+                values are separated by spaces and may contain * (asterisk)
+                &#8211; (dash) and , (comma) delimiters:&nbsp;</p>
+
+                <p>[&#8216;1 1 2012&#8242;] would disable January 1, 2012;</p>
+
+                <p>[&#8216;* 1 2012&#8242;] would disable all days in January
+                2012;</p>
+
+                <p>[&#8216;1-10 1 2012&#8242;] would disable January 1 through
+                10 in 2012;</p>
+
+                <p>[&#8216;1,10 1 2012&#8242;] would disable January 1 and 10
+                in 2012;</p>
+
+                <p>[&#8216;1-10,20,22,24 1-3 *&#8217;] would disable 1 through
+                10, plus the 22nd and 24th of January through March for every
+                year;</p>
+
+                <p>[&#8216;* * * 0,6&#8242;] would disable all Saturdays and
+                Sundays;</p>
+
+                <p>[&#8217;01 07 2012&#8242;, &#8217;02 07 2012&#8242;,
+                &#8216;* 08 2012&#8242;] would disable 1st and 2nd of July
+                2012, and all of August of 2012</p>
+
+                <p>Default is FALSE, no disabled dates.</p>
+
+                <p><strong>DISABLING ALL DATES AND NOT SPECIFYING AT LEAST ONE
+                ENABLED DATE WILL SEND THE SCRIPT INTO AN INFINITE LOOP
+                SEARCHING FOR AN ENABLED DATE TO DISPLAY!</strong></p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>enabled_dates</strong></td>
+
+            <td class="nowrap" valign="top"><em>mixed</em></td>
+
+            <td valign="top">
+                <p>An array of enabled dates in the same format as required for
+                &#8220;disabled_dates&#8221; property. To be used together with
+                the &#8220;disabled_dates&#8221; property by first setting the
+                &#8220;disabled_dates&#8221; property to something like
+                &#8220;[* * * *]&#8221; (which will disable everything) and the
+                setting the &#8220;enabled_dates&#8221; property to, say,
+                &#8220;[* * * 0,6]&#8221; to enable just weekends.</p>
+
+                <p>Default is FALSE.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>first_day_of_week</strong></td>
+
+            <td class="nowrap" valign="top"><em>integer</em></td>
+
+            <td valign="top">
+                <p>Week&#8217;s starting day.&nbsp;</p>
+
+                <p>Valid values are 0 to 6, Sunday to Saturday.</p>
+
+                <p>Default is 1, Monday.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>format</strong></td>
+
+            <td class="nowrap" valign="top"><em>string</em></td>
+
+            <td valign="top">
+                <p>Format of the returned date.&nbsp;</p>
+
+                <p>Accepts the following characters for date formatting: d, D,
+                j, l, N, w, S, F, m, M, n, Y, y borrowing syntax from
+                (PHP&#8217;s <a href=
+                "http://php.net/manual/en/function.date.php">date</a>
+                function).</p>
+
+                <p>Note that when setting a date format without days
+                (&#8216;d&#8217;, &#8216;j&#8217;), the users will be able to
+                select only years and months, and when setting a format without
+                months and days (&#8216;F&#8217;, &#8216;m&#8217;,
+                &#8216;M&#8217;, &#8216;n&#8217;, &#8216;t&#8217;,
+                &#8216;d&#8217;, &#8216;j&#8217;), the users will be able to
+                select only years.</p>
+
+                <p>Also note that the value of the &#8220;view&#8221; property
+                (see below) may be overridden if it is the case: a value of
+                &#8220;days&#8221; for the &#8220;view&#8221; property makes no
+                sense if the date format doesn&#8217;t allow the selection of
+                days.</p>
+
+                <p>Default is &#8216;Y-m-d&#8217;.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>header_captions</strong></td>
+
+            <td class="nowrap" valign="top"><em>object</em></td>
+
+            <td valign="top">
+                <p>Captions in the datepicker&#8217;s header, for the 3
+                possible views: days, months, years&nbsp;</p>
+
+                <p>For each of the 3 views the following special characters may
+                be used borrowing from PHP&#8217;s &#8220;date&#8221;
+                function&#8217;s syntax: m, n, F, M, y and Y; any of these will
+                be replaced at runtime with the appropriate date fragment,
+                depending on the currently viewed date. two more special
+                characters are also available Y1 and Y2 (upper case
+                representing years with 4 digits, lowercase representing years
+                with 2 digits) which represent &#8220;currently selected year
+                &#8211; 7&#8243; and &#8220;currently selected year + 4&#8243;
+                and which only make sense used in the &#8220;years&#8221;
+                view.</p>
+
+                <p>Even though any of these special characters may be used in
+                any of the 3 views, you should use m, n, F, M for the
+                &#8220;days&#8221; view and y, Y, Y1, Y2, y1, y2 for the
+                &#8220;months&#8221; and &#8220;years&#8221; view or you may
+                get unexpected results!</p>
+
+                <p>Text and HTML can also be used, and will be rendered as it
+                is, as in the example below (the library is smart enough to not
+                replace special characters when used in words or HTML
+                tags):</p>
+                <p style="padding: 5px; background: #F8F8FF; border: 1px solid #DEDEDE">
+                 	header_captions: {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'days':     'Departure:&lt;br&gt;F, Y',<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'months':   'Departure:&lt;br&gt;Y',<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'years':    'Departure:&lt;br&gt;Y1 - Y2'<br />
+					}
+				</p>
+
+                <p>Default is</p>
+                <p style="padding: 5px; background: #F8F8FF; border: 1px solid #DEDEDE">
+                	header_captions: {<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'days':     'F, Y',<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'months':   'Y',<br />
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'years':    'Y1 - Y2'<br />
+					}
+				</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>header_navigation</strong></td>
+
+            <td class="nowrap" valign="top"><em>array</em></td>
+
+            <td valign="top">
+                <p>HTML to be used for the previous month/next month
+                buttons&nbsp;</p>
+
+                <p>default is
+                [&#8216;&amp;#171;&#8217;,&#8217;&amp;#187;&#8217;]</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>inside</strong></td>
+
+            <td class="nowrap" valign="top"><em>boolean</em></td>
+
+            <td valign="top">
+                <p>Should the icon for opening the datepicker be inside the
+                element?&nbsp;</p>
+
+                <p>If set to FALSE, the icon will be placed to the right of the
+                parent element, while if set to TRUE it will be placed to the
+                right of the parent element, but *inside* the element
+                itself</p>
+
+                <p>Default is TRUE.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>lang_clear_date</strong></td>
+
+            <td class="nowrap" valign="top"><em>string</em></td>
+
+            <td valign="top">
+                <p>the caption for the &#8220;Clear&#8221; button.&nbsp;</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>months</strong></td>
+
+            <td class="nowrap" valign="top"><em>array</em></td>
+
+            <td valign="top">
+                <p>Months names.&nbsp;</p>
+
+                <p>Default is</p>
+
+                <p>[&#8216;January&#8217;, &#8216;February&#8217;,
+                &#8216;March&#8217;, &#8216;April&#8217;, &#8216;May&#8217;,
+                &#8216;June&#8217;, &#8216;July&#8217;, &#8216;August&#8217;,
+                &#8216;September&#8217;, &#8216;October&#8217;,
+                &#8216;November&#8217;, &#8216;December&#8217;],</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>months_abbr</strong></td>
+
+            <td class="nowrap" valign="top"><em>mixed</em></td>
+
+            <td valign="top">
+                <p>Abbreviated names of months.</p>
+
+                <p>By default, the abbreviated name of a month consists of the
+                first 3 letters from the month&#8217;s full name. While this is
+                common for most languages, there are also exceptions for
+                languages like Thai, Loa, Myanmar, etc. where this is not
+                correct. For these cases, specify an array with the
+                abbreviations to be used for the months of the year; leave it
+                FALSE to use the first 3 letters of a month&#8217;s name as the
+                abbreviation.</p>
+
+                <p>Default is FALSE<br></p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>offset</strong></td>
+
+            <td class="nowrap" valign="top"><em>array</em></td>
+
+            <td valign="top">
+                <p>The offset, in pixels (x, y), to shift the date
+                picker&#8217;s position relative to the top-right of the icon
+                that toggles the date picker or, if the icon is disabled,
+                relative to the top-right corner of the element<br>
+                the plugin is attached to.&nbsp;</p>
+
+                <p>Note that this only applies if the position of element
+                relative to the browser&#8217;s viewport doesn&#8217;t require
+                the date picker to be placed automatically so that it is
+                visible!</p>
+
+                <p>Default is [5, -5].</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>pair</strong></td>
+
+            <td class="nowrap" valign="top"><em>object</em></td>
+
+            <td valign="top">
+                <p>If set as one or more jQuery elements with Zebra_Datepicker
+                attached, those particular date pickers will use the current
+                date picker&#8217;s value as starting date&nbsp;</p>
+
+                <p>Note that the rules set in the &#8220;direction&#8221;
+                property will still apply, only that the reference date will
+                not be the current system date but the value selected in the
+                current date picker.</p>
+
+                <p>Default is FALSE (not paired with another date picker)</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>readonly_element</strong></td>
+
+            <td class="nowrap" valign="top"><em>boolean</em></td>
+
+            <td valign="top">
+                <p>Should the element the calendar is attached to, be
+                read-only?&nbsp;</p>
+
+                <p>If set to TRUE, a date can be set only through the date
+                picker and cannot be entered manually.</p>
+
+                <p>Default is TRUE.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>select_other_months</strong></td>
+
+            <td class="nowrap" valign="top"><em>boolean</em></td>
+
+            <td valign="top">
+                <p>Should days from previous and/or next month be selectable
+                when visible?&nbsp;</p>
+
+                <p>Note that if the value of this property is set to TRUE, the
+                value of &#8220;show_other_months&#8221; will be considered
+                TRUE regardless of the actual value!</p>
+
+                <p>Default is FALSE.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>show_clear_date</strong></td>
+
+            <td class="nowrap" valign="top"><em>mixed</em></td>
+
+            <td valign="top">
+                <p>Should the &#8220;Clear date&#8221; button be
+                visible?&nbsp;</p>
+
+                <p>Accepted values are:</p>
+
+                <p>&#8211; 0 (zero) &#8211; the button for clearing a
+                previously selected date is shown only if a previously selected
+                date already exists; this means that if the input the date
+                picker is attached to is empty, and the user selects a date for
+                the first time, this button will not be visible; once the user
+                picked a date and opens the date picker again, this time the
+                button will be visible.</p>
+
+                <p>&#8211; TRUE will make the button visible all the time</p>
+
+                <p>&#8211; FALSE will disable the button</p>
+
+                <p>Default is &#8220;0&#8221; (without quotes)</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>show_icon</strong></td>
+
+            <td class="nowrap" valign="top"><em>boolean</em></td>
+
+            <td valign="top">
+                <p>Should a calendar icon be added to the elements the plugin
+                is attached to?&nbsp;</p>
+
+                <p>When set to TRUE the plugin will attach a calendar icon to
+                the elements the plugin is attached to.</p>
+
+                <p>Default is TRUE.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>show_other_months</strong></td>
+
+            <td class="nowrap" valign="top"><em>boolean</em></td>
+
+            <td valign="top">
+                <p>should days from previous and/or next month be
+                visible?&nbsp;</p>
+
+                <p>Default is TRUE.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>show_select_today</strong></td>
+
+            <td class="nowrap" valign="top"><em>mixed</em></td>
+
+            <td valign="top">
+                <p>Should the &#8220;Today&#8221; button be visible?&nbsp;</p>
+
+                <p>Setting this property to anything but a boolean FALSE will
+                enable the button and will use the property&#8217;s value as
+                caption for the button; setting it to FALSE will disable the
+                button</p>
+
+                <p>Default is &#8220;Today&#8221;.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>show_week_number</strong></td>
+
+            <td class="nowrap" valign="top"><em>mixed</em></td>
+
+            <td valign="top">
+                <p>Should an extra column be shown, showing the number of each
+                week?&nbsp;</p>
+
+                <p>Anything other than FALSE will enable this feature, and use
+                the given value as column title. For example, show_week_number:
+                &#8216;Wk&#8217; would enable this feature and have
+                &#8220;Wk&#8221; as the column&#8217;s title.</p>
+
+                <p>Default is FALSE.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>start_date</strong></td>
+
+            <td class="nowrap" valign="top"><em>string</em></td>
+
+            <td valign="top">
+                <p>A default date to start the date picker with&nbsp;</p>
+
+                <p>Must be specified in the format defined by the
+                &#8220;format&#8221; property, or it will be ignored!</p>
+
+                <p>Note that this value is used only if there is no value in
+                the field the date picker is attached to!</p>
+
+                <p>Default is FALSE.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>view</strong></td>
+
+            <td class="nowrap" valign="top"><em>string</em></td>
+
+            <td valign="top">
+                <p>How should the date picker start:&nbsp;</p>
+
+                <p>Valid values are &#8220;days&#8221;, &#8220;months&#8221;
+                and &#8220;years&#8221;.</p>
+
+                <p>Note that the date picker is always cycling
+                days-months-years when clicking in the date picker&#8217;s
+                header, and years-months-days when selecting dates (unless one
+                or more of the views are missing due to the date&#8217;s
+                format)</p>
+
+                <p>Also note that the value of the &#8220;view&#8221; property
+                may be overridden if the date&#8217;s format requires so! (i.e.
+                &#8220;days&#8221; for the &#8220;view&#8221; property makes no
+                sense if the date format doesn&#8217;t allow the selection of
+                days)</p>
+
+                <p>Default is &#8220;days&#8221;.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>weekend_days</strong></td>
+
+            <td class="nowrap" valign="top"><em>array</em></td>
+
+            <td valign="top">
+                <p>Days of the week that are considered &#8220;weekend
+                days&#8221;&nbsp;</p>
+
+                <p>Valid values are 0 to 6, Sunday to Saturday.</p>
+
+                <p>Default is [0,6] (Saturday and Sunday).</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>zero_pad</strong></td>
+
+            <td class="nowrap" valign="top"><em>boolean</em></td>
+
+            <td valign="top">
+                <p>Should day numbers &lt; 10 be padded with zero?</p>
+
+                <p>When set to TRUE, day numbers &lt; 10 will be prefixed with
+                0.</p>
+
+                <p>Default is FALSE.</p>
+            </td>
+        </tr>
+
+    </tbody>
+</table>

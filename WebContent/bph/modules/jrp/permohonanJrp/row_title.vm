@@ -1,0 +1,22 @@
+<td class="record_header" style="width:200px;font-weight:bold">No. Permohonan<img src="../img/sortdown.png" class="sorting" onclick="sort('noPermohonan')" /></td>
+<td class="record_header" style="width:300px;font-weight:bold">Jenis Permohonan<img src="../img/sortdown.png" class="sorting" onclick="sort('jenisPermohonanJrp.id')" /></td>
+#if($!userRole.equalsIgnoreCase("(JRP) Pemohon")) 
+<td class="record_header" style="width:150px;font-weight:bold" align="center">
+	#if($users.flagHq == 'T') Tarikh Hantar Permohonan ke HQ #else Tarikh Terima Permohonan #end
+<img src="../img/sortdown.png" class="sorting" onclick="sort('tarikhTerima')" /></td>
+#end
+<td class="record_header" style="width:150px;font-weight:bold" align="center">
+#if(!$!userRole.equalsIgnoreCase("(JRP) Pemohon")) Tarikh Terima Permohonan #else Tarikh Hantar Permohonan ke BPH #end
+<img src="../img/sortdown.png" class="sorting" onclick="sort('tarikhTerima')" /></td>
+##<td class="record_header" style="width:300px;font-weight:bold">Kementerian<img src="../img/sortdown.png" class="sorting" onclick="sort('agensi.kementerian.keterangan')" /></td>
+<td class="record_header" style="width:300px;font-weight:bold">Agensi<img src="../img/sortdown.png" class="sorting" onclick="sort('agensi.keterangan')" /></td>
+<td class="record_header" style="width:300px;font-weight:bold">Negeri<img src="../img/sortdown.png" class="sorting" onclick="sort('bandar.negeri.keterangan')" /></td>
+<td class="record_header" style="width:300px;font-weight:bold">Bandar<img src="../img/sortdown.png" class="sorting" onclick="sort('bandar.keterangan')" /></td>
+
+<td class="record_header" style="width:300px;font-weight:bold">Status<img src="../img/sortdown.png" class="sorting" onclick="sort('status.keterangan')" /></td>
+
+<script>
+	$j(document).ready(function () { 
+		_jq('#btnAddNewRecordTemplate').val('Permohonan Baru');
+	});
+</script>

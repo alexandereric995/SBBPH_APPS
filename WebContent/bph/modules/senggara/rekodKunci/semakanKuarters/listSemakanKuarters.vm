@@ -1,0 +1,72 @@
+<fieldset>
+<legend class="legend">SENARAI SEMAKAN KUARTERS</legend>
+<table width="100%" cellpadding="5" cellspacing="1">
+  <tr>
+    <td class="record_header" width="5%" align="center">Bil.</td>
+    <td class="record_header" width="10%" align="center">Tarikh Semakan</td>
+    <td class="record_header" width="15%">Jenis Pembaikan</td>
+    <td class="record_header" width="15%">Ulasan Semakan</td>
+    <td class="record_header" width="10%">Kontraktor</td>
+    <td class="record_header" width="10%" align="center">Tarikh Serah Kunci</td>
+    <td class="record_header" width="10%" align="center">Tarikh Terima Kunci</td>
+    <td class="record_header" width="15%">Ulasan Pembaikan</td>
+    <td class="record_header" width="10%">&nbsp;</td>
+  </tr>
+  #set ($count=0)
+  #if ( $listSemakanLama.size() > 0) 
+  #foreach ($i in $listSemakanLama)
+  #set ($count=$count+1)
+  
+  #if ( ($count % 2) != 1 )
+  #set( $row = "row2" )
+  #else
+  #set( $row = "row1" )
+  #end
+  <tr>
+    <td class="$row" align="center">$count</td>
+    #if ($!i.tarikhLawatan) 
+    #set ($dateLawatanList = "$!util.getDateTime($!i.tarikhLawatan,'dd-MM-yyyy')")
+    #else #set ($dateLawatanList = "-") #end
+    <td class="$row" align="center">$dateLawatanList</td>
+    #if ($!i.flagPembaikan == '1') 
+    #set ($flagPembaikan = "TIADA KEROSAKAN / SEDIA DIDUDUKI")
+    #elseif ($!i.flagPembaikan == '2') 
+    #set ($flagPembaikan = "PEMBAIKAN MELALUI INDEN KERJA")
+    #elseif ($!i.flagPembaikan == '3') 
+    #set ($flagPembaikan = "PEMBAIKAN OLEH AGENSI PELAKSANA / PEMAJU")
+    #else #set ($flagPembaikan = "-") #end
+    <td class="$row">$flagPembaikan</td>
+    <td class="$row">$!i.ulasanLawatan</td>
+    #if ($!i.kontraktor == 'JKR') 
+    #set ($kontraktor = "JKR")
+    #elseif ($!i.kontraktor == 'PJH') 
+    #set ($kontraktor = "PJH")
+    #elseif ($!i.kontraktor == 'PPJ') 
+    #set ($kontraktor = "PPj")
+    #elseif ($!i.kontraktor == 'L') 
+    #set ($kontraktor = $!i.kontraktorLain)
+    #else #set ($kontraktor = "-") #end
+    <td class="$row">$kontraktor</td>
+    #if ($!i.tarikhSerahKontraktor) 
+    #set ($dateSerahKontraktor = "$!util.getDateTime($!i.tarikhSerahKontraktor,'dd-MM-yyyy')")
+    #else #set ($dateSerahKontraktor = "-") #end
+    <td class="$row" align="center">$dateSerahKontraktor</td>
+    #if ($!i.tarikhTerimaKontraktor) 
+    #set ($dateTerimaKontraktor = "$!util.getDateTime($!i.tarikhTerimaKontraktor,'dd-MM-yyyy')")
+    #else #set ($dateTerimaKontraktor = "-") #end
+    <td class="$row" align="center">$dateTerimaKontraktor</td>
+    <td class="$row" >$!i.ulasanPembaikanMajor</td>
+    <td class="$row" >#if ( $!i.fileLaporanKerosakan ) 
+      #if ($!i.fileLaporanKerosakan != "") <a href="../download?file=$!uploadDir$!i.fileLaporanKerosakan" > <font color="#0000FF"><strong>LAPORAN KEROSAKAN</strong></font> </a> &nbsp;&nbsp;
+      #end
+      #end </td>
+  </tr>
+  #end
+  #else
+  <tr >
+    <td align="center">&nbsp;</td>
+    <td colspan="8">Tiada Rekod</td>
+  </tr>
+  #end
+</table>
+</fieldset>

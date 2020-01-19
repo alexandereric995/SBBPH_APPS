@@ -1,0 +1,220 @@
+<nav class="breadcrumbs">
+    <ul>
+        <li>
+            <a href="javascript:void()" onclick="doDivAjaxCall3$formname('entry_page','getPermohonan','')">Maklumat Permohonan</a>
+        </li>
+		<li>
+            <a href="javascript:void()" onclick="doDivAjaxCall3$formname('entry_page','kelulusan1Retrieve','')">Maklumat Peribadi</a>
+        </li>
+		<li class="active">
+            <a href="javascript:void()">Perakuan</a>
+        </li>
+    </ul>
+</nav>
+
+<div id="hantarPermohonan"></div>
+
+#if($currentRoleQTR )
+<fieldset>
+<legend class="legend">(MANUAL) No.Giliran Menunggu (MANUAL)</legend>
+#if ($rekodManual == true)
+<div id="SenaraiMenungguResult" align="center">
+<table border="1" style="width:100%;">
+	<tr>
+		<td class="record_header" nowrap>Kelas</td>
+		<td class="record_header" nowrap>No.Giliran</td>
+		<td class="record_header" nowrap>Lokasi</td>
+	</tr>
+	#foreach( $a in $giliranManual )
+	<tr>
+		<td style="padding-left: 5px;padding-bottom: 3px;"><strong style="font-size: 13px;">$a.kelasKuarters</strong></td>
+		<td style="padding-left: 5px;padding-bottom: 3px;"><strong style="font-size: 13px;">$a.noGiliran</strong></td>
+		<td style="padding-left: 5px;padding-bottom: 3px;"><strong style="font-size: 13px;">$a.lokasiPermohonan.lokasi</strong></td>
+	</tr>
+    #end
+</table>	
+</div>
+#else
+<h3><span style="color: #0000ff;"><span style="color: #FF2419;">***TIADA REKOD DITEMUI DALAM SENARAI MENUNGGU.</span></span></h3>	
+#end
+</fieldset>
+
+##
+###if ($!userRole == '(QTR) Penyedia')
+##<fieldset>
+##<legend class="legend">No.Giliran Menunggu</legend>
+###if ($rekod == true)
+##<div id="SenaraiMenungguResult" align="center">
+##<table border="1" style="width:100%;">
+##	<tr>
+##		<td class="record_header" nowrap>No.Daftar</td>
+##		<td class="record_header" nowrap>Kelas</td>
+##		<td class="record_header" nowrap>No.Giliran</td>
+##		<td class="record_header" nowrap>Lokasi</td>
+##	</tr>
+##	#foreach( $a in $giliran )
+##	<tr>
+##		<td style="padding-left: 5px;padding-bottom: 3px;"><strong style="font-size: 13px;">$a.permohonan.noPermohonan</strong></td>
+##		<td style="padding-left: 5px;padding-bottom: 3px;"><strong style="font-size: 13px;">$a.kelasKuarters</strong></td>
+##		<td style="padding-left: 5px;padding-bottom: 3px;"><strong style="font-size: 13px;">$a.noGiliran</strong></td>
+##		<td style="padding-left: 5px;padding-bottom: 3px;"><strong style="font-size: 13px;">$a.permohonan.lokasi.lokasi</strong></td>
+##	</tr>
+##    #end
+##</table>	
+##</div>
+###else
+##<h3><span style="color: #0000ff;"><span style="color: #FF2419;">***TIADA REKOD DITEMUI DALAM SENARAI MENUNGGU.</span></span></h3>	
+###end
+##</fieldset>
+###end
+
+#end
+
+<fieldset><legend class="legend">#if ($kelasDowngrade != "") Perakuan Turun Kelas (Downgrade) Kuarters #else Kelas Kelayakan #end</legend>
+	<table cellpadding="5" cellspacing="0" border="0" width="100%">
+		<tr>
+            <td style="width:250px"></td>
+            <td style="width:5px"></td>
+            <td></td>
+        </tr>
+		<tr>
+			<td>Kelas Layak</td>
+			<td>:</td>
+			<td><span style="color: #008000; font-weight: bold">$kelasLayak</span></td>
+		</tr>
+	#if( $areaKL != true )
+		#if ( $kelasDowngrade != "" )
+			
+    		<tr>
+    			<td>Kelas Downgrade</td>
+    			<td>:</td>
+    			<td><span style="color: #FF0000; font-weight: bold">$kelasDowngrade</span></td>
+    		</tr>
+    		<tr>
+                <td class="label" style="word-wrap: break-word; width: 500px;">Adakah anda setuju menduduki kuarters yang di bawah gred kelayakan anda?
+                </td>
+                <td>:</td>
+                <td>
+                    <input type="radio" id="flagDowngrade" name="flagDowngrade" value="1" #if($r.flagDowngrade==1) checked="checked" #end />Ya
+                    <input type="radio" id="flagDowngrade" name="flagDowngrade" value="0" #if($r.flagDowngrade==0) checked="checked" #end />Tidak
+                    <div id="err_valueFlagDowngrade" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                    <input type="hidden" id="valueFlagDowngrade" name="valueFlagDowngrade" value="$!r.flagDowngrade"/>
+                    <script>
+                        _jq("input[name='flagDowngrade']").change(function() {
+                            _jq('#valueFlagDowngrade').val(this.value);
+                            _jq('#err_valueFlagDowngrade').html("");
+                        });
+                    </script>
+                </td>
+            </tr>
+        #else
+	        <tr>
+	        	<td class="label" style="word-wrap: break-word; width: 500px;">Adakah anda setuju menduduki kuarters yang dibawah gred kelayakan anda?
+	            </td>
+	            <td>:</td>
+	            <td>
+	                <input type="radio" name="flagDowngrade" value="1" #if($r.flagDowngrade==1) checked="checked" #end disabled />Ya
+	                <input type="radio" name="flagDowngrade" value="0" checked="checked" disabled />Tidak
+	                <div id="err_valueFlagDowngrade" style="color:#CC0000; font-weight:bold; border:2px #000"></div>
+	                <input type="hidden" id="valueFlagDowngrade" name="valueFlagDowngrade" value="0" />
+	            </td>
+			</tr>
+    	#end	
+	#end
+    </table>
+</fieldset>
+<fieldset>
+	<table cellpadding="5" cellspacing="0">
+		<tr>
+			<td class="label" style="word-wrap: break-word; width: 500px;">BPH tidak akan bertanggungjawab sekiranya proses penawaran kuarters tidak dapat dijalankan kerana kegagalan saya mengemaskini data peribadi terkini.
+            </td>
+            <td>:</td>
+            <td>
+            	<input type="checkbox" id="perakuan2" name="perakuan2" value="1" #if ( $r.perakuan == 1 ) checked #end>
+            	<input type="hidden" id="valuePerakuan2" name="valuePerakuan2" value="$!r.perakuan"/>
+            	<div id="err_valuePerakuan2" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                <script>
+                	_jq('#perakuan2').change(function() {
+					   	if(_jq('#perakuan2').is(":checked")) {
+					   		_jq('#valuePerakuan2').val(this.value);
+					   		_jq('#err_valuePerakuan2').html('');
+					   	} else {
+						   	_jq('#valuePerakuan2').val('0');
+						   	_jq('#err_valuePerakuan2').html('');
+					   	}
+					});
+                </script>
+            </td>
+		</tr>
+		<tr>
+			<td class="label" style="word-wrap: break-word; width: 500px;">Saya bersetuju bahawa segala maklumat yang dimasukkan adalah BENAR.Jika didapati terdapat sebarang maklumat yang diberikan adalah PALSU, pihak BPH berhak membatalkan permohonan atau menarik balik kelulusan permohonan tersebut. 
+            </td>
+            <td>:</td>
+            <td>
+            	<input type="checkbox" id="perakuan" name="perakuan" value="1" #if ( $r.perakuan == 1 ) checked #end>
+            	<input type="hidden" id="valuePerakuan" name="valuePerakuan" value="$!r.perakuan"/>
+            	<div id="err_valuePerakuan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                <script>
+                	_jq('#perakuan').change(function() {
+					   	if(_jq('#perakuan').is(":checked")) {
+					   		_jq('#valuePerakuan').val(this.value);
+					   		_jq('#err_valuePerakuan').html('');
+					   	} else {
+						   	_jq('#valuePerakuan').val('0');
+						   	_jq('#err_valuePerakuan').html('');
+					   	}
+					});							
+                </script>
+            </td>
+		</tr>
+		<tr>
+			<td class="label" style="word-wrap: break-word; width: 500px;">Saya dengan ini memberi kebenaran kepada pihak BPH untuk membuat semakan apa-apa maklumat berkaitan dengan Skim Pinjaman/Pembiayaan Perumahan Kerajaan seperti yang telah tertakluk pada Pekeliling Perkhidmatan Bilangan 13 Tahun 2007 (Mengosongkan Rumah Biasa Kerajaan). 
+            </td>
+            <td>:</td>
+            <td>
+            	<input type="checkbox" id="perakuan3" name="perakuan3" value="1" #if ( $r.perakuan == 1 ) checked #end>
+            	<input type="hidden" id="valuePerakuan3" name="valuePerakuan3" value="$!r.perakuan"/>
+            	<div id="err_valuePerakuan3" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                <script>        	
+					
+					_jq('#perakuan3').change(function() {
+					   	if(_jq('#perakuan3').is(":checked")) {
+					   		_jq('#valuePerakuan3').val(this.value);
+					   		_jq('#err_valuePerakuan3').html('');
+					   	} else {
+						   	_jq('#valuePerakuan3').val('0');
+						   	_jq('#err_valuePerakuan3').html('');
+					   	}
+					});
+                </script>
+            </td>
+		</tr>		
+    </table>
+</fieldset>
+
+<div id="simpanCatatan"></div>
+
+#if($currentRoleQTR )
+	#parse("$path/sub_page/catatanPermohonan/senaraiCatatanPermohonan.vm")
+#end
+
+<table cellpadding="5" cellspacing="0" border="0" width="100%">
+	<tr>
+		<td colspan="3" align="right">			
+		#if( !$currentRoleQTR )
+				#if ( $r.status.id == "1419483289675")
+					<input type="button" id="btnHantarPermohonan" name="btnHantarPermohonan" value="Hantar Permohonan" onclick="hantarPermohonan();" />
+				#else
+					<input type="button" id="btnKemaskiniPermohonan" name="btnKemaskiniPermohonan" value="Kemaskini Permohonan" onclick="kemaskiniPermohonan();" />
+				#end
+        	#else
+				<input type="button" id="btnCetakRingkasanPermohonan" name="btnCetakRingkasanPermohonan" value="Cetak Ringkasan Permohonan" onclick="cetakRingkasanPermohonan('$r.id');" />
+				<input type="button" id="btnTolakPermohonan" name="btnTolakPermohonan" value="Tolak Permohonan" onclick="tolakPermohonan();" />
+				#if ( $r.status.id == "1431327994524" || $r.status.id == "1419483289678" || $r.status.id == "1419601227590" || $r.status.id == "1423101446114" || $r.status.id == "1431263251958" || $r.status.id == "1431292165723" || $r.status.id == "1431405647231" || $r.status.id == "1431405647234" || $r.status.id == "1431405647299" || $r.status.id == "1423101446117" || $r.flagMohonDowngrade=="Y" || $r.flagMohonUpgrade=="Y" || $r.flagMohonTukar=="Y")
+					<input type="button" id="btnHantarSemakan" name="btnHantarSemakan" value="Hantar Ke Senarai Menunggu" onclick="hantarSemakan();" />
+				#end
+			#end
+			<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,62 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#senaraiRayuan').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+
+<fieldset>
+    <legend class="legend">Maklumat Rayuan</legend>
+    
+	<table cellpadding="5" cellspacing="0" border="0">
+		<tr>
+			<td>
+				<input type="button" id="btnDaftar" name="btnDaftar" value="Daftar Baru" onclick="doDivAjaxCall3$formname('detailRayuan','daftarRayuan','')" /> 
+			</td>
+		</tr>
+	</table>
+	
+	<table id="senaraiRayuan" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Bil.</th>
+                <th align="left">Jenis Rayuan</th>
+        		<th align="left">Tarikh Rayuan</th>
+                <th align="left">Tarikh Maklumbalas</th>
+        		<th></th>
+            </tr>
+        </thead>
+		
+		<tbody>
+			#set( $count = 0 )
+    		#foreach ( $ray in $rayuan )
+    			#set ( $count = $count + 1 )
+				<tr>
+                    <td>$count</td>
+                    <td>$!ray.jenisRayuan.keterangan</td>
+                    #if ($ray.tarikhRayuan)
+                    	#set($tarikhRayuan = $util.getDateTime($ray.tarikhRayuan, "dd-MM-yyyy"))
+                    #else
+                    	#set($tarikhRayuan = "-")
+                    #end
+                    <td>$tarikhRayuan</td>
+                    #if ($ray.tarikhMaklumbalas)
+                    	#set($tarikhMaklumbalas = $util.getDateTime($ray.tarikhMaklumbalas, "dd-MM-yyyy"))
+                    #else
+                    	#set($tarikhMaklumbalas = "-")
+                    #end
+                    <td>$tarikhMaklumbalas</td>
+                    <td>
+                    	<a href="#" onclick="doDivAjaxCall3$formname('detailRayuan','paparRayuan','idRayuan=$!ray.id')">
+                    		<input type="button" id="btnPapar" name="btnPapar" value="Papar" />
+                    	</a>
+                    </td>
+                </tr>
+			#end
+		</tbody>
+    </table>
+	
+</fieldset>

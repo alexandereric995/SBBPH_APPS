@@ -1,0 +1,31 @@
+<style>
+	.uppercasefont{
+		text-transform: uppercase !important;
+	}
+</style>
+
+
+#if($!userRole.equalsIgnoreCase("(RPP) Penyedia"))
+#parse("bph/modules/rpp/templates/maklumatPemohon.vm")
+#end
+
+#parse("bph/modules/rpp/templates/maklumatPermohonan.vm")
+
+#parse("bph/modules/rpp/templates/maklumatTempahan.vm")
+
+<br/>
+
+<div id="divForm">#parse("$path/maklumatPembatalan.vm")</div>
+
+<div id="statusUpdate"></div>
+
+
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

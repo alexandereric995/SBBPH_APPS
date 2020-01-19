@@ -1,0 +1,20 @@
+	
+	#if( $r )
+    	<div id="divSummary">#parse("$path/summary.vm")</div> ##SUMMARY AFTER TEMPAH
+    #else
+		##SEMENTARA
+		##if($!objUser.userName.equalsIgnoreCase("SUPER ADMIN HLA"))
+        	#if($!blockBooking || $!blacklisted || !$!bukaUntukDitempah || !$!accountInfoExist || $!bookingFail || !$!flagPenggunaAktif )
+        		#parse("$path/notis.vm")
+        	#else
+        		#parse("$path/maklumatTempahan.vm")
+    		#end
+		##else
+		##	<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px;font-size:14px">
+        ##		<p>
+        ##			<strong>MAAF, PERMOHONAN TEMPAHAN DITUTUP SEMENTARA BAGI PROSES PENYELENGGARAAN.</strong>
+        ##	    </p>
+        ##	</div>
+		##end	
+    	
+	#end

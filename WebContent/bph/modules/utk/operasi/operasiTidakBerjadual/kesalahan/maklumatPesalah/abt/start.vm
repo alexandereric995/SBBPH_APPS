@@ -1,0 +1,64 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#penghuniABT').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+
+<fieldset><legend class="legend">Maklumat ABT</legend>
+##	<p align="left">
+## 	<input type="button" value="Tambah" align='left' id="cmdTambahABT">
+##	</p>
+##	
+	<br /><br />
+	<table id="penghuniABT" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Bil.</th>
+                <th>Jumlah Tunggakan (RM)</th>
+                <th>Status Bayaran</th>
+                <th>Papar</th>
+            </tr>
+        </thead>
+		
+		<tbody>
+			#set( $count = 0 )
+    		#foreach ( $c in $abtList )
+    			#set ( $count = $count + 1 )
+                <tr>
+                    <td align="center" >$count</td>
+                    <td align="center" >$util.formatDecimal($c.amaun)</td>
+                    #if($!c.flagBayaran == '1')
+                  		#set($statusBayaran = 'BELUM BAYAR')
+                 	#elseif($!c.flagBayaran == '2')
+                  		#set($statusBayaran = 'TELAH BAYAR')
+                  	#else
+                  		#set($statusBayaran = '')
+                  	#end
+                    <td align="center" >$statusBayaran</td>
+                    <td align="center" ><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a></td>
+                </tr>
+                <script>
+                    _jq('#link$c.id').on('click', function(){
+                    	
+						doDivAjaxCall3$formname('editpopup','editABT','idABT=$c.id');
+                        jQuery('#editpopup').fadeIn();
+                    });
+                </script>
+			#end
+		</tbody>
+    </table>
+    
+</fieldset>
+
+<div id="addpopup" class="popup"></div>
+<div id="editpopup" class="popup"></div>
+<script>
+        _jq('#cmdTambahABT').on('click', function(){
+			doDivAjaxCall3$formname('addpopup','addABT','');
+            jQuery('#addpopup').fadeIn();
+        });
+    </script>

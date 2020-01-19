@@ -1,0 +1,16 @@
+#if($command == 'addNotis')
+<select class="texts" id="idJenisNotis" name="idJenisNotis" style="width:80%" onChange="$('err_idJenisNotis').innerHTML=''; doDivAjaxCall3$formname('selectFlagPeringatan','selectFlagPeringatan','')">
+    <option value="">SILA PILIH</option>
+    <option #if ( $rekod.flagJenisNotis == '1' ) selected #end value="1">NOTIS PERINGATAN</option>
+    <option #if ( $rekod.flagJenisNotis == '2' ) selected #end value="2">NOTIS PENGOSONGAN</option>
+    <option #if ( $rekod.flagJenisNotis == '3' ) selected #end value="2">NOTIS BAYARAN SEWA</option>
+</select>
+#else
+<input type="hidden" id="idJenisNotis" name="idJenisNotis" value="$rekod.flagJenisNotis"/>
+	#if($rekod.flagJenisNotis == '1')
+		#set($flagNotis = 'NOTIS PERINGATAN')
+	#elseif($rekod.flagJenisNotis == '2')
+		#set($flagNotis = 'NOTIS PENGOSONGAN')
+	#end
+$flagNotis
+#end

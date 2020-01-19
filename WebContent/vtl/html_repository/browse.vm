@@ -1,0 +1,276 @@
+<table width="100%">
+    <tr>
+		<td style="font-family: 'Segoe UI_','Open Sans',Verdana,Arial,Helvetica,sans-serif; font-size: 13px; font-weight: bold; letter-spacing: 1px;">
+			Root Dir: <i>$root</i>
+		</td>
+	</tr>
+</table>
+
+<table width="100%" border="0">
+	<tr>
+		<td colspan="2">
+			<table width="100%"  bgcolor="lightgrey">
+				<tr>
+					<td>
+    					#if ( $dir != "" ) 
+    						<a href="?dir=$upDir">
+								[Up]
+    						</a>
+    					#end
+					&nbsp;
+					<a href="?dir=">
+						<b>..</b>
+					</a>						
+					&nbsp;\ &nbsp;
+					<b>
+    					#foreach ( $d in $dirs)
+    						<a href="?dir=$goDirTbl.get($d)">
+								$d
+    						</a>
+    						&nbsp;\ &nbsp;								
+    					#end
+					</b>
+
+					</td>
+					<td align="right">
+
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top" width="60%">
+			<form name="listfiles" method="post">
+			<table width="100%" border="0" cellpadding="2" cellspacing="1">
+				<tr>
+					<td class="table_header" align="center" width="25px">
+						
+					</td>
+					<td class="table_header" align="center" width="15px">
+
+					</td>					
+					<td class="table_header" align="center" width="25px">
+
+					</td>
+					<td class="table_header">
+						<b>Name</b>
+					</td>
+					<td class="table_header" align="center" width="50px">
+						<b>Size</b>
+					</td>
+					
+					<td class="table_header" align="center" width="100px">
+						<b>Date</b>
+					</td>
+				</tr>
+				#set ( $count = 0 )
+				#foreach ( $name in $folders )
+					#set ( $next_dir = "" )
+					#set ( $count = $count + 1 )
+					
+					#if ( $count % 2 == 0 ) #set ( $className = "table_row" ) #else #set ( $className = "table_row2" ) #end
+
+					#if ( $dir == "" ) 
+						#set ($next_dir = "/$name" )
+					#else
+						#set ($next_dir = "$dir/$name" )
+					#end
+    				<tr id="row_$count">
+						<td align="center" class="$className">
+							$count
+    					</td>
+    					<td align="center" valign="middle" width="10" class="$className">
+    						<input type="checkbox" name="folders" value="$name">
+    					</td>					
+    					<td align="center" valign="middle" width="10" class="$className">
+    						<a href="?dir=$next_dir">
+								<img src="/$appname/img/filefolder.gif" border="0">
+    						</a>
+    					</td>
+    					<td valign="middle" class="$className">
+    						<a href="?dir=$next_dir" style="text-decoration:none">
+								$name
+    						</a>
+    					</td>
+    					<td class="$className">
+							&nbsp;
+    					</td>
+    					<td width="20px" class="$className">
+							&nbsp;
+    					</td>
+    				</tr>
+				#end
+
+				#foreach ( $name in $names )
+					#set ( $count = $count + 1 )
+					
+					#if ( $count % 2 == 0 ) #set ( $className = "table_row" ) #else #set ( $className = "table_row2" ) #end
+    				<tr id="row_$count">
+    					<td align="center" class="$className">
+    						$count
+    					</td>
+    					<td valign="middle" align="center" width="10" class="$className">
+    						<input type="checkbox" name="files" value="$name.fileName">
+    					</td>				
+    					<td valign="middle" align="center" width="10" class="$className">
+    						<a target="_new" href="../cdownload?name=$name">
+    							<img src="/$appname/img/write.gif" border="0">
+    						</a>
+    					</td>
+    					<td valign="middle" class="$className">
+##    						<a target="_new" href="http://${server}/$root/$dir/$name.fileName" style="text-decoration:none">
+    						<a href="javascript:openInEditor('$name.fileName')">
+    							$name.fileName
+    						</a>
+    						#if ( $util.isHtmlFile("$name.fileName") )
+    						[
+    						<a href="javascript:openInEditor('$name.fileName')">EDIT</a>
+    						]
+    						#end
+    					</td>
+    					<td align="center" valign="middle" class="$className">
+    						$name.size
+    					</td>
+    					<td align="center" valign="top" class="$className">
+                            $util.getDateTime($name.lastModified, "d MMM yyyy")</br>
+                            $util.getDateTime($name.lastModified, "hh:mm:ss")</BR>
+    					</td>
+    				</tr>
+				#end
+
+				<tr>
+					<td colspan="3">
+					
+					</td>
+				</tr>
+			</table>
+			</form>
+		</td>
+		<td valign="top" width="50%">
+			<form name="f2" method="post" action="?dir=$dir">
+				<table width="100%" border="0" style="border: 1px solid #ccc">
+					<tr>
+						<td colspan="2" bgcolor="lightgrey">
+							<b>Create New File</b>
+						</td>
+					</tr>	
+					<tr>
+    					<td>
+							<input name="fileName">
+							<input type="submit" value="Create New File">
+						</td>
+					</tr>
+				</table>
+				<input type="hidden" name="command" value="newfile">
+			</form>
+		
+			<form name="f" method="post" action="?dir=$dir">
+				<table width="100%" border="0" style="border: 1px solid #ccc">
+					<tr>
+						<td colspan="2" bgcolor="lightgrey">
+							<b>Create New Folder</b>
+						</td>
+					</tr>	
+					<tr>
+						<td>
+							<input name="foldername">
+							<input type="submit" value="Create">
+						</td>
+					</tr>
+				</table>
+				<input type="hidden" name="command" value="createfolder">
+			</form>		
+
+			<form method="post" action="?dir=$dir&command=uploadfile" name="f" enctype="multipart/form-data">
+				<table width="100%" border="0" style="border: 1px solid #ccc">
+					<tr>
+						<td colspan="2" bgcolor="lightgrey">
+							<b>Upload File</b>
+						</td>
+					</tr>	
+					<tr>
+						<td>
+							<input id="fileupload" name="fileupload" type=file>
+							<input type="submit" name="Submit" value="Upload">
+						</td>
+					</tr>
+				</table>
+			</form>
+
+			<form method="post" action="?dir=$dir&command=uploadpif" name="pif" enctype="multipart/form-data">
+				<table width="100%" border="0" style="border: 1px solid #ccc">
+					<tr>
+						<td colspan="2" bgcolor="lightgrey">
+							<b>Upload a ZIP file and extract automatically</b>
+						</td>
+					</tr>	
+					<tr>
+						<td>
+    						<input id="fileupload" name="fileupload" type=file>
+    						<input type="submit" name="Submit" value="Upload">
+						</td>
+					</tr>
+				</table>
+			</form>
+			
+			<form method="post">
+				<table width="100%" border="0" style="border: 1px solid #ccc">
+					<tr>
+						<td colspan="2" bgcolor="lightgrey">
+							<b>Delete selected files/folders</b>
+						</td>
+					</tr>	
+					<tr>
+						<td>
+							Check the files/folders to delete</br>
+							and click this button <input type="button" value="Delete" onclick="doDelete()">
+						</td>
+					</tr>
+				</table>
+			</form>			
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+
+		</td>
+	</tr>	
+</table>
+
+<form name="form_2" method="post">
+	<input type="hidden" name="course_id">
+	<input type="hidden" name="file">
+	<input type="hidden" name="dir">
+</form>
+
+<script>
+function delete_file(name, dir) {
+	if ( !confirm("Delete " + name + " ?") ) return;
+	document.form_2.action = "?command=delete";
+	document.form_2.file.value = name;
+	document.form_2.dir.value = dir;
+	document.form_2.submit();
+}
+
+function open_manifest(course_id) {
+	document.form_2.action = "?command=prepare";
+	document.form_2.course_id.value = course_id;
+	document.form_2.submit();
+}
+
+function doDelete() {
+	if ( !confirm("Delete selected files?  Are you Sure?") ) return;
+	document.listfiles.action = "?command=deletefiles";
+	document.listfiles.submit();
+}
+
+function openInEditor(fileName) {
+	window.open('../x/${securityToken}/lebah.util.FCKEditorModule?command=edit&fileName=' + fileName,'mywindow','width=600,height=400,toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,copyhistory=yes,resizable=yes');
+}
+
+function createFolder() {
+    document.f.command.value = "createfolder";
+    document.f.submit();
+}
+</script>

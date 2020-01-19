@@ -1,0 +1,26 @@
+<style type="text/css">
+
+.blink {
+	animation: blink 1s steps(5, start) infinite;
+}
+@keyframes blink {
+ to {
+ visibility: hidden;
+}
+</style>
+
+<td>$!r.kontraktor.id</td>
+<td>$!r.kontraktor.namaKontraktor</td>
+<td>$!r.kontraktor.namaPemilik</td>
+<td>$!r.kontraktor.kawasan.lokasi</td>
+<td align="center">$!r.tahun</td>
+#if ($!r.flagHadirCabutan == 'Y')
+	<td align="center">$!r.turutan</td>
+#else
+	<td align="center">-</td>
+#end
+
+<td align="center">
+#if ($!r.kontraktor.getStatusSenaraiHitam() == 'Y') <font class="blink" color="red"><b>( SENARAI HITAM ) </b></font><br/> #end
+#if ($!r.kontraktor.getStatusPP() == 'T' || $!r.kontraktor.getStatusSPKK() == 'T' || $!r.kontraktor.getStatusSTB() == 'T' || $!r.kontraktor.getStatusST() == 'T') <font class="blink" color="red"><b>( SIJIL SOKONGAN TAMAT TEMPOH )</b></font><br/> #end
+</td>

@@ -1,0 +1,92 @@
+#set ( $m_arr = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55])
+<form name="planner" method="post">
+<table>
+	<tr>
+		<td colspan="2">
+			Add Task
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Select Date:
+		</td>
+		<td>
+			<select name="day1">
+			#foreach( $x in [1..31] )
+				<option value="$x">$x</option>
+			#end
+			</select>
+			<select name="month1">
+			#foreach( $x in [1..12] )
+				<option value="$x">$x</option>
+			#end
+			</select>
+			<input name="year1" value="2004" size="5">
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			Task Description: 
+		</td>
+		<td>
+			<textarea name="description" cols="50" rows="3"></textarea>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Time:
+		</td>
+		<td>
+			<select name="hour1">
+			#foreach( $x in [8..23] )
+				<option value="$x">$x</option>
+			#end
+			</select>
+			<select name="minute1">
+			#foreach( $x in $m_arr )
+				<option value="$x">$x</option>
+			#end
+			</select>
+
+			To:
+			<select name="hour2">
+			#foreach( $x in [8..23] )
+				<option value="$x">$x</option>
+			#end
+			</select>
+			<select name="minute2">
+			#foreach( $x in $m_arr)
+				<option value="$x">$x</option>
+			#end
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Task is public?
+		</td>
+		<td>
+			<select name="public">
+			#foreach( $x in [0..1] )
+				<option value="$x">$x</option>
+			#end
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="hidden" name="planner_action">
+			<input type="hidden" name="dejavu" value="$dejavu">
+			<input type="button" value="Add" onclick="dotask('insert')">
+			<input type="button" value="Cancel" onclick="dotask('cancel')">
+		</td>
+	</tr>
+</table>
+</form>
+<script>
+function dotask(id) {
+	document.planner.action = "";
+	document.planner.planner_action.value = id;
+	document.planner.submit();
+}
+</script>

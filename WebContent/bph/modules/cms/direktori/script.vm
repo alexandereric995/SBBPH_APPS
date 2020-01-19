@@ -1,0 +1,119 @@
+
+##*************************** START SENARAI DIREKTORI KETUA BAHAGIAN ********************
+function validateKetuaBahagian(){
+	var err_count = 0;
+	
+	var nama = $('nama').value;
+	if ( nama == "" ) {$('err_nama').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var jawatan = $('jawatan').value;
+	if ( jawatan == "" ) {$('err_jawatan').innerHTML = "** mandatori!"; err_count++;  }
+	
+##	diminta untuk disable mandatori pada 30-06-2016 Edit ByZul
+##	var email = $('email').value;
+##	if ( email == "" ) {$('err_email').innerHTML = "** mandatori!"; err_count++;  }
+##	
+##	var noTelefon = $('noTelefon').value;
+##	if ( noTelefon == "" ) {$('err_noTelefon').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** mandatori!"; err_count++;  }
+	
+	return err_count == 0; 
+}
+
+function saveKetuaBahagian() {
+	if ( validateKetuaBahagian() ){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('divTab','saveKetuaBahagian','');
+	}
+}
+
+function deleteKetuaBahagian(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','deleteKetuaBahagian','idKetuaBahagian='+id);
+}
+##*************************** END SENARAI DIREKTORI KETUA BAHAGIAN ********************
+
+
+##*************************** START SENARAI STAF UNIT ********************
+function validateStafUnit(){
+	var err_count = 0;
+	
+	var nama = $('nama').value;
+	if ( nama == "" ) {$('err_nama').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var jawatan = $('jawatan').value;
+	if ( jawatan == "" ) {$('err_jawatan').innerHTML = "** mandatori!"; err_count++;  }
+	
+##	diminta untuk disable mandatori pada 30-06-2016 Edit ByZul
+##	var email = $('email').value;
+##	if ( email == "" ) {$('err_email').innerHTML = "** mandatori!"; err_count++;  }
+##	
+##	var noTelefon = $('noTelefon').value;
+##	if ( noTelefon == "" ) {$('err_noTelefon').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var flagKetua = $('flagKetua').value;
+	if ( flagKetua == "" ) {$('err_flagKetua').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** mandatori!"; err_count++;  }
+	
+	return err_count == 0; 
+}
+
+function saveStafUnit() {
+	if ( validateStafUnit() ){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('divTab','saveStafUnit','');
+	}
+}
+
+function deleteStafUnit(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','deleteStafUnit','idStafUnit='+id);
+}
+##*************************** END SENARAI STAF UNIT  ********************
+
+##*************************** START PROFIL FOTO *************************
+function uploadProfilePhoto(idDirektori) {
+	$('err_profilePhoto'+idDirektori).innerHTML = '';
+	
+	var err_count = 0;
+	if ($('profilePhoto'+idDirektori).value != "" && !checkDoc($('profilePhoto'+idDirektori).value)) {
+		err_count++;
+    	$('profilePhoto'+idDirektori).value = "";
+    	$('err_profilePhoto'+idDirektori).innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg atau jpg)';
+    }
+    
+    if (err_count == 0) {
+    	if ( window.confirm("Anda pasti?") ){
+	    	$('profilePhotoMuatnaik'+idDirektori).style.display = "";
+	    	document.${formName}.enctype='multipart/form-data';
+	    	document.${formName}.encoding ='multipart/form-data';
+	    	document.${formName}.target='upload_profil_photo';
+	    	document.${formName}.action='?command=uploadProfilPhoto&idDirektori='+idDirektori;
+	    	document.${formName}.submit();
+	    	$('profilePhoto'+idDirektori).value = "";
+	    }
+    }
+}
+
+function checkDoc(val){
+	var arr = val.split(".");
+    var arr1 = val.split("\\");
+    if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" ) {
+    	return true;
+    } else {
+    	return false;
+    }
+}
+##*************************** END PROFIL FOTO *************************

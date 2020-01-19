@@ -1,0 +1,30 @@
+function validate() {
+	var err_count = 0;	
+	return err_count == 0;
+}
+
+function doSaveRekod() {
+	var err_count = 0;	
+
+	var tarikhMula = $('tarikhMula').value;
+	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tarikhTamat = $('tarikhTamat').value;
+	if ( tarikhTamat == "" ) {$('err_tarikhTamat').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var masaMula = $('masaMula').value;
+	if ( masaMula == "" ) {$('err_masaMula').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var masaTamat = $('masaTamat').value;
+	if ( masaTamat == "" ) {$('err_masaTamat').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var keterangan = $('keterangan').value;
+	if ( keterangan == "" ) {$('err_keterangan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divResult','simpanRekod','')
+	}
+}

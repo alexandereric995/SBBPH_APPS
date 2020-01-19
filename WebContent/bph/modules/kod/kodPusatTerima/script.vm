@@ -1,0 +1,26 @@
+function validate() {
+	var err_count = 0;
+	
+	var unit = $('unit').value;
+	if ( unit == "" ) {$('err_unit').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var kodPusatTerima = $('kodPusatTerima').value;
+	if ( kodPusatTerima == "" ) {$('err_kodPusatTerima').innerHTML = "** mandatori!"; err_count++;  } else {
+		if ( $('semakanKodPusatTerima').value == "Y" ) {$('err_kodPusatTerima').innerHTML = "KOD TELAH DIDAFTARKAN!"; err_count++;  }
+	}
+	
+	var kodPenyataPemungut = $('kodPenyataPemungut').value;
+	if ( kodPenyataPemungut == "" ) {$('err_kodPenyataPemungut').innerHTML = "** mandatori!"; err_count++;  } else {
+		if ( $('semakanKodPenyataPemungut').value == "Y" ) {$('err_kodPenyataPemungut').innerHTML = "KOD TELAH DIDAFTARKAN!"; err_count++;  }
+	}
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}

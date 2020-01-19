@@ -1,0 +1,61 @@
+$dateFormat.applyPattern("dd MMM, yyyy")
+<table width="100%" cellpadding="0" cellspacing="2">
+#foreach( $a in $announcements )
+<tr>
+
+
+#if ( $is_announcement_admin )
+<td style="width:10px;" valign="top">
+<input type="checkbox" name="announcement_ids" value="$a.id">
+#if ( $a.dateExpired )
+#if ( $_util.dateBefore($a.dateExpired, $_today) )
+<br/><img src="../img/_wrong.png" border="0">
+#end
+#end
+</td>
+
+#end
+
+<td>
+
+<table width="100%" cellspacing="0">
+<tr>
+<td style="font-weight:bold;font-size:11pt;color:#000;background-color:#f4f4f4">$!a.title</td>
+</tr>
+
+<tr>
+<td style="font-size:8pt;background-color:#f4f4f4">
+$dateFormat.format($a.datePosted) ##, $timeFormat.format($a.datePosted)
+#if ( $a.dateExpired )
+-
+$dateFormat.format($a.dateExpired) ##, $timeFormat.format($a.dateExpired)
+#end
+</td>
+</tr>
+
+<tr>
+<td style="font-size:10pt;color:#000">
+
+<div style="margin:20px;">
+
+$_util.putLineBreak($_util.displayText($a.text, 300)) ...
+
+##<b><a href="javascript:void()" style="font-size:10pt;color:#000" onclick="openView('$_moduleId');doDivAjaxCall$formname('view_${_moduleId}','view_announcement','announcement_id=$a.id')">Read More</a></b>
+
+<input type="button" class="rounded" value="Read More" onclick="openView('$_moduleId');doDivAjaxCall$formname('view_${_moduleId}','view_announcement','announcement_id=$a.id')"> 
+
+#if ( $is_announcement_admin)
+##[<a href="javascript:void()"  style="font-size:10pt;color:#000" onclick="doDivAjaxCall$formname('div_${_moduleId}','edit_announcement','announcement_id=$a.id')">Edit</a>]
+<input type="button" class="rounded" value="Edit" onclick="doDivAjaxCall$formname('div_${_moduleId}','edit_announcement','announcement_id=$a.id')">
+#end
+
+</div>
+
+</td>
+</tr>
+</table>
+
+</td></tr>
+#end
+
+</table>

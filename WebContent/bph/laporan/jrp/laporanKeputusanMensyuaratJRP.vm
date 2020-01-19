@@ -1,0 +1,105 @@
+<fieldset>
+<legend class="legend">Laporan Keputusan Mesyuarat Jawatankuasa Ruang Pejabat</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  <tr>
+	<td class="label">Tarikh Mesyuarat</td>
+	<td class="label">:</td>
+	<td>
+		<input type="text" id="tarikhMesyuarat" style="width:100px;" name="tarikhMesyuarat style="width: 50%">
+		<script>
+        _jq(function() {
+        	jQuery("#tarikhMesyuarat").datepicker({ 
+        		dateFormat: "dd-mm-yy",
+				showOn: "both",
+				buttonImageOnly: true,
+				buttonImage: "../img/calendar_icon.gif",
+				buttonText: "Calendar",
+        	});
+        });
+		</script>
+		<div id="err_tarikhMesyuarat" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+<tr>
+	<td class="label">Sehingga</td>
+	<td class="label">:</td>
+	<td>
+		<input type="text" id="tarikhMesyuaratHingga" style="width:100px;" name="tarikhMesyuaratHingga" value="$!r.tarikhTerimaHingga" style="width: 50%">
+		<script>
+        _jq(function() {
+        	jQuery("#tarikhMesyuaratHingga").datepicker({ 
+        		dateFormat: "dd-mm-yy",
+				showOn: "both",
+				buttonImageOnly: true,
+				buttonImage: "../img/calendar_icon.gif",
+				buttonText: "Calendar",
+        	});
+        });
+		</script>
+		<div id="err_tarikhMesyuaratHingga" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+  <tr>
+    <td class="label">Negeri</td>
+    <td>:</td>
+    <td>#parse("$path/findNegeri.vm")</td>
+  </tr>
+   <tr>
+    <td></td>
+    <td></td>
+    <td><div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td> 
+  </tr>
+ 
+  <tr>
+    <td class="label">Kementerian<td>:</td><td>
+	<span id="selectDaerah">#parse("$path/findKementerian.vm")</span>
+     </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td><div id="err_idKementerian" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td> 
+  </tr>
+  <tr>
+    <td class="label">Agensi</td>
+    <td>:</td>
+    <td><div id="findAgensi"> #parse("$path/findAgensi.vm") </div></td>
+  <tr>
+  <td class="label">Status Mesyuarat</td>
+  <td>:</td>
+  <td><select style="width:100%" name="StatusMesyuarat" id="StatusMesyuarat" class="texts">
+  <option value="">SILA PILIH</option>
+  <option value="L">LULUS</option>
+  <option value="LB">LULUS BERSYARAT</option>
+  <option value="TL">TOLAK</option>
+  <option value="TG">TANGGUH</option>
+  </select>
+  </td>
+  </tr>  
+    </tr>
+    <tr>
+    <td class="label">No Siri Mesyuarat</td>
+    <td>:</td>
+    <td><input type="text" name="bilMesyuarat"></td>
+  </tr>
+<tr>
+	<td></td>
+	<td class="label"></td>
+	<td><input type="button" name="cmdCetak" id="cmdCetak" value="Jana Laporan" onclick="javascript:doCetakLaporanKeputusanMensyuaratJRP()"/><input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/></td>
+</tr>
+</table>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

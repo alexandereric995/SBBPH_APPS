@@ -1,0 +1,105 @@
+<fieldset>
+<legend class="legend">MAKLUMAT BON</legend>
+	<table width="100%" cellpadding="1" cellspacing="2">
+		<tr>
+			<td class="label" style="width:15%">&nbsp;</td>
+			<td style="width:1%">&nbsp;</td>
+			<td style="width:84%">&nbsp;</td>
+		</tr>
+		<tr>
+    		<td colspan="3" class="label">
+    		<input type="button" id="addMaklumatBon" name="addMaklumatBon" value="Tambah">
+			<script>
+				_jq('#addMaklumatBon').on('click', function(){
+					doDivAjaxCall3$formname('editMaklumatBon','addMaklumatBon','');
+				    jQuery('#editMaklumatBon').fadeIn();
+				});
+			</script>
+			<br />
+			<br />
+			<table width="100%" cellpadding="5" cellspacing="1">
+				<tr>
+					<td class="row_header" width="5%">Bil.</td>
+					<td class="row_header" width="20%">Jenis Jaminan</td>
+					<td class="row_header" width="30%">No. Rujukan Bon</td>
+					<td class="row_header" width="15%">Nilai Bon (RM)</td>
+					<td class="row_header" width="15%">Tarikh Luput</td>
+					<td class="row_header" width="15%">Tarikh Release Bon</td>
+					<td class="row_header" width="15%">Status Bon</td>
+					<td class="row_header" width="5%">Papar</td>
+					<td class="row_header" width="5%">Hapus</td>
+				</tr>
+		        #set ( $count = 0 )
+		        #if ( $listMaklumatBon.size() > 0) 
+			        #foreach( $c in $listMaklumatBon )
+				        #set ( $count = $count + 1)
+				        
+				        #if ( $count % 2 == 0 ) 
+				        #set ( $rowcolor = "#D0CFCE" ) 
+				        #else 
+				        #set ( $rowcolor = "#F0F0F0" ) 
+				        #end
+				        <tr bgcolor="$rowcolor">
+				          <td align="center">$count</td>
+				          <td align="center">$c.jaminan.keterangan</td>
+				          <td align="center">$c.noRujukan</td>
+				          <td align="center">$!util.formatDecimal($c.nilaiBon)</td>
+				          
+				          #if ($c.tarikhLuput) 
+				          	#set ($dateLuput="$!util.getDateTime($c.tarikhLuput,'dd-MM-yyyy')") 
+				          #else 
+				          	#set ($dateLuput="") 
+				          #end
+				          <td align="center">$dateLuput</td>
+				          
+				          #if ($c.tarikhReleaseBon) 
+				          	#set ($dateTarikhReleaseBon="$!util.getDateTime($c.tarikhReleaseBon,'dd-MM-yyyy')") 
+				          #else 
+				          	#set ($dateTarikhReleaseBon="") 
+				          #end
+				          <td align="center">$dateTarikhReleaseBon</td>
+				           <td align="center">$c.namaBank</td>
+				          
+				          
+				##          #if ($c.status == 'Y')
+				##          <td align="center">AKTIF</td>
+				##          #elseif ($c.status == 'T')
+				##          <td align="center">TIDAK AKTIF</td>
+				##          #else
+				##          <td align="center">-</td>
+				##          #end
+				         
+				          
+				          <td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> </td>
+				          <td align="center"><a href="javascript:void()" onClick="deleteMaklumatBon('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+				        </tr>
+				        <script>
+				            _jq('#link$c.id').on('click', function(){
+								doDivAjaxCall3$formname('editMaklumatBon','editMaklumatBon','idMaklumatBon=$c.id');
+				                jQuery('#editMaklumatBon').fadeIn();
+				            });
+				        </script>
+			        #end
+		        #else
+					<tr >
+						<td align="center">&nbsp;</td>
+						<td ><strong>TIADA REKOD</strong></td>
+						<td align="center">&nbsp;</td>
+						<td align="center">&nbsp;</td>
+						<td align="center">&nbsp;</td>
+						<td align="center">&nbsp;</td>
+						<td align="center">&nbsp;</td>
+					</tr>
+		        #end
+			</table>
+		</td>
+	</tr>
+</table>
+</fieldset>
+
+#parse("$path/status.vm")
+
+## Popup popupMaklumatBon.vm
+<div id="editMaklumatBon" class="popup"></div>
+## Blank status page
+<div id="removeMaklumatBon"></div>

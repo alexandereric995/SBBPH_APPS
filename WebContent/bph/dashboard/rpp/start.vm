@@ -1,0 +1,240 @@
+#parse("bph/dashboard/style.vm")
+#parse("$path/script.vm")
+
+#if($!portal_role.equalsIgnoreCase("(RPP) Penyedia") || $!portal_role.equalsIgnoreCase("(RPP) Penyemak") || $!portal_role.equalsIgnoreCase("(RPP) Pelulus") || $!portal_role.equalsIgnoreCase("(RPP) Penyelia") )
+	
+	##<div id="divListMaklumatTerkini">#parse("$path/senaraiMaklumatTerkini.vm")</div>
+	
+#end
+
+<table width="100%" border="0" cellspacing="0" cellpadding="5">
+  <tr>
+    <td width="60%" valign="top">
+		<table width="100%" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img src="../bph/dashboard/picture/myprofile.png"  width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Profil</b></font></td>
+                          </tr>
+                          <tr>
+                            <td>
+								<li>
+									<a href="javascript:gotoKataLaluan()" class="help" title="Tukar Kata Laluan">
+										<font color="blue" style="font-size:110%">&nbsp;Tukar Kata Laluan</font>
+									</a>
+								</li>	
+							</td>
+                          </tr>
+                          <tr>
+                            <td>
+								<li>
+									<a href="javascript:gotoProfile()" class="help" title="Profil Pengguna">
+										<font color="blue" style="font-size:110%">&nbsp;Profil Pengguna</font>
+									</a>	
+								</li>
+							</td>
+                          </tr>
+                          <tr>
+                            <td>
+								<li>
+									<a href="javascript:gotoKalendar()" class="help" title="Kalendar Aktiviti">
+										<font color="blue" style="font-size:110%">&nbsp;Kalendar Aktiviti</font>
+									</a>
+								</li>
+                              </td>
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+                  
+                  <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Semakan</b></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoSemakanKekosongan()" class="help" title="Semakan Kekosongan">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Semakan Kekosongan</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoSemakanPemohon()" class="help" title="Semakan Pemohon">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Semakan Pemohon</font></li>
+                              </a></td> 
+                          </tr>                      
+                        </table></td>
+                    </tr>
+                  </table></td>
+                  
+                <td width="50%" valign="top">&nbsp;</td>
+              </tr>
+            </table></td>
+        </tr>
+        ## LAYER 2 - 1
+		
+		##parse by role
+		#if( $portal_role.equalsIgnoreCase("(RPP) Penyedia") )
+			
+			#parse("$path/role/penyedia.vm")
+			
+		#elseif( $portal_role.equalsIgnoreCase("(RPP) Penyemak") )
+			
+			#parse("$path/role/penyemak.vm")
+			
+		#elseif( $portal_role.equalsIgnoreCase("(RPP) Pelulus") )	
+			
+			#parse("$path/role/pelulus.vm")
+			
+		#elseif( $portal_role.equalsIgnoreCase("(RPP) Penyelia") )	
+			
+			#parse("$path/role/penyelia.vm")
+			
+		#end	
+        
+        
+        
+        ## LAYER 5 - LAPORAN
+	
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img src="../bph/dashboard/picture/images_stat.png"  width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Laporan</b></td>
+                          </tr>
+						  <tr>
+        						<td>
+        							<li>
+        								<a href="javascript:gotoSenaraiLaporan()" class="help" title="Senarai Laporan">
+        									<font color="blue" style="font-size:110%">&nbsp;Senarai Laporan</font>
+        								</a>
+        							</li>	
+        						</td>
+        					</tr>
+                        </table></td>                        
+                    </tr>
+                    
+                  </table></td>
+                  
+                  <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Aduan</b></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoSenaraiAduan()" class="help" title="Senarai Aduan">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Senarai Aduan</font></li>
+                              </a></td>
+                          </tr>                      
+                        </table></td>
+                    </tr>
+                  </table></td>
+                  
+                <td width="50%" valign="top">&nbsp;</td>
+                </tr>              
+            </table></td>
+        </tr>
+        
+        #if( $portal_role.equalsIgnoreCase("(RPP) Penyemak") )
+        <table width="100%" border="0" cellspacing="0" cellpadding="5">
+  <tr>
+    <td width="60%" valign="top">
+		<table width="100%" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img src="../bph/dashboard/picture/applyonline.png"  width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Kontrak</b></font></td>
+                          </tr>
+                          <tr>
+                            <td>
+								<li>
+									<a href="javascript:gotoSenaraiKontrakBayaranRPP()" class="help" title="Tukar Kata Laluan">
+										<font color="blue" style="font-size:110%">&nbsp;Kontrak Bayaran</font>
+									</a>
+								</li>	
+							</td>
+                          </tr>                       
+                        </table></td>
+                    </tr>
+                  </table></td>
+
+                  
+                <td width="50%" valign="top">&nbsp;</td>
+              </tr>
+            </table></td>
+        </tr>
+  
+        #end
+        
+        
+        
+      </table></td>
+	 
+	 <!-- 	
+	
+    <td width="40%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+        <tr>
+          <td valign="top"><table cellpadding="2" cellspacing="1" border="0" width="100%" class=" dashboard_tepi" align="left">
+              <tr>
+                <td width="100%" valign="top"><table width="100%">
+                    <tr>
+                      <td width="15%" align="center" valign="top"></td>
+                      <td width="85%" ><table width="100%" >
+                          <tr>
+                            <td colspan="3"><font color="black" style="font-size:120%"><b>Statistik</b></td>
+                          </tr>
+                          <tr>
+                            <td valign="top" width="49%"><font color="blue" style="font-size:110%">
+                              <li>Jumlah Aduan Baru</li>
+                              </font></td>
+                            <td  valign="top" width="1%"> :</td>
+                            <td  valign="top" width="50%"><font color="black" style="font-size:110%"><b>$!aduanBaru</b></font></td>
+                          </tr>
+                          <tr>
+                            <td valign="top" width="49%"><font color="blue" style="font-size:110%">
+                              <li>Jumlah Aduan Didalam Tindakan</li>
+                              </font></td>
+                            <td  valign="top" width="1%"> :</td>
+                            <td  valign="top" width="50%"><font color="black" style="font-size:110%"><b>$!aduanDalamTindakan</b></font></td>
+                          </tr>
+                          <tr>
+                            <td valign="top" width="49%"><font color="blue" style="font-size:110%">
+                              <li>Jumlah Aduan Selesai</li>
+                              </font></td>
+                            <td  valign="top" width="1%"> :</td>
+                            <td  valign="top" width="50%"><font color="black" style="font-size:110%"><b>$!aduanSelesai</b></font></td>
+                          </tr>
+                          <tr>
+                            <td valign="top" width="49%"><font color="blue" style="font-size:110%">
+                              <li>Jumlah Aduan Tidak Berasas</li>
+                              </font></td>
+                            <td  valign="top" width="1%"> :</td>
+                            <td  valign="top" width="50%"><font color="black" style="font-size:110%"><b>$!aduanTidakBerasas</b></font></td>
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+              </tr>
+            </table></td>
+        </tr>
+      </table></td>
+	  --> 
+  </tr>
+</table>

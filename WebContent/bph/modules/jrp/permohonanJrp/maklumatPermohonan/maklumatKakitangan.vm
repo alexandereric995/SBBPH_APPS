@@ -1,0 +1,162 @@
+
+<fieldset>
+<legend class="legend">MAKLUMAT KAKITANGAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:84%">&nbsp;</td>
+  </tr>
+  <tr>
+      <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+          <td class="row_header" width="5%">Bil.</td>
+          <td class="row_header" width="25%">Jawatan</td>
+          <td class="row_header" width="20%">Gred</td>
+          <td class="row_header" width="10%">Bilangan Kakitangan Sedia Ada</td>
+          <td class="row_header" width="10%">Keluasan Ruang Kerja Sedia Ada (MP)</td>
+          <td class="row_header" width="10%">Bilangan Kakitangan Baru</td>
+          <td class="row_header" width="10%">Keluasan Ruang Kerja Baru (MP)</td>
+          <td class="row_header" width="10%" align="left">Turutan</td>
+          <td class="row_header" width="5%">Papar</td>
+          #if($!userRole.equalsIgnoreCase("(JRP) Pemohon") && (($users.flagHq == 'Y' && ($r.status.id == '1438356583122' || $r.status.id == '1436841294664')) || ($users.flagHq == 'T' && ($r.status.id == '1424860634472' || $!r.status.id == '1424860634475'))))
+          <td class="row_header" width="5%">Hapus</td>
+          #end
+        </tr>
+        #set ( $count = 0 )
+        #if ( $listMaklumatKakitangan.size() > 0) 
+        	#set ($jumBil = 0)
+			#set ($jumLuas = 0)
+			#set ($jumBil1 = 0)
+			#set ($jumLuas2 = 0)
+        #foreach( $c in $listMaklumatKakitangan )
+        #set ( $count = $count + 1)
+
+		#set ( $jumLuas = $jumLuas + $util.getDouble($util.RemoveComma($c.luasSediaAda)))
+		#set ( $jumLuas2 = $jumLuas2 + $util.getDouble($util.RemoveComma($c.luasBaru)))
+		
+		#set ( $jumBil = $jumBil + $util.getNumber($c.bilanganSediaAda))
+		#set ( $jumBil1 = $jumBil1 + $util.getNumber($c.bilanganBaru))
+        #if ( $count % 2 == 0 ) 
+        #set ( $rowcolor = "#D0CFCE" ) 
+        #else 
+        #set ( $rowcolor = "#F0F0F0" ) 
+        #end
+        <tr bgcolor="$rowcolor">
+          <td align="center">$count</td>
+          <td>$c.jawatan</td>
+          <td align="center">$c.gred</td>
+          <td align="center">$c.bilanganSediaAda</td>
+          <td align="center">$c.luasSediaAda</td>
+          <td align="center">$c.bilanganBaru</td>
+          <td align="center">$c.luasBaru</td>
+          <td align="center">
+			#set ( $sequence = 0 )
+			<select id="turutan$c.id" name="turutan$c.id" onChange="doDivAjaxCall3$formname('divTab','saveSequence','saveAdd=false&idKakitangan=$c.id')">
+				#foreach( $mjkh in $listMaklumatKakitangan)
+					#set ( $sequence = $sequence + 1)
+					<option value="$sequence" #if ($c.turutan == $sequence) selected #end>$sequence</option>
+				#end
+			</select>
+		  </td>
+          #if($!userRole.equalsIgnoreCase("(JRP) Pemohon") && (($users.flagHq == 'Y' && ($r.status.id == '1438356583122' || $r.status.id == '1436841294664')) || ($users.flagHq == 'T' && ($r.status.id == '1424860634472' || $!r.status.id == '1424860634475'))))
+          <td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> </td>
+          #if($!userRole.equalsIgnoreCase("(JRP) Pemohon"))
+          <td align="center"><a href="javascript:void()" onClick="deleteMaklumatKakitangan('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+          #end
+          #end
+        </tr>
+        <script>
+                    _jq('#link$c.id').on('click', function(){
+						doDivAjaxCall3$formname('editMaklumatKakitangan','editMaklumatKakitangan','idMaklumatKakitangan=$c.id');
+                        jQuery('#editMaklumatKakitangan').fadeIn();
+                    });
+                </script>
+        #end
+        #if(!$!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal"))
+        <tr>
+         <td align="center"></td>
+          <td><input type="text" id="jawatan1" class="text" name="jawatan1" value="" onKeyUp=" $('err_jawatan1').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+          <div id="err_jawatan1" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td><input type="text" id="gred1" class="text" name="gred1" value="" onKeyUp=" $('err_gred1').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+          <div id="err_gred1" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td><input type="text" id="bilanganSediaAda1" class="number" name="bilanganSediaAda1" value="" onKeyUp=" $('err_bilanganSediaAda1').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+          <div id="err_bilanganSediaAda1" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td><input type="text" id="luasSediaAda1" class="currency" name="luasSediaAda1" value="" onKeyUp=" $('err_luasSediaAda1').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+          <div id="err_luasSediaAda1" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td><input type="text" id="bilanganBaru1" class="number" name="bilanganBaru1" value="" onKeyUp=" $('err_bilanganBaru1').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+          <div id="err_bilanganBaru1" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td><input type="text" id="luasBaru1" class="currency" name="luasBaru1" value="" onBlur="this.value=this.value.toUpperCase();" onKeyUp=" $('err_luasBaru1').innerHTML=''; at(this, event);"> 
+          <div id="err_luasBaru1" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          #if($!userRole.equalsIgnoreCase("(JRP) Pemohon") && (($users.flagHq == 'Y' && ($r.status.id == '1438356583122' || $r.status.id == '1436841294664')) || ($users.flagHq == 'T' && ($r.status.id == '1424860634472' || $!r.status.id == '1424860634475'))))
+          <td><input style="font-weight:bold" type="button" name="btnTambahMaklumatKakitangan" id="btnTambahMaklumatKakitangan" value="+"  onclick="saveMaklumatKakitangan1();" /></td>
+          #end                  
+        </tr>
+        #end
+        <tr>
+        	<td colspan="3">&nbsp;</td>
+        	<td colspan="6" style="padding-top:0.3cm" ><hr /></td>
+        </tr>
+        <tr>
+			<td colspan="3" align="right"><b>JUMLAH : </b></td>
+			<td align="center"><b>$jumBil</b></td>
+			<td align="center"><b>$util.formatDecimal($jumLuas)</b></td><input type="hidden" name="jumLuas" id="jumLuas" value="$jumLuas" />
+			<td align="center"><b>$jumBil1</b></td>
+			<td align="center"><b>$util.formatDecimal($jumLuas2)</b></td><input type="hidden" name="jumLuas" id="jumLuas" value="$jumLuas2" />
+			<td colspan="1">&nbsp;</td>
+		</tr>
+        #else
+		#if(!$!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal"))
+		<tr>
+         <td align="center"></td>
+          <td><input type="text" id="jawatan" class="text" name="jawatan" value="" onKeyUp=" $('err_jawatan').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+          <div id="err_jawatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td><input type="text" id="gred" class="text" name="gred" value="" onKeyUp=" $('err_gred').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+          <div id="err_gred" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td><input type="text" id="bilanganSediaAda" class="number" name="bilanganSediaAda" value="" onKeyUp=" $('err_bilanganSediaAda').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+          <div id="err_bilanganSediaAda" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td><input type="text" id="luasSediaAda" class="currency" name="luasSediaAda" value="" onKeyUp=" $('err_luasSediaAda').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+          <div id="err_luasSediaAda" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td><input type="text" id="bilanganBaru" class="number" name="bilanganBaru" value="" onKeyUp=" $('err_bilanganBaru').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+          <div id="err_bilanganBaru" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td><input type="text" id="luasBaru" class="currency" name="luasBaru" value="" onBlur="this.value=this.value.toUpperCase();" onKeyUp=" $('err_luasBaru').innerHTML=''; at(this, event);"> 
+          <div id="err_luasBaru" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td> 
+          #if($!userRole.equalsIgnoreCase("(JRP) Pemohon") && (($users.flagHq == 'Y' && ($r.status.id == '1438356583122' || $r.status.id == '1436841294664')) || ($users.flagHq == 'T' && ($r.status.id == '1424860634472' || $!r.status.id == '1424860634475'))))        
+          <td><input style="font-weight:bold" type="button" name="btnTambahMaklumatKakitangan" id="btnTambahMaklumatKakitangan" value="+"  onclick="saveMaklumatKakitangan();" /></td>                  
+        #end
+        </tr>
+        #else
+          <tr >
+          <td align="center">&nbsp;</td>
+          <td >Tiada Rekod</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+        #end
+        #end
+      </table></td>
+  </tr>
+</table>
+
+
+</fieldset>
+## Popup popupMaklumatMaklumatKakitangan.vm
+<div id="editMaklumatKakitangan" class="popup"></div>
+## Blank status page
+<div id="removeMaklumatKakitangan"></div>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

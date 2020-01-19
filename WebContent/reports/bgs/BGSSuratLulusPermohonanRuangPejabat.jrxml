@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="BGSSuratLulusPermohonanRuangPejabat"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="451"
+		 columnSpacing="0"
+		 leftMargin="72"
+		 rightMargin="72"
+		 topMargin="50"
+		 bottomMargin="10"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false"
+		 isIgnorePagination="true">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idPermohonan" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT a.no_permohonan, a.no_fail,a.nama_pegawai, a.jabatan, a.alamat1, a.alamat2, a.alamat3, a.poskod, b.keterangan as nama_bandar, c.keterangan as nama_negeri,
+d.nama_bangunan, e.nama_premis, h.keterangan as nama_negeri_premis,
+(select h.cadangan_ruang from bgs_kertas_pertimbangan h where h.id_permohonan = a.id) as cadangan_ruang,
+(select h.keluasan_ruang_dipohon from bgs_kertas_pertimbangan h where h.id_permohonan = a.id) as keluasan_ruang
+FROM bgs_permohonan a
+LEFT OUTER JOIN ruj_bandar b ON a.id_bandar = b.id
+LEFT OUTER JOIN ruj_negeri c ON b.id_negeri = c.id
+LEFT OUTER JOIN dev_bangunan d ON a.id_bangunan = d.id
+LEFT OUTER JOIN dev_premis e ON d.id_premis = e.id
+LEFT OUTER JOIN ruj_mukim f ON e.id_mukim = f.id
+LEFT OUTER JOIN ruj_daerah g ON f.id_daerah = g.id
+LEFT OUTER JOIN ruj_negeri h ON g.id_negeri = h.id
+WHERE a.id = $P{idPermohonan}]]></queryString>
+
+	<field name="no_permohonan" class="java.lang.String"/>
+	<field name="no_fail" class="java.lang.String"/>
+	<field name="nama_pegawai" class="java.lang.String"/>
+	<field name="jabatan" class="java.lang.String"/>
+	<field name="alamat1" class="java.lang.String"/>
+	<field name="alamat2" class="java.lang.String"/>
+	<field name="alamat3" class="java.lang.String"/>
+	<field name="poskod" class="java.lang.String"/>
+	<field name="nama_bandar" class="java.lang.String"/>
+	<field name="nama_negeri" class="java.lang.String"/>
+	<field name="nama_bangunan" class="java.lang.String"/>
+	<field name="nama_premis" class="java.lang.String"/>
+	<field name="nama_negeri_premis" class="java.lang.String"/>
+	<field name="cadangan_ruang" class="java.lang.String"/>
+	<field name="keluasan_ruang" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="311"  isSplitAllowed="false" >
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="144"
+						width="451"
+						height="14"
+						key="textField-8"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false" isUnderline="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{nama_pegawai}!=null?$F{nama_pegawai}+"\n":"")
++($F{jabatan}!=null?$F{jabatan}+"\n":"")
++($F{alamat1}!=null?$F{alamat1}+"\n":"")
++($F{alamat2}!=null?$F{alamat2}+"\n":"")
++($F{alamat3}!=null?$F{alamat3}+"\n":"")
++($F{poskod}!=null?$F{poskod}+" ":"")
++($F{nama_bandar}!=null?$F{nama_bandar}:"")+ ", " + ($F{nama_negeri}!=null?$F{nama_negeri}:"")+"\n\n"
++"\nTuan,\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="284"
+						y="80"
+						width="167"
+						height="14"
+						key="textField-13"
+						positionType="Float"
+						isPrintRepeatedValues="false"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{no_permohonan}!=null ? $F{no_permohonan}:"") + " (  )"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="167"
+						width="451"
+						height="15"
+						key="textField-18"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true" isUnderline="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["KELULUSAN PERMOHONAN PENEMPATAN RUANG PEJABAT BAGI " + ($F{jabatan}!=null?$F{jabatan}:"") + ", " + ($F{nama_bangunan}!=null?$F{nama_bangunan}:"")+ ", " + ($F{nama_negeri}!=null?$F{nama_negeri}:"")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="278"
+						width="451"
+						height="33"
+						key="textField-27"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["3.       Pihak tuan/puan juga dipohon untuk mengemukakan dokumen-dokumen berikut kepada Bahagian Pengurusan Hartanah dan mengambil perhatian serta mematuhi perkara-perkara di bawah jika terdapat kerja-kerja ubahsuai dan pemasangan peralatan tambahan dilaksanakan;\n\n" +
+"       <style isBold='true' pdfFontName='Helvetica-Bold'>3.1 Mematuhi Garis Panduan Permohonan Kelulusan dan Kerja-kerja Pengubahsuaian, Penaiktarafan dan Pemasangan Fasiliti atau Ruang Bangunan-Bangunan Gunasama Persekutuan;</style>\n\n"+
+"         <style isBold='true' pdfFontName='Helvetica-Bold'>3.2 Mengemukakan dokumen kepada BPH cadangan lukisan perspektif secara lengkap, kerja-kerja pemasangan peralatan/spesifikasi pengubahsuaian dalaman dan luaran ruang pejabat ; dan </style>\n\n"+
+"         <style isBold='true' pdfFontName='Helvetica-Bold'>3.3 Mengemukakan maklumat anggaran perbelanjaan yang terkini berserta kos pengubahsuaian ruang pejabat kepada BPH bagi tujuan penyelarasan dan pemantauan.</style>\n\n"+           
+"4.       Pihak tuan/puan juga diminta berhubung dengan Pengurus Bangunan, " + ($F{nama_bangunan}!=null? $F{nama_bangunan}.toUpperCase():"")+", "+($F{nama_premis}!=null? $F{nama_premis}.toUpperCase():"") + " terlebih dahulu sebelum sebarang kemasukan ruang pejabat dan pengubahsuaian dilaksanakan untuk tujuan penyelarasan berikutan pada masa ini kerja-kerja menaiktaraf dinding sedang berjalan. Selain itu, dimohon pihak tuan/puan untuk melaksanakan perpindahan dalam <style isBold='true' pdfFontName='Helvetica-Bold'> tempoh 3 bulan </style> daripada tarikh surat kelulusan dikeluarkan.\n\n"+
+"5.       Pihak tuan/puan adalah diingatkan agar sentiasa mematuhi pekeliling serta peraturan-peraturan yang berkuatkuasa dari semasa ke semasa dan sentiasa memberikan kerjasama kepada Pengurus Bangunan bagi memastikan penyelenggaraan serta pengurusan bangunan dapat dibuat dengan sempurna. Adalah menjadi tanggungjawab pihak puan untuk menggunakan ruang pejabat yang diluluskan dengan optimum serta berada dalam keadaan terjaga dan tersusun.\n\n" +
+"6.       Bahagian ini berhak menarik balik kelulusan yang telah diberikan sekiranya mendapati pihak puan melanggar mana-mana peraturan yang sedang berkuatkuasa. Pihak puan juga bertanggungjawab sepenuhnya untuk memaklumkan secara bertulis dan menyerahkan kunci pejabat apabila tidak lagi menggunakan ruang yang telah diluluskan.\n\n"+
+"7.       Kerjasama dan perhatian pihak puan berkaitan perkara ini amat dihargai.\n\n\n"+
+
+"Sekian, terima kasih.\n\n"
+
++"<style isBold='true' pdfFontName='Helvetica-Bold'>“BERKHIDMAT UNTUK NEGARA”</style>\n\n"
++"<style isBold='true' pdfFontName='Helvetica-Bold'>“BERILTIZAM PENUH HASRAT”</style>\n\n"
++"Saya yang menurut perintah,\n\n\n\n\n"
++"<style isBold='true' pdfFontName='Helvetica-Bold'>DATO' KHAIRULAZLI BIN OTHMAN</style>\n"
++"b.p Ketua Setiausaha Negara\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="195"
+						width="451"
+						height="77"
+						key="textField-28"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Dengan segala hormatnya saya merujuk kepada perkara di atas.\n\n"+ 
+
+"2.       Adalah dimaklumkan bahawa Bahagian ini telah menerima permohonan ruang pejabat bagi " + $F{jabatan} + ". Bahagian ini " + "<style isBold='true' pdfFontName='Helvetica-Bold'>bersetuju untuk memberi kelulusan</style> di " + ($F{cadangan_ruang}!=null?$F{cadangan_ruang}:"") + " dengan keluasan sebanyak "+ ($F{keluasan_ruang}!=null?$F{keluasan_ruang}:"") + " bagi menempatkan ruang pejabat seperti di pelan lakaran cadangan di <style isBold='true' pdfFontName='Helvetica-Bold'>Lampiran</style>"]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="3"
+						width="449"
+						height="55"
+						key="subreport-1"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\bgs\\headerSurat.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="284"
+						y="126"
+						width="166"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

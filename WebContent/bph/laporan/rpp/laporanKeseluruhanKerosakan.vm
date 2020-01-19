@@ -1,0 +1,124 @@
+<fieldset>
+<legend class="legend">Laporan Keseluruhan Kerosakan</legend>
+##<table cellpadding="5" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+<table width="100%">
+<tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+##  <tr>
+##    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+##        <tr>
+##          <td class="label" style="width:29%"></td>
+##          <td style="width:1%"></td>
+##          <td style="width:70%"></td>
+##        </tr>
+        <tr>
+		   <td class="label">Jenis Peranginan &nbsp;</td>
+		   <td>:</td>
+		   <td><span id="findJenisPeranginan">#parse("$path/findJenisPeranginan.vm")</span>
+		   	</td>
+		</tr>
+		<tr>
+			<td class="label">Nama Peranginan &nbsp;</td>
+			<td>:</td>
+			<td><span id="findPeranginan">
+			     #parse("$path/findPeranginan.vm")
+			    </span>
+			</td>
+		</tr>
+##		<tr>
+##		   <td class="label">Nama Peranginan</td>
+##		   <td>:</td>
+##		   <td>#parse("$path/selectRppPeranginan.vm")</td>
+##		</tr>
+		<tr>
+		   <td class="label">Jenis Unit</td>
+		   <td>:</td>
+		   <td><span id="selectJenisUnitRpp">#parse("$path/selectJenisUnitRPP.vm")</span></td>
+		</tr>
+##		<tr>
+##		   <td class="label">Gred</td>
+##		   <td>:</td>
+##		   <td>
+##		     <span id="listGredJawatan">
+##		        #parse("$path/selectGredJawatan.vm")
+##		     </span>
+##		   </td>
+##		</tr>
+##		<tr>
+##		    <td class="label">Status Bayaran</td>
+##		    <td>:</td>
+##		    <td><select style="width:80%" name="idStatusBayaran" id="idStatusBayaran" class="texts">
+##		          <option value="">SILA PILIH</option>
+##		          <option value="Y">SUDAH BAYAR</option>
+##		          <option value="T">BELUM BAYAR</option>
+##		        </select>
+##		    </td>
+##		</tr>
+##      </table></td>
+##      
+##    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+##        <tr>
+##          <td class="label" style="width:29%"></td>
+##          <td style="width:1%"></td>
+##          <td style="width:70%"></td>
+##        </tr>
+##		<tr>
+##		    <td class="label">Waktu</td>
+##		    <td>:</td>
+##		    <td><select style="width:80%" name="idFlagWaktu" id="idFlagWaktu" class="texts">
+##		          <option value="">SILA PILIH</option>
+##		          <option value="Y">WAKTU PUNCAK</option>
+##		          <option value="T">LUAR WAKTU PUNCAK</option>
+##		        </select>
+##		    </td>
+##		</tr>
+##		<tr>
+##		    <td class="label">Jenis Pemohon</td>
+##		    <td>:</td>
+##		    <td><select style="width:80%" name="jenisPemohon" id="jenisPemohon" class="texts">
+##		          <option value="">SILA PILIH</option>
+##		          <option value="INDIVIDU">INDIVIDU</option>
+##		          <option value="KELOMPOK">KELOMPOK</option>
+##		          <option value="TRANSIT">TRANSIT</option>
+##		        </select>
+##		    </td>
+##		</tr>
+
+	#if ($!r.tarikhMula)
+ 		   #set ($dateMula = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+	#else #set ($dateMula = "") #end
+	#date_input_required("tarikhMula" "Tarikh Mula" "$dateMula")
+
+
+	#if ($!r.tarikhTamat)
+ 		  #set ($dateTamat = "$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')")
+	#else #set ($dateTamat = "") #end
+	#date_input_required("tarikhTamat" "Tarikh Tamat" "$dateTamat")
+
+      </table>
+      </td>
+  </tr>
+</table>
+
+<table width="100%">
+  <tr>
+	  <td align="center">
+		  <input type="button" name="cmdCetak" id="cmdCetak" value="Jana Laporan" onclick="javascript:doCetakLaporanKeseluruhanKerosakan()"/>
+		  <input type="reset" value="Kosongkan" />
+		  <input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/>
+	  </td>
+  </tr>
+</table>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

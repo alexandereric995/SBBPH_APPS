@@ -1,0 +1,134 @@
+<fieldset>
+<legend class="legend">Laporan Kadar Penggunaan Rumah Peranginan Persekutuan Premier London</legend>
+<table width="100%">
+  	<tr>
+    	<td style="width:150px"></td>
+    	<td style="width:10px"></td>
+    	<td></td>
+  	</tr>
+
+	<tr>
+		<td class="label">Jenis Peranginan</td>
+        <td>:</td>
+        <td colspan="5">
+			<select class="texts" id="findJenisPeranginan" name="findJenisPeranginan" style="width:80%" onChange="doDivAjaxCall3$formname('findPeranginan','findPeranginanLondon','')">
+    		<option value="">SILA PILIH</option>
+    		#foreach( $n in $selectJenisPeranginan)
+    			<option value="$n.id">$n.id.toUpperCase() - $n.keterangan.toUpperCase()</option>
+    		#end
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="label">Lokasi Peranginan</td>
+		<td>:</td>
+		<td><span id="findPeranginan">
+			#parse("$path/findPeranginanLondon.vm")
+			</span>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="label">Status Tempahan</td>
+        <td>:</td>
+        <td colspan="5">
+			<select class="texts" id="findStatusPermohonan" name="findStatusPermohonan" style="width:80%">
+				<option value="">SILA PILIH</option>
+                #foreach( $n in $listStatusPermohonan)
+                <option value="$n.id">$n.keterangan.toUpperCase()</option>
+                #end
+			</select>
+		</td>
+	</tr>
+
+	<tr>
+		<td class="label">Status Bayaran</td>
+        <td>:</td>
+        <td colspan="5">
+			<select id="findStatusBayaran" name="findStatusBayaran" style="width:80%">
+				<option value="" >SILA PILIH</option>
+                <option value="T">BELUM BAYAR</option>
+                <option value="Y">TELAH BAYAR</option>
+			</select>
+		</td>
+	</tr>
+	
+	<!--
+	<tr>
+		<td>Tarikh mohon</td>
+		<td>:</td>
+		<td colspan="5">
+			<div>
+				<input type="text" id="findTarikhMohon" name="findTarikhMohon" value="">
+                <span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+                <script>
+               		_jq("#findTarikhMohon").Zebra_DatePicker({ 
+                		format: 'd-m-Y',
+                		readonly_element: false
+                	});
+              	</script>
+			</div>
+		</td>
+	</tr>
+	-->
+	
+##	<tr>
+##		<td class="label">Tarikh Masuk &nbsp;<span style="color:#FF2A00">*</span></td>
+##		<td class="label" valign="middle">:</td>
+##		<td class="label" colspan="5">
+##			<div>
+##				<input type="text" id="findTarikhMasukRpp" name="findTarikhMasukRpp" value="">
+##                <span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+##                <script>
+##                	_jq("#findTarikhMasukRpp").Zebra_DatePicker({ 
+##                		format: 'd/m/Y',
+##                		readonly_element: false,
+##						pair: _jq('#findTarikhKeluarRpp')
+##                	});
+##                </script>
+##          	</div>
+##          	<div id="err_tarikhMula" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##      	</td>
+##  	</tr>
+#date_input_required("findTarikhMasukRpp" "Tarikh Mula" "")
+#date_input_required("findTarikhKeluarRpp" "Tarikh Tamat" "")
+##	<tr>
+##		<td class="label">Tarikh Keluar &nbsp;<span style="color:#FF2A00">*</span></td>
+##		<td class="label" valign="middle">:</td>
+##        <td class="label" colspan="5">
+##			<div>
+##				<input type="text" id="findTarikhKeluarRpp" name="findTarikhKeluarRpp" value="">
+##                <span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+##                <script>
+##               		_jq("#findTarikhKeluarRpp").Zebra_DatePicker({ 
+##                		format: 'd/m/Y',
+##                		readonly_element: false
+##                	});
+##              	</script>
+##			</div>
+##			<div id="err_tarikhTamat" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##      	</td>
+##  	</tr>
+	<tr>
+		<td valign="top"><span>Gred Perkhidmatan</span></td>
+		<td valign="top">:</td>
+		<td valign="top"><span id="listGredPerkhidmatan"> #parse("$path/selectGredPerkhidmatan.vm") </span>
+		<div id="err_idGredPerkhidmatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td class="label"></td>
+		<td><input type="button" name="cmdCetak" id="cmdCetak" value="Jana Laporan" onclick="javascript:doCetakLaporanKadarPenggunaanLondon()"/><input type="reset" value="Kosongkan" /><input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/></td>
+	</tr>
+</table>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

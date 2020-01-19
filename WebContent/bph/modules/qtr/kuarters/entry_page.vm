@@ -1,0 +1,73 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#rekodPenghuni').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+<input type="hidden" id="idKuarters" name="idKuarters" value="$!r.id">
+<fieldset>
+    <legend class="legend">Maklumat Kuarters</legend>
+    <table cellpadding="5" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td align="center" valign="top" style="width:50%;">
+                #parse("$path/entry_sub/entry_page_sub_left.vm")
+            </td>
+            <td align="center" valign="top" style="width:50%; border-left: 1px dotted #CCC;">
+                #parse("$path/entry_sub/entry_page_sub_right.vm")
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset>
+	<legend class="legend">Rekod Penghuni</legend>	
+	<table id="rekodPenghuni" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Bil.</th>
+                <th>No. Kad Pengenalan Penghuni</th>
+    			<th>Nama Penghuni</th>
+				<th>Tarikh Masuk</th>
+				<th>Tarikh Keluar</th>
+				<th>Status Penghuni</th>
+            </tr>
+        </thead>	
+		<tbody>
+			#set ( $count = 0 )
+    		#foreach ( $p in $listpenghuni )
+    			#set ( $count = $count + 1 )
+				<tr>
+                    <td>$count</td>
+    				<td><a href="javascript:void()" style="color:blue" onclick="$(doDivAjaxCall$formname('divPenghuni','viewDetailPenghuni','idPenghuni=$!p.id'))">$!p.pemohon.noKP</a></td>
+    				<td><a href="javascript:void()" style="color:blue" onclick="$(doDivAjaxCall$formname('divPenghuni','viewDetailPenghuni','idPenghuni=$!p.id'))">$!p.pemohon.userName</a></td>
+    				#if ($!p.tarikhMasukKuarters)
+                    	#set($tarikhMasuk = $util.getDateTime($!p.tarikhMasukKuarters, "dd-MM-yyyy"))
+                    #else
+                        #set($tarikhMasuk = "")
+                    #end
+					<td>$tarikhMasuk</td>
+					#if ($!p.tarikhKeluarKuarters)
+                        #set($tarikhKeluar = $util.getDateTime($!p.tarikhKeluarKuarters, "dd-MM-yyyy"))
+                    #else
+                        #set($tarikhKeluar = "")
+                    #end
+					<td>$tarikhKeluar</td>
+					<td>$p.getStatusPenghuni()</td>
+                </tr>
+			#end
+		</tbody>
+    </table>
+</fieldset>
+
+<div id="divPenghuni">
+	##parse("$path/penghuni.vm")
+</div>
+	
+
+
+
+
+

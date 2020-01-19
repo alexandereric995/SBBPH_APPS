@@ -1,0 +1,68 @@
+
+<fieldset>
+<legend class="legend">Maklumat Kakitangan</legend>
+<table cellpadding="5" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td class="label" style="width:25%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:74%">&nbsp;</td>
+  </tr>
+  #input_required("jawatan" "Jawatan" "$!rekod.jawatan")
+  #input_required("gred" "Gred" "$!rekod.gred")
+  #number_required("bilanganSediaAda" "Bilangan Kakitangan Sedia Ada" "$!rekod.bilanganSediaAda")
+  <tr>
+	<td class="label" valign="top">Keluasan Ruang Kerja Sedia Ada (MP) &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input type="text" id="luasSediaAda" class="currency" name="luasSediaAda" value="$!rekod.luasSediaAda" onKeyUp=" $('err_luasSediaAda').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+	<div id="err_luasSediaAda" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+  #number_required("bilanganBaru" "Bilangan Kakitangan Baru" "$!rekod.bilanganBaru")
+  <tr>
+	<td class="label" valign="top">Keluasan Ruang Kerja Baru (MP) &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input type="text" id="luasBaru" class="currency" name="luasBaru" value="$!rekod.luasBaru" onKeyUp=" $('err_luasBaru').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+	<div id="err_luasBaru" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td> #if ( $command == "addMaklumatKakitangan" )
+      <input type="button" id="saveMaklumatKakitangan" name="saveMaklumatKakitangan" value="Simpan">
+      <input type="button" id="batalMaklumatKakitangan" name="batalMaklumatKakitangan" value="Keluar">
+      #elseif ( $command == "editMaklumatKakitangan" )
+      #if(!$!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal"))
+      <input type="button" id="saveExitMaklumatKakitangan" name="saveExitMaklumatKakitangan" value="Simpan">
+      #end
+      <input type="button" id="batalMaklumatKakitangan" name="batalMaklumatKakitangan" value="Keluar">
+      #end </td>
+  </tr>
+</table>
+<input type="hidden" id="idMaklumatKakitangan" name="idMaklumatKakitangan" value="$rekod.id">
+<div id="statusMaklumatKakitangan"></div>
+</fieldset>
+
+<script>
+_jq('#batalMaklumatKakitangan').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getMaklumatKakitangan','');
+    jQuery('#editMaklumatKakitangan').fadeOut();
+});
+
+_jq('#saveMaklumatKakitangan').on('click', function(){
+    saveMaklumatKakitangan();
+});
+
+_jq('#saveExitMaklumatKakitangan').on('click', function(){
+	saveMaklumatKakitangan();
+});
+
+</script>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

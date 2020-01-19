@@ -1,0 +1,60 @@
+
+<input type="hidden" id="idTempahan" name="idTempahan" value="$!r.id">
+#if ($!command == "add_new_record")
+	#parse("$path/maklumatTempahan.vm")
+#else
+<div id="divTab">	
+	#parse("$path/senaraiTab.vm")
+</div>
+#end
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+  
+  window.onload=new function Window_Onload() 
+  {
+		swal({
+		title: "Tempahan gelanggang sedang dalam penambahbaikan...",
+		text: "Untuk makluman pihak tuan/puan, proses tempahan gelanggang sedang dalam proses penambahbaikan dan ditutup untuk sementara waktu.",
+		type: "input",
+		showCancelButton: false,
+		closeOnConfirm: false,
+		animation: "slide-from-top",
+		confirmButtonText: "Teruskan",
+##		cancelButtonText: "Tutup",
+		inputType: "password"
+	},
+		function(inputValue){
+			if (inputValue === false) {
+				return false;
+			} else if (inputValue === "") { 
+			    ##swal.showInputError("Untuk pengujian sahaja...Sila masukkan kata laluan");
+			    ##return false;
+			    window.location.reload();
+			    
+			} else if (inputValue === "P@ssw0rdabc123") {
+			    ##doDivAjaxCall3$formname('pilihanFPX','paparPilihan','');
+			    swal.close();
+			} else {
+				swal.showInputError("Kata laluan yang dimasukkan tidak tepat..."); 
+				window.location.reload();
+			}
+		}
+	);
+##	window.location.reload();
+##    var password;
+##	var pass1="901110065559";
+##	password=prompt("Harap maaf, tempahan gelanggang tidak dapat dilakukan buat masa ini.\nProses pengujian mekanisma pembayaran sedang dijalankan.");	
+##	if (password!==pass1)
+##	{
+##		window.location.reload();
+##	}
+  }
+  
+
+</script>

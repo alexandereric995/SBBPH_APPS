@@ -1,0 +1,98 @@
+
+
+<fieldset style="width:45% !important">
+<legend class="legend">JULAT SEMAKAN KEKOSONGAN</legend>
+
+	<br/>
+	
+	<table cellpadding="1" cellspacing="1" width="100%"  border="0">
+		
+		<tr>
+			<td colspan="3">
+				<span style="font-weight:bold;font-size:12px">
+					$!jenisUnit.keterangan.toUpperCase(), &nbsp; $!jenisUnit.peranginan.namaPeranginan.toUpperCase()
+				</span>
+			</td>
+		</tr>
+		
+		<tr><td colspan="3">&nbsp;</td></tr>
+				
+		<tr>
+			<td colspan="4">
+				<span style="font-size:12px;font-weight:bold;color:#FF2A00">
+					* Sila pilih tarikh untuk semakan kekosongan bagi tempoh 2 minggu.
+				</span>
+			</td>
+		</tr>
+		
+		<tr><td colspan="4">&nbsp;</td></tr>
+		
+		<tr>
+			<td width="48%" valign="top">
+				<table width="100%" border="0">
+					<tr>
+                    	<td class="label" valign="top">TARIKH DARI &nbsp;<span style="color:#FF2A00">*</span></td>
+                    	<td class="label" valign="top">:</td>
+                    	<td valign="top">
+                    		<div>
+                        		<input type="text" id="tarikhDari" name="tarikhDari" value="" >
+                    			<script>
+                                	_jq("#tarikhDari").Zebra_DatePicker({ 
+                        				format: 'd-m-Y',
+                    					readonly_element: true,
+            							pair: _jq('#tarikhHingga'),
+            							direction: $!rangeDirection,
+                    					onSelect: function(view, elements) {
+											var dateRangeFrom = _jq(this).val();
+                    						$('err_tarikhDari').innerHTML='';
+											doDivAjaxCall3$formname('divRangeTarikhHingga','getRangeTarikhHingga','dateRangeFrom='+dateRangeFrom);
+                    					}
+                                	});
+                    				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+                        		</script>
+                        		<div id="err_tarikhDari" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                    		</div>
+                    	</td>
+                    </tr>
+				</table>
+			</td>
+			
+			<td width="2%">&nbsp;</td>
+			
+			<td width="50%" valign="top">
+				<div id="divRangeTarikhHingga">#parse("$path/popup/divRangeTarikhHingga.vm")</div>
+			</td>
+			
+		</tr>
+		
+    </table>
+	
+			
+	<br />
+	<table width="100%">
+		<tr>
+			<td><div id="err_chkmsg" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		</tr>
+		<tr>
+			<td align="right">
+				<input id="btnPilihRP" type="button" value="SEMAK KEKOSONGAN" onClick="doPaparMaklumatPermohonanWithDateRange('$!idJenisUnit')">
+				<input id="btnExit" type="button"  value="KELUAR" />
+			</td>
+		</tr>
+	</table>
+
+</fieldset>		
+
+
+
+<script>
+	_jq('#btnExit').on('click', function(){
+     	jQuery('#divPopupDateRange').fadeOut();
+  	});
+</script>
+
+
+
+
+
+

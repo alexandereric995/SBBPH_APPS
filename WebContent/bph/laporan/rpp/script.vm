@@ -1,0 +1,628 @@
+function paparLaporan(idLaporan) {
+    	
+    var div1 = document.getElementById('senaraiLaporan');
+    div1.style.display = 'none';
+    	
+    var div2 = document.getElementById('paparLaporan');
+    div2.style.display = 'block';
+    	
+    doDivAjaxCall3$formname('paparLaporan','paparLaporan','idLaporan='+ idLaporan); 
+}
+    
+function doCetakLaporanKeseluruhanPenyalahgunaanKemudahan() {
+
+	var err_count = 0;
+	var id = $('tarikhMula').value;
+	var hingga = $('tarikhTamat').value;
+	
+	if ( id == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	if ( hingga == "" ) {$('err_tarikhTamat').innerHTML = "Tarikh Tamat adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.LaporanKeseluruhanPenyalahgunaanKemudahan?tarikh_mula="+id+"&tarikh_hingga="+hingga;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+
+function doCetakLaporanKeseluruhanKerosakan() {
+
+	var err_count = 0;
+	var findJenisPeranginan = $('findJenisPeranginan').value;
+	var idPeranginan = $('idPeranginan').value;
+	var idJenisUnit = $('idJenisUnit').value;
+##	var idStatusBayaran = $('idStatusBayaran').value;
+##	var idFlagWaktu = $('idFlagWaktu').value;
+##	var jenisPemohon = $('jenisPemohon').value;
+	var tarikhMula = $('tarikhMula').value;
+	var tarikhTamat = $('tarikhTamat').value;
+	
+	if(!findJenisPeranginan){
+		findJenisPeranginan = "";
+	}
+	if(!idPeranginan){
+		idPeranginan = "";
+	}
+	if(!idJenisUnit){
+		idJenisUnit = "";
+	}
+##	if(!idStatusBayaran){
+##		idStatusBayaran = "";
+##	}
+##	if(!idStatusBayaran){
+##		idStatusBayaran = "";
+##	}
+##	if(!jenisPemohon){
+##		jenisPemohon = "";
+##	}
+	if(!tarikhMula){
+		tarikhMula = "0";
+	}
+	if(!tarikhTamat){
+		tarikhTamat = "0";
+	}
+	
+	var id = $('tarikhMula').value;
+	if ( id == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	var hingga = $('tarikhTamat').value;
+	if ( hingga == "" ) {$('err_tarikhTamat').innerHTML = "Tarikh Tamat adalah mandatori!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		##tambah parameter utk nama	peranginan	
+       		var url = "../servlet/bph.laporan.rpp.LaporanKeseluruhanKerosakan?idPeranginan="+idPeranginan+"&tarikhMula="+tarikhMula+"&tarikhTamat="+tarikhTamat+"&idJenisUnit="+idJenisUnit+"&findJenisPeranginan="+findJenisPeranginan;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+    
+function doCetakLaporanSenaraiHitamPemohon() {
+
+	var err_count = 0;
+	var tarikhMula = $('tarikhMula').value;
+	var tarikhTamat = $('tarikhTamat').value;
+	var flag1 = $('flag1').value;
+	var idKelasPerkhidmatan = $('idKelasPerkhidmatan').value;
+	var idGredPerkhidmatan = $('idGredPerkhidmatan').value;
+	
+	if(!tarikhMula){
+		tarikhMula = "0";
+	}
+	if(!tarikhTamat){
+		tarikhTamat = "0";
+	}
+	if(!flag1){
+		flag1 = "0";
+	}
+	if(!idKelasPerkhidmatan){
+		idKelasPerkhidmatan = "0";
+	}
+	if(!idGredPerkhidmatan){
+		idGredPerkhidmatan = "0";
+	}
+	
+	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	if ( tarikhTamat == "" ) {$('err_tarikhTamat').innerHTML = "Tarikh Tamat adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.LaporanSenaraiHitamPemohon?tarikhMula="+tarikhMula+"&tarikhTamat="+tarikhTamat+"&flag1="+flag1+"&idKelasPerkhidmatan="+idKelasPerkhidmatan+"&idGredPerkhidmatan="+idGredPerkhidmatan;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+    
+function doCetakLaporanDaftarPemohonDanPermohonan() {
+
+	var err_count = 0;
+	var jenis_permohonan = $('findJenisPeranginan').value;
+	var id_jenis_peranginan = $('idPeranginan').value;
+	
+	if(!jenis_permohonan){
+		jenis_permohonan = "";
+	}
+	if(!id_jenis_peranginan){
+		id_jenis_peranginan = "";
+	}
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.LaporanDaftarPemohonDanPermohonan?jenis_permohonan="+jenis_permohonan+"&id_jenis_peranginan="+id_jenis_peranginan;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+
+function doCetakLaporanMaklumatPenghuniKeluar() {
+
+	var err_count = 0;
+	var id_jenis_peranginan = $('findJenisPeranginan').value;
+	var idPeranginan = $('idPeranginan').value;
+	var tarikhMula = $('tarikhMula').value;
+	var tarikhTamat = $('tarikhTamat').value;
+##	var id_jenis_peranginan = document.${formName}.id_jenis_peranginan.value;
+	
+	if(!id_jenis_peranginan){
+		id_jenis_peranginan = "";
+	}
+	if(!idPeranginan){
+		idPeranginan = "";
+	}
+	if(!tarikhMula){
+		tarikhMula = "";
+	}
+	if(!tarikhTamat){
+		tarikhTamat = "";
+	}
+	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	if ( tarikhTamat == "" ) {$('err_tarikhTamat').innerHTML = "Tarikh Tamat adalah mandatori!"; err_count++;  }
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.LaporanMaklumatPenghuniKeluar?tarikhMula="+tarikhMula+"&tarikhTamat="+tarikhTamat+"&id_jenis_peranginan="+id_jenis_peranginan+"&idPeranginan="+idPeranginan;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+
+function doCetakLaporanKadarPengunaan() {
+
+	var err_count = 0;
+	var tarikhMula = $('tarikhMula').value;
+	var tarikhTamat = $('tarikhTamat').value;
+	var idGredJawatan = $('idGredJawatan').value;
+	var idStatusBayaran = $('idStatusBayaran').value;
+	var idJenisUnit = $('idJenisUnit').value;
+	var idJenisPeranginan = $('idJenisPeranginan').value;
+	var idPeranginan = $('idPeranginan').value;
+	var idFlagWaktu = $('idFlagWaktu').value;
+	var jenisPemohon = $('jenisPemohon').value;
+	var findStatusPermohonan = $('findStatusPermohonan').value;
+	var idJenisPermohonan = $('idJenisPermohonan').value;
+
+	if(!tarikhMula){
+		tarikhMula = "";
+	}
+	if(!tarikhTamat){
+		tarikhTamat = "";
+	}
+	if(!idGredJawatan){
+		idGredJawatan = "";
+	}
+	if(!idStatusBayaran){
+		idStatusBayaran = "";
+	}
+	if(!idJenisUnit){
+		idJenisUnit = "";
+	}
+    if(!idJenisPeranginan){
+		idJenisPeranginan = "";
+	}
+	if(!idPeranginan){
+		idPeranginan = "";
+	}
+    if(!idFlagWaktu){
+		idFlagWaktu = "";
+	}
+	if(!jenisPemohon){
+		jenisPemohon = "";
+	}
+	if(!findStatusPermohonan){
+		findStatusPermohonan = "";
+	}
+	if(!idJenisPermohonan){
+		idJenisPermohonan = "";
+	}
+
+		if ( idJenisPeranginan == "" ) {$('err_idJenisPeranginan').innerHTML = "** mandatori!"; err_count++;  }
+		if ( idPeranginan == "" ) {$('err_idPeranginan').innerHTML = "** mandatori!"; err_count++;  }
+		if ( idJenisUnit == "" ) {$('err_idJenisUnit').innerHTML = "** mandatori!"; err_count++;  }		
+		if ( idStatusBayaran == "" ) {$('err_idStatusBayaran').innerHTML = "** mandatori!"; err_count++;  }
+		if ( idJenisPermohonan == "" ) {$('err_idJenisPermohonan').innerHTML = "** mandatori!"; err_count++;  }
+		if ( idFlagWaktu == "" ) {$('err_idFlagWaktu').innerHTML = "** mandatori!"; err_count++;  }
+		if ( jenisPemohon == "" ) {$('err_jenisPemohon').innerHTML = "** mandatori!"; err_count++;  }		
+		if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "** mandatori!"; err_count++;  }
+		if ( tarikhTamat == "" ) {$('err_tarikhTamat').innerHTML = "** mandatori!"; err_count++;  }
+		
+		if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.LaporanKadarPengunaan?tarikhMula="+tarikhMula+"&tarikhTamat="+tarikhTamat+"&idGredJawatan="+idGredJawatan+"&idStatusBayaran="+idStatusBayaran+"&idJenisUnit="+idJenisUnit+"&idJenisPeranginan="+idJenisPeranginan+"&idPeranginan="+idPeranginan+"&idFlagWaktu="+idFlagWaktu+"&jenisPemohon="+jenisPemohon+"&findStatusPermohonan="+findStatusPermohonan+"&idJenisPermohonan="+idJenisPermohonan;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+
+
+
+function doCetakLaporanKadarPengunaanKemudahan() {
+
+	var err_count = 0;
+	var tarikhMula = $('tarikhMula').value;
+	var tarikhTamat = $('tarikhTamat').value;
+	var idGredJawatan = $('idGredJawatan').value;
+##	var idStatusBayaran = $('idStatusBayaran').value;
+	var idJenisUnit = $('idJenisUnit').value;
+	var idJenisPeranginan = $('findJenisPeranginan').value;
+##	document.${formName}.findJenisPeranginan.value;
+##	var idJenisPeranginan = $('findJenisPeranginan').value;
+	var idPeranginan = $('idPeranginan').value;
+	var idFlagWaktu = $('idFlagWaktu').value;
+	var jenisPemohon = $('jenisPemohon').value;
+##	var findStatusPermohonan = $('findStatusPermohonan').value;
+	var idJenisPermohonan = $('idJenisPermohonan').value;
+	
+	if(!tarikhMula){
+		tarikhMula = "";
+	}
+	if(!tarikhTamat){
+		tarikhTamat = "";
+	}
+	if(!idGredJawatan){
+		idGredJawatan = "";
+	}
+##	if(!idStatusBayaran){
+##		idStatusBayaran = "";
+##	}
+	if(!idJenisUnit){
+		idJenisUnit = "";
+	}
+    if(!idJenisPeranginan){
+		idJenisPeranginan = "";
+	}
+	if(!idPeranginan){
+		idPeranginan = "";
+	}
+    if(!idFlagWaktu){
+		idFlagWaktu = "";
+	}
+	if(!jenisPemohon){
+		jenisPemohon = "";
+	}
+##	if(!findStatusPermohonan){
+##		findStatusPermohonan = "";
+##	}
+	if(!idJenisPermohonan){
+		idJenisPermohonan = "";
+	}
+		if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+		if ( tarikhTamat == "" ) {$('err_tarikhTamat').innerHTML = "Tarikh Tamat adalah mandatori!"; err_count++;  }
+		
+		if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.LaporanKadarPengunaanKemudahan?tarikhMula="+tarikhMula+"&tarikhTamat="+tarikhTamat+"&idGredJawatan="+idGredJawatan+"&idJenisUnit="+idJenisUnit+"&idJenisPeranginan="+idJenisPeranginan+"&idPeranginan="+idPeranginan+"&idFlagWaktu="+idFlagWaktu+"&jenisPemohon="+jenisPemohon+"&idJenisPermohonan="+idJenisPermohonan;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+
+
+
+function doCetakLaporanBayaranPenginapan() {
+
+	var err_count = 0;
+	
+	var tarikhMula = $('tarikhMula').value;
+	var tarikhTamat = $('tarikhTamat').value;
+	var lokasi = $('lokasi').value;
+	
+	if(!tarikhMula){
+		tarikhMula = "";
+	}
+	if(!tarikhTamat){
+		tarikhTamat = "";
+	}
+	if(!lokasi){
+		lokasi = "";
+	}
+		if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+		if ( tarikhTamat == "" ) {$('err_tarikhTamat').innerHTML = "Tarikh Tamat adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.LaporanBayaranPenginapan?tarikhMula="+tarikhMula+"&tarikhTamat="+tarikhTamat+"&lokasi="+lokasi;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+
+function doCetakLaporanJumlahPermohonan() {
+
+	var err_count = 0;
+	var tarikhMula = $('tarikhMula').value;
+	var tarikhTamat = $('tarikhTamat').value;
+	var idPeranginan = $('idPeranginan').value;
+	
+	
+	if(!tarikhMula){
+		tarikhMula = "0";
+	}
+	if(!tarikhTamat){
+		tarikhTamat = "0";
+	}
+    if(!idPeranginan){
+		idPeranginan = "0";
+	}
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.LaporanJumlahPermohonan?tarikhMula="+tarikhMula+"&tarikhTamat="+tarikhTamat+"&idPeranginan="+idPeranginan;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+
+function doCetakLaporanBilanganPenghuni() {
+
+	var err_count = 0;
+	var tarikhMula = $('tarikhMula').value;
+	var tarikhTamat = $('tarikhTamat').value;
+	
+	if(!tarikhMula){
+		tarikhMula = "0";
+	}
+	if(!tarikhTamat){
+		tarikhTamat = "0";
+	}
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.LaporanBilanganPenghuni?tarikhMula="+tarikhMula+"&tarikhTamat="+tarikhTamat;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+
+function doCetakLaporanSemakanOverBookBilik() {
+
+	var err_count = 0;
+	var tarikhMula = $('tarikhMula').value;
+	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	var tarikhHingga = $('tarikhHingga').value;
+	if ( tarikhHingga == "" ) {$('err_tarikhHingga').innerHTML = "Tarikh Hingga adalah mandatori!"; err_count++;  }
+	
+	if(!tarikhMula){
+		tarikhMula = "0";
+	}
+	if(!tarikhHingga){
+		tarikhHingga = "0";
+	}
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.LaporanSemakanOverBookBilik?tarikhMula="+tarikhMula+"&tarikhHingga="+tarikhHingga;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0
+}
+
+function doCetakLaporanSenaraiDaftarMasukRumahPeranginan() {
+
+	var err_count = 0;
+	var idPeranginan = $('idPeranginan').value;
+	var tarikhMula = $('tarikhMula').value;
+	var tarikhHingga = $('tarikhHingga').value;
+	
+	var findJenisPeranginan = $('findJenisPeranginan').value;
+	if ( findJenisPeranginan == "" ) {$('err_findJenisPeranginan').innerHTML = "Jenis Peranginan adalah mandatori!"; err_count++;  }
+	if ( idPeranginan == "" ) {$('err_idPeranginan').innerHTML = "Nama Peranginan adalah mandatori!"; err_count++;  }
+	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Daftar Keluar  adalah mandatori!"; err_count++;  }
+	if ( tarikhHingga == "" ) {$('err_tarikhHingga').innerHTML = "Tarikh Hingga adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.LaporanSenaraiDaftarMasukRumahPeranginan?tarikhMula="+tarikhMula+"&tarikhHingga="+tarikhHingga+"&idPeranginan='" + idPeranginan + "'";
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+
+function doCetakLaporanSenaraiDaftarKeluarRumahPeranginan() {
+
+	var err_count = 0;
+	var tarikhMula = $('tarikhMula').value;
+	var tarikhHingga = $('tarikhHingga').value;
+	var findJenisPeranginan = $('findJenisPeranginan').value;
+	var idPeranginan = $('idPeranginan').value;
+	
+	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Daftar Keluar  adalah mandatori!"; err_count++;  }
+	if ( tarikhHingga == "" ) {$('err_tarikhHingga').innerHTML = "Tarikh Hingga adalah mandatori!"; err_count++;  }
+	if ( findJenisPeranginan == "" ) {$('err_findJenisPeranginan').innerHTML = "Jenis Peranginan adalah mandatori!"; err_count++;  }
+	if ( idPeranginan == "" ) {$('err_idPeranginan').innerHTML = "Nama Peranginan adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.LaporanSenaraiDaftarKeluarRumahPeranginan?tarikhMula="+tarikhMula+"&tarikhHingga="+tarikhHingga+"&idPeranginan='" + idPeranginan + "'";
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+
+function doCetakLaporanDaftarMasukdanKeluar() {
+
+	var err_count = 0;
+	
+	var tarikhMasuk = $('tarikhMasuk').value;
+	var tarikhKeluar = $('tarikhKeluar').value;
+	var findJenisPeranginan = $('findJenisPeranginan').value;
+	var idPeranginan = $('idPeranginan').value;
+	
+	if(!tarikhMasuk){
+		tarikhMasuk = "";
+	}
+	if(!tarikhKeluar){
+		tarikhKeluar = "";
+	}
+	if(!findJenisPeranginan){
+		findJenisPeranginan = "";
+	}
+	if(!idPeranginan){
+		idPeranginan = "";
+	}
+		if ( tarikhMasuk == "" ) {$('err_tarikhMasuk').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+		if ( tarikhKeluar == "" ) {$('err_tarikhKeluar').innerHTML = "Tarikh Tamat adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.LaporanDaftarMasukdanKeluar?tarikhMasuk="+tarikhMasuk+"&tarikhKeluar="+tarikhKeluar+"&idPeranginan="+idPeranginan+"&findJenisPeranginan="+findJenisPeranginan;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+    
+function doCetakResitRPP() {
+
+	var err_count = 0;
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.ResitRPP";
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+    
+function doCetakSuratKelulusanTempahan() {
+
+	var err_count = 0;
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.SuratKelulusanTempahan";
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+
+function doKembali(){
+    location.reload();
+}
+
+function doCetakLaporanKadarPenggunaanLondon() {
+
+	var err_count = 0;
+	var idPeranginan = $('findJenisPeranginan').value;
+	var idPeranginan = $('idPeranginan').value;
+	var idStatusPermohonan = $('findStatusPermohonan').value;
+	var idStatusBayaran = $('findStatusBayaran').value;
+	var tarikhMasuk = $('findTarikhMasukRpp').value;
+	var tarikhKeluar = $('findTarikhKeluarRpp').value;
+	var idGredPerkhidmatan = $('idGredPerkhidmatan').value;
+	
+	if(!tarikhMasuk){
+		tarikhMasuk = "";
+	}
+	if(!tarikhKeluar){
+		tarikhKeluar = "";
+	}
+
+	if(!idStatusBayaran){
+		idStatusBayaran = "";
+	}
+	if(!idStatusPermohonan){
+		idStatusPermohonan = "";
+	}
+
+	if(!idPeranginan){
+		idPeranginan = "";
+	}
+	
+	if(!idGredPerkhidmatan){
+		idGredPerkhidmatan = "";
+	}
+	
+	if ( tarikhMasuk == "" ) {$('err_findTarikhMasukRpp').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	if ( tarikhKeluar == "" ) {$('err_findTarikhKeluarRpp').innerHTML = "Tarikh Tamat adalah mandatori!"; err_count++;  }		
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+       		var url = "../servlet/bph.laporan.rpp.LaporanKadarPenggunaanLondon?findTarikhMasukRpp="+tarikhMasuk+"&findTarikhKeluarRpp="+tarikhKeluar+"&findStatusBayaran="+idStatusBayaran+"&findStatus="+idStatusPermohonan+"&findGred="+idGredPerkhidmatan+"&findRpp="+idPeranginan;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	return err_count == 0;
+}
+
+    

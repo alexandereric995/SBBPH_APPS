@@ -1,0 +1,80 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#tblSenaraiDokumenSokonganPermohonan').DataTable({
+    		"language": {
+                "url": "../../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+<style>
+.scrollitpopup {
+	height:200px; width: 100%; overflow: auto;
+}
+.style1 {
+	color: #0000FF;
+	font-weight: bold;
+}
+</style>
+<input type="hidden" id="idMesyuarat" name="idMesyuarat" value="$!idMesyuarat" />
+<fieldset style="height:320px;width:50% !important">
+<legend class="legend">SENARAI DOKUMEN SOKONGAN</legend>
+<br/>
+	
+	<div class="scrollitpopup">
+	<table id="tblSenaraiDokumenSokonganPermohonan" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Bil.</th>
+                <th>Tajuk</th>
+                <th>Jenis Dokumen</th>
+                <th>Keterangan</th>        
+                <th>Dokumen</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+			#set ( $count = 0 )
+			#if($listDokumenSokongan.size() > 0)
+	    		#foreach($u in $listDokumenSokongan)
+	    		#set ( $count = $count + 1)
+	    		<tr>
+	    			<td align="center">$count</td>
+	    			<td align="center">$u.tajuk</td>
+	    			<td align="center">$u.jenisDokumen.keterangan</td>	 
+	    			<td align="left">$u.keterangan</td>	      								    	
+	    			<td align="center">
+	    				<a href="../download?file=$!uploadDir$!u.photofilename" >
+        				#if ($u.thumbfilename != "") 
+							<img style="margin:4px 0 4px;" id="photoImg" src="../download?file=$!uploadDir$i.thumbfilename" border="0">
+        				#else 
+							<span class="print"><span class="style1">MUAT TURUN DOKUMEN</span><span>
+						#end        			</a>	    			</td>
+	    		</tr>
+	    		#end
+			#end
+		</tbody>
+    </table>
+	</div>
+	
+	
+	<br />
+	<br />	
+	
+	<table width="100%">
+		<tr>
+			<td align="left"><div id="err_checkPermohonan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+			<td align="right">
+				<input id="btnTutup" type="button"  value="Tutup" />
+			</td>
+		</tr>
+	</table>
+	
+</fieldset>
+
+
+<script>
+	_jq('#btnTutup').on('click', function(){
+     	jQuery('#popupSenaraiPermohonan').fadeOut();
+  	});
+</script>

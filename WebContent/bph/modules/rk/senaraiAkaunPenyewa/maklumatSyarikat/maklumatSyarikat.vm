@@ -1,0 +1,56 @@
+<fieldset>
+<legend class="legend">Maklumat Syarikat</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("" "No. Pendaftaran" "<b>$!r.pemohon.syarikat.id</b>") 
+		<input type="hidden" id="noPendaftaran" name="noPendaftaran" value="$!r.pemohon.syarikat.id">	        
+        #input_required("nama" "Nama" "$!r.pemohon.syarikat.nama")
+        <tr>
+          <td class="label" valign="top">Jenis Pemilikan</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatSyarikat/selectJenisPemilikan.vm")
+            <div id="err_idJenisPemilikan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Taraf Bumiputera</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatSyarikat/selectTarafBumiputera.vm")
+            <div id="err_idTarafBumiputera" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>     
+        #if ($!r.pemohon.syarikat.tarikhPenubuhan) #set ($datePenubuhan = "$!util.getDateTime($!r.pemohon.syarikat.tarikhPenubuhan,'dd-MM-yyyy')")
+        #else #set ($datePenubuhan = "") #end
+        #date_input("tarikhPenubuhan" "Tarikh Penubuhan" "$datePenubuhan")
+        #textarea("bidangSyarikat" "Bidang Syarikat" "$!r.pemohon.syarikat.bidangSyarikat")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_required("alamat1" "Alamat" "$!r.pemohon.syarikat.alamat1")
+        #input("alamat2" "" "$!r.pemohon.syarikat.alamat2")
+        #input("alamat3" "" "$!r.pemohon.syarikat.alamat3")
+        #postcode_required("poskod" "Poskod" "$!r.pemohon.syarikat.poskod")
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatSyarikat/selectNegeri.vm")
+            <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandar"> #parse("$path/maklumatSyarikat/selectBandar.vm") </div>
+            <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</fieldset>

@@ -1,0 +1,84 @@
+<input type="hidden" id="idPemohon" name="idPemohon" value="$!r.id">
+<fieldset>
+<legend class="legend">MAKLUMAT PEMOHON</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #if ($!command != "add_new_record")
+  	#input_normal("id" "ID Pengguna" "<b>$!r.id</b>")	
+  #end
+  #if ($!command == "add_new_record")
+  	#number_required("noPengenalan" "No. Pengenalan" "$!r.noPengenalan")
+  #end
+  #input_required("namaPegawai" "Nama Pegawai" "$!r.namaPegawai")
+  #phone_number_required("noTelefon" "No. Telefon" "$!r.noTelefon")
+  #input_email_required("emel" "E-mel" "$!r.emel")
+  <tr>
+    <td class="label">Kementerian &nbsp;<span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td>#parse("$path/selectKementerian.vm")
+      <div id="err_idKementerian" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Agensi &nbsp; <span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td><div id="selectAgensi"> #parse("$path/selectAgensi.vm") </div>
+      <div id="err_idAgensi" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #input_required("namaJabatan" "Nama Jabatan" "$!r.namaJabatan")
+  #input_required("alamat1" "Alamat" "$!r.alamat1")
+  #input("alamat2" "" "$!r.alamat2")
+  #input("alamat3" "" "$!r.alamat3")
+  #postcode_required("poskod" "Poskod" "$!r.poskod")
+  <tr>
+    <td class="label">Negeri &nbsp;<span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td>#parse("$path/selectNegeri.vm")
+      <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Bandar &nbsp; <span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td><div id="selectBandar"> #parse("$path/selectBandar.vm") </div>
+      <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  
+  #if ($!command != "add_new_record")
+  	  #if ($!r.tarikhDaftar) 
+		#set ($dateDaftar = "$!util.getDateTime($!r.tarikhDaftar,'dd-MM-yyyy')")
+	  #else #set ($dateDaftar="-") #end
+  	  #input_normal("tarikhDaftar" "Tarikh Daftar" "<b>$dateDaftar</b>")
+  	  #if ($!r.tarikhLuput) 
+		#set ($dateLuput = "$!util.getDateTime($!r.tarikhLuput,'dd-MM-yyyy')")
+	  #else #set ($dateLuput="-") #end
+	  #date_input_required("tarikhLuput" "Tarikh Luput" "$dateLuput")
+	  <tr>
+	    <td class="label">Status &nbsp;<span style="color:#FF2A00">*</span> </td>
+	    <td>:</td>
+	    <td>#parse("$path/selectFlagAktif.vm")
+	      <div id="err_flagAktif" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+	  </tr>
+	  <tr>
+	    <td class="label">Status HQ&nbsp;<span style="color:#FF2A00">*</span> </td>
+	    <td>:</td>
+	    <td>#parse("$path/selectFlagHQ.vm")
+	      <div id="err_flagHQ" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+	  </tr>
+  #end
+</table>
+</fieldset>
+
+#if ($!command != "add_new_record")
+<table width="100%">
+	<tr>
+		<td align="right">
+		   	<input id="btnSimpan" name="btnSimpan" type="button" value="Simpan" onclick="javascript:kemaskiniPemohon();"/>
+		   	<input id="btnReset" name="btnReset" type="button" value="Set Semula Katalaluan" onclick="javascript:setSemulaKatalaluan();"/>
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+#end

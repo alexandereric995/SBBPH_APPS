@@ -1,0 +1,19 @@
+#if ($!kpp.tarikhJangkaSiap)
+    #set($tarikhJangkaSiap = $util.getDateTime($!kpp.tarikhJangkaSiap, "MMM, yyyy"))
+#else
+    #set($tarikhJangkaSiap = "")
+#end
+<tr>
+	<td style="width:150px">Tarikh Jangka Siap</td>
+	<td style="width:10px">:</td>
+	<td>
+		<input type="text" id="tarikhJangkaSiap" name="tarikhJangkaSiap" value="$tarikhJangkaSiap" />
+		<script>
+        	_jq("#tarikhJangkaSiap").Zebra_DatePicker({
+				view: 'month',
+				format: 'M, Y'
+			});
+        </script>
+		<div id="err_tarikhJangkaSiap" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>

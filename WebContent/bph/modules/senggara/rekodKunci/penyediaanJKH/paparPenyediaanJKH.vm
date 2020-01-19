@@ -1,0 +1,66 @@
+<input type="hidden" id="idJKH" name="idJKH" value="$!jkh.id">
+
+<fieldset>
+<legend class="legend">MAKLUMAT JKH</legend>
+	<table width="100%" cellpadding="1" cellspacing="2">
+	  <tr>
+	    <td class="label" style="width:15%"></td>
+	    <td style="width:1%"></td>
+	    <td style="width:84%"></td>
+	  </tr>
+      #input_readonly_all_label("noJKH" "No. JKH" "$!jkh.noJKH")	
+      #if ($!jkh.tarikhJKH) 
+      	#set ($dateJKH = "$!util.getDateTime($!jkh.tarikhJKH,'dd-MM-yyyy')")
+      #else #set ($dateJKH = "-") #end
+      #input_readonly_all_label("tarikhJKH" "Tarikh JKH" "$dateJKH") 	
+      #input_readonly_all_label("jumlah" "Jumlah (RM)" "$!util.formatDecimal($!jkh.jumlah)")
+      #input_readonly_all_label("gst" "GST (%)" "$!util.formatDecimal($!jkh.gst)")
+      #input_readonly_all_label("jumlahKeseluruhan" "Jumlah Keseluruhan (RM)" "$!util.formatDecimal($!jkh.jumlahKeseluruhan)")
+	  <tr>
+	    <td valign="top">Jadual Kadar Harga</td>
+	    <td valign="top">:</td>
+	    <td valign="top"><input type=hidden name="dokumenJKH" id="dokumenJKH" value="$!jkh.fileJKH"> 
+	    	#if ( $!jkh.fileJKH ) 
+		    	#if ($!jkh.fileJKH != "") 
+		    		<a href="../download?file=$!uploadDir$!jkh.fileJKH" > 
+		    			<font color="#0000FF"><strong>JADUAL KADAR HARGA</strong></font> </a> &nbsp;&nbsp;
+		    	#end
+		    #end	
+	    </td>
+	  </tr>
+	</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">MAKLUMAT SEMAKAN JKH</legend>
+	<table width="100%" cellpadding="1" cellspacing="2">
+	  <tr>
+	    <td class="label" style="width:15%"></td>
+	    <td style="width:1%"></td>
+	    <td style="width:84%"></td>
+	  </tr>
+      #input_readonly_all_label("sediaOleh" "Disediakan Oleh" "$!jkh.penyedia.userName")
+      #if ($!jkh.tarikhJKH) 
+      	#set ($dateSedia = "$!util.getDateTime($!jkh.tarikhJKH,'dd-MM-yyyy')")
+      #else #set ($dateSedia = "-") #end
+      #input_readonly_all_label("tarikhPenyediaan" "Tarikh Penyediaan" "$dateSedia")	
+      #input_readonly_all_label("semakanOleh" "Disemak Oleh" "$!jkh.penyemak.userName")	
+      #if ($!jkh.tarikhSemakan) 
+      	#set ($dateSemakan = "$!util.getDateTime($!jkh.tarikhSemakan,'dd-MM-yyyy')")
+      #else #set ($dateSemakan = "-") #end
+      #input_readonly_all_label("tarikhSemakan" "Tarikh Semakan" "$dateSemakan")	
+      #input_readonly_all_label("syorOleh" "Disyorkan Oleh" "$!jkh.pelulus.userName")
+      #if ($!jkh.tarikhKelulusan) 
+      	#set ($dateKelulusan = "$!util.getDateTime($!jkh.tarikhKelulusan,'dd-MM-yyyy')")
+      #else #set ($dateKelulusan = "-") #end
+      #input_readonly_all_label("tarikhPengesyoran" "Tarikh Pengesyoran" "$dateKelulusan")		
+	</table>
+</fieldset>
+
+<table width="100%">
+  <tr>
+    <td align="right">
+	    <input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

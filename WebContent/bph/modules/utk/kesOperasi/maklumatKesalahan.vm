@@ -1,0 +1,46 @@
+<fieldset>
+<legend class="legend">MAKLUMAT KESALAHAN</legend>
+<table width="70%">
+  <tr>
+    <td style="width:20%"></td>
+    <td style="width:1%"></td>
+    <td style="width:49%"></td>
+  </tr>
+  	#input_readonly_all_label("noFail" "No Fail Operasi" "<b>$!r.operasi.noFail</b>")
+  	#input_readonly_all_label("tarikh" "Tarikh Operasi" "$util.getDateTime($!r.operasi.tarikh, 'dd-MM-yyyy')") 	
+  	#input_readonly_all_label("noUnit" "No Unit Kuarters" "$!r.penghuni.kuarters.noUnit")
+  	#input_readonly_all_label("namaPesalah" "Nama" "$!r.penghuni.pemohon.userName")
+##  	#if($r.operasi.jenisPelanggaranSyarat.flagKes == '1')
+##	#set($kes = 'KES RINGAN')
+##	#elseif($r.operasi.jenisPelanggaranSyarat.flagKes == '2')
+##	#set($kes = 'KES BERAT')
+##	#else
+##	#set($kes = '')
+##	#end
+##  	#input_readonly_all_label("idKes" "Jenis Kes" "$kes")
+##  	#input_readonly_all_label("idJenisPelanggaran" "Jenis Kesalahan" "$!r.operasi.jenisPelanggaranSyarat.keterangan")
+	#input_readonly_all_label("catatan" "Catatan" "$!r.catatan")
+	#input_readonly_all_label("status" "Status" "<b>$!r.status</b>")
+	<tr>
+		<td>Status Penghuni</td>
+		<td>:</td>
+		<td>
+		<select class="texts" id="statusPenghuni" name="statusPenghuni" style="width:50%">
+	    <option value="">SILA PILIH</option>
+	    <option #if ( $!r.statusPenghuni == '1' ) selected #end value="1">KELUAR KUARTERS</option>
+	    <option #if ( $!r.statusPenghuni == '2' ) selected #end value="2">KEKAL MENDIAMI KUARTERS</option>
+	    <option #if ( $!r.statusPenghuni == '3' ) selected #end value="3">DISENARAI HITAM</option>
+		</select></td>
+	</tr>
+</table>
+<br/>
+</fieldset>
+<p align="right">
+	<input type="button" value="Simpan" align='left' id="cmdSimpanStatusPenghuni">
+	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+</p>
+<script>
+_jq('#cmdSimpanStatusPenghuni').on('click', function(){
+	saveStatusPenghuni();
+});
+</script>

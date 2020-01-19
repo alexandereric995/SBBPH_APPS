@@ -1,0 +1,164 @@
+#set( $cv = $calendar_viewer )
+
+#if ( $cv.month < 10 ) #set ( $smonth = "0" + $cv.month ) #else #set ( $smonth = $cv.month ) #end
+
+
+<table cellspacing="1" cellpadding="0" border="0">
+<tr>
+<td class="calendar_header" style="cursor:pointer" align="center" onclick="doDivAjaxCall3$formname('display_calendar','get_previous_calendar','month=$cv.month&year=$cv.year')">
+&lt;
+</td>
+<td colspan="5" class="calendar_header" align="center">
+$cv.monthName, $cv.year
+</td>
+<td class="calendar_header" style="cursor:pointer" align="center" onclick="doDivAjaxCall3$formname('display_calendar','get_next_calendar','month=$cv.month&year=$cv.year')">
+&gt;
+</td>
+</tr>
+
+<tr>
+
+#foreach ( $d in ["S", "M", "T", "W", "T", "F", "S"] )
+<td class="calendar_dayname" align="center">
+$d
+</td>
+#end
+
+
+</tr>
+
+##-- first week
+<tr>
+#set ( $day_count = 0 )
+#foreach( $i in [1..7])
+
+#if ( $i == $cv.startDay )
+#set ( $day_count = 1 )
+#end
+
+#if ( $day_count > 0 )
+#if ( $day_count < 10 ) #set( $sday = "0" + $day_count ) #else #set ( $sday = "" + $day_count ) #end
+
+#if ( $_today == "${day_count}-${smonth}-${cv.year}" )
+#set ( $class_day = "calendar_today" )
+#else
+#set ( $class_day = "calendar_day" )
+#end
+
+#if ( $eventUtil.getEventCount($day_count, $cv.month, $cv.year) > 0 )
+#set ( $class_day = "has_events" )
+#end
+<td id="td_day_${day_count}"  class="$class_day"  style="font-family:helvetica;font-size:10pt;cursor:pointer"
+onclick="doDivAjaxCall$formname('calendar_events','list_events','selectDate=${day_count}-${smonth}-${cv.year}')"
+ align="center" valign="middle">
+$day_count
+</td>
+#set ( $day_count = $day_count + 1 )
+#else
+<td class="calendar_day_empty"  style="font-family:helvetica;font-size:10pt;" align="center" valign="middle">&nbsp;</td>
+#end
+
+#end
+</tr>
+
+##---rest of the week
+
+#foreach($c in [1..5])
+#if ( $day_count < 31 )
+<tr>
+#foreach( $i in [1..7])
+#if ( $day_count <= $cv.days )
+#if ( $day_count < 10 ) #set( $sday = "0" + $day_count ) #else #set ( $sday = "" + $day_count ) #end
+
+#if ( $_today == "${day_count}-${smonth}-${cv.year}" )
+#set ( $class_day = "calendar_today" )
+#else
+#set ( $class_day = "calendar_day" )
+#end
+
+#if ( $eventUtil.getEventCount($day_count, $cv.month, $cv.year) > 0 )
+#set ( $class_day = "has_events" )
+#end
+<td id="td_day_${day_count}" class="$class_day"
+onclick="doDivAjaxCall$formname('calendar_events','list_events','selectDate=${day_count}-${smonth}-${cv.year}')"
+ align="center" valign="middle">
+$day_count
+</td>
+#set ( $day_count = $day_count + 1 )
+
+#else
+
+#set ( $day_count = 99 )
+<td class="calendar_day_empty">&nbsp;</td>
+#end
+#end
+</tr>
+#end
+#end
+
+<tr><td colspan="7" height="40px"></td></tr>
+
+<tr>
+<td colspan="7" align="center">
+
+
+
+#set ( $cnt = 0 )
+<table align="center" width="100%">
+<tr>
+#foreach ($m in ["Jan", "Feb","Mar", "Apr"] )
+#set ( $cnt = $cnt + 1 )
+#if ( $cv.month == $cnt )
+#set ( $class_day = "calendar_today" )
+#else
+#set ( $class_day = "calendar_day" )
+#end
+<td class="$class_day" align="center" style="cursor:pointer" onclick="doDivAjaxCall3$formname('display_calendar','get_month_calendar','month=$cnt&year=${cv.year}')">
+$m
+</td>
+#end
+</tr><tr>
+#foreach ($m in ["May", "Jun", "Jul", "Aug"] )
+#set ( $cnt = $cnt + 1 )
+#if ( $cv.month == $cnt )
+#set ( $class_day = "calendar_today" )
+#else
+#set ( $class_day = "calendar_day" )
+#end
+<td class="$class_day" align="center" style="cursor:pointer" onclick="doDivAjaxCall3$formname('display_calendar','get_month_calendar','month=$cnt&year=${cv.year}')">
+$m
+</td>
+#end
+</tr><tr>
+#foreach ($m in ["Sep", "Oct","Nov", "Dec"] )
+#set ( $cnt = $cnt + 1 )
+#if ( $cv.month == $cnt )
+#set ( $class_day = "calendar_today" )
+#else
+#set ( $class_day = "calendar_day" )
+#end
+<td class="$class_day" align="center" style="cursor:pointer" onclick="doDivAjaxCall3$formname('display_calendar','get_month_calendar','month=$cnt&year=${cv.year}')">
+$m
+</td>
+#end
+</tr>
+
+</table>
+
+<table align="center" width="80px">
+<tr><td class="calendar_day" style="cursor:pointer" align="center" onclick="doDivAjaxCall3$formname('display_calendar','get_today_calendar','')">
+Hari Ini
+</td></tr>
+</table>
+
+<table align="center" width="80px">
+<tr><td class="calendar_day" align="center">
+$cv.year
+</td></tr>
+</table>
+
+</td></tr>
+</table>
+
+
+

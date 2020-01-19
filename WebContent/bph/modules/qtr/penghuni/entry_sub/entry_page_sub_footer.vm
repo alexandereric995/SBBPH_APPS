@@ -1,0 +1,74 @@
+<fieldset>
+    <legend class="legend">Maklumat Lain-Lain</legend>
+    <table cellpadding="5" cellspacing="0" border="0" width="100%">
+    	<tr>
+            <td valign="top" align="center" width="50%">
+				<table cellpadding="5" cellspacing="0" border="0" width="100%">
+            		<tr>
+                        <td style="width:150px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+					
+					#if ($!r.tarikhMasuk)
+                        #set($tarikhMasuk = $util.getDateTime($!r.tarikhMasuk, "dd-MM-yyyy"))
+                    #else
+                        #set($tarikhMasuk = "")
+					#end
+					
+					#if ($!r.tarikhKeluar)
+                        #set($tarikhKeluar = $util.getDateTime($!r.tarikhKeluar, "dd-MM-yyyy"))
+                    #else
+                        #set($tarikhKeluar = "")
+					#end
+					
+					#if ($util.getTempohTamatPotongGaji($tarikhMasuk, "dd-MM-yyyy"))
+                        #set($tempohTamatPotongGaji = $util.getTempohTamatPotongGaji($tarikhMasuk, "dd-MM-yyyy"))
+                    #else
+                        #set($tempohTamatPotongGaji = "")
+                    #end
+                                       
+                    #if ($tarikhPermohonan)
+                        #set($tarikhPermohonan = $util.getDateTime($tarikhPermohonan, "dd-MM-yyyy"))
+                    #else
+                        #set($tarikhPermohonan = "")
+					#end
+					
+                    #input_readonly_label("tarikhDaftar" "Tarikh Daftar" "$tarikhPermohonan")
+                    #input_readonly_label("noDaftar" "No.Daftar" "$noDaftar")
+                    #input_readonly_label("tarikhMasukKuarters" "Tarikh Masuk Kuarters" "$tarikhMasuk")
+                    #input_readonly_label("tempohTamatPotongGaji" "Tempoh Tamat Potong Gaji" "$tempohTamatPotongGaji")
+                	#input_readonly_label("tarikhKeluarKuarters" "Tarikh Keluar Kuarters" "$tarikhKeluar")
+                	
+                </table>
+			</td>
+			<td valign="top" align="center" width="50%">
+				<table cellpadding="5" cellspacing="0" border="0" width="100%">
+            		<tr>
+                        <td style="width:150px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+					#if ($!r.tarikhMulaPotongGaji)
+                        #set($tarikhMulaPotongGaji = $util.getDateTime($!r.tarikhMulaPotongGaji,"dd-MM-yyyy"))
+                    #else
+                        #set($tarikhMulaPotongGaji = "")
+					#end
+					#if ($now)
+                        #set($tarikhSekarang = $util.getDateTime($now, "dd-MM-yyyy"))
+                    #else
+                        #set($tarikhSekarang = "")
+					#end
+					#if ($!util.monthBetween($tarikhMasuk, $tarikhSekarang))
+                        #set($bulanTertunggak = $!util.monthBetween($tarikhMasuk, $tarikhSekarang))
+                    #else
+                        #set($bulanTertunggak = "")
+                    #end
+                    #input_readonly_label("bulanTertunggak" "Jumlah Bulan Tertunggak" "$bulanTertunggak")
+                    #date_input_required("tarikhMulaPotongGaji" "Tarikh Mula Potong Gaji" "$tarikhMulaPotongGaji")
+                </table>
+			</td>
+		</tr>
+	</table>
+    
+</fieldset>

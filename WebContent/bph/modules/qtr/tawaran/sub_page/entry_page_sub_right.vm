@@ -1,0 +1,44 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%" id="entryRight">
+    <tr>
+        <td style="width:205px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+##	<tr>
+##		<td align="center" colspan="3" style="background: #B2B0B0; color: #FFF; font-weight: bold">
+##			Melalui dan Salinan
+##		</td>
+##	</tr>
+	<tr>
+		<td colspan="3">&nbsp;</td>
+	</tr>
+	#input_required("kepadaSiapa" "Kepada" "$!r.kepada")
+	##input_readonly_label("kementerian" "Kementerian" "$!uj.agensi.kementerian.keterangan")
+	#input("alamatPejabat1" "Alamat" "$!uj.alamat1")
+	#input("alamatPejabat2" "" "$!uj.alamat2")
+	#input("alamatPejabat3" "" "$!uj.alamat3")
+	#input("alamatPoskod" "Poskod" "$!uj.poskod")
+	##input("alamatNegeri" "Negeri" "$!uj.bandar.negeri.keterangan")
+	##input("alamatBandar" "Bandar" "$!uj.bandar.keterangan")
+	<tr>
+		<td class="label" valign="top">Negeri&nbsp;<span style="color:#FF2A00">*</span></td>
+		<td valign="top">:</td>
+		<td>
+		<span id="listNegeri2">
+			#parse("$path/select/selectNegeri.vm")
+		</span>
+		<div id="err_idNegeri2" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	</tr>
+	<tr>
+		<td class="label">Bandar&nbsp;<span style="color:#FF2A00">*</span></td>
+		<td>:</td>
+		<td>
+		<span id="listBandar2">
+			#parse("$path/select/selectBandar.vm")
+		</span>
+		<div id="err_idBandar2" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	</tr>
+	##input_required("gelaran" "Gelaran Dalam Surat" "$!r.titleDalamSurat")s
+</table>

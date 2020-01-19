@@ -1,0 +1,10 @@
+<select id="idNegeriPekerjaan" name="idNegeriPekerjaan" style="width:100%" onChange="$('err_idNegeriPekerjaan').innerHTML=''; at(this, event); doDivAjaxCall3$formname('listBandarPekerjaan','selectBandarPekerjaan','')" >
+    <option value="">SILA PILIH</option>
+    #foreach( $np in $selectNegeriPekerjaan )
+        <option #if ( $np.id ==  $!uj.bandar.negeri.id) selected #end value="$np.id">$np.keterangan.toUpperCase()</option>
+    #end
+</select>
+
+<script>
+    doDivAjaxCall3$formname('listBandarPekerjaan','selectBandarPekerjaan','')
+</script>

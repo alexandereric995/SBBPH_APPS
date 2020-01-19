@@ -1,0 +1,20 @@
+<iframe id="upload_profil_photo" name="upload_profil_photo" width="0px" height="0px" style="visibility:hidden"></iframe>
+<div id="refreshProfilePhoto"> </div>
+<table width="100%">
+  <tr>
+    <td align="center"> 
+    	#if ( $!profilePhotoName != "") 
+    		<img src="../download?file=$!uploadDir$!profilePhotoName" border="0">
+    	#end
+      <input type="hidden" name="profilePhotoName" value="$!profilePhotoName">
+      <input type="hidden" name="avatarPhotoName" value="$!avatarPhotoName">
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+    	<input type="file" id="profilePhoto" name="profilePhoto" onChange="uploadProfilePhoto()">
+      	<div id="err_profilePhoto" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      	<div id="profilePhotoMuatnaik" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+    </td>
+  </tr>
+</table>

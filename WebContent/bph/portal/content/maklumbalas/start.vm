@@ -1,0 +1,70 @@
+<div id="content-format">
+  <pinLeft></pinLeft>
+  <pinRight></pinRight>
+  <header>$!header</header>
+  <fieldset>
+      <section>
+        <table width="100%" cellpadding="5" cellspacing="0" border="1">
+    		<thead>
+            	<tr>
+            		<td align="center" class="row_header"><strong>Bulan</strong></td>
+        			<td align="center" class="row_header"><strong>Tahun</strong></td>
+        			<td align="center" class="row_header"><strong>Tidak Pasti</strong></td>
+        			<td align="center" class="row_header"><strong>Tidak Memuaskan</strong></td>
+        			<td align="center" class="row_header"><strong>Kurang Memuaskan</strong></td>
+        			<td align="center" class="row_header"><strong>Memuaskan</strong></td>
+        			<td align="center" class="row_header"><strong>Sangat Memuaskan</strong></td>
+        			<td align="center" class="row_header"><strong>Jumlah Undian</strong></td>
+            	</tr>
+    		</thead>
+    		<tbody>
+        		#foreach( $u in $undi )
+					#set ( $latestUpdate = $u.tarikhKemaskini )
+    				#if ( $u.bulan == 1 )
+    					#set ( $monthName = "Januari" )
+    				#elseif ( $u.bulan == 2 )
+    					#set ( $monthName = "Februari" )
+    				#elseif ( $u.bulan == 3 )
+    					#set ( $monthName = "March" )
+    				#elseif ( $u.bulan == 4 )
+    					#set ( $monthName = "April" )
+    				#elseif ( $u.bulan == 5 )
+    					#set ( $monthName = "Mei" )
+    				#elseif ( $u.bulan == 6 )
+    					#set ( $monthName = "Jun" )
+    				#elseif ( $u.bulan == 7 )
+    					#set ( $monthName = "Julai" )
+    				#elseif ( $u.bulan == 8 )
+    					#set ( $monthName = "Ogos" )
+    				#elseif ( $u.bulan == 9 )
+    					#set ( $monthName = "September" )
+    				#elseif ( $u.bulan == 10 )
+    					#set ( $monthName = "Oktober" )
+    				#elseif ( $u.bulan == 11 )
+    					#set ( $monthName = "November" )
+    				#elseif ( $u.bulan == 12 )
+    					#set ( $monthName = "Disember" )
+    				#end
+            		<tr>
+        				<td align="center">$monthName</td>
+        				<td align="center">$u.tahun</td>
+                		<td align="center">$u.tidakPasti</td>
+        				<td align="center">$u.tidakPuas</td>
+        				<td align="center">$u.kurangPuas</td>
+        				<td align="center">$u.puas</td>
+        				<td align="center">$u.sangatPuas</td>
+        				<td align="center">$u.getJumlahUndian()</td>
+                	</tr>		
+    			#end
+    		</tbody>
+        </table>
+      </section>
+  <section>
+		#set ( $updatedDate = "-" )
+		#if ( $latestUpdate )
+			#set ( $updatedDate = $util.getDateTime($latestUpdate, "dd/MM/yyyy HH:mm:ss") )
+		#end
+	<p>Tarikh kemaskini terakhir : <strong>$updatedDate</strong></p>
+  </section>
+  </fieldset>
+</div>

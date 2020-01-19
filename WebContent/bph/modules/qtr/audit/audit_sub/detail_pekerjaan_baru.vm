@@ -1,0 +1,41 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%" id="pemohonKerja">
+    <h3>MAKLUMAT PEKERJAAN (SELEPAS)</h3>
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+    #input_normal("skimPerkhidmatan" "Skim Perkhidmatan" "$!pilihan.ujKelasPerkhidmatan.id")
+    #input_normal("gredJawatan" "Gred Jawatan" "$!pilihan.ujGredJawatan.keterangan")
+    #input_normal("jawatan" "Jawatan" "$!pilihan.ujJawatan.keterangan")
+    
+    #if ($!pilihan.ujTarikhLantikan)
+        #set($tarikhLantikan = $util.getDateTime($!pilihan.ujTarikhLantikan,"dd-MM-yyyy"))
+    #else
+        #set($tarikhLantikan = "")
+    #end
+    
+    #input_normal("tarikhLantikan" "Tarikh Lantikan" "$tarikhLantikan")
+    #input_normal("noGaji" "No Gaji" "$!pilihan.ujNoGaji")
+    #input_normal("gajiPokok" "Gaji" "$!pilihan.ujGajiPokok")
+    #input_normal("jenisPerkhidmatan" "Jenis Perkhidmatan" "$!pilihan.ujJenisPerkhidmatan.keterangan")
+    #input_normal("statusPerkhidmatan" "Status Perkhidmatan" "$!pilihan.ujStatusPerkhidmatan.keterangan")
+    
+    #if ($!pilihan.ujTarikhTamat)
+    	#set($tarikhTamat = $util.getDateTime($!pilihan.ujTarikhTamat,"dd-MM-yyyy"))
+    #else
+    	#set($tarikhTamat = "")
+   	#end
+    #input_normal("ujFlagITP" "Flag ITP" "$!pilihan.ujFlagITP")    
+	#input_normal("ujFlagEPW" "Kementerian" "$!pilihan.ujFlagEPW")
+    #input_normal("ujFlagCola" "Kementerian" "$!pilihan.ujFlagCola")
+    #input_normal("jabatan" "Jabatan" "$!pilihan.ujAgensi.keterangan")
+    #input_normal("bahagian" "Bahagian" "$!pilihan.ujBahagian")	
+	#input_normal("userAlamat1" "Alamat Pejabat" "$!pilihan.ujAlamat1")
+	#input_normal("userAlamat2" "" "$!pilihan.ujAlamat2")
+	#input_normal("userAlamat3" "" "$!pilihan.ujAlamat3")
+	#input_normal("userPoskod" "Poskod" "$!pilihan.ujPoskod")
+	#input_normal("bandar" "Bandar" "$!pilihan.ujBandar.keterangan")
+	#input_normal("negeri" "Negeri" "$!pilihan.ujBandar.negeri.keterangan")
+    #input_normal("noTelPejabat" "No. Tel. Pejabat" "$!pilihan.ujNoTelPejabat")  
+</table>

@@ -1,0 +1,57 @@
+
+
+<fieldset>
+<legend class="legend">MAKLUMAT MAKLUMBALAS / ADUAN</legend>
+    <table width="100%">
+      <tr>
+        <td style="width:200px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+      </tr>
+      
+      #show("NO. MAKLUMBALAS" "$!r.noMaklumbalas")
+      #show("JENIS MAKLUMBALAS" "$!r.jenisMaklumBalas.keterangan.toUpperCase()")
+      #show("KETERANGAN" "$!util.replaceIfNull($!r.keterangan,'-')")
+      #show("ULASAN" "$!util.replaceIfNull($!r.ulasanMaklumbalas,'-')")
+      #show("TARIKH MAKLUMBALAS DIBUAT" "$!util.getDateTime($!r.tarikhMaklumbalas,'dd-MM-yyyy')")
+      #show("STATUS MAKLUMBALAS" "$!r.status.keterangan")
+      
+    </table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">ulasan</legend>
+
+    <table width="100%">
+	  <tr>
+		<td>
+			<textarea id="ulasanHq" style="height:100px" name="ulasanHq" onKeyUp="$('err_ulasanHq').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">$!r.ulasanHq</textarea>
+			<div id="err_ulasanHq" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	  </tr>
+    </table>
+
+</fieldset>
+
+
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="right">##Fatin 13/06/2015
+			#set ( $queryParam = "record_id=$!r.id" )
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+			<input type="button" value="Simpan" onClick="if ( validateField() ) doDivAjaxCall$formname('div_main_entry','save_data','$queryParam')">
+			<input type="button" value="Kosongkan" onclick="javascript:kosongkan();">
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

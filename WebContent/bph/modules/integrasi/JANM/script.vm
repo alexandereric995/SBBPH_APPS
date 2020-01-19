@@ -1,0 +1,46 @@
+function validate() {
+	var err_count = 0;
+	
+	var lampiranJANM = $('lampiranJANM').value;
+	var dokumenJANM = $('dokumenJANM').value;
+	if ( lampiranJANM == "" && dokumenJANM == "") {$('err_lampiranJANM').innerHTML = "** mandatori!"; err_count++;  }
+
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function muatNaikLampiranJANM() {
+	var err_count = 0;	
+	
+	$('err_lampiranJANM').innerHTML = '';
+	
+	if ($('lampiranJANM').value != "" && !checkDoc($('lampiranJANM').value)) {
+		err_count++;
+		$('lampiranJANM').value = "";
+		$('err_lampiranJANM').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (doc, docx atau pdf)';
+	}
+	
+	if (err_count == 0) {
+		$('uploadLampiranJANM').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_lampiran_janm';
+		document.${formName}.action='?command=uploadLampiranJANM';
+		document.${formName}.submit();
+	}
+}
+
+function checkDoc(val){
+	var arr = val.split(".");
+    var arr1 = val.split("\\");
+    if (arr[1] == "txt" || arr[1] == "TXT" ) {
+    	return true;
+    } else {
+    	return false;
+    }
+}

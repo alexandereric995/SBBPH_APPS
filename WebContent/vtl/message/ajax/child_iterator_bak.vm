@@ -1,0 +1,85 @@
+#foreach ( $item in $forum_items )
+
+	<table width="100%" cellpadding="2" cellspacing="0" border="0">
+		<tr>
+			#foreach ( $i in [1..$item.level])
+			<td width="8">
+				&nbsp;
+			</td>
+			#end
+			<!--
+			<td width="1px" bgcolor="lightgrey">
+				&nbsp;
+			</td>			
+			-->
+			<td>
+				<table width="100%" cellpadding="2" cellspacing="0" border="0">
+					<tr>
+						<td>
+							<table width="100%" cellpadding="2" cellspacing="0" bgcolor="lightgrey">
+								<tr>	
+									<!--
+									<td width="80">
+										<a href="javascript:openForum('$item.id')">
+										<b>Post Subject:</b>
+										</a>
+									</td>	
+									-->									
+									<td colspan="2">
+										<a href="javascript:openForum_${formname('$item.id')">
+										$item.title
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<!--
+									<td >
+										<a href="javascript:openForum('$item.id')">
+										<b>Author:</b>
+										</a>
+									</td>	
+									-->							
+									<td  colspan="2">
+										<a href="javascript:openForum_${formname('$item.id')">
+										$item.postedBy
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<!--
+									<td  >
+										<a href="javascript:openForum('$item.id')">
+										<b>Posted:</b>
+										</a>
+									</td>	
+									-->							
+									<td >
+										<a href="javascript:openForum_${formname('$item.id')">
+										$item.getDatePosted().display()
+										</a>
+									</td>
+									<td align="right">
+										<input class="button" type="button" value="Open" onclick="openForum_${formname('$item.id')">
+									</td>									
+								</tr>								
+							</table>
+						</td>	
+					<tr>
+						<td bgcolor="#F1F1F1">
+							$item.notes
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
+	</table>
+	
+	
+
+			
+#end

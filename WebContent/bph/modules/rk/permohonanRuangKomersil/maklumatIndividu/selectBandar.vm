@@ -1,0 +1,10 @@
+<select id="idBandar" name="idBandar" style="width:100%" onChange="$('err_idBandar').innerHTML='';">
+    <option value="">SILA PILIH</option>
+    #foreach( $n in $selectBandar )
+    	#if ($!command == 'getMaklumatIndividuBerdaftar' || $!command == 'getPilihanIndividu')
+    	<option #if ( $n.id == $individu.bandar.id ) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+    	#else
+    	<option #if ( $n.id == $!r.fail.pemohon.individu.bandar.id ) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+    	#end
+    #end
+</select>

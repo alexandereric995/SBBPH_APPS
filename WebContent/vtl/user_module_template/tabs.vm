@@ -1,0 +1,129 @@
+<fieldset>
+    <form name="f" method="post">
+    	<table width="600" align="center" border="0">
+    		<tr>
+    			<td style="font-weight:bold">
+    				&nbsp;&nbsp;&nbsp;Peranan&nbsp;&#40;$role&#41;
+    			</td>
+    		</tr>
+    		<tr>
+    			<td style="font-weight:bold">
+    				&nbsp;&nbsp;&nbsp;Tab
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<ul id="tablist" style="list-style-type:none;padding: 2px;">
+    					#set ($cnt = 0 )
+    					#foreach( $tab in $tabs)
+    						#set ( $cnt = $cnt + 1 )
+    						<li id="tablist_$cnt" style="cursor:hand">
+    							<table width="100%" cellspacing="0" cellpadding="4" border="0" bgcolor="#ffffff">
+                                    <tr>
+                                    	<!-- <td bgcolor="#ffffff" style="background:url('../img/tab_left.jpg') no-repeat;width:5px;"></td> -->
+                                    	<td class="module_tab_customize">
+                                    		<table width="100%">
+                                    			<tr>
+                                    				<td width="10" align="center"><a style="cursor:hand;cursor:pointer;">::</a></td>
+                                    				<td>
+                                    					<a style="cursor:hand;cursor:pointer;">
+                                    						$tab.title
+                                    					</a>
+                                    					<input type="hidden" name="tabIds" value="${tab.id}">
+                                    				</td>
+                                    				<td width="50%" align="right">
+                                						<a href="javascript:listModules('$tab.id')" style="text-decoration:underline">Kandungan</a>
+                                						|
+                                						<a href="javascript:editTab('$tab.id', '$tab.title', 'Kemaskini')" style="text-decoration:underline">Tukar Nama</a>
+                                						|
+                                						<a href="javascript:deleteTab('$tab.id')" style="text-decoration:none">X</a>
+                                    				</td>
+                                    			</tr>
+                                    		</table>
+                                    	</td>
+                                    	<!-- <td bgcolor="#ffffff" style="background:url('../img/tab_right.jpg') no-repeat;width:5px"></td> -->
+                                    </tr>
+                                </table>
+    						</li>
+    					#end
+    				</ul>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td align="center" height="40">
+    				<input type="button" value="Simpan Tab" onclick="saveTabs()">
+    				<input type="button" value="Kembali" onclick="changeRole()">
+    			</td>
+    		</tr>
+    		<tr>
+    			<td align="center" height="40">
+    				Tab:
+    				<input name="tab_title" style="width:200px">
+    				<input type="button" name="buttonTab" value="Tambah" onclick="doTab()">
+    				<input type="button" name="buttonReset" value="Kosongkan" onclick="doReset('Tambah')">
+    			</td>
+    		</tr>
+    	</table>
+        <input type="hidden" name="tabId">
+        <input type="hidden" name="role" value="$role">
+        <input type="hidden" name="command">
+    </form>
+</fieldset>
+<br /><br />
+
+<script type="text/javascript" language="javascript" charset="utf-8">
+Sortable.create('tablist');
+</script>
+
+<script>
+function saveTabs() {
+    document.f.command.value = "saveTabs";
+    document.f.submit();
+}
+
+function deleteTab(id) {
+    if ( !confirm('Are you sure?') ) return;
+        document.f.command.value = "deleteTab";
+        document.f.tabId.value = id;
+        document.f.submit();
+}
+
+function addTab() {
+    if ( document.f.tab_title.value == "" ) return;
+        document.f.command.value = "addTab";
+        document.f.submit();
+}
+
+function editTab(id, title, butValue) {
+    document.f.tabId.value = id;
+    document.f.tab_title.value = title;
+    document.f.buttonTab.value = butValue;
+}
+
+function updateTab() {
+    document.f.command.value = "updateTab";
+    document.f.submit();
+}
+
+function doTab() {
+    if ( document.f.buttonTab.value == "Update" || document.f.buttonTab.value == "Kemaskini" ) updateTab();
+    else addTab();
+}
+
+function doReset(butValue){
+    document.f.buttonTab.value = butValue;
+    document.f.tab_title.value = "";
+    document.f.tabId.value = "";
+}
+
+function listModules(tabId) {
+    document.f.tabId.value = tabId;
+    document.f.command.value = "listModules";
+	document.f.submit();
+}
+
+function changeRole(){
+    document.f.command.value = "changeRole";
+    document.f.submit();
+}
+</script>

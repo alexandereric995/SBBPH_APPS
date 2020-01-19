@@ -1,0 +1,66 @@
+##/**
+##* AUTHOR : zufazdliabuas@gmail.com
+##* Date : 14/6/2017
+##*/
+
+<style>
+.print {
+	color:blue;
+}
+.print:hover {
+	color:blue;
+	text-decoration:underline;
+}
+</style>
+
+<fieldset>
+<legend class="legend">Senarai Aktiviti</legend>
+<table width="100%" cellpadding="5" cellspacing="1">
+	<tr>
+		<td colspan="7">
+			<input id="btnTambah" name="btnTambah" type="button" value="Tambah" onClick="doDivAjaxCall3$formname('divTab','daftarAktiviti','')"/>
+		</td>
+	</tr>
+	<tr>
+		<td class="record_header" width="5%" align="center">Bil.</td>
+		<td class="record_header">Nama Aktiviti</td>
+		<td class="record_header">Tarikh Aktiviti</td>
+		<td class="record_header">Status</td>
+		<td class="record_header" width="5%" align="center">Papar</td>
+		<td class="record_header" width="5%" align="center">Hapus</td>
+	</tr>
+	#if ($listAktiviti.size() > 0)
+		#set ($count=0)
+		#foreach ($i in $listAktiviti)
+			#set ($count=$count+1)
+	
+		#if ( ($count % 2) != 1 )
+			#set( $row = "row2" )
+		#else
+			#set( $row = "row1" )
+		#end
+			<tr>
+				<td class="$row" align="center">$count</td>
+				<td class="$row" >$!i.namaAktiviti</td>
+				#if ($!i.tarikhAktiviti) 
+					#set ($dateAktiviti = "$!util.getDateTime($!i.tarikhAktiviti,'dd-MM-yyyy')")
+				#else #set ($dateAktiviti = "-") #end
+			    <td class="$row" >$dateAktiviti</td>
+				<td class="$row" >$!i.getKeteranganFlagAktif()</td>
+				<td class="$row" align="center">
+					<a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','kemaskiniAktiviti','idAktiviti=$!i.id')"> <img alt="edit" src="../img/edit.gif" border="0"> </a>
+				</td>
+				<td class="$row" align="center">
+					<span id="hapusDoc"> <a href="javascript:void()" onClick="deleteAktiviti('$!i.id')" ><img src="../img/delete.gif" border="0"></a> </span> 
+				</td>
+			</tr>
+		#end
+	#else
+		<tr>
+			<td class="$row" align="center">&nbsp;</td>
+			<td class="$row" ><strong>TIADA REKOD</strong></td>
+			<td class="$row" colspan="4">&nbsp;</td>
+		</tr>
+	#end
+</table>
+</fieldset>

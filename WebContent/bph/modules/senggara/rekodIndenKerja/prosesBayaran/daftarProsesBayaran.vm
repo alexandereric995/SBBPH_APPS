@@ -1,0 +1,71 @@
+<fieldset>
+<legend class="legend">MAKLUMAT BAYARAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:29%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+  #if ($!r.tarikhTuntutanBayaran) 
+  #set ($dateTuntutanBayaran = "$!util.getDateTime($!r.tarikhTuntutanBayaran,'dd-MM-yyyy')")
+  #else #set ($dateTuntutanBayaran = "") #end
+  #date_input("tarikhTuntutanBayaran" "Tarikh Tuntutan Bayaran" "$dateTuntutanBayaran")
+  #if ($!r.tarikhHantarKewangan) 
+  #set ($dateHantarKewangan = "$!util.getDateTime($!r.tarikhHantarKewangan,'dd-MM-yyyy')")
+  #else #set ($dateHantarKewangan = "") #end
+  #date_input("tarikhHantarKewangan" "Tarikh Hantar Ke Kewangan" "$dateHantarKewangan")
+  #if ($!r.tarikhTerimaKunci) 
+  #set ($dateTerimaKunci = "$!util.getDateTime($!r.tarikhTerimaKunci,'dd-MM-yyyy')")
+  #else #set ($dateTerimaKunci = "") #end
+  #date_input("tarikhTerimaKunci" "Tarikh Terima Kunci" "$dateTerimaKunci")
+</table>
+</fieldset>
+<fieldset>
+<legend class="legend">PERAKUAN SIAP KERJA</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:29%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+  #if ($!r.tarikhPerakuanSiapKerja) 
+  #set ($datePerakuanSiapKerja = "$!util.getDateTime($!r.tarikhPerakuanSiapKerja,'dd-MM-yyyy')")
+  #else #set ($datePerakuanSiapKerja = "") #end
+  #date_input("tarikhPerakuanSiapKerja" "Tarikh Perakuan Siap Kerja" "$datePerakuanSiapKerja")
+  #if ($!r.tarikhPerakuanSiapKerja)
+  #if ($!r.tarikhAkhirWaranti) 
+  #set ($dateAkhirWaranti = "$!util.getDateTime($!r.tarikhAkhirWaranti,'dd-MM-yyyy')")
+  #else #set ($dateAkhirWaranti = "") #end
+  #input_readonly_all_label("tarikhAkhirWaranti" "Tarikh Perakuan Siap Kerja" "<b>$dateAkhirWaranti</b>")
+  #end
+  
+  #if ($!r.tarikhPerakuanSiapKerja)
+  <tr>
+    <td ><a href="#" id="cetakPerakuanSiapKerja"> <font color="#0000FF"><strong>CETAK PERAKUAN SIAP KERJA</strong></font> </a></td>
+    <td ></td>
+    <td ></td>
+  </tr>
+  #end
+</table>
+</fieldset>
+<table width="100%">
+  <tr>
+    <td align="right">
+    	<input type="button" value="Simpan" onclick="javascript:updateProsesBayaran();">
+      	<input id="selesai" name="selesai" type="button" value="Selesai" onClick="if ( !confirm('Anda pasti?') ) return; $('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','selesaiProsesBayaran','page_num=$!current_page_num')">
+      	<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+
+<script>
+	_jq('#cetakPerakuanSiapKerja').on('click', function(){
+    	var idIndenKerja = '$!r.id';
+        		    
+		var url = "../servlet/bph.laporan.senggara.CetakPerakuanSiapKerja?idIndenKerja="+idIndenKerja;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();	
+    });
+</script>

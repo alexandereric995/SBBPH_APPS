@@ -1,0 +1,54 @@
+
+#parse("$path/tabbed.vm")
+
+<input type="hidden" name="idAduanKerosakan" id="idAduanKerosakan" value="$!ak.id" />
+
+<!--
+<fieldset>
+<legend class="legend">ADUAN KEROSAKAN</legend>
+    
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+            <td colspan="5">&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="25%">Tarikh Aduan</td>
+			<td class="row_header" width="25%">Jenis Kerosakan</td>
+			<td class="row_header" width="25%">Nilai Kerosakan (RM)</td>
+			<td class="row_header" width="20%">Status</td>
+		</tr>
+		
+		#if ( $listAduan.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listAduan )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+    				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+					<td align="center">$!util.getDateTime($!d.tarikhAduan,'dd-MM-yyyy')</td>
+					<td align="center">$!d.barangDeposit.nama.toUpperCase()</td>
+            		<td align="right">$!util.formatDecimal($!d.harga)</td>
+        			<td align="center">$!d.status.keterangan.toUpperCase()</td>
+                </tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="5">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+	
+</fieldset>	
+-->
+
+<div id="divFormAduan">#parse("$path/aduanKerosakan/maklumatAduan.vm")</div>

@@ -1,0 +1,46 @@
+<fieldset>
+<legend class="legend">LAPORAN LEJAR INDIVIDU</legend>
+	<table cellpadding="5" cellspacing="0" border="0" width="90%" style="padding: 0px 25px;">	
+##<tr>
+##	        <td style="width:10%"></td>
+##	        <td style="width:1%"></td>
+##	        <td style="width:69%"></td>
+##	        <td style="width:10%"></td>
+##	    </tr>
+<tr>
+	<td class="label" valign="top" align="right">Kod Hasil &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><select class="texts" id="selectUnit" name="selectUnit" style="width:100%" onChange="$('err_selectUnit').innerHTML='';">
+    <option value="">SILA PILIH</option>
+    <option value="01">72310 - DEPOSIT KUARTERS KERAJAAN</option>
+    <option value="02">72311 - DEPOSIT RUMAH PERANGINAN PERSEKUTUAN</option>
+    <option value="04">79503 - DEPOSIT RUANG KOMERSIAL</option>
+	</select>
+	<div id="err_selectUnit" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+	<td>&nbsp;</td>
+</tr>
+</table>
+	<div id="divMaklumatPenghuni">
+		#parse("$path/lejerPenghuni/maklumatPenghuni.vm")
+	</div>
+<table cellpadding="5" cellspacing="0" border="0" width="90%" style="padding: 0px 25px;">	
+<tr>
+	        <td style="width:10%"></td>
+	        <td style="width:1%"></td>
+	        <td style="width:69%"></td>
+	        <td style="width:10%"></td>
+	    </tr>
+<tr>
+	<td align="center" colspan="4"><input type="button" name="cmdCetak" id="cmdCetak" value="Cetak" onclick="javascript:doCetakLejerPenghuni()"/></td>
+</tr>
+</table>
+</fieldset>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

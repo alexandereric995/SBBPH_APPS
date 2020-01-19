@@ -1,0 +1,52 @@
+<style type="text/css">
+
+.style1 {
+	color: #0033FF
+}
+.style2 {
+	color: #FF0000;
+	font-weight: bold;
+}
+.blink {
+	animation: blink 1s steps(5, start) infinite;
+}
+@keyframes blink {
+ to {
+ visibility: hidden;
+}
+</style>
+<td>$!r.noPermohonan</td>
+<td>$r.jenisPermohonanJrp.id - $!r.jenisPermohonanJrp.keterangan</td>
+#if($!userRole.equalsIgnoreCase("(JRP) Pemohon")) 
+#if ($!r.tarikhHantarUlasan) 
+	#set ($dateHantarUlasan = "$!util.getDateTime($!r.tarikhHantarUlasan,'dd-MM-yyyy')")
+#else #set ($dateHantarUlasan="") #end
+<td  align="center">$dateHantarUlasan</td>
+#end
+#if ($!r.tarikhTerima) 
+	#set ($dateTerima = "$!util.getDateTime($!r.tarikhTerima,'dd-MM-yyyy')")
+#else #set ($dateTerima="") #end
+<td  align="center">$dateTerima</td>
+##<td>$!r.agensi.kementerian.keterangan</td>
+<td>$!r.agensi.keterangan</td>
+<td>$!r.bandar.negeri.keterangan</td>
+<td>$!r.bandar.keterangan</td>
+<td align="center">
+#if($!userRole.equalsIgnoreCase("(JRP) Pemohon"))
+	#if($r.status.id =="1438356583123" || $r.status.id =="1424860634481" || $r.status.id =="1424860634484" || $r.status.id =="1436921583144" || $r.status.id =="1424860634487" || $r.status.id =="471300128898077" || $r.status.id =="1424860634490"|| $r.status.id =="1438356583116")
+		#set($status = "DALAM PROSES")
+	#else
+		#set($status = $!r.status.keterangan)	
+	#end
+	$status
+#else
+	#if($!r.idStatus == '1424860634490')
+		#set($bilMesyuarat = $!r.getBilMesyuarat())
+		#set($status = $!r.status.keterangan)
+		$status $!bilMesyuarat
+	#else
+		#set($status = $!r.status.keterangan)
+		$status
+	#end
+#end
+ <br><font size="0.2" class="blink" ><span class="style2">$r.getStatusPerjanjian()</span></font></td>

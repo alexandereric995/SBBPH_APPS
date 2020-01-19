@@ -1,0 +1,104 @@
+
+<input type="hidden" name="idPeranginan" id="idPeranginan" value="$!r.id" />
+
+<fieldset>
+<legend class="legend">senarai keseluruhan terma dan syarat</legend>
+
+    <table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="85%">Perkara</td>
+			<td class="row_header" width="10%">Pilih</td>
+		</tr>
+		
+		#if ( $listTermaSyaratRpp.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listTermaSyaratRpp )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+            		<td>$!d.keterangan.toUpperCase()</td>
+					<td align="center">
+						<input type="checkbox" #if($!userRole.equalsIgnoreCase("(RPP) Penyedia")) disabled #end name="keterangan" id="keterangan$!d.id" value="$!d.id" onclick="doDivAjaxCall$formname('div_main_entry','savePilihanTermaSyarat','idTerma=$!d.id')" />
+					</td>
+                </tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="4">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+
+</fieldset>
+
+<br/>
+
+<fieldset>
+<legend class="legend">senarai terma dan syarat bagi $!r.jenisPeranginan.id.toUpperCase() $!r.namaPeranginan.toUpperCase()</legend>
+
+    <table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="85%">Perkara</td>
+			<td class="row_header" width="10%">Hapus</td>
+		</tr>
+		
+		#if ( $listTermaSyaratPeranginan.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listTermaSyaratPeranginan )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+            		<td>$!d.termaSyaratRpp.keterangan.toUpperCase()</td>
+					<td align="center">
+						#if(!$!userRole.equalsIgnoreCase("(RPP) Penyedia"))
+							<a href="javascript:void()" onclick="$('_wait').innerHTML='Please wait...';doDivAjaxCall3$formname('div_main_entry','deletePilihanTermaSyarat','idTermaPeranginan=$!d.id')"><img src="../img/delete.gif" border="0"></a>
+						#end
+					</td>
+                </tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="4">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+
+</fieldset>
+
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="right">##Fatin 13/06/2015
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+		</td>
+	</tr>
+</table>
+	
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

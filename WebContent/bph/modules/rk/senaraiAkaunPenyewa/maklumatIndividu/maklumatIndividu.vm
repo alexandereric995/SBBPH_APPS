@@ -1,0 +1,65 @@
+<fieldset>
+<legend class="legend">Maklumat Pemohon</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+		#input_normal("" "No. Pengenalan" "<b>$!r.pemohon.individu.id</b>") 
+		<input type="hidden" id="noPengenalan" name="noPengenalan" value="$!r.pemohon.individu.id">	         
+        #input_required("nama" "Nama" "$!r.pemohon.individu.nama")
+        #input("jawatan" "Jawatan" "$!r.pemohon.individu.jawatan")
+        <tr>
+          <td class="label" valign="top">Warganegara</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatIndividu/selectWarganegara.vm")
+            <div id="err_idWarganegara" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #input_required("alamat1" "Alamat" "$!r.pemohon.individu.alamat1")
+        #input("alamat2" "" "$!r.pemohon.individu.alamat2")
+        #input("alamat3" "" "$!r.pemohon.individu.alamat3")
+        #postcode_required("poskod" "Poskod" "$!r.pemohon.individu.poskod")
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatIndividu/selectNegeri.vm")
+            <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandar"> #parse("$path/maklumatIndividu/selectBandar.vm") </div>
+            <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input("alamat1Surat" "Alamat Surat-menyurat" "$!r.pemohon.individu.alamat1Surat")
+        #input("alamat2Surat" "(Jika Berlainan)" "$!r.pemohon.individu.alamat2Surat")
+        #input("alamat3Surat" "" "$!r.pemohon.individu.alamat3Surat")
+        #postcode("poskodSurat" "Poskod" "$!r.pemohon.individu.poskodSurat")
+        <tr>
+          <td class="label" valign="top">Negeri</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatIndividu/selectNegeriSurat.vm")</td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar</td>
+          <td valign="top">:</td>
+          <td><div id="selectBandarSurat"> #parse("$path/maklumatIndividu/selectBandarSurat.vm") </div></td>
+        </tr> 
+        #input_required("noTelefon" "No. Telefon (Pejabat)" "$!r.pemohon.individu.noTelefon")
+	    #input_required("noTelefonBimbit" "No. Telefon Bimbit" "$!r.pemohon.individu.noTelefonBimbit")
+        #input_email("emel" "E-mel" "$!r.pemohon.individu.emel")
+	    #input("noFaks" "No. Faks" "$!r.pemohon.individu.noFaks")
+      </table></td>
+  </tr>
+</table>
+</fieldset>

@@ -1,0 +1,35 @@
+<html>
+<head>
+	<title>FCKeditor - Sample</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="robots" content="noindex, nofollow" />
+	<link href="../sample.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../fck/fckeditor.js"></script>
+</head>
+<body>
+
+<form name="f" method="post">
+<script type="text/javascript">
+
+var sBasePath = document.location.pathname.substring(0,document.location.pathname.lastIndexOf('_samples')) ;
+var oFCKeditor = new FCKeditor( 'message' ) ;
+oFCKeditor.BasePath = '/${appname}/fck/' ;
+oFCKeditor.Height	= 400 ;
+oFCKeditor.Value	= '' ;
+oFCKeditor.Create() ;
+</script>
+<br />
+<input type="hidden" name="command">
+<input type="button" value="SAVE DOCUMENT" onclick="save()" style="font-weight:bold">
+<hr />
+<textarea name="content" cols="40" rows="10" style="visibility:hidden">$!content</textarea>
+</form>
+<script>
+document.f.message.value = document.f.content.value;
+function save() {
+document.f.command.value = "save";
+document.f.submit();
+}
+</script>
+</body>
+</html>

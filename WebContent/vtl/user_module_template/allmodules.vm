@@ -1,0 +1,75 @@
+<fieldset>
+    <form name="f" method="post">
+    	<table width="510" align="center" cellpadding="1" cellspacing="1" border="0">
+    		<tr>
+    			<td class="note">
+    				**Sila tanda pada modul yang anda ingin 'tambah' dan buang tanda pada modul yang anda ingin 'buang'.
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<div style="overflow:auto;top:0;height:300px; width:500px;background:lightgrey" >
+    					<div style="margin:0px; width:100%">
+    						<table width="100%" align="center" cellpadding="2" cellspacing="1" border="0" >
+    							#set ( $group_name = "" )
+    							#foreach ( $module in $allModules )
+    								#set ($i = $i + 1)
+    								#if ( $module.marked)
+    									#set ( $row = "selected")
+    									#set ( $checked = "checked")
+    								#else
+    									#set ( $row = "row1")
+    									#set ( $checked = "")                               
+    								#end
+                            
+    								#if ( $group_name != $module.groupName )
+    									#set ( $group_name = $module.groupName )
+    									<tr>
+    										<td  colspan="2">
+    											<b>$module.groupName</b>
+    										</td>                                       
+    									</tr>
+    								#end                                
+    								<tr>
+    									<td class="$row" width="25">
+    										<input class="cb" type="checkbox" name="cbmodules" value="$module.id" $checked>
+    									</td>
+    									<td class="$row" width="475">
+    										#if ( $module.title == "" )
+    											[<i>$module.id</i>]
+    										#else
+    											$module.title
+    										#end
+    									</td>
+    								</tr>
+    							#end
+    						</table>  
+    					</div>
+    				</div>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td align="center">
+    				<input type="button" value="Kemaskini Tab Modul" onclick="updateTabModules()">
+    				<input type="button" value="Kembali" onclick="listModules()">
+    			</td>
+    		</tr>
+    	</table>
+        <input type="hidden" name="role" value="$role">
+        <input type="hidden" name="tabId" value="$tab.id">
+        <input type="hidden" name="command">
+    </form>
+</fieldset>
+<br /><br />
+
+<script>
+function updateTabModules(){
+    document.f.command.value = "updateTabModules";
+    document.f.submit();
+}
+
+function listModules() {
+    document.f.command.value = "listModules";
+    document.f.submit();
+}
+</script>

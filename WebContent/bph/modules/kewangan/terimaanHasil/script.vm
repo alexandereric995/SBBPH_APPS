@@ -1,0 +1,68 @@
+
+function validateMaklumatBayaran() {
+
+	var err_count = 0;
+	
+	var modBayaran = $('modBayaran').value;
+	if ( modBayaran == "" ) {$('err_modBayaran').innerHTML = "* Mod Bayaran adalah mandatori!"; err_count++;  }
+	
+	var tarikhBayaran = $('tarikhBayaran').value;
+	if ( tarikhBayaran == "" ) {$('err_tarikhBayaran').innerHTML = "* Tarikh Bayaran adalah mandatori!"; err_count++;  }
+	
+	var amaunBayaran = $('amaunBayaran').value;
+	if ( amaunBayaran == "" ) {$('err_amaunBayaran').innerHTML = "* Amaun Bayaran adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function doTambahBayaran(idPembayar) {
+	if ( validateMaklumatBayaran() ){
+		##doDivAjaxChainCall$formname('divSenaraiMaklumatBayaran','tambahBayaran','idPembayar='+idPembayar,'divResultBayaran','updateResultBayaran','idPembayar='+idPembayar);
+		doDivAjaxChainCall$formname('divSenaraiMaklumatBayaran','tambahBayaran','idPembayar='+idPembayar,'divMainForm','maklumatBayaran','idPembayar='+idPembayar);
+	}
+}
+
+function doBatalBayaran(idPembayar) {
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('divSenaraiMaklumatBayaran','batalBayaran','idPembayar='+idPembayar,'divResultBayaran','updateResultBayaran','idPembayar='+idPembayar);
+	}
+}
+
+function validateSelesaiBayaran() {
+
+	var err_count = 0;
+	
+	var txtBaki = $('txtBaki').value;
+	if ( parseInt(txtBaki) > 0 ) {$('err_selesaiBayaran').innerHTML = "* Bayaran masih tidak mencukupi. Sila buat pembayaran penuh"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function doSelesaiBayaran(idPembayar) {
+	if ( validateSelesaiBayaran() ){
+		doDivAjaxCall$formname('divMainForm','selesaiBayaran','idPembayar='+idPembayar);
+	}
+}
+
+function doCetakResit(idResit) {
+    var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	if ((document.window != null) && (!hWnd.opener))
+	hWnd.opener = document.window;
+	if (hWnd.focus != null) hWnd.focus();
+}
+
+
+

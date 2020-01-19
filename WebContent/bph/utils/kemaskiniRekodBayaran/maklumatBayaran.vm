@@ -1,0 +1,523 @@
+
+
+<input type="hidden" name="idrekod" id="idrekod" value="$!r.id" />
+
+<fieldset>
+<legend class="legend">maklumat bayaran</legend>
+
+	<table width="100%">
+		<tr>
+			<td style="width:200px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+		</tr>
+		
+		<tr>
+			<td colspan="3">
+				<span style="font-weight:bold;font-size:12px">
+					MAKLUMAT TABLE RPPPERMOHONAN
+				</span>
+				#if( $!userIdLogin && ($!userIdLogin.equalsIgnoreCase("faizal") || $!userIdLogin.equalsIgnoreCase("731230035494") || $!userIdLogin.equalsIgnoreCase("800814015558")) )
+					&nbsp;&nbsp;<input id="btnDeletePermohonan" type="button" value="DELETE PERMOHONAN" onClick="javascript:doDeletePermohonan()">	
+					#if($!r.status.id=="1435093978588" || $!r.status.id=="1425259713418" )
+						&nbsp;&nbsp;<input id="btnPopupUndoPembatalan" onclick="doOpenPopupUndoPembatalan()" type="button" value="UNDO PEMBATALAN" />
+					#end
+				#end
+				<br/><br/>
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="3" valign="top">
+				<table width="100%" border="0">
+					<tr>
+						<td width="50%" valign="top">
+							<table width="100%">
+								#show("NAMA PEMOHON" "$!r.pemohon.userName.toUpperCase()")
+                        		#show("NO. KP" "$!r.pemohon.id.toUpperCase()")
+                        		#show("NO. TEMPAHAN" "$!r.noTempahan.toUpperCase()")
+                        		#show("LOKASI" "$!r.rppPeranginan.namaPeranginan.toUpperCase()")
+                        		#show("JENIS UNIT" "<b>$!r.kuantiti UNIT</b> $!r.jenisUnitRpp.keterangan.toUpperCase()")
+                        		#show("TARIKH PERMOHONAN" "$!util.getDateTime($!r.tarikhPermohonan,'dd/MM/yyyy')")
+                        		#show("TARIKH CHECKIN" "$!util.getDateTime($!r.tarikhMasukRpp,'dd/MM/yyyy')")
+                        		#show("TARIKH CHECKOUT" "$!util.getDateTime($!r.tarikhKeluarRpp,'dd/MM/yyyy')")
+								<tr>
+                        			<td style="width:190px"></td>
+                                    <td style="width:10px"></td>
+                                    <td></td>
+                        		</tr>
+							</table>
+						</td>
+						<td width="50%" valign="top">
+							<table width="100%">
+								#show("NO. TELEFON" "$!r.pemohon.noTelefon")
+								#show("NO. TELEFON BIMBIT" "$!r.pemohon.noTelefonBimbit")
+								#show("EMEL" "$!r.pemohon.emel")
+								<tr>
+                        			<td style="width:200px"></td>
+                                    <td style="width:10px"></td>
+                                    <td></td>
+                        		</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		
+		
+		<tr><td colspan="3"><hr/></td></tr>
+		
+		#show("JUMLAH BAYARAN" "<b>RM $!util.formatDecimal($!r.amaunTotalSewaRpWithDeposit())</b>")
+		#show("STATUS BAYARAN" "<b>$!r.statusBayaran</b>")
+		#show("TARIKH BAYARAN" "<b>$!util.getDateTime($!r.tarikhBayaran,'dd/MM/yyyy')</b>")
+		#show("STATUS TEMPAHAN" "<b>$!r.status.keterangan.toUpperCase()</b>")
+		
+		#if($!r.status.id == "1425259713418" || $!r.status.id == "1435093978588")
+			#show("SEBAB PEMBATALAN" "<b>$!r.catatanPembatalan.toUpperCase()</b>")
+			#show("DIBATALKAN OLEH" "<b>$!r.pemohonBatal.userName.toUpperCase()</b>")
+		#end
+		
+		#if( !$!r.rppPeranginan.id.equalsIgnoreCase("3") && !$!r.rppPeranginan.id.equalsIgnoreCase("14"))
+			#show("ID RESIT SEWA" "<b>$!r.resitSewa.id</b>")
+			#show("ID RESIT DEPOSIT" "<b>$!r.resitDeposit.id</b>")
+		#end
+		
+		<tr><td colspan="3"><hr/></td></tr>
+				
+	</table>
+	
+	<table width="100%" border = "0">
+		<tr>
+			<td style="width:200px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+		</tr>
+		
+		<tr>
+			<td colspan="8"><span style="font-weight:bold;font-size:12px">MAKLUMAT TABLE FPX_RECORDS<br/><br/></span></td>
+		</tr>
+		
+		<tr>
+			<td colspan="8"><span style="font-weight:bold;font-size:10px"><u>TABLE FPX_RECORDS</u><br/></span></td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" width="5%" align="center">BIL.</td>
+			<td class="row_header" width="20%">FPXTXNID</td>
+			<td class="row_header" width="40%">DEBITAUTHCODE</td>
+			<td class="row_header" width="20%">FPXTXNTIME</td>
+			<td class="row_header" width="15%" align="right">FPXTXNAMOUNT (RM)</td>
+
+		</tr>
+		
+		#set ( $count = 0 )
+		#if($listFPX.size() > 0)
+    		#foreach($fpx in $listFPX)
+    		#set ( $count = $count + 1)
+			
+    		<tr>
+    			<td align="center">$count</td>
+    			<td>$!fpx.id</td>
+				<td>$!fpx.debitAuthCode - $!fpx.getKeteranganDebitAuthCode()</td>
+				<td>$!fpx.fpxTxnTime</td>
+				<td align="right">$!util.formatDecimal($!util.getDouble($!fpx.txnAmount))</td>
+    		</tr>
+    		#end
+		#else
+			<tr>
+				<td colspan="8">
+					&nbsp;
+				</td>
+			</tr>
+		#end
+		
+		<tr><td colspan="8"><hr/></td></tr>
+		
+	</table>
+	
+	<table width="100%" border = "0">
+		<tr>
+			<td style="width:200px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+		</tr>
+		
+		<tr>
+			<td colspan="8"><span style="font-weight:bold;font-size:12px">MAKLUMAT TABLE MIGS_RECORDS<br/><br/></span></td>
+		</tr>
+		
+		<tr>
+			<td colspan="8"><span style="font-weight:bold;font-size:10px"><u>TABLE MIGS_RECORDS</u><br/></span></td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" width="5%" align="center">BIL.</td>
+			<td class="row_header" width="20%">TRANSACTION NO</td>
+			<td class="row_header" width="40%">MESSAGE</td>
+			<td class="row_header" width="20%">BATCH NO</td>
+			<td class="row_header" width="15%" align="right">AMOUNT (RM)</td>
+
+		</tr>
+		
+		#set ( $count = 0 )
+		#if($listMIGS.size() > 0)
+    		#foreach($migs in $listMIGS)
+    		#set ( $count = $count + 1)
+			
+    		<tr>
+    			<td align="center">$count</td>
+    			<td>$!migs.vpcTransactionNo</td>
+				<td>$!migs.vpcMessage</td>
+				<td>$!migs.vpcBatchNo</td>
+				<td align="right">$!util.formatDecimal($!migs.getAmaunBayaran())</td>
+    		</tr>
+    		#end
+		#else
+			<tr>
+				<td colspan="8">
+					&nbsp;
+				</td>
+			</tr>
+		#end
+		
+		<tr><td colspan="8"><hr/></td></tr>
+		
+	</table>
+	
+	<br/>
+	
+	<table width="100%" border = "0">
+		<tr>
+			<td style="width:200px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+		</tr>
+		
+		<tr>
+			<td colspan="8"><span style="font-weight:bold;font-size:12px">MAKLUMAT TABLE KEWANGAN<br/><br/></span></td>
+		</tr>
+		
+		<tr>
+			<td colspan="8"><span style="font-weight:bold;font-size:10px"><u>TABLE RPP_AKAUN</u><br/></span></td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" width="5%" align="center">BIL.</td>
+			<td class="row_header" width="13%">ID</td>
+			<td class="row_header" width="10%">ID KOD HASIL</td>
+			<td class="row_header" width="40%">KETERANGAN</td>
+			<td class="row_header" width="6%" align="right">DEBIT</td>
+			<td class="row_header" width="6%" align="right"><span style="color:red;font-weight:bold">KREDIT</span></td>
+			<td class="row_header" width="10%" align="center"><span style="color:red;font-weight:bold">FLAG BAYAR</span></td>
+			<td class="row_header" width="10%" align="center"><span style="color:red;font-weight:bold">TARIKH TRANSAKSI</span></td>
+		</tr>
+		
+		#set ( $count = 0 )
+		#if($listAkaun.size() > 0)
+    		#foreach($u in $listAkaun)
+    		#set ( $count = $count + 1)
+			
+    		<tr>
+    			<td align="center">$count</td>
+    			<td>$!u.id</td>
+				<td>$!u.kodHasil.id</td>
+				<td>$!u.keterangan.toUpperCase()</td>
+				<td align="right">$!util.formatDecimal($!u.debit)</td>
+				<td align="right">$!util.formatDecimal($!u.kredit)</td>
+				<td align="center">$!u.flagBayar</td>
+				<td align="center">$!util.getDateTime($!u.tarikhTransaksi,'dd/MM/yyyy')</td>
+    		</tr>
+    		#end
+		#else
+			<tr>
+				<td colspan="8">
+					TIADA REKOD RPP_AKAUN
+					#if( $!r )
+					&nbsp;<a href="#" onclick="doCreateRppAkaun('$!r.id')" id="lnkCreateRppAkaun"><span class="print" style="color:#0000FF">CREATE DATA RPP_AKAUN</span></a>
+					#end
+				</td>
+			</tr>
+		#end
+		
+	</table>
+	
+	
+	
+	#if( !$!r.rppPeranginan.id.equalsIgnoreCase("3") && !$!r.rppPeranginan.id.equalsIgnoreCase("14"))
+		
+    	<br/>
+    	
+    	<table width="100%" border = "0">
+    		<tr>
+    			<td style="width:200px"></td>
+                <td style="width:10px"></td>
+                <td></td>
+    		</tr>
+    		
+    		<tr>
+    			<td colspan="7"><span style="font-weight:bold;font-size:10px"><u>TABLE KEW_INVOIS</u><br/></span></td>
+    		</tr>
+    		
+    		<tr>
+    			<td class="row_header" width="5%" align="center">BIL.</td>
+    			<td class="row_header" width="13%">ID</td>
+    			<td class="row_header" width="10%">ID KOD HASIL</td>
+				<td class="row_header" width="10%">ID RPP_AKAUN</td>
+    			<td class="row_header" width="30%">KETERANGAN</td>
+    			<td class="row_header" width="6%" align="right">DEBIT</td>
+    			<td class="row_header" width="6%" align="right"><span style="color:red;font-weight:bold">KREDIT</span></td>
+    			<td class="row_header" width="20%" align="center"><span style="color:red;font-weight:bold">FLAG BAYAR</span></td>
+    		</tr>
+    		
+    		#set ( $count = 0 )
+    		#if($listInvois.size() > 0)
+        		#foreach($u in $listInvois)
+        		#set ( $count = $count + 1)
+    			
+        		<tr>
+        			<td align="center">$count</td>
+        			<td>$!u.id</td>
+    				<td>$!u.kodHasil.id</td>
+					<td>$!u.idLejar</td>
+    				<td>$!u.keteranganBayaran.toUpperCase()</td>
+    				<td align="right">$!util.formatDecimal($!u.debit)</td>
+    				<td align="right">$!util.formatDecimal($!u.kredit)</td>
+    				<td align="center">$!u.flagBayar</td>
+        		</tr>
+        		#end
+    		#else
+    			<tr>
+					<td colspan="7">
+						TIADA REKOD KEW_INVOIS
+						#if($listAkaun.size() > 0)
+						&nbsp;<a href="#" onclick="doCreateKewInvois('$!r.id')" id="lnkCreateKewInvois"><span class="print" style="color:#0000FF">CREATE DATA KEW_INVOIS</span></a>
+						#end
+					</td>
+				</tr>
+    		#end
+    		
+    	</table>
+    	
+    	<br/>
+    	
+    	<table width="100%" border = "0">
+    		<tr>
+    			<td style="width:200px"></td>
+                <td style="width:10px"></td>
+                <td></td>
+    		</tr>
+    		
+    		<tr>
+    			<td colspan="5"><span style="font-weight:bold;font-size:10px"><u>TABLE KEW_DEPOSIT</u><br/></span></td>
+    		</tr>
+    		
+    		<tr>
+    			<td class="row_header" width="5%" align="center">BIL.</td>
+    			<td class="row_header" width="13%">ID</td>
+    			<td class="row_header" width="10%">ID KOD HASIL</td>
+				<td class="row_header" width="10%">ID RPP_AKAUN</td>
+    			<td class="row_header" width="30%">KETERANGAN</td>
+    			<td class="row_header" width="32%" align="center"><span style="color:red;font-weight:bold">FLAG BAYAR</span></td>
+    		</tr>
+    		
+    		#set ( $count = 0 )
+    		#if($listDeposit.size() > 0)
+        		#foreach($u in $listDeposit)
+        		#set ( $count = $count + 1)
+    			
+        		<tr>
+        			<td align="center">$count</td>
+        			<td>$!u.id</td>
+    				<td>$!u.kodHasil.id</td>
+					<td>$!u.idLejar</td>
+    				<td>$!u.keteranganDeposit.toUpperCase()</td>
+    				<td align="center">$!u.flagBayar</td>
+        		</tr>
+        		#end
+    		#else
+    			<tr>
+					<td colspan="5">
+						TIADA REKOD KEW_DEPOSIT
+						#if($listAkaun.size() > 0)
+						&nbsp;<a href="#" onclick="doCreateKewDeposit('$!r.id')" id="lnkCreateKewDeposit"><span class="print" style="color:#0000FF">CREATE DATA KEW_DEPOSIT</span></a>
+						#end
+					</td>
+				</tr>
+    		#end
+    		
+    	</table>
+    	
+    	<br/>
+    	
+    	<table width="100%" border = "0">
+    		<tr>
+    			<td style="width:200px"></td>
+                <td style="width:10px"></td>
+                <td></td>
+    		</tr>
+    		
+    		<tr>
+    			<td colspan="7"><span style="color:red;font-weight:bold;font-size:10px"><u>TABLE KEW_BAYARAN_RESIT</u>&nbsp;&nbsp;&nbsp;&nbsp; #if($!hasDoublePayment == 'true')<input id="btnResitLain" type="button" value="MAKLUMAT RESIT LAIN" onclick="popupMaklumatResitLain()">#end <br/></span></td>
+    		</tr>
+    		
+    		<tr>
+    			<td class="row_header" width="5%" align="center">BIL.</td>
+    			<td class="row_header" width="15%">ID</td>
+    			<td class="row_header" width="15%">FLAG JENIS BAYARAN</td>
+    			<td class="row_header" width="10%">NO. RESIT</td>
+    			<td class="row_header" width="10%" align="right">AMAUN BAYARAN</td>
+    			<td class="row_header" width="10%" align="center">TARIKH BAYARAN</td>
+    			<td class="row_header" width="10%" align="center">FLAG JENIS RESIT</td>
+    			<td class="row_header" width="10%" align="center">ID TRANSAKSI BANK</td>
+    			<td class="row_header" width="15%" align="center">ID PEMBAYAR</td>
+    		</tr>
+    		
+    		#set ( $count = 0 )
+    		#if($listBayaranResit.size() > 0)
+        		#foreach($u in $listBayaranResit)
+        		#set ( $count = $count + 1)
+    			
+        		<tr>
+        			<td align="center">$count</td>
+        			<td>$!u.id</td>
+    				<td>$!u.flagJenisBayaran</td>
+    				<td>$!u.noResit</td>
+    				<td align="right">$!util.formatDecimal($!u.jumlahAmaunBayaran)</td>
+    				<td align="center">$!util.getDateTime($!u.tarikhBayaran,'dd/MM/yyyy')</td>
+    				<td align="center">$!u.getKeteranganFlagJenisResit()</td>
+    				<td align="center">$!u.idTransaksiBank</td>
+    				<td align="center">$!u.pembayar.id</td>
+        		</tr>
+        		#end
+    		#else
+    			<tr><td colspan="7">TIADA REKOD KEW_BAYARAN_RESIT</td></tr>
+    		#end
+    
+    	</table>
+    	
+    	<br/>
+    	
+    	<table width="100%" border = "0">
+    		<tr>
+    			<td style="width:200px"></td>
+                <td style="width:10px"></td>
+                <td></td>
+    		</tr>
+    		
+    		<tr>
+    			<td colspan="6"><span style="color:red;font-weight:bold;font-size:10px"><u>TABLE KEW_RESIT_SENARAI_INVOIS</u><br/></span></td>
+    		</tr>
+    		
+    		<tr>
+    			<td class="row_header" width="5%" align="center">BIL.</td>
+    			<td class="row_header" width="15%">ID</td>
+    			<td class="row_header" width="20%">ID KEW_BAYARAN_RESIT</td>
+    			<td class="row_header" width="20%">ID KEW_INVOIS</td>
+    			<td class="row_header" width="20%">ID KEW_DEPOSIT</td>
+    			<td class="row_header" width="20%" align="center">FLAG JENIS RESIT</td>
+    		</tr>
+    
+    		#set ( $count = 0 )
+    		#if($listResitSenaraiInvoisDeposit.size() > 0)
+        		#foreach($u in $listResitSenaraiInvoisDeposit)
+        		#set ( $count = $count + 1)
+    			
+        		<tr>
+        			<td align="center">$count</td>
+        			<td>$!u.id</td>
+    				<td>$!u.resit.id</td>
+    				<td>$!util.replaceIfNull($!u.invois.id,'-')</td>
+    				<td>$!util.replaceIfNull($!u.deposit.id,'-')</td>
+    				<td align="center">$!u.flagJenisResit</td>
+        		</tr>
+        		#end
+    		#else
+    			<tr><td colspan="6">TIADA REKOD KEW_RESIT_SENARAI_INVOIS</td></tr>
+    		#end
+    		
+    	</table>
+    	
+    	<br/>
+    	
+    	<table width="100%" border = "0">
+    		<tr>
+    			<td style="width:200px"></td>
+                <td style="width:10px"></td>
+                <td></td>
+    		</tr>
+    		
+    		<tr>
+    			<td colspan="6"><span style="color:red;font-weight:bold;font-size:10px"><u>TABLE KEW_RESIT_KAEDAH_BAYARAN</u><br/></span></td>
+    		</tr>
+    		
+    		<tr>
+    			<td class="row_header" width="5%" align="center">BIL.</td>
+    			<td class="row_header" width="15%">ID</td>
+    			<td class="row_header" width="20%">ID KEW_BAYARAN_RESIT</td>
+    			<td class="row_header" width="20%">MOD BAYARAN</td>
+    			<td class="row_header" width="10%" align="right">AMAUN</td>
+    			<td class="row_header" width="30%">&nbsp;</td
+    		</tr>
+    		
+    		#set ( $count = 0 )
+    		#if($listKaedahBayaran.size() > 0)
+        		#foreach($u in $listKaedahBayaran)
+        		#set ( $count = $count + 1)
+    			
+        		<tr>
+        			<td align="center">$count</td>
+        			<td>$!u.id</td>
+    				<td>$!u.resit.id</td>
+    				<td>$!u.modBayaran.keterangan.toUpperCase()</td>
+    				<td align="right">$!util.formatDecimal($!u.amaunBayaran)</td>
+    				<td>&nbsp;</td>
+        		</tr>
+        		#end
+    		#else
+    			<tr><td colspan="6">TIADA REKOD KEW_RESIT_KAEDAH_BAYARAN</td></tr>
+    		#end
+    		
+    		
+    	</table>
+	
+	
+	#end
+	
+	
+</fieldset>
+
+<div id="popupMaklumatBayaran" class="popup"></div>
+
+<div id="divStatus"></div>
+
+<div id="popupMaklumatResitLain" class="popup"></div>
+
+<div id="popupUndoPembatalan" class="popup"></div>
+
+<br/>
+
+<table width="100%">
+	<tr>
+		<td align="center">
+			#if( $!r.getIdResitSewa() != "" && $!r.getIdResitSewa() )
+        	<input id="btnCetakResitSewa" type="button" value="RESIT SEWA" onClick="javascript:cetakResit('$!r.getIdResitSewa()')">	
+        	#end
+        	
+        	#if(!$!r.getIdResitDeposit().equals(null) && $!r.getIdResitSewa() != "" && $!r.getIdResitDeposit() != $!r.getIdResitSewa())
+        	<input id="btnCetakResitDeposit" type="button" value="RESIT DEPOSIT" onClick="javascript:cetakResit('$!r.getIdResitDeposit()')">	
+			#end
+			
+			#if( $!r.photofilename && !$!r.photofilename.equalsIgnoreCase("") )
+				<a href="../download?file=$!uploadDir$!r.photofilename"><span class="print" style="color:#0000FF"><strong>DOWNLOAD SLIP PEMBAYARAN</strong><span></a> 
+			#end
+			
+			#if( (!$!r.rppPeranginan.id.equalsIgnoreCase("3") && !$!r.rppPeranginan.id.equalsIgnoreCase("14"))
+					&& ( !$!r.status.id.equalsIgnoreCase("1688545253001455") && !$!r.status.id.equalsIgnoreCase("1430809277096")) )
+				<input id="btnPopupInput" onclick="popupMaklumatBayaran()" style="width:30%" type="button" value="KEMASKINI DATA BAYARAN" />
+			#end
+			##<input style="width:180px" id="btnKemaskiniSemulaRekod" type="button" value="KEMASKINI SEMULA REKOD" onClick="javascript:kemaskiniSemulaRekod()">	
+		</td>
+	</tr>
+</table>
+

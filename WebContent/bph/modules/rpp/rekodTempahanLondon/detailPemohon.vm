@@ -1,0 +1,66 @@
+
+	<table width="100%" cellpadding="1" cellspacing="1">
+		
+		<tr>
+			<td width="43%" valign="top">
+				<table width="100%" cellpadding="1" cellspacing="1">
+					<tr>
+						<td style="width:160px"></td>
+						<td style="width:10px"></td>
+						<td></td>
+					</tr>
+					
+					#if( $!objUser || $!r.pemohon || $!r.status.id.equalsIgnoreCase("1430809277102") )
+						
+						#show("Nama Pemohon" "$!util.replaceIfNull($!r.getMaklumatPemohon().nama,$!objUser.userName)")
+    					#show("No. Telefon Pejabat" "$!util.replaceIfNull($!r.getMaklumatPemohon().noTelPejabat,$!objUser.noTelefonPejabat)")
+    					#show("No. Telefon Bimbit" "$!util.replaceIfNull($!r.getMaklumatPemohon().noTelBimbit,$!objUser.noTelefonBimbit)")
+    					#show("Emel" "$!util.replaceIfNull($!r.getMaklumatPemohon().emel,$!objUser.emel)")
+    					#show("No. Faks" "$!util.replaceIfNull($!r.getMaklumatPemohon().noFaks,$!objUser.noFaks)")
+						
+					#else
+						
+    					#input("namaPemohon" "Nama Pemohon" "$!util.replaceIfNull($!r.getMaklumatPemohon().nama,$!objUser.userName)")
+    					#input("noTelefonPejabat" "No. Telefon Pejabat" "$!util.replaceIfNull($!r.getMaklumatPemohon().noTelPejabat,$!objUser.noTelefonPejabat)")
+    					#input("noTelefonBimbit" "No. Telefon Bimbit" "$!util.replaceIfNull($!r.getMaklumatPemohon().noTelBimbit,$!objUser.noTelefonBimbit)")
+    					#input("emel" "Emel" "$!util.replaceIfNull($!r.getMaklumatPemohon().emel,$!objUser.emel)")
+    					#input("noFaks" "No. Faks" "$!util.replaceIfNull($!r.getMaklumatPemohon().noFaks,$!objUser.noFaks)")
+					
+					#end
+					
+				</table>
+			</td>
+			
+			<td width="2%">&nbsp;</td>
+			
+			<td width="55%" valign="top">
+				<table width="100%" cellpadding="1" cellspacing="1">
+					<tr>
+						<td style="width:170px"></td>
+						<td style="width:10px"></td>
+						<td></td>
+					</tr>
+					
+					#if( $!objUser || $!r.pemohon || $!r.status.id.equalsIgnoreCase("1430809277102") )
+						
+						#show("Jawatan dan Gred" "$!util.replaceIfNull($!r.getMaklumatPemohon().jawatanDanGred,$!objUser.gredPerkhidmatan.keterangan)")
+						#show("Kementerian / Jabatan" "$!util.replaceIfNull($!r.getMaklumatPemohon().kementerianJabatan,$!objUser.agensi.keterangan)")
+						#show("Alamat Pejabat <div style='font-size:9px'>(Alamat rumah bagi pesara)</div>" "$!util.replaceIfNull($!r.getMaklumatPemohon().alamatPejabat1,$!objUser.alamat1)")
+						#show("" "$!util.replaceIfNull($!r.getMaklumatPemohon().alamatPejabat2,$!objUser.alamat2)")
+						#show("" "$!util.replaceIfNull($!r.getMaklumatPemohon().alamatPejabat3,$!objUser.alamat3)")
+					
+					#else
+					
+						#input("jawatanGred" "Jawatan dan Gred" "$!util.replaceIfNull($!r.getMaklumatPemohon().jawatanDanGred,$!objUser.gredPerkhidmatan.keterangan)")
+    					#input("kementerianJabatan" "Kementerian / Jabatan" "$!util.replaceIfNull($!r.getMaklumatPemohon().kementerianJabatan,$!objUser.agensi.keterangan)")
+    					#input("alamatPejabat1" "Alamat Pejabat <div style='font-size:9px'>(Alamat rumah bagi pesara)</div>" "$!util.replaceIfNull($!r.getMaklumatPemohon().alamatPejabat1,$!objUser.alamat1)")
+    					#input("alamatPejabat2" "" "$!util.replaceIfNull($!r.getMaklumatPemohon().alamatPejabat2,$!objUser.alamat2)")
+    					#input("alamatPejabat3" "" "$!util.replaceIfNull($!r.getMaklumatPemohon().alamatPejabat3,$!objUser.alamat3)")
+					
+					#end
+						
+				</table>
+			</td>
+		</tr>
+		
+	</table>

@@ -1,0 +1,56 @@
+
+
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+            <td style="width:180px"></td>
+            <td style="width:10px"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<span style="font-size:12px;font-weight:bold;text-decoration: underline;"><br/>MAKLUMAT BAYARAN<br/><br/></span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="60%">Keterangan</td>
+			<td class="row_header" width="10%">Kuantiti</td>
+			<td class="row_header" width="25%">Jumlah Amaun (RM)</td>
+		</tr>
+		
+		#if ( $listTempahanDanBayaran.size() > 0 )
+    		#set ( $count = 0 )
+			#set ( $jumlahAmaun = 0.00 )
+    		#foreach( $d in $listTempahanDanBayaran )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+				#set ( $jumlahAmaun = $jumlahAmaun + $!d.debit )
+    				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+					<td align="left">$!d.keterangan</td>
+					<td align="center">$!d.bilanganUnit</td>
+					<td align="center">$!d.debit</td>
+                </tr>
+			#end
+			<tr>
+				<td colspan="3" align="right" style="font-size:13px;color:blue"><b>JUMLAH : </b></td>
+				<td align="center" style="font-size:13px;color:blue"><b>RM $!util.formatDecimal($jumlahAmaun) / $!r.getTotalBilMalam() malam</b></td>
+			</tr>
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="4">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+		
+	

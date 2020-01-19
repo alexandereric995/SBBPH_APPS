@@ -1,0 +1,1329 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="MaklumatTanah"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="840"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="10"
+		 bottomMargin="10"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="idHakmilik" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT ruj_kategori_tanah.keterangan kategori, a.no_fail, a.pegangan_hakmilik, a.no_hakmilik, a.no_lot,
+a.no_warta, a.tarikh_daftar, a.luas, a.syarat, a.sekatan, a.kegunaan_tanah,
+ruj_jenis_hakmilik.keterangan jenisHakmilik, ruj_lot.keterangan lot, a.status_daftar status,
+ruj_luas.keterangan jenisLuas, ruj_kementerian.keterangan kementerian, ruj_agensi.keterangan agensi,
+ruj_mukim.keterangan mukim, ruj_daerah.keterangan daerah, ruj_negeri.keterangan negeri,
+a.lokasi, a.no_syit, a.no_pelan, a.status_daftar, a.no_pu, a.tarikh_luput as tarikh_terima,
+a.status_daftar, a.taraf_hakmilik, a.cukai, a.cukai_terkini, a.hakmilik_asal, a.hakmilik_berikut, a.tarikh_warta
+FROM dev_hakmilik a
+LEFT OUTER JOIN ruj_mukim ON (a.id_mukim = ruj_mukim.id)
+LEFT OUTER JOIN ruj_jenis_hakmilik ON (a.id_jenishakmilik = ruj_jenis_hakmilik.id)
+LEFT OUTER JOIN ruj_lot ON (a.id_lot = ruj_lot.id)
+LEFT OUTER JOIN ruj_luas ON (a.id_luas = ruj_luas.id)
+LEFT OUTER JOIN ruj_agensi ON (a.id_agensi = ruj_agensi.id)
+LEFT OUTER JOIN ruj_kementerian ON (a.id_kementerian = ruj_kementerian.id)
+LEFT OUTER JOIN ruj_daerah ON (ruj_mukim.id_daerah = ruj_daerah.id)
+LEFT OUTER JOIN ruj_negeri ON (ruj_daerah.id_negeri = ruj_negeri.id)
+LEFT OUTER JOIN ruj_kategori_tanah ON (a.id_kategori = ruj_kategori_tanah.id)
+WHERE a.id = $P{idHakmilik}]]></queryString>
+
+	<field name="kategori" class="java.lang.String"/>
+	<field name="no_fail" class="java.lang.String"/>
+	<field name="pegangan_hakmilik" class="java.lang.String"/>
+	<field name="no_hakmilik" class="java.lang.String"/>
+	<field name="no_lot" class="java.lang.String"/>
+	<field name="no_warta" class="java.lang.String"/>
+	<field name="tarikh_daftar" class="java.sql.Date"/>
+	<field name="luas" class="java.lang.String"/>
+	<field name="syarat" class="java.lang.String"/>
+	<field name="sekatan" class="java.lang.String"/>
+	<field name="kegunaan_tanah" class="java.lang.String"/>
+	<field name="jenisHakmilik" class="java.lang.String"/>
+	<field name="lot" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="jenisLuas" class="java.lang.String"/>
+	<field name="kementerian" class="java.lang.String"/>
+	<field name="agensi" class="java.lang.String"/>
+	<field name="mukim" class="java.lang.String"/>
+	<field name="daerah" class="java.lang.String"/>
+	<field name="negeri" class="java.lang.String"/>
+	<field name="lokasi" class="java.lang.String"/>
+	<field name="no_syit" class="java.lang.String"/>
+	<field name="no_pelan" class="java.lang.String"/>
+	<field name="status_daftar" class="java.lang.String"/>
+	<field name="no_pu" class="java.lang.String"/>
+	<field name="tarikh_terima" class="java.sql.Date"/>
+	<field name="taraf_hakmilik" class="java.lang.String"/>
+	<field name="cukai" class="java.lang.Double"/>
+	<field name="cukai_terkini" class="java.lang.Double"/>
+	<field name="hakmilik_asal" class="java.lang.String"/>
+	<field name="hakmilik_berikut" class="java.lang.String"/>
+	<field name="tarikh_warta" class="java.sql.Date"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="668"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="170"
+						y="10"
+						width="161"
+						height="20"
+						backcolor="#FFFFFF"
+						key="staticText-1"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true" isUnderline="true"/>
+					</textElement>
+				<text><![CDATA[MAKLUMAT TANAH MILIK]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="109"
+						width="129"
+						height="20"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[NO. FAIL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="69"
+						width="129"
+						height="20"
+						key="staticText-3"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[KEMENTERIAN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="89"
+						width="129"
+						height="20"
+						key="staticText-4"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[AGENSI / JABATAN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="629"
+						width="129"
+						height="20"
+						key="staticText-5"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[STATUS HAKMILIK]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="109"
+						width="5"
+						height="20"
+						key="staticText-8"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="89"
+						width="5"
+						height="20"
+						key="staticText-9"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="69"
+						width="5"
+						height="20"
+						key="staticText-10"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="629"
+						width="5"
+						height="20"
+						key="staticText-11"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="109"
+						width="351"
+						height="20"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{no_fail}!= null ? $F{no_fail}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="69"
+						width="351"
+						height="20"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{kementerian}!= null ? $F{kementerian}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="89"
+						width="351"
+						height="20"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{agensi}!= null ? $F{agensi}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="629"
+						width="351"
+						height="20"
+						key="textField-4"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{status_daftar}.equals("D") ) ?  "DAFTAR" :
+($F{status_daftar}.equals("B") ) ? "BATAL" :
+""]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="35"
+						y="129"
+						width="129"
+						height="20"
+						key="staticText-12"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[NEGERI]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="149"
+						width="129"
+						height="20"
+						key="staticText-13"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[DAERAH]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="169"
+						width="129"
+						height="20"
+						key="staticText-14"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[MUKIM]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="189"
+						width="129"
+						height="20"
+						key="staticText-15"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[LOKASI]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="129"
+						width="5"
+						height="20"
+						key="staticText-16"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="169"
+						width="5"
+						height="20"
+						key="staticText-17"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="149"
+						width="5"
+						height="20"
+						key="staticText-18"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="189"
+						width="5"
+						height="20"
+						key="staticText-19"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="129"
+						width="351"
+						height="20"
+						key="textField-5"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{negeri}!= null ? $F{negeri}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="149"
+						width="351"
+						height="20"
+						key="textField-6"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{daerah}!= null ? $F{daerah}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="169"
+						width="351"
+						height="20"
+						key="textField-7"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{mukim}!= null ? $F{mukim}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="189"
+						width="351"
+						height="20"
+						key="textField-8"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{lokasi}!= null ? $F{lokasi}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="35"
+						y="329"
+						width="129"
+						height="20"
+						key="staticText-20"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[ID HAKMILIK]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="209"
+						width="129"
+						height="20"
+						key="staticText-21"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[JENIS HAKMILIK]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="229"
+						width="129"
+						height="20"
+						key="staticText-22"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[NO. HAKMILIK]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="329"
+						width="5"
+						height="20"
+						key="staticText-24"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="229"
+						width="5"
+						height="20"
+						key="staticText-25"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="209"
+						width="5"
+						height="20"
+						key="staticText-26"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="329"
+						width="351"
+						height="20"
+						key="textField-9"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{pegangan_hakmilik}!= null ? $F{pegangan_hakmilik}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="209"
+						width="351"
+						height="20"
+						key="textField-10"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{jenisHakmilik}!= null ? $F{jenisHakmilik}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="229"
+						width="351"
+						height="20"
+						key="textField-11"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{no_hakmilik}!= null ? $F{no_hakmilik}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="35"
+						y="449"
+						width="129"
+						height="20"
+						key="staticText-29"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[LUAS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="569"
+						width="129"
+						height="20"
+						key="staticText-30"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[KATEGORI TANAH]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="569"
+						width="5"
+						height="20"
+						key="staticText-33"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="449"
+						width="5"
+						height="20"
+						key="staticText-34"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="449"
+						width="351"
+						height="20"
+						key="textField-14"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{luas} != null ? $F{luas}.trim(): "") +" "+
+($F{jenisLuas} != null ? $F{jenisLuas}.trim(): "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="569"
+						width="351"
+						height="20"
+						key="textField-15"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{kategori}!= null ? $F{kategori}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="35"
+						y="249"
+						width="129"
+						height="20"
+						key="staticText-36"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[NO. LOT / PT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="529"
+						width="129"
+						height="20"
+						key="staticText-37"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[NO. WARTA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="549"
+						width="129"
+						height="20"
+						key="staticText-38"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[TARIKH WARTA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="249"
+						width="5"
+						height="20"
+						key="staticText-40"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="549"
+						width="5"
+						height="20"
+						key="staticText-41"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="529"
+						width="5"
+						height="20"
+						key="staticText-42"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="249"
+						width="351"
+						height="20"
+						key="textField-17"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{lot}+" "+($F{no_lot}!= null ? $F{no_lot}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="529"
+						width="351"
+						height="20"
+						key="textField-18"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{no_warta}!= null ? $F{no_warta}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="549"
+						width="351"
+						height="20"
+						key="textField-19"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{tarikh_warta}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="35"
+						y="589"
+						width="129"
+						height="20"
+						key="staticText-43"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[SYARAT NYATA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="609"
+						width="129"
+						height="20"
+						key="staticText-44"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[SEKATAN KEPENTINGAN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="429"
+						width="129"
+						height="20"
+						key="staticText-45"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[KEGUNAAN TANAH]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="589"
+						width="5"
+						height="20"
+						key="staticText-46"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="429"
+						width="5"
+						height="20"
+						key="staticText-47"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="609"
+						width="5"
+						height="20"
+						key="staticText-48"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="589"
+						width="351"
+						height="20"
+						key="textField-20"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{syarat}!= null ? $F{syarat}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="609"
+						width="351"
+						height="20"
+						key="textField-21"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{sekatan}!= null ? $F{sekatan}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="429"
+						width="351"
+						height="20"
+						key="textField-22"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{kegunaan_tanah}!= null ? $F{kegunaan_tanah}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="35"
+						y="469"
+						width="129"
+						height="20"
+						key="staticText-49"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[NO. PELAN AKUI]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="489"
+						width="129"
+						height="20"
+						key="staticText-50"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[NO. SYIT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="469"
+						width="5"
+						height="20"
+						key="staticText-51"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="489"
+						width="5"
+						height="20"
+						key="staticText-52"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="469"
+						width="351"
+						height="20"
+						key="textField-23"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{no_pelan}!= null ? $F{no_pelan}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="489"
+						width="351"
+						height="20"
+						key="textField-24"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{no_syit}!= null ? $F{no_syit}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="35"
+						y="309"
+						width="129"
+						height="20"
+						key="staticText-53"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[TARAF HAKMILIK]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="389"
+						width="129"
+						height="20"
+						key="staticText-54"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[CUKAI TAHUNAN (RM)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="309"
+						width="5"
+						height="20"
+						key="staticText-55"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="389"
+						width="5"
+						height="20"
+						key="staticText-56"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="309"
+						width="351"
+						height="20"
+						key="textField-25"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{taraf_hakmilik}!= null ? $F{taraf_hakmilik}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="389"
+						width="351"
+						height="20"
+						key="textField-26"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{cukai}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="35"
+						y="509"
+						width="129"
+						height="20"
+						key="staticText-57"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[NO. PU]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="269"
+						width="129"
+						height="20"
+						key="staticText-58"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[TARIKH DAFTAR HAKMILIK]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="289"
+						width="129"
+						height="20"
+						key="staticText-59"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[TARIKH TERIMA HAKMILIK]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="509"
+						width="5"
+						height="20"
+						key="staticText-60"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="289"
+						width="5"
+						height="20"
+						key="staticText-61"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="269"
+						width="5"
+						height="20"
+						key="staticText-62"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="509"
+						width="351"
+						height="20"
+						key="textField-27"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{no_pu}!= null ? $F{no_pu}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="289"
+						width="351"
+						height="20"
+						key="textField-28"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{tarikh_terima}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="269"
+						width="351"
+						height="20"
+						key="textField-29"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{tarikh_daftar}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="35"
+						y="409"
+						width="129"
+						height="20"
+						key="staticText-63"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[CUKAI SEMASA (RM)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="349"
+						width="129"
+						height="20"
+						key="staticText-64"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[HAKMILIK ASAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="35"
+						y="369"
+						width="129"
+						height="20"
+						key="staticText-65"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[HAKMILIK BERIKUT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="409"
+						width="5"
+						height="20"
+						key="staticText-66"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="369"
+						width="5"
+						height="20"
+						key="staticText-67"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="164"
+						y="349"
+						width="5"
+						height="20"
+						key="staticText-68"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="409"
+						width="351"
+						height="20"
+						key="textField-30"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{cukai_terkini}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="349"
+						width="351"
+						height="20"
+						key="textField-31"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{hakmilik_asal}!= null ? $F{hakmilik_asal}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="172"
+						y="369"
+						width="351"
+						height="20"
+						key="textField-32"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{hakmilik_berikut}!= null ? $F{hakmilik_berikut}.trim():"TIADA")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="240"
+						y="30"
+						width="162"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="190"
+						y="30"
+						width="40"
+						height="20"
+						key="staticText-69"/>
+					<box rightPadding="5"></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TARIKH]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="230"
+						y="30"
+						width="10"
+						height="20"
+						key="staticText-70"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="29"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="454"
+						y="12"
+						width="67"
+						height="17"
+						key="staticText-71"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[version 2.2]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="32"
+						y="12"
+						width="152"
+						height="17"
+						key="staticText-72"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[sbbphv2/cetakan/maklumatTanah]]></text>
+				</staticText>
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

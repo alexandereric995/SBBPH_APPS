@@ -1,0 +1,97 @@
+<style type="text/css">
+
+.style1 {
+	color: #0033FF;
+	font-weight: bold;
+}
+.blink {
+	animation: blink 1s steps(5, start) infinite;
+}
+@keyframes blink {
+ to {
+ visibility: hidden;
+}
+</style>
+
+<fieldset>
+<legend class="legend">Senarai Projek</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:84%">&nbsp;</td>
+  </tr>
+  
+  <tr>
+    <td colspan="3" class="label">  
+  #if ($allowUpdate)
+      	<input type="button" id="addCadanganPembangunan" name="addCadanganPembangunan" value="Tambah">      	
+      <script>
+        _jq('#addCadanganPembangunan').on('click', function(){
+			doDivAjaxCall3$formname('divCadanganPembangunan','addCadanganPembangunan','');
+        });
+    </script>
+      <br />
+      <br />
+  #end
+      <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+          <td class="row_header" width="5%">Bil.</td>
+          <td class="row_header" >Nama Projek</td>
+          <td class="row_header" >Kontraktor</td>
+          <td class="row_header" >Harga Kontrak (RM)</td>
+          <td class="row_header" >Tarikh Milik Tapak</td>
+          <td class="row_header" width="5%">Papar</td>
+          #if ($allowUpdate)
+          <td class="row_header" width="5%">Hapus</td>
+          #end </tr>
+        #set ( $count = 0 )
+        #if ( $listCadanganPembangunan.size() > 0) 
+        #foreach( $c in $listCadanganPembangunan )
+        #set ( $count = $count + 1)
+        
+        #if ( $count % 2 == 0 ) 
+        #set ( $rowcolor = "#D0CFCE" ) 
+        #else 
+        #set ( $rowcolor = "#F0F0F0" ) 
+        #end
+        <tr bgcolor="$rowcolor">
+          <td align="center">$!count</td>
+          <td align="left">$!c.namaProjek &nbsp;&nbsp;&nbsp;
+          </td>
+          <td align="left">$!c.kontraktor</td>
+          <td align="right">$util.formatDecimal($!c.hargaKontrak)</td>
+          <td align="center">$!util.getDateTime($!c.tarikhMilikTapak,'dd-MM-yyyy')</td>
+          <td align="center"><a href="javascript:void()" id="linkPaparCadanganPembangunan$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> 
+          	<script>
+				_jq('#linkPaparCadanganPembangunan$c.id').on('click', function(){
+					doDivAjaxCall3$formname('divCadanganPembangunan','doPaparCadanganPembangunan','idCadanganPembangunan=$c.id');
+				});                    
+			</script>
+          </td>
+          #if ($allowUpdate)
+          <td align="center"><a href="javascript:void()" onClick="javascript:doHapusCadanganPembangunan('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+          #end </tr>
+        #end
+        #else
+        <tr >
+          <td align="center">&nbsp;</td>
+          <td >Tiada Rekod</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          #if ($allowUpdate)
+          <td align="center">&nbsp;</td>
+          #end </tr>
+        #end
+      </table></td>
+  </tr>
+</table>
+<table width="100%">
+  <tr>
+    <td align="right"><input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+</fieldset>

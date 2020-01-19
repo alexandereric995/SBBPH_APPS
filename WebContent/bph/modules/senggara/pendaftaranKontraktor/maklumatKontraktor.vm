@@ -1,0 +1,27 @@
+<fieldset>
+<legend class="legend">MAKLUMAT KONTRAKTOR</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>#parse("$path/maklumatPendaftaran.vm")</td>
+  </tr>
+  <tr>
+    <td>&nbsp;<hr></td>
+  </tr>
+  <tr>
+    <td><div id="getRegisteredKontraktor">#parse("$path/maklumatDetailKontraktor.vm")</div></td>
+  </tr>
+</table>
+</fieldset>
+
+#if ($!command != "add_new_record")
+<table width="100%">
+	<tr>
+		<td align="right">
+    		<input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:doSaveKontraktor();"/>
+    		<input id="hapusPendaftaran" name="hapusPendaftaran" type="button" value="Hapus Pendaftaran Kontraktor" onClick="if ( !confirm('Anda pasti?') ) return; $('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','hapusPendaftaranKontraktor','page_num=$!current_page_num')">
+##    		<input id="hapus" name="hapus" type="button" value="Hapus Kontraktor" onClick="if ( !confirm('Anda pasti?') ) return; $('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','hapusKontraktor','page_num=$!current_page_num')">
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+#end

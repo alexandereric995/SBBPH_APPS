@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="JRPSuratTolakPermohonanRuangPejabat"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="451"
+		 columnSpacing="0"
+		 leftMargin="72"
+		 rightMargin="72"
+		 topMargin="50"
+		 bottomMargin="72"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idPermohonan" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="flag_lewat" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="jenis_permohonan" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT MONTH(CURDATE()) AS BULAN,YEAR(CURDATE()) AS TAHUN,A.NO_PERMOHONAN , -- DATE_FORMAT(A.TARIKH_TERIMA,'%d') HARI_TERIMA, MONTH(A.TARIKH_TERIMA) BULAN_TERIMA, YEAR(A.TARIKH_TERIMA) TAHUN_TERIMA, 
+A.ALAMAT_1, A.ALAMAT_2, A.ALAMAT_3, A.POSKOD, B.keterangan NAMA_AGENSI,C.keterangan NAMA_KEMENTERIAN, D.keterangan NAMA_BANDARB, E.keterangan NAMA_NEGERIB, F.keterangan NAMA_BANDARA, G.keterangan NAMA_NEGERIA
+-- , L.user_name, L.NO_TELEFON, L.EMEL
+, H.bil_mesyuarat, DATE_FORMAT(H.tarikh_mesyuarat,'%d') HARI_MESYUARAT, MONTH(H.tarikh_mesyuarat) BULAN_MESYUARAT, YEAR(H.tarikh_mesyuarat) TAHUN_MESYUARAT,
+DATE_FORMAT(I.tarikh_lengkap_permohonan,'%d') HARI_LENGKAP, MONTH(I.tarikh_lengkap_permohonan) BULAN_LENGKAP, YEAR(I.tarikh_lengkap_permohonan) TAHUN_LENGKAP, H.ulasan
+,H.urusetia_pengesah
+FROM jrp_permohonan A
+LEFT JOIN ruj_agensi B ON A.id_agensi = B.id
+LEFT JOIN ruj_kementerian C ON B.id_kementerian = C.id
+LEFT JOIN ruj_bandar D ON A.id_bandar = D.id
+LEFT JOIN ruj_negeri E ON D.id_negeri = E.id
+LEFT JOIN ruj_bandar F ON A.id_bandar = F.id
+LEFT JOIN ruj_negeri G ON F.id_negeri = G.id
+-- LEFT JOIN users L ON A.id_pegawai_lulus = L.user_login
+LEFT JOIN jrp_mesyuarat H ON A.id = H.id_permohonan
+LEFT JOIN jrp_kertas_pertimbangan I ON A.id = I.id_permohonan
+WHERE A.id = $P{idPermohonan}]]></queryString>
+
+	<field name="BULAN" class="java.lang.Long"/>
+	<field name="TAHUN" class="java.lang.Long"/>
+	<field name="NO_PERMOHONAN" class="java.lang.String"/>
+	<field name="ALAMAT_1" class="java.lang.String"/>
+	<field name="ALAMAT_2" class="java.lang.String"/>
+	<field name="ALAMAT_3" class="java.lang.String"/>
+	<field name="POSKOD" class="java.lang.String"/>
+	<field name="NAMA_AGENSI" class="java.lang.String"/>
+	<field name="NAMA_KEMENTERIAN" class="java.lang.String"/>
+	<field name="NAMA_BANDARB" class="java.lang.String"/>
+	<field name="NAMA_NEGERIB" class="java.lang.String"/>
+	<field name="NAMA_BANDARA" class="java.lang.String"/>
+	<field name="NAMA_NEGERIA" class="java.lang.String"/>
+	<field name="bil_mesyuarat" class="java.lang.String"/>
+	<field name="HARI_MESYUARAT" class="java.lang.String"/>
+	<field name="BULAN_MESYUARAT" class="java.lang.Long"/>
+	<field name="TAHUN_MESYUARAT" class="java.lang.Long"/>
+	<field name="HARI_LENGKAP" class="java.lang.String"/>
+	<field name="BULAN_LENGKAP" class="java.lang.Long"/>
+	<field name="TAHUN_LENGKAP" class="java.lang.Long"/>
+	<field name="ulasan" class="java.lang.String"/>
+	<field name="urusetia_pengesah" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="216"  isSplitAllowed="false" >
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="132"
+						width="451"
+						height="14"
+						key="textField-8"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false" isUnderline="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Pengarah\n"
++($F{NAMA_AGENSI}!=null?$F{NAMA_AGENSI}+"\n":"")
++($F{NAMA_KEMENTERIAN}!=null?$F{NAMA_KEMENTERIAN}+"\n":"")
++($F{ALAMAT_1}!=null?$F{ALAMAT_1}+"\n":"")
++($F{ALAMAT_2}!=null?$F{ALAMAT_2}+"\n":"")
++($F{ALAMAT_3}!=null?$F{ALAMAT_3}+"\n":"")
++($F{POSKOD}!=null?$F{POSKOD}+" ":"")
++($F{NAMA_BANDARA}!=null?$F{NAMA_BANDARA}:"")+ ", " + ($F{NAMA_NEGERIA}!=null?$F{NAMA_NEGERIA}:"")+"\n\n"
++"\nTuan,\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="284"
+						y="79"
+						width="167"
+						height="14"
+						key="textField-13"
+						positionType="Float"
+						isPrintRepeatedValues="false"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{NO_PERMOHONAN}!=null ? $F{NO_PERMOHONAN}:"")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="284"
+						y="93"
+						width="167"
+						height="14"
+						key="textField-16"
+						positionType="Float"
+						isPrintRepeatedValues="false"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{BULAN}.intValue()== 1 ? "Januari" :
+$F{BULAN}.intValue()== 2 ? "Februari":
+$F{BULAN}.intValue()== 3 ? "Mac" :
+$F{BULAN}.intValue()== 4 ? "April" :
+$F{BULAN}.intValue()== 5 ? "Mei" :
+$F{BULAN}.intValue()== 6 ? "Jun" :    
+$F{BULAN}.intValue()== 7 ? "Julai" :
+$F{BULAN}.intValue()== 8 ? "Ogos" :
+$F{BULAN}.intValue()== 9 ? "September" :
+$F{BULAN}.intValue()== 10 ? "Oktober" :
+$F{BULAN}.intValue()== 11 ? "November" :
+$F{BULAN}.intValue()== 12 ? "Disember" : "") + " " + $F{TAHUN}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="155"
+						width="451"
+						height="15"
+						key="textField-18"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true" isUnderline="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["PERMOHONAN " + $P{jenis_permohonan} + ($P{flag_lewat}.isEmpty() ? " " : " LEWAT ") + "PENYEWAAN RUANG PEJABAT - " + ($F{NAMA_AGENSI}!=null?$F{NAMA_AGENSI}:"") + ", " + ($F{NAMA_NEGERIA}!=null?$F{NAMA_NEGERIA}:"")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="183"
+						width="451"
+						height="16"
+						key="textField-28"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean(!$P{flag_lewat}.isEmpty())]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Dengan hormatnya saya diarah merujuk kepada perkara di atas.\n\n"+ 
+
+"2.       Dimaklumkan bahawa Mesyuarat Jawatankuasa Ruang Pejabat " + ($F{bil_mesyuarat}!=null?$F{bil_mesyuarat}:"") + " pada " + ($F{HARI_MESYUARAT}!=null?$F{HARI_MESYUARAT}:"") + " " + ($F{BULAN_MESYUARAT}.intValue()== 1 ? "Januari" :
+$F{BULAN_MESYUARAT}.intValue()== 2 ? "Februari":
+$F{BULAN_MESYUARAT}.intValue()== 3 ? "Mac" :
+$F{BULAN_MESYUARAT}.intValue()== 4 ? "April" :
+$F{BULAN_MESYUARAT}.intValue()== 5 ? "Mei" :
+$F{BULAN_MESYUARAT}.intValue()== 6 ? "Jun" :    
+$F{BULAN_MESYUARAT}.intValue()== 7 ? "Julai" :
+$F{BULAN_MESYUARAT}.intValue()== 8 ? "Ogos" :
+$F{BULAN_MESYUARAT}.intValue()== 9 ? "September" :
+$F{BULAN_MESYUARAT}.intValue()== 10 ? "Oktober" :
+$F{BULAN_MESYUARAT}.intValue()== 11 ? "November" :
+$F{BULAN_MESYUARAT}.intValue()== 12 ? "Disember" : "") 
+ + " " + ($F{TAHUN_MESYUARAT}.toString()!=null?$F{TAHUN_MESYUARAT}.toString():"") + " telah memberikan kelulusan bersyarat sehingga dokumen yang lengkap dikemukakan. Pihak Urus Setia JRP telah menerima salinan dokumen yang lengkap pada " + ($F{HARI_LENGKAP}!=null?$F{HARI_LENGKAP}:"") + " " + ($F{BULAN_LENGKAP}.intValue()== 1 ? "Januari" :
+$F{BULAN_LENGKAP}.intValue()== 2 ? "Februari":
+$F{BULAN_LENGKAP}.intValue()== 3 ? "Mac" :
+$F{BULAN_LENGKAP}.intValue()== 4 ? "April" :
+$F{BULAN_LENGKAP}.intValue()== 5 ? "Mei" :
+$F{BULAN_LENGKAP}.intValue()== 6 ? "Jun" :    
+$F{BULAN_LENGKAP}.intValue()== 7 ? "Julai" :
+$F{BULAN_LENGKAP}.intValue()== 8 ? "Ogos" :
+$F{BULAN_LENGKAP}.intValue()== 9 ? "September" :
+$F{BULAN_LENGKAP}.intValue()== 10 ? "Oktober" :
+$F{BULAN_LENGKAP}.intValue()== 11 ? "November" :
+$F{BULAN_LENGKAP}.intValue()== 12 ? "Disember" : "") + " " + ($F{TAHUN_LENGKAP}.toString()!=null?$F{TAHUN_LENGKAP}.toString():"") + " dan permohonan tuan <style isBold='true' pdfFontName='Helvetica-Bold'>tidak diluluskan</style>.\n\n" +
+"3.       " + ($F{ulasan} != null ? $F{ulasan}.toLowerCase() : "")]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="-20"
+						y="164"
+						width="0"
+						height="0"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Static Text]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="3"
+						width="449"
+						height="55"
+						key="subreport-1"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\jrp\\headerSurat.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="199"
+						width="451"
+						height="17"
+						key="textField-30"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Sekian, terima kasih.\n\n"
+
++"<style isBold='true' pdfFontName='Helvetica-Bold'>“BERKHIDMAT UNTUK NEGARA”</style>\n\n"
++"<style isBold='true' pdfFontName='Helvetica-Bold'>“BERILTIZAM PENUH HASRAT”</style>\n\n"
++"Saya yang menurut perintah,\n\n\n\n\n"
++"<style isBold='true' pdfFontName='Helvetica-Bold'>(" + ($F{urusetia_pengesah}!=null ?$F{urusetia_pengesah} : "")+ ")</style>\n"
++"b.p Ketua Setiausaha Negara\n"
++"No. Tel :" +   "\n"
++"Emel :" +   "\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="183"
+						width="451"
+						height="16"
+						key="textField-31"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($P{flag_lewat}.isEmpty())]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Dengan hormatnya saya diarah merujuk kepada perkara di atas.\n\n"+ 
+
+"2.       Dimaklumkan bahawa permohonan tuan telah dibawa untuk pertimbangan Mesyuarat Jawatankuasa Ruang Pejabat (JRP) Bil. " + ($F{bil_mesyuarat}!=null?$F{bil_mesyuarat}:"") + " pada " + ($F{HARI_MESYUARAT}!=null?$F{HARI_MESYUARAT}:"") + " " + ($F{BULAN_MESYUARAT}.intValue()== 1 ? "Januari" :
+$F{BULAN_MESYUARAT}.intValue()== 2 ? "Februari":
+$F{BULAN_MESYUARAT}.intValue()== 3 ? "Mac" :
+$F{BULAN_MESYUARAT}.intValue()== 4 ? "April" :
+$F{BULAN_MESYUARAT}.intValue()== 5 ? "Mei" :
+$F{BULAN_MESYUARAT}.intValue()== 6 ? "Jun" :    
+$F{BULAN_MESYUARAT}.intValue()== 7 ? "Julai" :
+$F{BULAN_MESYUARAT}.intValue()== 8 ? "Ogos" :
+$F{BULAN_MESYUARAT}.intValue()== 9 ? "September" :
+$F{BULAN_MESYUARAT}.intValue()== 10 ? "Oktober" :
+$F{BULAN_MESYUARAT}.intValue()== 11 ? "November" :
+$F{BULAN_MESYUARAT}.intValue()== 12 ? "Disember" : "") 
+ + " " + ($F{TAHUN_MESYUARAT}.toString()!=null?$F{TAHUN_MESYUARAT}.toString():"") + " dan Jawatankuasa memutuskan permohonan tuan <style isBold='true' pdfFontName='Helvetica-Bold'>tidak diluluskan</style>.\n\n" +
+"3.       " + ($F{ulasan} != null ? $F{ulasan}.toLowerCase() : "") + "\n\n\n"]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

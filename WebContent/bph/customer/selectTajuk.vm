@@ -1,0 +1,16 @@
+<select id="idTajuk" name="idTajuk" style="width:100%">
+	
+    <option value="">SILA PILIH</option>
+    <option value="ADUAN UMUM">ADUAN UMUM</option>
+    <option value="PERMOHONAN KUARTERS">PERMOHONAN KUARTERS</option>
+    <option value="PERMOHONAN RPP">PERMOHONAN RPP</option>
+    <option value="PORTAL">PORTAL</option>
+    <option value="LAIN LAIN">LAIN LAIN</option>
+     
+
+   
+    #foreach( $f in $selectTajuk )
+    	
+        <option #if ( $!f.id ==  $!r.Tajuk.id) selected #end value="$f.id">$!f.keterangan.toUpperCase() - $f.id</option>
+    #end
+</select>

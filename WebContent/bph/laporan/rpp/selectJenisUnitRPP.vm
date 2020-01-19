@@ -1,0 +1,18 @@
+<select id="idJenisUnit" name="idJenisUnit" style="width:80%" onChange="$('err_idJenisUnit').innerHTML=''; at(this, event);">
+    <option value="">SILA PILIH</option>
+    #foreach( $gj in $selectJenisUnitRPP )
+        <option #if ( $gj.id ==  $!uj.peranginan.id) selected #end value="$gj.id">$gj.keterangan.toUpperCase()</option>
+    #end
+</select>
+
+<script>
+	_jq("#idGredJawatan").change(function() {
+    	if ( this.value < 22 ) {
+			_jq("#divPerakuan").children().prop("disabled", true);
+			_jq("input[name='perakuan'][value='0']").prop("checked",true);
+		} else {
+			_jq("#divPerakuan").children().prop("disabled", false);
+			_jq("input[name='perakuan'][value='1']").prop("checked",true);
+		}
+    });
+</script>

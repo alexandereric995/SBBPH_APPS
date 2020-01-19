@@ -1,0 +1,37 @@
+
+
+#parse("$path/senaraiTab.vm")
+
+
+<fieldset>
+<legend class="legend">maklumat pembatalan</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  #textarea_required("catatanPembatalan" "Catatan Pembatalan" "$!r.catatanPembatalan")
+</table>
+</fieldset>
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+				#if( $!r.status.id != "1425259713418" )	
+    			<input id="btnBatal" type="button" value="Batal" onClick="doSaveBatal('$!r.id')">
+				#end	
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>
+		
+	#if( $!r.status.id == "1425259713418" )	
+		<table cellpadding="5" cellspacing="0" border="0" width="100%" style="margin-top: 5px;">
+    		<tr>
+    			<td style="background: #22C322; color: #FFF; font-weight: bold; box-shadow: 0px 2px 5px #999;">
+    				PERMOHONAN TELAH DIBATALKAN
+    			</td>
+    		</tr>
+    	</table>
+	#end	

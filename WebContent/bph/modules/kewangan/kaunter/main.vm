@@ -1,0 +1,116 @@
+<table style="width:100%" cellpadding="1" cellspacing="1" border="0">
+  <tr>
+    <td width="40%"><div id="divCarianPembayar">#parse("$templateDir/carianPembayar.vm")</div></td>
+    <td width="60%"><div id="divMaklumatPembayar">#parse("$templateDir/maklumatPembayar.vm")</div></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><div style="float:left"> &nbsp; </div>
+      <div id="divEditPayer" style="float:right"> #parse("$templateDir/buttonSimpanPayee.vm")</div></td>
+  </tr>
+</table>
+<br/>
+<hr/>
+<br/>
+<input type="hidden" id="payerId" name="payerId" value="$!pembayar.id" />
+<legend style="width:100% !important" class="legend">MAKLUMAT BIL / INVOIS</legend>
+<table width="100%" cellpadding="1" cellspacing="1">
+  <tr>
+    <td width="100%"><div id="divSenaraiBayaranAsal">#parse("$templateDir/senaraiBayaranAsal.vm")</div></td>
+  </tr>
+  <tr>
+    <td><div style="float:left"> &nbsp; </div>
+      <div style="float:right">
+        <input type="button" #if( !$!pembayar.id ) disabled #end value="PILIH SEMUA &gt;&gt;" id="btnPilihSemua">
+        <script>
+			_jq('#btnPilihSemua').on('click', function(){
+				doDivAjaxChainCall$formname('divSenaraiBayaranAsal','saveAllPilihanBayar','payerId=$!pembayar.id','divSenaraiBayaranPilihan','refreshDivQueue','payerId=$!pembayar.id');
+			});
+		</script>
+      </div></td>
+  </tr>
+</table>
+<legend style="width:100% !important" class="legend">MAKLUMAT BIL / INVOIS UNTUK DI BAYAR</legend>
+<table width="100%" cellpadding="1" cellspacing="1">
+  <tr>
+    <td width="100%"><div id="divSenaraiBayaranPilihan">#parse("$templateDir/senaraiBayaranPilihan.vm")</div></td>
+  </tr>
+  <tr>
+    <td><div style="float:right">
+        <input type="button" #if( !$!pembayar.id ) disabled #end value="&lt;&lt; BATAL SEMUA" id="btnRemoveSemua" />
+        <script>
+			_jq('#btnRemoveSemua').on('click', function(){
+				doDivAjaxChainCall$formname('divSenaraiBayaranPilihan','removeAllPilihan','payerId=$!pembayar.id','divSenaraiBayaranAsal','refreshDivAsal','payerId=$!pembayar.id');
+			});
+		</script>
+      </div>
+      <div style="float:right"> </div></td>
+  </tr>
+</table>
+<hr/>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="0%" valign="top">&nbsp;</td>
+    <td width="100%" valign="top"><div id="divMaklumatBayaran">#parse("$templateDir/maklumatBayaran.vm")</div></td>
+  </tr>
+  <tr>
+    <td><div style="float:left"> &nbsp; </div></td>
+    <td><div style="float:left"> &nbsp; </div>
+      <div style="float:right">
+        <input type="button" #if( !$!pembayar.id ) disabled #end style="width:200px" value="BAYAR" id="buttonBayar" onClick="javascript:doBayaran()"/>
+        #set ($disableButtonSenaraiResit = "")
+        #if( !$!pembayar.id || $listResit.size() < 1 ) 
+        #set ($disableButtonSenaraiResit = "disabled")
+        #end
+        <input type="button"  style="width:200px" value="SENARAI  RESIT" id="btnSenaraiResit" onClick="javascript:doPaparSenaraiResit()" $!disableButtonSenaraiResit/>
+      </div></td>
+  </tr>
+</table>
+<div id="divPopupSenaraiResit" class="popup"></div>
+<div id="divPopupBayaranLain" class="popup"></div>
+<div id="divPopupCetakInvois"></div>
+<script>
+function doBayaran() {
+	if ( validateBayar() ){
+		doDivAjaxCall$formname('divMainForm','selesaiBayaran','');
+ 	}
+}
+        	
+function validateBayar() {
+	var err_count = 0;
+	var txtInvois = $('txtJumlahInvois').value;
+	var parseInvois = parseFloat(txtInvois.replace(/,/g, ''));
+	if ( parseInvois == 0.00 ) {$('err_selesaiBayaran').innerHTML = "* Tiada bil/invois dipilih"; err_count++;  }
+                        	
+	var txtBaki = $('txtBaki').value;
+	var parseBaki = parseFloat(txtBaki.replace(/,/g, ''));
+	if ( parseBaki > 0 ) {$('err_selesaiBayaran').innerHTML = "* Bayaran masih tidak mencukupi. Sila buat pembayaran penuh"; err_count++;  }
+				
+	if ( parseBaki < 0 ) {$('err_selesaiBayaran').innerHTML = "* Jumlah Amaun Bayaran melebihi jumlah yang perlu dibayar. Sila buat pembayaran sepatutnya"; err_count++;  }
+                        	
+	if (err_count == 0) {
+		if(parseBaki < 0){
+			if ( !window.confirm("Jumlah Amaun Bayaran melebihi jumlah yang perlu dibayar. Anda pasti?") ){
+				return;
+			}
+		} else {
+			var kodJuruwang = $('kodJuruwang').value;
+			if ( kodJuruwang == "" ) {
+			alert('Kod Juruwang tidak didaftarkan. Sila semak kod juruwang anda.');
+			return;
+		} else {
+			if ( !window.confirm("Anda pasti?") ){
+				return;
+				}
+			}									
+		}
+	}
+                       	
+	return err_count == 0;
+}
+				
+function doPaparSenaraiResit() {
+	doDivAjaxCall3$formname('divPopupSenaraiResit','callPopupSenaraiResit','payerId=$!pembayar.id');
+	jQuery('#divPopupSenaraiResit').fadeIn();
+}									
+</script>

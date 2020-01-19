@@ -1,0 +1,55 @@
+
+<fieldset>
+<legend class="legend">Laporan Senarai Penghuni Yang Hilang Kelayakan</legend>
+<table width="100%">
+ <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+##		<tr>
+##			<td class="label">Kawasan &nbsp;<span style="color:#FF2A00"></span></td>
+##		    <td>:</td>
+##		    <td><div id="selectKawasan"> #parse("$path/selectKawasan.vm") </div>
+##		    <div id="err_idKawasan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+##		</tr>
+		<tr>
+			<td class="label">Jenis Kesalahan&nbsp;<span style="color:#FF2A00"></span></td>
+			<td>:</td>
+			<td><div id="selectPelanggaran">#parse("$path/selectJenisPelanggaranSyarat.vm")</div>
+			<div id="err_idJenisPelanggaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td></td>
+		</tr>
+		</td>
+ </table>
+  
+  <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr> 
+  
+   #if ($!r.tarikhTerima)
+ 		   #set ($dateMula = "$!util.getDateTime($!r.tarikhTerima,'dd-MM-yyyy')")
+	#else #set ($dateMula = "") #end
+	#date_input_required("tarikhTerima" "Tarikh Mula" "$dateMula")
+
+
+	#if ($!r.tarikhTerimaHingga)
+ 		  #set ($dateTamat = "$!util.getDateTime($!r.tarikhTerimaHingga,'dd-MM-yyyy')")
+	#else #set ($dateTamat = "") #end
+	#date_input_required("tarikhTerimaHingga" "Tarikh Tamat" "$dateTamat")
+  </table></td>
+
+<table width="100%">
+  <tr>
+	  <td align="center">
+		  <input type="button" name="cmdCetak" id="cmdCetak" value="Jana Laporan" onclick="javascript:doCetakLaporanSenaraiPenghuniYangHilangKelayakan()"/>
+		  <input type="reset" value="Kosongkan" />
+		  <input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/>
+	  </td>
+  </tr>
+</table>
+</fieldset>
+<div id="cetakLaporan"></div>

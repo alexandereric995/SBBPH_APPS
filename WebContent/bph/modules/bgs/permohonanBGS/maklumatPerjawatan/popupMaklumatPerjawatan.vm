@@ -1,0 +1,53 @@
+<fieldset>
+<legend class="legend">Maklumat Perjawatan</legend>
+<table cellpadding="5" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td class="label" style="width:29%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:70%">&nbsp;</td>
+  </tr>
+  #input_required("jawatan" "Jawatan" "$!rekod.jawatan")
+  #input_required("gred" "Gred" "$!rekod.gred")
+  #number_required("bilanganSemasa" "Bilangan Semasa" "$!rekod.bilanganSemasa")
+  #luas_required("luasSemasa" "Keluasan Semasa (Meter Persegi)" "$!rekod.luasSemasa")
+  #number_required("bilanganAkanDatang" "Bilangan Akan Datang" "$!rekod.bilanganAkanDatang")
+  #luas_required("luasAkanDatang" "Keluasan Akan Datang (Meter Persegi)" "$!rekod.luasAkanDatang")
+  <tr>
+    <td></td>
+    <td></td>
+    <td> 
+    	#if ($!userRole == '(BGS) Pemohon')
+  			#if ($!r.status.id == '1428384412943' || $!r.status.id == '1423568441685') ## DRAF PERMOHONAN || PERMOHONAN TIDAK LENGKAP
+    			<input type="button" id="kemaskiniPerjawatan" name="kemaskiniPerjawatan" value="Simpan">
+    		#end
+    	#end
+    	##if ($!userRole == '(BGS) Penyedia' && $!r.status.id == '1423568441671') ## PERMOHONAN BARU
+    	#if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441671' || $!r.status.id == '1423568441694')) ## PERMOHONAN BARU/PINDAAN KERTAS PERTIMBANGAN	
+    		<input type="button" id="kemaskiniPerjawatan" name="kemaskiniPerjawatan" value="Simpan">
+	    #end
+      	<input type="button" id="batalPerjawatan" name="batalPerjawatan" value="Keluar"> </td>
+  </tr>
+</table>
+<input type="hidden" id="idPerjawatan" name="idPerjawatan" value="$rekod.id">
+<div id="statusPerjawatan"></div>
+</fieldset>
+<script>
+_jq('#batalPerjawatan').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getMaklumatPerjawatan','');
+    jQuery('#editPerjawatan').fadeOut();
+});
+
+_jq('#kemaskiniPerjawatan').on('click', function(){
+	kemaskiniPerjawatan();
+});
+
+</script>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+      $('.luas').autoNumeric('init', {aSep: '', vMin: '0.00000', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

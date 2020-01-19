@@ -1,0 +1,57 @@
+<fieldset>
+<legend class="legend">MAKLUMAT REKOD</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  #show("Pusat Terima" "$!r.pusatTerima.unit")
+  #show("Pusat Terima" "$!r.juruwang.id")
+  #show("Nama Juruwang" "$!r.juruwang.userName")
+  #show("Jawatan" "$!r.jawatan")
+  #show("Kod Juruwang" "$!r.kodJuruwang")
+  <tr>
+    <td class="label">Status &nbsp;<span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td>#parse("$path/selectFlagAktif.vm")
+      <div id="err_flagAktif" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	  <div id="validate_status_juruwang" style="color:#CC0000;font-weight:bold;border:2px #000">#parse("$path/validateStatusJuruwang.vm")</div></td>
+  </tr>
+  #textarea("catatan" "Catatan" "$!r.catatan")
+  
+##  #if ($!command != 'add_new_record')
+##  <tr>
+##    <td>&nbsp;</td>
+##    <td>&nbsp;</td>
+##    <td>&nbsp;</td>
+##  </tr>
+##  #show("Daftar Oleh" "$!r.daftarOleh.userName")
+##  #show("Tarikh Daftar" "$util.getDateTime($!r.tarikhMasuk,'dd-MM-yyyy hh:mm:ss a')")
+##  #show("Kemaskini Oleh" "$!r.kemaskiniOleh.userName")
+##  #show("Tarikh Kemaskini" "$util.getDateTime($!r.tarikhKemaskini,'dd-MM-yyyy hh:mm:ss a')")
+##  #end
+</table>
+</fieldset>
+
+<br>
+<table width="100%">
+  <tr>
+    <td align="right">
+    	<input type="button" value="Simpan" onclick="javascript:kemaskiniJuruwang();">
+    	<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+
+<script>
+    _jq('#flagAktif').change(function() {
+    	validateStatusJuruwang()
+    });
+    
+	function validateStatusJuruwang() {
+		if ( $('flagAktif').value != "") {
+			doDivAjaxCall3$formname('validate_status_juruwang','validateStatusJuruwang','');	    	
+	    }     
+	}
+</script>

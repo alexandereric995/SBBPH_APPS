@@ -1,0 +1,189 @@
+<script>
+	_jq("#bilanganAnak").hide();
+</script>
+
+<div id="simpanPeribadi"></div>
+##<fieldset>
+    ##<legend>
+		##<nav class="breadcrumbs">
+            ##<ul>
+                ##<li>
+                    ##<a href="javascript:void()">Maklumat Penghuni</a>
+                ##</li>
+			##</ul>
+		##</nav>
+	##</legend>
+    <table cellpadding="5" cellspacing="0" border="0" width="95%">
+        <tr>
+            <td style="width:150px"></td>
+            <td style="width:5px"></td>
+            <td></td>
+        </tr>
+    	<tr>
+            <td class="label">Gelaran&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <span id="listGelaran">
+                    #parse("$path/entry_sub/penghuni/select/selectGelaran.vm")
+                </span>
+                <div id="err_idGelaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+    	#input_required("userName" "Nama" "$!r.pemohon.userName")
+		#input_required("userNoKP" "No. MyKad" "$!r.pemohon.noKP")
+    	<tr>
+            <td class="label">Jenis Pengenalan&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <span id="listJenisPengenalan">
+                    #parse("$path/entry_sub/penghuni/select/selectJenisPengenalan.vm")
+                </span>
+                <div id="err_idJenisPengenalan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+    	#input("userNoKP2" "No. Pengenalan Lain" "$!r.pemohon.noKP2")
+    	#if ($!r.pemohon.tarikhLahir)
+                #set($tarikhLahir = $util.getDateTime($!r.pemohon.tarikhLahir, "dd-MM-yyyy"))
+            #else
+                #set($tarikhLahir = "")
+            #end
+    	#date_input_required("userTarikhLahir" "Tarikh Lahir" "$tarikhLahir")
+		<tr>
+            <td class="label">Agama&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <span id="listAgama">
+                    #parse("$path/entry_sub/penghuni/select/selectAgama.vm")
+                </span>
+                <div id="err_idAgama" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+    	<tr>
+            <td class="label">Jantina&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <span id="listJantina">
+                    #parse("$path/entry_sub/penghuni/select/selectJantina.vm")
+                </span>
+                <div id="err_idJantina" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+    	<tr>
+            <td class="label">Bangsa&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <span id="listBangsa">
+                    #parse("$path/entry_sub/penghuni/select/selectBangsa.vm")
+                </span>
+                <div id="err_idBangsa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Etnik&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <span id="listEtnik">
+                    #parse("$path/entry_sub/penghuni/select/selectEtnik.vm")
+                </span>
+                <div id="err_idEtnik" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+    	<tr>
+            <td class="label">Status Perkahwinan&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <span id="listStatusPerkahwinan">
+                    #parse("$path/entry_sub/penghuni/select/selectStatusPerkahwinan.vm")
+                </span>
+                <div id="err_idStatusPerkahwinan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+    	<tr>
+            <td class="label">Bilangan Anak&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <span id="listBilAnak">
+                    #parse("$path/entry_sub/penghuni/select/selectBilAnak.vm")
+                </span>
+                <div id="err_idBilAnak" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+    	<tbody id="bilanganAnak">
+    		<tr>
+            	<td class="label" valign="top"></td>
+            	<td class="label" valign="top"></td>
+            	<td valign="top">
+            		<input class="number" type="text" id="userBilAnak" name="userBilAnak" value="$!users.bilAnak" onKeyUp=" $('err_userBilAnak').innerHTML=''; at(this, event);">
+            		<div id="err_userBilAnak" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            	</td>
+            </tr>
+    	</tbody>
+    	##input("userNoTel" "No. Telefon" "$!r.pemohon.noTelefon")
+    	#input_required("userNoTelBimbit" "No. Telefon Bimbit" "$!r.pemohon.noTelefonBimbit")
+		#input_email_required("email" "Emel" "$!r.pemohon.emel")
+    	#input_required("userAlamat1" "Alamat Tetap" "$!r.pemohon.alamat1")
+    	#input("userAlamat2" "" "$!r.pemohon.alamat2")
+    	#input("userAlamat3" "" "$!r.pemohon.alamat3")
+    	#postcode_required("userPoskod" "Poskod" "$!r.pemohon.poskod")
+    	<tr>
+            <td class="label">Negeri&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <span id="listNegeri">
+                    #parse("$path/entry_sub/penghuni/select/selectNegeri.vm")
+                </span>
+                <div id="err_idNegeriUser" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+    	<tr>
+            <td class="label">Bandar&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <span id="listBandar">
+                    #parse("$path/entry_sub/penghuni/select/selectBandar.vm")
+                </span>
+                <div id="err_idBandarUser" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+		#input_required("userAlamatSemasa1" "Alamat Semasa" "$!r.pemohon.userAddress")
+    	#input("userAlamatSemasa2" "" "$!r.pemohon.userAddress2")
+    	#input("userAlamatSemasa3" "" "$!r.pemohon.userAddress3")
+    	#postcode_required("userPoskodSemasa" "Poskod" "$!r.pemohon.userPostcode")
+    	<tr>
+            <td class="label">Negeri&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <span id="listNegeriSemasa">
+                    #parse("$path/entry_sub/penghuni/select/selectNegeriSemasa.vm")
+                </span>
+                <div id="err_idNegeriSemasa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+    	<tr>
+            <td class="label">Bandar&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td>:</td>
+            <td>
+                <span id="listBandarSemasa">
+                    #parse("$path/entry_sub/penghuni/select/selectBandarSemasa.vm")
+                </span>
+                <div id="err_idBandarSemasa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+    	<tr>
+            <td colspan="2"></td>
+            <td>
+                <input type="button" id="btnSimpanPeribadi" name="btnSimpanPeribadi" value="Simpan / Kemaskini" onclick="simpanPeribadi()" />
+            </td>
+        </tr>
+    </table>
+	##</fieldset>
+<input type="hidden" id="idUsers" name="idUsers" value="$!r.pemohon.id" />
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+		$('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

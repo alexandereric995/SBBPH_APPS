@@ -1,0 +1,56 @@
+<fieldset>
+<legend class="legend">MAKLUMAT REKOD MENGIKUT BULAN</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>    
+	<tr>
+		<input type="hidden" id="tahun" name="tahun" value="" >
+		<tr>
+			<td class="label">Mula</td>
+			<td class="label">:</td>
+			<td>
+				<input type="text" id="dateStart" style="width:100px;" name="dateStart" style="width: 50%">
+				<script>
+			        _jq("#dateStart").Zebra_DatePicker({ 
+						format: 'd-m-Y',
+					});
+					_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+				</script>
+				<div id="err_dateStart" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">Sehingga</td>
+			<td class="label">:</td>
+			<td>
+				<input type="text" id="dateEnd" style="width:100px;" name="dateEnd" style="width: 50%">
+				<script>
+			        _jq("#dateEnd").Zebra_DatePicker({ 
+						format: 'd-m-Y',
+					});
+					_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+				</script>
+				<div id="err_dateEnd" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>	
+		<td></td>
+		<td class="label"></td>
+		<td>
+			<input type="button" name="cmdCetak" id="cmdCetak" value="Cetak" onclick="javascript:doCetakLaporanKutipanBulananKuarters()"/>
+			<input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:location.reload()"/>
+		</td>
+	</tr>
+</table>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

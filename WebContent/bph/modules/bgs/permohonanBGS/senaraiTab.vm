@@ -1,0 +1,44 @@
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatPermohonan','')" #end >Maklumat Permohonan</a></li>
+	<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divTab','getMaklumatPejabat','')" #end >Maklumat Pejabat Sekarang</a></li>
+	<li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('divTab','getMaklumatPerjawatan','')" #end >Maklumat Perjawatan / Keluasan Ruang Pejabat</a></li>
+	<li #if($!selectedTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedTab!='4') onClick="doDivAjaxCall3$formname('divTab','getKeperluanPejabat','')" #end >Maklumat Keperluan Pejabat</a></li>
+	<li #if($!selectedTab=='5') class="active" #end><a href="javascript:void()" #if($!selectedTab!='5') onClick="doDivAjaxCall3$formname('divTab','getDokumenSokongan','')" #end >Dokumen Sokongan</a></li>
+	<li #if($!selectedTab=='6') class="active" #end><a href="javascript:void()" #if($!selectedTab!='6') onClick="doDivAjaxCall3$formname('divTab','getSenaraiSemak','')" #end >Senarai Semak / Kuiri</a></li>
+	#if ($!userRole == '(BGS) Pemohon' && ($!r.status.id == '1423568441697' || $!r.status.id == '1423568441700')) ## LULUS || TOLAK
+		<li #if($!selectedTab=='7') class="active" #end><a href="javascript:void()" #if($!selectedTab!='7') onClick="doDivAjaxCall3$formname('divTab','getKeputusanAkhir','')" #end >Keputusan</a></li>
+  	#end
+  </ul>
+</nav>
+	
+<br/>
+
+#if ($!selectedTab=='1')
+	#parse("$path/maklumatPermohonan.vm")
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/maklumatPejabat/start.vm")
+#end
+
+#if ($!selectedTab=='3')
+	#parse("$path/maklumatPerjawatan/start.vm")
+#end
+
+#if ($!selectedTab=='4')
+	#parse("$path/keperluanPejabat/start.vm")
+#end
+
+#if ($!selectedTab=='5')
+	#parse("$path/dokumenSokongan/start.vm")
+#end
+
+#if ($!selectedTab=='6')
+	#parse("$path/senaraiSemak/start.vm")
+#end
+
+#if ($!selectedTab=='7')
+	#parse("$path/keputusan/start.vm")
+#end
+

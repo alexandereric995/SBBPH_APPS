@@ -1,0 +1,185 @@
+#if ($!success == 'Y')
+<table width="100%" border="0">
+  <tr>
+    <td><font color="blue"> <b> SEMAKAN MAKLUMAT PENGGUNA BERJAYA<u> </b> </font> </td>
+  </tr>
+</table>
+#elseif ($!success == 'T')
+<table width="100%" border="0">
+  <tr>
+    <td><font color="red"> <b> SEMAKAN MAKLUMAT PENGGUNA GAGAL<u> </b> </font> </td>
+  </tr>
+</table>
+#end
+
+<fieldset>
+<legend class="legend">MAKLUMAT PENGGUNA</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("nama" "Nama" "$!r.nama")
+        #input_normal("noPengenalan" "No. Pengenalan" "$!r.noPengenalan")
+        #input_normal("gelaran" "Gelaran" "$!r.gelaran")
+        #if ($!r.tarikhLahir) 
+        #set ($dateTarikhLahir = "$!util.getDateTime($!r.tarikhLahir,'dd-MM-yyyy')")
+        #else #set ($dateTarikhLahir = "") #end
+        #input_normal("tarikhLahir" "Tarikh Lahir" "$dateTarikhLahir")
+        #input_normal("jantina" "Jantina" "$!r.jantina")
+        #input_normal("bangsa" "Bangsa" "$!r.bangsa")
+        #input_normal("etnik" "Etnik" "$!r.etnik")
+        #input_normal("agama" "Agama" "$!r.agama")
+        #input_normal("statusPerkahwinan" "Status Perkahwinan" "$!r.statusPerkahwinan")
+      <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+      
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("alamatTetap1" "Alamat" "$!r.alamatTetap1")
+        #input_normal("alamatTetap2" "" "$!r.alamatTetap2")
+        #input_normal("alamatTetap3" "" "$!r.alamatTetap3")
+        #input_normal("poskodTetap" "Poskod" "$!r.poskodTetap")
+        #input_normal("bandarTetap" "Bandar" "$!r.bandarTetap")
+        #input_normal("negeriTetap" "Negeri" "$!r.negeriTetap")
+        #input_normal("noTelefon" "No. Telefon" "$!r.noTelefon")
+        #input_normal("noTelefonBimbit" "No. Telefon Bimbit" "$!r.noTelefonBimbit")
+        #input_normal("emel" "Emel" "$!r.emel")
+      </table></td>
+  </tr>
+  ##2nd layer
+  <tr>
+    <td colspan="2"><hr />
+    </td>
+  </tr>
+  
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!r.tarikhMulaSandang) 
+        #set ($dateMulaSandang = "$!util.getDateTime($!r.tarikhMulaSandang,'dd-MM-yyyy')")
+        #else #set ($dateMulaSandang = "") #end
+        #input_normal("tarikhMulaSandang" "Tarikh Mula Sandang" "$dateMulaSandang")
+        #if ($!r.tarikhTamatSandang) 
+        #set ($datePencen = "$!util.getDateTime($!r.tarikhTamatSandang,'dd-MM-yyyy')")
+        #else #set ($datePencen = "") #end
+        #input_normal("tarikhTamatSandang" "Tarikh Bersara" "$datePencen")
+        #input_normal("umurPersaraan" "Umur Persaraan" "$!r.umurPersaraan")
+        #input_normal("gredPerkhidmatan" "Gred Perkhidmatan" "$!r.gredPerkhidmatan")
+        #input_normal("kementerian" "Kementerian" "$!r.kementerian")
+        #input_normal("agensi" "Agensi" "$!r.agensi")
+        #input_normal("jabatan" "Jabatan" "$!r.jabatan")
+        #input_normal("statusLantikan" "Status Lantikan" "$!r.statusLantikan")
+        
+      <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+      
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        
+        #input_normal("alamatPejabat1" "Alamat Pejabat" "$!r.alamatPejabat1")
+        #input_normal("alamatPejabat2" "" "$!r.alamatPejabat2")
+        #input_normal("alamatPejabat3" "" "$!r.alamatPejabat3")
+        #input_normal("poskodPejabat" "Poskod" "$!r.poskodPejabat")
+        #input_normal("bandarPejabat" "Bandar" "$!r.bandarPejabat")
+        #input_normal("negeriPejabat" "Negeri" "$!r.negeriPejabat")
+        #input_normal("noTelefonPejabat" "No. Telefon Pejabat" "$!r.noTelefonPejabat")
+        
+        #input_normal("kodGajiTerakhir" "Kod Gaji Terakhir" "$!r.kodGajiTerakhir")
+        #input_normal("statusHidup" "Status Hidup" "$!r.getKeteranganStatusHidup()")
+        
+        
+      </table></td>
+  </tr>
+  ##end 2nd layer
+  <tr>
+    <td colspan="2"><hr />
+    </td>
+  </tr>
+  
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("noPengenalanPasangan" "No. Pengenalan Pasangan" "$!r.noPengenalanPasangan")
+        #input_normal("namaPasangan" "Nama Pasangan" "$!r.namaPasangan")
+        #input_normal("gelaranPasangan" "Gelaran Pasangan" "$!r.gelaranPasangan")
+        #input_normal("noTelefonPasangan" "No. Telefon Pasangan" "$!r.noTelefonPasangan")
+      <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+      
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("jenisBadanKorporat" "Jenis Badan Korporat" "$!r.jenisBadanKorporat")
+        #input_normal("pekerjaanPasangan" "Pekerjaan Pasangan" "$!r.pekerjaanPasangan")
+        #input_normal("majikanPasangan" "Majikan Pasangan" "$!r.majikanPasangan")
+        #input_normal("hubunganPasangan" "Hubungan Pasangan" "$!r.hubunganPasangan")
+        
+      </table></td>
+  </tr>
+  
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">MAKLUMAT SEMAKAN</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!r.tarikhTerima) 
+        #set ($dateTerima = "$!util.getDateTime($!r.tarikhTerima,'dd-MM-yyyy hh:mm:ss a')")
+        #else #set ($dateTerima = "") #end
+        #input_normal("tarikhTerima" "Tarikh Kemaskini" "$dateTerima")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+    		<input id="btnSemak" name="btnSemak" type="button" value="Semakan HRMIS" onclick="javascript:semakHRMIS();"/>
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,71 @@
+
+	#if($!blockBooking)
+	<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+		<p>
+			<strong>* MAAF, HAD PERMOHONAN TELAH MELEBIHI 3 KALI UNTUK TAHUN $!util.getCurrentDate("yyyy")</strong>
+	    </p>
+	</div>
+	#end
+	
+	
+	#if($!blacklisted)
+	<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+		<p>
+			<strong>* MAAF, PERMOHONAN TIDAK DAPAT DITERUSKAN. ANDA TELAH DISENARAI HITAM.</strong>
+	    </p>
+	</div>
+	#end
+	
+	
+	#if(!$!bukaUntukDitempah)
+	<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+		<p>
+			<strong>* MAAF, PERMOHONAN TEMPAHAN SECARA ONLINE BELUM DIBUKA.</strong>
+	    </p>
+	</div>
+	
+	
+	<fieldset>
+	<legend class="legend">SENARAI TARIKH TEMPAHAN ONLINE DIBUKA</legend>
+		<table width="100%" cellpadding="2" cellspacing="2">
+		
+    		<tr>
+    			<td class="row_header" width="5%">Bil.</td>
+				<td class="row_header" width="15%">Perkara</td>
+    			<td class="row_header" width="20%">Tarikh Tempahan Online Dibuka</td>
+    			<td class="row_header" width="20%">Tarikh Menginap Dari</td>
+    			<td class="row_header" width="20%">Tarikh Menginap Hingga</td>
+    			<td class="row_header" width="20%">Catatan</td>
+    		</tr>
+    		
+    		#if ( $listBukaTempahan.size() > 0 )
+        		#set ( $count = 0 )
+        		#foreach( $d in $listBukaTempahan )
+        			
+        			#set ( $count = $count + 1)
+                	#if ( $count % 2 == 0 ) 
+            			#set ( $rowcolor = "#D0CFCE" ) 
+            		#else 
+            			#set ( $rowcolor = "#F0F0F0" ) 
+    				#end
+    				
+            		<tr bgcolor="$rowcolor">
+            			<td align="center">$count</td>
+                		<td align="center">$!d.perkara.toUpperCase()</td>
+                		<td align="center">$!util.getDateTime($!d.tarikhBukaTempahan,'dd-MM-yyyy')</td>
+            			<td align="center">$!util.getDateTime($!d.tarikhMenginapDari,'dd-MM-yyyy')</td>
+						<td align="center">$!util.getDateTime($!d.tarikhMenginapHingga,'dd-MM-yyyy')</td>
+						<td align="center">$!d.catatan.toUpperCase()</td>
+                    </tr>
+    			#end
+    		#else
+    			<tr bgcolor="#F0F0F0">
+    				<td colspan="6">Tiada Rekod</td>
+    			</tr>
+    		#end
+    		
+    	</table>
+	</fieldset>
+	
+	#end
+

@@ -1,0 +1,140 @@
+#parse("bph/portal/content/register/script.vm")
+<div id="content-format">
+  <pinLeft></pinLeft>
+  <pinRight></pinRight>
+  <header>Pendaftaran Akaun Pengguna</header>
+  <section>
+    <table width="95%" cellpadding="5" cellspacing="0" style="padding: 15px" align="center">
+      <tr>
+        <td width="150px" valign="top"><span>Kategori</span> <span style="color:#FF2A00">*</span> </td>
+        <td valign="top"><span>:</span> </td>
+        <td valign="top"><span id="listKategori"> #parse("bph/portal/content/register/selectKategoriPengguna.vm") </span>
+          <div id="err_idKategoriPengguna" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      <tbody id="listBadanBerkanun">
+      	<tr>
+        <td valign="top"><span>Badan Berkanun</span> <span style="color:#FF2A00">*</span> </td>
+        <td valign="top">:</td>
+        <td valign="top">#parse("bph/portal/content/register/selectBadanBerkanun.vm")
+          <div id="err_idBadanBerkanun" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      </tbody>
+      <tr>
+        <td valign="top"><span>No. MyKad</span> <span style="color:#FF2A00">*</span> </td>
+        <td valign="top"><span>:</span> </td>
+        <td valign="top"><input class="input-style" type="text" name="regUsername" id="regUsername" max-length="12" style="width: 100%" onFocus="$('validate_ic').innerHTML = ''; $('regResult').innerHTML='';" onBlur="this.value=this.value.toUpperCase();" onChange="$('err_regUsername').innerHTML=''; at(this, event);" placeholder="Contoh : 830221079898"/>
+          <div id="err_regUsername" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+          <div id="validate_ic" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      <tr>
+        <td valign="top"><span>Nama (Seperti didalam MyKad)</span> <span style="color:#FF2A00">*</span> </td>
+        <td valign="top"><span>:</span> </td>
+        <td valign="top"><input class="input-style" type="text" name="regName" id="regName" style="width: 100%" onFocus="$('validate_ic').innerHTML = ''; $('regResult').innerHTML='';" onBlur="this.value=this.value.toUpperCase();" onChange="$('err_nama').innerHTML=''; at(this, event);"  />
+          <div id="err_nama" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      <tr>
+        <td valign="top"><span>Jantina</span> <span style="color:#FF2A00">*</span> </td>
+        <td valign="top"><span>:</span> </td>
+        <td valign="top"><span id="listJantina"> #parse("bph/portal/content/register/selectJantina.vm") </span>
+          <div id="err_idJantina" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      <tr>
+        <td valign="top"><span>Bangsa</span> <span style="color:#FF2A00">*</span> </td>
+        <td valign="top"><span>:</span> </td>
+        <td valign="top"><span id="listBangsa"> #parse("bph/portal/content/register/selectBangsa.vm") </span>
+          <div id="err_idBangsa" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      <tr>
+        <td valign="top"><span>Agama</span> <span style="color:#FF2A00">*</span> </td>
+        <td valign="top"><span>:</span> </td>
+        <td valign="top"><span id="listAgama"> #parse("bph/portal/content/register/selectAgama.vm") </span>
+          <div id="err_idAgama" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      <tr>
+        <td valign="top"><span>Alamat</span> <span id="alamatPejabat">Pejabat</span> <span style="color:#FF2A00">*</span> </td>
+        <td valign="top"><span>:</span> </td>
+        <td valign="top"><input class="input-style" type="text" id="userAddress" name="userAddress" value="" onKeyUp="at(this, event)" onChange="$('err_alamat').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();" />
+          <div id="err_alamat" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      <tr>
+        <td valign="top"></td>
+        <td valign="top"><span>:</span> </td>
+        <td valign="top"><input class="input-style" type="text" id="userAddress2" name="userAddress2" value="" onKeyUp="at(this, event)" onBlur="this.value=this.value.toUpperCase();"/>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top"></td>
+        <td valign="top"><span>:</span> </td>
+        <td valign="top"><input class="input-style" type="text" id="userAddress3" name="userAddress3" value="" onKeyUp="at(this, event)" onBlur="this.value=this.value.toUpperCase();"/>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top"><span>Poskod</span> <span style="color:#FF2A00">*</span> </td>
+        <td valign="top"><span>:</span> </td>
+        <td valign="top"><input class="input-style postcode"  type="text" name="poskod" id="poskod" style="width: 100%" maxlength="5" onFocus="$('regResult').innerHTML='';" onChange="$('err_poskod').innerHTML=''; at(this, event);"/>
+          <div id="err_poskod" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      <tr>
+        <td valign="top"><span>Negeri</span> <span style="color:#FF2A00">*</span> </td>
+        <td valign="top">:</td>
+        <td valign="top"><span id="listNegeri"> #parse("bph/portal/content/register/selectNegeri.vm") </span>
+          <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      <tr>
+        <td valign="top"><span>Bandar</span> <span style="color:#FF2A00">*</span> </td>
+        <td valign="top">:</td>
+        <td valign="top"><span id="listBandar"> #parse("bph/portal/content/register/selectBandar.vm") </span>
+          <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      <tr>
+        <td valign="top"><span>No. Telefon</span> <span id="mandatoriTelefon" style="color:#FF2A00">*</span> </td>
+        <td valign="top"><span>:</span> </td>
+        <td valign="top"><input class="input-style number" type="text" id="noTelefon" name="noTelefon" value="" onKeyUp="at(this, event)" onChange="$('err_noTelefon').innerHTML=''; at(this, event);" placeholder="Contoh : 021234567"/>
+          <div id="err_noTelefon" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      <tr>
+        <td valign="top"><span>No. Telefon Bimbit</span> <span style="color:#FF2A00">*</span> </td>
+        <td valign="top"><span>:</span> </td>
+        <td valign="top"><input  class="input-style  number" type="text" id="noTelefonBimbit" name="noTelefonBimbit" value="" onKeyUp="at(this, event)" onChange="$('err_noTelefonBimbit').innerHTML=''; at(this, event);" placeholder="Contoh : 0121234567"/>
+          <div id="err_noTelefonBimbit" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      <tr>
+        <td valign="top"><span>Emel</span> <span style="color:#FF2A00">*</span> </td>
+        <td valign="top"><span>:</span> </td>
+        <td valign="top"><input class="input-style" type="text" name="regEmail" id="regEmail" style="width: 100%" onFocus="$('regResult').innerHTML='';" onChange="$('err_email').innerHTML='';$('err_emailChecking').innerHTML=''; at(this, event);" />
+          <div id="err_email" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+          <div id="err_emailChecking" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </tr>
+      <tbody id="muatnaik">
+        <tr>
+          <td valign="top">Muatnaik Dokumen <span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td valign="top"><input class="texts" type="file" id="dokumen" name="dokumen" onFocus="$('err_dokumen').innerHTML = '';">
+            <div id="dokumenMuatnaik" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+            <div id="err_dokumen" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            <div style="color:#0000FF;font-weight:bold;border:2px #000">Sila muat naik surat pengesahan jawatan / perkhidmatan.</div></td>
+        </tr>
+      </tbody>
+      
+      <tr>
+        <td colspan="3"><span style="color:#FF2A00">PERHATIAN :</span> Medan yang bertanda <span style="color:#FF2A00">*</span> adalah <strong>MANDATORI</strong>.</td>
+      </tr>
+      
+      <tr>
+        <td colspan="3"><table width="100%">
+            <tr>
+              <td align="right" width="50%"><input class="button-style" style="font-size: 0.8em" type="button" name="btnRegSubmit" id="btnRegSubmit" value="Daftar" />
+              </td>
+              <td width="50%"><input class="button-style" style="font-size: 0.8em" type="button" name="btnRegClear" id="btnRegClear" value="Kosongkan" />
+              </td>
+            </tr>
+          </table></td>
+      </tr>
+      <tr>
+        <td colspan="3"><div id="regResult" align="center"></div></td>
+      </tr>
+    </table>
+  </section>
+</div>
+<iframe id="dokumenSokongan" name="dokumenSokongan" width="0px" height="0px" style="visibility:hidden"></iframe>
+<div id="refreshUploadDokumenPengesahan">#parse("bph/portal/content/register/dokumenPengesahan.vm")</div>

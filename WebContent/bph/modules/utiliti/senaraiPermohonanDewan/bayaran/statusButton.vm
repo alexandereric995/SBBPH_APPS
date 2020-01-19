@@ -1,0 +1,58 @@
+#if($statusPemohon=="")	
+    <table width="100%">
+    	<tr>
+    		<td align="right">
+    			<input type="button" value="Cetak" onclick="javascript:window.print()">
+    			<input id="btnRecordTemplateSave" type="button" value="Bayar" onClick="doBayarTempahan($!r.id)">
+    			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>
+    <table cellpadding="5" cellspacing="0" border="0" width="100%" style="margin-top: 5px;">
+		<tr>
+			<td style="background: #CC0000; color: #FFF; font-weight: bold; box-shadow: 0px 2px 5px #999;">
+				SILA ISIKAN MAKLUMAT PEMOHON TERLEBIH DAHULU
+			</td>
+		</tr>
+	</table>
+#elseif($!r.statusBayaran=="T")		
+<table width="100%">
+    	<tr>
+    		<td align="right">
+    		#if ($!userRole == "(UTILITI) Pelulus")
+				<input id="simpan" name="simpan" type="button" value="Diterima" onclick="doLulusPermohonan('$!r.id');"/>
+				<input id="simpan" name="simpan" type="button" value="Ditolak" onclick="doTolakPermohonan('$!r.id');"/>
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+			#else
+				#if ($!r.statusPermohonan == "R")
+				<div id="note1" align="right" style="color:#CC0000;font-weight:bold;border:10px #000">
+				SEDANG MENUNGGU KEPUTUSAN
+				</div>		
+				#else
+				<input id="btnKecuali" type="button" value="Mohon Pengecualian" onClick="doMohonPengecualian($!r.id)">
+    			<input type="button" value="Cetak" onclick="javascript:window.print()">
+    			##<input id="btnRecordTemplateSave" type="button" value="Bayar" onClick="doBayarTempahan($!r.id)">
+    			<input id="btnRecordTemplateSave" type="button" value="Bayar" onClick="doBayarTempahanFPX()">
+    			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">	
+				<div id="pilihanFPX">
+				
+				</div>
+				<div id="pilihanMIGS">
+
+				</div>
+				#end
+			#end
+    		</td>
+    	</tr>
+    </table>
+#else
+	<table cellpadding="5" cellspacing="0" border="0" width="100%" style="margin-top: 5px;">
+		<tr>
+			<td style="background: #22C322; color: #FFF; font-weight: bold; box-shadow: 0px 2px 5px #999;">
+				PEMBAYARAN TELAH DIBUAT
+			</td>
+		</tr>
+	</table>
+#end
+
+	

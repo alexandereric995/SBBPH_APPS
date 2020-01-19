@@ -1,0 +1,45 @@
+
+
+<fieldset style="width:50% !important">
+	
+	<input type="hidden" name="record_id" value="$!r.id" id="record_id" />
+	
+	<legend class="legend">CATATAN TIDAK LULUS</legend>
+	
+	<table width="100%" cellpadding="1" cellspacing="1" >
+    	<tr>
+    		<td style="width:80px"></td>
+    		<td style="width:10px"></td>
+    		<td>&nbsp;</td>
+    	</tr>
+		
+		#textarea("catatanKelompokTidakLulus" "CATATAN" "$!r.catatanKelompokTidakLulus")
+		
+	</table>
+	
+	<br />
+	
+	<table width="100%">
+		<tr>
+			<td align="right">
+				<input id="btnPopupTidakLulus" type="button" value="Tidak Lulus" />
+				<input id="btnPopupExit" type="button"  value="Keluar" />
+			</td>
+		</tr>
+	</table>
+
+</fieldset>
+	
+<script>
+
+	_jq('#btnPopupExit').on('click', function(){
+     	jQuery('#popupTidakLulus').fadeOut();
+  	});
+	
+	_jq('#btnPopupTidakLulus').on('click', function(){
+		doDivAjaxCall$formname('div_main_entry','savePermohonanTidakLulus','');
+		jQuery('#popupTidakLulus').fadeOut();
+		window.scrollTo(0, 0);
+  	});
+	
+</script>

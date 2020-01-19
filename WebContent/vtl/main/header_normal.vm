@@ -1,0 +1,75 @@
+#parse("vtl/main/tab_signup.vm")
+
+#if ( ${session.getAttribute("_portal_css")} == "BPH-Portal.css" )
+    <table class="page_header" border="0" cellpadding="10" cellspacing="0" width="100%">
+    	<tr>
+    		<td width="70%">
+    			<table cellpadding="3" cellspacing="0" border="0" height="85px">
+    				<tr>
+    					<td width="18%" class="header-logo">
+    						
+    					</td>
+    					<td width="64%" valign="middle" class="header-desc">
+    						<strong style="color: #fff">Bahagian Pengurusan Hartanah,
+							Jabatan Perdana Menteri</strong><br />
+    						<font color="#F8F8F8"><i>Kompleks Jabatan Perdana Menteri,<br />
+							Kompleks Jabatan Perdana Menteri,<br />
+							62502 Putrajaya</i></font>
+    					</td>
+						<td width="18%" class="header-logo-bph">
+    						
+    					</td>
+    				</tr>
+    			</table>				
+    		</td>
+    		<td id="w3c" valign="bottom" width="30%">
+    			#parse("vtl/main/w3c.vm")
+    		</td>
+    	</tr>
+    </table>
+#elseif ( ${session.getAttribute("_portal_css")} == "BPH-Portal-Main.css" )
+	
+#else
+    <div class="page_header_1">
+        <div class="page_header_2">
+            <div class="page_header_3">
+                <div class="page_header_4">
+                    <div class="page_header_5">
+                        <div class="page_header_6">
+                            <div class="page_header_7">
+                                <div class="page_header_8">
+                                    <div class="page_header_9">
+                                        <div class="page_header_10">
+    										<div class="page_header_11">
+    										</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+#end
+	
+#if ( $userIsLogged )
+	#parse ( "vtl/main/greeting.vm" )
+#else
+	#if ( ${session.getAttribute("_portal_css")} != "BPH-Real-Portal.css" && ${session.getAttribute("_portal_css")} != "BPH-Portal-Gomen-1.css" && ${session.getAttribute("_portal_css")} != "BPH-Portal-Gomen-2.css" && ${session.getAttribute("_portal_css")} != "BPH-Portal-Gomen-3.css" && ${session.getAttribute("_portal_css")} != "BPH-Portal-Gomen-4.css" && ${session.getAttribute("_portal_css")} != "BPH-Portal-Gomen-5.css" && ${session.getAttribute("_portal_css")} != "BPH-Portal-Gomen.css" && ${session.getAttribute("_portal_css")} != "BPH-Portal-Tough-1.css" && ${session.getAttribute("_portal_css")} != "BPH-Portal-Gomen-Ori.css" )
+		#parse ( "vtl/main/login_input.vm" )
+	#end
+#end
+
+##parse("vtl/main/tab_login.vm")
+
+##parse ( "vtl/main/user_role_tabs_menu.vm" )
+
+<script>
+function changeVisitor(visitor) {
+	var visitor = document.flogin.visitor.value;
+	document.location = "?visitor="+visitor;
+}
+
+</script> 

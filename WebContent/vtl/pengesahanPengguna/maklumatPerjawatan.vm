@@ -1,0 +1,117 @@
+<fieldset>
+	<legend class="legend">MAKLUMAT PERJAWATAN</legend>
+
+	<div id="divStatus">#parse("$path/status.vm")</div>
+
+	<table width="90%" align="center" border="0" cellpadding="5" cellspacing="0">
+		<tr>
+			<td width="20%"></td>
+			<td width="2%"></td>
+			<td></td>
+			<td rowspan="20" width="40%" valign="top">&nbsp;</td>
+		</tr>
+		#if ($!pengguna.role.name == '(AWAM) Badan Berkanun')
+		#input_normal("badanBerkanun" "Badan Berkanun" "<b>$!pengguna.badanBerkanun.keterangan</b>")
+		#end 
+
+		## MAKLUMAT PENGESAHAN
+		#if ($!pengguna.role.name == '(AWAM) Badan Berkanun' || $!pengguna.role.name == '(AWAM) Pesara Polis / Tentera' || $!pengguna.role.name == '(AWAM) Polis / Tentera')
+			<tr>
+				<td>Dokumen Pengesahan Jawatan / Perkhidmatan</td>
+				<td>:</td>
+				<td> 
+					#if ( $!pengguna.dokumenSokongan ) 
+						#if ($!pengguna.dokumenSokongan  != "") 
+						<a href="../download?file=$!uploadDir$!pengguna.dokumenSokongan" > <font color="#0000FF"><strong>MUAT TURUN</strong></font> </a> &nbsp;&nbsp;
+						#end
+					#end 
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			#if ($!pengguna.flagAktif == 'Y')
+				<tr>
+					<td>Status Pengesahan</td>
+					<td>:</td>
+					<td><span style="color:#000000"><strong>AKTIF</strong></span></td>
+				</tr>
+				
+				#if ($!pengguna.tarikhPengesahan) 
+					#set ($datePengesahan = "$!util.getDateTime($!pengguna.tarikhPengesahan,'dd-MM-yyyy')")
+				#else 
+					#set ($datePengesahan = "") 
+				#end
+				<tr>
+					<td>Tarikh Pengesahan</td>
+					<td>:</td>
+					<td><span style="color:#000000"><strong>$datePengesahan</strong></span></td>
+				</tr>
+				
+				#if ($!pengguna.tarikhLuputPengesahan) 
+					#set ($dateLuputPengesahan = "$!util.getDateTime($!pengguna.tarikhLuputPengesahan,'dd-MM-yyyy')")
+				#else 
+					#set ($dateLuputPengesahan = "") 
+				#end
+				<tr>
+					<td>Tarikh Luput</td>
+					<td>:</td>
+					<td><span style="color:#000000"><strong>$dateLuputPengesahan</strong></span></td>
+				</tr>
+				#input_readonly_all_label ("idGredPerkhidmatan" "Gred Perkhidmatan" "$!pengguna.gredPerkhidmatan.keterangan") 
+	
+			#else
+				<tr>
+					<td>Status Pengesahan</td>
+					<td>:</td>
+					<td><span style="color:#FF2A00"><strong>TIDAK AKTIF</strong></span></td>
+				</tr>
+			#end
+			
+			#if ($!command == 'sahPengguna' || $!command == 'tolakPengguna')
+				<tr>
+					<td valign="top"><span>Gred Perkhidmatan</span>&nbsp<span style="color:#FF2A00">*</span></td>
+					<td valign="top">:</td>
+					<td valign="top"><span id="listGredPerkhidmatan"> #parse("$path/selectGredPerkhidmatan.vm") </span>
+					<div id="err_idGredPerkhidmatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+				</tr>	
+				#textarea_required("catatanPengesahan" "Catatan Pengesahan  (Mesej ke Pengguna)" "")
+			#else
+				<tr>
+					<td>Catatan Pengesahan</td>
+					<td>:</td>
+					<td><span style="color:#000000"><strong>$!pengguna.catatanPengesahan</strong></span></td>
+				</tr>
+			#end
+				#textarea("notaPengesahan" "Nota Pengesahan (Catatan Persendirian)" "$!pengguna.notaPengesahan")
+		#end
+	</table>
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td align="right">
+		#if ($!command != 'sahPengguna' && $!command != 'tolakPengguna')
+			<input type="button" value="Kemaskini Nota" id="btnKemaskiniNota" name="btnKemaskiniNota" onclick="kemaskiniNotaPengesahan()">
+			#if ($!pengguna.flagMenungguPengesahan == 'Y')
+				<input type="button" value="Sah" id="btnSah" name="btnSah" onclick="doDivAjaxCall3$formname('divProfil','sahPengguna','')">
+				<input type="button" value="Tolak" id="btnTolak" name="btnTolak" onclick="doDivAjaxCall3$formname('divProfil','tolakPengguna','')">
+			#end
+		#end
+		
+		#if ($!command == 'sahPengguna' || $!command == 'tolakPengguna')
+			#if ($!command == 'sahPengguna')
+				<input type="button" value="Simpan" id="btnSimpanSah" name="btnSimpanSah" onclick="simpanPengesahan()">
+			#elseif ($!command == 'tolakPengguna')
+				<input type="button" value="Simpan" id="btnSimpanTolak" name="btnSimpanTolak" onclick="tolakPengesahan()">
+			#end
+				<input type="button" value="Batal" id="btnBatal" name="btnBatal" onclick="doDivAjaxCall3$formname('divProfil','batalPengesahan','')">
+		#end
+		<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')"></td>
+	</tr>
+</table>

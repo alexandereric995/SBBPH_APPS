@@ -1,0 +1,51 @@
+
+
+<table width="80%" cellpadding="2" cellspacing="0">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+	
+	#input("findPemohon" "Nama" "")
+	#number("findNoKp" "No. Kad Pengenalan" "")
+	#input("findNoTempahan" "No. Tempahan" "")
+	
+	<tr>
+		<td valign="top">Lokasi Peranginan</td>    
+		<td valign="top">:</td>
+		<td valign="top">
+			<select class="texts" id="findPeranginan" name="findPeranginan" style="width:60%">
+        		<option value="">SILA PILIH</option>
+        		#foreach( $n in $listPeranginan)
+        			<option value="$n.id">$n.namaPeranginan.toUpperCase()</option>
+        		#end
+        	</select>
+		
+			</tr>
+		#date_input("findTarikhMohonDeposit" "Tarikh Mohon Deposit" "")
+	<tr>
+		<td valign="top">Status Deposit</td>
+		<td valign="top">:</td>
+		<td valign="top">
+			<select class="texts" id="findStatus" name="findStatus" style="width:60%">
+        		<!--<option value="">SILA PILIH</option>-->
+        		<option value="1438023402951">MOHON PENGESAHAN PELARASAN</option>
+        		<option value="1438023402975">MOHON KELULUSAN PELARASAN</option>
+        		<option value="1436464445695">DEPOSIT TELAH DIPULANGKAN</option>
+            </select>     	
+		</td>
+	</tr>
+	
+		
+</table>
+	
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

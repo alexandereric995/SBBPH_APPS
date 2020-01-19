@@ -1,0 +1,26 @@
+<select id="idStatusPerkahwinan" name="idStatusPerkahwinan" style="width:100%" onChange="$('err_idStatusPerkahwinan').innerHTML=''; at(this, event);">
+    <option value="">SILA PILIH</option>
+    #foreach( $sp in $selectStatusPerkahwinan )
+        <option #if ( $sp.id ==  $!users.statusPerkahwinan.id ) selected #end value="$sp.id">$sp.keterangan.toUpperCase()</option>
+    #end
+</select>
+
+<script>
+    var x = "$!users.statusPerkahwinan.id";
+		
+	if ( x == "02" || x == "03" || x == "04" ) {
+		_jq("#infoPasangan").hide();
+		if ( x == "02" ) _jq("#infoPasangan").show();
+	} else {
+		_jq("#infoPasangan").hide();
+	}
+	
+    _jq("#idStatusPerkahwinan").change(function() {
+		if ( this.value == "02" || this.value == "03" || this.value == "04" ) {
+			_jq("#infoPasangan").hide();
+    		if ( this.value == "02" ) _jq("#infoPasangan").show();
+    	} else {
+			_jq("#infoPasangan").hide();
+    	}
+    });
+</script>

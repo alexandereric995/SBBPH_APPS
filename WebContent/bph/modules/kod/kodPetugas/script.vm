@@ -1,0 +1,35 @@
+function validate() {
+	var err_count = 0;
+	
+	var idPusatTerima = $('idPusatTerima').value;
+	if ( idPusatTerima == "" ) {$('err_idPusatTerima').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idJuruwang = $('idJuruwang').value;
+	if ( idJuruwang == "" ) {$('err_idJuruwang').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function kemaskiniJuruwang() {
+	var err_count = 0;
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		var validJuruwang = $('validJuruwang').value;
+		if ( validJuruwang == "T" ) {err_count++;  }
+	}
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divPaparRekod','kemaskiniJuruwang','');
+	}
+}

@@ -1,0 +1,65 @@
+<fieldset>
+<legend class="legend">Maklumat Pembayaran</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+	  
+			
+			#if ($!r.tarikhTransaksi) 
+			#set ($datetarikhTransaksi = "$!util.getDateTime($!r.tarikhTransaksi,'dd-MM-yyyy')")
+			#else #set ($datetarikhTransaksi = "") 
+			#end
+			#input_readonly_all_label("tarikhTransaksi" "Tarikh Transaksi" "$!datetarikhTransaksi")
+			
+			#input_readonly_all_label("keterangan" "Bank" "$!r.bank.keterangan")
+			
+			#if ($!r.tarikhCek) 
+			#set ($datetarikhCek = "$!util.getDateTime($!r.tarikhCek,'dd-MM-yyyy')")
+			#else #set ($datetarikhCek = "") 
+			#end
+			#input_readonly_all_label("tarikhCek" "Tarikh Cek" "$datetarikhCek")
+  			
+  			#input_readonly_all_label("noRujukan" "No Rujukan" "$!r.noRujukan")
+  			
+  			#input_readonly_all_label("noDeposit" "Amaun (RM)" "$!r.rkPermohonan.noDeposit")
+  			
+  			#input_readonly_all_label("noSiri" "No Siri" "$!r.noResit")
+  			
+  			#if ($!r.tarikhResit) 
+			#set ($datetarikhResit = "$!util.getDateTime($!r.tarikhResit,'dd-MM-yyyy')")
+			#else #set ($datetarikhResit = "") 
+			#end
+			#input_readonly_all_label("tarikhResit" "Tarikh Resit" "$!datetarikhResit")
+			
+			<tr>
+			<td>Keterangan</td>
+			<td>:</td>
+			<td><textarea readonly>$!r.keterangan</textarea></td>
+			</tr>
+			
+			#input_readonly_all_label("flagAktif" "Status Deposit" "$!r.flagAktif")
+  
+  			
+  			  <tr>
+			    <td></td>
+			    <td></td>
+			    <td><input type="button" id="batalMaklumat" name="batalMaklumat" value="Keluar"><td>
+  			</tr>
+
+</table>
+
+</fieldset>
+
+<script>
+	
+	_jq('#batalMaklumat').on('click', function(){
+		doDivAjaxCall3$formname('divTab','getMaklumatDeposit','');
+    	jQuery('#editMaklumat').fadeOut();
+	});
+	
+</script>
+
+		

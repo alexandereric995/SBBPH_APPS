@@ -1,0 +1,235 @@
+window.onload=new function window_onload(){
+document.getElementById("flagIsnin").checked=true;
+	 	document.getElementById("flagSelasa").checked=true;
+	 	document.getElementById("flagRabu").checked=true;
+	 	document.getElementById("flagKhamis").checked=true;
+	 	document.getElementById("flagJumaat").checked=true;
+	 	document.getElementById("flagSabtu").checked=true;
+	 	document.getElementById("flagAhad").checked=true;
+}
+function validate() {
+	
+	checkCurrentDate();##check tarikh mula perlu lebih besar atau sama dgn tarikh hari ni...
+	##compareDate();##check date mula dan tamat tak terbalik.
+	##calculateDate();##check bil hari antara 2 date
+	
+	var err_count = 0;
+	var idDewan = $('idDewan').value;
+	if ( idDewan == "" ) {$('err_dewan').innerHTML = "Lokasi Dewan adalah mandatori!"; err_count++;  }
+
+	var tarikhMula = $('tarikhMula').value;
+	if ( tarikhMula == "-" || tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh mulaadalah mandatori!"; err_count++;  }
+	
+	var tarikhTamat = $('tarikhTamat').value;
+	if ( tarikhTamat == "-" || tarikhTamat == "" ) {$('err_tarikhTamat').innerHTML = "Tarikh tamatadalah mandatori!"; err_count++;  }
+	
+	
+	var masaMula = $('masaMula').value;
+	if ( masaMula == "" ) {$('err_masaMula').innerHTML = "Masa mula adalah mandatori!"; err_count++;  }
+	
+	var masaTamat = $('masaTamat').value;
+	if ( masaTamat == "" ) {$('err_masaTamat').innerHTML = "Masa tamat adalah mandatori!"; err_count++;  }
+	
+	err_count=checkTempahan(err_count);
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+	
+}
+
+function checkCurrentDate()
+{
+	var from_date=$('tarikhMula').value;
+	fromdate = from_date.split('-');
+    var tarikhMula = new Date();
+    tarikhMula.setFullYear(fromdate[2],fromdate[1]-1,fromdate[0]);
+    var currentDate=new Date();
+    
+        if (tarikhMula < currentDate ) 
+        {
+            alert("Tarikh dipilih tidak sah!");
+            err_count++;
+        }
+}
+
+function doSavePermohonan(idTempahan) {
+	if (validate()){
+		doDivAjaxCall$formname('divPermohonan','savePermohonan','idTempahan='+idTempahan);
+	}
+}
+
+##start jadual tempahhan--------------
+function doPaintJadual() {
+		doDivAjaxCall$formname('divJadual','paintJadual','');
+}
+
+function checkTempahan(err) {
+
+	var masaMula = $('masaMula').value;
+	var masaTamat = $('masaTamat').value;
+	var jumlah=masaTamat-masaMula;
+	
+	if(masaMula==9 || masaMula==8)
+	{
+		masaMula=parseInt( masaMula, 10 );
+	}
+	
+	for(i=masaMula; i<masaTamat; i++)
+	{
+		var warna=document.getElementById(i).bgColor;
+		if(warna=='#bb0000')
+		{
+			alert("Masa yang dipilih tidak sah!");
+			err++;
+			return err;
+		}		
+	}
+	return err;	
+}
+
+##checklist hari add 22/9/2015
+
+function doClickSemua() 
+{
+ 	if(document.getElementById('flagSemua').checked)
+	 {
+	 	document.getElementById("flagIsnin").checked=true;
+	 	document.getElementById("flagSelasa").checked=true;
+	 	document.getElementById("flagRabu").checked=true;
+	 	document.getElementById("flagKhamis").checked=true;
+	 	document.getElementById("flagJumaat").checked=true;
+	 	document.getElementById("flagSabtu").checked=true;
+	 	document.getElementById("flagAhad").checked=true;
+	 }
+	 else
+	 {
+	 	document.getElementById("flagIsnin").checked=false;
+	 	document.getElementById("flagSelasa").checked=false;
+	 	document.getElementById("flagRabu").checked=false;
+	 	document.getElementById("flagKhamis").checked=false;
+	 	document.getElementById("flagJumaat").checked=false;
+	 	document.getElementById("flagSabtu").checked=false;
+	 	document.getElementById("flagAhad").checked=false;
+	 } 
+ }
+ 
+function doClickIsnin() 
+{
+ 	if(document.getElementById('flagIsnin').checked)
+	 {
+	 	if((document.getElementById('flagSelasa').checked)&&(document.getElementById('flagRabu').checked)&&(document.getElementById('flagKhamis').checked)&&(document.getElementById('flagJumaat').checked)&&(document.getElementById('flagSabtu').checked)&&(document.getElementById('flagAhad').checked))
+	 	{
+	 		document.getElementById("flagSemua").checked=true;
+	 	}
+	 }
+	 else
+	 {
+	 	document.getElementById("flagSemua").checked=false;
+	 } 
+ }
+ 
+
+function doClickSelasa() 
+{
+ 	if(document.getElementById('flagSelasa').checked)
+	 {
+	 	if((document.getElementById('flagIsnin').checked)&&(document.getElementById('flagRabu').checked)&&(document.getElementById('flagKhamis').checked)&&(document.getElementById('flagJumaat').checked)&&(document.getElementById('flagSabtu').checked)&&(document.getElementById('flagAhad').checked))
+	 	{
+	 		document.getElementById("flagSemua").checked=true;
+	 	}
+	 }
+	 else
+	 {
+	 	document.getElementById("flagSemua").checked=false;
+	 } 
+ }
+ 
+ function doClickRabu() 
+{
+ 	if(document.getElementById('flagRabu').checked)
+	 {
+	 	if((document.getElementById('flagIsnin').checked)&&(document.getElementById('flagSelasa').checked)&&(document.getElementById('flagKhamis').checked)&&(document.getElementById('flagJumaat').checked)&&(document.getElementById('flagSabtu').checked)&&(document.getElementById('flagAhad').checked))
+	 	{
+	 		document.getElementById("flagSemua").checked=true;
+	 	}
+	 }
+	 else
+	 {
+	 	document.getElementById("flagSemua").checked=false;
+	 } 
+ }
+ 
+  function doClickKhamis() 
+{
+ 	if(document.getElementById('flagKhamis').checked)
+	 {
+	 	if((document.getElementById('flagIsnin').checked)&&(document.getElementById('flagSelasa').checked)&&(document.getElementById('flagRabu').checked)&&(document.getElementById('flagJumaat').checked)&&(document.getElementById('flagSabtu').checked)&&(document.getElementById('flagAhad').checked))
+	 	{
+	 		document.getElementById("flagSemua").checked=true;
+	 	}
+	 }
+	 else
+	 {
+	 	document.getElementById("flagSemua").checked=false;
+	 } 
+ }
+ 
+   function doClickJumaat() 
+{
+ 	if(document.getElementById('flagJumaat').checked)
+	 {
+	 	if((document.getElementById('flagIsnin').checked)&&(document.getElementById('flagSelasa').checked)&&(document.getElementById('flagRabu').checked)&&(document.getElementById('flagKhamis').checked)&&(document.getElementById('flagSabtu').checked)&&(document.getElementById('flagAhad').checked))
+	 	{
+	 		document.getElementById("flagSemua").checked=true;
+	 	}
+	 }
+	 else
+	 {
+	 	document.getElementById("flagSemua").checked=false;
+	 } 
+ }
+ 
+function doClickSabtu() 
+{
+ 	if(document.getElementById('flagSabtu').checked)
+	 {
+	 	if((document.getElementById('flagIsnin').checked)&&(document.getElementById('flagSelasa').checked)&&(document.getElementById('flagRabu').checked)&&(document.getElementById('flagKhamis').checked)&&(document.getElementById('flagJumaat').checked)&&(document.getElementById('flagAhad').checked))
+	 	{
+	 		document.getElementById("flagSemua").checked=true;
+	 	}
+	 }
+	 else
+	 {
+	 	document.getElementById("flagSemua").checked=false;
+	 } 
+ }
+ 
+ function doClickAhad() 
+{
+ 	if(document.getElementById('flagAhad').checked)
+	 {
+	 	if((document.getElementById('flagIsnin').checked)&&(document.getElementById('flagSelasa').checked)&&(document.getElementById('flagRabu').checked)&&(document.getElementById('flagKhamis').checked)&&(document.getElementById('flagJumaat').checked)&&(document.getElementById('flagSabtu').checked))
+	 	{
+	 		document.getElementById("flagSemua").checked=true;
+	 	}
+	 }
+	 else
+	 {
+	 	document.getElementById("flagSemua").checked=false;
+	 } 
+ }
+ 
+ function doHideMasa() 
+ {
+	 if(document.getElementById('flagAwam').checked)
+	 {
+	 	document.getElementById("masaMula").disabled=true;
+	 	document.getElementById("masaTamat").disabled=true;
+	 	document.getElementById("flagSwasta").checked=false;
+	 }
+}

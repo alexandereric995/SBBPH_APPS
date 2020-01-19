@@ -1,0 +1,129 @@
+
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+	<tr><td>
+		<form name="${formname}" method="post">
+
+		<table align="center" width="100%" border="0" cellpadding="2" cellspacing="1" bgcolor="lightgrey">	
+			<tr class="table_header">
+				<td colspan="2">
+					<b>Forum List</b>
+				</td>
+
+			</tr>		
+			#foreach ( $forum in $topic_items)
+			<tr>
+			<td style="width:50px" align="center" class="table_row" valign="top">
+
+			<a href="javascript:openForum_${formname}('$forum.id')">
+			#if ( $forum.avatar == "" )
+			<img src="../img/twoface.gif" border="0">
+			#else
+			<img src="../download?file=${photoDir}${forum.userId}/avatar${forum.avatar}" border="0">
+			#end
+			</a>
+			</td>
+				
+				<td  class="table_row" valign="top">
+					<a href="javascript:openForum_${formname}('$forum.id')" style="text-decoration:none;">
+					<b>$forum.title</b>
+					</a>
+					<br>
+					<a href="javascript:openForum_${formname}('$forum.id')" style="text-decoration:none;">
+					$forum.getMessage(200) ...
+					</a>
+					<br>
+					<a href="javascript:openForum_${formname}('$forum.id')" style="text-decoration:none;">
+					$forum.getDatePosted().display()
+					</a>					
+				</td>
+			</tr>
+			<tr>
+	<td style="width:10px" align="right"></td>
+	<td>
+		#if ( $forum.rate > 0 )
+	#foreach ( $star in [1..$forum.rate])													<img src="../img/star1.gif">	#end
+	#end
+	</td>
+	</tr>
+			#end
+		</table>
+		
+		<table width="100%">
+			<tr>
+				<td align="right">	
+				#if ( $topic_pages > 0 )
+					Page $topic_page_number of $topic_pages&nbsp;
+				#end
+				#if ( !$topic_bol )
+				<input class="button" type="button" value="&lt;" onclick="previous_${formname}()">
+				#end
+				#if ( !$topic_eol )
+				<input class="button" type="button" value="&gt;" onclick="next_${formname}()">
+				#end
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					#if ( $topic_pages > 0 )
+						#foreach ($num in [ 1..$topic_pages ])
+							[
+							#if ( $num == $topic_page_number )
+								<b>$num</b>
+							#else
+								<a href="javascript:goPage_${formname}($num)">
+								<u>$num</u>
+								</a>
+							#end
+							]
+						#end
+					#end
+				</td>
+			</tr>	
+		</table>		
+		
+		#if ( $userid == "anon" )
+		<table align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td  align="center">
+					<b>You could post a topic if you are logged in.</b>
+				</td>
+			</tr>	
+		</table>		
+		#else
+		<table align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td  align="right">
+					## if ( $allowPost )
+						<input class="button" type="button" value="Add New Topic" onclick="addNewTopic_${formname}()">
+					##end
+				</td>
+			</tr>	
+		</table>
+		#end
+				
+		<input type="hidden" name="$formname" value="$formname">
+		</form>
+	</td></tr>
+</table>
+<script>
+function addNewTopic_${formname}() {
+	document.${formname}.action = "?command=AddNewTopic&subjectId=$!subjectId";
+	document.${formname}.submit();	
+}
+function openForum_${formname}(id) {
+	document.${formname}.action = "?command=Open&subjectId=$!subjectId&forum_id=" + id + "&parent_id=" + id;
+	document.${formname}.submit();	
+}
+function next_${formname}() {
+	document.${formname}.action = "?command=NextTopic&subjectId=$!subjectId";	
+	document.${formname}.submit();
+}
+function previous_${formname}() {
+	document.${formname}.action = "?command=PreviousTopic&subjectId=$!subjectId";	
+	document.${formname}.submit();
+}
+function goPage_${formname}(num) {
+	document.${formname}.action = "?command=GoTopicPage&subjectId=$!subjectId&pagenum=" + num;	
+	document.${formname}.submit();
+}
+</script>

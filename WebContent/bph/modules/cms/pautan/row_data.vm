@@ -1,0 +1,28 @@
+
+<td>$!r.tajuk</td>
+<td>
+	#if ($!r.fileName) 
+	<a href="../download?file=$!uploadDir$!r.fileName" >	
+    #if ($!r.avatarName != "") 
+		<img style="margin:4px 0 4px;" id="photoImg" src="../download?file=$!uploadDir$!r.avatarName" border="0">
+	#end
+    </a>
+    #end
+</td>
+<td>$!r.url</td>
+<td>$!r.getKeteranganFlagAktif()</td>
+
+<td>$!r.daftarOleh.userName</td>
+#if ($!r.tarikhMasuk) 
+	#set ($dateMasuk = "$!util.getDateTime($!r.tarikhMasuk,'dd-MM-yyyy hh:mm:ss a')")
+#else 
+	#set ($dateMasuk="") 
+#end
+<td  align="center">$dateMasuk</td>
+<td>$!r.kemaskiniOleh.userName</td>
+#if ($!r.tarikhKemaskini) 
+	#set ($dateKemaskini = "$!util.getDateTime($!r.tarikhKemaskini,'dd-MM-yyyy hh:mm:ss a')")
+#else 
+	#set ($dateKemaskini="") 
+#end
+<td  align="center">$dateKemaskini</td>

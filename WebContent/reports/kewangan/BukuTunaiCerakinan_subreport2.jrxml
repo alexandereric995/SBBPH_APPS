@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="BukuTunaiCerakinan_subreport2"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="220"
+		 pageHeight="842"
+		 columnWidth="220"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="bulan" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="tahun" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT MONTH (kew_bayaran_resit.tarikh_bayaran), ruj_kod_hasil.kod, kew_bayaran_resit.jumlah_amaun_bayaran
+FROM  (( kew_invois
+JOIN ruj_kod_hasil
+ ON (kew_invois.id_kod_hasil = ruj_kod_hasil.id))
+JOIN kew_resit_senarai_invois
+ ON (kew_resit_senarai_invois.id_invois = kew_invois.id))
+JOIN kew_bayaran_resit
+ ON (kew_bayaran_resit.id = kew_resit_senarai_invois.id_bayaran_resit)
+WHERE MONTH(kew_bayaran_resit.tarikh_bayaran) = '$P!{bulan}'
+AND YEAR(kew_bayaran_resit.tarikh_bayaran) = '$P!{tahun}'
+GROUP BY kew_bayaran_resit.jumlah_amaun_bayaran, ruj_kod_hasil.kod]]></queryString>
+
+	<field name="MONTH (kew_bayaran_resit.tarikh_bayaran)" class="java.lang.Integer"/>
+	<field name="kod" class="java.lang.String"/>
+	<field name="jumlah_amaun_bayaran" class="java.lang.Double"/>
+
+	<variable name="amontjumlah" class="java.lang.Double" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[!$F{kod}.equals("74201") && !$F{kod}.equals("74202") && !$F{kod}.equals("74299") && !$F{kod}.equals("79503") && !$F{kod}.equals("72310") && !$F{kod}.equals("81199") && !$F{kod}.equals("92401") && !$F{kod}.equals("92402") ? $F{jumlah_amaun_bayaran} : new Double(0.00)]]></variableExpression>
+	</variable>
+	<variable name="kod" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[!$F{kod}.equals("74201") && !$F{kod}.equals("74202") && !$F{kod}.equals("74299") && 
+!$F{kod}.equals("79503") && !$F{kod}.equals("72310") && !$F{kod}.equals("81199") && 
+!$F{kod}.equals("92401") && !$F{kod}.equals("92402") ?$F{kod} : ("")]]></variableExpression>
+	</variable>
+	<variable name="total besar" class="java.lang.Double" resetType="None" incrementType="Column" calculation="Sum">
+		<variableExpression><![CDATA[!$F{kod}.equals("74201") && !$F{kod}.equals("74202") && !$F{kod}.equals("74299") && 
+!$F{kod}.equals("79503") && !$F{kod}.equals("72310") && !$F{kod}.equals("81199") && 
+!$F{kod}.equals("92401") && !$F{kod}.equals("92402") ?$F{jumlah_amaun_bayaran} : new Double (0.00)]]></variableExpression>
+	</variable>
+
+		<group  name="kod" >
+			<groupExpression><![CDATA[$F{kod}]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="20"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="0"
+						width="100"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{kod}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="130"
+						y="0"
+						width="80"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{amontjumlah}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="20"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="130"
+						y="0"
+						width="80"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{total besar}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="110"
+						y="0"
+						width="20"
+						height="20"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["RM"]]></textFieldExpression>
+				</textField>
+			</band>
+		</summary>
+</jasperReport>

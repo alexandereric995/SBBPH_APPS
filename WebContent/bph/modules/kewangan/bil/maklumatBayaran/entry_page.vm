@@ -1,0 +1,169 @@
+<input type="hidden" id="idMaklumatBil" name="idMaklumatBil" value="$!r.id">
+
+<div id="divTab">
+<fieldset>
+<legend class="legend">Maklumat Bil</legend>
+<table width="100%">
+	<tr>
+		<td style="width:150px"></td>
+		<td style="width:10px"></td>
+		<td></td>
+	</tr>
+	
+	#input_normal("" "Jenis  Bil" "$!r.pendaftaranBil.jenisBil.keterangan")
+	#input_normal("" "Bayaran Kepada" "$!r.pendaftaranBil.penerimaBayaran")
+	#input_normal("" "No Akaun" "$!r.pendaftaranBil.noAkaun")
+	#input_normal("bulan" "Bulan" "$!r.bulan")
+  	#input_normal("tahun" "Tahun" "$!r.tahun")
+  	
+	<tr>
+		<td colspan="3"><table width="100%"><tr><td><br /><hr><br /></td></tr></table></td>
+	</tr>
+  	
+	#input_normal("noBil" "No Bil" "$!r.noBil")
+  
+	#if ($!r.tarikhBil)
+		#set($dateBil = $util.getDateTime($!r.tarikhBil,"dd-MM-yyyy"))
+	#else 
+		#set($dateBil = "-") 
+	#end
+	#input_normal("tarikhBil" "Tarikh Bil" "$dateBil")
+	    
+	#if ($!r.tarikhTerimaBil)
+		#set($dateTerimaBil = $util.getDateTime($!r.tarikhTerimaBil,"dd-MM-yyyy"))
+	#else 
+		#set($dateTerimaBil = "-") 
+	#end
+	#input_normal("tarikhTerimaBil" "Tarikh Terima Bil" "$dateTerimaBil")  
+	 
+##	#input_normal("amaunTunggakan" "Amaun Tunggakan" "$!r.amaunTunggakan")  //kerwangan mintak disable
+	#input_normal("amaunSemasa" "Amaun Semasa" "$!r.amaunSemasa") 
+	#input_normal("jumlahBil" "Jumlah Bil" "$!r.jumlahBil") 
+  
+  #if ($!r.tarikhAkhirBayaran)
+  #set($dateAkhirBayaran = $util.getDateTime($!r.tarikhAkhirBayaran,"dd-MM-yyyy"))
+  #else #set($dateAkhirBayaran = "-") #end
+  #input_normal("tarikhAkhirBayaran" "Tarikh Akhir Bayaran" "$dateAkhirBayaran")  
+  
+</table>
+</fieldset>
+
+#if($r.statusBil.id == "1433131904924") ##SEMAKAN KEWANGAN || LULUS	
+	<fieldset>
+		<legend class="legend">Maklumat Bayaran</legend>
+		<table width="100%">
+		  <tr>
+		    <td style="width:150px"></td>
+		    <td style="width:10px"></td>
+		    <td></td>
+		  </tr>   
+		  #if ($!r.tarikhTerimaBilKewangan)
+		  	#set($tarikhTerimaBilKewangan = $util.getDateTime($!r.tarikhTerimaBilKewangan,"dd-MM-yyyy"))
+		  #else 
+		  	#set($tarikhTerimaBilKewangan = "-") 
+		  #end
+		  #input_normal("tarikhTerimaBilKewangan" "Tarikh Kewangan Terima Bil" "$tarikhTerimaBilKewangan")
+		  
+		  #if ($!r.tarikhBayaran)
+		  	#set($dateBayaran = $util.getDateTime($!r.tarikhBayaran,"dd-MM-yyyy"))
+		  #else 
+		  	#set($dateBayaran = "-") 
+		  #end
+		  #input_normal("tarikhBayaran" "Tarikh Bayaran" "$dateBayaran")
+		  
+##		  #input("amaunBayaran" "Amaun Bayaran (RM)" "$!r.amaunBayaran")
+##		  #input_normal_hidden("amaunBayaran" "Amaun Bayaran (RM)" "$!r.amaunSemasa")
+		  #input_normal("amaunBayaran" "Amaun Bayaran (RM)" "$!r.amaunBayaran")
+		  
+		   #if ($!r.tarikhBaucer)
+		  	#set($tarikhBaucer = $util.getDateTime($!r.tarikhBaucer,"dd-MM-yyyy"))
+		  #else 
+		  	#set($tarikhBaucer = "-") 
+		  #end
+		  #input_normal("tarikhBaucer" "Tarikh Baucer" "$tarikhBaucer")
+		  #input_normal("noRujukan" "Baucer" "$!r.noRujukan")
+		  
+		   #if ($!r.tarikhEft)
+		  	#set($tarikhEft = $util.getDateTime($!r.tarikhEft,"dd-MM-yyyy"))
+		  #else 
+		  	#set($tarikhEft = "-") 
+		  #end
+		  #input_normal("tarikhEft" "Tarikh EFT" "$tarikhEft")
+		  #input_normal("noEftBayaran" "No EFT Bayaran" "$!r.noEftBayaran")  
+		  #input_normal("catatan" "Catatan" "$!r.catatan")
+		  
+		</table>
+	</fieldset>
+#else
+	<fieldset>
+		<legend class="legend">Maklumat Bayaran</legend>
+		<table width="100%">
+		  <tr>
+		    <td style="width:150px"></td>
+		    <td style="width:10px"></td>
+		    <td></td>
+		  </tr>   
+		   #if ($!r.tarikhTerimaBilKewangan)
+		  	#set($tarikhTerimaBilKewangan = $util.getDateTime($!r.tarikhTerimaBilKewangan,"dd-MM-yyyy"))
+		  #else 
+		  	#set($tarikhTerimaBilKewangan = "-") 
+		  #end
+		  #date_input_required("tarikhTerimaBilKewangan" "Tarikh Kewangan Terima Bil" "$tarikhTerimaBilKewangan")
+		  
+		  #if ($!r.tarikhBayaran)
+		  	#set($dateBayaran = $util.getDateTime($!r.tarikhBayaran,"dd-MM-yyyy"))
+		  #else 
+		  	#set($dateBayaran = "-") 
+		  #end
+		  #date_input_required("tarikhBayaran" "Tarikh Bayaran" "$dateBayaran")
+		  
+##		 #input("amaunBayaran" "Amaun Bayaran (RM)" "$!r.amaunBayaran")
+		 #currency("amaunBayaran" "Amaun Bayaran (RM)" "$!r.jumlahBil")
+			###input_normal_hidden("amaunBayaran" "Amaun Bayaran (RM)" "$!r.amaunSemasa")
+			
+		 #if ($!r.tarikhBaucer)
+		  	#set($tarikhBaucer = $util.getDateTime($!r.tarikhBaucer,"dd-MM-yyyy"))
+		  #else 
+		  	#set($tarikhBaucer = "-") 
+		  #end
+		  #date_input_required("tarikhBaucer" "Tarikh Baucer" "$tarikhBaucer")	
+		  
+		  #input("noRujukan" "Baucer" "$!r.noRujukan")
+		  
+		  #if ($!r.tarikhEft)
+		  	#set($tarikhEft = $util.getDateTime($!r.tarikhEft,"dd-MM-yyyy"))
+		  #else 
+		  	#set($tarikhEft = "-") 
+		  #end
+		  #date_input_required("tarikhEft" "Tarikh EFT" "$tarikhEft")
+		  
+		  #input("noEftBayaran" "No EFT Bayaran" "$!r.noEftBayaran")  
+		  #input("catatan" "Catatan" "$!r.catatan")
+		  
+		</table>
+	</fieldset>
+#end
+
+#if ($!command != "add_new_record")
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if($!r.statusBil.id == "1433131904921") ##SEMAKAN KEWANGAN
+    		<input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:doSaveMaklumatBayaran();"/>
+    		#end
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+#end
+
+</div>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

@@ -1,0 +1,60 @@
+##<div id="div_entry_fields" style="width:900px;background:#fff;position:absolute;visibility:hidden;"></div>
+#if ( !$recordOnly )
+	##SEARCH FIELDSET
+	<fieldset><legend class="legend">KRITERIA CARIAN</legend>
+    	<table width="100%">
+			<tr>
+				<td>
+					<div id="_search_page" style="display:block;">
+						<table width="100%">
+							<tr>
+								<td align="center">
+									#parse("$search_entry_page")
+								</td>
+							</tr>
+							<tr>
+								<td align="center">
+									<input type="button" value="Carian" onclick="$('div_list').style.visibility='visible';doDivAjaxCall$formname('div_list','list_find','')">
+									<input type="reset" value="Kosongkan" onclick="$('div_list').style.visibility='visible';doDivAjaxCall$formname('div_list','reset_list','')">
+    							</td>
+							</tr>
+    					</table>
+					</div>
+    			</td>
+			</tr>
+		</table>
+	</fieldset>
+	##END SEARCH FIELDSET	
+	
+	</br>
+	
+	<div id="template_records_list">
+    	##RECORDS LIST
+    	<fieldset><legend class="legend">SENARAI REKOD</legend>
+        	<table width="100%">
+    			<tr>
+    				<td>
+    					<input id="current_page_num" name="current_page_num" type="hidden" value="$!current_page_num">
+    					<div id="div_list" name="div_list">
+    						#parse("${templateDir}/list.vm")
+    					</div>
+    				</td>
+    			</tr>
+    		</table>
+		</fieldset>
+		##END RECORD LIST
+	</div>
+#else
+	<fieldset><legend class="legend">SENARAI REKOD</legend>
+		<table width="100%">
+			<tr>
+				<td>
+					<input id="current_page_num" name="current_page_num" type="hidden" value="$!current_page_num">
+					<div id="div_list" name="div_list">
+						#parse("${templateDir}/list.vm")
+					</div>
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+#end

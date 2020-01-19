@@ -1,0 +1,52 @@
+
+
+	<!--
+	<select class="texts" id="pemohon" name="pemohon" style="width:100%" onChange="$('err_pemohon').innerHTML=''; at(this, event);">
+		<option value="">SILA PILIH</option>
+        #foreach( $n in $listPemohon)
+			<option value="$n.id" #if($n.id == $r.pemohon.id) selected #end>$n.noKP - $n.userName.toUpperCase()</option>
+        #end
+	</select>
+		
+	<div id="err_pemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	-->
+	
+	<input type="text" style="width:50%;height:20px !important" class="uppercasefont" placeholder="CARIAN NAMA / NO. KP" name="carianTetamu" id="carianTetamu" value="$!carianTetamu" 
+		onKeyUp="$('err_pemohon').innerHTML='';$('err_carianTetamu').innerHTML='';$('err_maklumatTetamu').innerHTML=''" />
+	<input type="button" value="CARIAN" id="btnCariTetamu" />
+	
+	<div id="err_carianTetamu" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	
+	<div id="err_pemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	
+	<div id="divPopupCarianTetamu" class="popup"></div>
+		
+	<div id="divMaklumatPengguna">
+		#if( $!r )
+			#parse("$path/maklumatTetamu.vm")
+		#else
+			<input type="hidden" name="pemohon" id="pemohon" value="" />
+		#end
+	</div>
+	
+	
+	<script>
+        function validateCarian() {
+        	var err_count = 0;
+        	
+        	var carianTetamu = $('carianTetamu').value;
+			var charlength = $('carianTetamu').value.length;
+    		if ( carianTetamu == "" || charlength < 3 ) {$('err_carianTetamu').innerHTML = "Sila masukkan carian sekurang-kurangnya 3 aksara"; err_count++;  }
+        	
+        	if (err_count == 0) {}
+        	
+        	return err_count == 0;
+        }
+        _jq('#btnCariTetamu').on('click', function(){
+        	if (validateCarian()){
+        		doDivAjaxCall3$formname('divPopupCarianTetamu','callPopupCarianTetamu','');
+            	jQuery('#divPopupCarianTetamu').fadeIn();
+				$('err_pemohon').innerHTML='';
+        	}
+        });
+    </script>

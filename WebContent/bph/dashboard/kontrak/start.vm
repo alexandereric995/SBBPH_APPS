@@ -1,0 +1,255 @@
+#parse("bph/dashboard/style.vm")
+#parse("$path/script.vm")
+<table width="100%" border="0" cellspacing="0" cellpadding="5">
+  <tr>
+    <td width="60%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="5">
+        
+		<tr>
+		    <td>
+		        <table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+		            <tr>
+		                <td width="50%" valign="top">
+			                <table width="100%" border="0" cellspacing="0" cellpadding="3" >
+			                    <tr>
+			                        <td width="15%" valign="top" align="center">
+			                            <img src="../bph/dashboard/picture/myprofile.png"  width="30" height="30" align="center"/>
+			                        </td>
+			                        <td width="85%" valign="top">
+			                            <table width="100%" border="0" cellspacing="0" cellpadding="3">
+			                                <tr>
+			                                    <td><font color="black" style="font-size:120%"><b>Profil</b></td>
+			                                </tr>
+			                                <tr>
+			                                    <td><a href="javascript:gotoKataLaluan()" class="help" title="Tukar Kata Laluan">
+			                                    <li><font color="blue" style="font-size:110%">&nbsp;Tukar Kata Laluan</font></li>
+			                                    </a></td>
+			                                </tr>
+			                                <tr>
+			                                    <td><a href="javascript:gotoProfile()" class="help" title="Profil Pengguna">
+			                                    <li><font color="blue" style="font-size:110%">&nbsp;Profil Pengguna</font></li>
+			                                    </a></td>
+			                                </tr>
+			                            </table>
+			                        </td>
+			                    </tr>
+			                </table>
+		                </td>
+		            <td width="50%" valign="top">&nbsp;</td>
+		            </tr>
+		        </table>
+		    </td>
+		</tr>
+        
+        ## LAYER 2
+        <tr>
+		    <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+				    <tr>
+					    <td width="50%" valign="top">
+					        <table width="100%" border="0" cellspacing="0" cellpadding="3" >
+					            <tr>
+					                <td width="15%" valign="top" align="center">
+					                    <img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/>
+					                </td>
+					                <td width="85%" valign="top">
+					                    <table width="100%" border="0" cellspacing="0" cellpadding="3">
+					                        <tr>
+					                            <td><font color="black" style="font-size:120%"><b>Senarai Tugasan</b></td>
+					                        </tr>
+					                       #if ($!portal_role == '(KONTRAK) Penyedia')
+					                        <tr>
+                                                <td>
+                                                    <a href="javascript:gotoDaftarKontrak()" class="help" title="Kontrak Bayaran">
+														<li><font color="blue" style="font-size:110%">&nbsp;Kontrak Bayaran</font>
+															#if ($bilDaftarKontrak)
+                                                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+															#end
+														</li>
+													</a>
+                                                </td>
+					                        </tr>
+					                        <tr>
+                                                <td>
+                                                    <a href="javascript:gotoPemilihanKontraktorInden()" class="help" title="Pemilihan Kontraktor Requisition">
+														<li><font color="blue" style="font-size:110%">&nbsp;Pemilihan Kontraktor Requisition</font>
+															#if ($bilDaftarKontrak)
+                                                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+															#end
+														</li>
+													</a>
+                                                </td>
+					                        </tr>
+					                        #end
+					                        #if ($!portal_role == '(KONTRAK) Pengesah')
+											<tr>
+												<td>
+													<a href="javascript:gotoPengesahanKontrak()" class="help" title="Pengesahan Kontrak Bayaran">
+														<li><font color="blue" style="font-size:110%">&nbsp;Pengesahan Kontrak Bayaran</font>
+															#if ($bilPengesahanKontrak)
+                                                                <span id="blinkBilPengesahanKontrak"><font color="red"><b>($!bilPengesahanKontrak)</b></font></span>
+                                                            #end
+														</li>
+													</a>
+												</td>
+											</tr>
+					                        #end
+					                    </table>
+					                </td>
+					            </tr>
+					        </table>
+					    </td>
+					  
+					    <td width="50%" valign="top">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                                <tr>
+                                #if ($!portal_role == '(KONTRAK) Pengesah')
+                                    <td width="15%" valign="top" align="center">
+                                        <img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/>
+                                    </td>                             
+                                    <td width="85%" valign="top">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                                            <tr>
+                                                <td>
+                                                	<font color="black" style="font-size:120%"><b>Kontraktor Requisition</b>
+                                                </td>
+                                            </tr>
+											<tr>
+												<td>
+													<a href="javascript:gotoPendaftaranKontraktor()" class="help" title="Kontraktor Requisition">
+														<li><font color="blue" style="font-size:110%">&nbsp;Kontraktor Requisition</font>
+															#if ($bilPengesahanKontrak)
+                                                                <span id="blinkBilPengesahanKontrak"><font color="red"><b>($!bilPengesahanKontrak)</b></font></span>
+                                                            #end
+														</li>
+													</a>
+												</td>
+											</tr>
+					                        #end
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+	                </tr>
+                </table>
+            </td>
+		</tr>
+        
+        ## LAYER 3
+		<tr>
+		    <td>
+		        <table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+		            <tr>
+		            	<td width="50%" valign="top">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                                <tr>
+                                    <td width="15%" valign="top" align="center">
+                                        <img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/>
+                                    </td>
+                                    <td width="85%" valign="top">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                                            <tr>
+                                                <td><font color="black" style="font-size:120%"><b>Pemantauan Kontrak</b></td>
+                                            </tr>
+                                            
+                                            #if (($!portal_role == '(KONTRAK) Penyedia') || ($!portal_role == '(KONTRAK) Pengesah'))
+					                        <tr>
+                                                <td>
+                                                    <a href="javascript:gotoPemantauanKontrakBayaran()" class="help" title="Pemantauan Kontrak Bayaran">
+														<li><font color="blue" style="font-size:110%">&nbsp;Pemantauan Kontrak Bayaran</font>
+															#if ($bilDaftarKontrak)
+                                                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+															#end
+														</li>
+													</a>
+                                                </td>
+					                        </tr>
+					                        #end
+                                            
+                                            
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+		                <td width="50%" valign="top">
+		                    <table width="100%" border="0" cellspacing="0" cellpadding="3" >
+		                        <tr>
+		                            <td width="15%" valign="top" align="center">
+		                                <img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/>
+		                            </td>
+		                            <td width="85%" valign="top">
+		                                <table width="100%" border="0" cellspacing="0" cellpadding="3">
+		                                    <tr>
+		                                        <td><font color="black" style="font-size:120%"><b>Senarai Kontraktor</b></td>
+		                                    </tr>
+		                                    #if (($!portal_role == '(KONTRAK) Penyedia') || ($!portal_role == '(KONTRAK) Pengesah'))
+					                        <tr>
+                                                <td>
+                                                    <a href="javascript:gotoSenaraiKontraktor()" class="help" title="Kontraktor">
+														<li><font color="blue" style="font-size:110%">&nbsp;Kontraktor</font>
+															#if ($bilDaftarKontrak)
+                                                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+															#end
+														</li>
+													</a>
+											#end
+											#if ($!portal_role == '(KONTRAK) Penyedia')
+                                                    <a href="javascript:gotoPendaftaranKontraktor()" class="help" title="Kontraktor Requisition">
+														<li><font color="blue" style="font-size:110%">&nbsp;Kontraktor Requisition</font>
+															#if ($bilDaftarKontrak)
+                                                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+															#end
+														</li>
+													</a>
+                                               </td>
+					                        </tr>
+					                        #end
+		                                </table>
+		                            </td>
+		                        </tr>
+		                    </table>
+		                </td>
+		            </tr>
+		        </table>
+		    </td>
+		</tr>
+        
+        ##Laporan
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center">
+                      	<img  src="../bph/dashboard/picture/images_stat.png" width="30" height="30" align="center"/>
+                      	</td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Laporan</b></td>
+                          </tr>
+                          #if (($!portal_role == '(KONTRAK) Penyedia') || ($!portal_role == '(KONTRAK) Pengesah'))
+					                        <tr>
+                                                <td>
+                                                    <a href="javascript:gotoSenaraiLaporan()" class="help" title="Laporan Statistik">
+														<li><font color="blue" style="font-size:110%">&nbsp;Laporan Statistik</font>
+															#if ($bilDaftarKontrak)
+                                                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+															#end
+														</li>
+													</a>
+                                               </td>
+					                        </tr>
+					     #end
+                        </table></td>
+                    </tr>
+                  </table></td>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                </table></td>
+              </tr>
+            </table></td>
+        </tr>
+        
+      </table></td>
+  </tr>
+</table>

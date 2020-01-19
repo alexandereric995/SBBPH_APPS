@@ -1,0 +1,84 @@
+<fieldset>
+<legend class="legend">Laporan Senarai Daftar Keluar Rumah Peranginan</legend>
+<table width="80%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+  <tr>
+   <td class="label">Jenis Peranginan &nbsp;</td>
+   <td>:</td>
+   <td>
+     <span id="findJenisPeranginan">
+        #parse("$path/findJenisPeranginan.vm")
+     </span>
+   </td>
+</tr>
+<tr>
+   <td class="label">Nama Peranginan &nbsp;</td>
+   <td>:</td>
+   <td>
+     <span id="findPeranginan">
+        #parse("$path/findPeranginan.vm")
+     </span>
+   </td>
+</tr>
+
+
+#if ($!tarikhMula)
+ 		   #set ($dateMula = "$!util.getDateTime($!tarikhMula,'dd-MM-yyyy')")
+	#else #set ($dateMula = "") #end
+	#date_input_required("tarikhMula" "Tarikh Daftar Masuk" "$dateMula")
+	
+	#if ($!r.tarikhHingga)
+ 		  #set ($dateHingga = "$!util.getDateTime($!r.tarikhHingga,'dd-MM-yyyy')")
+	#else #set ($dateHingga = "") #end
+	#date_input_required("tarikhHingga" "Hingga" "$dateTamat")
+
+
+##  <tr>
+##	<td class="label">Tarikh Daftar Keluar &nbsp;<span style="color:#FF2A00">*</span></td>
+##	<td class="label">:</td>
+##	<td>
+##		<input type="text" id="tarikhMula" style="width:30%" name="tarikhMula" value="">
+##		<script>
+##        _jq(function() {
+##        	jQuery("#tarikhMula").datepicker({ 
+##        		dateFormat: "dd-mm-yy",
+##				showOn: "both",
+##				buttonImageOnly: true,
+##				buttonImage: "../img/calendar_icon.gif",
+##				buttonText: "Calendar",
+##        	});
+##        });
+##		</script>
+##		<div id="err_tarikhMula" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##	</td>
+##</tr>
+##<tr>
+##	<td class="label">Hingga &nbsp;<span style="color:#FF2A00">*</span></td>
+##	<td class="label">:</td>
+##	<td>
+##		<input type="text" id="tarikhHingga" name="tarikhHingga" value="" style="width:30%">
+##		<script>
+##        _jq(function() {
+##        	jQuery("#tarikhHingga").datepicker({ 
+##        		dateFormat: "dd-mm-yy",
+##				showOn: "both",
+##				buttonImageOnly: true,
+##				buttonImage: "../img/calendar_icon.gif",
+##				buttonText: "Calendar",
+##        	});
+##        });
+##		</script>
+##		<div id="err_tarikhHingga" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##	</td>
+##</tr>
+  <tr>
+	<td></td>
+	<td class="label"></td>
+	<td><input type="button" name="cmdCetak" id="cmdCetak" value="Cetak" onclick="javascript:doCetakLaporanSenaraiDaftarKeluarRumahPeranginan()"/><input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/></td>
+</tr>
+</table>
+</fieldset>

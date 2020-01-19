@@ -1,0 +1,53 @@
+#if ($!idSebabBertukar == '01')	
+<fieldset>
+<legend class="legend">Maklumat Pejabat</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Kementerian &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatPertukaranJabatan/selectKementerian.vm")
+            <div id="err_idKementerian" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Agensi / Jabatan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectAgensi"> #parse("$path/maklumatPertukaranJabatan/selectAgensi.vm") </div>
+            <div id="err_idAgensi" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #input_required("bahagian" "Bahagian" "$!r.bahagian")
+        #phone_number_required("noTelefonPejabat" "No. Telefon Pejabat" "$!r.noTelefonPejabat")        
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_required("alamatPejabat1" "Alamat" "$!r.alamatPejabat1")
+        #input("alamatPejabat2" "" "$!r.alamatPejabat2")
+        #input("alamatPejabat3" "" "$!r.alamatPejabat3")
+        #postcode_required("poskodPejabat" "Poskod" "$!r.poskodPejabat")  
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatPertukaranJabatan/selectNegeri.vm")
+            <div id="err_idNegeriPejabat" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandarPejabat"> #parse("$path/maklumatPertukaranJabatan/selectBandar.vm") </div>
+            <div id="err_idBandarPejabat" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>        
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+#end

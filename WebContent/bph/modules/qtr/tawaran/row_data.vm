@@ -1,0 +1,28 @@
+
+<td>$!r.agihan.permohonan.noPermohonan</td>
+#if ($r.agihan.permohonan.tarikhPermohonan)
+    #set($tarikhPermohonan = $util.getDateTime($r.agihan.permohonan.tarikhPermohonan, "dd-MM-yyyy"))
+#else
+    #set($tarikhPermohonan = "-")
+#end
+<td>$tarikhPermohonan</td>
+#if ($r.tarikhSurat)
+    #set($tarikhSurat = $util.getDateTime($r.tarikhSurat, "dd-MM-yyyy"))
+#else
+    #set($tarikhSurat = "-")
+#end
+<td>$tarikhSurat</td>
+<td>$!r.agihan.pemohon.userName</td>
+<td>$!r.agihan.pemohon.noKP</td>
+##<td>$!r.agihan.kuarters.lokasi.keterangan</td>
+<td>$!r.agihan.permohonan.lokasi.lokasi</td>
+
+#if ( $r.statusTawaran == "01" )
+	#set ( $statusTawaran = "TERIMA" )
+#elseif ( $r.statusTawaran == "02" )
+	#set ( $statusTawaran = "TOLAK" )
+#else
+	#set ( $statusTawaran = "" )
+#end
+
+<td> $statusTawaran</td>

@@ -1,0 +1,87 @@
+<fieldset>
+<legend class="legend">MAKLUMAT REKOD</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class="label">Pusat Terima &nbsp;<span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td>#parse("$path/selectPusatTerima.vm")
+      <div id="err_idPusatTerima" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">ID Juruwang &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td class="label">:</td>
+    <td><input type="text" id="idJuruwang" name="idJuruwang" value="$!juruwang.id" onKeyUp="$('err_idJuruwang').innerHTML='';at(this, event);" onBlur="this.value=this.value.toUpperCase();" onChange="doDivAjaxCall3$formname('divRekod','getRegisteredUser','');">
+      <div id="err_idJuruwang" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	  <div id="validate_juruwang" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+	  #if ($!command == 'getRegisteredUser')
+	  	#if (!$juruwang)
+	  		<script>
+	  		$('err_idJuruwang').innerHTML = "ID TIDAK BERDAFTAR DENGAN SISTEM!";
+	  		</script>
+	  	#end
+	  #end
+  #show("Nama Juruwang" "<b>$!juruwang.userName</b>")
+  <tr>
+    <td class="label">Jawatan &nbsp;<span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td>#parse("$path/selectJawatan.vm")
+      <div id="err_jawatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #if ($!jawatan == 'JURUWANG')
+  <tr>
+    <td class="label">Kod Juruwang &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td class="label">:</td>
+    <td><input type="text" id="kodJuruwang" name="kodJuruwang" value="$!kodJuruwang" onKeyUp=" $('err_kodJuruwang').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+      <div id="err_kodJuruwang" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #end
+  <tr>
+    <td class="label">Status &nbsp;<span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td>#parse("$path/selectFlagAktif.vm")
+      <div id="err_flagAktif" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #textarea("catatan" "Catatan" "$!catatan")
+  
+</table>
+</fieldset>
+
+<script>
+	_jq('#idPusatTerima').change(function() {
+    	validateJuruwang()
+    });
+    
+	_jq('#idJuruwang').blur(function() {
+    	validateJuruwang()
+    });
+    
+    _jq('#jawatan').change(function() {
+    	validateJuruwang()
+    });
+    
+    _jq('#kodJuruwang').blur(function() {
+    	validateJuruwang()
+    });
+    
+	function validateJuruwang() {
+		if ( $('idPusatTerima').value != "") {
+	    	if ( $('idJuruwang').value != "") {
+	    		if ( $('jawatan').value != "") {
+	    			if ( $('jawatan').value == "PENYELIA") {
+	    				doDivAjaxCall3$formname('validate_juruwang','validateJuruwang','');
+	    			} else {
+	    				if ( $('kodJuruwang').value != "") {
+	    					doDivAjaxCall3$formname('validate_juruwang','validateJuruwang','');
+	    				}
+	    			}
+	    		}
+	    	}
+	    }     
+	}
+</script>

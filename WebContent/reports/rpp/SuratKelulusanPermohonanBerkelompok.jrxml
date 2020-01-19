@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SuratKelulusanPermohonanBerkelompok"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="600"
+		 pageHeight="840"
+		 columnWidth="540"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="10"
+		 bottomMargin="10"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idRppPermohonan" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="flagSewaBot" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="namaPeranginan" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="noTelefonPeranginan" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="totalHargaSewaBot" isForPrompting="true" class="java.lang.Double"/>
+	<parameter name="senaraiAktiviti" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT users.user_name, users.no_kp, users.no_telefon,
+rpp_permohonan.alamat_surat_1, rpp_permohonan.alamat_surat_2,rpp_permohonan.alamat_surat_3, rpp_permohonan.poskod_surat, ruj_negeri.keterangan negeri, rpp_permohonan.no_tempahan,
+rpp_permohonan.tarikh_masuk_rpp, rpp_permohonan.tarikh_keluar_rpp,
+rpp_peranginan.nama_peranginan, ruj_jenis_unit_rpp.keterangan jenisunit, ruj_jenis_unit_rpp.kadar_sewa, rpp_kelompok_unit.bil_unit_lulus,
+DATEDIFF(rpp_permohonan.tarikh_keluar_rpp,rpp_permohonan.tarikh_masuk_rpp) AS totalHari
+FROM  rpp_permohonan
+LEFT OUTER JOIN users ON rpp_permohonan.id_pemohon = users.user_login
+LEFT OUTER JOIN rpp_kelompok_unit ON rpp_kelompok_unit.id_permohonan = rpp_permohonan.id
+LEFT JOIN ruj_jenis_unit_rpp ON rpp_kelompok_unit.id_jenis_unit_rpp = ruj_jenis_unit_rpp.id
+LEFT OUTER JOIN rpp_peranginan ON rpp_permohonan.id_peranginan = rpp_peranginan.id
+LEFT JOIN ruj_negeri ON rpp_permohonan.id_negeri_surat = ruj_negeri.id
+where rpp_permohonan.id = '$P!{idRppPermohonan}']]></queryString>
+
+	<field name="user_name" class="java.lang.String"/>
+	<field name="no_kp" class="java.lang.String"/>
+	<field name="no_telefon" class="java.lang.String"/>
+	<field name="alamat_surat_1" class="java.lang.String"/>
+	<field name="alamat_surat_2" class="java.lang.String"/>
+	<field name="alamat_surat_3" class="java.lang.String"/>
+	<field name="poskod_surat" class="java.lang.String"/>
+	<field name="negeri" class="java.lang.String"/>
+	<field name="no_tempahan" class="java.lang.String"/>
+	<field name="tarikh_masuk_rpp" class="java.sql.Date"/>
+	<field name="tarikh_keluar_rpp" class="java.sql.Date"/>
+	<field name="nama_peranginan" class="java.lang.String"/>
+	<field name="jenisunit" class="java.lang.String"/>
+	<field name="kadar_sewa" class="java.lang.Double"/>
+	<field name="bil_unit_lulus" class="java.lang.Integer"/>
+	<field name="totalHari" class="java.lang.Long"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="660"  isSplitAllowed="true" >
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="0"
+						width="70"
+						height="60"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA[$P{ReportDir} + "\\images\\jata.png"]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="87"
+						y="2"
+						width="230"
+						height="58"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["JABATAN PERDANA MENTERI \n"+
+"BAHAGIAN PENGURUSAN HARTANAH \n"+
+"ARAS 7, BLOK B3 \n"+
+"PUSAT PENTADBIRAN KERAJAAN \n"+
+"62502 PUTRAJAYA"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="383"
+						y="36"
+						width="150"
+						height="24"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Tel : 03-88800155 \n"+
+"Fax : 03-88883032"]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="13"
+						y="62"
+						width="520"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="310"
+						y="70"
+						width="49"
+						height="20"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Ruj.Kami :"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="310"
+						y="90"
+						width="49"
+						height="20"
+						key="textField-4"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Tarikh     :"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="210"
+						width="510"
+						height="30"
+						key="textField-5"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["PERMOHONAN BERKELOMPOK MENGGUNAKAN KEMUDAHAN DI " + $F{nama_peranginan}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="240"
+						width="510"
+						height="30"
+						key="textField-6"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Dengan hormatnya saya merujuk kepada permohonan tuan untuk menggunakan premis di " + $P{namaPeranginan} + " bagi tujuan mengadakan " + $P{senaraiAktiviti} + "."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="269"
+						width="510"
+						height="31"
+						key="textField-7"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["2.     Bahagian ini sukacita memaklumkan bahawa permohonan tersebut adalah diluluskan dengan syarat-syarat dan persefahaman seperti berikut :-"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="120"
+						width="220"
+						height="60"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{user_name} + "\n" + 
+($F{alamat_surat_1} == null ? "" : ($F{alamat_surat_1} +" \n") )+
+($F{alamat_surat_2} == null ? "" : ($F{alamat_surat_2} +" \n") )+
+($F{alamat_surat_3} == null ? "" : ($F{alamat_surat_3} +" \n") )+
+$F{poskod_surat}+ " " + $F{negeri}
+
+]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="359"
+						y="70"
+						width="161"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{no_tempahan}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="190"
+						width="70"
+						height="20"
+						key="textField-20"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Tuan / Puan ,"]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="10"
+						y="620"
+						width="520"
+						height="40"
+						key="subreport-1"
+						stretchType="RelativeToBandHeight"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idRppPermohonan">
+						<subreportParameterExpression><![CDATA[$P{idRppPermohonan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="flagSewaBot">
+						<subreportParameterExpression><![CDATA[$P{flagSewaBot}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="namaPeranginan">
+						<subreportParameterExpression><![CDATA[$P{namaPeranginan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="noTelefonPeranginan">
+						<subreportParameterExpression><![CDATA[$P{noTelefonPeranginan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="totalHargaSewaBot">
+						<subreportParameterExpression><![CDATA[$P{totalHargaSewaBot}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\rpp\\SuratKelulusanPermohonanBerkelompok_Subreport1.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="10"
+						y="420"
+						width="520"
+						height="30"
+						key="subreport-2"
+						stretchType="RelativeToBandHeight"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idRppPermohonan">
+						<subreportParameterExpression><![CDATA[$P{idRppPermohonan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="flagSewaBot">
+						<subreportParameterExpression><![CDATA[$P{flagSewaBot}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="namaPeranginan">
+						<subreportParameterExpression><![CDATA[$P{namaPeranginan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="noTelefonPeranginan">
+						<subreportParameterExpression><![CDATA[$P{noTelefonPeranginan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="totalHargaSewaBot">
+						<subreportParameterExpression><![CDATA[$P{totalHargaSewaBot}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\rpp\\SuratKelulusanPermohonanBerkelompok_Subreport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="20"
+						y="310"
+						width="490"
+						height="100"
+						key="subreport-3"
+						stretchType="RelativeToBandHeight"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idRppPermohonan">
+						<subreportParameterExpression><![CDATA[$P{idRppPermohonan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="flagSewaBot">
+						<subreportParameterExpression><![CDATA[$P{flagSewaBot}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="namaPeranginan">
+						<subreportParameterExpression><![CDATA[$P{namaPeranginan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="noTelefonPeranginan">
+						<subreportParameterExpression><![CDATA[$P{noTelefonPeranginan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="totalHargaSewaBot">
+						<subreportParameterExpression><![CDATA[$P{totalHargaSewaBot}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\rpp\\SuratKelulusanPermohonanBerkelompok_Subreport3.jasper"]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="0"
+						y="610"
+						width="540"
+						height="0"
+						key="element-1"/>
+				</break>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

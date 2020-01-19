@@ -1,0 +1,26 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:5px"></td>
+        <td></td>
+    </tr>
+	##input_readonly_label("lokasiKuarters" "Lokasi Kuarters" "$!r.kuarters.lokasi.keterangan")
+	##input_readonly_label("kawasan" "Kawasan" "$!r.kuarters.kawasan")
+	##input_readonly_label("noUnit" "No. Unit" "$!r.kuarters.noUnit")
+	##input_readonly_label("blok" "Blok" "$!r.kuarters.blok")
+	#input_readonly_label("alamat1" "Alamat" "$!r.kuarters.alamat1")
+	#input_readonly_label("alamat2" "" "$!r.kuarters.alamat2")
+	#postcode_readonly("poskod" "Poskod" "$!r.kuarters.poskod")
+	#input_readonly_label("negeri" "Negeri" "$!r.kuarters.bandar.negeri.keterangan")
+	#input_readonly_label("bandar" "Bandar" "$!r.kuarters.bandar.keterangan")
+</table>
+
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+		$('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

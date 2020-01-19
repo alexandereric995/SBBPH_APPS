@@ -1,0 +1,40 @@
+<fieldset>
+<legend class="legend">Maklumat Agensi</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_required("namaAgensi" "Nama Agensi" "$!r.namaAgensi")
+	    #phone_number_required("noTelefon" "No. Telefon" "$!r.noTelefon")
+	    #input_email("noFaks" "No. Faks" "$!r.noFaks")  
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_required("alamat1Agensi" "Alamat" "$!r.alamat1Agensi")
+        #input("alamat2Agensi" "" "$!r.alamat2Agensi")
+        #input("alamat3Agensi" "" "$!r.alamat3Agensi")
+        #postcode_required("poskodAgensi" "Poskod" "$!r.poskodAgensi")
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatAgensi/selectNegeri.vm")
+            <div id="err_idNegeriAgensi" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandarAgensi"> #parse("$path/maklumatAgensi/selectBandar.vm") </div>
+            <div id="err_idBandarAgensi" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>        
+      </table></td>
+  </tr>
+</table>
+</fieldset>

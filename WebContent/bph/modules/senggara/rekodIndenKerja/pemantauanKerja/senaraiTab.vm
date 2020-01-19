@@ -1,0 +1,15 @@
+<br/>
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedTab=='1' || $!selectedTab=='5') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1' && $!selectedTab!='5') onClick="doDivAjaxCall3$formname('divPemantauanKerjaRecordModule','getLogPemantauanKerja','')" #end >Log Pemantauan Kerja</a></li>
+	<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divPemantauanKerjaRecordModule','getSenaraiJKH','')" #end >Senarai Jadual Kadar Harga</a></li>			
+  </ul>
+</nav>	
+
+#if ($!selectedTab=='1' || $!selectedTab=='5')
+	#parse("$path/pemantauanKerja/senaraiLogPemantauanKerja.vm")
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/pemantauanKerja/paparSenaraiJKH.vm")
+#end

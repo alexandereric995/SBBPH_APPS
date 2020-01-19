@@ -1,0 +1,79 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#penghuniPelanggaranSyarat').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+
+<fieldset><legend class="legend">Maklumat Pelanggaran Syarat</legend>
+	
+	<p align="left">
+ 	<input type="button" value="Tambah" align='left' id="cmdTambah">
+	</p>
+
+	<br /><br />
+	
+	<table id="penghuniPelanggaranSyarat" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Bil.</th>
+                <th>Jenis Kesalahan</th>
+                <th>Tarikh</th>
+                <th>Status Tindakan</th>
+                <th>Papar</th>
+                <th>Hapus</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+			#set( $count = 0 )
+    		#foreach ( $c in $psList )
+    			#set ( $count = $count + 1 )
+                <tr>
+                    <td>$count</td>
+                    <td>$!c.jenisOperasi.keterangan  #if($c.jenisPelanggaranSyarat) - $!c.jenisPelanggaranSyarat.keterangan #end</td>
+                    <td>$!util.getDateTime($c.tarikh, "dd-MM-yyyy")</td>
+                    #set($statusPenghuni = '')
+        			#if ( $!c.statusPenghuni == '1' )
+        			#set($statusPenghuni = 'KELUAR KUARTERS')
+        			#elseif($!c.statusPenghuni == '2')
+        			#set($statusPenghuni = 'KEKAL MENDIAMI KUARTERS')
+        			#elseif($!c.statusPenghuni == '3')
+        			#set($statusPenghuni = 'DISENARAI HITAM')
+        			#elseif($!c.statusPenghuni == '4')
+        			#set($statusPenghuni = 'KES DIRUJUK PEGUAM')
+        			#elseif($!c.statusPenghuni == '5')
+        			#set($statusPenghuni = 'TIADA TINDAKAN DIAMBIL')
+        			#end
+                    <td>$!statusPenghuni</td>
+					<td><a href="javascript:void()" id="link$c.id"><img alt="edit" src="../img/edit.gif" border="0"></a></td>
+                    <td><a href="javascript:void()" onClick="deletePS('$c.id')"><img alt="hapus" src="../img/delete.gif" border="0"></a></td>
+                </tr>
+                <script>
+                    _jq('#link$c.id').on('click', function(){
+                    	
+						doDivAjaxCall3$formname('editpopup','editPS','idPS=$c.id');
+                        jQuery('#editpopup').fadeIn();
+                    });
+                </script>
+			#end
+		</tbody>
+    </table>
+    
+</fieldset>
+## #else
+##	#parse("$path/pelanggaranSyarat/entry_page.vm")
+###end
+<div id="addpopup" class="popup"></div>
+<div id="editpopup" class="popup"></div>
+
+
+<script>
+    _jq('#cmdTambah').on('click', function(){
+		doDivAjaxCall3$formname('addpopup','addLanggarSyarat','');
+        jQuery('#addpopup').fadeIn();
+    });
+</script>

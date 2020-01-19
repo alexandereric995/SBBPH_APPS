@@ -1,0 +1,55 @@
+<form name="f" method="post">
+$!errorMessage
+<table width="100%" cellpadding="1" cellspacing="1" border="1">
+<tr class="table_header">
+<td>
+From
+</td>
+<td>
+Date
+</td>
+<td>
+Subject
+</td>
+<td>
+Size
+</td>
+</tr>
+
+#foreach( $msg in $messageList)
+<tr>
+<td>
+$msg.from
+</td>
+<td>
+$msg.date
+</td>
+<td>
+<a href="javascript:readMessage('$msg.msgNum')">
+$msg.subject
+</a>
+</td>
+<td>
+$msg.size
+</td>
+</tr>
+#end
+</table>
+<input type="hidden" name="command">
+<input type="hidden" name="msgNum">
+</form>
+<script>
+function readMessage(num) {
+openMessage();
+document.f.msgNum.value = num;
+document.f.command.value = "readMessage";
+document.f.action = "../x/${securityToken}/lebah.mail.MailModule";
+document.f.target = "msgwindow";
+document.f.submit();
+}
+
+function openMessage() {
+window.open('','msgwindow','width=600,height=400,toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,copyhistory=yes,resizable=yes');
+}
+
+</script>

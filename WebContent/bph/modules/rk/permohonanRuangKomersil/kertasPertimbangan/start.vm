@@ -1,0 +1,29 @@
+<fieldset>
+<legend class="legend">Kertas Pertimbangan</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td style="width:19%"></td>
+    <td style="width:1%"></td>
+    <td style="width:80%"></td>
+  </tr>
+  #textarea_required_no_case("ulasanKertasPertimbangan" "Ulasan" "$!r.ulasanKertasPertimbangan")
+  #textarea_required_no_case("syorKertasPertimbangan" "Syor" "$!r.syorKertasPertimbangan")
+</table>
+<br><br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="label" style="width:29%"><a href="#" id="cetakDerafKertasPertimbangan"> <font color="#0000FF"><strong>CETAK DERAF KERTAS PERTIMBANGAN</strong></font> </a></td>
+  </tr>
+</table>
+</fieldset>
+
+<script>
+	_jq('#cetakDerafKertasPertimbangan').on('click', function(){
+    	var idPermohonan = '$!r.id';        		    
+		var url = "../servlet/bph.laporan.rk.DerafKertasPertimbangan?ID_PERMOHONAN="+idPermohonan;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();	
+    });
+</script>

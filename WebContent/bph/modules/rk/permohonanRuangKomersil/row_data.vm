@@ -1,0 +1,45 @@
+<td>
+	$!r.noPermohonan #if ( $r.fail.noFail ) <br/><b>($!r.fail.noFail)</b>  #end
+</td>
+
+#if ($!r.tarikhPermohonan) 
+	#set ($datePermohonan = "$!util.getDateTime($!r.tarikhPermohonan,'dd-MM-yyyy')")
+#else #set ($datePermohonan="") #end
+<td align="center">$datePermohonan</td>
+<td>
+	<b>No. Pengenalan : </b>$!r.fail.pemohon.individu.id<br/>
+	<b>Nama : </b>$!r.fail.pemohon.individu.nama<br/>
+	<b>No. Pendaftaran : </b>$!r.fail.pemohon.syarikat.id<br/>
+	<b>Nama Syarikat : </b>$!r.fail.pemohon.syarikat.nama<br/>
+</td>
+<td>
+	<b>ID Ruang : </b>$!r.fail.ruang.idRuang<br/>	
+	<b>Kegunaan : </b>$!r.fail.ruang.jenisKegunaanRuang.keterangan<br/>	
+	<b>Lokasi : </b>$!r.fail.ruang.lokasi<br/>	
+	<b>Bandar : </b>$!r.fail.ruang.bandar.keterangan<br/>
+	<b>Negeri : </b>$!r.fail.ruang.bandar.negeri.keterangan<br/>
+</td>
+<td><b>$!r.getJenisPermohonan()</b></td>
+<td><b>$!r.status.keterangan</b><br/><br/>
+	#if ($!r.status.id == '511108229258439' && $!r.getStatusBayaranDeposit() == 'Y')
+	<span id="blinkStatusDeposit$!r.id">
+		<font color="blue"><b>BAYARAN DEPOSIT TELAH DITERIMA</b><br/></font>
+	</span>
+	#end
+	#if ($!r.status.id == '511108229258439' && $!r.getStatusBayaranDeposit() == 'T')
+	<span id="blinkStatusDeposit$!r.id">
+		<font color="red"><b>BAYARAN DEPOSIT BELUM DITERIMA</b><br/></font>
+	</span>
+	#end
+</td>
+
+<script>
+## START BLINK NOTIFICATION
+function blinker() {
+	_jq('#blinkStatusDeposit$!r.id').fadeOut(1000);
+    _jq('#blinkStatusDeposit$!r.id').fadeIn(1000);    
+}
+
+setInterval(blinker, 1000);
+## END BLINK NOTIFICATION
+</script>

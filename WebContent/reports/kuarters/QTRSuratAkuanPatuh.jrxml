@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="QTRSuratAkuanPatuh"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="590"
+		 pageHeight="842"
+		 columnWidth="530"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idTawaran" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT kua_agihan.kelas_kuarters,
+       users.user_login,
+       users.user_name,
+       kua_kuarters.no_unit,
+       kua_kuarters.lot_no,
+       kua_kuarters.alamat_1,
+       kua_kuarters.alamat_2,
+       kua_kuarters.alamat_3,
+       kua_kuarters.poskod,
+       ruj_bandar.keterangan bandarkua,
+       ruj_negeri.keterangan negerikua
+FROM kua_tawaran
+LEFT JOIN ruj_gelaran_dalam_surat ON (kua_tawaran.title_dalam_surat = ruj_gelaran_dalam_surat.id)
+LEFT JOIN kua_agihan ON (kua_tawaran.id_agihan = kua_agihan.id)
+LEFT JOIN users ON (kua_agihan.id_pemohon = users.user_login)
+LEFT JOIN ruj_gelaran ON (users.gelaran = ruj_gelaran.id)
+LEFT JOIN kua_kuarters ON (kua_agihan.id_kuarters = kua_kuarters.id)
+LEFT JOIN ruj_bandar ON (kua_kuarters.id_bandar = ruj_bandar.id)
+LEFT JOIN ruj_negeri ON (ruj_bandar.id_negeri = ruj_negeri.id)
+where kua_tawaran.id = '$P!{idTawaran}']]></queryString>
+
+	<field name="kelas_kuarters" class="java.lang.String"/>
+	<field name="user_login" class="java.lang.String"/>
+	<field name="user_name" class="java.lang.String"/>
+	<field name="no_unit" class="java.lang.String"/>
+	<field name="lot_no" class="java.lang.String"/>
+	<field name="alamat_1" class="java.lang.String"/>
+	<field name="alamat_2" class="java.lang.String"/>
+	<field name="alamat_3" class="java.lang.String"/>
+	<field name="poskod" class="java.lang.String"/>
+	<field name="bandarkua" class="java.lang.String"/>
+	<field name="negerikua" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="797"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="61"
+						y="30"
+						width="410"
+						height="20"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["SURAT AKUAN PATUH KEPADA PERATURAN"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="60"
+						width="410"
+						height="20"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["A. PENGAKUAN PENGHUNI"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="86"
+						width="490"
+						height="72"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Saya "+$F{user_name}+
+" No K/P "+$F{user_login}+
+" dengan ini mengakui akan patuh kepada peraturan-peraturan kuarters Kerajaan di alamat "+
+($F{alamat_1} == null ?"":$F{alamat_1}.trim())+" "+
+($F{alamat_2}== null ?"":$F{alamat_2}.trim())+" "+
+($F{alamat_3}== null ?"":$F{alamat_3}.trim())+" "+
+($F{poskod}== null ?"":$F{poskod}.trim())+" "+
+($F{bandarkua}== null ?"":$F{bandarkua}.trim())+" "+
+($F{negerikua}== null ?"":$F{negerikua}.trim())+
+" Kelas "+$F{kelas_kuarters}+
+" kepada saya seperti berikut:"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="149"
+						width="490"
+						height="321"
+						key="textField-4"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["1. Saya akan patuhi segala peraturan yang terkandung dalam Perintah AM Bab E dan juga syarat-syarat di dalam Pekililing Kerajaan yang dikeluarkan dari semasa ke semasa\n"+
+"2. Mengambil alih kuarters dalam tempoh 30 hari dari tarikh surat tawaran\n"+
+"3. Rumah ini hendaklah saya duduki dalam tempoh 14 hari dari tarikh Sijil Akuan Masuk\n"+
+"4. Rumah ini akan saya diami sendiri dan tidak akan membenarkan orang lain tinggal di rumah ini selain daripada ahli keluarga seperti yang ditakrif dalam Perintah AM Bab E dan orang gaji serta tetamu sementara\n"+
+"5. Sekiranya saya berstatus bujang, BPH boleh mengarahkan saya berkongsi rumah dengan pemohon lain\n"+
+"6. Tidak akan membuat sebarang pindaan atau tambahan kepada rumah ini melainkan dengan kebenaran terlebih dahulu daripada Pegawai Perumahan Kerajaan\n"+
+"7. Tidak akan meletakkan apa jua barang/kenderaan milik saya di luar unit kuarters yang saya duduki &atau di kawasan kemudahan bersama kuarters tersebut yang boleh memudaratkan/mengganggu keselesaan penghuni lain\n"+
+"8. Membenarkan Tenaga Nasional Berhad dan Syabas untuk memotong bekalan utiliti ke kuarters yang diperuntukkan kepada saya apabila kelulusan menduduki kuarters tersebut dibatalkan atau ditarik balik oleh BPH\n"+
+"9. Melupuskan apa juga barang yang saya tinggakan di dalam unit kuarters apabila saya berpindah / mengosongkan kuarters tersebut. Sebaliknya, jika saya sendiri tidak melupuskan barang-barang tersebut, saya bersetuju membayar kepada BPH kos menguruskan pelupusannya.\n"+
+"10. Membenarkan pegawai BPH memasuki unit kuarters yang saya duduki untuk tujuan pemeriksaan atau penyenggaraan setelah saya dimaklumkan secara bertulis / lisan untuk memasuki unit kuarters berkenaan\n"+
+"11. Menandatangani dokumen perjanjian rasmi menduduki kuarters Kerajaan apabila diminta oleh BPH kemudian kelak."]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="777"
+						width="510"
+						height="20"
+						key="subreport-1"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idTawaran">
+						<subreportParameterExpression><![CDATA[$P{idTawaran}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "//kuarters//QTRSuratAkuanPatuh_Subreport1.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="485"
+						width="490"
+						height="229"
+						key="textField-5"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Saya akur bahawa saya akan hilang kelayakan menduduki kuarters tersebut dalam keadaan berikut:\n"+
+"1. Sekiranya saya gagal melakukan potongan gaji melalui jabatan sendiri selama tiga bulan berturut-turut.\n"+
+"2. Sekiranya saya atau ahli keluarga saya didapati terlibat dengan penyalahgunaan dadah yang disahkan oleh pihak berkuasa atau disabitkan di mahkamah atas kesalahan jenayah atau salah laku sosial\n"+
+"3. Sekiranya saya mempunyai rumah sendiri melalui Pinjaman Perumahan Kerajaan dalam lingkungan 25km dari Kuala Lumpur/ Putrajaya/ Kompleks Imigresen Kuarantin (KIK) dan KLIA. Pengiraan lingkungan adalah berpandukan mercu tanda berikut:\n"+
+"a. Kuala Lumpur/ Petaling Jaya  :  Lingkungan 25km dari Pejabat Pos Besar Kuala Lumpur (kini dikenali sebagai Ibu Pejabat Pos Malaysia).\n"+
+"b. Putrajaya  :  Lingkungan 25km dari Bangunan Perdana Putra,Putrajaya.\n"+
+"c. KIK  :  Lingkungan 25km dari Kompleks Sultan Abu Bakar, Tanjung Kupang, Johor.\n"+
+"d. KLIA  :  Lingkungan 25km dari Kuala Lumpur International Airport,Sepang, Selangor.\n"+
+"4. Saya mengakui akan mengosongkan rumah ini:\n"+
+"a. Jika saya tidak mematuhi salah satu daripada syarat-syarat di atas.\n"+
+"b. Apabila saya hilang kelayakan menduduki rumah ini.\n"+
+"c. Apabila saya dikehendaki oleh Kerajaan pada bila-bila masa tanpa diberi rumah ganti.\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="21"
+						y="729"
+						width="191"
+						height="21"
+						key="textField-6"/>
+					<box>					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+</box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Tarikh       :   ___________________"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="274"
+						y="729"
+						width="238"
+						height="28"
+						key="textField-7"/>
+					<box>					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+</box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["_____________________________\n"+
+"(Tandatangan Penghuni)"]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

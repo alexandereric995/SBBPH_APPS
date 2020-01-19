@@ -1,0 +1,65 @@
+
+<style>
+.scrollit {
+	height:600px; width: 100%; overflow: auto;
+}
+</style>
+
+<div class="scrollit">
+<table width="100%" cellpadding="2" cellspacing="2">
+    <tr>
+        <td colspan="6">&nbsp;</td>
+    </tr>
+    <tr>
+        <td class="row_header" width="10%">Bil.</td>
+        <td class="row_header" width="20%">No. Unit</td>
+        <td class="row_header" width="25%">Nama Unit</td>
+        <td class="row_header" width="20%">Jenis Unit</td>
+		<td class="row_header" width="15%">Status Unit</td>
+        <td class="row_header" width="10%">Pilih</td>
+    </tr>
+    #if ( $listUnit.size() > 0 )
+        #set ( $count = 0 )
+        #foreach( $d in $listUnit )
+            #set ( $count = $count + 1)
+            #if ( $count % 2 == 0 ) 
+                #set ( $rowcolor = "#D0CFCE" ) 
+                #else 
+                    #set ( $rowcolor = "#F0F0F0" ) 
+            #end
+            <tr bgcolor="$rowcolor">
+                <td align="center">$count</td>
+                <td align="center">$!d.noUnit.toUpperCase()</td>
+                <td align="center">$!d.namaUnit.toUpperCase()</td>
+                <td align="center">$!d.jenisUnit.keterangan.toUpperCase()</td>
+				<td align="center">
+					#if($!d.getStatusUnit($!r.id).size() > 0)
+						<a href="#" id="btnViewBookingList$d.id" style="font-size:9px;color:red">ADA TEMPAHAN DIBUAT</a>
+						<script>
+                        	_jq('#btnViewBookingList$d.id').on('click', function(){
+                        		doDivAjaxCall3$formname('popupBookingList','openPopupBookingList','idUnit=$!d.id');
+                                jQuery('#popupBookingList').fadeIn();
+                           	});
+                        </script>
+					#else
+						<div style="font-size:9px;color:blue">KOSONG</div>
+					#end	
+					#if($d.getCheckedSelenggara($!util.getDateTime($!r.tarikhMula,'yyyy-MM-dd'),$!util.getDateTime($!r.tarikhTamat,'yyyy-MM-dd')).equalsIgnoreCase("Y")) <div style="font-size:8px;color:red">Selenggara</div> #end
+					#if($d.status.equalsIgnoreCase("RESERVED")) <div style="font-size:8px;color:red">Rezab</div> #end
+				</td>
+                <td align="center">
+                    <input type="checkbox" #if($!d.getCheckedFlag($!r.id)=="Y") checked #end id="cbPilihan$!d.id" name="cbPilihan" value="$!d.id" onclick="$('err_cbPilihan').innerHTML=''; at(this, event);" />
+                </td>
+            </tr>
+        #end
+        #else
+            <tr bgcolor="#F0F0F0">
+                <td colspan="6">Tiada Rekod</td>
+            </tr>
+    #end
+</table>
+</div>
+
+<div id="popupBookingList" class="popup"></div>
+
+

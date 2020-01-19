@@ -1,0 +1,35 @@
+#if ($command == 'getPemohon')
+	
+	<tr>
+    <td class="label">No. Pengenalan</td>
+    <td>:</td>
+    <td><input class="texts" style="width:850px" type="text" id="idPemohon" name="idPemohon" value="$idPemohon" readonly="true" onBlur="this.value=this.value.toUpperCase();"></td>
+  </tr>
+	<tr>
+    <td class="label">Nama Pemohon</td>
+    <td>:</td>
+    <td><input class="texts" type="text" id="namaPemohon" name="namaPemohon" value="$namaPemohon" readonly="true" onBlur="this.value=this.value.toUpperCase();"></td>
+  </tr>
+  <tr>
+    <td class="label">Amaun (RM)</td>
+    <td>:</td>
+    <td><input class="number" type="text" id="amaun" name="amaun" value="$amaun" readonly="true"></td>
+  </tr>
+#else
+
+<tr>
+    <td class="label">No. Pengenalan</td>
+    <td>:</td>
+    <td><input class="texts" type="text" id="idPemohon" name="idPemohon" value="$!r.permohonan.pemohon.id" readonly="true" onBlur="this.value=this.value.toUpperCase();"></td>
+  </tr>
+<tr>
+    <td class="label">Nama Pemohon</td>
+    <td>:</td>
+    <td><input class="texts" type="text" id="namaPemohon" name="namaPemohon" value="$!r.permohonan.pemohon.userName" readonly="true" onBlur="this.value=this.value.toUpperCase();"></td>
+  </tr>
+<tr>
+    <td class="label">Amaun (RM)</td>
+    <td>:</td>
+    <td><input class="number" type="text" id="amaun" name="amaun" value="$!r.permohonan.jumlahAmaun" readonly="true"></td>
+  </tr>
+#end

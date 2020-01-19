@@ -1,0 +1,37 @@
+function validate() {
+	var err_count = 0;
+
+	var idKodBil = $('idKodBil').value;
+	if ( idKodBil == "" ) {$('err_idKodBil').innerHTML = "Jenis Bil adalah mandatori!"; err_count++;  }
+	
+	var penerimaBayaran = $('penerimaBayaran').value;
+	if ( penerimaBayaran == "" ) {$('err_penerimaBayaran').innerHTML = "Penerima Bayaran adalah mandatori!"; err_count++;  }
+	
+	var noAkaun = $('noAkaun').value;
+	if ( noAkaun == "" ) {$('err_noAkaun').innerHTML = "No Akaun adalah mandatori!"; err_count++;  }
+	
+	var alamat1 = $('alamat1').value;
+	if ( alamat1 == "" ) {$('err_alamat1').innerHTML = "Alamat adalah mandatori!"; err_count++;  }
+	
+	var poskod = $('poskod').value;
+	if ( poskod == "" ) {$('err_poskod').innerHTML = "Poskod adalah mandatori!"; err_count++;  }
+	
+##	var idNegeri = $('idNegeri').value;
+##	if ( idNegeri == "" ) {$('err_negeri').innerHTML = "Negeri adalah mandatori!"; err_count++;  }
+	
+	var idBandar = $('idBandar').value;
+	if ( idBandar == "" ) {$('err_bandar').innerHTML = "Bandar adalah mandatori!"; err_count++;  }
+
+	var idSeksyen = $('idSeksyen').value;
+	if ( idSeksyen == "" ) {$('err_idSeksyen').innerHTML = "Seksyen adalah mandatori!"; err_count++;  }
+
+	var idStatus = $('idStatus').value;
+	if ( idStatus == "" ) {$('err_idStatus').innerHTML = "Status adalah mandatori!"; err_count++;  }
+
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}

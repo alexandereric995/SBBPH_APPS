@@ -1,0 +1,62 @@
+function paparLaporan(idLaporan) {
+	
+	var div1 = document.getElementById('senaraiLaporan');
+	div1.style.display = 'none';
+	
+	var div2 = document.getElementById('paparLaporan');
+	div2.style.display = 'block';
+	
+	doDivAjaxCall3$formname('paparLaporan','paparLaporan','idLaporan='+ idLaporan); 
+}      
+
+function doCetakLaporanPelanjutanPenyewaan() {
+
+	var err_count = 0;
+	var strTarikhMula = $('dateStart').value;
+	var strTarikhAkhir = $('dateEnd').value;
+##	var strNoRujukan = $('noRujukan').value
+	var strIdLokasi = $('idLokasi').value
+	var strIdKegunaanRuang = $('idKegunaanRuang').value
+	var strTempohPerjanjian = $('TempohPerjanjian').value
+	var strIdStatus = $('idStatus').value	
+	
+	if (err_count == 0){
+        var url = "../servlet/bph.laporan.eis.rk.JRK_SenaraiPelanjutanPenyewaan?TarikhMula="+strTarikhMula+"&TarikhAkhir="+strTarikhAkhir+"&idLokasi="+strIdLokasi+"&idKegunaanRuang="+strIdKegunaanRuang+"&TempohPerjanjian="+strTempohPerjanjian+"&idStatus="+strIdStatus;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+		hWnd.opener = document.window;
+		if (hWnd.focus != null) hWnd.focus();			
+	}
+	return err_count == 0;	
+}
+
+function doCetakLaporanRuangKomersil() {
+
+	var err_count = 0;
+	var strDateStart = $('dateStart').value;
+	var strDateEnd = $('dateEnd').value;
+	var strIdLokasi = $('idLokasi').value;
+	var strIdJenisPerkhidmatan = $('idKegunaanRuang').value; ##param jasper = idJenisPerkhidmatan
+	var strIdJenisSewa = $('findJenisSewaan').value; 	##param jasper = idJenisSewa
+	var stridNegeri = $('findNegeri').value; 			##param jasper = idNegeri 
+	var strIdSeksyen =  $('findSeksyen').value;			##param jasper = idSeksyen 
+	var strIdStatus = $('idStatus').value;				##param jasper = idStatus
+	
+##	alert("strDateStart ==== " + strDateStart + " " + "strDateEnd ==== " + strDateEnd);
+
+	if (err_count == 0){
+        var url = "../servlet/bph.laporan.eis.rk.JRK_SenaraiRuangKomersil?TarikhMula="+strDateStart+"&TarikhAkhir="+strDateEnd+"&idLokasi="+strIdLokasi+"&idJenisPerkhidmatan="+strIdJenisPerkhidmatan+"&idJenisSewa="+strIdJenisSewa+"&idNegeri="+stridNegeri+"&idSeksyen="+strIdSeksyen+"&idStatus="+strIdStatus;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+		hWnd.opener = document.window;
+		if (hWnd.focus != null) hWnd.focus();			
+	}
+	return err_count == 0;	
+}
+
+function doKembali(){    
+	location.reload();
+}
+
+    
+    

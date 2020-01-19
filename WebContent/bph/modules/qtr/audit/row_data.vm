@@ -1,0 +1,15 @@
+
+<td>$!r.userLogin</td>
+<td>$!r.userName</td>
+<td>$!r.reason</td>
+<td>$!r.message</td>
+
+#if ($r.tarikhKemaskini)
+    #set($tarikhKemaskini = $util.getDateTime($r.tarikhKemaskini, "dd-MM-yyyy"))
+	#set($masaKemaskini = $util.getDateTime($r.tarikhKemaskini, "hh:mm:ss a"))
+	<td>$tarikhKemaskini<br />( $masaKemaskini )</td>
+#else
+	<td>-</td>
+#end
+
+	

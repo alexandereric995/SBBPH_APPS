@@ -1,0 +1,80 @@
+<script>
+	_jq('#btnAddUnit').on('click', function(){
+		doDivAjaxCall3$formname('popupUnit','openPopupUnit','idJenisUnit='+$!ju.id);
+        jQuery('#popupUnit').fadeIn();
+   	});
+</script>
+
+<br/>
+<br/>
+<fieldset>
+<legend class="legend">SENARAI UNIT BAGI $!ju.keterangan.toUpperCase()</legend>
+    
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+            <td colspan="9">
+				#if( !$userRole.equalsIgnoreCase("(RPP) Penyelia") )
+				<br/>
+				<input type="button" id="btnAddUnit" name="btnAddUnit" value="Tambah Unit">
+				#end	
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="20%">No & Nama Unit</td>
+			<td class="row_header" width="40%">Catatan</td>
+			<td class="row_header" width="10%">Rizab ?</td>
+			<td class="row_header" width="10%">Papar</td>
+			#if( !$userRole.equalsIgnoreCase("(RPP) Penyelia") )
+			<td class="row_header" width="10%">Hapus</td>
+			#end
+		</tr>
+		
+		#if ( $listUnit.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listUnit )
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+					<td align="left"><a href="javascript:void()" id="link$d.id" style="color:blue">$!d.noUnit $!d.namaUnit.toUpperCase()</a></td>
+            		<td align="center">$!d.catatan</td>
+            		<td align="center"><input type="checkbox" name="status" id="status" disabled value="RESERVED" #if($!d.status=="RESERVED") checked #end /></td>
+					<td align="center"><a href="javascript:void()" id="xlink$d.id"><img alt="edit" src="../img/edit_bak.gif" border="0"></a></td>
+					#if( !$userRole.equalsIgnoreCase("(RPP) Penyelia") )
+					<td align="center"><a href="javascript:void()" onClick="deleteUnit('$d.id','$ju.id')"><img alt="hapus" src="../img/delete.gif" border="0"></a></td>
+					#end
+				</tr>
+				
+				<script>
+					_jq('#link$d.id').on('click', function(){
+						doDivAjaxCall3$formname('popupUnit','openPopupUnit','idUnit=$d.id');
+                        jQuery('#popupUnit').fadeIn();
+                    });
+					_jq('#xlink$d.id').on('click', function(){
+						doDivAjaxCall3$formname('popupUnit','openPopupUnit','idUnit=$d.id');
+                        jQuery('#popupUnit').fadeIn();
+                    });
+                </script>
+				
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="5">Tiada Rekod</td>
+			</tr>
+		#end
+			
+	</table>
+
+</fieldset>
+<br/>	
+
+<div id="popupUnit" class="popup"></div>
+	

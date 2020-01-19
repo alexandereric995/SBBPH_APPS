@@ -1,0 +1,74 @@
+<div id="divMaklumatTemujanji">
+<fieldset>
+<legend class="legend">MAKLUMAT E-TEMUJANJI</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #if ($!r.tarikhMohonTemujanji) #set ($dateMohonTemujanji = "$!util.getDateTime($!r.tarikhMohonTemujanji,'dd-MM-yyyy')")
+        #else #set ($dateMohonTemujanji = "") #end
+        #input_normal("tarikhMohonTemujanji" "Tarikh Mohon" "<b>$dateMohonTemujanji</b>")
+        
+        #if ($!r.tarikhTemujanji) #set ($dateTemujanji = "$!util.getDateTime($!r.tarikhTemujanji,'dd-MM-yyyy')")
+        #else #set ($dateTemujanji = "") #end
+        #input_normal("tarikhTemujanji" "Tarikh Temujanji" "<b>$dateTemujanji</b>")
+        
+        #if ($!r.tarikhMulaTemujanji) #set ($dateMulaTemujanji = "$!util.getDateTime($!r.tarikhMulaTemujanji,'hh:mm a')")
+        #else #set ($dateMulaTemujanji = "") #end
+        #input_normal("tarikhMulaTemujanji" "Masa Temujanji" "<b>$dateMulaTemujanji</b>")           
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("sebabBertukar" "Sebab Bertukar" "<b>$!r.sebabBertukar.keterangan</b>")
+        #input_normal("keterangan" "Keterangan" "<b>$!r.keterangan</b>")
+        #if ($!r.getFlagTemujanjiTamat() == 'Y')
+        	#input_normal("statusTemujanji" "Status" "<b><span style='color: #FF0000'>TEMUJANJI TELAH LEPAS</span></b>")
+		#else
+			#input_normal("statusTemujanji" "Status" "<b><span style='color: #228B22'>$!r.getKeteranganStatusTemujanji()</span></b>")
+		#end        
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+#parse("$path/maklumatPenghuni/paparMaklumatPenghuni.vm")
+
+#parse("$path/maklumatSelepasKeluarKuarters/paparMaklumatSelepasKeluarKuarters.vm")
+
+#if ($!r.sebabBertukar.id == '01')
+	#parse("$path/maklumatPertukaranJabatan/paparMaklumatPertukaranJabatan.vm")
+#end
+
+#parse("$path/maklumatTemujanji/maklumatDaftarRekod.vm")
+
+#if ($!flagSejarahTemujanji == 'Y')
+	#parse("$path/kegunaanPejabat/paparKegunaanPejabat.vm")
+#else
+	#parse("$path/kegunaanPejabat/start.vm")
+#end
+
+<table width="100%">
+  <tr>
+    <td align="right">
+    	#if ($!r.statusTemujanji == '1' || $!r.statusTemujanji == '2')
+	      <input id="btnSimpan" type="button" value="Simpan" onClick="javascript:doSimpanMaklumatTemujanjiPengurusan();">
+	      <input id="btnTidakHadir" type="button" value="Tidak Hadir" onClick="javascript:doTidakHadirTemujanji();">
+	      <input id="btnBatal" type="button" value="Batal" onClick="javascript:doBatalMaklumatTemujanjiPengurusan();">      
+	      <input id="btnHantar" type="button" value="Selesai dan Hantar ke Unit Senggara" onClick="javascript:doSelesaiMaklumatTemujanjiPengurusan();">
+	    #end
+      <input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+
+</div>
+
+

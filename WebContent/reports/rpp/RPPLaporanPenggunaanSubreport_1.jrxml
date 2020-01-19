@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="RPPLaporanPenggunaanSubreport_1"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="600"
+		 pageHeight="842"
+		 columnWidth="540"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoDataSection"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="tarikh" isForPrompting="true" class="java.util.Date"/>
+	<queryString><![CDATA[SELECT COUNT(rpp_permohonan.id), rpp_permohonan.tarikh_masuk_rpp, rpp_permohonan.flag_waktu_puncak, rpp_peranginan.nama_peranginan,
+rpp_peranginan.id id_rpp_peranginan, ruj_jenis_unit_rpp.keterangan jenis_unit, ruj_jenis_unit_rpp.id id_jenis_unit
+FROM (ruj_jenis_unit_rpp
+LEFT JOIN rpp_peranginan ON (ruj_jenis_unit_rpp.id_peranginan = rpp_peranginan.id))
+LEFT JOIN rpp_permohonan ON (rpp_permohonan.id_jenis_unit_rpp = ruj_jenis_unit_rpp.id)
+WHERE date_format(rpp_permohonan.tarikh_masuk_rpp,'%Y-%m-%d') = '$P!{tarikh}'
+AND MONTH(rpp_permohonan.tarikh_masuk_rpp) =  '11'
+AND YEAR(rpp_permohonan.tarikh_masuk_rpp) = '2015'
+AND rpp_peranginan.id = '16'
+AND ruj_jenis_unit_rpp.id = '28'
+GROUP BY rpp_permohonan.tarikh_masuk_rpp, rpp_permohonan.flag_waktu_puncak, rpp_peranginan.nama_peranginan,
+rpp_peranginan.id, ruj_jenis_unit_rpp.keterangan, ruj_jenis_unit_rpp.id
+ORDER BY rpp_permohonan.tarikh_masuk_rpp]]></queryString>
+
+	<field name="COUNT(rpp_permohonan.id)" class="java.lang.Long"/>
+	<field name="tarikh_masuk_rpp" class="java.sql.Date"/>
+	<field name="flag_waktu_puncak" class="java.lang.String"/>
+	<field name="nama_peranginan" class="java.lang.String"/>
+	<field name="id_rpp_peranginan" class="java.lang.String"/>
+	<field name="jenis_unit" class="java.lang.String"/>
+	<field name="id_jenis_unit" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="20"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="100"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{COUNT(rpp_permohonan.id)}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+		<noData>
+			<band height="21"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="100"
+						height="20"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+				</textField>
+			</band>
+		</noData>
+</jasperReport>

@@ -1,0 +1,58 @@
+
+	<input type="hidden" id="hdjenisUnitId" name="hdjenisUnitId" value="$!jenisUnit.id" />
+	
+	<br/>
+	
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+			<td colspan="5">
+				<span style="font-size:12px;font-weight:bold;text-decoration: underline;">PILIHAN BILIK BAGI $!jenisUnit.keterangan.toUpperCase()</span>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" width="5%">BIL.</td>
+			<td class="row_header" style="text-align:left" width="50%">NO. UNIT & NAMA UNIT</td>
+			<td class="row_header" width="15%">CATATAN</td>
+			<td class="row_header" width="15%">STATUS</td>
+			<td class="row_header" width="15%">PILIH</td>
+		</tr>
+		
+		#set ( $count = 0 )
+		#if($listUnit.size() > 0)
+    		#foreach($u in $listUnit)
+    		#set ( $count = $count + 1)
+    		<tr>
+    			<td align="center">$count</td>
+    			<td align="left">$!u.noUnit - $!u.namaUnit</td>
+				<td align="center">$!util.replaceIfNull($!u.catatan.toUpperCase(),'-')</td>
+				<td align="center">
+					$!util.replaceIfNull($!u.status,'-') 
+					#if($!u.getCheckedSelenggara($!strTarikhMasuk,$!strTarikhKeluar)=="Y")
+						(SELENGGARA)
+					#end	
+				</td>
+    			<td align="center">
+					<input type="checkbox" id="cbUnit$u.id" name="cbUnit" value="$u.id" onclick="$('err_cbUnit').innerHTML=''" />
+    			</td>
+    		</tr>
+    		#end
+		#else
+			<tr><td colspan="5">TIADA KEKOSONGAN</td></tr>
+		#end
+		
+		<tr><td colspan="5"><br/><div id="err_radUnit" style="color:#CC0000;font-weight:bold;font-size:12px;border:2px #000"></div></td></tr>
+	</table>	
+	
+	<br/><br/>
+	
+	<table width="100%">
+    	<tr>
+    		<td align="center">
+    			<input type="button" style="font-weight:bold;height:30px;width:30%" id="btnSimpanRekod" value="SIMPAN MAKLUMAT TEMPAHAN" onclick="doSimpanRekod($listUnit.size())">
+    		</td>
+    	</tr>
+    </table>
+	
+	

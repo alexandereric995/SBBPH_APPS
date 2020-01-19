@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="QTRRingkasanPermohonan_Subreport_3"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="idPermohonan" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT kua_kuarters.no_unit, kua_kuarters.blok, kua_kuarters.alamat_1, kua_kuarters.alamat_2, kua_kuarters.alamat_3,
+kua_kuarters.kawasan, kua_kuarters.poskod, ruj_bandar.keterangan bandar, ruj_negeri.keterangan negeri, kua_kuarters.lot_no, kua_penghuni.tarikh_masuk_kuarters, kua_penghuni.tarikh_keluar_kuarters
+FROM ( ( ( kua_kuarters
+JOIN ruj_bandar  ON (kua_kuarters.id_bandar = ruj_bandar.id))
+LEFT OUTER JOIN kua_penghuni ON (kua_penghuni.id_kuarters = kua_kuarters.id))
+JOIN users ON (kua_penghuni.id_pemohon = users.user_login))
+JOIN ruj_negeri ON (ruj_bandar.id_negeri = ruj_negeri.id)
+LEFT OUTER JOIN kua_permohonan on (kua_permohonan.id_pemohon = users.user_login)
+WHERE kua_permohonan.id = $P{idPermohonan}
+AND kua_permohonan.status = '1423101446117']]></queryString>
+
+	<field name="no_unit" class="java.lang.String"/>
+	<field name="blok" class="java.lang.String"/>
+	<field name="alamat_1" class="java.lang.String"/>
+	<field name="alamat_2" class="java.lang.String"/>
+	<field name="alamat_3" class="java.lang.String"/>
+	<field name="kawasan" class="java.lang.String"/>
+	<field name="poskod" class="java.lang.String"/>
+	<field name="bandar" class="java.lang.String"/>
+	<field name="negeri" class="java.lang.String"/>
+	<field name="lot_no" class="java.lang.String"/>
+	<field name="tarikh_masuk_kuarters" class="java.sql.Timestamp"/>
+	<field name="tarikh_keluar_kuarters" class="java.sql.Timestamp"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="49"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="200"
+						height="20"
+						key="textField-1"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true" isUnderline="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["MAKLUMAT KUATERS"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="20"
+						width="100"
+						height="10"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["ALAMAT"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="299"
+						y="20"
+						width="90"
+						height="10"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["STATUS"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="100"
+						y="20"
+						width="10"
+						height="10"
+						key="textField-4"/>
+					<box></box>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="390"
+						y="20"
+						width="10"
+						height="10"
+						key="textField-5"/>
+					<box></box>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="110"
+						y="20"
+						width="170"
+						height="20"
+						key="textField-8"/>
+					<box></box>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{no_unit} != null ? $F{no_unit}.trim(): "")  + 
+($F{blok} != null ? ", " + $F{blok}.trim(): "") +
+($F{alamat_1} != null ? " " + $F{alamat_1}.toUpperCase(): "") +
+($F{alamat_2} != null ? " " + $F{alamat_2}.trim(): "") +
+($F{alamat_3} != null ? " " + $F{alamat_3}.trim(): "") +
+($F{poskod} != null ? " " + $F{poskod}.trim(): "") +
+($F{bandar} != null ? " " + $F{bandar}.trim(): "") +
+($F{negeri} != null ? " " + $F{negeri}.trim(): "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="400"
+						y="20"
+						width="180"
+						height="19"
+						key="textField-9"/>
+					<box></box>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[(!$F{tarikh_masuk_kuarters}.equals(null) && $F{tarikh_keluar_kuarters}.equals(null) ? "PENGHUNI" : "") +
+($F{tarikh_masuk_kuarters}.equals(null) && !$F{tarikh_keluar_kuarters}.equals(null) ? "KELUAR" : "")+
+(!$F{tarikh_masuk_kuarters}.equals(null) && !$F{tarikh_keluar_kuarters}.equals(null) ? "KELUAR" : "")]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

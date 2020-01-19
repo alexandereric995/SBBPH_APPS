@@ -1,0 +1,35 @@
+<input type="hidden" id="idKesalahan" name="idKesalahan" value="$!rekod.id"/>
+<input type="hidden" id="idKebersihan" name="idKebersihan" value="$!rekod.id"/>
+<fieldset>
+<legend class="legend">MAKLUMAT KONTRAKTOR</legend>
+<table width="100%" cellpadding="1" cellspacing="2" align="center">
+  <tr>
+    <td class="label" style="width:25%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:64%">&nbsp;</td>
+  </tr>
+  	#input_readonly_all_label("noPendaftaran" "No Pendaftaran" "$!rekod.kontraktor.id")
+  	#input_readonly_all_label("namaKontraktor" "Nama Kontraktor" "$!rekod.kontraktor.namaKontraktor")
+  	#date_input("tarikhMula" "Tarikh Mula" "$util.getDateTime($!rekod.tarikhMula,'dd-MM-yyyy')")
+  	#date_input("tarikhTamat" "Tarikh Tamat" "$util.getDateTime($!rekod.tarikhTamat,'dd-MM-yyyy')")
+	#textarea("catatan" "Catatan" "$!rekod.catatan")
+</table>
+<br/>
+<table width="40%" cellpadding="1" cellspacing="2" align="center">
+  <tr>
+    <td>
+      <input type="button" id="saveKebersihan" name="saveKebersihan" value="Simpan">
+      <input type="button" id="batalKebersihan" name="batalKebersihan" value="Keluar">
+      </td>
+  </tr>
+</table>
+</fieldset>
+<script>
+_jq('#batalKebersihan').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getMaklumatKontraktor','');
+    jQuery('#editMaklumatKontraktor').fadeOut();
+});
+_jq('#saveKebersihan').on('click', function(){
+	saveKebersihan();
+});
+</script>

@@ -1,0 +1,39 @@
+<fieldset>
+<legend class="legend">Maklumat Selepas Keluar Kuarters</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_required("alamat1" "Alamat" "$!temujanji.alamat1")
+        #input("alamat2" "" "$!temujanji.alamat2")
+        #input("alamat3" "" "$!temujanji.alamat3")
+        #postcode_required("poskod" "Poskod" "$!temujanji.poskod")   
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatSelepasKeluarKuarters/selectNegeri.vm")
+            <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandar"> #parse("$path/maklumatSelepasKeluarKuarters/selectBandar.vm") </div>
+            <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr> 
+        #phone_number_required("noTelefonBimbit" "No. Telefon Bimbit" "$!temujanji.noTelefonBimbit")
+	    #input_email("emel" "E-mel (1 alamat emel sahaja)" "$!temujanji.emel")
+      </table></td>
+  </tr>
+</table>
+</fieldset>

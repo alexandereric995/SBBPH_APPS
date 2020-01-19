@@ -1,0 +1,52 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!r.kontraktor.tarikhMulaSPKK) 
+        #set ($dateMulaSPKK = "$!util.getDateTime($!r.kontraktor.tarikhMulaSPKK,'dd-MM-yyyy')")
+        #else #set ($dateMulaSPKK = "") #end
+        #date_input_required("tarikhMulaSPKK" "Tarikh Mula" "$dateMulaSPKK")
+        
+        #if ($!r.kontraktor.tarikhTamatSPKK) 
+        #set ($dateTamatSPKK = "$!util.getDateTime($!r.kontraktor.tarikhTamatSPKK,'dd-MM-yyyy')")
+        #else #set ($dateTamatSPKK = "") #end
+        #date_input_required("tarikhTamatSPKK" "Tarikh Tamat" "$dateTamatSPKK")
+        #if ($!r.kontraktor.getStatusSPKK() == 'T') 
+        <tr>
+          <td style="width:150px">&nbsp;</td>
+          <td style="width:10px">&nbsp;</td>
+          <td><font class="blink" color="red"><b>( SIJIL TAMAT TEMPOH ) </b></font><br/></td>
+        </tr>
+        #end
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px">
+          	<input class="texts" type="file" id="dokumenSPKK" name="dokumenSPKK" style="width:500px" onFocus="$('err_dokumenSPKK').innerHTML = '';" onChange="uploadSPKK()">
+            <div id="muatNaikSijilSPKK" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+            <div id="err_dokumenSPKK" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #if ($!r.kontraktor.filenameSPKK) 
+	        #if ($!r.kontraktor.filenameSPKK  != "") 
+	        <tr>
+	          <td style="width:150px"> <a href="../download?file=$!uploadDir$!r.kontraktor.filenameSPKK" > <span class="print">SIJIL PEROLEHAN KERJA KERAJAAN<span> </a> &nbsp;&nbsp;<input id="hapusSPKK" name="hapusSPKK" type="button" value="Hapus" onclick="javascript:doHapusSPKK();"/> </td>
+	          <td style="width:10px"></td>
+	          <td></td>
+	        </tr>
+	        #end
+        #end
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<iframe id="upload_SPKK" name="upload_SPKK" width="0px" height="0px" style="visibility:hidden"></iframe>

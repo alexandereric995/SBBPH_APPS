@@ -1,0 +1,70 @@
+
+				
+#parse("$path/form/tab.vm")
+
+
+<fieldset>
+
+	 <table width="100%">
+    	<tr>
+    		<td style="width:190px"></td>
+    		<td style="width:10px"></td>
+    		<td></td>
+    	</tr>
+		
+		<tr>
+    		<td valign="top">KAEDAH BAYARAN &nbsp;<span style='color:#FF2A00'>*</span></td>
+    		<td valign="top">:</td>
+    		<td valign="top"><select class="texts" name="kaedahBayaran" id="kaedahBayaran" style="width:200px" onChange="doChangeField();$('err_kaedahBayaran').innerHTML='';$('err_noLoTempahan').innerHTML=''">
+		    		<option value="">SILA PILIH</option>
+					<option value="LO" #if ( $r.kaedahBayaran.id == "LO" ) selected #end>NO.LO TEMPAHAN</option>
+		    		<option value="T" #if ( $r.kaedahBayaran.id == "T" ) selected #end>TUNAI</option>
+	    		</select>
+				<div id="err_kaedahBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    		</td>
+    	</tr>
+		
+		<tr>
+			<td valign="top">NO. LO TEMPAHAN</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				#set($valLo = $r.kaedahBayaran.id)
+				<div id="divFieldNoLo">
+					#parse("$path/form/maklumatLO/fieldLO.vm")
+				</div>
+			</td>
+		</tr>
+		
+		##input_required("noLoTempahan" "No. LO Tempahan" "$!r.noLoTempahan")
+		
+		#textarea("catatanLo" "CATATAN" "$!r.catatanLo")
+		
+	 </table>
+
+</fieldset>
+
+
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="right">##Fatin 13/06/2015
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+				
+			#if( $userRole.equalsIgnoreCase("(RPP) Penyemak") || $userRole.equalsIgnoreCase("(RPP) Pelulus") || $userRole.equalsIgnoreCase("(RPP) Penyelia"))	
+    			##if( $r.noLoTempahan  && $r.status.id !="1425259713415" )
+				##LULUS DI KEWANGAN
+    			##<input type="button" value="Permohonan Lulus" onClick="javascript:doSavePermohonanLulus('$!r.id')">
+    			##end	
+    			#if( $r.status.id=="1433097397170" )
+    			<input type="button" value="Simpan" onClick="javascript:doSaveLOTempahan()">
+    			#end	
+			#end
+			
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+
+
+
+

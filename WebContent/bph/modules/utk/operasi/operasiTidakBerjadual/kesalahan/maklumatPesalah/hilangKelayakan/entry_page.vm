@@ -1,0 +1,39 @@
+<fieldset>
+	<legend class="legend">Maklumat Hilang Kelayakan</legend>
+	<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+		<tr>
+	        <td style="width:160px"></td>
+	        <td style="width:10px"></td>
+	        <td></td>
+	    </tr>
+		<tr>
+			<td class="label">Sebab Hilang Kelayakan&nbsp;<span style="color:#FF2A00">*</span></td>
+			<td>:</td>
+			<td><div id="selectSebabHk">#parse("$path/kesalahan/formMaklumatKesalahan/hilangKelayakan/selectSebabHilangKelayakan.vm")</div>
+			<div id="err_idSebabHk" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td></td>
+	  	</tr>
+		#date_input_required("tarikh" "Tarikh Hilang Kelayakan" "$!util.getDateTime($rekod.tarikh,'dd-MM-yyyy')")
+	 	<tr>
+			<td>Status Tindakan</td>
+			<td>:</td>
+			<td>#parse("$path/kesalahan/formMaklumatKesalahan/pelanggaranSyarat/selectStatusTindakan.vm")</td>
+		</tr>
+	 	#textarea("catatan" "Catatan" "$!rekod.catatan")
+	</table>
+	<p align="center">
+		<input type="button" value="Simpan" align='left' id="cmdSimpanHilang">
+		<input type="button" value="Kembali" align='left' id="cmdKembali">
+	</p>
+</fieldset>
+<div id="simpanHilang"></div> 
+<input type= "hidden" id = "idHK" name = "idHK" value = "$!rekod.id">
+
+<script>
+_jq('#cmdKembali').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getHilangKelayakan','');
+    jQuery('#cmdKembali').fadeOut();
+});
+_jq('#cmdSimpanHilang').on('click', function(){
+	saveHilangKelayakan();
+});
+</script>

@@ -1,0 +1,73 @@
+<input type="hidden" id="idJKH" name="idJKH" value="$!jkh.id">
+<input type="hidden" id="flagPaparMaklumatJadualKadarHarga" name="flagPaparMaklumatJadualKadarHarga" value="$!flagPaparMaklumatJadualKadarHarga">
+
+<fieldset>
+<legend class="legend">MAKLUMAT JKH</legend>
+	<table width="100%" cellpadding="1" cellspacing="2">
+	  <tr>
+	    <td class="label" style="width:15%"></td>
+	    <td style="width:1%"></td>
+	    <td style="width:84%"></td>
+	  </tr>
+      #input_readonly_all_label("noJKH" "No. JKH" "$!jkh.noJKH")	
+      #if ($!jkh.tarikhJKH) 
+      	#set ($dateJKH = "$!util.getDateTime($!jkh.tarikhJKH,'dd-MM-yyyy')")
+      #else #set ($dateJKH = "-") #end
+      #input_readonly_all_label("tarikhJKH" "Tarikh JKH" "$dateJKH") 	
+      #input_readonly_all_label("jumlah" "Jumlah (RM)" "$!util.formatDecimal($!jkh.jumlah)")
+      #input_readonly_all_label("gst" "GST (%)" "$!util.formatDecimal($!jkh.gst)")
+      #input_readonly_all_label("jumlahKeseluruhan" "Jumlah Keseluruhan (RM)" "$!util.formatDecimal($!jkh.jumlahKeseluruhan)")
+	  <tr>
+	    <td valign="top">Jadual Kadar Harga</td>
+	    <td valign="top">:</td>
+	    <td valign="top"><input type=hidden name="dokumenJKH" id="dokumenJKH" value="$!jkh.fileJKH"> 
+	    	#if ( $!jkh.fileJKH ) 
+		    	#if ($!jkh.fileJKH != "") 
+		    		<a href="../download?file=$!uploadDir$!jkh.fileJKH" > 
+		    			<font color="#0000FF"><strong>JADUAL KADAR HARGA</strong></font> </a> &nbsp;&nbsp;
+		    	#end
+		    #end	
+	    </td>
+	  </tr>
+	  #if ($!jkh.statusPembaikan == 'Y')
+		#set ($status = "SELESAI PEMBAIKAN")
+	  #elseif ($!jkh.statusPembaikan == 'Y')
+	  	#set ($status = "TERBENGKALAI")
+	  #else
+		#set ($status = "DALAM PEMBAIKAN")
+	  #end
+	  #input_readonly_all_label("status" "Status" "<b>$status</b>") 	
+	</table>
+</fieldset>
+
+#if ($!jkh.statusPembaikan == 'Y' || $!jkh.statusPembaikan == 'B')
+	#parse("$path/pemantauanKerja/maklumatJadualKadarHarga/paparSelesaiPembaikan.vm")
+#end
+
+#if ($!command == 'daftarSelesaiPembaikan')
+	#parse("$path/pemantauanKerja/maklumatJadualKadarHarga/daftarSelesaiPembaikan.vm")
+#end
+
+#if ($!command == 'daftarTamatPembaikan')
+	#parse("$path/pemantauanKerja/maklumatJadualKadarHarga/daftarTamatPembaikan.vm")
+#end
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if ($!command == 'daftarSelesaiPembaikan')
+				<input type="button" value="Simpan" onclick="javascript:simpanSelesaiPembaikan();">
+				<input id="button" type="button" value="Batal" onclick="doDivAjaxCall3$formname('divPemantauanKerjaRecordModule','paparMaklumatJadualKadarHarga','');">
+			#elseif ($!command == 'daftarTamatPembaikan')
+				<input type="button" value="Simpan" onclick="javascript:simpanTamatPembaikan();">
+				<input id="button" type="button" value="Batal" onclick="doDivAjaxCall3$formname('divPemantauanKerjaRecordModule','paparMaklumatJadualKadarHarga','');">
+			#else
+				 #if ($!jkh.statusPembaikan == 'T')
+					<input id="button" type="button" value="Selesai Pembaikan" onclick="doDivAjaxCall3$formname('divPemantauanKerjaRecordModule','daftarSelesaiPembaikan','');">
+					<input id="button" type="button" value="Tamat Pembaikan" onclick="doDivAjaxCall3$formname('divPemantauanKerjaRecordModule','daftarTamatPembaikan','');">
+				 #end
+				<input id="button" type="button" value="Kembali" onclick="doDivAjaxCall3$formname('divPemantauanKerjaRecordModule','getSenaraiJKH','idIndenKerja=$!jkh.indenKerja.id');">
+			#end
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,232 @@
+<form name="${formname}" method="post">
+
+#set ( $parent_id = "0" )
+#if ( $hasParent )
+	#set ( $parent_id = $forum_parent.id )
+#end
+
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+	<tr>
+		<td align="right">
+		#if ( $parent_id != "0" )
+		<input class="button" type="button" value="Up" onclick="openForum_${formname}('$forum_parent.id')">
+		#end
+		<input class="button" type="button" value="Back to topic list" onclick="goMain_${formname}()">
+		</td>
+	</tr>
+</table>
+
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+
+	<tr>
+		<td class="table_row" style="width:10px" valign="top">
+			#if ( $forum.avatar == "" )
+			<img src="../img/twoface.gif" border="0">
+			#else
+			<img src="../download?file=${photoDir}${forum.userId}/avatar${forum.avatar}" border="0">
+			#end
+		</td>	
+		
+		<td class="table_row" valign="top">
+			##$forum.title<br>
+			$forum.postedBy<br>
+			$forum.getDatePosted().display()<br>
+			$forum.displayMessage()
+		</td>
+	</tr>
+	
+	<tr>
+	<td style="width:10px" align="right"></td>
+	<td>
+		#if ( $forum.rate > 0 )
+	#foreach ( $star in [1..$forum.rate])													<img src="../img/star1.gif">	#end
+	#end
+	</td>
+	</tr>
+	</table>
+
+	
+	
+	<table>	
+	#if ( $allowAttachment )
+	<tr>
+		<td>
+		</td>
+		<td class="table_row" >
+			#if ($forum.hasAttachment())
+				<b>File(s):</b>&nbsp;
+				#foreach ( $file in $attachments )
+					<a href="javascript:download_${formname}('${files_dir}${file}')">
+					<u>$file</u>
+					&nbsp
+				#end
+			#end
+		</td>
+	</tr>	
+	#end
+	<tr>
+		<td>
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+	#if ( $userid == "anon" )
+	
+	#else	
+	<tr>
+		<td colspan="2" align="left">
+#if ( $moderator ) 
+<input type="button" value="Give Rate" onclick="goGiveRate_${formname}('$forum.id')">
+#end
+			#if ( $allowReply )
+				<input class="button" type="button" value="Reply to this topic" onclick="goReply_${formname}('$forum.id')">
+			#end
+			#if ( $allowUpdate )
+				<input class="button" type="button" value="Modify" onclick="goUpdate_${formname}()">
+			#end
+			#if ( $allowDelete )
+				<input class="button" type="button" value="Delete" onclick="goDelete_${formname}()">
+			#end
+		</td>
+	</tr>
+	<tr>
+		<td>
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>		
+	#end
+
+
+</table>
+
+
+<table width="100%">
+	<tr>
+		<td align="right">	
+		#if ( $pages > 0 )
+			Page $page_number of $pages&nbsp;
+		#end
+		#if ( !$bol )
+		<input class="button" type="button" value="&lt;" onclick="previous_${formname}()">
+		#end
+		#if ( !$eol )
+		<input class="button" type="button" value="&gt;" onclick="next_${formname}()">
+		#end
+		</td>
+	</tr>
+</table>
+
+#parse ( "vtl/forum/child_iterator.vm" )
+
+<table width="100%">
+	<tr>
+		<td align="center">
+			<hr>
+		</td>
+	</tr>
+	<tr>
+		<td align="center">	
+		#if ( $pages > 0 )
+			Page $page_number of $pages&nbsp;
+		#end
+		#if ( !$bol )
+		<input class="button" type="button" value="&lt;" onclick="previous_${formname}()">
+		#end
+		#if ( !$eol )
+		<input class="button" type="button" value="&gt;" onclick="next_${formname}()">
+		#end
+		</td>
+	</tr>
+	#if ( $pages > 1 )
+	
+	<tr>
+		<td align="center">
+			#foreach ($num in [ 1..$pages ])
+				[
+				#if ( $num == $page_number )
+					<b>$num</b>
+				#else
+					<a href="javascript:goPage_${formname}($num)">
+					<u>$num</u>
+					</a>
+				#end
+				]
+			#end
+		</td>
+	</tr>
+	#end	
+</table>
+
+<table>
+<tr>
+		<td align="left">
+		#if ( $userid != "anon" )
+		#if ( $allowReply )
+			<input class="button" type="button" value="Reply to this topic" onclick="goReply_${formname}('$forum.id')">
+		#end
+		#end
+		#if ( $parent_id != "0" )
+		<input class="button" type="button" value="Up" onclick="openForum_${formname}('$forum_parent.id')">
+		#end
+		<input class="button" type="button" value="Back to topic list" onclick="goMain_${formname}()">
+		</td>
+	</tr>
+	#if ( $userid == "anon" )
+	<tr>
+		<td>
+			&nbsp;<b>You can participate in this forum, if you are logged in.</b>
+		</td>
+	</tr>
+	#end
+	</table>
+
+<input type="hidden" name="$formname" value="$formname">
+</form>
+
+<script>
+
+function goReply_${formname}(forum_id) {
+	document.${formname}.action = "?command=Reply&subjectId=$!subjectId&forum_id=" + forum_id;
+	document.${formname}.submit();
+}
+function goGiveRate_${formname}(forum_id) {
+	document.${formname}.action = "?command=GiveRate&subjectId=$!subjectId&forum_id=" + forum_id;
+	document.${formname}.submit();
+}
+function goUpdate_${formname}() {
+	document.${formname}.action = "?command=Update&subjectId=$!subjectId&forum_id=$forum.id";
+	document.${formname}.submit();
+}
+function openForum_${formname}(id) {
+	document.${formname}.action = "?command=Open&subjectId=$!subjectId&category_id=$forum_category&forum_id=" + id + "&parent_id=$forum.id";
+	document.${formname}.submit();	
+}
+function goDelete_${formname}() {
+	if ( !window.confirm('Are you sure?') ) return;
+	document.${formname}.action = "?command=Delete&subjectId=$!subjectId&forum_id=$forum.id&parent_id=$parent_id";
+	document.${formname}.submit();
+}
+function next_${formname}() {
+	document.${formname}.action = "?command=Next&subjectId=$!subjectId&forum_id=$forum.id";	
+	document.${formname}.submit();
+}
+function previous_${formname}() {
+	document.${formname}.action = "?command=Previous&subjectId=$!subjectId&forum_id=$forum.id";	
+	document.${formname}.submit();
+}
+function goPage_${formname}(num) {
+	document.${formname}.action = "?command=GoPage&subjectId=$!subjectId&pagenum=" + num;	
+	document.${formname}.submit();
+}
+function goMain_${formname}() {
+	document.${formname}.action = "?&subjectId=$!subjectId";	
+	document.${formname}.submit();
+}
+function download_${formname}(filename) {
+	document.${formname}.action = "../download?file=" + filename;	
+	document.${formname}.submit();
+}
+</script>

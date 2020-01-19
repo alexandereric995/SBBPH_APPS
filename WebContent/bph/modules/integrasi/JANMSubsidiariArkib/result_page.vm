@@ -1,0 +1,67 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#tblRekod').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+
+<fieldset >
+<legend class="legend">SENARAI REKOD</legend>
+<div class="scrollitpopup">
+  <table id="tblRekod" class="display" width="100%" cellpadding="5" cellspacing="1">
+    <thead>
+      <tr>
+        <td bgcolor="#ABABAB" class="row_header" width="5%">Bil.</td>
+        <td bgcolor="#ABABAB" class="row_header" >AG Branch</td>
+        <td bgcolor="#ABABAB" class="row_header" >Department</td>
+        <td bgcolor="#ABABAB" class="row_header" >Date</td>        
+        <td bgcolor="#ABABAB" class="row_header" >IC</td>        
+        <td bgcolor="#ABABAB" class="row_header" >Account No.</td>
+        <td bgcolor="#ABABAB" class="row_header" >Personnel No.</td>        
+        <td bgcolor="#ABABAB" class="row_header" >Name</td>        
+        <td bgcolor="#ABABAB" class="row_header" >Deduction Code</td>
+        <td bgcolor="#ABABAB" class="row_header" >Deduction Amount (RM)</td>
+      </tr>
+    </thead>
+    <tbody>
+    
+    #set ( $count = 0 ) 
+    #set ( $totalDeduction = 0 ) 
+    #foreach( $c in $listRekod )
+    #set ( $count = $count + 1)
+    #set ( $totalDeduction = $totalDeduction + $c.deductionAmount)
+    
+    #if ( $count % 2 == 0 ) 
+    #set ( $rowcolor = "#D0CFCE" ) 
+    #else 
+    #set ( $rowcolor = "#F0F0F0" ) 
+    #end
+    <tr bgcolor="$rowcolor">
+      <td align="center">$count</td>
+      <td >$!c.janm.agBranch</td>
+      <td >$!c.department</td>
+      <td align="center">$!c.janm.date</td>
+      <td align="center">$!c.ic</td>
+      <td align="center">$!c.accountNo</td>
+      <td align="center">$!c.personnelNo</td>            
+      <td >$!c.name</td>
+      <td align="center">$!c.deductionCode</td>
+      <td align="right">$!util.formatDecimal($!c.deductionAmount)</td>      
+    </tr>
+    #end
+    </tbody>
+    <tr>
+      <td bgcolor="#ABABAB" colspan="9" align="right"><strong>JUMLAH (RM) : </strong></td>
+      <td bgcolor="#ABABAB" class="row_header" colspan="1" align="right"><strong>$!util.formatDecimal($totalDeduction)</strong></td>
+    </tr>
+    </tr>
+    
+  </table>
+</div>
+</fieldset>
+
+
+<div id="divResit"></div>

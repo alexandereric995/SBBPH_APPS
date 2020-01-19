@@ -1,0 +1,63 @@
+
+<fieldset>
+<legend class="legend">SEJARAH PENYEWAAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:84%">&nbsp;</td>
+  </tr>
+  <tr>
+    <table width="100%" cellpadding="5" cellspacing="1">
+      <tr>
+        <td class="row_header" width="5%" rowspan="2">Bil.</td>
+        <td class="row_header" width="25%" rowspan="2">No. Rujukan</td>
+        <td class="row_header" width="35%" rowspan="2">Nama Penyewa</td>
+        <td class="row_header" width="10%" rowspan="2">Tarikh Mula</td>
+        <td class="row_header" width="10%" rowspan="2">Tarikh Tamat</td>
+        <td class="row_header" width="15%" rowspan="2">Kadar Sewa (RM)</td>
+        #set ( $count = 0 )
+        #if ( $listPerjanjian.size() > 0) 
+        #foreach( $c in $listPerjanjian )
+        #set ( $count = $count + 1)
+        #if ( $count % 2 == 0 ) 
+        #set ( $rowcolor = "#D0CFCE" ) 
+        #else 
+        #set ( $rowcolor = "#F0F0F0" ) 
+        #end
+      <tr bgcolor="$rowcolor">
+      <tr>
+        <td align="center">$count</td>
+        <td align="center">$!c.noRujukan</td>
+        <td align="center">$!c.fail.pemohon.individu.nama</td>
+        #if ($!c.tarikhMula)
+        #set ($dateTarikhMula = "$!util.getDateTime($!c.tarikhMula,'dd-MM-yyyy')")
+        #else #set ($dateTarikhMula = "") #end
+        <td align="center">$!dateTarikhMula</td>
+        #if ($!c.tarikhTamat)
+        #set ($dateTarikhTamat = "$!util.getDateTime($!c.tarikhTamat,'dd-MM-yyyy')")
+        #else #set ($dateTarikhTamat = "") #end
+        <td align="center">$!dateTarikhTamat</td>
+        <td align="center">$util.formatDecimal($!c.kadarSewa)</td>
+      </tr>
+      #end
+      
+      #else
+      <tr bgcolor="$rowcolor">
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="5">Tiada Rekod</td>
+      </tr>
+      #end
+    </table>
+    </td>
+  </tr>
+</table>
+</fieldset>
+
+<table width="100%">
+  <tr>
+    <td align="right"><input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

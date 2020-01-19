@@ -1,0 +1,49 @@
+
+<fieldset>
+<legend class="legend">MAKLUMAT FPX</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_readonly_all_label("id" "FPX Transaction Id" "$!r.id")
+        #input_readonly_all_label("buyerBankBranch" "Buyer Bank Branch" "$!r.buyerBankBranch")
+        #input_readonly_all_label("buyerBankId" "Buyer Bank Id" "$!r.buyerBankId")
+        #input_readonly_all_label("buyerIban" "Buyer Iban" "$!r.buyerIban")
+        #input_readonly_all_label("buyerId" "Buyer Id" "$!r.buyerId")
+        #input_readonly_all_label("buyerName" "Buyer Name" "$!r.buyerName")
+        #input_readonly_all_label("creditAuthCode" "Credit Auth Code" "$!r.creditAuthCode - $!r.getKeteranganCreditAuthCode()")
+        #input_readonly_all_label("creditAuthNo" "Credit Auth No" "$!r.creditAuthNo")
+        #input_readonly_all_label("debitAuthCode" "Debit Auth Code" "$!r.debitAuthCode - $!r.getKeteranganDebitAuthCode()")
+        #input_readonly_all_label("debitAuthNo" "Debit Auth No" "$!r.debitAuthNo")
+        #input_readonly_all_label("fpxTxnTime" "Fpx Transaction Time" "$!r.fpxTxnTime")
+        #input_readonly_all_label("makerName" "Maker Name" "$!r.makerName")        
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_readonly_all_label("msgToken" "Msg Token" "$!r.msgToken")
+        #input_readonly_all_label("msgType" "Msg Type" "$!r.msgType")
+        #input_readonly_all_label("sellerExId" "Seller Ex Id" "$!r.sellerExId")
+        #input_readonly_all_label("sellerExOrderNo" "Seller Ex OrderNo" "$!r.sellerExOrderNo")
+        #input_readonly_all_label("sellerId" "Seller Id" "$!r.sellerId")
+        #input_readonly_all_label("sellerOrderNo" "Seller Order No" "$!r.sellerOrderNo")
+        #input_readonly_all_label("sellerTxnTime" "Seller Txn Time" "$!r.sellerTxnTime")
+        #input_readonly_all_label("txnAmount" "Transaction Amount" "$!r.txnAmount")
+        #input_readonly_all_label("txnCurrency" "Transaction Currency" "$!r.txnCurrency")
+        #input_readonly_all_label("flagModul" "Flag Modul" "$!r.flagModul")
+        #input_readonly_all_label("flagManagePayment" "Flag ManagePayment" "$!r.flagManagePayment")
+        #if ($!r.createdDate) 
+			#set ($createdDate = "$!util.getDateTime($!r.createdDate,'dd-MM-yyyy hh:mm:ss a')")
+		#else #set ($createdDate = "") #end	
+        #input_readonly_all_label("createdDate" "Created Date" "$createdDate")
+      </table></td>
+  </tr>
+</table>
+</fieldset>

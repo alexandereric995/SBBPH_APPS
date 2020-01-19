@@ -1,0 +1,88 @@
+##<table width="75%" cellpadding="5" cellspacing="0">
+<table width="100%">
+    <tr>
+        <td style="width:200px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+    <tr>
+    <td class="label">Tahun</td>
+    <td>:</td>
+    <td>
+    #set($list_tahun = ["2015", "2016", "2017"])
+	<select id="yearStart" name="yearStart" style="width:100%" onChange="doDivAjaxCall3$formname('divTab','janaLaporan','')">
+	<option value="" >SILA PILIH</option>
+	#foreach($s in $list_tahun)
+	<option value="$s">$s</option>
+	#end
+	</select>
+    	</td>
+  </tr>
+	<tr>
+        <td class="label">Bulan</td>
+        <td>:</td>
+        <td>
+            #parse("$path/findBulan.vm")
+        </td>
+    </tr>
+
+###if ($laporan == "jenis_kuarters")   
+##        <tr>
+##        <td class="label">Jenis Kuarters</td>
+##        <td>:</td>
+##        <td>
+##    		<select class="texts" id="idJenisKuarters" name="idJenisKuarters" style="width:100%">
+##        		<option value="0">-PILIH SEMUA-</option>
+##                #foreach( $n in $listJenisKuarters)
+##        			<option value="$n.getId()">$n.keterangan</option>
+##                #end
+##        	</select>
+##    	</td>
+##	</tr>
+###end
+##
+###if ($laporan == "jenis_operasi")
+##	<tr>
+##        <td class="label">Jenis Operasi</td>
+##        <td>:</td>
+##        <td>
+##    		<select class="texts" id="idJenisOperasi" name="idJenisOperasi" style="width:100%">
+##        		<option value="0">-PILIH SEMUA-</option>
+##                #foreach( $n in $jenisOperasi)
+##        			<option value="$n.getId()">$n.keterangan</option>
+##                #end
+##        	</select>
+##    	</td>
+##	</tr>
+###end
+##
+###if ($laporan == "ikut_kawasan")
+##	<tr>
+##        <td class="label">Kawasan</td>
+##        <td>:</td>
+##        <td>
+##    		<select class="texts" id="idKawasan" name="idKawasan" style="width:100%">
+##        		<option value="0">-PILIH SEMUA-</option>
+##                #foreach( $n in $kawasan)
+##        			<option value="$n.getId()">$n.keterangan</option>
+##                #end
+##        	</select>
+##    	</td>
+##	</tr>
+###end
+##
+###if ($laporan == "ikut_zon")
+##	<tr>
+##        <td class="label">Zon</td>
+##        <td>:</td>
+##        <td>
+##    		<select class="texts" id="idZon" name="idZon" style="width:100%">
+##        		<option value="0">-PILIH SEMUA-</option>
+##                #foreach( $n in $zon)
+##        			<option value="$n.getId()">$n.keterangan</option>
+##                #end
+##        	</select>
+##    	</td>
+##	</tr>
+###end
+</table>

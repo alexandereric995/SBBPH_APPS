@@ -1,0 +1,86 @@
+
+
+<style>
+.scrollitpopup {
+	height:300px; width: 100%; overflow: auto;
+}
+</style>
+
+
+<input type="hidden" id="mainId" name="mainId" value="$!r.id" />
+
+<fieldset style="width:60%">
+<legend class="legend">Senarai Penghuni Kuarters</legend>
+    
+	
+	<div class="scrollitpopup">
+	    <table width="100%">
+    		<tr>
+    			<td colspan="6">&nbsp;</td>
+    		</tr>
+		
+			<tr>
+    			<td class="row_header" width="1%">BIL</td>
+    			<td class="row_header" width="25%" style="text-align:left">NO. RUJUKAN</td>
+    			<td class="row_header" width="15%">NO. UNIT</td>
+    			<td class="row_header" width="34%" style="text-align:left">NAMA PENGHUNI</td>
+    			<td class="row_header" width="20%">KADAR SEWA<br/>BULANAN (RM)</td>
+				<td class="row_header" width="5%">&nbsp;</td>
+    		</tr>
+    		
+    		#if ( $listPenghuni.size() > 0 )
+        		#set ( $count = 0 )
+        		#foreach( $d in $listPenghuni )
+        			
+        			#set ( $count = $count + 1)
+                	#if ( $count % 2 == 0 ) 
+            			#set ( $rowcolor = "#D0CFCE" ) 
+            		#else 
+            			#set ( $rowcolor = "#F0F0F0" ) 
+    				#end
+    				
+				<tr bgcolor="$rowcolor">
+    				<td align="center">$count</td>
+        			<td align="left">&nbsp;$!d.kuarters.noRujukan.toUpperCase()</td>
+    				<td align="center">$!d.kuarters.noUnit.toUpperCase()</td>
+        			<td align="left">&nbsp;$!d.pemohon.userName.toUpperCase()</td>
+    				<td align="right">$!util.formatDecimal($!d.kuarters.sewa)</td>
+					<td align="center">
+						<input type="checkbox" name="cbPenghuni" id="cbPenghuni$!d.id" value="$!d.id" />
+					</td>
+        		</tr>
+    			
+    			#end
+        	#else
+        		<tr bgcolor="#F0F0F0">
+        			<td colspan="6">Tiada Rekod</td>
+        		</tr>
+        	#end
+      
+		</table>
+		
+	</div>
+	
+        <table width="100%">
+        	<tr>
+        		<td align="right">
+        			<input type="button" id="btnSavePilihan" value="Simpan" name="btnSavePilihan" >
+        			<input type="button" id="btnKeluar" name="btnKeluar" value="Keluar">
+        		</td>
+        	</tr>
+        </table>
+
+
+</fieldset>
+
+<script>
+  _jq('#btnKeluar').on('click', function(){
+    jQuery('#popupSenaraiPenghuni').fadeOut();
+  });
+  
+  _jq('#btnSavePilihan').on('click', function(){
+  	savePilihan();
+  });
+</script>
+
+

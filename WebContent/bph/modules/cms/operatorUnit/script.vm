@@ -1,0 +1,52 @@
+function validate() {
+	var err_count = 0;
+		
+	var unit = $('unit').value;
+	if ( unit == "" ) {$('err_unit').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var nama = $('nama').value;
+	if ( nama == "" ) {$('err_nama').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+##	diminta untuk disable mandatori pada 30-06-2016 Edit ByZul
+##	var noTelefon = $('noTelefon').value;
+##	if ( noTelefon == "" ) {$('err_noTelefon').innerHTML = "** adalah mandatori!"; err_count++;  }
+##	
+##	var emel = $('emel').value;
+##	if ( emel == "" ) {$('err_emel').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function kemaskiniMaklumat() {
+	var err_count = 0;
+		
+	var unit = $('unit').value;
+	if ( unit == "" ) {$('err_unit').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var nama = $('nama').value;
+	if ( nama == "" ) {$('err_nama').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+##	diminta untuk disable mandatori pada 30-06-2016 Edit ByZul
+##	var noTelefon = $('noTelefon').value;
+##	if ( noTelefon == "" ) {$('err_noTelefon').innerHTML = "** adalah mandatori!"; err_count++;  }
+##	
+##	var emel = $('emel').value;
+##	if ( emel == "" ) {$('err_emel').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( window.confirm("Anda pasti?") ){
+		    doDivAjaxCall3$formname('divMaklumat','kemaskiniMaklumat','')
+		}
+	}
+}

@@ -1,0 +1,35 @@
+<input type="hidden" id="idLawatanTapak" name="idLawatanTapak" value="$!semakanSemasa.id">
+
+<fieldset>
+<legend class="legend">MAKLUMAT PEMBAIKAN AGENSI PELAKSANA / PEMAJU</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #date_input_required("tarikhSerahKontraktor" "Tarikh Serah Kunci ke Pemaju" "$!tarikhSerahKontraktor")
+  #date_input_required("tarikhTerimaKontraktor" "Tarikh Terima Kunci dari Pemaju" "$!tarikhTerimaKontraktor")
+  <tr>
+    <td class="label" valign="top" style="width:15%">Ulasan</td>
+    <td class="label" valign="top" style="width:1%">:</td>
+    <td valign="top" style="width:84%"><textarea id="ulasan" name="ulasan" onBlur="this.value=this.value.toUpperCase();">$!ulasan</textarea></td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">Agih Kunci Ke &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> #parse("$path/selectPenyediaSenggara.vm") 
+     <div id="err_idPenyediaSenggara" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+</table>
+</fieldset>
+
+<br>
+<table width="100%">
+  <tr>
+    <td align="right">
+    	<input type="button" value="Simpan" onclick="javascript:simpanPembaikanAgensi();">
+    	<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

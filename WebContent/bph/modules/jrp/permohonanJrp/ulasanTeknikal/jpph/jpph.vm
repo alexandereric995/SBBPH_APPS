@@ -1,0 +1,326 @@
+<input type="hidden" id="idFlagGst" name="idFlagGst" value="$!ut.flagGst"/>
+<input type="hidden" id="idKeputusan" name="idKeputusan" value="$!ut.flagNilaian"/>
+<input type="hidden" id="idSokong" name="idSokong" value="$!ut.flagKeputusan"/>
+<input type="hidden" id="idUlasan" name="idUlasan" value="$!ut.id"/>
+<fieldset>
+<legend class="legend">ulasan jpph</legend>
+    <table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+		#date_input_required("tarikhHantarUlasan" "Tarikh hantar ulasan" "$!util.getDateTime($!ut.tarikhHantarUlasan,'dd-MM-yyyy')")
+		#date_input_required("tarikhUlasan" "Tarikh terima ulasan" "$!util.getDateTime($!ut.tarikhUlasan,'dd-MM-yyyy')")
+		<tr><td colspan="4" style="padding-top:0.3cm" ><hr /></td></tr>
+		<tr>
+        	<td class="label" valign="top">Cawangan JPPH&nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="cawangan" class="uppercasefont" name="cawangan" value="$!ut.cawangan" onKeyUp="$('err_cawangan').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_cawangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+        <tr>
+        	<td class="label" valign="top">Keputusan&nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td valign="top">:</td>
+	    	<td><select style="width:30%" class="texts" id="flagK" name="flagK" style="width:100%"  onChange="$('err_flagK').innerHTML='';at(this, event)" >
+    			<option value="">SILA PILIH</option>
+    			<option value="S" #if ( $!ut.flagKeputusan == "S" ) selected #end>SOKONG</option>
+    			<option value="SB" #if ( $!ut.flagKeputusan  == "SB" ) selected #end>SOKONG BERSYARAT</option>
+    			<option value="TS" #if ( $!ut.flagKeputusan == "TS" ) selected #end>TIDAK SOKONG</option>
+				</select>
+      		<div id="err_flagK" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        	#if($!ut.ulasan.length() > 0)
+        		#set($totalAksara1 = 512 - $!ut.ulasan.length())
+        	#else
+        		#set($totalAksara1 = 512)
+	        #end
+        <tr>
+        	<td class="label" valign="top">Ulasan</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<textarea id="ulasan" maxlength="512" style="width:40% !important" class="uppercasefont" name="ulasan" onKeyUp=" $('err_ulasan').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()" onBlur="this.value=this.value.toUpperCase();">$!ut.ulasan</textarea>
+			<br><span style="color:#FF2A00" id="jumlahAksara">Baki Aksara: $totalAksara1</span></td>
+        </tr>
+        <tr>
+        	<td class="label" valign="top">Nama pegawai</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="namaPegawai" class="uppercasefont" name="namaPegawai" value="$!ut.namaPegawai" onKeyUp="$('err_namaPegawai').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_namaPegawai" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+		 <tr>
+        	<td class="label" valign="top">Jawatan pegawai</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="jawatanPegawai" class="uppercasefont" name="jawatanPegawai" value="$!ut.jawatanPegawai" onKeyUp="$('err_jawatanPegawai').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_jawatanPegawai" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>	
+   </table>
+</fieldset>
+<div id="nilaianJpph"></div>
+<div id="nilaianJpph1">
+#if($!ut.flagKeputusan == 'S' || $!ut.flagKeputusan == 'SB')
+<fieldset>
+<legend class="legend">Nilaian jpph</legend>
+    <table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+        <tr>
+        	<td class="label" valign="top">Nilai sewa yang ditawarkan&nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				RM <input style="width:80px" type="text" id="nilaianMp" class="currency" name="nilaianMp" value="$!ut.nilaianMp" onKeyUp="$('err_nilaianMp').innerHTML='';at(this, event)"> smp 
+				<input style="width:80px" type="text" id="luasMp" class="currency" name="luasMp" value="$!ut.luasMp" onKeyUp="$('err_nilaianMp').innerHTML='';at(this, event)"> seluas mp<br/> 
+				(RM <input style="width:80px" type="text" id="nilaianKp" class="currency" name="nilaianKp" value="$!ut.nilaianKp" onKeyUp="$('err_nilaianMp').innerHTML='';at(this, event)"> skp 
+				<input style="width:80px" type="text" id="luasKp" class="currency" name="luasKp" value="$!ut.luasKp" onKeyUp="$('err_nilaianMp').innerHTML='';at(this, event)"> seluas kp) <br/>
+				(sila nyatakan dalam mp dan kp)<br/>
+				<span style="color:#FF2A00">Harga penilaian  tidak termasuk cukai barang dan perkhidmatan</span>
+				<div id="err_nilaianMp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+		<tr>
+        	<td class="label" valign="top">Sewa yang ditawarkan&nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+    			<input type="radio" #if($!ut.flagNilaian=='S')checked#end id="flagKeputusan1" name="flagKeputusan" value="S" onclick=" $('err_flagKeputusan').innerHTML=''; at(this, event);validateFlagKeputusan()">&nbsp;Adalah patut dan munasabah
+    			<input type="radio" #if($!ut.flagNilaian=='TS')checked#end id="flagKeputusan2" name="flagKeputusan" value="TS" onclick=" $('err_flagKeputusan').innerHTML=''; at(this, event);validateFlagKeputusan()">&nbsp;Sewa yang ditawarkan adalah tinggi
+    			<div id="err_flagKeputusan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    		</td>
+        </tr>
+  		</table>
+  		<div id="selectNilaiTinggi"></div>
+  		<div id="NilaiTinggi1" name="NilaiTinggi1">
+  		#if($ut.flagNilaian == "TS")
+		#parse("$path/ulasanTeknikal/selectNilaiTinggi.vm")
+		#end
+		</div>
+        <table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:33%"></td>
+            <td style="width:42%"></td>
+		</tr>
+		<tr>
+			<td valign="top">Sewa bulanan&nbsp;<span style="color:#FF2A00">*</span></td>
+			<td valign="top">:</td>
+			<td valign="top" colspan="2">
+				RM <input style="width:30%" type="text" id="perakuanSewaBulanan" class="currency" name="perakuanSewaBulanan" value="$!ut.perakuanSewaBulanan" onKeyUp="$('err_perakuanSewaBulanan').innerHTML='';at(this, event)">&nbsp;sebulan
+				<div id="err_perakuanSewaBulanan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		<tr>
+        	<td class="label" valign="top">Tempoh sewa&nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top" colspan="2">
+				<input style="width:30%" type="text" id="tempohSewa" class="number" name="tempohSewa" value="$!ut.tempohSewa" onKeyUp="$('err_tempohSewa').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<input type="radio" #if($!ut.flagJenisSewa=='B')checked #end id="flagjenisSewa1" name="flagjenisSewa" value="B">&nbsp;Bulan
+    			<input type="radio" #if($!ut.flagJenisSewa=='T')checked #end id="flagjenisSewa2" name="flagjenisSewa" value="T">&nbsp;Tahun
+				<div id="err_tempohSewa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+##		<tr>
+##        	<td class="label" valign="top">Syarat penyewaan</td>
+##        	<td class="label" valign="top">:</td>
+##        	<td valign="top" colspan="2">
+##				(a) bayaran cukai pintu dan cukai tanah <input style="align:right" type="checkbox" name="pesalah" id="radPesalah$u.id" value="$u.id"/><br/>
+##				(b) insurans kebakaran  <input type="checkbox" style="align:right" name="pesalah" id="radPesalah$u.id" value="$u.id"/><br/>
+##				(c) memperbaik ruang guna sama <input type="checkbox" style="align:right" name="pesalah" id="radPesalah$u.id" value="$u.id"/><br/>
+##				(d) alat pencegah kebakaran <input type="checkbox" style="align:right" name="pesalah" id="radPesalah$u.id" value="$u.id"/><br/>
+##				(e) bayaran elektrik dan pembersihan ruang guna sama <input type="checkbox" name="pesalah" id="radPesalah$u.id" value="$u.id"/><br/>
+##				(f) menyediakan tempat letak kereta percuma <input type="checkbox" name="pesalah" id="radPesalah$u.id" value="$u.id"/><br/>
+##				(g) <input style="width:30%" type="text" id="syaratSewa1" class="uppercasefont" name="syaratSewa1" value="$!ut.syaratSewa1" onKeyUp="$('err_syaratSewa1').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();"><br/>
+##				(h) <input style="width:30%" type="text" id="syaratSewa2" class="uppercasefont" name="syaratSewa2" value="$!ut.syaratSewa2" onKeyUp="$('err_syaratSewa2').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();"><br/>
+##				(i) <input style="width:30%" type="text" id="syaratSewa3" class="uppercasefont" name="syaratSewa3" value="$!ut.syaratSewa3" onKeyUp="$('err_syaratSewa3').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();"><br/>
+##				(j) <input style="width:30%" type="text" id="syaratSewa4" class="uppercasefont" name="syaratSewa4" value="$!ut.syaratSewa4" onKeyUp="$('err_syaratSewa4').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();"><br/>
+##				(k) <input style="width:30%" type="text" id="syaratSewa5" class="uppercasefont" name="syaratSewa5" value="$!ut.syaratSewa5" onKeyUp="$('err_syaratSewa5').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+##			</td>
+##        </tr>
+         <tr>
+        	<td class="label" valign="top">Syarat penyewaan</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">(a) bayaran cukai pintu dan cukai tanah</td>
+			<td valign="top"><input type="checkbox" name="syaratSewa1" id="syaratSewa1" value="Y"  #if($!ut.syaratSewa1=='Y') checked #end></td>
+        </tr>
+        <tr>
+        	<td class="label" valign="top"></td>
+        	<td class="label" valign="top"></td>
+        	<td valign="top">(b) insurans kebakaran</td>
+			<td valign="top"><input type="checkbox" name="syaratSewa2" id="syaratSewa2" value="Y" #if($!ut.syaratSewa2 == 'Y') checked #end/></td>
+        </tr>
+        <tr>
+        	<td class="label" valign="top"></td>
+        	<td class="label" valign="top"></td>
+        	<td valign="top">(c) memperbaiki ruang guna sama</td>
+			<td valign="top"><input type="checkbox" name="syaratSewa3" id="syaratSewa3" value="Y" #if($!ut.syaratSewa3 == 'Y') checked #end/></td>
+        </tr>
+        <tr>
+        	<td class="label" valign="top"></td>
+        	<td class="label" valign="top"></td>
+        	<td valign="top">(d) alat pencegah kebakaran </td>
+			<td valign="top"><input type="checkbox" name="syaratSewa4" id="syaratSewa4" value="Y" #if($!ut.syaratSewa4 == 'Y') checked #end/></td>
+        </tr>
+        <tr>
+        	<td class="label" valign="top"></td>
+        	<td class="label" valign="top"></td>
+        	<td valign="top">(e) bayaran elektrik dan pembersihan ruang guna sama</td>
+			<td valign="top"><input type="checkbox" name="syaratSewa5" id="syaratSewa5" value="Y" #if($!ut.syaratSewa5 == 'Y') checked #end/></td>
+        </tr>
+        <tr>
+        	<td class="label" valign="top"></td>
+        	<td class="label" valign="top"></td>
+        	<td valign="top">(f) menyediakan tempat letak kereta percuma<br/>
+				(g) <input style="width:80%" type="text" id="syaratSewa7" class="uppercasefont" name="syaratSewa7" value="$!ut.syaratSewa7" onKeyUp="$('err_syaratSewa7').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();"><br/>
+				(h) <input style="width:80%" type="text" id="syaratSewa8" class="uppercasefont" name="syaratSewa8" value="$!ut.syaratSewa8" onKeyUp="$('err_syaratSewa8').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();"><br/>
+				(i) &nbsp;<input style="width:80%" type="text" id="syaratSewa9" class="uppercasefont" name="syaratSewa9" value="$!ut.syaratSewa9" onKeyUp="$('err_syaratSewa9').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();"><br/>
+				(j) &nbsp;<input style="width:80%" type="text" id="syaratSewa10" class="uppercasefont" name="syaratSewa10" value="$!ut.syaratSewa10" onKeyUp="$('err_syaratSewa10').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();"><br/>
+				(k) <input style="width:80%" type="text" id="syaratSewa11" class="uppercasefont" name="syaratSewa11" value="$!ut.syaratSewa11" onKeyUp="$('err_syaratSewa11').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();"></td>
+			##syarat6
+			<td valign="top"><input type="checkbox" name="syaratSewa6" id="syaratSewa6" value="Y" #if($!ut.syaratSewa6 == 'Y') checked #end/></td> 
+        </tr>
+		
+			
+	</table>	
+</fieldset>
+
+#if($!ut)	
+<fieldset>
+<legend class="legend">SURAT</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>#parse("$path/ulasanTeknikal/jpph/surat.vm")</td>
+  </tr>
+</table>
+</fieldset>
+#end
+#end
+</div>
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if($!userRole.equalsIgnoreCase("(JRP) Pemohon") && (($users.flagHq == 'Y' && ($r.status.id == '1438356583122' || $r.status.id == '1436841294664')) || ($users.flagHq == 'T' && ($r.status.id == '1424860634472' || $!r.status.id == '1424860634475'))))
+##				#if($!ut.id!="" && !$!ut.flagHantar.equalsIgnoreCase("Y"))
+##				<input type="button" value="Hantar Ulasan kepada Agensi" id="cmdHantarUlasan" />
+##				#end
+##				#if(!$!ut || !$!ut.flagHantar.equalsIgnoreCase("Y"))
+					<input type="button" value="Simpan" id="cmdSaveUlasanJpph" />
+					<input type="button" value="Kosongkan" id="cmdKosongkanUlasanJpph" />
+##				#end
+			#end
+			<input id="cmdKembali" type="button" value="Kembali" onclick="doDivAjaxCall3$formname('divTab','getSenaraiJpph','')" />
+		</td>
+	</tr>
+</table>
+	
+
+<div id="statusUlasan"></div>
+
+
+<script>
+_jq('#ulasan').on('keyup', function(){
+
+	var ulasan = $('ulasan').value;
+	calculateJumlahAksara(ulasan, 'jumlahAksara');
+});
+_jq('#cmdHantarUlasan').on('click', function(){
+	var idUlasanTeknikal = '$!ut.id';
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('statusUlasan','hantarUlasanKeAgensi','idUlasanTeknikal='+idUlasanTeknikal+'','divTab','getMaklumatUlasan','');
+	}
+});
+_jq('#flagK').on('change', function(){
+	 checkNilaian();
+});
+_jq('#cmdKosongkanUlasanJpph').on('click', function(){
+	
+	$('tarikhHantarUlasan').value = "";
+	$('ulasan').value = "";
+	$('cawangan').value = "";
+	$('nilaianMp').value = "";
+	$('luasMp').value = "";
+	$('nilaianKp').value = "";
+	$('luasKp').value = "";
+	$('perakuanSewaBulanan').value = "";
+	$('tempohSewa').value = "";
+	$('syaratSewa1').value = "";
+	$('syaratSewa2').value = "";
+	$('syaratSewa3').value = "";
+	$('namaPegawai').value = "";
+	$('jawatanPegawai').value = "";
+	$('tarikhUlasan').value = "";
+	
+	var flagKeputusan2 = document.${formname}.flagKeputusan[1].checked;
+	if(flagKeputusan2 == true){
+		$('nilaianGstMp').value = "";
+		$('luasMp1').value = "";
+		$('nilaianGstKp').value = "";
+		$('luasKp1').value = "";
+		$('flagGst').value = "";
+		
+		if($('idFlagGst').value == 'Y'){
+  	$('flagGst1').style.display = 'none';
+  	}
+  	if($('idFlagGst').value == ''){
+  	$('selectFlagGst').style.display = 'none';
+  	}
+		}
+	$('err_cawangan').innerHTML='';
+	$('err_perakuanSewaBulanan').innerHTML='';
+	$('err_tempohSewa').innerHTML='';
+	$('err_ulasan').innerHTML='';
+	$('err_namaPegawai').innerHTML='';
+	$('err_tarikhUlasan').innerHTML='';
+	$('err_tarikhHantarUlasan').innerHTML='';
+	$('err_flagKeputusan').innerHTML='';
+	$('err_nilaianMp').innerHTML='';
+	$('err_jawatanPegawai').innerHTML='';
+
+	var inputs = document.${formname}.flagKeputusan;
+    for(var i = inputs.length-1;i>=0;i--){
+        if(inputs[i].getAttribute("type")==="radio"){
+            inputs[i].checked=false;
+        }
+    }
+});
+
+_jq('#cmdSaveUlasanJpph').on('click', function(){
+
+	
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = $!r.id;
+	 saveUlasanJpph(tabNo, idPermohonan);
+});
+##
+## _jq('#flagGst').on('change', function(){
+##  	
+##  	if($('idFlagGst').value == 'Y'){
+##  	var cek = $('flagGst1').style.display;
+##  	var flag = $('flagGst').value;
+##  		if(flag == 'Y'){
+##			$('flagGst1').style.display = 'block';
+##		}else{
+##		$('flagGst1').style.display = 'none';
+##			}
+##		}
+##	else{	
+##    doDivAjaxCall3$formname('selectFlagGst','selectFlagGst','');
+##    } 
+##});
+</script>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

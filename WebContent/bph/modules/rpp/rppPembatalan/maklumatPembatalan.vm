@@ -1,0 +1,75 @@
+
+
+<input type="hidden" id="idRppPermohonan" name="idRppPermohonan" value="$!r.id" />
+
+<fieldset>
+<legend class="legend">MAKLUMAT PEMBATALAN</legend>
+	
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+		
+		<!--
+		<tr>
+			<td  valign="top" class="label">Tarikh Pembatalan &nbsp;<span style="color:#FF2A00">*</span></td>
+            <td  valign="top" class="label">:</td>
+            <td valign="top">
+				<input type="text" id="tarikhPembatalan" name="tarikhPembatalan" value="$!util.getDateTime($!r.tarikhPembatalan,'dd-MM-yyyy')" style="width: 50%" onChange=" $('err_tarikhPembatalan').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()">
+					<script>
+                    	_jq(function() {
+                        	jQuery("#tarikhPembatalan").datepicker({ 
+                            	dateFormat: "dd-mm-yy",
+                    			showOn: "both",
+                    			buttonImageOnly: true,
+                    			buttonImage: "../img/calendar_icon.gif",
+                    			buttonText: "Calendar",
+                            });
+                      	});
+                 	</script>
+            		<div id="err_tarikhPembatalan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+          	</td>
+   		</tr>
+		-->
+		<tr>
+        	<td valign="top" colspan="3"><font color="red" size="2"><strong><span style="color:#FF2A00">*&nbsp;</span><blink>Selaras dengan <b>Surat Pekeliling Akauntan Negara Malaysia (SPANM) BIL.3/2019, LAMPIRAN D : GARIS PANDUAN PENGURUSAN PULANGAN BALIK HASIL</b>,
+        	pemohon <b>DIWAJIBKAN</b> menyertakan <a href="../download?file=Z:/SBBPH/rpp/SuratPermohonanDariPemohon.pdf" target="_blank"> 
+        	<span class="print"><font color="blue">SURAT PERMOHONAN DARI PEMOHON ASAL (Individu/Syarikat) (Klik Di Sini)</font></span></a> bagi tujuan tuntutan bayaran balik pembatalan tempahan.</blink>
+        	<br><span style="color:#FF2A00">*&nbsp;</span><blink>Dokumen yang telah lengkap diisi perlu diemelkan kepada rpp_bayaranbalik@bph.gov.my</blink></strong></font><br>
+        	</td>
+        	
+        </tr>
+		<tr>
+        	<td class="label" valign="top">Catatan &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<textarea id="catatanPembatalan" style="width:50% !important;height:100px" class="uppercasefont" name="catatanPembatalan" onKeyUp=" $('err_catatanPembatalan').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">$!r.catatanPembatalan</textarea>
+				<div id="err_catatanPembatalan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+       
+	</table>
+	
+</fieldset>
+
+ 
+##<p><span style="color:blue;font-size:11px">Nota : Sila hubungi pihak BPH bagi sebarang pertanyaan.</span></p>
+
+#if($!r.statusBayaran=="Y")
+	#set($btname = "Mohon Batal")
+#else
+	#set($btname = "Batal Tempahan")
+#end
+
+<table width="100%">
+	<tr>
+		<td align="right">##Fatin 13/06/2015
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+    		<input id="btnSavePembatalan" type="button" onclick="doSavePembatalan()" value="Batal Tempahan" />
+    		##<input id="btnKosongkanPembatalan" type="button" value="Kosongkan" onClick="doKosongkanPembatalan()">
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>

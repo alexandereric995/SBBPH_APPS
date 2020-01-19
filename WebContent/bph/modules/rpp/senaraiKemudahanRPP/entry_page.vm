@@ -1,0 +1,61 @@
+
+<fieldset>
+<legend class="legend">Maklumat Kemudahan</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  
+   <tr>
+    <td class="label">Lokasi Peranginan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td>
+		#if($!userRole.equalsIgnoreCase("(RPP) Penyelia"))
+			$!rppPeranginan.namaPeranginan.toUpperCase()
+			<input type="hidden" name="idPeranginan" id="idPeranginan" value="$!rppPeranginan.id" />
+		#else
+			#parse("$path/selectPeranginan.vm")
+		#end
+		<div id="err_idPeranginan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+  </tr>
+  
+  #input_required("nama" "Nama" "$!r.nama")
+  #number("bilangan" "Bilangan" "$!r.bilangan")
+  
+  <tr>
+	<td valign="top">Untuk Disewa &nbsp;<span style='color:#FF2A00'>*</span></td>
+	<td valign="top">:</td>
+	<td valign="top">
+		<input type="radio" #if($!r.flagSewa =='Y') checked #end id="flagSewa1" name="flagSewa" value="Y" onclick="javascript:doValidateKadarSewa(); $('err_flagSewa').innerHTML=''; at(this, event);" />
+        <label for="flagSewa1" >YA</label>
+		<input type="radio" #if($!r.flagSewa == 'T') checked #end id="flagSewa2" name="flagSewa" value="T" onclick="javascript:doValidateKadarSewa(); $('err_kadarSewa').innerHTML=''; $('err_flagSewa').innerHTML=''; at(this, event);" />
+		<label for="flagSewa2" >TIDAK</label>
+		<div id="err_flagSewa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+  </tr>
+  
+  <tr>
+	<td class="label" valign="top">Kadar Sewa (RM) &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<input class="currency" #if($!r.flagSewa == 'T') readonly #end id="kadarSewa" name="kadarSewa" value="$!r.kadarSewa" onKeyUp=" $('err_kadarSewa').innerHTML=''; at(this, event);" type="text">
+		<div id="err_kadarSewa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+ </tr>
+
+  #textarea("catatan" "Catatan" "$!r.catatan")
+  
+</table>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

@@ -1,0 +1,74 @@
+
+
+<fieldset style="width:55% !important">
+<legend class="legend">SENARAI RESIT</legend>
+	
+	<br/>
+	
+	<table width="100%" cellpadding="2" cellspacing="1">
+		<tr>
+			<td class="row_header" width="10%">BIL.</td>
+			<td class="row_header" width="25%">NO. RESIT</td>
+			<td class="row_header" width="20%">TARIKH BAYARAN</td>
+			<td class="row_header" width="15%">AMAUN (RM)</td>
+			<td class="row_header" width="15%">JENIS RESIT</td>
+			<td class="row_header" width="15%">BIL. CETAK</td>
+			<td class="row_header" width="15%">CETAK</td>
+		</tr>
+		
+		#set ( $count = 0 )
+		#if($listResit.size() > 0)
+    		#foreach($u in $listResit)
+    		#set ( $count = $count + 1)
+    		<tr>
+    			<td align="center">$count</td>
+				<td align="center">$u.noResit</td>
+    			<td align="center">$!util.getDateTime($u.tarikhBayaran,'dd-MM-yyyy')</td>
+    			<td align="center">$!util.formatDecimal($u.jumlahAmaunBayaran)</td>
+    			<td align="center">$u.getKeteranganFlagJenisResit()</td>
+				<td align="center">$u.bilCetakResit</td>
+				<td align="center">
+					<a href="javascript:void()" id="cmdCetak$!u.id"><img src="../img/print.gif" border="0"></a>
+					<script>
+						_jq('#cmdCetak$!u.id').on('click', function(){
+                         	var bilCetak=$u.bilCetakResit+1;
+                         	var jenisResit='$u.getKeteranganFlagJenisResit()';
+
+								if(bilCetak == 1){
+	                         		var url = "../servlet/bph.laporan.kewangan.KEWResitSalinanAsal?idResit=$!u.id"+"&bilCetak="+bilCetak;
+	                         	}else{
+	                         		var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit=$!u.id"+"&bilCetak="+bilCetak;
+	                         	}
+	                         	
+                    			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+                    			if ((document.window != null) && (!hWnd.opener))
+                    			hWnd.opener = document.window;
+                    			if (hWnd.focus != null) hWnd.focus();	
+                      	});
+					</script>		
+				</td>
+    		</tr><input type="hidden" id="idResit" name="idResit" value="$u.id"/>
+    		#end
+		#else
+			<tr><td colspan="4">TIADA REKOD</td></tr>
+		#end
+		
+	</table>
+
+	<br /><br />
+	
+	<table width="100%">
+		<tr>
+			<td align="right">
+				<input id="btnTutup" type="button"  value="Tutup" />
+			</td>
+		</tr>
+	</table>
+	
+</fieldset>
+	
+<script>
+	_jq('#btnTutup').on('click', function(){
+     	jQuery('#divPopupSenaraiResit').fadeOut();
+  	});
+</script>	

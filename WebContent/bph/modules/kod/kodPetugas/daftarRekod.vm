@@ -1,0 +1,32 @@
+<fieldset>
+<legend class="legend">MAKLUMAT REKOD</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class="label">Pusat Terima &nbsp;<span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td>#parse("$path/selectPusatTerima.vm")
+      <div id="err_idPusatTerima" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">ID Petugas &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td class="label">:</td>
+    <td><input type="text" id="idJuruwang" name="idJuruwang" value="$!petugas.id" onKeyUp="$('err_idJuruwang').innerHTML='';at(this, event);" onBlur="this.value=this.value.toUpperCase();" onChange="doDivAjaxCall3$formname('divRekod','getRegisteredUser','');">
+      <div id="err_idJuruwang" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+  </tr>
+	  #if ($!command == 'getRegisteredUser')
+	  	#if (!$petugas)
+	  		<script>
+	  		$('err_idJuruwang').innerHTML = "ID TIDAK BERDAFTAR DENGAN SISTEM!";
+	  		</script>
+	  	#end
+	  #end
+  #show("Nama Petugas" "<b>$!petugas.userName</b>")
+  #textarea("catatan" "Catatan" "$!catatan")
+  
+</table>
+</fieldset>

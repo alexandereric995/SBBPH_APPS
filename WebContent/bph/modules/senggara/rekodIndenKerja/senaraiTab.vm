@@ -1,0 +1,45 @@
+<br/>
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatInden','')" #end >Maklumat Inden Kerja</a></li>
+	<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divTab','getSenaraiJKH','')" #end >Senarai JKH</a></li>
+	<li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('divTab','getMaklumatKontraktor','')" #end >Maklumat Kontraktor</a></li>
+	#if ($!r.status.id == '17859229601072' || $!r.status.id == '17859229601095' || $!r.status.id == '17859229601108') ## CETAKAN SURAT SETUJU TERIMA
+		<li #if($!selectedTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedTab!='4') onClick="doDivAjaxCall3$formname('divTab','getMaklumatSST','')" #end >Maklumat SST</a></li>
+	#end
+	#if ($!r.status.id == '17859229601095' || $!r.status.id == '17859229601108') ## PEMANTAUAN KERJA
+		<li #if($!selectedTab=='5') class="active" #end><a href="javascript:void()" #if($!selectedTab!='5') onClick="doDivAjaxCall3$formname('divTab','getPemantauanKerja','')" #end >Pemantauan Kerja</a></li>
+	#end
+	#if ($!r.status.id == '17859229601108') ## PENILAIAN KONTRAKTOR
+		<li #if($!selectedTab=='6') class="active" #end><a href="javascript:void()" #if($!selectedTab!='6') onClick="doDivAjaxCall3$formname('divTab','getPenilaianKontraktor','')" #end >Penilaian Kontraktor</a></li>
+	#end			
+  </ul>
+</nav>	
+
+#if ($!selectedTab=='1')
+	#parse("$path/maklumatInden.vm")
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/jkh/senaraiJKH.vm")
+#end
+
+#if ($!selectedTab=='3')
+	#if ($!command == 'gotoSenaraiKontraktor')
+		#parse("$path/kontraktor/senaraiPerlantikanKontraktor.vm")
+	#else
+		#parse("$path/kontraktor/maklumatKontraktor.vm")
+	#end
+#end
+
+#if ($!selectedTab=='4')
+	#parse("$path/sst/start.vm")
+#end
+
+#if ($!selectedTab=='5')
+	#parse("$path/pemantauan/start.vm")
+#end
+
+#if ($!selectedTab=='6')
+	#parse("$path/penilaian/start.vm")
+#end

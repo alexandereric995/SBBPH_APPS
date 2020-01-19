@@ -1,0 +1,116 @@
+
+#set ( $subject = $session.getAttribute("subject"))
+#set ( $message = $session.getAttribute("message"))
+#if ( $subject == "")
+	#set ( $subject = $forum.title )
+	#set ( $message = $forum.notes )
+#end
+<form name="${formname}" method="post" action="?command=SubmitUpdate&subjectId=$!subjectId&forum_id=$forum.id">
+<table width="100%" border="0" cellspacing="1" cellpadding="1">
+	<tr>
+		<td>
+			<table align="center" border="0" cellspacing="1" cellpadding="1">
+				<tr>
+					<td>
+<b>Subject:</b><br>
+<input class="text" name="title" value="$!subject" style="font-weight:bold;width:625px;height:25px">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						$forum.postedBy
+					</td>
+				</tr>
+				<tr>
+					<td>
+						$forum.datePosted
+					</td>
+				</tr>				
+				<tr>
+					<td valign="top">
+										#parse("vtl/editor/fck.vm")
+												<textarea name="content" style="visibility:hidden">$!{message}</textarea>
+					</td>
+				</tr>
+				
+				#if ( $allowAttachment )
+				<tr>
+					<td class="table_row" >
+						<b>Attached file(s) - Select to remove:</b>&nbsp;<br>
+						<table>
+						#foreach ( $file in $attachments )
+							<tr>
+								<td width="10">
+									<input type="checkbox" name="attachfiles" value="${file}">
+								</td>							
+								<td>
+									<a href="javascript:download_${formname}('${files_dir}${file}')">
+									<u>$file</u>
+									</a>
+								</td>
+							</tr>
+						#end
+						</table>
+					</td>
+				</tr>				
+				#end
+				
+				<tr>
+					<td>
+						&nbsp;				
+					</td>
+				</tr>					
+								
+				<tr>
+					<td>
+						<input class="button" type="button" value="Update" onclick="update_${formname}()">
+						#if ( $allowAttachment )
+							<input class="button" type="button" value="Attachment" onclick="attachment_${formname}()">
+						#end
+						<input class="button" type="button" value="Cancel" onclick="cancel_${formname}()">
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	
+	
+</table>
+<input type="hidden" name="$formname" value="$formname">
+
+</form>
+
+<script>
+document.${formname}.message.value = document.${formname}.content.value;
+
+
+function update_${formname}() {
+##	document.${formname}.onsubmit(); //workaround browser bugzzz
+	document.${formname}.action = "?command=SubmitUpdate&subjectId=$!subjectId&forum_id=$forum.id";	
+		if ( 		document.${formname}.title.value == "" ) {
+alert("Please enter your subject.");
+return;
+}
+	document.${formname}.submit();	
+}
+
+
+
+function cancel_${formname}() {
+##	document.${formname}.onsubmit(); //workaround browser bugzzz
+	document.${formname}.action = "?command=Open&subjectId=$!subjectId&forum_id=$forum.id";
+	document.${formname}.submit();
+}
+
+function attachment_${formname}() {
+	##document.${formname}.onsubmit(); //workaround browser bugzzz
+	document.${formname}.action = "?command=AttachmentTopic&subjectId=$!subjectId&forum_id=$forum_id";
+	document.${formname}.submit();
+}
+
+function download_${formname}(filename) {
+	document.${formname}.action = "../download?file=" + filename;	
+	document.${formname}.submit();
+}
+
+</script>

@@ -1,0 +1,140 @@
+<form name="${formname}" method="post">
+
+<table width="100%" border="0" cellpadding="1" cellspacing="1">
+	<tr>
+		<td bgcolor="silver" colspan="2">
+			<b>List of Topics</b>
+		</td>
+	</tr>
+	<tr>
+		<td  colspan="2" align="right">
+			#if ( $allowPost )
+				<input class="button" type="button" value="Add New Topic" onclick="addNewTopic_${formname}()">
+			#end
+		</td>
+	</tr>	
+</table>
+
+<table width="100%">
+	<tr>
+		<td align="right">	
+		#if ( $topic_pages > 0 )
+			Page $topic_page_number of $topic_pages&nbsp;
+		#end
+		#if ( !$topic_bol )
+		<input class="button" type="button" value="&lt;" onclick="previous_${formname}()">
+		#end
+		#if ( !$topic_eol )
+		<input class="button" type="button" value="&gt;" onclick="next_${formname}()">
+		#end
+		</td>
+	</tr>
+	<tr>
+		<td align="right">
+			#if ( $topic_pages > 0 )
+				#foreach ($num in [ 1..$topic_pages ])
+					[
+					#if ( $num == $topic_page_number )
+						<b>$num</b>
+					#else
+						<a href="?command=GoTopicPage&pagenum=$num&forum_id=$forum.id">
+						<u>$num</u>
+						</a>
+					#end
+					]
+				#end
+			#end
+		</td>
+	</tr>	
+</table>
+	
+<table width="100%" border="0" cellpadding="1" cellspacing="1">	
+	#foreach ( $forum in $topic_items)
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+		<td>
+			<table width="100%" cellpadding="1" cellspacing="1">
+				<tr>
+					<td>
+						<table width="100%" cellpadding="2" cellspacing="0" bgcolor="lightgrey">
+							<tr>	
+								<td width="80">
+									<a href="javascript:openForum_${formname}('$forum.id')">
+									<b>Post Subject:</b>
+									</a>
+								</td>										
+								<td  colspan="2">
+									<a href="javascript:openForum_${formname}('$forum.id')">
+									$forum.title
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td >
+									<a href="javascript:openForum_${formname}('$forum.id')">
+									<b>Author:</b>
+									</a>
+								</td>								
+								<td  colspan="2">
+									<a href="javascript:openForum_${formname}('$forum.id')">
+									$forum.postedBy
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td >
+									<a href="javascript:openForum_${formname}('$forum.id')">
+									<b>Posted:</b>
+									</a>
+								</td>								
+								<td >
+									<a href="javascript:openForum_${formname}('$forum.id')">
+									$forum.getDatePosted().display()
+									</a>
+								</td>
+								<td align="right">
+									<input class="button" type="button" value="Open" onclick="openForum_${formname}('$forum.id')">
+								</td>
+							</tr>								
+						</table>					
+					
+					</td>
+					
+				</tr>	
+				<tr>
+					<td bgcolor="#F1F1F1">
+						$forum.notes
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+
+		</td>
+	</tr>
+	#end
+</table>
+<input type="hidden" name="$formname" value="$formname">
+</form>
+<script>
+function addNewTopic_${formname}() {
+	document.${formname}.action = "?command=AddNewTopic&category_id=$forum_category";
+	document.${formname}.submit();	
+}
+function openForum_${formname}(id) {
+	document.${formname}.action = "?command=Open&category_id=$forum_category&forum_id=" + id + "&parent_id=" + id;
+	document.${formname}.submit();	
+}
+function next_${formname}() {
+	document.${formname}.action = "?command=NextTopic";	
+	document.${formname}.submit();
+}
+function previous_${formname}() {
+	document.${formname}.action = "?command=PreviousTopic";	
+	document.${formname}.submit();
+}
+</script>

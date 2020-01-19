@@ -1,0 +1,160 @@
+<script>
+	_jq("#bekerja1").hide();
+	_jq("#bekerja2").hide();
+	_jq("#bekerja3").hide();
+	_jq("#bekerja4").hide();
+	_jq("#bekerja5").hide();
+</script>
+
+#parse("$path/sub_page/nav_bread.vm")
+<br />
+<div id="simpanPasangan"></div>
+<table cellpadding="5" cellspacing="0" border="0" width="50%" id="pemohonPasangan">
+    <tr>
+        <td style="width:175px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+    #input_required("namaPasangan" "Nama" "$!us.namaPasangan")
+    #mykad_required("pasanganNoKP" "No. MyKad" "$!us.noKPPasangan")
+    <tr>
+        <td class="label" valign="middle">Jenis Pekerjaan&nbsp;<span style="color:#FF2A00">*</span>
+        </td>
+        <td valign="middle">:</td>
+        <td>
+            <span id="listStatusPekerjaanPasangan">
+                #parse("$path/sub_page/pasangan/selectStatusPekerjaanPasangan.vm")
+            </span>
+            <div id="err_idStatusPekerjaanPasangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    <tbody id="bekerja1">
+        #input_required("pasanganJenisPekerjaan" "Jawatan" "$!us.jenisPekerjaan")
+        #currency_required("pasanganGaji" "Pendapatan / Gaji" "$!us.gajiPasangan")
+	</tbody>
+	<tbody id="bekerja2">
+        #input_required("pasanganSyarikat" "Nama Agensi / Syarikat" "$!us.namaSyarikat")
+        ##input_required("pasanganNoTelKerja" "No. Telefon Pejabat" "$!us.noTelPejabat")
+        ##input("pasanganNoFaksKerja" "Faks Pejabat" "$!us.noFaksPejabat")
+    </tbody>
+	<tbody id="bekerja3">
+        <tr>
+            <td class="label" valign="top">Skim Perkhidmatan&nbsp;<span style="color:#FF2A00">*</span>
+            </td>
+            <td valign="top">:</td>
+            <td>
+                <span id="listKelasPerkhidmatanPasangan">
+                    #parse("$path/sub_page/pasangan/selectKelasPerkhidmatanPasangan.vm")
+                </span>
+                <div id="err_idKelasPerkhidmatanPasangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="label" valign="top">Gred Jawatan&nbsp;<span style="color:#FF2A00">*</span>
+            </td>
+            <td valign="top">:</td>
+            <td>
+                <span id="listGredJawatanPasangan">
+                    #parse("$path/sub_page/pasangan/selectGredJawatanPasangan.vm")
+                </span>
+                <div id="err_idGredJawatanPasangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="label" valign="top">Jawatan&nbsp;<span style="color:#FF2A00">*</span>
+            </td>
+            <td valign="top">:</td>
+            <td>
+                <span id="listJawatanPasangan">
+                    #parse("$path/sub_page/pasangan/selectJawatanPasangan.vm")
+                </span>
+                <div id="err_idJawatanPasangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+		<tr>
+            <td class="label" valign="top">Nama Kementerian&nbsp;<span style="color:#FF2A00">*</span>
+            </td>
+            <td valign="top">:</td>
+            <td>
+                <div id="listKementerianPasangan">
+                    #parse("$path/sub_page/pasangan/selectKementerianPasangan.vm")
+                </div>
+                <div id="err_idKementerianPasangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Nama Jabatan&nbsp;<span style="color:#FF2A00">*</span>
+            </td>
+            <td>:</td>
+            <td>
+                <span id="selectJabatanPasangan">
+                    #parse("$path/sub_page/pasangan/selectJabatanPasangan.vm")
+                </span>
+                <div id="err_idJabatanPasangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+        ##input_required("pasanganNoTelKerja" "No. Telefon Pejabat" "$!us.noTelPejabat")
+        ##input("pasanganNoFaksKerja" "Faks Pejabat" "$!us.noFaksPejabat")
+    </tbody>
+	<tbody id="bekerja4">
+        <tr>
+            <td class="label" valign="top">Nama Badan Berkanun&nbsp;<span style="color:#FF2A00">*</span>
+            </td>
+            <td valign="top">:</td>
+            <td>
+                <div id="listBadanBerkanunPasangan">
+                    #parse("$path/sub_page/pasangan/selectBadanBerkanunPasangan.vm")
+                </div>
+                <div id="err_idBadanBerkanunPasangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+        ##input_required("pasanganNoTelKerja" "No. Telefon Pejabat" "$!us.noTelPejabat")
+        ##input("pasanganNoFaksKerja" "Faks Pejabat" "$!us.noFaksPejabat")
+    </tbody>
+	<tbody id="bekerja5">
+		#input_required("pasanganAlamatKerja1" "Alamat Pejabat" "$!us.alamatPejabat1")
+        #input("pasanganAlamatKerja2" "" "$!us.alamatPejabat2")
+        #input("pasanganAlamatKerja3" "" "$!us.alamatPejabat3")
+        #postcode_required("pasanganPoskodKerja" "Poskod" "$!us.poskodPejabat")
+        <tr>
+            <td class="label" valign="middle">Negeri&nbsp;<span style="color:#FF2A00">*</span>
+			</td>
+            <td valign="middle">:</td>
+            <td>
+                <span id="listNegeriPasangan">
+                    #parse("$path/sub_page/pasangan/selectNegeriPasangan.vm")
+                </span>
+                <div id="err_idNegeriPasangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+        <tr>
+            <td valign="middle" class="label">Bandar&nbsp;<span style="color:#FF2A00">*</span>
+			</td>
+            <td valign="middle">:</td>
+            <td>
+                <span id="selectBandarPasangan">
+                    #parse("$path/sub_page/pasangan/selectBandarPasangan.vm")
+                </span>
+                <div id="err_idBandarPasangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+	</tbody>
+    #input_required("pasanganNoTelBimbit" "No Tel Bimbit" "$!us.noTelBimbit")
+    <tr>
+        <td colspan="2"></td>
+        <td>
+        	#if ( !$statusPermohonanBaru )
+            <input type="button" id="btnSimpanPasangan" name="btnSimpanPasangan" value="Simpan / Kemaskini" onclick="simpanPasangan()" />
+        	#end
+        </td>
+    </tr>
+</table>
+<p align="left" style="font-style: italic; color: #FF0000">** Sekiranya butiran telah lengkap sila klik butang Simpan / Kemaskini</p>
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

@@ -1,0 +1,42 @@
+function validateMain() {
+	var err_count = 0;
+	
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "Tajuk adalah mandatori!"; err_count++;  }
+	
+	var catatan = $('catatan').value;
+	if ( catatan == "" ) {$('err_catatan').innerHTML = "Catatan adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doSaveMain(id) {
+	if( validateMain() ){
+		doDivAjaxCall$formname('div_main_entry','save_data','record_id='+id);
+		swal("Hantar", "Rekod utama berjaya disimpan.", "success");
+	}
+}
+
+function validateBalas() {
+	var err_count = 0;
+	
+	var catatanBalas = $('catatanBalas').value;
+	if ( catatanBalas == "" ) {$('err_catatanBalas').innerHTML = "Sili isi catatan terlebih dahulu!"; err_count++;  }
+	
+	if (err_count == 0) {
+	}
+	
+	return err_count == 0;
+}
+
+function doSaveCatatanBalas(id){
+	if( validateBalas() ){
+		doDivAjaxCall$formname('divListUlasan','saveCatatanBalas','idMainCatatan='+id);
+		swal("Hantar", "Catatan balas berjaya disimpan.", "success");
+	}
+}

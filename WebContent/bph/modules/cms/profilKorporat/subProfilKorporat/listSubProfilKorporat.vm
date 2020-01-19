@@ -1,0 +1,54 @@
+<style>
+.print {
+	color:blue;
+}
+.print:hover {
+	color:blue;
+	text-decoration:underline;
+}
+</style>
+
+<fieldset>
+<legend class="legend">Senarai SubProfil Korporat</legend>
+<table width="100%" cellpadding="5" cellspacing="1">
+  <tr>
+    <td colspan="7"><input id="btnTambah" name="btnTambah" type="button" value="Tambah" onClick="doDivAjaxCall3$formname('divSubProfilKorporat','daftarSubProfilKorporat','')"/></td>
+  </tr>
+  <tr>
+    <td class="record_header" width="5%" align="center">Bil.</td>
+    ##<td class="record_header">Kategori</td>
+    <td class="record_header">Tajuk</td>
+    <td class="record_header">Status</td>
+    <td class="record_header">Dokumen</td>
+    <td class="record_header" width="5%" align="center">Papar</td>
+    <td class="record_header" width="5%" align="center">Hapus</td>
+  </tr>
+  #if ($listSubProfilKorporat.size() > 0)
+  #set ($count=0)
+  #foreach ($i in $listSubProfilKorporat)
+  #set ($count=$count+1)
+  
+  #if ( ($count % 2) != 1 )
+  #set( $row = "row2" )
+  #else
+  #set( $row = "row1" )
+  #end
+  <tr>
+    <td class="$row" align="center">$count</td>
+    ##<td class="$row" >$!i.kategori</td>
+    <td class="$row" >$!i.tajuk</td>
+    <td class="$row" >$!i.getKeteranganFlagAktif()</td>
+    <td class="$row" align="left"> #if ($!i.fileName != '') <a href="../download?file=$!uploadDir$!i.fileName" > <span class="print"><strong>MUAT TURUN DOKUMEN</strong><span> </a> #end </td>
+    <td class="$row" align="center"><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divSubProfilKorporat','kemaskiniSubProfilKorporat','idSubProfilKorporatList=$!i.id')"> <img alt="edit" src="../img/edit.gif" border="0"> </a></td>
+    <td class="$row" align="center"><span id="hapusDoc"> <a href="javascript:void()" onClick="deleteSubProfilKorporat($!i.id)" ><img src="../img/delete.gif" border="0"></a> </span> </td>
+  </tr>
+  #end
+  #else
+  <tr>
+    <td class="$row" align="center">&nbsp;</td>
+    <td class="$row" ><strong>TIADA REKOD</strong></td>
+    <td class="$row" colspan="5">&nbsp;</td>
+  </tr>
+  #end
+</table>
+</fieldset>

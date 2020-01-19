@@ -1,0 +1,154 @@
+<table cellpadding="5" cellspacing="0" border="0" width="960px" align="center">
+	<tr>
+		<td>
+			
+		<table border="0" align="center" width="95%">
+			<tr>
+				<td colspan=6 align="right">
+					<!--<input type="search" id="carian-portal" value="" placeholder="Carian..." />-->
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>		
+			</tr>	
+			<tr>
+				<td rowspan=2 align="left">
+					<a style="color:white;">Saiz :</a>
+		    		<font size="2"><a href="javascript:void(0);" onclick="changemysize(10);">A-</a></font>&nbsp;
+		    		<font size="4"><a href="javascript:void(0);" onclick="changemysize(13);">A</a></font>&nbsp;
+		    		<font size="5"><a href="javascript:void(0);" onclick="changemysize(20);">A+</a></font>
+		    		&nbsp;&nbsp;
+		    		<a style="color:white;">Warna :</a>
+		    		<img src="../images/w3c/yellow.png" a id=container a href="#" onclick="setColorById('container','yellow');return false;"></a>
+		    		<img src="../images/w3c/lime.png" a id=container a href="#" onclick="setColorById('container','lime');return false;"></a>
+		    		<img src="../images/w3c/red.png" a id=container a href="#" onclick="setColorById('container','red');return false;"></a>
+		    		&nbsp;&nbsp;
+		    		<a style="color:white;">Tema :</a>
+		    		<img src="../images/w3c/maroon.png" a id=container a href="#" onclick="setBgColorById('container','maroon');return false;"></a>
+		    		<img src="../images/w3c/DarkOrange.png" a id=container a href="#" onclick="setBgColorById('container','DarkOrange');return false;"></a>
+		    		<img src="../images/w3c/teal.png" a id=container a href="#" onclick="setBgColorById('container','Teal');return false;"></a>
+		    		<img src="../images/w3c/black.png" a id=container a href="#" onclick="setBgColorById('container','Black');return false;"></a>
+		    		<button type="button" onclick="location.reload()">Reset</button>
+				</td>
+				<td align="center">
+					<img src="../images/small-home.png" href="#" onclick="window.location = '../c/'" />
+				</td>
+				<td align="center">
+					<img src="../img/faq.png" width="20px" height="20px" href="#" onclick="doDivAjaxCall3$formname('main-content','getMainContent','header=Bantuan')"/>
+				</td>
+				<td align="center">
+					<img src="../img/hubungi_0.png" width="20px" height="20px" href="#" onclick="doDivAjaxCall3$formname('main-content','getMainContent','header=HubungiKami')"/>
+				</td>
+				<td align="center">
+					<img src="../img/maklumbalas2.png" width="20px" height="20px" href="https://bph.spab.gov.my" target="_blank"/>
+				</td>
+				<td align="center">
+					<img src="../img/peta.png" width="20px" height="20px" href="#" onclick="doDivAjaxCall3$formname('main-content','getMainContent','header=Peta Laman')"/>
+				</td>
+				
+			</tr>
+			<tr>
+				<td align="center">
+					<a href="#" onclick="window.location = '../c/'">Laman<br>Utama</a>
+				</td>
+				<td align="center">
+					<a href="#" onclick="doDivAjaxCall3$formname('main-content','getMainContent','header=Bantuan&idBantuan=1204163216999673')">Soalan<br>Lazim</a>
+					<!--<a href="bph/portal/content/bantuan/start.vm">Soalan<br>Lazim</a>-->
+				</td>
+				<td align="center">
+					<a href="#" onclick="doDivAjaxCall3$formname('main-content','getMainContent','header=HubungiKami')">Hubungi<br>Kami</a>
+		 		</td>
+		 		<td align="center">
+					<a href="https://bph.spab.gov.my" target="_blank">Aduan dan<br>Maklum Balas</a>
+				</td>
+				<td align="center">
+					<a href="#" onclick="doDivAjaxCall3$formname('main-content','getMainContent','header=Peta Laman')">Peta<br>Laman</a>
+				</td>
+			</tr>
+		</table>
+			
+			
+			
+		    
+		</td>
+		
+		<td align="right">
+			<div id="clockbox"></div>
+		</td>
+	</tr>
+</table>
+	
+<script type="text/javascript">
+    tday=new Array("Ahad","Isnin","Selasa","Rabu","Khamis","Jumaat","Sabtu");
+    tmonth=new Array("Januari","Februari","Mac","April","Mei","Jun","Julai","Ogos","September","Oktober","November","Disember");
+    
+    function GetClock(){
+        var d=new Date();
+        var nday=d.getDay(),nmonth=d.getMonth(),ndate=d.getDate(),nyear=d.getYear();
+        if(nyear<1000) nyear+=1900;
+        var d=new Date();
+        var nhour=d.getHours(),nmin=d.getMinutes(),ap;
+        if(nhour==0){ap=" AM";nhour=12;}
+        else if(nhour<12){ap=" AM";}
+        else if(nhour==12){ap=" PM";}
+        else if(nhour>12){ap=" PM";nhour-=12;}
+        
+        if(nmin<=9) nmin="0"+nmin;
+        document.getElementById('clockbox').innerHTML="<i>"+tday[nday]+" "+ndate+" "+tmonth[nmonth]+" "+nyear+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+nhour+":"+nmin+ap+"</i>";
+    }
+    
+    window.onload=function(){
+        GetClock();
+        setInterval(GetClock,1000);
+    }
+</script>
+
+
+<script type="text/javascript">
+function changemysize(myvalue) {
+    var div = document.getElementById("container");
+    div.style.fontSize = myvalue + "px";   
+}
+</script>
+
+
+<script language="JavaScript">
+function setBgColorById(id,sColor) {
+ var elem;
+ if (document.getElementById) {
+  if (elem=document.getElementById(id)) {
+   if (elem.style) {
+    elem.style.backgroundColor=sColor;
+    return 1;  // success
+   }
+  }
+ }
+ return 0;  // failure
+}
+
+function getBgColorById(id) {
+ var elem;
+ if (document.getElementById) {
+  if (elem=document.getElementById(id)) {
+   if (elem.style) return ''+elem.style.backgroundColor;
+  }
+ }
+ return 'undefined';
+}
+
+function setColorById(id,sColor) {
+ var elem;
+ if (document.getElementById) {
+  if (elem=document.getElementById(id)) {
+   if (elem.style) {
+    elem.style.color=sColor;
+    return 1;  // success
+   }
+  }
+ }
+ return 0;  // failure
+}
+
+
+
+
+</script>
+

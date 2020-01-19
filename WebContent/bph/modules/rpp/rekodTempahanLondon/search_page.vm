@@ -1,0 +1,131 @@
+
+
+
+
+
+<table width="80%" cellpadding="1" border="0" cellspacing="2">
+	
+	<tr>
+		<td class="label" style="width:20%"></td>
+		<td style="width:2%"></td>
+		<td style="width:20%"></td>
+		<td style="width:2%"></td>
+		<td style="width:20%"></td>
+		<td style="width:2%"></td>
+		<td style="width:34%"></td>
+	</tr>
+	
+	##TEMPORARY - REQUEST BY EN WAN NAK CEK PERMOHONAN BY NO_TEMPAHAN
+	#if ($!objUser.id == '731230035495')
+		<tr>
+    	<td class="label" valign="top">No. Tempahan</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top" colspan="5"><input type="text" id="findNoTempahan" name="findNoTempahan" value="" style="width:80%" ></td>
+    </tr>
+	#end
+	
+	#if($!userRole.equalsIgnoreCase("(RPP) Penyedia") || $!userRole.equalsIgnoreCase("(RPP) Penyemak") || $!userRole.equalsIgnoreCase("(RPP) Pelulus"))
+	<tr>
+    	<td class="label" valign="top">No. Pengenalan</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top" colspan="5"><input type="text" id="findNoKp" name="findNoKp" value="" style="width:80%" ></td>
+    </tr>
+	
+	<tr>
+    	<td class="label" valign="top">Nama</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top" colspan="5"><input type="text" id="findUserName" name="findUserName" value="" style="width:80%" ></td>
+    </tr>
+	#end
+	
+	<tr>
+		<td class="label">Lokasi Peranginan</td>
+        <td>:</td>
+        <td colspan="5">
+			<select class="texts" id="findRpp" name="findRpp" style="width:80%">
+            <option value="">SILA PILIH</option>
+            #foreach( $n in $listPeranginan)
+				<option value="$n.id">$n.namaPeranginan.toUpperCase()</option>
+			#end
+            </select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="label">Status Tempahan</td>
+        <td>:</td>
+        <td colspan="5">
+			<select class="texts" id="findStatus" name="findStatus" style="width:80%">
+				<option value="">SILA PILIH</option>
+                #foreach( $n in $listStatus)
+                <option value="$n.id">$n.keterangan.toUpperCase()</option>
+                #end
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="label">Status Bayaran</td>
+        <td>:</td>
+        <td colspan="5">
+			<select id="findStatusBayaran" name="findStatusBayaran" style="width:80%">
+				<option value="" >SILA PILIH</option>
+                <option value="T">BELUM BAYAR</option>
+                <option value="Y">TELAH BAYAR</option>
+			</select>
+		</td>
+	</tr>
+	
+	#if($!userRole.equalsIgnoreCase("(RPP) Penyedia") || $!userRole.equalsIgnoreCase("(RPP) Penyemak") || $!userRole.equalsIgnoreCase("(RPP) Pelulus"))
+	<tr>
+		<td class="label">Status Kelulusan PMO</td>
+        <td>:</td>
+        <td colspan="5">
+			<select id="findStatusLulusPmo" name="findStatusLulusPmo" style="width:80%">
+				<option value="" >SILA PILIH</option>
+                <option value="Y">DILULUSKAN</option>
+                <option value="T">TIDAK DILULUSKAN</option>
+			</select>
+		</td>
+	</tr>
+	#end
+	
+	<tr>
+		<td class="label" valign="middle">Tarikh Masuk</td>
+		<td class="label" valign="middle">:</td>
+		<td class="label" colspan="5">
+			<div>
+				<input type="text" id="findTarikhMasukRpp" name="findTarikhMasukRpp" value="">
+                <span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+                <script>
+                	_jq("#findTarikhMasukRpp").Zebra_DatePicker({ 
+                		format: 'd-m-Y',
+                		readonly_element: false,
+						pair: _jq('#findTarikhKeluarRpp')
+                	});
+                </script>
+          	</div>
+      	</td>
+  	</tr>
+	
+	<tr>
+		<td class="label" valign="middle">Tarikh Keluar</td>
+		<td class="label" valign="middle">:</td>
+        <td class="label" colspan="5">
+			<div>
+				<input type="text" id="findTarikhKeluarRpp" name="findTarikhKeluarRpp" value="">
+                <span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+                <script>
+               		_jq("#findTarikhKeluarRpp").Zebra_DatePicker({ 
+                		format: 'd-m-Y',
+                		readonly_element: false
+                	});
+              	</script>
+			</div>
+      	</td>
+  	</tr>
+	
+</table>
+
+<br/>
+	

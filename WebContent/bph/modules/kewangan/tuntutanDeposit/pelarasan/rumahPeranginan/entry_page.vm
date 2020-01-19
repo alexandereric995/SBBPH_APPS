@@ -1,0 +1,353 @@
+
+<input type="hidden" name="id" id="id" value="$!r.id" />
+
+<fieldset>
+<legend class="legend">maklumat permohonan</legend>
+		<tr>
+		  	<td style="width:200px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+		</tr>
+		
+		<tr>
+			<td colspan="3" valign="top">
+				<table width="100%" border="0">
+					<tr>
+						<td width="50%" valign="top">
+							<table width="100%">
+								#show("NAMA PEMOHON" "$!permohonan.pemohon.userName.toUpperCase()")
+                        		#show("NO. KP" "$!permohonan.pemohon.id.toUpperCase()")
+                        		#show("NO. TEMPAHAN" "$!permohonan.noTempahan.toUpperCase()")
+                        		#show("LOKASI" "$!permohonan.rppPeranginan.namaPeranginan.toUpperCase()")
+                        		#show("JENIS UNIT" "<b>$!permohonan.kuantiti UNIT</b> $!permohonan.jenisUnitRpp.keterangan.toUpperCase()")
+                        		#show("TARIKH PERMOHONAN" "$!util.getDateTime($!permohonan.tarikhPermohonan,'dd/MM/yyyy')")
+                        		#show("TARIKH CHECKIN" "$!util.getDateTime($!permohonan.tarikhMasukRpp,'dd/MM/yyyy')")
+                        		#show("TARIKH CHECKOUT" "$!util.getDateTime($!permohonan.tarikhKeluarRpp,'dd/MM/yyyy')")
+								<tr>
+                        			<td style="width:190px"></td>
+                                    <td style="width:10px"></td>
+                                    <td></td>
+                        		</tr>
+							</table>
+						</td>
+						<td width="50%" valign="top">
+							<table width="100%">
+								#show("NO. TELEFON" "$!permohonan.pemohon.noTelefon")
+								#show("NO. TELEFON BIMBIT" "$!permohonan.pemohon.noTelefonBimbit")
+								#show("EMEL" "$!permohonan.pemohon.emel")
+								<tr>
+                        			<td style="width:200px"></td>
+                                    <td style="width:10px"></td>
+                                    <td></td>
+                        		</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+</fieldset>
+
+<fieldset>
+<legend class="legend">maklumat bayaran</legend>
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+		  	<td style="width:200px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+		</tr>
+			
+		<tr>
+			<td colspan="3" valign="top">
+				<table width="100%" border="0">
+					<tr>
+						<td width="50%" valign="top">
+							<table width="100%">
+								<tr>
+                        			<td style="width:190px"></td>
+                                    <td style="width:10px"></td>
+                                    <td></td>
+                        		</tr>
+								#show("JUMLAH BAYARAN" "<b>RM $!util.formatDecimal($!permohonan.amaunTotalSewaRpWithoutDeposit())</b>")
+								#show("STATUS BAYARAN" "<b>$!permohonan.statusBayaran</b>")
+								#show("TARIKH BAYARAN" "<b>$!util.getDateTime($!permohonan.tarikhBayaran,'dd/MM/yyyy')</b>")
+								#show("STATUS TEMPAHAN" "<b>$!permohonan.status.keterangan.toUpperCase()</b>")
+								#show("NO.RESIT SEWA" "<b>$!permohonan.resitSewa.noResit</b>")
+								#show("NO.RESIT DEPOSIT" "<b>$!permohonan.resitDeposit.noResit</b>")
+								#if($!r.status.id == "1425259713418" || $!r.status.id == "1435093978588")
+									#show("SEBAB PEMBATALAN" "<b>$!permohonan.catatanPembatalan.toUpperCase()</b>")
+									#show("DIBATALKAN OLEH" "<b>$!permohonan.pemohonBatal.userName.toUpperCase()</b>")
+								#end
+							</table>
+						</td>
+						<td width="50%" valign="top">
+							<table width="100%">
+								<tr>
+                        			<td style="width:200px"></td>
+                                    <td style="width:10px"></td>
+                                    <td></td>
+                        		</tr>
+								#show("TARIKH. EFT" "$!util.getDateTime($!permohonan.getObjTuntutanDeposit().tarikhEft,'dd/MM/yyyy')")
+								#show("NO. EFT" "$!permohonan.getObjTuntutanDeposit().noEft")
+								#show("TARIKH. BAUCER" "$!util.getDateTime($!permohonan.getObjTuntutanDeposit().tarikhBaucer,'dd/MM/yyyy')")
+								#show("NO. BAUCER" "$!permohonan.getObjTuntutanDeposit().noBaucerPulanganDeposit")
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>	
+	</table>
+</fieldset>
+	
+<fieldset>
+<legend class="legend">senarai semak</legend>
+<table width="100%">
+		<tr>
+##			<td style="width:2%"></td>
+			<td style="width:1%"></td>
+			<td style="width:30%">&nbsp;</td>
+			<td style="width:67%">&nbsp;</td>
+		</tr>	
+		<tr>
+			<td valign="middle">&nbsp;</td>
+			<td colspan="2" valign="middle">
+				<a href="#" style="color:blue" id="cmdResitDep">RESIT DEPOSIT </a>
+			</td>
+			<td valign="middle">&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td valign="middle">&nbsp;</td>
+			##langkawi
+			#if( $!permohonan.rppPeranginan.id.equalsIgnoreCase("3"))
+				<td><a href="#" style="color:blue" id="cmdCetakSuratKelulusan">SURAT KELULUSAN LANGKAWI</a></td>
+			##port dickson
+			#elseif($!permohonan.rppPeranginan.id.equalsIgnoreCase("14") )
+				<td><a href="#" style="color:blue" id="cmdCetakSuratKelulusan">SURAT KELULUSAN PORT DICKSON</a></td>
+			#else
+				<td><a href="#" style="color:blue" id="cmdCetakSuratKelulusan">SURAT KELULUSAN</a></td>
+			#end
+		</tr>
+		<tr>
+			<td valign="middle">&nbsp;</td>
+			<td colspan="2" valign="middle">
+				<a href="#" style="color:blue" id="cmdBorangTuntutan">BORANG TUNTUTAN DEPOSIT</a>
+			</td>
+			<td valign="middle">&nbsp;</td>
+		</tr>		
+		<tr>
+			<td valign="middle">&nbsp;</td>
+			<td colspan="2" valign="middle">
+				#if( $!r.penuntut.dokumenBank && !$!r.penuntut.dokumenBank.equalsIgnoreCase("") )
+				<a href="../download?file=$!uploadDir$!r.penuntut.dokumenBank"><span class="print" style="color:#0000FF">SALINAN AKAUN BANK<span></a>
+				#else
+				SALINAN AKAUN BANK
+				#end
+			</td>
+			<td valign="middle">&nbsp;</td>
+		</tr>
+		
+	</table>
+</fieldset>
+<fieldset>
+<legend class="legend">maklumat deposit</legend>
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr><td colspan="9"></td></tr>
+		<tr>
+			<td colspan="9">
+				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">DEPOSIT</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="row_header" width="10%">TARIKH</td>
+			<td class="row_header" width="10%">NO. RESIT</td>
+			<td class="row_header" width="10%">AMAUN<br/>DEPOSIT (RM)</td>
+			<td class="row_header" width="10%">NO. BAUCER<br/> PEMULANGAN<br/>DEPOSIT</td>
+			<td class="row_header" width="10%">TARIKH BAUCER</td>
+			<td class="row_header" width="10%">NO.EFT</td>
+			<td class="row_header" width="10%">TARIKH EFT</td>
+			<td class="row_header" width="10%">AMAUN<br/> BAYARAN<br/> BALIK (RM)</td>
+			<td class="row_header" width="20%">CATATAN</td>
+		</tr>
+		
+		<tr bgcolor="#F0F0F0">
+			<td align="center">$!util.getDateTime($!r.deposit.tarikhDeposit,'dd-MM-yyyy')</td>
+			<td align="center">$!r.deposit.noResit.toUpperCase()</td>
+			<td align="right">$!util.formatDecimal($!r.deposit.jumlahDeposit)</td>
+			<td align="center"><input type="text" name="noBaucerPulanganDeposit" id="noBaucerPulanganDeposit" value="$!r.noBaucerPulanganDeposit" /></td>
+			<td align="center">
+				<div>
+            		<input type="text" id="tarikhBaucer" name="tarikhBaucer" value="$!util.getDateTime($!r.tarikhBaucer,'dd-MM-yyyy')" >
+        			<script>
+                    	_jq("#tarikhBaucer").Zebra_DatePicker({ 
+            				format: 'd-m-Y',
+        					readonly_element: false,
+                    	});
+        				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+            		</script>
+        		</div>
+			</td>
+			<td align="center"><input type="text" name="noEft" id="noEft" value="$!r.noEft" /></td>
+			<td align="center">
+				<div>
+            		<input type="text" id="tarikhEft" name="tarikhEft" value="$!util.getDateTime($!r.tarikhEft,'dd-MM-yyyy')" >
+        			<script>
+                    	_jq("#tarikhEft").Zebra_DatePicker({ 
+            				format: 'd-m-Y',
+        					readonly_element: false,
+                    	});
+        				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+            		</script>
+        		</div>
+			</td>
+			<td align="center"><input type="text" style="text-align:right" class="currency" name="amaunPelarasanDeposit" id="amaunPelarasanDeposit" value="$!util.formatDecimal($!r.amaunPelarasanDeposit)" /></td>
+			<td align="center"><input type="text" name="catatanPelarasanDeposit" id="catatanPelarasanDeposit" value="$!r.catatanPelarasanDeposit" onBlur="this.value=this.value.toUpperCase();" /></td>
+		</tr>
+			
+	</table>	
+	
+	<br/>
+	
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr><td colspan="5"></td></tr>
+		<tr>
+			<td colspan="5">
+				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">PELARASAN</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="row_header" width="5%">BIL</td>
+			<td class="row_header" width="15%">TARIKH ADUAN</td>
+			<td class="row_header" style="text-align:left" width="35%">PERKARA</td>
+			<td class="row_header" width="15%">AMAUN (RM)</td> <!-- Rename from patut bayar (RM). -->
+			<td class="row_header" width="30%">NO. BAUCER JURNAL</td>
+		</tr>
+		
+		#if ( $listKerosakan.size() > 0 )
+    		#set ( $count = 0 )
+			#set ( $jumlahLebihanTunggakan = 0)
+    		#foreach( $d in $listKerosakan )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+				#set ( $jumlahLebihanTunggakan = $jumlahLebihanTunggakan + $!d.harga )
+				
+    		<tr bgcolor="$rowcolor">
+				<td align="center">$count</td>
+    			<td align="center">$!util.getDateTime($!d.tarikhAduan,'dd/MM/yyyy').toUpperCase()</td>
+				<td align="left">$d.barangDeposit.nama.toUpperCase()</td>
+				<td align="right">$!util.formatDecimal($!d.harga)</td>
+    			<td align="center"><input type="text" name="baucerJurnal$!d.id" id="baucerJurnal$!d.id" value="$!d.baucerJurnal" onBlur="this.value=this.value.toUpperCase();" /></td>
+    		</tr>
+			
+			#end
+    			<tr>
+    				<td colspan="3" align="right">TUNGGAKAN / LEBIHAN :</td>
+    				<td align="right">
+						<span class="bracketNumber">$!util.formatDecimal($jumlahLebihanTunggakan)</span>
+##						<script>
+##							var jum = "$jumlahLebihanTunggakan";
+##							
+##							var valPelarasan = parseInt(jum);
+##							if(parseInt(jum) < 0){
+##								valPelarasan = parseInt(jum) * -1;
+##							}
+##							
+##							_jq('#amaunPelarasanDeposit').val(valPelarasan);
+##						</script>
+					</td>
+					<td>&nbsp;</td>
+    			</tr>
+    	#else
+    		<tr bgcolor="#F0F0F0">
+    			<td colspan="5">Tiada Rekod</td>
+    		</tr>
+    	#end
+			
+	</table>
+	
+</fieldset>
+		
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="right">
+			
+			#if( $!r.status.id == "1438023402975" && $!userRole.equalsIgnoreCase("(DEPOSIT) Pelulus") )	
+			<input type="button" value="Luluskan Pelarasan" onClick="javascript:lulusPelarasan()">
+			#end
+			
+			#if( $!r.status.id == "1438023402951" && $!userRole.equalsIgnoreCase("(DEPOSIT) Penyemak") )	
+			<input type="button" value="Hantar Kelulusan" onClick="javascript:hantarKelulusan()">
+			#end
+				
+			#if( $!r.status.id == "1436464445673" && $!userRole.equalsIgnoreCase("(DEPOSIT) Penyedia") )	
+			<input type="button" value="Hantar Pengesahan" onClick="javascript:hantarPengesahan()">
+			#end	
+			
+			#if( ($!r.status.id == "1436464445668" || $!r.status.id == "1436464445673") && $!userRole.equalsIgnoreCase("(DEPOSIT) Penyedia") )	
+			#set ( $queryParam = "record_id=$!r.id" )
+			<input type="button" value="Simpan" onClick="if ( validateField() ) doDivAjaxCall$formname('div_main_entry','save_data','$queryParam')">	
+			#end
+			
+			#if(($!r.status.id == "1438023402980") && $!userRole.equalsIgnoreCase("(DEPOSIT) Penyedia")) <!-- PERMOHONAN DILULUSKAN -->
+			<input type="button" value="Deposit Telah Dipulangkan" onClick="javascript:doPulangDeposit()">
+			#end
+			
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+<script>
+  _jq(function($) {
+  	  $('.bracketNumber').autoNumeric('init', {nBracket: '(,)', vMin: '-9999999999.99', vMax: '9999999999.99'} );
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+   _jq('#cmdResitDep').on('click', function(){
+    var idResit = '$!permohonan.getIdResitDeposit()';
+    
+	var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	if ((document.window != null) && (!hWnd.opener))
+	hWnd.opener = document.window;
+	if (hWnd.focus != null) hWnd.focus();	
+ });
+  _jq('#cmdBorangTuntutan').on('click', function(){
+    		var idPermohonan = '$!permohonan.id';
+    		var url = "../servlet/bph.laporan.rpp.BayaranBalikDeposit?idPermohonan="+idPermohonan;
+    		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+    		if ((document.window != null) && (!hWnd.opener))
+    		hWnd.opener = document.window;
+    		if (hWnd.focus != null) hWnd.focus();
+    });
+</script>
+
+<script>
+	
+		_jq('#cmdCetakSuratKelulusan').on('click', function(){
+		#if( $!permohonan.rppPeranginan.id.equalsIgnoreCase("3"))
+			var url = "../servlet/bph.laporan.rpp.SuratKelulusanRPPLangkawi?idRppPermohonan=$!permohonan.id";
+		#elseif($!permohonan.rppPeranginan.id.equalsIgnoreCase("14") )
+			var url = "../servlet/bph.laporan.rpp.SuratKelulusanRPPPortDickson?idRppPermohonan=$!permohonan.id";
+		#else
+			var url = "../servlet/bph.laporan.rpp.RPPSuratLulusPermohonan?idRppPermohonan=$!permohonan.id";
+		#end
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		});	
+		
+</script>

@@ -1,0 +1,54 @@
+<input type="hidden" id="id" name="id" value="$!r.id">
+<fieldset>
+<legend class="legend">MAKLUMAT REKOD</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  #input_required("unit" "Unit" "$!r.unit")
+  <tr>
+    <td class="label">Kod Pusat Terima &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td class="label">:</td>
+    <td><input type="text" id="kodPusatTerima" name="kodPusatTerima" value="$!r.kodPusatTerima" onKeyUp=" $('err_kodPusatTerima').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();doDivAjaxCall3$formname('divSemakanKodPusatTerima','semakanKodPusatTerima','')">
+      <div id="err_kodPusatTerima" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      <div id="divSemakanKodPusatTerima" style="color:#CC0000;font-weight:bold;border:2px #000">#parse("$path/semakanKodPusatTerima.vm")</div></td>
+  </tr>
+  <tr>
+    <td class="label">Kod Penyata Pemungut &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td class="label">:</td>
+    <td><input type="text" id="kodPenyataPemungut" name="kodPenyataPemungut" value="$!r.kodPenyataPemungut" onKeyUp=" $('err_kodPenyataPemungut').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();doDivAjaxCall3$formname('divSemakanKodPenyataPemungut','semakanKodPenyataPemungut','')">
+      <div id="err_kodPenyataPemungut" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      <div id="divSemakanKodPenyataPemungut" style="color:#CC0000;font-weight:bold;border:2px #000">#parse("$path/semakanKodPenyataPemungut.vm")</div></td>
+  </tr>
+  <tr>
+    <td class="label">Status &nbsp;<span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td>#parse("$path/selectFlagAktif.vm")
+      <div id="err_flagAktif" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #textarea("catatan" "Catatan" "$!r.catatan")
+  
+##  #if ($!command != 'add_new_record')
+##  	<tr>
+##    <td>&nbsp;</td>
+##    <td>&nbsp;</td>
+##    <td>&nbsp;</td>
+##  </tr>
+##  	#show("Daftar Oleh" "$!r.daftarOleh.userName")
+##  	#show("Tarikh Daftar" "$util.getDateTime($!r.tarikhMasuk,'dd-MM-yyyy hh:mm:ss a')")
+##  	#show("Kemaskini Oleh" "$!r.kemaskiniOleh.userName")
+##  	#show("Tarikh Kemaskini" "$util.getDateTime($!r.tarikhKemaskini,'dd-MM-yyyy hh:mm:ss a')")
+##  #end
+
+</table>
+</fieldset>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

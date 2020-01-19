@@ -1,0 +1,43 @@
+
+
+<fieldset style="width:50% !important">
+	
+	<input type="hidden" name="idRppPermohonan" id="idRppPermohonan" value="$!r.id" />
+	<legend class="legend">catatan tidak lulus</legend>
+	
+	<table width="100%" cellpadding="1" cellspacing="1" >
+    	<tr>
+    		<td style="width:80px"></td>
+    		<td style="width:10px"></td>
+    		<td>&nbsp;</td>
+    	</tr>
+		
+		#textarea("catatanKelompokTidakLulus" "Catatan" "$!r.catatanKelompokTidakLulus")
+		
+	</table>
+	
+	<br />
+	
+	<table width="100%">
+		<tr>
+			<td align="right">
+				<input id="btnPopupTidakLulus" type="button" value="Tidak Lulus" />
+				<input id="btnPopupExit" type="button"  value="Keluar" />
+			</td>
+		</tr>
+	</table>
+
+</fieldset>
+	
+<script>
+
+	_jq('#btnPopupExit').on('click', function(){
+     	jQuery('#popupTidakLulus').fadeOut();
+  	});
+	
+	_jq('#btnPopupTidakLulus').on('click', function(){
+		doDivAjaxCall$formname('mainform','savePermohonanTidakLulus','');
+		jQuery('#popupTidakLulus').fadeOut();
+  	});
+	
+</script>

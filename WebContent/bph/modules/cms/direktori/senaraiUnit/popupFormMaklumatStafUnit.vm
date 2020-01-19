@@ -1,0 +1,62 @@
+<fieldset>
+<input type="hidden" id="idUnit" name="idUnit" value="$!idUnit">
+<input type="hidden" id="idStafUnit" name="idStafUnit" value="$rekod.id">
+<legend class="legend">MAKLUMAT PEGAWAI</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  #input_required("nama" "Nama" "$!rekod.nama")
+  #input_required("jawatan" "Jawatan" "$!rekod.jawatan")
+  
+##  #input_email_required("email" "Email" "$!rekod.email")	##	diminta untuk disable mandatori pada 30-06-2016 Edit ByZul
+	#input_email("email" "Email" "$!rekod.email")
+
+##  #phone_number_required("noTelefon" "No Telefon" "$!rekod.noTelefon")	##	diminta untuk disable mandatori pada 30-06-2016 Edit ByZul
+  	#phone_number("noTelefon" "No Telefon" "$!rekod.noTelefon")
+  
+  
+  #phone_number("noFaks" "No Faks" "$!rekod.noFaks")
+  <tr>
+    <td class="label" valign="top">Ketua &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td>#parse("$path/selectKetua.vm")
+      <div id="err_flagKetua" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">Status &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td>#parse("$path/selectFlagAktif.vm")
+      <div id="err_flagAktif" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+</table>
+#if($!command == 'addStafUnit')
+<p align="center">
+  <input type="button" value="Simpan" align='left' id="cmdSimpanMaklumatStafUnit">
+  <input type="button" value="Kembali" align='left' id="cmdKembali">
+</p>
+#end
+#if ($!command == 'editStafUnit')
+<p align="center">
+  <input type="button" value="Kemaskini" align='left' id="cmdKemaskiniMaklumatStafUnit">
+  <input type="button" value="Kembali" align='left' id="cmdKembali">
+</p>
+#end
+</fieldset>
+<script>
+	_jq('#cmdSimpanMaklumatStafUnit').on('click', function(){
+		saveStafUnit();
+	});
+	
+	_jq('#cmdKemaskiniMaklumatStafUnit').on('click', function(){
+		saveStafUnit();
+	});
+	
+	_jq('#cmdKembali').on('click', function(){
+		doDivAjaxCall3$formname('divTab','getTabUnit','idUnit=$!idUnit');
+	    jQuery('#cmdKembali').fadeOut();
+	});
+
+</script>

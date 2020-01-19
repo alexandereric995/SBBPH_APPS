@@ -1,0 +1,34 @@
+###if( $!userRole.equalsIgnoreCase("(QTR) Penyedia") || $!userRole.equalsIgnoreCase("(QTR) Pelulus"))
+	<input type="button" value="Cetak"  id="cmdCetak" align="right"/>
+###end
+
+<script>
+
+_jq('#cmdCetak').on('click', function(){
+		
+##	alert("masuk masuk")
+	var findNoDaftar = $('findNoDaftar').value;
+	var findUserName = $('findUserName').value;
+	var findUserNoKP = $('findUserNoKP').value;
+	
+	if(!findNoDaftar){
+		findNoDaftar = "";
+	}
+	if(!findUserName){
+		findUserName = "";
+	}
+	if(!findUserNoKP){
+		findUserNoKP = "";
+	}
+	
+	var url = "../servlet/bph.laporan.qtr.CetakSenaraiRayuan?findNoDaftar="+findNoDaftar+"&findUserName="+findUserName+"&findUserNoKP="+findUserNoKP;
+	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	if ((document.window != null) && (!hWnd.opener)){
+		hWnd.opener = document.window;
+	}
+	if (hWnd.focus != null){ 
+		hWnd.focus();
+	}
+});
+
+</script>

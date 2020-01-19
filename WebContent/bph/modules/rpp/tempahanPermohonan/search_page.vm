@@ -1,0 +1,105 @@
+
+##TEMPLATE CARIAN
+#parse("bph/modules/rpp/carian/index.vm")
+
+
+
+<!-- YANG LAMA
+<table width="80%" cellpadding="1" cellspacing="2">
+	
+	<tr>
+		<td class="label" style="width:15%"></td>
+		<td style="width:1%"></td>
+		<td style="width:70%"></td>
+	</tr>
+  
+	#if(!$!userRole.equalsIgnoreCase("(AWAM) Penjawat Awam"))
+		#input("noKP" "No. Pengenalan" "")
+		#input("userName" "Nama" "")
+	#end
+  
+  #if(!$!userRole.equalsIgnoreCase("(RPP) Penyelia"))
+	#if( $!controllerName.equalsIgnoreCase("bph.modules.rpp.TempahanRPRecordModule") )
+      <tr>
+        <td class="label">Jenis RP</td>
+        <td>:</td>
+        <td>
+    		<select class="texts" id="carianJenisPeranginan" name="carianJenisPeranginan" style="width:100%" onChange="doFilterCarianPeranginan();">
+        		<option value="">SILA PILIH</option>
+                #foreach( $n in $listJenisPeranginan)
+        			<option value="$n.id">$n.keterangan.toUpperCase()</option>
+                #end
+        	</select>
+    	</td>
+      </tr>
+	#end  
+      <tr>
+        <td class="label">Rumah Peranginan</td>
+        <td>:</td>
+        <td>
+    		<div id="divCarianPeranginan">
+    			#parse("$path/divCarianPeranginan.vm")
+    		</div>
+    	</td>
+      </tr>
+  #end
+  <tr>
+    <td class="label">Status</td>
+    <td>:</td>
+    <td>
+		<select class="texts" id="carianStatusPermohonan" name="carianStatusPermohonan" style="width:100%">
+    		<option value="">SILA PILIH</option>
+            #foreach( $n in $listStatus)
+    			<option value="$n.id">$n.keterangan.toUpperCase()</option>
+            #end
+    	</select>
+	</td>
+  </tr>
+  <tr>
+    <td class="label">Status Bayaran</td>
+    <td>:</td>
+    <td>
+		<select id="status_bayaran" name="status_bayaran" style="width:100%">
+			<option value="" >SILA PILIH</option>
+        	<option value="T">BELUM BAYAR</option>
+        	<option value="Y">SUDAH BAYAR</option>
+		</select>
+    </td>
+  </tr>
+  
+    <tr>
+    	<td class="label" valign="top">Tarikh Masuk</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">
+    		<div>
+        		<input type="text" id="findTarikhMasukRpp" name="findTarikhMasukRpp" value="">
+    			<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+        		<script>
+                	_jq("#findTarikhMasukRpp").Zebra_DatePicker({ 
+    		    		format: 'd-m-Y',
+    					readonly_element: false
+    		        });
+        		</script>
+    		</div>
+    	</td>
+    </tr>
+	
+      <tr>
+    	<td class="label" valign="top">Tarikh Keluar</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">
+    		<div>
+        		<input type="text" id="findTarikhKeluarRpp" name="findTarikhKeluarRpp" value="">
+    			<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+        		<script>
+                	_jq("#findTarikhKeluarRpp").Zebra_DatePicker({ 
+    		    		format: 'd-m-Y',
+    					readonly_element: false
+    		        });
+        		</script>
+    		</div>
+    	</td>
+      </tr>
+</table>
+-->
+

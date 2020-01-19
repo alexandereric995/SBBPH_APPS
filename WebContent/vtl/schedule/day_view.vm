@@ -1,0 +1,68 @@
+#set ( $h_arr = [0..23] )
+#set ( $m_arr = [0..11])
+<style>
+.timesheet {font-family:helvetica; font-size:9px; background-color:white}
+.timebutton {font-family:helvetica; font-size:9px; background-color:silver;
+	border-bottom: .5px solid; border-left: .5px solid;
+	border-right: .5px solid; border-top: .5px solid; width:25 }
+</style>
+<form name="planner" method="post">
+<table>
+	<tr>
+		<td>
+			<table border="0" cellpadding="0" cellspacing="1" bgcolor="black">
+				#foreach ( $h in $h_arr ) 
+					<tr>
+						<td width="20" class="timesheet" align="center">
+							<input class="timebutton" type="button" value="$h">
+						</td>
+					</tr>
+				#end
+			</table>
+		</td>
+		<td valign="top">
+			<table width="100%">
+				#set ( $cnt = 0 )
+				#foreach ( $task in $taskVector )
+					<tr>
+						#set ( $cnt = $cnt + 1 )
+						<td class="timesheet">
+							$cnt
+						</td>
+						<td  class="timesheet">
+							<a href="javascript:sharetask('$task.task_id')">
+							$task.task_description
+							</a>
+						</td>
+						<td  class="timesheet">
+							$task.task_start_date
+						</td>
+						<td  class="timesheet">
+							$task.task_end_date
+						</td>
+						<td  class="timesheet">
+							<input type="button" value="Delete" onclick="deletetask('$task.task_id')" style="font-family:helvetica; font-size:9px;">
+						</td>			
+					</tr>
+				#end
+			</table>		
+		</td>
+	</tr>
+</table>
+<br>
+<input type="hidden" name="planner_action">
+<input type="hidden" name="task_id">
+<input type="button" value="OK" onclick="dotask('cancel')">
+</form>
+<script>
+function dotask(id) {
+	document.planner.action = "";
+	document.planner.planner_action.value = id;
+	document.planner.submit();
+}
+function deletetask(id) {
+	document.planner.action = "";
+	document.planner.task_id.value = id;
+	dotask('deletetask');
+}
+</script>

@@ -1,0 +1,15 @@
+update kew_deposit_migrate set no_kp = TRIM(replace(no_kp, '-', ''));
+update kew_deposit_migrate set tarikh_resit = replace(tarikh_resit, ' 00:00:00', '');
+update kew_deposit_migrate set tarikh_pp = replace(tarikh_pp, ' 00:00:00', '');
+update kew_deposit_migrate set tarikh_bayaran = replace(tarikh_bayaran, ' 00:00:00', '');
+update kew_deposit_migrate set tarikh_resit = replace(tarikh_resit, '/17', '/2017') where tarikh_resit like '%/17';
+update kew_deposit_migrate set tarikh_resit = replace(tarikh_resit, '/16', '/2016') where tarikh_resit like '%/16';
+update kew_deposit_migrate set tarikh_pp = replace(tarikh_pp, '/17', '/2017') where tarikh_pp like '%/17';
+update kew_deposit_migrate set tarikh_pp = replace(tarikh_pp, '/16', '/2016') where tarikh_pp like '%/16';
+update kew_deposit_migrate set tarikh_bayaran = replace(tarikh_bayaran, '/17', '/2017') where tarikh_bayaran like '%/17';
+update kew_deposit_migrate set tarikh_bayaran = replace(tarikh_bayaran, '/16', '/2016') where tarikh_bayaran like '%/16';
+update kew_deposit_migrate set tarikh_resit = CONCAT(SUBSTRING(tarikh_resit, 7, 4),'-', SUBSTRING(tarikh_resit, 4, 2),'-', SUBSTRING(tarikh_resit, 1, 2)) where tarikh_resit like '%/%';
+update kew_deposit_migrate set tarikh_pp = CONCAT(SUBSTRING(tarikh_pp, 7, 4),'-', SUBSTRING(tarikh_pp, 4, 2),'-', SUBSTRING(tarikh_pp, 1, 2)) where tarikh_pp like '%/%';
+update kew_deposit_migrate set tarikh_bayaran = CONCAT(SUBSTRING(tarikh_bayaran, 7, 4),'-', SUBSTRING(tarikh_bayaran, 4, 2),'-', SUBSTRING(tarikh_bayaran, 1, 2)) where tarikh_bayaran like '%/%';
+update kew_deposit_migrate set no_resit = concat('09', lpad(no_resit, 5, '0')) where LENGTH(no_resit) <=3;
+update kew_deposit_migrate set no_resit = concat(SUBSTRING(tarikh_resit, 9, 2), SUBSTRING(tarikh_resit, 6, 2), SUBSTRING(tarikh_resit, 1, 4), no_resit) where no_resit not in ('06010117000105', '06010117000937', '06010117001260', 'S00061', 'FQ257677', 'FQ257698' , 'FQ257736', 'FQ257737');

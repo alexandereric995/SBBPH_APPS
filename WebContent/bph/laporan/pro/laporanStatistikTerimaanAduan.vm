@@ -1,0 +1,66 @@
+
+<fieldset>
+<legend class="legend">Laporan Statistik Terimaan Aduan</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  <tr>
+  <td class="label" valign="top">Tahun<span style="color:#FF2A00">  *</span></td>
+  <td class="label" valign="top">:</td>
+  <td valign="top">
+    <div>
+      <input type="text" id="tahun" name="tahun" value="" >
+         <script>
+           _jq("#tahun").Zebra_DatePicker({ 
+              view: 'year',
+			  format: 'Y'
+           });
+           _jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+         </script>
+     </div>
+  <div id="err_tahun" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+  </td>
+</tr>
+<tr>
+       <td class="label">Jenis Aduan<span style="color:#FF2A00">  *</span></td>
+       <td>:</td>
+       <td> <select id="idJenisAduan" name="idJenisAduan" style="width:30%" >
+    <option value="">SILA PILIH</option>
+    #foreach( $n in $selectJenisAduan )
+    	<option #if ( $n.id == $r.jenisAduan.id ) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+    #end
+</select> 
+<div id="err_idJenisAduan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+</td>
+        </tr>
+<tr>
+    <td class="label">Jenis Unit / Seksyen</td>
+    <td>:</td>
+    <td><select id="idJenisUnit" name="idJenisUnit" style="width:30%" >
+    <option value="">SILA PILIH</option>
+    #foreach( $n in $selectUnit )
+    	<option value="$n.id">$n.keterangan.toUpperCase()</option>
+    #end
+    </select>
+    <div id="err_idJenisUnit" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+        <tr>
+	<td></td>
+	<td class="label"></td>
+	<td><input type="button" name="cmdCetak" id="cmdCetak" value="Cetak" onclick="javascript:doCetakLaporanStatistikTerimaanAduan()"/><input type="reset" value="Kosongkan" /><input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/></td>
+</tr>
+</table>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

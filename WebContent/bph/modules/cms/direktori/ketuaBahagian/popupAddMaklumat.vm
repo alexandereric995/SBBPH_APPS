@@ -1,0 +1,54 @@
+<fieldset>
+<input type="hidden" id="idKetuaBahagian" name="idKetuaBahagian" value="$!rekod.id">
+<legend class="legend">MAKLUMAT REKOD</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  	#input_required("nama" "Nama" "$!rekod.nama")
+  	#input_required("jawatan" "Jawatan" "$!rekod.jawatan")
+  	  
+##  #input_email_required("email" "Email" "$!rekod.email")	##	diminta untuk disable mandatori pada 30-06-2016 Edit ByZul
+	#input_email("email" "Email" "$!rekod.email")
+
+##  #phone_number_required("noTelefon" "No Telefon" "$!rekod.noTelefon")	##	diminta untuk disable mandatori pada 30-06-2016 Edit ByZul
+  	#phone_number("noTelefon" "No Telefon" "$!rekod.noTelefon")
+  	
+  	#phone_number("noFaks" "No Faks" "$!rekod.noFaks")
+  <tr>
+    <td class="label" valign="top">Status &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td>#parse("$path/selectFlagAktif.vm")
+      <div id="err_flagAktif" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+</table>
+#if($!command == 'addKetuaBahagian')
+<p align="center">
+  <input type="button" value="Simpan" align='left' id="cmdSimpanMaklumat">
+  <input type="button" value="Kembali" align='left' id="cmdKembali">
+</p>
+#end
+#if ($!command == 'editKetuaBahagian')
+<p align="center">
+  <input type="button" value="Kemaskini" align='left' id="cmdKemaskiniMaklumat">
+  <input type="button" value="Kembali" align='left' id="cmdKembali">
+</p>
+#end
+</fieldset>
+<script>
+	_jq('#cmdSimpanMaklumat').on('click', function(){
+		saveKetuaBahagian();
+	});
+	
+	_jq('#cmdKemaskiniMaklumat').on('click', function(){
+		saveKetuaBahagian();
+	});
+	
+	_jq('#cmdKembali').on('click', function(){
+		doDivAjaxCall3$formname('divTab','getKetuaBahagian','');
+	    jQuery('#cmdKembali').fadeOut();
+	});
+
+</script>

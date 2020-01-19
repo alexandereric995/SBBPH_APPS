@@ -1,0 +1,197 @@
+<div id="divPermohonan">
+
+<fieldset>
+<legend class="legend">MAKLUMAT PERMOHONAN</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Kategori Pemohon &nbsp;</td>
+          <td valign="top">:</td>
+
+		  <td>&nbsp;KAKITANGAN AWAM &nbsp;&nbsp;
+            #if ($!r.flagAwam == 'Y') 
+            #set ($checkFlagAwam = "checked")
+            #else #set ($checkFlagAwam = "") #end
+            <input id="flagAwam" name="flagAwam" type="checkbox" value="Y" onClick="javascript:doHideMasa();" $!checkFlagAwam>
+            &nbsp; SWASTA &nbsp;&nbsp;
+            #if ($!r.flagSwasta == 'Y') 
+            #set ($checkFlagSwasta = "checked")
+            #else #set ($checkFlagSwasta = "") #end
+            <input id="flagSwasta" name="flagSwasta" type="checkbox" value="Y" onClick="javascript:doPaparMasa();" $!checkFlagSwasta>
+            <div id="err_flag" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+          </td>
+        </tr>
+        #if ($!r.tarikhMula)
+        	#set ($dateMula = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+        #else 
+        	#set ($dateMula = "-")
+        #end
+  <tr>
+			<td class="label" valign="top">Tarikh Mula &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top">
+				<div>
+		    		<input type="text" id="tarikhTempahan" name="tarikhTempahan" value="$dateMula">
+		    		<script>
+
+		            	_jq("#tarikhTempahan").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+		    				direction: true,
+  							pair: _jq('#tarikhTamat'),
+		    				onSelect: function(){
+		    				_jq('#tarikhTempahanTamat').val(_jq(this).val());
+		    					javascript:doPaintJadual()
+		    				},
+		    				
+		            	});
+		    		</script>
+				</div>
+				<div id="err_tarikhMula" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+			</td>
+		</tr>
+		#if ($!r.tarikhTamat)
+        	#set ($dateTamat = "$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')")
+        #else 
+        	#set ($dateTamat = "-")
+        #end
+		<tr>
+			<td class="label" valign="top">Tarikh Tamat &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top">
+				<div>
+		    		<input type="text" id="tarikhTempahanTamat" name="tarikhTempahanTamat" value="$dateTamat">
+		    		<script>
+		            	_jq("#tarikhTempahanTamat").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+		    				direction: 1
+		            	});
+		    		</script>
+				</div>
+				<div id="err_tarikhTamat" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+			</td>
+		</tr>
+		<tr>
+		
+        <tr>
+          <td class="label" valign="top">Lokasi Dewan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandar">
+            #parse("$path/selectDewan.vm")
+            <div id="err_dewan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+		
+		<tr>
+          <td class="label" valign="top">Masa Mula &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectMasaMula">
+            #parse("$path/selectMasaMula.vm")
+            <div id="err_masaMula" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        
+		<tr>
+          <td class="label" valign="top">Masa Tamat &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectMasaTamat">
+            #parse("$path/selectMasaTamat.vm")
+            <div id="err_masaTamat" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+		<tr>
+          <td class="label" valign="top">Tujuan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>
+          	<select id="tujuan" name="tujuan" onChange="$('err_tujuan').innerHTML=''">
+          	<option value="">SILA PILIH</option>
+			<option value="MAJLIS PERKAHWINAN" #if ( 'MAJLIS PERKAHWINAN' == $r.tujuan ) selected #end >MAJLIS PERKAHWINAN</option>
+			<option value="PROGRAM KOMUNITI" #if ( 'PROGRAM KOMUNITI' == $r.tujuan ) selected #end >PROGRAM KOMUNITI</option>
+			</select>
+          </td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<div id="divJadual">
+		#parse("$path/jadualTempahan.vm")
+</div>
+
+#if ($!command != "add_new_record")	
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if ($!userRole != "(UTILITI) Pelulus" && $!userRole != "(UTILITI) Pelulus Cawangan")
+				#if ($!statusBayar == "T")
+					#if ($!r.statusPermohonan != "B")
+						<input type="button" value="Cetak Invois"  id="cmdCetak" align="right"/>
+						<input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:doSavePermohonan('$!r.id');"/>
+					#end
+				#else
+					#if ($!statusBayar != "YY")
+						<input type="button" value="Cetak Resit"  id="cmdCetakResit" align="right"/>
+					#end
+				#end    			
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+			#else
+				#if ($!userRole == "(UTILITI) Pelulus" && $!r.statusPermohonan == 'R')
+				<input id="simpan" name="simpan" type="button" value="Lulus (Tiada Pembayaran)" onclick="javascript:doLulusPermohonanTanpaBayaran('$!r.id');"/>
+				<input id="simpan" name="simpan" type="button" value="Lulus" onclick="javascript:doLulusPermohonan('$!r.id');"/>
+				<input id="simpan" name="simpan" type="button" value="Ditolak" onclick="javascript:doTolakPermohonan('$!r.id');"/>
+				#elseif ($!userRole == "(UTILITI) Pelulus Cawangan" && $!r.tujuan == "MAJLIS PERKAHWINAN" && $!r.statusPermohonan == 'R')				
+				<input id="simpan" name="simpan" type="button" value="Lulus" onclick="javascript:doLulusPermohonan('$!r.id');"/>
+				<input id="simpan" name="simpan" type="button" value="Ditolak" onclick="javascript:doTolakPermohonan('$!r.id');"/>
+				#elseif ($!userRole == "(UTILITI) Pelulus Cawangan" && $!r.tujuan != "MAJLIS PERKAHWINAN" && $!r.statusPermohonan == 'R')	
+					<b><span id='f' style='color: #FF0000'>PERLUKAN KELULUSAN DI PERINGKAT HQ</span></b>
+				#end
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+			#end
+		</td>
+	</tr>
+</table>
+#end
+
+
+<script>
+  
+  window.onload=new function Window_Onload() 
+  {
+	if(document.getElementById('flagAwam').checked)
+ 	{
+ 		document.getElementById("masaMula").disabled=true;
+ 		document.getElementById("masaTamat").disabled=true;
+ 	}
+ 	else
+ 	{
+ 		document.getElementById("masaMula").disabled=false;
+ 		document.getElementById("masaTamat").disabled=false;
+ 	}
+  }
+</script>
+<script>
+_jq('#cmdCetak').on('click', function(){
+				var idTempahan = '$!r.id';		
+				var url = "../servlet/bph.laporan.utiliti.UtilitiInvois?idTempahan="+idTempahan;
+				var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+				if ((document.window != null) && (!hWnd.opener))
+				hWnd.opener = document.window;
+				if (hWnd.focus != null) hWnd.focus();
+	
+});	
+
+_jq('#cmdCetakResit').on('click', function(){
+				var idResit = '$!r.resitSewa.id';		##Untuk ubah idresit sewa	
+				var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+				var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+				if ((document.window != null) && (!hWnd.opener))
+				hWnd.opener = document.window;
+				if (hWnd.focus != null) hWnd.focus();
+	
+});	
+</script>
+
+</div>

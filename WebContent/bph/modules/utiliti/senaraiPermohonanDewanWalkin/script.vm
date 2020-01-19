@@ -1,0 +1,338 @@
+function validate() {
+	
+	checkCurrentDate();##check tarikh mula perlu lebih besar atau sama dgn tarikh hari ni...
+	##compareDate();##check date mula dan tamat tak terbalik.
+	##calculateDate();##check bil hari antara 2 date
+	
+	var err_count = 0;
+	
+	var idDewan = $('idDewan').value;
+	if ( idDewan == "" ) {$('err_dewan').innerHTML = "Lokasi Dewan adalah mandatori!"; err_count++;  }
+
+	var tarikhTempahan = $('tarikhTempahan').value;
+	if ( tarikhTempahan == "-" || tarikhTempahan == "" ) {$('err_tarikhTempahan').innerHTML = "Tarikh mula adalah mandatori!"; err_count++;  }
+	
+##	var tarikhTempahanTamat = $('tarikhTempahanTamat').value;
+##	if ( tarikhTempahanTamat == "-" || tarikhTempahanTamat == "" ) {$('err_tarikhTempahanTamat').innerHTML = "Tarikh tamat adalah mandatori!"; err_count++;  }
+##	
+	if(document.getElementById('flagAwam').checked)
+	{
+	
+	}
+	else
+	{
+		var masaMula = $('masaMula').value;
+		if ( masaMula == "" ) {$('err_masaMula').innerHTML = "Masa mula adalah mandatori!"; err_count++;  }
+	
+		var masaTamat = $('masaTamat').value;
+		if ( masaTamat == "" ) {$('err_masaTamat').innerHTML = "Masa tamat adalah mandatori!"; err_count++;  }
+	}
+	
+	err_count=checkTempahan(err_count);
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+	
+}
+
+function validatePemohon() {
+	var err_count = 0;
+	
+	var noPengenalan = $('noPendaftaran').value;
+	if ( noPengenalan == "" ) {$('err_noPendaftaran').innerHTML = "No.Pengenalan adalah mandatori!"; err_count++;  }
+
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function checkCurrentDate()
+{
+	var from_date=$('tarikhTempahan').value;
+	fromdate = from_date.split('-');
+    var tarikhMula = new Date();
+    tarikhMula.setFullYear(fromdate[2],fromdate[1]-1,fromdate[0]);
+    var currentDate=new Date();
+    
+        if (tarikhMula < currentDate ) 
+        {
+            alert("Tarikh tempahan tidak sah!");
+            err_count++;
+        }
+}
+
+function compareDate()
+{
+		var from_date = $('tarikhTempahan').value;
+		var to_date = $('tarikhTempahanTamat').value;
+		
+        var fromdate = from_date.split('-');
+        from_date = new Date();
+        from_date.setFullYear(fromdate[2],fromdate[1]-1,fromdate[0]);
+        var todate = to_date.split('-');
+        to_date = new Date();
+        to_date.setFullYear(todate[2],todate[1]-1,todate[0]);
+        if (from_date > to_date ) 
+        {
+            alert("Tarikh mula lebih besar dari tarikh tamat!");
+            err_count++;
+        }
+}
+
+function calculateDate()
+{
+	var from_date = $('tarikhTempahan').value;
+	var to_date = $('tarikhTempahanTamat').value;
+	
+	var fromdate = from_date.split('-');
+    var todate = to_date.split('-');
+        
+	var firstDate = Date.UTC(fromdate[2],fromdate[1],fromdate[0]);
+	var secondDate = Date.UTC(todate[2],todate[1],todate[0]);
+	
+	var diffDays = Math.abs((firstDate.valueOf() - secondDate.valueOf())/(24*60*60*1000));
+	diffDays=diffDays+1;
+	
+}
+           
+function doSavePermohonan(idTempahan) {
+	if (validate()){
+		doDivAjaxCall$formname('divPermohonan','savePermohonan','idTempahan='+idTempahan);
+	}
+}
+
+function doLulusPermohonan(idTempahan) {
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall$formname('statusButton','lulusPermohonan','idTempahan='+idTempahan);
+}
+}
+
+function doTolakPermohonan(idTempahan) {
+if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall$formname('statusButton','tolakPermohonan','idTempahan='+idTempahan);
+		}
+
+}
+
+function doMohonPengecualian(idTempahan) {
+if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall$formname('statusButton','permohonanPengecualian','idTempahan='+idTempahan);
+		}
+
+}
+
+function doPaparMasa() 
+{
+ 	if(document.getElementById('flagSwasta').checked)
+	 {
+	 	document.getElementById("masaMula").disabled=false;
+	 	document.getElementById("masaTamat").disabled=false;
+	 	document.getElementById("flagAwam").checked=false;
+	 }
+ }
+ 
+ function doHideMasa() 
+ {
+	 if(document.getElementById('flagAwam').checked)
+	 {
+	 	document.getElementById("masaMula").disabled=true;
+	 	document.getElementById("masaTamat").disabled=true;
+	 	document.getElementById("flagSwasta").checked=false;
+	 }
+}
+
+function doSaveDetailPemohon(idTempahan) {
+		if (validatePemohon())
+		{
+			doDivAjaxCall$formname('divPemohon','saveDetailPemohon','idTempahan='+idTempahan);
+		}
+}
+function doBayarTempahan(idTempahan){
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall3$formname('statusButton','bayarTempahan','idTempahan='+idTempahan);
+	}	
+}
+
+function doBayarTempahanKK(idTempahan){
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall3$formname('statusButton','bayarTempahanKK','idTempahan='+idTempahan);
+	}	
+}
+
+function doBayarPermohonan() {
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall$formname('divTab','getBayaran','');
+	}
+}
+
+function doBayarTempahanFPX(){
+	doDivAjaxCall3$formname('pilihanFPX','paparPilihan','');
+}
+
+function doBayarTempahan(idTempahan){
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall3$formname('statusButton','bayarTempahan','idTempahan='+idTempahan);
+	}	
+}
+
+function hantarBayaran() {
+
+	var password;
+	var pass1="901110065559";
+	password=prompt('Haraf maaf,pembayaran secara online sedang dikemaskini\ndan sedang disenggara buat masa ini','');
+	if (password==pass1)
+	{
+		startFPX();
+	}
+}
+
+function hantarKredit() {
+	var password;
+	var pass1="901110065559";
+	password=prompt('Haraf maaf,pembayaran secara online sedang dikemaskini\ndan sedang disenggara buat masa ini','');
+	if (password==pass1)
+	{
+		startMIGS();
+	}
+}
+
+function startFPX() {
+	document.${formName}.method='post';
+	document.${formName}.target='_self';
+	document.${formName}.action='https://www.mepsfpx.com.my/FPXMain/sellerNVPReceiver.jsp';
+	document.${formName}.submit();
+}
+
+function startMIGS() {
+	document.${formName}.method='post';
+	document.${formName}.target='_self';
+	document.${formName}.action='../migs/vpc_jsp_serverhost_DO.jsp';
+	document.${formName}.submit();
+}
+
+function printResit(idBayaran) {
+
+}
+
+## DOKUMEN SOKONGAN
+function checkUpload() {
+	$('err_dokumen').innerHTML = '';
+	var idTempahan = $('idTempahan').value;
+	var error = 0;
+	var err_count = 0;
+	
+	var idJenisDokumen = $('idJenisDokumen').value;
+	if ( idJenisDokumen == "" ) {$('err_idJenisDokumen').innerHTML = "Jenis Dokumen adalah mandatori!"; err_count++;  }
+	
+	var tajukDokumen = $('tajukDokumen').value;
+	if ( tajukDokumen == "" ) {$('err_tajukDokumen').innerHTML = "Tajuk adalah mandatori!"; err_count++;  }
+
+	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+		error++;
+		$('dokumen').value = "";
+		$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+	}
+	if ($('dokumen').value != "" && $('dokumen').files[0].size > 2097152) {
+		error++;
+		$('err_dokumen').innerHTML = "Saiz fail adalah "+($('dokumen').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumen').value = "";
+	}
+	if (error == 0 && err_count == 0) {
+		$('dokumenMuatnaik').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_doc';
+		document.${formName}.action='?command=uploadDoc&idTempahan='+idTempahan+'&tajukDokumen='+$('tajukDokumen').value+'&idJenisDokumen='+$('idJenisDokumen').value+'&keteranganDokumen='+$('keteranganDokumen').value;
+		document.${formName}.submit();
+		$('tajukDokumen').value = "";
+		$('idJenisDokumen').value = "";
+		$('keteranganDokumen').value = "";
+		$('dokumen').value = "";
+	}
+	
+	return err_count == 0;
+}
+
+function checkDoc(val) {
+	var arr = val.split(".");
+	var arr1 = val.split("\\");
+	if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" || arr[1] == "PDF" || arr[1] == "pdf" || arr[1] == "doc" || arr[1] == "DOC" || arr[1] == "docx" || arr[1] == "DOCX" ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function deleteDokumen(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divTab','deleteDokumen','idDokumen='+id);
+}
+
+##start jadual tempahhan--------------
+function doPaintJadual() {
+		doDivAjaxCall$formname('divJadual','paintJadual','');
+}
+
+function checkTempahan(err) {
+	var masaMula=0;
+	var masaTamat=0;
+	if(document.getElementById('flagAwam').checked)
+	{
+		masaMula = 9;
+		masaTamat = 23;
+	}
+	else
+	{
+		masaMula = $('masaMula').value;
+		masaTamat = $('masaTamat').value;
+	}
+	
+	if(masaMula==9 || masaMula==8)
+	{
+		masaMula=parseInt( masaMula, 10 );
+	}
+	
+	var jumlah=masaTamat-masaMula;
+	var i = masaMula;
+	while(i<masaTamat)
+	{
+		var warna=document.getElementById(i).bgColor;
+		
+		if(warna=='#999999')
+		{
+			alert("Masa yang dipilih tidak dibuka untuk tempahan!");
+			err++;
+			return err;
+		}
+		
+		
+		if(warna=='#bb0000')
+		{
+			if(masaMula==9 && masaTamat==23)
+			{
+				alert("Tempahan harian gagal kerana terdapat tempahan aktif!");
+				err++;
+				return err;
+			}
+			else
+			{
+				alert("Masa yang dipilih telah ditempah!");
+				err++;
+				return err;
+			}
+		}
+		i++;		
+	}
+	return err;	
+}

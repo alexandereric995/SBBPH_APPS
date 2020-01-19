@@ -1,0 +1,93 @@
+<fieldset>
+	<legend class="legend">PILIH UNIT</legend>
+	<table width="100%" height="254" cellpadding="1" cellspacing="2" border="0">
+		<tr>
+			<td class="label" style=""></td>
+			<td style=""></td>
+			<td style=""><br /></td>
+		</tr>
+		
+##		  #set ($checkCb1 = '')
+##		  #set ($checkCb2 = '')
+##		  #set ($checkCb3 = '')
+##		  #set ($checkCb4 = '')
+##		  #set ($checkCb5 = '')
+##		  #set ($checkCb6 = '')
+##		  #set ($checkCb7 = '')
+##		  #set ($checkCb8 = '')
+##		  #set ($checkCb9 = '')
+##		  #set ($checkCb10 = '')
+##		  #set ($checkCb11 = '')
+##		  #set ($checkCb12 = '')
+##		  #if ( $!listunit.size() > 0)
+##		  	#foreach( $c in $listunit )
+##			  	#if ($!c.seksyen.id == '01') #set ($checkCb1 = 'checked') #end
+##		  		#if ($!c.seksyen.id == '02') #set ($checkCb2 = 'checked') #end
+##		  		#if ($!c.seksyen.id == '03') #set ($checkCb3 = 'checked') #end
+##		  		#if ($!c.seksyen.id == '04') #set ($checkCb4 = 'checked') #end
+##		  		#if ($!c.seksyen.id == '05') #set ($checkCb5 = 'checked') #end
+##		  		#if ($!c.seksyen.id == '06') #set ($checkCb6 = 'checked') #end
+##		  		#if ($!c.seksyen.id == '07') #set ($checkCb7 = 'checked') #end
+##		  		#if ($!c.seksyen.id == '08') #set ($checkCb8 = 'checked') #end
+##		  		#if ($!c.seksyen.id == '09') #set ($checkCb9 = 'checked') #end
+##		  		#if ($!c.seksyen.id == '10') #set ($checkCb10 = 'checked') #end
+##		  		#if ($!c.seksyen.id == '11') #set ($checkCb11 = 'checked') #end
+##		  		#if ($!c.seksyen.id == '12') #set ($checkCb12 = 'checked') #end
+##			#end  	
+##		  #end
+##
+##		<tr>
+##			<td valign="top"><input type="checkbox" id="cbUnit" name="cbUnit" value="01" $checkCb1 >&nbsp;UNIT PEMBANGUNAN</td>
+##			<td valign="top"><input type="checkbox" id="cbUnit" name="cbUnit" value="02" $checkCb2 >&nbsp;UNIT KUARTERS</td>
+##		</tr>
+##		<tr>
+##			<td valign="top"><input type="checkbox" id="cbUnit" name="cbUnit" value="03" $checkCb3 >&nbsp;UNIT SENGGARA</td>
+##			<td valign="top"><input type="checkbox" id="cbUnit" name="cbUnit" value="04" $checkCb4 >&nbsp;UNIT TEKNOLOGI MAKLUMAT</td>
+##		</tr>
+##		<tr>
+##			<td valign="top"><input type="checkbox" id="cbUnit" name="cbUnit" value="05" $checkCb5 >&nbsp;UNIT NAZIRAN</td>
+##			<td valign="top"><input type="checkbox" id="cbUnit" name="cbUnit" value="06" $checkCb6 >&nbsp;UNIT RUANG PEJABAT (BGS)</td>
+##		</tr>
+##		<tr>
+##			<td valign="top"><input type="checkbox" id="cbUnit" name="cbUnit" value="07" $checkCb7 >&nbsp;UNIT UTILITI</td>
+##			<td valign="top"><input type="checkbox" id="cbUnit" name="cbUnit" value="08" $checkCb8 >&nbsp;UNIT KEWANGAN</td>
+##		</tr>
+##		<tr>
+##			<td valign="top"><input type="checkbox" id="cbUnit" name="cbUnit" value="09" $checkCb9 >&nbsp;UNIT JAWATANKUASA RUANG PEJABAT</td>
+##			<td valign="top"><input type="checkbox" id="cbUnit" name="cbUnit" value="10" $checkCb10 >&nbsp;UNIT RUMAH PERANGINAN</td>
+##		</tr>
+##		<tr>
+##			<td valign="top"><input type="checkbox" id="cbUnit" name="cbUnit" value="11" $checkCb10 >&nbsp;UNIT HASIL</td>
+##			<td valign="top"><input type="checkbox" id="cbUnit" name="cbUnit" value="12" $checkCb11 >&nbsp;UNIT JAWATANKUASA RUANG KOMERSIL</td>
+##		</tr>
+##		<tr>			
+##			<td valign="top"><input type="checkbox" id="cbUnit" name="cbUnit" value="13" $checkCb12 >&nbsp;UNIT PERHUBUNGAN AWAM</td>
+##		</tr>
+		 
+		## ****************** CheckBox Pilih Keterangan Teknikal call data dari DATABASE******************
+		#if($!listCheckBoxUnit.size() > 0)
+    		#foreach($c in $listCheckBoxUnit)
+	    		<tr height="30">
+	    			<td width="10"><input type="checkbox" name="NmCheckboxUnit" id="unit$c.id" value="$c.id" $util.getCheckUnit($c.id, $!r.id) /></td> ## $util.getCheckUnit($c.id)
+					<td>$!c.keterangan</td>
+	    		</tr>
+    		#end
+		#end
+		## ****************** End CheckBox Pilih Keterangan Teknikal ******************
+		
+	</table>
+	<br />
+	<table>
+		<tr>
+			<td></td>
+			<td></td>
+			<td> 
+				<input type="button" id="savePilihUnit" name="savePilihUnit" value="Simpan" onclick="if(window.confirm('Anda Pasti ?')) doDivAjaxCall3$formname('divPilihUnit','savePilihUnit','')">
+			</td>
+		</tr>
+	</table>
+</fieldset>
+
+<div id="divPilihUnit"></div>
+##<div id="divTab"></div>
+##<input type="hidden" id="idPilihUnit" name="idPilihUnit" value="$r.id">

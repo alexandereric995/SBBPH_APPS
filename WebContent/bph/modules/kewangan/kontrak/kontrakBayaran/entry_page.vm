@@ -1,0 +1,19 @@
+<div id="divTab">   
+	<input type="hidden" id="idKontrak" name="idKontrak" value="$!r.id">
+    <input type="hidden" id="role" name="role" value="$!userRole">  
+    
+     #parse("$path/maklumatKontrak.vm")
+   
+     #parse("$path/maklumatPembayaran.vm")
+    
+</div>  
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+
+</script>

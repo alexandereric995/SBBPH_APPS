@@ -1,0 +1,130 @@
+#if($aduan)
+<div id="content-format">
+  <pinLeft></pinLeft>
+  <pinRight></pinRight>
+  <header>MAKLUMAT ADUAN</header>
+  <fieldset>
+  <section>
+    <table width='100%' border='0'>
+      <tr>
+        <td >&nbsp;</td>
+        <td  colspan='4'><b><u>MAKLUMAT ADUAN</u></b><br>
+          <br></td>
+      </tr>
+      <tr>
+        <td width='5%'>&nbsp;</td>
+        <td width='20%' valign='top' ><b>No. Aduan</b></td>
+        <td width='1%'  valign='top'>:</td>
+        <td width='64%'  valign='top'>$!aduan.noAduan</td>
+        <td width='10%'></td>
+      </tr>
+      <tr>
+        <td width='5%'>&nbsp;</td>
+        <td width='20%' valign='top' ><b>Tarikh Aduan</b></td>
+        <td width='1%'  valign='top'>:</td>
+        <td width='64%'  valign='top'>$util.getDateTime($!aduan.tarikhAduan, "dd-MM-yyyy")</td>
+        <td width='10%'></td>
+      </tr>
+      <tr>
+        <td width='5%'>&nbsp;</td>
+        <td width='20%' valign='top' ><b>Nama Pengadu</b></td>
+        <td width='1%'  valign='top'>:</td>
+        <td width='64%'  valign='top'>$!aduan.nama</td>
+        <td width='10%'></td>
+      </tr>
+      <tr>
+        <td width='5%'>&nbsp;</td>
+        <td width='20%' valign='top' ><b>No Kad Pengenalan</b></td>
+        <td width='1%'  valign='top'>:</td>
+        <td width='64%'  valign='top'>$!aduan.noPengenalan</td>
+        <td width='10%'></td>
+      </tr>
+      <tr>
+        <td width='5%'>&nbsp;</td>
+        <td width='20%' valign='top' ><b>Alamat</b></td>
+        <td width='1%'  valign='top'>:</td>
+        <td width='64%'  valign='top'>$!aduan.alamat1, $!aduan.alamat2, $!aduan.alamat3, $!aduan.poskod $!aduan.bandar.keterangan, $!aduan.bandar.negeri.keterangan</td>
+        <td width='10%'></td>
+      </tr>
+      <tr>
+        <td width='5%'>&nbsp;</td>
+        <td width='20%' valign='top' ><b>No. Telefon</b></td>
+        <td width='1%'  valign='top'>:</td>
+        <td width='64%'  valign='top'>$!aduan.noTelefon</td>
+        <td width='10%'></td>
+      </tr>
+      <tr>
+        <td width='5%'>&nbsp;</td>
+        <td width='20%' valign='top' ><b>Emel</b></td>
+        <td width='1%'  valign='top'>:</td>
+        <td width='64%'  valign='top'>$!aduan.emel</td>
+        <td width='10%'></td>
+      </tr>
+      <tr>
+        <td width='5%'>&nbsp;</td>
+        <td width='20%' valign='top' ><b>Jenis Aduan</b></td>
+        <td width='1%'  valign='top'>:</td>
+        <td width='64%'  valign='top'>$!aduan.jenisAduan.keterangan</td>
+        <td width='10%'></td>
+      </tr>
+      <tr>
+        <td width='5%'>&nbsp;</td>
+        <td width='20%' valign='top' ><b>Tajuk Aduan</b></td>
+        <td width='1%'  valign='top'>:</td>
+        <td width='64%'  valign='top'>$!aduan.tajuk</td>
+        <td width='10%'></td>
+      </tr>
+      <tr>
+        <td width='5%'>&nbsp;</td>
+        <td width='20%' valign='top' ><b>Butiran Aduan</b></td>
+        <td width='1%'  valign='top'>:</td>
+        <td width='64%'  valign='top'>$!aduan.butiran</td>
+        <td width='10%'></td>
+      </tr>
+      <tr>
+        <td width='5%'>&nbsp;</td>
+        <td width='20%' valign='top' ><b>Status</b></td>
+        <td width='1%'  valign='top'>:</td>
+        <td width='64%'  valign='top'><b>$!aduan.status.keterangan</b></td>
+        <td width='10%'></td>
+      </tr>
+    </table>
+    <br>
+    <br>
+    #if ($!aduan.status.id != '1434787994722')
+    <table width='100%' border='0'>
+      <tr>
+        <td >&nbsp;</td>
+        <td  colspan='4'><b><u>MAKLUMBALAS URUSETIA</u></b><br>
+          <br></td>
+      </tr>
+      #if ($!aduan.status.id == '1434787994725')
+      <tr>
+        <td width='5%'>&nbsp;</td>
+        <td colspan='4'  valign='top' >$!aduan.ulasanUrusetia</td>
+      </tr>
+      #end
+      #if ($!aduan.status.id == '1434787994728' || $!aduan.status.id == '1434787994731')
+      <tr>
+        <td width='5%'>&nbsp;</td>
+        <td colspan='4'  valign='top' >$!aduan.ulasanSelesai</td>
+      </tr>
+      #end
+    </table>
+    #end </section>
+  </fieldset>
+</div>
+#else
+<div id="content-format">
+  <pinLeft></pinLeft>
+  <pinRight></pinRight>
+  <header>MAKLUMAT ADUAN</header>
+  <fieldset>
+  <table cellpadding="10" cellspacing="0" border="0" align="center" style="border: 1px dotted #CCC; padding: 15px">
+    <tr>
+      <td colspan="3"> Rekod tidak ditemui. </td>
+    </tr>
+  </table>
+  </fieldset>
+</div>
+#end 

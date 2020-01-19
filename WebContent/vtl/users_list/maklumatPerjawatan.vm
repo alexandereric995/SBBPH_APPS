@@ -1,0 +1,172 @@
+<fieldset>
+<legend class="legend">MAKLUMAT PERJAWATAN</legend>
+#parse("$path/status.vm")
+<table width="90%" align="center" border="0" cellpadding="5" cellspacing="0">
+	<tr>
+		<td width="20%"></td>
+		<td width="2%"></td>
+		<td></td>
+		<td rowspan="20" width="40%" valign="top">&nbsp;</td>
+	</tr>	
+	#input_normal("nama" "Nama" "<b>$!pengguna.gelaran.keterangan</b> <b>$!pengguna.userName</b>")
+  	#input_normal("noKadPengenalan" "No. Kad Pengenalan" "<b>$!pengguna.id</b>")
+  	#if ($!pengguna.role.name != '(AWAM) Badan Berkanun' && $!pengguna.role.name != '(AWAM) Pegawai Tadbir' && $!pengguna.role.name != '(AWAM) Pesara Polis / Tentera' && $!pengguna.role.name != '(AWAM) Polis / Tentera')
+	<tr>
+		<td valign="top"><span>Kementerian</span></td>
+		<td valign="top">:</td>
+		<td valign="top"><span id="listKementerian"> #parse("$path/selectKementerian.vm") </span>
+		<div id="err_idKementerian" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+	</tr>
+	<tr>
+		<td valign="top"><span>Agensi</span></td>
+		<td valign="top">:</td>
+		<td valign="top"><span id="listAgensi"> #parse("$path/selectAgensi.vm") </span>
+		<div id="err_idAgensi" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+	</tr>
+  	#end
+  	
+	#if ($!pengguna.role.name != '(AWAM) Badan Berkanun' && $!pengguna.role.name != '(AWAM) Pesara Polis / Tentera' && $!pengguna.role.name != '(AWAM) Polis / Tentera')
+		#input("bahagian" "Bahagian" "$!pengguna.bahagian")
+	#end
+	  
+	#if ($!pengguna.role.name == '(AWAM) Badan Berkanun')
+		#input_normal("badanBerkanun" "Badan Berkanun" "<b>$!pengguna.badanBerkanun.keterangan</b>")
+	#end
+  
+	<!-- EXCLUDE PENJAWAT AWAM BY PEJE SINCE HRMIS XHANTAR MAKLUMAT JAWATAN -->
+	#if ($!pengguna.role.name == '(AWAM) Pesara')
+		#if ( $!pengguna.jawatan )
+			#input_normal("jawatan" "Jawatan" "<b>$!pengguna.jawatan.keterangan</b>")
+		#else	
+			#input_normal("jawatan" "Jawatan" "<b>$!pengguna.keteranganJawatan</b>")
+		#end
+	#end
+  
+	<tr>
+		<td valign="top"><span>Kelas Perkhidmatan</span></td>
+		<td valign="top">:</td>
+		<td valign="top"><span id="listKelasPerkhidmatan"> #parse("$path/selectKelasPerkhidmatan.vm") </span>
+		<div id="err_idKelasPerkhidmatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+	</tr>
+	<tr>
+		<td valign="top"><span>Gred Perkhidmatan</span></td>
+		<td valign="top">:</td>
+		<td valign="top"><span id="listGredPerkhidmatan"> #parse("$path/selectGredPerkhidmatan.vm") </span>
+		<div id="err_idGredPerkhidmatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+	</tr>
+  
+	#if ($!pengguna.role.name != '(AWAM) Badan Berkanun' && $!pengguna.role.name != '(AWAM) Pegawai Tadbir' && $!pengguna.role.name != '(AWAM) Pesara' && $!pengguna.role.name != '(AWAM) Pesara Polis / Tentera' && $!pengguna.role.name != '(AWAM) Polis / Tentera')
+	#input_normal("tarikhSemakan" "Tarikh Semakan HRMIS" "<b>$!tarikhSemakan</b>")
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="3"><span style="color:#FF2A00"><strong>PERHATIAN :</strong></span> <span style="color:#000000"> <strong>MAKLUMAT PERJAWATAN YANG DIPAPARKAN ADALAH DATA INTERGRASI DARI SISTEM HRMIS.
+		SEKIRANYA MAKLUMAT PERJAWATAN TIDAK TEPAT, SILA SEMAK DENGAN PENTADBIR SISTEM HRMIS DI JABATAN TUAN/PUAN.</strong></span> </td>
+	</tr>
+	<tr>
+		<td colspan="3"><span ><strong> <a href="javascript:semakanHRMIS();" style="color:#0000FF">KLIK DI SINI</a> </strong></span> <span style="color:#000000"><strong>UNTUK MEMBUAT SEMAKAN SEMULA. SEMAKAN HANYA BOLEH DIBUAT DARI JAM 9.00AM HINGGA 6.00PM PADA HARI BEKERJA SAHAJA</strong></span> </td>
+	</tr>
+	#end
+  
+  	#if ($!pengguna.role.name == '(AWAM) Pesara')
+	#input_normal("tarikhSemakan" "Tarikh Semakan PESARA" "<b>$!tarikhSemakan</b>")
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="3"><span style="color:#FF2A00"><strong>PERHATIAN :</strong></span> <span style="color:#000000"> <strong>MAKLUMAT PERJAWATAN YANG DIPAPARKAN ADALAH DATA INTERGRASI DARI SISTEM PESARA.</strong></span> </td>
+	</tr>
+	<tr>
+		<td colspan="3"><span ><strong> <a href="javascript:semakanPESARA();" style="color:#0000FF">KLIK DI SINI</a> </strong></span> <span style="color:#000000"><strong>UNTUK MEMBUAT SEMAKAN SEMULA. SEMAKAN HANYA BOLEH DIBUAT DARI JAM 9.00AM HINGGA 6.00PM PADA HARI BEKERJA SAHAJA</strong></span> </td>
+	</tr>
+	#end
+  
+	## MAKLUMAT PENGESAHAN
+	#if ($!pengguna.role.name == '(AWAM) Badan Berkanun' || $!pengguna.role.name == '(AWAM) Pesara Polis / Tentera' || $!pengguna.role.name == '(AWAM) Polis / Tentera')
+	<tr>
+	    <td>Dokumen Pengesahan Jawatan / Perkhidmatan</td>
+	    <td>:</td>
+    	<td> 
+			#if ( $!pengguna.dokumenSokongan ) 
+				#if ($!pengguna.dokumenSokongan  != "") 
+					<a href="../download?file=$!uploadDir$!pengguna.dokumenSokongan" > <font color="#0000FF"><strong>MUAT TURUN</strong></font> </a> &nbsp;&nbsp;
+					#if ($!pengguna.flagAktif != "Y")
+						<input type="button" value="Hapus" id="btnHapusDokumenPengesahan" name="btnHapusDokumenPengesahan" onclick="hapusDokumenPengesahan()">
+					#end
+				#end
+			#else
+				<input class="texts" type="file" id="dokumenPengesahan" name="dokumenPengesahan" style="width:500px" onFocus="$('err_dokumenPengesahan').innerHTML = '';" onChange="uploadDokumenPengesahan()">
+				<div id="uploadDokumenPengesahan" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+				<div id="err_dokumenPengesahan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			#end 
+      </td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+  
+	#if ($!pengguna.flagAktif == 'Y')
+		<tr>
+			<td>Status Pengesahan</td>
+			<td>:</td>
+			<td><span style="color:#000000"><strong>AKTIF</strong></span></td>
+		</tr>
+		#if ($!pengguna.tarikhPengesahan) 
+			#set ($datePengesahan = "$!util.getDateTime($!pengguna.tarikhPengesahan,'dd-MM-yyyy')")
+		#else 
+			#set ($datePengesahan = "") 
+		#end
+		<tr>
+			<td>Tarikh Pengesahan</td>
+			<td>:</td>
+			<td><span style="color:#000000"><strong>$datePengesahan</strong></span></td>
+		</tr>
+	
+		#if ($!pengguna.tarikhLuputPengesahan) 
+			#set ($dateLuputPengesahan = "$!util.getDateTime($!pengguna.tarikhLuputPengesahan,'dd-MM-yyyy')")
+		#else 
+			#set ($dateLuputPengesahan = "") 
+		#end
+		<tr>
+			<td>Tarikh Luput</td>
+			<td>:</td>
+			<td><span style="color:#000000"><strong>$dateLuputPengesahan</strong></span></td>
+		</tr>
+	#else
+		<tr>
+			<td>Status Pengesahan</td>
+			<td>:</td>
+			<td><span style="color:#FF2A00"><strong>TIDAK AKTIF</strong></span></td>
+		</tr>
+	#end
+	<tr>
+		<td>Catatan Pengesahan</td>
+		<td>:</td>
+		<td><span style="color:#000000"><strong>$!pengguna.catatanPengesahan</strong></span></td>
+	</tr>
+#end
+  
+</table>
+</fieldset>
+<iframe id="upload_dokumen_pengesahan" name="upload_dokumen_pengesahan" width="0px" height="0px" style="visibility:hidden"></iframe>
+
+<table width="100%">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right">
+    	#if ($!pengguna.role.name != '(AWAM) Badan Berkanun' && $!pengguna.role.name != '(AWAM) Pesara Polis / Tentera' && $!pengguna.role.name != '(AWAM) Polis / Tentera')
+    		<input type="button" value="Simpan" id="btnKemaskiniPerjawatan" name="btnKemaskiniPerjawatan" onclick="validatePerjawatan()">
+    	#end
+    	<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

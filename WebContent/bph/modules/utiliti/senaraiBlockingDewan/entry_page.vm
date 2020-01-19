@@ -1,0 +1,42 @@
+<input type="hidden" id="idBlocking" name="idBlocking" value="$!r.id">
+
+<div id="divPermohonan">
+	#parse("$path/maklumatBlocking.vm")
+
+<div id="divJadual">
+	#parse("$path/jadualTempahan.vm")
+</div>
+
+#if ($!command != "add_new_record")	
+<table width="100%">
+	<tr>
+		<td align="right">
+    		<input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:doSavePermohonan('$!r.id');"/>
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+#end
+</div>
+
+<script>
+	
+	window.onload=new function window_onload(){
+	document.getElementById("flagSemua").checked=true;
+	document.getElementById("flagIsnin").checked=true;
+	 	document.getElementById("flagSelasa").checked=true;
+	 	document.getElementById("flagRabu").checked=true;
+	 	document.getElementById("flagKhamis").checked=true;
+	 	document.getElementById("flagJumaat").checked=true;
+	 	document.getElementById("flagSabtu").checked=true;
+	 	document.getElementById("flagAhad").checked=true;
+}
+
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

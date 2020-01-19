@@ -1,0 +1,91 @@
+<fieldset><legend class="legend">MAKLUMAT BAYARAN</legend>
+	<table width="100%" style="padding-bottom:0.2cm" cellpadding="3" cellspacing="0">
+		<tr>
+    		<td class="label" style="width:15%"></td>
+    		<td style="width:1%"></td>
+    		<td style="width:70%"></td>
+  		</tr>
+      	<tr>
+        	<td class="label" valign="top">KOD HASIL</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">$!r.kodHasil.kod</td>
+        </tr> 
+    	<tr>
+            <td class="label" width="20%" valign="top">NAMA</td>
+            <td class="label" width="2%" valign="top">:</td>
+            <td width="78%" valign="top">$!r.pembayar.userName</td>
+    	</tr>
+    	<tr>
+        	<td class="label" valign="top">NO. KP</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">$!r.pembayar.noKP</td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset><legend class="legend">MAKLUMAT RESIT</legend>
+    <table width="100%" style="padding-top:0.2cm" cellpadding="3" cellspacing="0">
+    	<tr>
+    		<td class="label" style="width:15%"></td>
+    		<td style="width:1%"></td>
+    		<td style="width:70%"></td>
+    	</tr>
+		<tr>
+        	<td class="label" valign="middle">MOD BAYARAN</td>
+        	<td class="label" valign="middle">:</td>
+			<td valign="middle">
+				<select id="modBayar" name="modBayar" onChange="$('err_modBayaran').innerHTML=''; at(this, event);">
+					<option value="">SILA PILIH</option>
+					#foreach ($sMB in $!selectModBayaran)
+						<option value="$sMB.id" #if($sMB.id == $!r.resit.modBayaran.id) selected #end >$sMB.keterangan</option>
+					#end
+				</select>
+			</td>
+        </tr>
+    	<tr>
+        	<td class="label" valign="middle">NO. RESIT</td>
+        	<td class="label" valign="middle">:</td>
+        	<td valign="middle"><input type="text" id="noResit" style="width:40%" class="uppercasefont" name="noResit" onKeyUp="this.value=this.value.toUpperCase();" onBlur="this.value=this.value.toUpperCase();" value="$!r.resit.noResit"></td>
+        </tr>
+        <tr>
+        	<td class="label">TARIKH RESIT</td>
+        	<td class="label">:</td>
+        	<td>
+        		<input type="text" id="tarikhBayaran" style="width:100px;" name="tarikhBayaran" value="$!util.getDateTime($!r.resit.tarikhBayaran,'dd-MM-yyyy')" style="width: 50%">
+        		<script>
+                _jq(function() {
+                	jQuery("#tarikhBayaran").datepicker({ 
+                		dateFormat: "dd-mm-yy",
+        				showOn: "both",
+        				buttonImageOnly: true,
+        				buttonImage: "../img/calendar_icon.gif",
+        				buttonText: "Calendar",
+                	});
+                });
+        		</script>
+        	</td>
+        </tr>
+		<tr>
+    		<td colspan="3">&nbsp;</td>
+    	</tr>
+    </table>
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			<input type="button" value="Simpan" onClick="if ( validateField() ) doDivAjaxCall$formname('div_main_entry','save_data','record_id=$!r.id')">
+			<input type="button" id="btnKosong" name="btnKosong" value="Kosongkan" onclick="doKosongkan()" />
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">	
+		</td>
+	</tr>
+</table>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

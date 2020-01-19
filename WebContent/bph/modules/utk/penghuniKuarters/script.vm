@@ -1,0 +1,159 @@
+function validate() {
+	var err_count = 0;
+	return err_count == 0;
+}
+
+## -------------------- START PELANGGARAN SYARAT -------------------- ##
+function validatePelanggaranSyarat(){
+	var err_count = 0;
+
+	var idJenisOperasi = $('idJenisOperasi').value;
+	if ( idJenisOperasi == "" ) { $('err_idJenisOperasi').innerHTML = "Jenis Operasi adalah mandatori!"; err_count++;  }
+	
+	if(idJenisOperasi == 'CP'){
+		var jenisKenderaan = $('jenisKenderaan').value;
+		if ( jenisKenderaan == "" ) {$('err_jenisKenderaan').innerHTML = "Jenis Kenderaan adalah mandatori!"; err_count++;  }
+		
+		var noPlat = $('noPlat').value;
+		if ( noPlat == "" ) {$('err_noPlat').innerHTML = "No Plat Kenderaan adalah mandatori!"; err_count++;  }
+		
+		var amaun = $('amaun').value;
+		if ( amaun == "" ) {$('err_amaun').innerHTML = "Amaun adalah mandatori!"; err_count++;  }
+		
+	}
+
+	if(idJenisOperasi == 'PS'){
+		var idJenisPelanggaran = $('idJenisPelanggaran').value;
+		if ( idJenisPelanggaran == "" ) {$('err_idJenisPelanggaran').innerHTML = "Jenis Kesalahan adalah mandatori!"; err_count++;  }
+
+		var idKes = $('idKes').value;
+		if ( idKes == "" ) {$('err_idKes').innerHTML = "Jenis Kes adalah mandatori!"; err_count++;  }
+			
+		if(idJenisPelanggaran == '1435633886800'){
+			var jenisKenderaan = $('jenisKenderaan').value;
+			if ( jenisKenderaan == "" ) {$('err_jenisKenderaan').innerHTML = "Jenis Kenderaan adalah mandatori!"; err_count++;  }
+			var noPlat = $('noPlat').value;
+			if ( noPlat == "" ) {$('err_noPlat').innerHTML = "No Plat Kenderaan adalah mandatori!"; err_count++;  }
+			
+			var amaun = $('amaun').value;
+			if ( amaun == "" ) {$('err_amaun').innerHTML = "Amaun adalah mandatori!"; err_count++;  }
+		}
+	}
+	
+	return err_count == 0; 
+}
+
+function savePelanggaranSyarat() {
+	if (validatePelanggaranSyarat()){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxChainCall$formname('addpopup','savePelanggaranSyarat','','divTab','getPelanggaranSyarat','');
+	}
+}
+
+function deletePS(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','removePelanggaranSyarat','idPS=' + id);
+}
+
+## -------------------- END PELANGGARAN SYARAT -------------------- ##
+
+
+## -------------------- START HILANG KELAYAKAN  -------------------- ##
+function validateHilangKelayakan() {
+	var err_count = 0;
+
+	var idSebabHk = $('idSebabHk').value;
+	if ( idSebabHk == "" ) { $('err_idSebabHk').innerHTML = "Medan ini adalah mandatori!"; err_count++;  }
+
+	return err_count == 0;
+}
+
+function saveHilangKelayakan() {
+	if (validateHilangKelayakan()){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxChainCall$formname('addpopup','saveHilangKelayakan','','divTab','getHilangKelayakan','');
+	}
+}
+
+function deleteHK(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','removeHilangKelayakan','idHK=' + id);
+}
+## -------------------- END HILANG KELAYAKAN  -------------------- ##
+
+
+## -------------------- START ABT -------------------- ##
+## *** Start for New Data ***
+function validateAbt() {
+	var err_count = 0;
+	
+	var jumlahTunggakan = $('jumlahTunggakan').value;
+	if ( jumlahTunggakan == "" ) {$('err_jumlahTunggakan').innerHTML = "Medan ini adalah mandatori !!"; err_count++;  }
+	
+	var jumlahBayaran = $('jumlahBayaran').value;
+##	alert("jumlahBayaran  == " + $('jumlahBayaran').value);
+	if ( jumlahBayaran == "" ) {$('err_jumlahBayaran').innerHTML = "Medan ini adalah mandatori !!"; err_count++;  }
+	
+	var flagBayaran = $('flagBayaran').value;
+##	alert("aaaaaaaa " + $('flagBayaran').value);
+	if ( flagBayaran == "" ) {$('err_flagBayaran').innerHTML = "Medan ini adalah mandatori!"; err_count++;  }
+	
+	return err_count == 0;
+}
+
+function saveAbt() {
+	if (validateAbt()){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxChainCall$formname('addpopup','funcSimpanAtauKemaskiniAbt','','divTab','getABT','');
+		jQuery('#btnSimpanAtauKemaskiniAbt').fadeOut();
+	}
+}
+## *** End for New Data ***
+## -------------------- END ABT -------------------- ##
+
+
+
+## ---- START KES PEGUAM - PADA TAB - SENARAI PENGHUNI ##
+function validateKesPeguam() {
+	var err_count = 0;
+	
+	var tarikh = $('tarikh').value;
+	if ( tarikh == "" ) {$('err_tarikh').innerHTML = "Adalah mandatori!"; err_count++;  }
+	
+	var flagKeputusan = $('flagKeputusan').value;
+	if ( flagKeputusan == "" ) {$('err_flagKeputusan').innerHTML = "Adalah mandatori!"; err_count++;  }
+	
+	return err_count == 0;
+}
+
+function saveKesPeguam() {
+	if (validateKesPeguam()){
+##	if ( !window.confirm("Anda pasti?") ){
+##		return;
+##	}
+	doDivAjaxChainCall$formname('addpopup','simpanPeguam','','divTab','getKesPeguam','');
+	}
+}
+
+function deleteKP(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','removePeguam','idKP=' + id);
+}
+## ---- END KES PEGUAM ---- ##
+
+
+
+
+

@@ -1,0 +1,17 @@
+<select id="idNegeri" name="idNegeri" style="width:100%">
+    <option value="">SILA PILIH</option>
+    #foreach( $n in $selectNegeri )
+        <option #if ( $n.id == $!uj.bandar.negeri.id ) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+    #end
+</select>
+
+<script>
+	_jq( document ).ready(function() {
+		doDivAjaxCall3$formname('listBandar2', 'selectBandar', '');
+	});
+	
+	_jq('#idNegeri').on("change", function() {
+		doDivAjaxCall3$formname('listBandar2', 'selectBandar', '');
+		$('err_idNegeri').innerHTML=''; 
+	});
+</script>

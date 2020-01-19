@@ -1,0 +1,110 @@
+#if ($!command == 'getMaklumatPemohonBerdaftar')
+<fieldset>
+<legend class="legend">Maklumat Pemohon</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">No. Pengenalan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><input size="30" id="noPengenalan" name="noPengenalan" value="$!noPengenalan" onChange="doDivAjaxCall3$formname('divPemohon','getMaklumatPemohonBerdaftar','')" onKeyUp="$('err_noPengenalan').innerHTML=''; at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+            <div id="err_noPengenalan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #input_required("namaPemohon" "Nama Pemohon" "$!pemohon.namaPemohon")
+        #input("jawatanPemohon" "Jawatan" "$!pemohon.jawatanPemohon")
+        #phone_number_required("noTelefonBimbit" "No. Telefon Bimbit" "$!pemohon.noTelefonBimbit")
+	    #input_email("emel" "E-mel" "$!pemohon.emel")     
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        #input_required("alamat1Pemohon" "Alamat" "$!pemohon.alamat1Pemohon")
+        #input("alamat2Pemohon" "" "$!pemohon.alamat2Pemohon")
+        #input("alamat3Pemohon" "" "$!pemohon.alamat3Pemohon")
+        #postcode_required("poskodPemohon" "Poskod" "$!pemohon.poskodPemohon")
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatPemohon/selectNegeri.vm")
+            <div id="err_idNegeriPemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandarPemohon"> #parse("$path/maklumatPemohon/selectBandar.vm") </div>
+            <div id="err_idBandarPemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+	    
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+#else
+<fieldset>
+<legend class="legend">Maklumat Pemohon</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #if ($!command == 'add_new_record')
+        <tr>
+          <td class="label" valign="top">No. Pengenalan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><input size="30" id="noPengenalan" name="noPengenalan" value="$!r.idPemohon" onChange="doDivAjaxCall3$formname('divPemohon','getMaklumatPemohonBerdaftar','')" onKeyUp="$('err_noPengenalan').innerHTML=''; at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+            <div id="err_noPengenalan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+    	#elseif ($!r.idJenisPermohonan == '1' && $!allowUpdatePermohonan == 'Y')
+    	  	<tr>
+          <td class="label" valign="top">No. Pengenalan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><input size="30" id="noPengenalan" name="noPengenalan" value="$!r.idPemohon" onChange="doDivAjaxCall3$formname('divPemohon','getMaklumatPemohonBerdaftar','')" onKeyUp="$('err_noPengenalan').innerHTML=''; at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+            <div id="err_noPengenalan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+       	#else
+       		#input_normal("" "No. Pengenalan" "<b>$!r.idPemohon</b>")
+        	<input type=hidden name="noPengenalan" id="noPengenalan" value="$!r.idPemohon">
+        #end
+        #input_required("namaPemohon" "Nama Pemohon" "$!r.namaPemohon")
+        #input("jawatanPemohon" "Jawatan" "$!r.jawatanPemohon")
+	    #phone_number_required("noTelefonBimbit" "No. Telefon Bimbit" "$!r.noTelefonBimbit")
+	    #input_email("emel" "E-mel" "$!r.emel")  
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_required("alamat1Pemohon" "Alamat" "$!r.alamat1Pemohon")
+        #input("alamat2Pemohon" "" "$!r.alamat2Pemohon")
+        #input("alamat3Pemohon" "" "$!r.alamat3Pemohon")
+        #postcode_required("poskodPemohon" "Poskod" "$!r.poskodPemohon")
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatPemohon/selectNegeri.vm")
+            <div id="err_idNegeriPemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandarPemohon"> #parse("$path/maklumatPemohon/selectBandar.vm") </div>
+            <div id="err_idBandarPemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>        
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+#end

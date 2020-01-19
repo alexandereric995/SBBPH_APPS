@@ -1,0 +1,120 @@
+
+<table width="100%" cellpadding="2" cellspacing="2" border="0">
+	<tr><td>
+		<form name="${formname}" method="post">
+		<table align="center" width="99%" border="0" cellpadding="1" cellspacing="1">
+			<tr>
+				<td  colspan="2" align="right">
+					#if ( $allowPost )
+						<input class="button" type="button" value="ADD NEW" onclick="addNewTopic_${formname}()">
+					#end
+				</td>
+			</tr>	
+		</table>
+		<table align="center" width="99%" border="0" cellpadding="0" cellspacing="0" >	
+			#set ( $cnt = 0 )	
+			#foreach ( $forum in $topic_items)
+				#set ( $cnt= $cnt + 1 )
+				#set ($i = $topic_page_number - 1 )
+				#set ($k = ($rows_count * $i) + $cnt )
+								
+			<tr>
+			
+				<td valign="top">
+					<b><i>$forum.getDatePosted().display()</i></b>
+                </td>
+				<td>
+					&nbsp;
+						#if ( $showSubject )
+                                         <b>$forum.title</b>
+						#end
+						<a href="javascript:openForum_${formname}('$forum.id', '$k')" style="font-weight:bold; text-decoration:none">
+						&nbsp;&nbsp;[<u>Open</u>]
+						</a>
+						<br><br>
+                                   <!--
+					<a href="javascript:openForum_${formname}('$forum.id', '$k')" style="text-decoration:none">
+					${forum.getMessage(100)}..
+					</a>
+					
+                                  -->
+				</td>
+			</tr>
+							
+<!--
+			<tr>
+				<td>
+
+#if ( $forum.hasAttachment() )
+#set ( $attachment = $forum.getAttachment() )
+#set ( $files = $attachment.get() )
+				<table>
+				#foreach ( $file in $files )
+				<tr>
+				<td>&nbsp;</td>
+				<td>
+					<a href="../download?file=${files_dir}${file}">
+					<u>$file</u>
+					</a>
+					</td>
+					</tr>
+				#end
+				<tr height="20">
+				<td></td>
+				<td></td>
+				</tr>
+				</table>
+#end
+				</td>
+			</tr>
+-->
+			
+			#end
+		</table>
+		
+		
+		<table width="100%">
+			<tr>
+				<td align="right">
+					Page
+					#if ( $topic_pages > 0 )
+						#foreach ($num in [ 1..$topic_pages ])
+							#if ( $num == $topic_page_number )
+								<b>$num</b>
+							#else
+								<a href="javascript:goPage_${formname}($num)">
+								<u>$num</u>
+								</a>
+							#end
+						#end
+					#end
+				</td>
+			</tr>	
+		</table>
+				
+		<input type="hidden" name="$formname" value="$formname">
+		</form>
+	</td></tr>
+</table>
+<script>
+function addNewTopic_${formname}() {
+	document.${formname}.action = "?command=AddNewTopic&subjectId=$!subjectId";
+	document.${formname}.submit();	
+}
+function openForum_${formname}(id, item) {
+	document.${formname}.action = "?command=Open&subjectId=$!subjectId&forum_id=" + id + "&item=" + item;
+	document.${formname}.submit();	
+}
+function next_${formname}() {
+	document.${formname}.action = "?command=NextTopic&subjectId=$!subjectId";	
+	document.${formname}.submit();
+}
+function previous_${formname}() {
+	document.${formname}.action = "?command=PreviousTopic&subjectId=$!subjectId";	
+	document.${formname}.submit();
+}
+function goPage_${formname}(num) {
+	document.${formname}.action = "?command=GoTopicPage&subjectId=$!subjectId&pagenum=" + num;	
+	document.${formname}.submit();
+}
+</script>

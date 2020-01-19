@@ -1,0 +1,29 @@
+#if ($!selectedTab=='2' || $!selectedTab=='3' || $!selectedTab=='4')
+#parse("$path/header.vm")
+#end
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatKontraktor','')" #end >Maklumat Kontraktor</a></li>
+	<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divTab','getMaklumatPengkhususan','')" #end >Pengkhususan Bidang Kontraktor</a></li>
+	<li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('divTab','getSijilSokongan','')" #end >Sijil Sokongan</a></li>
+	<li #if($!selectedTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedTab!='4') onClick="doDivAjaxCall3$formname('divTab','getLampiran','')" #end >Lampiran</a></li>
+  </ul>
+</nav>
+	
+<br/>
+
+#if ($!selectedTab=='1')
+	#parse("$path/maklumatKontraktor.vm")
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/pengkhususanKontraktor/maklumatPengkhususan.vm")
+#end
+
+#if ($!selectedTab=='3')
+	#parse("$path/sijilSokongan/maklumatSijilSokongan.vm")
+#end
+
+#if ($!selectedTab=='4')
+	#parse("$path/dokumenSokongan/start.vm")
+#end

@@ -1,0 +1,125 @@
+<style>
+	.print {
+		color:blue;
+	}
+	.print:hover {
+		color:blue;
+		text-decoration:underline;
+	}
+</style>
+
+<fieldset>
+<legend class="legend">Maklumat Hakmilik</legend>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal_hidden("noFail" "No. Fail" "$!r.noFail")
+        #input_normal_hidden("kementerian" "Kementerian" "$!r.kementerian.keterangan")	
+        #input_normal_hidden("agensi" "Agensi" "$!r.agensi.keterangan")
+        #if ($!r.statusDaftar == 'D') #set ($statusDaftar="DAFTAR") #elseif ($!r.statusDaftar == 'B') #set ($statusDaftar="BATAL") #else #set ($statusDaftar="") #end
+        #input_normal_hidden("statusDaftar" "Status Daftar" "$statusDaftar")
+        <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal_hidden("negeri" "Negeri" "$!r.negeri.keterangan")
+        #input_normal_hidden("daerah" "Daerah" "$!r.daerah.keterangan")
+        #input_normal_hidden("mukim" "Mukim" "$!r.mukim.keterangan")		
+        #input_normal_hidden("lokasi" "Lokasi" "$!r.lokasi")
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="2"><hr />
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal_hidden("peganganHakmilik" "Pegangan Hakmilik" "$!r.peganganHakmilik")
+        #input_normal_hidden("jenisHakmilik" "Jenis Hakmilik" "$!r.jenisHakmilik.keterangan")
+        #input_normal_hidden("noHakmilik" "No. Hakmilik" "$!r.noHakmilik")
+        #input_normal_hidden("lot" "Lot" "$!r.idLot")
+        #input_normal_hidden("noLot" "No. Lot" "$!r.noLot")
+        #input_normal_hidden("noWarta" "No. Warta" "$!r.noWarta")
+        #if ($r.tarikhWarta) #set ($tarikhWarta="$!util.getDateTime($r.tarikhWarta,'dd-MM-yyyy')") #else #set ($tarikhWarta="") #end
+        #input_normal_hidden("tarikhWarta" "Tarikh Warta" "$tarikhWarta")
+        <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal_hidden("jenisLuas" "Jenis Luas" "$!r.jenisLuas.keterangan")
+        #input_normal_hidden("luas" "Luas" "$!r.luas")
+        #input_normal_hidden("kategori" "Kategori" "$!r.subkategori.kategori.keterangan")
+        #input_normal_hidden("subKategori" "Sub Kategori" "$!r.subkategori.keterangan")
+        #input_normal_hidden("syarat" "Syarat" "$!r.syarat")
+        #input_normal_hidden("sekatan" "Sekatan" "$!r.sekatan")
+        #input_normal_hidden("kegunaanTanah" "Kegunaan Tanah" "$!r.kegunaanTanah")
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="2"><hr />
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal_hidden("noPelan" "No. Pelan" "$!r.noPelan") 
+        #input_normal_hidden("noSyit" "No. Syit" "$!r.noSyit")
+        #input_normal_hidden("noPu" "No PU" "$!r.noPu")
+        #if ($r.tarikhDaftar) #set ($tarikhDaftar="$!util.getDateTime($r.tarikhDaftar,'dd-MM-yyyy')") #else #set ($tarikhDaftar="") #end
+        #input_normal_hidden("tarikhDaftar" "Tarikh Daftar" "$tarikhDaftar")
+        #if ($r.tarikhLuput) #set ($tarikhLuput="$!util.getDateTime($r.tarikhLuput,'dd-MM-yyyy')") #else #set ($tarikhLuput="") #end
+        #input_normal_hidden("tarikhLuput" "Tarikh Luput" "$tarikhLuput")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal_hidden("tarafHakmilik" "Taraf Milik" "$!r.tarafHakmilik")        
+        #input_normal_hidden("cukai" "Cukai (RM)" "$util.formatDecimal($!r.cukai)")
+        #input_normal_hidden("cukaiTerkini" "Cukai Terkini (RM)" "$util.formatDecimal($!r.cukaiTerkini)")        
+        #input_normal_hidden("hakmilikAsal" "Hakmilik Asal" "$!r.hakmilikAsal")
+        #input_normal_hidden("hakmilikBerikut" "Hakmilik Berikut" "$!r.hakmilikBerikut")
+        <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">PELAN</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>#parse("$path/maklumatHakmilik/pelan.vm")</td>
+  </tr>
+</table>
+</fieldset>

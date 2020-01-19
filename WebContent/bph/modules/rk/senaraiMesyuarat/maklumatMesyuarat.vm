@@ -1,0 +1,47 @@
+<fieldset>
+<legend class="legend">MAKLUMAT MESYUARAT</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #if ($!command == "add_new_record")
+        	#textarea_required("tajuk" "Tajuk Mesyuarat" "MESYUARAT JAWATANKUASA RUANG KOMERSIL (JRK)")
+        #else
+        	#textarea_required("tajuk" "Tajuk Mesyuarat" "$!r.tajuk")
+        #end
+        #input_required("bil" "Bil. Mesyuarat" "$!r.bil")
+        
+        #if ($!r.tarikh) #set ($dateMesyuarat = "$!util.getDateTime($!r.tarikh,'dd-MM-yyyy')")
+        #else #set ($dateMesyuarat = "") #end
+        #date_input_required("tarikh" "Tarikh Mesyuarat" "$dateMesyuarat")
+           
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input("lokasi" "Lokasi" "$!r.lokasi")
+        #textarea("catatan" "Catatan" "$!r.catatan")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+#if ($!command != "add_new_record")
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if ($!r.status == "B")
+				<input id="btnKemaskini" type="button" value="Kemaskini" onClick="javascript:doKemaskiniMaklumatMesyuarat();">
+			#end			
+	    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	</tr>
+</table>	
+#end

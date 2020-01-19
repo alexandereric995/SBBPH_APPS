@@ -1,0 +1,116 @@
+
+<input type="hidden" name="idPeranginan" id="idPeranginan" value="$!r.id" />
+
+<fieldset>
+<legend class="legend">senarai keseluruhan tarikh buka tempahan</legend>
+
+    <table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="40%">Perkara / Tajuk</td>
+			<td class="row_header" width="15%">Tarikh Buka Tempahan</td>
+			<td class="row_header" width="15%">Tarikh Menginap Dari</td>
+			<td class="row_header" width="15%">Tarikh Menginap Hingga</td>
+			<td class="row_header" width="10%">Pilih</td>
+		</tr>
+		
+		#if ( $listBukaTempahan.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listBukaTempahan )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+            		<td>$!d.perkara.toUpperCase()</td>
+					<td align="center">$!util.getDateTime($!d.tarikhBukaTempahan,'dd-MM-yyyy')</td>
+					<td align="center">$!util.getDateTime($!d.tarikhMenginapDari,'dd-MM-yyyy')</td>
+					<td align="center">$!util.getDateTime($!d.tarikhMenginapHingga,'dd-MM-yyyy')</td>
+					<td align="center">
+						<input type="checkbox" name="keterangan" id="keterangan$!d.id" value="$!d.id" onclick="doDivAjaxCall$formname('div_main_entry','savePilihanTarikhTempahan','idPilihan=$!d.id')" />
+					</td>
+                </tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="5">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+
+</fieldset>
+
+<br/>
+
+<fieldset>
+<legend class="legend">senarai tarikh tempahan dibuka bagi $!r.jenisPeranginan.id.toUpperCase() $!r.namaPeranginan.toUpperCase()</legend>
+
+    <table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="45%">Perkara / Tajuk</td>
+			<td class="row_header" width="15%">Tarikh Menginap Dari</td>
+			<td class="row_header" width="15%">Tarikh Menginap Hingga</td>
+			<td class="row_header" width="10%">Aktif</td>
+			<td class="row_header" width="10%">Hapus</td>
+		</tr>
+		
+		#if ( $listTarikhTempahanPeranginan.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listTarikhTempahanPeranginan )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+            		<td>$!d.tetapanBukaTempahan.perkara.toUpperCase()</td>
+					<td align="center">$!util.getDateTime($!d.tetapanBukaTempahan.tarikhMenginapDari,'dd-MM-yyyy')</td>
+					<td align="center">$!util.getDateTime($!d.tetapanBukaTempahan.tarikhMenginapHingga,'dd-MM-yyyy')</td>
+					<td align="center"><input type="radio" name="flagAktif" id="flagAktif$!d.id" value="$!d.id" #if($!d.flagAktif=='Y') checked #end onChange="$('_wait').innerHTML='Please wait...';doDivAjaxCall3$formname('div_main_entry','updateAktif','idBukaTempahanLokasi=$!d.id')" /></td>
+					<td align="center">
+						#if($!d.flagAktif == 'T') 
+						<a href="javascript:void()" onclick="$('_wait').innerHTML='Please wait...';doDivAjaxCall3$formname('div_main_entry','deletePilihanTarikhTempahan','idBukaTempahanLokasi=$!d.id')"><img src="../img/delete.gif" border="0"></a>
+						#end
+					</td>
+                </tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="6">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+
+</fieldset>
+
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="right">##Fatin 13/06/2015
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+		</td>
+	</tr>
+</table>
+	
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

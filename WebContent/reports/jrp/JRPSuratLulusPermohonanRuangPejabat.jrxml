@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="JRPSuratLulusPermohonanRuangPejabat"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="451"
+		 columnSpacing="0"
+		 leftMargin="72"
+		 rightMargin="72"
+		 topMargin="50"
+		 bottomMargin="72"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idPermohonan" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="flag_lewat" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="jenis_permohonan" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT MONTH(CURDATE()) AS BULAN,YEAR(CURDATE()) AS TAHUN,A.NO_PERMOHONAN , -- DATE_FORMAT(A.TARIKH_TERIMA,'%d') HARI_TERIMA, MONTH(A.TARIKH_TERIMA) BULAN_TERIMA, YEAR(A.TARIKH_TERIMA) TAHUN_TERIMA, 
+A.ALAMAT_1, A.ALAMAT_2, A.ALAMAT_3, A.POSKOD AS POSKOD_1, D.keterangan NAMA_BANDAR_1, E.keterangan NAMA_NEGERI_1, 
+B.keterangan NAMA_AGENSI, C.keterangan NAMA_KEMENTERIAN, G.keterangan NAMA_BANDARB, H.keterangan NAMA_NEGERIB, F.nama_jabatan JABATAN, F.alamat1 ALAMAT1, F.alamat2 ALAMAT2, F.alamat3 ALAMAT3, F.poskod POSKOD, 
+I.bil_mesyuarat, DATE_FORMAT(I.tarikh_mesyuarat,'%d') HARI_MESYUARAT, MONTH(I.tarikh_mesyuarat) BULAN_MESYUARAT, YEAR(I.tarikh_mesyuarat) TAHUN_MESYUARAT,
+DATE_FORMAT(J.tarikh_lengkap_permohonan,'%d') HARI_LENGKAP, MONTH(J.tarikh_lengkap_permohonan) BULAN_LENGKAP, YEAR(J.tarikh_lengkap_permohonan) TAHUN_LENGKAP,
+I.urusetia_pengesah, K.user_name
+FROM jrp_permohonan A
+LEFT JOIN ruj_agensi B ON A.id_agensi = B.id
+LEFT JOIN ruj_kementerian C ON B.id_kementerian = C.id
+LEFT JOIN ruj_bandar D ON A.id_bandar = D.id
+LEFT JOIN ruj_negeri E ON D.id_negeri = E.id
+LEFT JOIN jrp_pemohon F ON A.id_pemohon = F.id
+JOIN ruj_bandar G ON F.id_bandar = G.id
+LEFT JOIN ruj_negeri H ON G.id_negeri = H.id
+LEFT JOIN jrp_mesyuarat I ON A.id = I.id_permohonan
+LEFT JOIN jrp_kertas_pertimbangan J ON A.id = J.id_permohonan
+LEFT JOIN users K ON I.urusetia_pengesah = K.user_login
+WHERE A.id =  $P{idPermohonan}]]></queryString>
+
+	<field name="BULAN" class="java.lang.Long"/>
+	<field name="TAHUN" class="java.lang.Long"/>
+	<field name="NO_PERMOHONAN" class="java.lang.String"/>
+	<field name="ALAMAT_1" class="java.lang.String"/>
+	<field name="ALAMAT_2" class="java.lang.String"/>
+	<field name="ALAMAT_3" class="java.lang.String"/>
+	<field name="POSKOD_1" class="java.lang.String"/>
+	<field name="NAMA_BANDAR_1" class="java.lang.String"/>
+	<field name="NAMA_NEGERI_1" class="java.lang.String"/>
+	<field name="NAMA_AGENSI" class="java.lang.String"/>
+	<field name="NAMA_KEMENTERIAN" class="java.lang.String"/>
+	<field name="NAMA_BANDARB" class="java.lang.String"/>
+	<field name="NAMA_NEGERIB" class="java.lang.String"/>
+	<field name="JABATAN" class="java.lang.String"/>
+	<field name="ALAMAT1" class="java.lang.String"/>
+	<field name="ALAMAT2" class="java.lang.String"/>
+	<field name="ALAMAT3" class="java.lang.String"/>
+	<field name="POSKOD" class="java.lang.String"/>
+	<field name="bil_mesyuarat" class="java.lang.String"/>
+	<field name="HARI_MESYUARAT" class="java.lang.String"/>
+	<field name="BULAN_MESYUARAT" class="java.lang.Long"/>
+	<field name="TAHUN_MESYUARAT" class="java.lang.Long"/>
+	<field name="HARI_LENGKAP" class="java.lang.String"/>
+	<field name="BULAN_LENGKAP" class="java.lang.Long"/>
+	<field name="TAHUN_LENGKAP" class="java.lang.Long"/>
+	<field name="urusetia_pengesah" class="java.lang.String"/>
+	<field name="user_name" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="310"  isSplitAllowed="false" >
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="132"
+						width="451"
+						height="14"
+						key="textField-8"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false" isUnderline="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["PENGARAH\n"
++($F{NAMA_AGENSI}!=null?$F{NAMA_AGENSI}+"\n":"")
++($F{NAMA_KEMENTERIAN}!=null?$F{NAMA_KEMENTERIAN}+"\n":"")
++($F{ALAMAT1}!=null?$F{ALAMAT1}+"\n":"")
++($F{ALAMAT2}!=null?$F{ALAMAT2}+"\n":"")
++($F{ALAMAT3}!=null ? $F{ALAMAT3}+"":"")
++($F{POSKOD}!=null?$F{POSKOD}+" ":"")
++($F{NAMA_BANDARB}!=null?$F{NAMA_BANDARB}.trim():"")+ ", " + ($F{NAMA_NEGERIB}!=null?$F{NAMA_NEGERIB}:"")+"\n"
++"\nTuan,\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="284"
+						y="79"
+						width="167"
+						height="14"
+						key="textField-13"
+						positionType="Float"
+						isPrintRepeatedValues="false"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{NO_PERMOHONAN}!=null ? $F{NO_PERMOHONAN}:"")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="284"
+						y="93"
+						width="167"
+						height="14"
+						key="textField-16"
+						positionType="Float"
+						isPrintRepeatedValues="false"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{BULAN}.intValue()== 1 ? "Januari" :
+$F{BULAN}.intValue()== 2 ? "Februari":
+$F{BULAN}.intValue()== 3 ? "Mac" :
+$F{BULAN}.intValue()== 4 ? "April" :
+$F{BULAN}.intValue()== 5 ? "Mei" :
+$F{BULAN}.intValue()== 6 ? "Jun" :    
+$F{BULAN}.intValue()== 7 ? "Julai" :
+$F{BULAN}.intValue()== 8 ? "Ogos" :
+$F{BULAN}.intValue()== 9 ? "September" :
+$F{BULAN}.intValue()== 10 ? "Oktober" :
+$F{BULAN}.intValue()== 11 ? "November" :
+$F{BULAN}.intValue()== 12 ? "Disember" : "") + " " + $F{TAHUN}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="155"
+						width="451"
+						height="15"
+						key="textField-18"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true" isUnderline="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["PERMOHONAN " + $P{jenis_permohonan} + ($P{flag_lewat}.isEmpty() ? " " : " LEWAT ") + "PENYEWAAN RUANG PEJABAT - " + ($F{NAMA_AGENSI}!=null?$F{NAMA_AGENSI}:"") + ", " + ($F{NAMA_NEGERI_1}!=null?$F{NAMA_NEGERI_1}:"")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="228"
+						width="451"
+						height="17"
+						key="textField-27"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["4.        Selain daripada maklumat penyewaan di atas, pihak tuan dipohon mengambil tindakan terhadap perkara - perkara berikut:\n\n" +
+"        4.1   Menyediakan Surat Perjanjian Penyewaan (Tenancy Agreement) untuk ditandatangani oleh Pesuruhjaya Tanah Persekutuan bagi pihak Kerajaan, atau pegawai yang telah diperturunkan kuasa mengikut Akta Kontrak Kerajaan 1949;\n\n" +
+"              (a)   Surat perjanjian tersebut perlu juga mengandungi klausa penamatan sewaan (termination clause) dengan 3 bulan notis;\n\n" +
+"              (b)   Satu salinan surat perjanjian yang telah disempurnakan hendaklah diedarkan untuk rujukan/rekod Jabatan ini dalam tempoh " + "<style isBold='true' isUnderline='true' pdfFontName='Helvetica-Bold'>3 BULAN</style>" + " selepas surat kelulusan ini dikeluarkan.\n\n" +
+"        4.2   Mengemukakan permohonan pelanjutan penyewaan yang lengkap dengan ulasan dan sokongn daripada semua Jabatan/Agensi berkaitan ke Bahagian ini selewat-lewatnya " + "<style isBold='true' isUnderline='true' pdfFontName='Helvetica-Bold'>2 BULAN</style>" + " sebelum tamat tempoh penyewaan sebagaimana Surat Pekeliling Am Bilangan 3 Tahun 2011 yang berkuatkuasa serta-merta bermula 23 September 2011, dan;\n\n" +
+"        4.3   Membuat semakan terhadap butiran yang terkandung di dalam surat kelulusan ini bertepatan dengan permohonan Jabatan.\n\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="183"
+						width="451"
+						height="16"
+						key="textField-28"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean(!$P{flag_lewat}.isEmpty())]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Dengan hormatnya saya diarah merujuk kepada perkara di atas.\n\n"+ 
+
+"2.       Dimaklumkan bahawa Mesyuarat Jawatankuasa Ruang Pejabat " + ($F{bil_mesyuarat}!=null?$F{bil_mesyuarat}:"") + " pada " + ($F{HARI_MESYUARAT}!=null?$F{HARI_MESYUARAT}:"") + " " + ($F{BULAN_MESYUARAT}.intValue()== 1 ? "Januari" :
+$F{BULAN_MESYUARAT}.intValue()== 2 ? "Februari":
+$F{BULAN_MESYUARAT}.intValue()== 3 ? "Mac" :
+$F{BULAN_MESYUARAT}.intValue()== 4 ? "April" :
+$F{BULAN_MESYUARAT}.intValue()== 5 ? "Mei" :
+$F{BULAN_MESYUARAT}.intValue()== 6 ? "Jun" :    
+$F{BULAN_MESYUARAT}.intValue()== 7 ? "Julai" :
+$F{BULAN_MESYUARAT}.intValue()== 8 ? "Ogos" :
+$F{BULAN_MESYUARAT}.intValue()== 9 ? "September" :
+$F{BULAN_MESYUARAT}.intValue()== 10 ? "Oktober" :
+$F{BULAN_MESYUARAT}.intValue()== 11 ? "November" :
+$F{BULAN_MESYUARAT}.intValue()== 12 ? "Disember" : "") 
+ + " " + ($F{TAHUN_MESYUARAT}.toString()!=null?$F{TAHUN_MESYUARAT}.toString():"") + " telah memberikan kelulusan bersyarat sehingga dokumen yang lengkap dikemukakan. Pihak Urus Setia JRP telah menerima salinan dokumen yang lengkap pada " + ($F{HARI_LENGKAP}!=null?$F{HARI_LENGKAP}:"") + " " + ($F{BULAN_LENGKAP}.intValue()== 1 ? "Januari" :
+$F{BULAN_LENGKAP}.intValue()== 2 ? "Februari":
+$F{BULAN_LENGKAP}.intValue()== 3 ? "Mac" :
+$F{BULAN_LENGKAP}.intValue()== 4 ? "April" :
+$F{BULAN_LENGKAP}.intValue()== 5 ? "Mei" :
+$F{BULAN_LENGKAP}.intValue()== 6 ? "Jun" :    
+$F{BULAN_LENGKAP}.intValue()== 7 ? "Julai" :
+$F{BULAN_LENGKAP}.intValue()== 8 ? "Ogos" :
+$F{BULAN_LENGKAP}.intValue()== 9 ? "September" :
+$F{BULAN_LENGKAP}.intValue()== 10 ? "Oktober" :
+$F{BULAN_LENGKAP}.intValue()== 11 ? "November" :
+$F{BULAN_LENGKAP}.intValue()== 12 ? "Disember" : "") + " " + ($F{TAHUN_LENGKAP}.toString()!=null?$F{TAHUN_LENGKAP}.toString():"") + " dan permohonan tuan adalah <style isBold='true' pdfFontName='Helvetica-Bold'>diluluskan</style>. Ketua Jabatan hendaklah bertanggungjawab memastikan syor-syor dari Pejabat KEtua Pegawai Keselamatan Kerajaan, Jabatan Bomba dan Penyelamat Malaysia, Jabatan Penilaian dan Perkhidmatan Harta serta Jabatan Ketua Pengarah Tanah dan Galian dipatuhi.\n\n" +
+"3.       Butiran kelulusan adalah seperti berikut:-"]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="3"
+						width="449"
+						height="55"
+						key="subreport-1"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\jrp\\headerSurat.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="28"
+						y="200"
+						width="423"
+						height="20"
+						key="subreport-2"
+						positionType="Float"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idPermohonan">
+						<subreportParameterExpression><![CDATA[$P{idPermohonan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\jrp\\JRPSuratLulusPermohonanRuangPejabat_subreport1.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="245"
+						width="451"
+						height="17"
+						key="textField-29"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean(!$P{flag_lewat}.isEmpty())]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["5.        Bagi memastikan proses permohonan pelanjutan berjalan lancar, pihak tuan dimohon supaya membuat perancangan proses permohonan lebih awal pada permohonan akan datang bagi memastikan kelewatan seperti permohonan ini tidak berulang. Perkara sebegini bukan sahaja memberikan implikasi terhadap imej Kerajaan yang berurusan dengan pemilik swasta tetapi juga implikasi terhadap kewangan, keselamatan pejabat serta kakitangan dan lain-lain. Jawatankuasa sentiasa memandang serius akan perkara ini.\n\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="262"
+						width="451"
+						height="18"
+						key="textField-30"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Sekian, terima kasih.\n\n"
+
++"<style isBold='true' pdfFontName='Helvetica-Bold'>“BERKHIDMAT UNTUK NEGARA”</style>\n\n"
++"<style isBold='true' pdfFontName='Helvetica-Bold'>“BERILTIZAM PENUH HASRAT”</style>\n\n"
++"Saya yang menurut perintah,\n\n\n\n\n"
++"<style isBold='true' pdfFontName='Helvetica-Bold'>(" + ($F{user_name}!=null ?$F{user_name} : "")+ ")</style>\n"
++"b.p Ketua Setiausaha Negara\n"
++"No. Tel :" +   "\n"
++"Emel :" +   "\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="183"
+						width="451"
+						height="16"
+						key="textField-31"
+						positionType="Float">
+							<printWhenExpression><![CDATA[new Boolean($P{flag_lewat}.isEmpty())]]></printWhenExpression>
+						</reportElement>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" markup="styled" lineSpacing="Single">
+						<font fontName="Arial" pdfFontName="Helvetica" size="11" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Dengan hormatnya saya diarah merujuk kepada perkara di atas.\n\n"+ 
+
+"2.       Pihak Urus Setia JRP telah menerima salinan dokumen yang lengkap pada " + ($F{HARI_LENGKAP}!=null?$F{HARI_LENGKAP}:"") + " " + ($F{BULAN_LENGKAP}.intValue()== 1 ? "Januari" :
+$F{BULAN_LENGKAP}.intValue()== 2 ? "Februari":
+$F{BULAN_LENGKAP}.intValue()== 3 ? "Mac" :
+$F{BULAN_LENGKAP}.intValue()== 4 ? "April" :
+$F{BULAN_LENGKAP}.intValue()== 5 ? "Mei" :
+$F{BULAN_LENGKAP}.intValue()== 6 ? "Jun" :    
+$F{BULAN_LENGKAP}.intValue()== 7 ? "Julai" :
+$F{BULAN_LENGKAP}.intValue()== 8 ? "Ogos" :
+$F{BULAN_LENGKAP}.intValue()== 9 ? "September" :
+$F{BULAN_LENGKAP}.intValue()== 10 ? "Oktober" :
+$F{BULAN_LENGKAP}.intValue()== 11 ? "November" :
+$F{BULAN_LENGKAP}.intValue()== 12 ? "Disember" : "") + " " + ($F{TAHUN_LENGKAP}.toString()!=null?$F{TAHUN_LENGKAP}.toString():"") + " dan permohonan tuan adalah <style isBold='true' pdfFontName='Helvetica-Bold'>diluluskan</style>. Ketua Jabatan hendaklah bertanggungjawab memastikan syor-syor dari Pejabat KEtua Pegawai Keselamatan Kerajaan, Jabatan Bomba dan Penyelamat Malaysia, Jabatan Penilaian dan Perkhidmatan Harta serta Jabatan Ketua Pengarah Tanah dan Galian dipatuhi.\n\n" +
+"3.       Butiran kelulusan adalah seperti berikut:-"]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

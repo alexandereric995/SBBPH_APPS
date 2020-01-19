@@ -1,0 +1,29 @@
+function validate() {
+	var err_count = 0;
+	
+	var noAkaunBank = $('noAkaunBank').value;
+	if ( noAkaunBank == "" ) {$('err_noAkaunBank').innerHTML = "Akaun Bank adalah mandatori!"; err_count++;  }
+	
+	var bank = $('bank').value;
+	if ( bank == "" ) {$('err_bank').innerHTML = "Bank adalah mandatori!"; err_count++;  }
+	
+	var resitBayaranDeposit = $('resitBayaranDeposit').checked;
+	if ( resitBayaranDeposit == "" ) {$('err_resitBayaranDeposit').innerHTML = "Resit Asal Bayaran Deposit adalah mandatori!"; err_count++;  }
+	
+	var sijilAkaunMasuk = $('sijilAkaunMasuk').checked;
+	if ( sijilAkaunMasuk == "" ) {$('err_sijilAkaunMasuk').innerHTML = "Sijil Akaun Masuk adalah mandatori!"; err_count++;  }
+	
+	var sijilAkaunKeluar = $('sijilAkaunKeluar').checked;
+	if ( sijilAkaunKeluar == "" ) {$('err_sijilAkaunKeluar').innerHTML = "Sijil Akaun Keluar adalah mandatori!"; err_count++;  }
+	
+	var salinanAkaunBank = $('salinanAkaunBank').checked;
+	if ( salinanAkaunBank == "" ) {$('err_salinanAkaunBank').innerHTML = "Salinan Akaun Bank adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}

@@ -1,0 +1,98 @@
+<table width="75%" cellpadding="5" cellspacing="0">
+      
+    <tr>
+        <td style="width:250px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+
+#if ( $downgrade == "ya" )
+	<tr>
+    	<td class="label" valign="top">Tarikh Downgrade</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">
+    		<div>
+        		<input type="text" id="findTarikhMohonDowngrade" name="findTarikhMohonDowngrade" value="">
+    			<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+        		<script>
+                	_jq("#findTarikhMohonDowngrade").Zebra_DatePicker({ 
+    		    		format: 'd-m-Y',
+    					readonly_element: false
+    		        });
+        		</script>
+    		</div>
+    	</td>
+    </tr>
+#elseif ( $upgrade == "ya" )
+	<tr>
+    	<td class="label" valign="top">Tarikh Naik Taraf</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">
+    		<div>
+        		<input type="text" id="findTarikhMohonUpgrade" name="findTarikhMohonUpgrade" value="">
+    			<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+        		<script>
+                	_jq("#findTarikhMohonUpgrade").Zebra_DatePicker({ 
+    		    		format: 'd-m-Y',
+    					readonly_element: false
+    		        });
+        		</script>
+    		</div>
+    	</td>
+    </tr>
+#elseif ( $tukarlokasi == "ya" )
+	<tr>
+    	<td class="label" valign="top">Tarikh Mohon Tukar Lokasi</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">
+    		<div>
+        		<input type="text" id="findTarikhMohonTukarLokasi" name="findTarikhMohonTukarLokasi" value="">
+    			<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+        		<script>
+                	_jq("#findTarikhMohonTukarLokasi").Zebra_DatePicker({ 
+    		    		format: 'd-m-Y',
+    					readonly_element: false
+    		        });
+        		</script>
+    		</div>
+    	</td>
+    </tr>
+#else
+    <tr>
+    	<td class="label" valign="top">Tarikh Daftar</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">
+    		<div>
+        		<input type="text" id="findTarikhPermohonan" name="findTarikhPermohonan" value="">
+    			<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+        		<script>
+                	_jq("#findTarikhPermohonan").Zebra_DatePicker({ 
+    		    		format: 'd-m-Y',
+    					readonly_element: false
+    		        });
+        		</script>
+    		</div>
+    	</td>
+    </tr>
+#end
+    
+	#input("findNoPermohonan" "No. Daftar" "")
+	#input("findNamaPemohon" "Nama Pemohon" "")
+	#input("findNoKPPemohon" "No. Kad Pengenalan" "")
+	<tr>
+		<td>Lokasi Kuarters</td>
+		<td>:</td>
+        <td>
+            #parse("$path/find/findLokasiPermohonan.vm")
+        </td>
+    </tr>
+	#if ( $overall == "ya" )
+    	<tr>
+            <td>Status</td>
+    		<td>:</td>
+            <td>
+                #parse("$path/find/findStatus.vm")
+            </td>
+        </tr>
+	#end
+</table>

@@ -1,0 +1,82 @@
+
+
+<fieldset>
+<legend class="legend">tetapan tempoh bayaran mengikut gred jawatan</legend>
+	
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+			<td class="row_header" width="8%">Bil.</td>
+			<td class="row_header" width="70%">Gred Jawatan</td>
+			<td class="row_header" width="22%">Tempoh Bayaran (hari) *</td>
+		</tr>
+		
+		#if ( $listTempohBayaranByGred.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listTempohBayaranByGred )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+            		<td>$!d.keterangan</td>
+					<td align="center">
+						<input style="text-align:right" type="text" class="number99" id="tempohBayaran" 
+							name="tempohBayaran$!d.id" value="$util.replaceIfNull($!d.tempohBayaran,'0')" /> 
+					</td>
+                </tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="3">Tiada Rekod</td>
+			</tr>
+		#end
+		
+		<tr>
+			<td colspan="3">
+				<font color="blue"><b>
+						* Selewat-lewatnya bilangan hari dari tarikh tempahan diluluskan. <br/>
+						Nota : Tempahan yang dibuat dalam tempoh kurang tujuh (7) hari dari tarikh menginap, bayaran perlu dijelaskan dalam tempoh 48 jam.
+				</b></font>
+			</td>
+		</tr>
+		
+		
+		
+		
+			
+	</table>
+
+</fieldset>
+	
+	<table width="100%">
+    	<tr>
+    		<td align="right">##Fatin 13/06/2015
+    			<input style="width:120px" type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+    			<input style="width:120px" id="btnSimpan" type="button" value="Simpan" onClick="javascript:doSave()">
+    		</td>
+    	</tr>
+    </table>
+	
+<script>
+  _jq(function($) {
+ 	  $('.number99').autoNumeric('init', {aSep: '', vMin: '0', vMax: '99', lZero: 'keep'} );
+  });
+</script>
+
+<script>
+function doSave() {
+	document.${formName}.command.value = "saveRecord";
+	document.${formName}.action = "?_portal_module=bph.modules.rpp.tetapan.TempohBayaranByGredController";
+	document.${formName}.submit();
+}
+</script>
+
+
+
+

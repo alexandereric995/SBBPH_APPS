@@ -1,0 +1,39 @@
+<fieldset>
+<legend class="legend">Laporan Semakan Resit E-Payment</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  #date_input_required("tarikhMula" "Tarikh Mula" "")
+  #date_input_required("tarikhHingga" "Tarikh Hingga" "")
+  <tr>
+    <td class="label">Status &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><select class="texts" name="flagStatus" id="flagStatus" style="width:15%" >
+    		<option value="" selected="selected">SILA PILIH</option>
+    		<option value="Y" #if ( $r.flagStatus == "Y" ) selected #end>TRANSAKSI BERJAYA</option>
+    		<option value="N" #if ( $r.flagStatus == "N" ) selected #end>TRANSAKSI TIDAK BERJAYA</option>
+    	</select>
+    	<div id="err_flagStatus" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    	</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="label"></td>
+    <td><input type="button" name="cmdCetak" id="cmdCetak" value="Cetak" onclick="javascript:doCetakLaporanSemakanResitE_Payment()"/>
+      <input type="reset" value="Kosongkan" />
+      <input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/>
+    </td>
+  </tr>
+</table>
+</fieldset>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

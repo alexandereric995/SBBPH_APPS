@@ -1,0 +1,67 @@
+<fieldset>
+<legend class="legend">MAKLUMAT KONTRAKTOR</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Jenis Kontrak &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectJenisKontrak.vm")
+            <div id="err_idJenisKontrak" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        
+        #input_required("noDaftarKontrak" "Nama Daftar Kontrak" "$!r.noDaftarKontrak")        
+        #input_required("perkhidmatan" "Perkhidmatan" "$!r.perkhidmatan")        
+        #input("kodProgram" "Kod Program" "$!r.kodProgram")
+        #input("kodObjek" "Kod Objek" "$!r.kodObjek") 
+        #currency_required("amaunBulanan" "Amaun Bulanan (RM)" "$!r.amaunBulanan")
+        #currency_required("nilaiKontrak" "Nilai Kontrak (RM)" "$!r.nilaiKontrak")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>        
+        #if ($!r.tarikhMula)
+        #set ($dateMula = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+        #else #set ($dateMula = "-") #end
+        #date_input_required("tarikhMulaKontrak" "Tarikh Mula" "$dateMula")
+        #number_required("tempoh" "Tempoh (Bulan)" "$!r.tempoh")        
+        #if ($!r.tarikhTamat)
+        #set ($dateTamat = "$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')")
+        #else #set ($dateTamat = "-") #end
+        #date_input_required("tarikhTamatKontrak" "Tarikh Tamat" "$dateTamat")
+        <tr>
+          <td class="label" valign="top">Lantikan Oleh &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectLantikan.vm")
+            <div id="err_idLantikan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Seksyen &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectSeksyen.vm")
+            <div id="err_idSeksyen" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        #textarea("catatan" "Catatan" "$!r.catatan")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+#if ($!command != "add_new_record")
+<table width="100%">
+	<tr>
+		<td align="right">
+    		<input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:doSaveKontraktor();"/>
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+#end

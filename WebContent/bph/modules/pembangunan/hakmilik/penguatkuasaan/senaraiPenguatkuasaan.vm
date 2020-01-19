@@ -1,0 +1,85 @@
+<fieldset>
+<legend class="legend">Senarai Penguatkuasaan</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:84%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3" class="label">
+    	#if ($allowUpdate)
+      <input type="button" id="addPenguatkuasaan" name="addPenguatkuasaan" value="Tambah">
+
+      <script>
+        _jq('#addPenguatkuasaan').on('click', function(){
+			doDivAjaxCall3$formname('divPenguatkuasaan','addPenguatkuasaan','');
+        });
+    </script>
+      <br />
+      <br />
+      #end
+      <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+          <td class="row_header" width="5%">Bil.</td>
+          <td class="row_header" >Tajuk</td>
+          <td class="row_header" >No. Rujukan</td>
+          <td class="row_header" >Keterangan</td>
+          <td class="row_header" >Tarikh Aduan</td>
+          <td class="row_header" width="5%">Papar</td>
+          #if ($allowUpdate)
+          <td class="row_header" width="5%">Hapus</td>
+          #end
+        </tr>
+        #set ( $count = 0 )
+        #if ( $listPenguatkuasaan.size() > 0) 
+        #foreach( $c in $listPenguatkuasaan )
+        #set ( $count = $count + 1)
+        
+        #if ( $count % 2 == 0 ) 
+        #set ( $rowcolor = "#D0CFCE" ) 
+        #else 
+        #set ( $rowcolor = "#F0F0F0" ) 
+        #end
+        <tr bgcolor="$rowcolor">
+          <td align="center">$!count</td>
+          <td align="left">$!c.tajuk</td>
+          <td align="left">$!c.noRujukan</td>
+          <td align="left">$!c.keterangan</td>
+          <td align="center">$!util.getDateTime($!c.tarikhAduan,'dd-MM-yyyy')</td>
+          <td align="center"><a href="javascript:void()" id="linkPaparPenguatkuasaan$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> 
+          	<script>
+				_jq('#linkPaparPenguatkuasaan$c.id').on('click', function(){
+					doDivAjaxCall3$formname('divPenguatkuasaan','doPaparMaklumatPenguatkuasaan','idMaklumatPenguatkuasaan=$c.id');
+				});                    
+			</script>
+          </td>
+          #if ($allowUpdate)
+          <td align="center"><a href="javascript:void()" onClick="doHapusMaklumatPenguatkuasaan('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+          #end
+        </tr>
+        #end
+        #else
+        <tr >
+          <td align="center">&nbsp;</td>
+          <td >Tiada Rekod</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          #if ($allowUpdate)
+          <td align="center">&nbsp;</td>
+          #end
+        </tr>
+        #end
+      </table></td>
+  </tr>
+</table>
+<table width="100%">
+  <tr>
+    <td align="right"><input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+</fieldset>
+

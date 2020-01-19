@@ -1,0 +1,166 @@
+<fieldset>
+<legend class="legend">MAKLUMAT PERMOHONAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #if($permohonanLanjutan.id != $r.id)
+		#set ($r = $!permohonanLanjutan)
+	#else
+		#set ($r = $!r)
+	#end
+<input name="flagJenis" type="hidden" id="flagJenis" value="$!r.jenisPermohonanJrp.id"/>	
+  #input_readonly_all_label("noPermohonan" "No. Permohonan" "<b>$!r.noPermohonan</b>")
+  #input_readonly_all_label("status" "Status Permohonan" "<b>$!r.status.keterangan</b>")
+  #if ($!r.tarikhSurat) 
+  #set ($dateSurat = "$!util.getDateTime($!r.tarikhSurat,'dd-MM-yyyy')")
+  #else #set ($dateSurat = "") #end
+  #date_input_required("tarikhSurat" "Tarikh Surat" "$dateSurat")
+  
+  #if ($!userRole != '(JRP) Pemohon')
+  #if ($!r.tarikhTerima) 
+  #set ($dateTerima = "$!util.getDateTime($!r.tarikhTerima,'dd-MM-yyyy')")
+  #else #set ($dateTerima = "") #end
+  #date_input_required("tarikhTerima" "Tarikh Terima" "$dateTerima")
+  #end
+  
+  <tr>
+    <td class="label">Jenis Permohonan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    #if($r.jenisPermohonanJrp.id == 'JRP1' || $r.jenisPermohonanJrp.id == 'JRP2' )
+    <td>#parse("$path/selectJenisPermohonanJRP.vm")
+      <div id="err_idJenisPermohonanJRP" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  #else
+  <td>#parse("$path/selectJenisPermohonanLanjutanJRP.vm")
+      <div id="err_idJenisPermohonanLanjutanJRP" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  #end
+    </tr>
+  #input_required("tujuanPermohonan" "Tujuan Permohonan" "$!r.tujuanPermohonan")
+  #textarea_required("alasanPermohonan" "Justifikasi Permohonan" "$!r.alasanPermohonan")
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">MAKLUMAT PEMOHON</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  
+  #if ($!userRole == '(JRP) Pemohon')
+  <tr>
+    <td class="label">Kementerian</td>
+    <td>:</td>
+    <td>$users.agensi.kementerian.keterangan</td>
+  </tr>
+  <tr>
+    <td class="label">Agensi / Jabatan</td>
+    <td>:</td>
+    <td>$users.agensi.keterangan</td>
+  </tr>  	
+  #else
+  <tr>
+    <td class="label">Kementerian &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td>#parse("$path/selectKementerian.vm")
+      <div id="err_idKementerian" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  <tr>
+    <td class="label">Agensi / Jabatan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><div id="selectAgensi">
+      #parse("$path/selectAgensi.vm")
+      <div id="err_idAgensi" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  #end
+  
+  #input_required("alamat1" "Alamat" "$!r.alamat1")
+  #input("alamat2" "" "$!r.alamat2")
+  #input("alamat3" "" "$!r.alamat3")
+  <td></td><td></td>
+  <td><div id="err_alamat1" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  #postcode_required("poskod" "Poskod" "$!r.poskod")
+  <tr>
+    <td class="label">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td>#parse("$path/selectNegeriPemohon.vm")
+      <div id="err_idNegeriPemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><div id="selectBandarPemohon">
+      #parse("$path/selectBandarPemohon.vm")</div>
+      <div id="err_idBandarPemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #input("namaPegawai1" "Nama Pegawai 1" "$!r.namaPegawai1")
+  #input("namaPegawai2" "Nama Pegawai 2" "$!r.namaPegawai2")
+  #phone_number("noTelefonPegawai1" "No. Telefon Pegawai 1" "$!r.noTelefonPegawai1")
+  #phone_number("noTelefonPegawai2" "No. Telefon Pegawai 2" "$!r.noTelefonPegawai2")
+  #input_email("emelPegawai1" "E-mel Pegawai 1" "$!r.emelPegawai1")
+  #input_email("emelPegawai2" "E-mel Pegawai 2" "$!r.emelPegawai2")
+  #phone_number("noFaks" "No. Faks Jabatan" "$!r.noFaks")
+  
+</table>
+</fieldset>
+<fieldset id="tableReport" style="display:none;">
+<legend class="legend">SENARAI LAPORAN</legend>
+<table width="100%" >
+	<tr>
+		<td><a href="#" style="color:blue" id="cmdCetakBorangJRP">Borang JRP</a></td>		
+	</tr>
+</table>
+</fieldset>
+<table width="100%">
+	<tr>
+		<td align="right">			
+##			<input type="button" value="Cetak"  id="cmdCetak"/>			
+##			#if(!$!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal"))
+##			#if($r.status.id == '1424860634493' || $!r.status.id == '1424860634499') ##LULUS || LULUS BERSYARAT	
+##			<input type="button" value="Daftar Lanjutan" id="cmdDaftarLanjutan">
+##			#end
+##			<input type="button" value="Simpan" onclick="javascript:doSaveMaklumatPermohonan('$!r.id');">
+##			#end
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+<script>
+	_jq('#cmdCetak').on('click', function(){
+
+			if(document.getElementById('tableReport').style.display=="none"){
+				document.getElementById('tableReport').style.display="block";
+				}
+			else if(document.getElementById('tableReport').style.display=="block"){
+				document.getElementById('tableReport').style.display="none";
+				}
+});
+
+_jq('#cmdCetakBorangJRP').on('click', function(){
+	
+	var idPermohonan = $!r.id;
+	var jenis = "$!r.jenisPermohonanJrp.id";
+	alert(jenis);
+	var jenis = document.${formName}.flagJenis.value;
+	
+			var url = "../servlet/bph.laporan.jrp.JRPBorangJRP?idPermohonan="+idPermohonan+"&jenisPermohonan="+jenis;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+});
+##
+##_jq('#simpannn').on('click', function(){
+##	
+##	alert("cek" + $!r.id);
+##	doSaveMaklumatPermohonan('$!r.id');
+##});
+	_jq('#cmdDaftarLanjutan').on('click', function(){
+
+			doDivAjaxCall$formname('divTab','doDaftarLanjutan','');
+});
+</script>

@@ -1,0 +1,19 @@
+<style>
+.uppercasefont {
+	text-transform: uppercase !important;
+}
+</style>
+
+<nav class="breadcrumbs">
+	<ul>
+		<li #if($!selectedTab=='1') class="active" #end ><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divForm','getMaklumatDaftarMasuk','')" #end >Daftar Masuk</a></li>
+		#if( $r.status.id != "1425259713415" )		
+		<li #if($!selectedTab=='2') class="active" #end ><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divForm','getMaklumatDaftarKeluar','')" #end >Daftar Keluar</a></li>
+		##NO NEED<li #if($!selectedTab=='3') class="active" #end ><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('divForm','getMaklumbalas','')" #end >Maklumbalas</a></li>
+		<li #if($!selectedTab=='4') class="active" #end ><a href="javascript:void()" #if($!selectedTab!='4') onClick="doDivAjaxCall3$formname('divForm','getAduanKerosakan','')" #end >Aduan Kerosakan</a></li>		
+		#end
+		#if( $r.status.id == "1425259713424" || $r.status.id == "1435512646303" ) ##STATUS DAFTAR KELUAR / SELESAI
+		<li #if($!selectedTab=='5') class="active" #end ><a href="javascript:void()" #if($!selectedTab!='5') onClick="doDivAjaxCall3$formname('divForm','getSkrinPulanganDeposit','')" #end >Pulangan Deposit</a></li>		
+		#end
+	</ul>
+</nav>

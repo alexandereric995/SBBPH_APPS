@@ -1,0 +1,10 @@
+
+
+	<select class="texts" id="permohonan" name="permohonan" style="width:100%" onChange="$('err_permohonan').innerHTML=''; at(this, event);" >
+		<option value="">SILA PILIH</option>
+        #foreach( $n in $listPermohonan)
+			<option value="$n.id" #if($n.id==$r.permohonan.id) selected #end>$n.noTempahan.toUpperCase() - $n.pemohon.userName.toUpperCase()</option>
+        #end
+	</select>
+		
+	<div id="err_permohonan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>

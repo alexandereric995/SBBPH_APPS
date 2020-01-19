@@ -1,0 +1,65 @@
+
+#parse("$path/form/tab.vm")
+
+<fieldset>
+<legend class="legend">MAKLUMAT KELULUSAN</legend>
+
+    <table width="100%">
+      <tr>
+        <td style="width:17%"></td>
+        <td style="width:1%"></td>
+        <td style="width:82%"></td>
+      </tr>
+	  
+	  #if( $!userRole.equalsIgnoreCase("(PEROLEHAN) Penyedia") || $!userRole.equalsIgnoreCase("(PEROLEHAN) Penyemak")  )
+			#set( $lbllulus = "" )
+			#if($!r.flagLulus== "L")
+				#set( $lbllulus = "LULUS" )
+			#elseif($!r.flagLulus== "TL")
+				#set( $lbllulus = "TIDAK LULUS" )
+			#end
+				
+			#show("PENGESAHAN PERUNTUKAN" "$!lbllulus")
+			#show("CATATAN" "$!r.catatanLulus.toUpperCase()")
+	  #else
+			
+    	  <tr>
+        	<td class="label" valign="top" width="20%">PENGESAHAN PERUNTUKAN&nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top" width="2%">:</td>
+        	<td valign="top" width="78%">
+    			<input type="radio" #if($!r.flagLulus=='L')checked#end id="radio1" name="kelulusan" value="L" onclick=" $('err_lulus').innerHTML=''; at(this, event);">&nbsp;LULUS
+    			<input type="radio" #if($!r.flagLulus=='TL')checked#end id="radio2" name="kelulusan" value="TL" onclick=" $('err_lulus').innerHTML=''; at(this, event);">&nbsp;TIDAK LULUS
+    			<div id="err_lulus" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    		</td>
+          </tr>
+    	  
+    	  #textarea("catatanLulus" "CATATAN" "$!r.catatanLulus.toUpperCase()")
+	
+	  #end
+	  
+    </table>
+
+</fieldset>
+
+<br/>
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+				#if( $!userRole.equalsIgnoreCase("(PEROLEHAN) Pelulus") )
+					<input id="btnSimpan" type="button" value="Simpan" onClick="doSaveKelulusan()">
+				#end	
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

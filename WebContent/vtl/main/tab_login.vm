@@ -1,0 +1,117 @@
+<div id="tab_login" class="tab_login_content">
+	<a href="javascript:void" onclick="$('tab_login').style.visibility='hidden';"><img src="../img/dialog_close_button.png" border="0"></a>
+	<form id="header_login" name="header_login" style="margin-top:1px;" method="post">
+		<table><tr><td>
+	    <span style="font-size:16px;color:#ffffff;font-weight:bold;">#if ( $lang == "en" ) Username: #elseif ( $lang == "bm" ) Nama Pengguna: #end</span> <br />
+	    <input type="text" name="username" id="username" onfocus="$('divPortalLoginResult').style.display='none';"
+	    onKeyDown="loginInputKey(event, this)"
+	    style="width:100%;height:22px;background: #ffffff; -moz-border-radius: 6px;	border-radius: 6px;	border:1px solid #cccccc;color:#000000;font-weight:bold;"/><br />
+	    <span style="font-size:16px;color:#ffffff;font-weight:bold;">#if ( $lang == "en" ) Password: #elseif ( $lang == "bm" ) Kata Laluan: #end</span><br />
+	    <input type="password" name="password" id="password"  onfocus="$('divPortalLoginResult').style.display='none';"
+	    onKeyDown="loginInputKey(event, this)"
+	    style="width:100%;height:22px;background: #ffffff; -moz-border-radius: 6px;	border-radius: 6px;	border:1px solid #cccccc;color:#000000;font-weight:bold;"/>
+	    <input type="button" name="btnSubmit" id="btnSubmit" value="Login" onClick="doLogin()"
+	    style="padding: 5px 15px;cursor: pointer; -moz-border-radius: 5px;border-radius: 5px;border:1px solid #72b70b;
+	    color:#ffffff;font-weight:bold;float:right;	margin-top:10px;background-color: #69C205;
+	    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#9AE509), to(#69C205));
+	    background: -moz-linear-gradient(top, #9AE509 0%, #69C205 100%);"/>
+	    </td></tr>
+	    <tr><td align="center" valign="middle">
+	    <div id="divPortalLoginResult" class="portalLoginResult"></div>
+	    </td></tr></table>
+	</form> 
+</div>
+
+<script>
+function doLogin() {
+	if ( !checkIsEmpty($('username').value, $('password').value, $('divPortalLoginResult')) ) {
+		submitAjaxLogin($('divPortalLoginResult'), $('username').value, $('password').value);
+	}
+}
+
+function submitLogin() {
+    if ( document.getElementById('username').value == "" ) { alert("Please enter user name!"); document.getElementById('username').focus(); return; }
+    if ( document.getElementById('password').value == "" ) { alert("Please enter password!"); document.getElementById('password').focus(); return; }
+    document.getElementById('header_login').action = "login";
+    document.getElementById('header_login').submit();
+}
+
+function checkIsEmpty(username, password, e) {
+	if ( username == "" ) {
+		e.style.backgroundColor = "#FF4500";
+		e.style.color = "#FFF";
+		e.innerHTML = "<b> #if ( $lang == "en" ) username field is empty! #elseif ( $lang == "bm" ) ruangan nama pengguna kosong! #end </b>";
+		e.style.display='block';
+		return true;
+	}
+	if ( password == "" ) {
+		e.style.backgroundColor = "#FF4500";
+		e.style.color = "#FFF";
+		e.innerHTML = "<b> #if ( $lang == "en" ) password field is empty! #elseif ( $lang == "bm" ) ruangan kata laluan kosong! #end </b>";
+		e.style.display='block';
+		return true;
+	}
+	return false;
+}
+
+function submitAjaxLogin(e, username, password) {
+
+	e.style.backgroundColor = "#FFF";
+	e.style.color = "#000";
+	e.innerHTML = "<b> #if ( $lang == "en" ) Validation... Please wait.... #elseif ( $lang == "bm" ) Pengesahan... Sila tunggu.... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+	e.style.display='block';
+
+	var result = callAjaxLogin(username, password);
+	var json = eval("(" + result + ")");
+	if ( json.result == "true" ) {
+		e.style.backgroundColor = "#32CD32";
+		e.style.color = "#FFF";
+		e.innerHTML = "<b> #if ( $lang == "en" ) Login Success.. Transferring... #elseif ( $lang == "bm" ) Log Masuk Berjaya.. Memindahkan... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+		window.location = "${serverUrl}";
+	} else {
+		e.style.backgroundColor = "#FF4500";
+		e.style.color = "#FFF";
+		e.innerHTML = "<b> #if ( $lang == "en" ) Access Denied<br />Incorrect password or username #elseif ( $lang == "bm" ) Akses Ditolak<br />Salah Kata laluan atau Nama Pengguna #end </b>";
+	} 
+}
+
+function submitAjaxLogin2(e, username, password, url) {
+
+	e.style.backgroundColor = "#FFF";
+	e.style.color = "#000";
+	e.innerHTML = "<b> #if ( $lang == "en" ) Validation... Please wait.... #elseif ( $lang == "bm" ) Pengesahan... Sila tunggu.... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+	e.style.display='block';
+	
+	var urls;
+	
+	if (url != "") urls = "${serverUrl}/c/"+url;
+	else urls = "${serverUrl}";
+
+	var result = callAjaxLogin(username, password);
+	var json = eval("(" + result + ")");
+	if ( json.result == "true" ) {
+		e.style.backgroundColor = "#32CD32";
+		e.style.color = "#FFF";
+		e.innerHTML = "<b> #if ( $lang == "en" ) Login Success.. Transferring... #elseif ( $lang == "bm" ) Log Masuk Berjaya.. Memindahkan... #end </b><br /><img src='../img/pleasewait.gif' border='0'>";
+		window.location = urls;
+	} else {
+		e.style.backgroundColor = "#FF4500";
+		e.style.color = "#FFF";
+		e.innerHTML = "<b> #if ( $lang == "en" ) Access Denied<br />Incorrect password or username #elseif ( $lang == "bm" ) Akses Ditolak<br />Salah Kata laluan atau Nama Pengguna #end </b>";
+	} 
+}
+
+function loginInputKey(e, el) {
+	var keynum;
+	if (window.event) keynum = e.keyCode;
+	else if (e.which) keynum = e.which;
+	if ( keynum == 13 ) {
+		if ( el.id == "username" ) {
+			$('password').focus();
+		} else if ( el.id == "password" ) {
+			$('btnSubmit').focus();
+		}
+	}
+}
+
+</script>

@@ -1,0 +1,30 @@
+
+<fieldset>
+<legend class="legend">Laporan Senarai Kuarters Senggara</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+    <td></td>
+  </tr>  
+  <tr>
+  <td class="label">Status Kuarters</td>
+  <td>:</td>
+  <td><select style="width:100%" name="statusKuarters" id="statusKuarters" class="texts">
+  <option value="" selected="selected">KESELURUHAN</option>
+  <option value="01" #if ( $r.status == "01" ) selected #end>BERPENGHUNI</option>
+  <option value="02" #if ( $r.status == "02" ) selected #end>PEMBAIKAN</option>
+  <option value="03" #if ( $r.status == "03" ) selected #end>SEDIA DIDUDUKI</option>
+  <option value="04" #if ( $r.status == "04" ) selected #end>TIDAK SELAMAT DIDUDUKI</option>
+  </select>
+  </td>
+  </tr>  
+    </tr>    
+	<td></td>
+	<td class="label"></td>
+	<td><input type="button" name="cmdCetak" id="cmdCetak" value="Jana Laporan" onclick="javascript:doCetakLaporanSenaraiKuartersSenggara()"/><input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/></td>
+</tr>
+</table>
+</fieldset>
+<div id="cetakLaporan"></div>

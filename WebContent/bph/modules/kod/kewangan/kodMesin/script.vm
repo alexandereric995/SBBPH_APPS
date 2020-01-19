@@ -1,0 +1,16 @@
+function validate() {
+	var err_count = 0;
+	
+	var kodMesin = $('kodMesin').value;
+	if ( kodMesin == "" ) {$('err_kodMesin').innerHTML = "Kod Mesin adalah mandatori!"; err_count++;  }
+	
+	var kodPusatTerima = $('kodPusatTerima').value;
+	if ( kodPusatTerima == "" ) {$('err_kodPusatTerima').innerHTML = "Kod Pusat Terima adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}

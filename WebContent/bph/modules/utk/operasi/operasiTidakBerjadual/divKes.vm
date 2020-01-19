@@ -1,0 +1,51 @@
+#if ($showOperasi == 'PS')
+	<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+		<tr>
+			<td style="width:150px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="label">Jenis Kes&nbsp;<span style="color:#FF2A00">*</span></td>
+			<td>:</td>
+			<td>#parse("$path/selectKes.vm")
+			<div id="err_idKes" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td></td>
+		</tr>
+		<tr>
+			<td class="label">Jenis Kesalahan&nbsp;<span style="color:#FF2A00">*</span></td>
+			<td>:</td>
+			<td><div id="selectPelanggaran">#parse("$path/selectJenisPelanggaranSyarat.vm")</div>
+			<div id="err_idJenisPelanggaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td></td>
+		</tr>
+	</table>
+#elseif($showOperasi == 'CP')
+	<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+		<tr>
+			<td style="width:150px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="label">Jenis Kenderaan&nbsp;<span style="color:#FF2A00">*</span></td>
+			<td>:</td>
+			<td>#parse("$path/selectKenderaan.vm")
+			<div id="err_idKes" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td></td>
+		</tr>
+		#input("noPlatKenderaan" "No Plat Kenderaan" "$!r.noPlatKenderaan")
+		#input("modelKenderaan" "Model Kenderaan" "$!r.modelKenderaan")
+	</table>
+#elseif($showOperasi == 'AD')
+	<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+		<tr>
+			<td style="width:150px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		
+		#set ($tarikhAduan = $!util.getDateTime($!tarikhAduan,'dd-MM-yyyy'))
+        #if ($!r.tarikhAduan) 
+        	#set ($tarikhAduan = "$!util.getDateTime($!r.tarikhAduan,'dd-MM-yyyy')") 
+        #end
+		 #date_input("tarikhAduan" "Tarikh Aduan" "$tarikhAduan")
+	</table>
+#end

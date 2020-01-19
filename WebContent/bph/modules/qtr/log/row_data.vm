@@ -1,0 +1,9 @@
+
+#if ($r.timeStamp)
+    #set($timeStamp = $util.getDateTime($r.timeStamp, "dd-MM-yyyy"))
+#else
+    #set($timeStamp = "-")
+#end
+<td>$timeStamp</td>
+<td>$!r.usersLog.userName</td>
+<td>$!r.getActionDetail()</td>

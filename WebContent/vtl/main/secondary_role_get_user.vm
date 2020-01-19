@@ -1,0 +1,27 @@
+<fieldset>
+    <form name="f" method="post">
+        <center>
+        	<table>
+        		<tr>
+        			<td>ID Pengguna</td><td>:</td><td><input type="text" name="user_id" value="$!user.login"></td><td><input type="button" value="Dapatkan ID" onclick="getUser()"></td>
+        		</tr>
+        	</table>
+        </center>
+        <input type="hidden" name="command">
+    </form>
+    #if ( $roleUpdated )
+        <center>
+        	<b>
+        		Peranan Sekunder Pengguna telah dikemaskini!
+        	</b>
+        </center>
+    #end
+</fieldset>
+<br /><br />
+
+<script>
+function getUser(){
+    document.f.command.value = "getUser";
+    document.f.submit();
+}
+</script>

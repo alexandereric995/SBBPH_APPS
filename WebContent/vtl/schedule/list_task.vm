@@ -1,0 +1,536 @@
+#set ( $m_arr = ["00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"])
+#set ( $h_arr = ["5 AM", "6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"] )
+#set ( $ihr = 4 )
+
+#set ( $inCollabModule = $session.getAttribute("inCollabModule") )
+#set ( $allowAdd = true )
+#if ( $inCollabModule == "true" )
+	#set ( $allowAdd = $allowAddTask )
+	#else
+		#set ( $allowAdd = true )
+#end	
+
+<form name="planner" method="post">
+
+<br>
+<table width="100%" align="center" class="table_row" cellpadding="2" cellspacing="0" border="0">
+
+
+	<tr>
+		<td width="5" class="table_row">
+			&nbsp;
+		</td>		
+		<td align="right" class="table_row" colspan="3">
+		
+			<table>
+				<tr>
+					<td>
+						&nbsp;
+					</td>
+					<td>
+												<a href="javascript:setDate('yr_prev')">&lt</a>
+						<input name="year1" value="$year" size="5" style="text-align:center" onChange="resetSelectDay()">
+						<a href="javascript:setDate('yr_next')">&gt</a>
+|
+						<a href="javascript:setDate('mn_prev')">&lt</a>
+						<select name="month1" onChange="resetSelectDay()">
+						#set ( $selected = "" )
+						#set ( $x = 0 )
+						#foreach( $m_name in $month_name )
+							#set ( $x = $x + 1 )
+							#if ( $x == $month )
+								#set ( $selected = "selected" )
+							#else
+								#set ( $selected = "" )
+							#end
+							<option value="$x" $selected>$m_name</option>
+						#end			
+						</select>
+<a href="javascript:setDate('mn_next')">&gt</a>
+						|
+												<a href="javascript:setDate('dy_prev')">&lt</a>
+						<select name="day1" onChange="resetSelectDay()">
+						#set ( $selected = "" )
+						#foreach( $x in [1..31] )
+							#if ( $x == $day )
+								#set ( $selected = "selected" )
+							#else
+								#set ( $selected = "" )
+							#end
+							<option value="$x" $selected>$x</option>
+						#end
+						</select>
+<a href="javascript:setDate('dy_next')">&gt</a>
+
+
+												
+			
+	
+						<input type="button" value="GO TO" onclick="dotask('goto')">
+						
+					</td>
+				</tr>
+			</table>		
+		
+
+		</td>
+	</tr>
+	
+	
+	<tr>
+		<td width="5" class="table_row">
+			&nbsp;
+		</td>		
+		<td align="right" class="table_row" colspan="3" style="font-weight:bold">
+		
+			<a href="javascript:dotask('goToday')">
+			This week
+			</a>
+			|			
+			<a href="javascript:dotask('goPreviousWeek')">
+			Previous week
+			</a>
+			|
+			<a href="javascript:dotask('goNextWeek')">
+			Next week
+			</a>			
+
+		
+
+		</td>
+	</tr>
+
+
+	#foreach ( $daynum in [1..7] )
+		#set ( $date_day = $scheduleDates.get("d$daynum") )
+		#set ( $dateValue = $scheduleDateValues.get("d$daynum") )
+		#set ( $tasks = $schedules.get("d$daynum") )	
+		<tr>
+			<td width="5" class="table_row">
+			</td>		
+			<td class="table_row" colspan="3" height="1">
+			</td>
+		</tr>		
+
+		<tr>
+			<td width="5" class="table_header">
+				<a href="javascript:setDateValues('$daynum', '$dateValue.year', '$dateValue.month', '$dateValue.day', '$date_day')">
+				#if ( $date_day == $date_display )
+					<img src="../img/event.gif" border="0">
+				#else
+					<img src="../img/event.gif" border="0">
+				#end
+				</a>
+			</td>
+		
+			<td width="99%" class="table_header" colspan="2" valign="middle">
+				
+												<a href="javascript:setDateValues('$daynum', '$dateValue.year', '$dateValue.month', '$dateValue.day', '$date_day')">
+				
+				#if ( $date_day == $date_display )
+<b>${date_day}</b>
+								#else
+					<b>${date_day}</b>
+				#end
+				<b>
+				#if ( $daynum == 1 )- SUNDAY
+				#elseif ( $daynum == 2 )- MONDAY
+								#elseif ( $daynum == 3 )- TUESDAY
+												#elseif ( $daynum == 4 )- WEDNESDAY
+																#elseif ( $daynum == 5 )- THURSDAY
+																				#elseif ( $daynum == 6 )- FRIDAY
+																								#elseif ( $daynum == 7 )- SATURDAY
+				#end
+				</b>
+				
+				</a>
+				
+								#if ( $date_day == $date_display )
+
+								#else
+					
+				#end
+				
+			</td>
+			<td class="table_header" valign="middle" align="right">
+				#if ( $date_day == $date_display )
+					<!--
+					<img src="../img/redsq.gif">
+					-->
+				#end
+				
+			</td>
+		</tr>
+	
+			
+		#set ( $cnt = 0 )
+		
+		#foreach ( $task in $tasks )
+			<tr>
+				
+				#set ( $cnt = $cnt + 1 )
+				#set ( $bgclor = "#FFFFCA")
+				#if ( $cnt % 2 == 0 )
+					#set ( $bgclor ="#FFFFD8")
+				#else
+					#set ( $bgclor ="#DBE8F7")
+				#end
+				<td width="5"  class="table_row" align="center" valign="middle">
+					::
+				</td>
+				<td bgcolor="$bgclor" valign="top">
+					$task.task_description
+
+					##if ( $task.inviter != "" || $task.subject_code != "" )
+					##	<hr>
+					##end
+					
+					#if ( $task.inviter != "" )
+						<table cellspacing="0" cellpadding="0" border="0">
+							<tr>
+								<td>
+									<!--
+									<img src="../img/user.gif" border="0">
+									-->
+									@
+								</td>
+								<td>
+									<b>$task.inviter</b>
+								</td>
+							</tr>
+						</table>
+					#end
+					#if ( $task.subject_code != "" )
+						<table cellspacing="0" cellpadding="0" border="0">
+							<tr>
+								<td>
+									<img src="../img/forum.gif" border="0">
+								</td>
+								<td>
+									<b>$task.subject_title ($task.subject_code)</b>
+								</td>
+							</tr>
+						</table>					
+		
+					#end			
+				</td>
+				<td bgcolor="$bgclor" align="right" valign="top">
+					$task.time_start
+					-
+					$task.time_end
+				</td>
+				<td bgcolor="$bgclor" align="right" valign="top">
+					#if ( $task.canEdit )
+						<a href="javascript:edittask('$task.task_id')"><img src="../img/edit.gif" border="0"></a>
+						<a href="javascript:deletetask('$task.task_id')"><img src="../img/trash.gif" border="0"></a>
+
+					#end
+					
+				</td>			
+			</tr>
+		#end
+	#end
+</table>
+<br>
+
+#if ( $allowAdd )
+<br>
+<table width="90%" align="center" class="table_row" cellpadding="2" cellspacing="1" border="0">
+	<tr>
+		<td class="table_header">
+			<a name="#addtask">
+			<b>Add New Task</b>
+			</a>
+		</td>
+	</tr>
+
+	
+	<tr>
+		<td>
+			<table align="center">	
+			
+				<tr>
+					<td>
+						Select Day:
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select name="date_display" style="width:400px; font-weight:bold" onChange="setTaskDay()">
+						<option value="0">- Select Day -- </option>
+						#foreach ( $daynum in [1..7] )
+							#set ( $date_day = $scheduleDates.get("d$daynum") )
+							#set ( $selected = "" )
+							#if ( $date_day == $date_display )
+								#set ( $selected = "selected" )
+							#end
+							<option value="$daynum" $selected>$date_day</option>
+						#end
+						</select>
+					</td>
+				</tr>			
+		
+		
+
+				<tr>
+					<td>
+						Select Time:
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select name="hour1" onChange="changeOnTime()">
+						#set ( $x = $ihr )
+						#foreach( $h in $h_arr )
+							#set ( $x = $x + 1 )
+							<option value="$x">$h</option>
+						#end
+						</select>
+						<select name="minute1"  onChange="changeOnTime()">
+						#foreach( $x in $m_arr )
+							<option value="$x">$x</option>
+						#end
+						</select>
+			
+						To:
+						<select name="hour2" onChange="changeOnTime()">
+						#set ( $x = $ihr )
+						#foreach( $h in $h_arr )
+							#set ( $x = $x + 1 )
+							<option value="$x">$h</option>
+						#end
+						</select>
+						<select name="minute2" onChange="changeOnTime()">
+						#foreach( $x in $m_arr)
+							<option value="$x">$x</option>
+						#end
+						</select>
+						<input type="button" value="Submit" onclick="dotask('insert')">
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td>
+						Task Subject:
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<textarea name="description"  style="width:400px" rows="5"></textarea>
+					</td>
+				</tr>	
+				
+				
+				
+
+			</table>
+		</td>
+	</tr>
+</table>
+#end
+
+<input type="hidden" name="dejavu" value="$dejavu">
+<input type="hidden" name="planner_action">
+<input type="hidden" name="task_id" value="$task.task_id">
+</form>
+<script>
+function dotask(id) {
+	if ( id == "insert" ) {
+		if ( document.planner.date_display.value == 0 ) {
+			alert("Please select day!");
+			return;	
+		}	
+	}
+	if ( id == "goto" ) id = "insert"; //insert nothing
+	if ( checkDate() ) {
+		document.planner.action = "";
+		document.planner.planner_action.value = id;
+		document.planner.submit();
+	}
+}
+function deletetask(id) {
+	if ( !confirm('Delete this task?') ) return;
+	document.planner.task_id.value = id;
+	dotask('deletetask');
+}
+function edittask(id) {
+	document.planner.task_id.value = id;
+	dotask('edittask');
+}
+function selectdate(id) {
+	if ( checkDate() ) {
+		document.planner.action = "";
+		dotask('selectdate');
+	} 
+		
+}
+function changeOnTime() {
+	var h1 = parseInt(document.planner.hour1.value);
+	var h2 = parseInt(document.planner.hour2.value);
+	var m1 = parseInt(document.planner.minute1.value);
+	var m2 = parseInt(document.planner.minute2.value);
+	document.planner.hour2.value = h2 < h1 ? h1:h2;	
+	if ( h2 == h1 ) {
+		document.planner.minute2.value = m2 < m1 ? m1:m2;
+	}
+}
+
+/**
+ * DHTML date validation script. Courtesy of SmartWebby.com (http://www.smartwebby.com/dhtml/)
+ */
+// Declaring valid date character, minimum year and maximum year
+var dtCh= "/";
+var minYear=1900;
+var maxYear=2100;
+
+function isInteger(s){
+	var i;
+    for (i = 0; i < s.length; i++){   
+        // Check that current character is number.
+        var c = s.charAt(i);
+        if (((c < "0") || (c > "9"))) return false;
+    }
+    // All characters are numbers.
+    return true;
+}
+
+function stripCharsInBag(s, bag){
+	var i;
+    var returnString = "";
+    // Search through string's characters one by one.
+    // If character is not in bag, append to returnString.
+    for (i = 0; i < s.length; i++){   
+        var c = s.charAt(i);
+        if (bag.indexOf(c) == -1) returnString += c;
+    }
+    return returnString;
+}
+
+function daysInFebruary (year){
+	// February has 29 days in any year evenly divisible by four,
+    // EXCEPT for centurial years which are not also divisible by 400.
+    return (((year % 4 == 0) && ( (!(year % 100 == 0)) || (year % 400 == 0))) ? 29 : 28 );
+}
+function DaysArray(n) {
+	for (var i = 1; i <= n; i++) {
+		this[i] = 31
+		if (i==4 || i==6 || i==9 || i==11) {this[i] = 30}
+		if (i==2) {this[i] = 29}
+   } 
+   return this
+}
+
+function isDate(dtStr){
+	var daysInMonth = DaysArray(12)
+	var pos1=dtStr.indexOf(dtCh)
+	var pos2=dtStr.indexOf(dtCh,pos1+1)
+	var strMonth=dtStr.substring(0,pos1)
+	var strDay=dtStr.substring(pos1+1,pos2)
+	var strYear=dtStr.substring(pos2+1)
+	strYr=strYear
+	if (strDay.charAt(0)=="0" && strDay.length>1) strDay=strDay.substring(1)
+	if (strMonth.charAt(0)=="0" && strMonth.length>1) strMonth=strMonth.substring(1)
+	for (var i = 1; i <= 3; i++) {
+		if (strYr.charAt(0)=="0" && strYr.length>1) strYr=strYr.substring(1)
+	}
+	month=parseInt(strMonth)
+	day=parseInt(strDay)
+	year=parseInt(strYr)
+	if (pos1==-1 || pos2==-1){
+		alert("The date format should be : mm/dd/yyyy")
+		return false
+	}
+	if (strMonth.length<1 || month<1 || month>12){
+		alert("Please enter a valid month")
+		return false
+	}
+	if (strDay.length<1 || day<1 || day>31 || (month==2 && day>daysInFebruary(year)) || day > daysInMonth[month]){
+		alert("Please enter a valid day")
+		return false
+	}
+	if (strYear.length != 4 || year==0 || year<minYear || year>maxYear){
+		alert("Please enter a valid 4 digit year between "+minYear+" and "+maxYear)
+		return false
+	}
+	if (dtStr.indexOf(dtCh,pos2+1)!=-1 || isInteger(stripCharsInBag(dtStr, dtCh))==false){
+		alert("Please enter a valid date")
+		return false
+	}
+return true
+}
+
+function checkDate() {
+	var d = document.planner.day1.value;
+	var m = document.planner.month1.value;
+	var y = document.planner.year1.value;
+	var dt = m + "/" + d + "/" + y;
+	return isDate(dt);
+}
+
+function setDate(s) {
+	if ( s == 'yr_next' ) {
+		var i = parseInt(document.planner.year1.value) + 1;
+		document.planner.year1.value = i;
+	}
+	else if ( s == 'yr_prev' ) {
+		var i = parseInt(document.planner.year1.value) - 1;
+		if ( i < 2000 ) i = 2000;
+		document.planner.year1.value = i;
+	}	
+	else if ( s == 'mn_next' ) {
+		var i = parseInt(document.planner.month1.value) + 1;
+		if ( i > 12 ) i = 12;
+		document.planner.month1.value = i;
+	}
+	else if ( s == 'mn_prev' ) {
+		var i = parseInt(document.planner.month1.value) - 1;
+		if ( i < 1 ) i = 1;
+		document.planner.month1.value = i;
+	}	
+	else if ( s == 'dy_next' ) {
+		var i = parseInt(document.planner.day1.value) + 1;
+		if ( i > 31 ) i = 31;
+		document.planner.day1.value = i;
+	}
+	else if ( s == 'dy_prev' ) {
+		var i = parseInt(document.planner.day1.value) - 1;
+		if ( i < 1 ) i = 1;
+		document.planner.day1.value = i;
+	}	
+}
+
+function setDateValues(num, yr, mn, dy, date_display) {
+	document.planner.year1.value = yr;
+	document.planner.month1.value = mn;
+	document.planner.day1.value = dy;
+	document.planner.date_display.value = num;
+}
+
+function setTaskDay() {
+	var num = document.planner.date_display.value;	
+	#foreach ( $daynum in [1..7] )
+		#set ( $dateValue = $scheduleDateValues.get("d$daynum") )
+		if ( num == $daynum ) {
+			document.planner.year1.value = $dateValue.year;
+			document.planner.month1.value = $dateValue.month;
+			document.planner.day1.value = $dateValue.day;			
+		}		
+	#end	
+}
+
+function resetSelectDay() {
+	document.planner.date_display.value = 0;
+}
+
+function listUsers() {
+	document.planner.planner_action.value = "listUsers";
+	document.planner.action = "";
+	document.planner.submit();	
+}
+
+function selectInvitees() {
+	var invitee = document.planner.invitees.value;
+	alert(invitee);
+}
+</script>

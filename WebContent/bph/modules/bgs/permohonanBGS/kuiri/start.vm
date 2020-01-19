@@ -1,0 +1,57 @@
+<fieldset>
+<legend class="legend">SENARAI KUIRI</legend>
+<table width="100%" cellpadding="5" cellspacing="1">
+  <tr>
+    <td class="row_header" width="5%" align="center">Bil.</td>    
+    <td class="row_header" width="40%">Kuiri</td>
+    <td class="row_header" width="5%">Tarikh Kuiri</td>    
+    <td class="row_header" width="40%">Jawapan</td>
+    <td class="row_header" width="5%">Tarikh Jawapan</td>
+    <td class="row_header" width="5%" align="center"></td>
+  </tr>
+  #if ($listKuiri.size() > 0)
+  #set ($count=0)
+  #foreach ($i in $listKuiri)
+  #set ($count=$count+1)
+  
+  #if ( ($count % 2) != 1 )
+  #set( $row = "row2" )
+  #else
+  #set( $row = "row1" )
+  #end
+  <tr>
+    <td class="$row" align="center">$count</td>    
+    <td class="$row" >$!i.kuiri</td>
+    #if ($!i.tarikhKuiri) 
+		#set ($dateKuiri = "$!util.getDateTime($!i.tarikhKuiri,'dd-MM-yyyy')")
+	#else #set ($dateKuiri="") #end
+    <td class="$row" align="center">$dateKuiri</td>    
+    #if ($!userRole == '(BGS) Pemohon' && $!i.flagJawapan == 'T' && $!r.status.id == '1423568441685') ## KUIRI DARI BPH
+    	<td class="$row" ><input type="text" id="iJawapan$i.id" class="text" name="iJawapan$i.id" value="$!i.jawapan" onKeyUp=" $('err_iJawapan$i.id').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();saveIJawapan('$i.id');">
+      <div id="err_iJawapan$i.id" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+    #else
+    	<td class="$row" >$!i.jawapan</td>
+    #end
+    #if ($!i.tarikhJawapan) 
+		#set ($dateJawapan = "$!util.getDateTime($!i.tarikhJawapan,'dd-MM-yyyy')")
+	#else #set ($dateJawapan="") #end
+    <td class="$row" align="center">$dateJawapan</td>
+    #if ($!userRole == '(BGS) Penyedia' && $!i.flagJawapan == 'T' && $!r.status.id == '1423568441671') ## PERMOHONAN BARU
+    	<td class="$row"  align="center"><a href="javascript:void()" onClick="deleteKuiri('$i.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a></td>
+    #else
+    	<td class="$row" align="center">&nbsp;</td>  
+    #end
+  </tr>
+  #end
+  #end
+  
+  #if ($!userRole == '(BGS) Penyedia' && $!r.status.id == '1423568441671') ## PERMOHONAN BARU
+  <tr>
+    <td align="center"></td>
+    <td><input type="text" id="iKuiri" class="text" name="iKuiri" value="" onKeyUp=" $('err_iKuiri').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+      <div id="err_iKuiri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+   <td><input style="font-weight:bold" type="button" name="btnTambahKuiri" id="btnTambahKuiri" value="+" onclick="saveIKuiri();" /></td>
+  </tr>
+  #end
+</table>
+</fieldset>

@@ -1,0 +1,21 @@
+<input type="hidden" id="idSeksyen" name="idSeksyen" value="$!idSeksyen">
+<div id="divFail"> #parse("$path/maklumatFail.vm") </div>
+<div id="divRuang"> #parse("$path/maklumatRuang/maklumatRuang.vm") </div>
+<div id="divIndividu"> #parse("$path/maklumatIndividu/maklumatIndividu.vm") </div>
+<div id="divSyarikat"> #parse("$path/maklumatSyarikat/maklumatSyarikat.vm") </div>
+<div id="divPerjanjian"> #parse("$path/maklumatPerjanjian/maklumatPerjanjian.vm") </div>
+
+<div id="divButton"> #parse("$path/button.vm") </div>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>
+<script>
+#parse("$path/script.vm")
+</script>

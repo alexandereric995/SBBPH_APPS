@@ -1,0 +1,42 @@
+<fieldset>
+<legend class="legend">MAKLUMAT REKOD</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  
+ #if ($listTanah.size() > 0) 
+  
+ <table width="100%" style="font-size:13px;" cellpadding="1" cellspacing="1">
+    	<tr>
+    		<td class="record_header" align="center">Id Tanah</td>
+    		<td class="record_header" align="center">No Hakmilik</td>
+    		<td class="record_header" align="center">No Lot</td>
+			<td class="record_header" align="center">Lokasi</td>
+			<td class="record_header" align="center">Luas</td>
+			<td class="record_header" align="center">Cetak</td>
+    	</tr>
+    	
+    	#foreach ($k in $listTanah)
+        	#set ($count=$count+1)
+        	
+        	#if ( ($count % 2) != 1 )
+        		#set( $row = "row2" )
+        	#else
+        		#set( $row = "row1" )
+        	#end
+        	<tr>
+        		<td class="$row" align="center">$!k.id</td>
+        		<td class="$row" align="center">$!k.noHakmilik</td>
+				<td class="$row" align="center">$!k.noLot</td>
+				<td class="$row" align="center">$!k.lokasi</td>
+				<td class="$row" align="center">$!k.luas</td>
+				<td class="$row" align="center"><input type="button" name="vehicle" value="Cetak"></td>
+        	</tr>
+        		#end
+        </tr>	
+      #end  	
+</table>
+</fieldset>

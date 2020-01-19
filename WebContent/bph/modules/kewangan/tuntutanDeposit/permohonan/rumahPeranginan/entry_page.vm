@@ -1,0 +1,135 @@
+  
+<fieldset>
+<legend class="legend">maklumat pemohon</legend>
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr>
+			<td style="width:166px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		
+		#show("NAMA" "$!user.userName.toUpperCase()")
+		#show("NO. KAD PENGENALAN" "$!user.noKP")
+		
+	</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">maklumat akaun bank</legend>
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr>
+			<td style="width:49%"></td>
+			<td style="width:1%"></td>
+			<td style="width:50%"></td>
+		</tr>
+		<tr>
+			<td valign="middle">
+				<table width="100%" cellpadding="1" cellspacing="1">
+					<tr>
+            			<td style="width:30%"></td>
+            			<td style="width:1%"></td>
+            			<td style="width:69%"></td>
+            		</tr>
+					#number_required("noAkaunBank" "NO. AKAUN BANK" "$!user.noAkaunBank")
+				</table>
+			</td>
+			<td>&nbsp;</td>
+			<td valign="middle">
+				<table width="100%" cellpadding="1" cellspacing="1">
+					<tr>
+            			<td style="width:30%"></td>
+            			<td style="width:1%"></td>
+            			<td style="width:69%"></td>
+            		</tr>
+					##input_required("namaBank" "NAMA BANK" "$!user.namaBank")
+					<tr>
+						<td>BANK &nbsp;<span style="color:#FF2A00">*</span></td>
+						<td>:</td>
+						<td>
+							<select class="texts" id="bank" name="bank" style="width:100%" onChange="$('err_bank').innerHTML=''; at(this, event);">
+								<option value="">SILA PILIH</option>
+                                #foreach( $n in $listBank)
+                                <option value="$n.id" #if($n.id == $!user.bank.id) selected #end>$n.keterangan.toUpperCase()</option>
+                                #end
+							</select>
+        					<div id="err_bank" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</fieldset> 
+		
+		
+<fieldset>
+<legend class="legend">maklumat permohonan</legend>
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr>
+			<td style="width:166px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">MAKLUMAT TEMPAHAN RUMAH PERANGINAN</span>
+			</td>
+		</tr>
+		<tr><td colspan="3">&nbsp;</td></tr>
+		
+		#show("NO. RUJUKAN" "$!r.getMaklumatPermohonanRPP().noTempahan.toUpperCase()")
+		#show("RUMAH PERANGINAN" "$!r.getMaklumatPermohonanRPP().rppPeranginan.namaPeranginan.toUpperCase()")
+		
+	</table>	
+	
+	<table width="100%">
+		<tr>
+			<td style="width:2%"></td>
+			<td style="width:1%"></td>
+			<td style="width:30%">&nbsp;</td>
+			<td style="width:67%">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				##<span style="font-size:11px;font-weight:bold;text-decoration: underline;">SENARAI SEMAK</span>
+				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">DOKUMEN YANG PERLU DISEDIAKAN</span>
+			</td>
+		</tr>
+		<tr><td colspan="4">&nbsp;</td></tr>
+		
+		<tr>
+			<td valign="middle">
+				##<input type="checkbox" #if($!r.tuntutanDeposit.resitBayaranDeposit=="Y") checked #end name="resitBayaranDeposit" id="resitBayaranDeposit" value="Y" style="width:18px;height:18px;display:block;" onclick="$('err_resitBayaranDeposit').innerHTML='';at(this, event)" />
+				1.
+				<input type="hidden" id="resitBayaranDeposit" name="resitBayaranDeposit" value="Y" /> 	
+				<input type="hidden" id="suratPengesahanDeposit" name="suratPengesahanDeposit" value="Y" /> 
+			</td>
+			<td valign="middle">&nbsp;</td>
+			<td valign="middle">
+				RESIT ASAL BAYARAN DEPOSIT
+				<div id="err_resitBayaranDeposit" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+			<td valign="middle">&nbsp;</td>
+		</tr>
+		
+	</table>
+	
+</fieldset>
+
+<script>
+_jq(document).ready(function () {
+	_jq('#btnSaveRecordTemplate').val('Mohon Deposit');
+	var status = "$!r.tuntutanDeposit.status.id";
+	if(status != ""){
+		$('btnSaveRecordTemplate').style.display='none';
+	}
+});
+
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

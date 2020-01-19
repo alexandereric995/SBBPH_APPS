@@ -1,0 +1,64 @@
+
+
+<fieldset style="width:60%">
+<legend class="legend">Senarai Unit</legend>
+	
+##<input type="hidden" id="idJenisUnit" name="idJenisUnit" value="$!jns.id" />
+
+<br/>
+
+	<table cellpadding="1" cellspacing="1" width="100%">
+		
+		<tr>
+			<th class="row_header" width="5%">BIL.</th>
+    		<th class="row_header" width="30%">NO. & NAMA UNIT</th>
+			<th class="row_header" width="25%">STATUS</th>
+			<th class="row_header" width="40%">CATATAN</th>
+    	</tr>
+		
+		#if ( $senaraiTawaranUnit.size() > 0 )
+			#set( $count = 0 )
+			#foreach ( $d in $senaraiTawaranUnit )
+        			
+    		#set ( $count = $count + 1)
+				#if ( $count % 2 == 0 ) 
+					#set ( $rowcolor = "#D0CFCE" ) 
+            	#else 
+            		#set ( $rowcolor = "#F0F0F0" ) 
+    			#end
+    				
+				<tr bgcolor="$rowcolor">
+					<td align="center">$count</td>
+                	<td>$!d.noUnit $!d.namaUnit</td>
+					<td align="center">$!d.status.toUpperCase()</td>
+					<td>$!d.catatan.toUpperCase()</td>
+				</tr>
+				
+    			#end
+    		#else
+    			<tr bgcolor="#F0F0F0">
+    				<td colspan="4">TIADA REKOD</td>
+    			</tr>
+    		#end
+		
+	</table>
+	
+	<br/>
+	
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+    			<input type="button" id="btnKeluar" name="btnKeluar" value="Keluar">
+    		</td>
+    	</tr>
+    </table>
+
+</fieldset>
+	
+<script>
+  _jq('#btnKeluar').on('click', function(){
+    jQuery('#popupDetail').fadeOut();
+  });
+</script>
+
+

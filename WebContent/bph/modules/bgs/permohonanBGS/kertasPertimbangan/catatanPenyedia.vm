@@ -1,0 +1,17 @@
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+#if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441688' || $!r.status.id == '1423568441694')) ## PENYEDIAAN KERTAS PERTIMBANGAN || PINDAAN KERTAS PERTIMBANGAN
+  #textarea_required("ulasanPenyedia" "Catatan" "$!kertasPertimbangan.ulasanPenyedia")	
+#else
+  #input_readonly_all_label("ulasanPenyedia" "Catatan" "$!kertasPertimbangan.ulasanPenyedia")
+  #input_readonly_all_label("penyedia" "Disediakan Oleh" "$!kertasPertimbangan.penyedia.userName")	
+  #if ($!kertasPertimbangan.tarikhPenyediaan) 
+	#set ($datePenyediaan = "$!util.getDateTime($!kertasPertimbangan.tarikhPenyediaan,'dd-MM-yyyy')")
+  #else #set ($datePenyediaan="-") #end
+  #input_readonly_all_label("tarikhPenyediaan" "Tarikh Disediakan" "$datePenyediaan")	
+#end
+</table>

@@ -1,0 +1,65 @@
+<style>
+	.print {
+		color:blue;
+	}
+	.print:hover {
+		color:blue;
+		text-decoration:underline;
+	}
+</style>
+
+<div id="divResultDeleteKelainanUpaya"></div>
+
+<table cellpadding="5" cellspacing="1" border="0" width="95%" align="center">
+	<tr>
+		<td colspan="9" align="right">
+			<input type="button" id="btnTambahKelainanUpaya" name="btnTambahKelainanUpaya" value="Tambah" onclick="doDivAjaxCall3$formname('divKelainanUpaya','tambahKelainanUpaya','')" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan="9">
+			&nbsp;
+		</td>
+	</tr>
+    <tr>
+        <td class="record_header">Bil.</td>
+        <td class="record_header" align="left">No. MyKad</td>
+		<td class="record_header" align="left">No. Kad</td>
+        <td class="record_header" align="left">Upload Kad</td>
+        <td class="record_header" align="left">Hubungan</td>
+		<td class="record_header"></td>
+    </tr>
+	#set( $count = 0 )
+	#if ( $kku.size() > 0 )
+		#foreach ( $ku in $kku )
+			#set ( $count = $count + 1 )
+			#if ( $count % 2 == 0 ) #set ( $className = "record_row1" ) #else #set ( $className = "record_row2" ) #end
+			<tr id="row_$count" class="$className">
+				<td align="center">$count</td>
+				<td align="center">$!ku.noMyKad</td>
+				<td align="center">$!ku.noKad</td>
+				<td align="center">
+					<a href="../download?file=$!ku.imgName" >
+						##set($photoFileName = $!ku.imgName.substring($!ku.imgName.lastIndexOf('/')).replaceAll('/', '') )
+						<span class="print">$photoFileName</span>
+        			</a>
+				</td>
+				<td align="center">$!ku.hubungan.toUpperCase()</td>
+				<td align="center">
+					<a href="#" onclick="doDivAjaxCall3$formname('divResultDeleteKelainanUpaya','deleteKelainanUpaya','idKelainanUpaya=$!ku.id')"><img src="../img/delete.gif" border="0"></a>
+				</td>
+			</tr>
+		#end
+	#else
+		<tr>
+			<td align="center" colspan="9" class="record_row1">
+				Tiada Rekod
+			</td>
+		</tr>
+	#end
+	<tr>
+		<td colspan="9">
+			<div id="err_valuePilihKuarters" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,30 @@
+function validate() {
+	var err_count = 0;
+	
+	var idPemohon = $('idPemohon').value;
+	if ( idPemohon == "" ) {$('err_idPemohon').innerHTML = "No.KP adalah mandatori!"; err_count++;  }
+	idPemohon
+	
+	var tarikhRayuan = $('tarikhRayuan').value;
+	if ( tarikhRayuan == "" ) {$('err_tarikhRayuan').innerHTML = "Tarikh Rayuan adalah mandatori!"; err_count++;  }
+	
+	var tarikhRayuanDibuat = $('tarikhRayuanDibuat').value;
+	if ( tarikhRayuanDibuat == "" ) {$('err_tarikhRayuanDibuat').innerHTML = "Tarikh Rayuan Dibuat adalah mandatori!"; err_count++;  }
+	
+	var idJenisRayuan = $('idJenisRayuan').value;
+	if ( idJenisRayuan == "" ) {$('err_idJenisRayuan').innerHTML = "Jenis Rayuan adalah mandatori!"; err_count++;  }
+	
+	if ( idJenisRayuan == "QTR05" ) {
+        var lainJenisRayuan = $('lainJenisRayuan').value;
+        if ( lainJenisRayuan == "" ) {$('err_lainJenisRayuan').innerHTML = "Lain-Lain Jenis Rayuan adalah mandatori!"; err_count++;  }
+	}
+	
+	var statusRayuan = $('statusRayuan').value;
+	if ( statusRayuan == "" ) {$('err_statusRayuan').innerHTML = "Status Rayuan adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		doDivAjaxCall3$formname('simpanRayuan','simpanRayuan','')
+	}
+}
+
+

@@ -1,0 +1,48 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><fieldset>
+      <legend class="legend">MAKLUMAT KUARTERS</legend>
+      <table width="100%" cellpadding="1" cellspacing="2">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+ 		#input_readonly_all_label("noRujukan" "No. Rujukan" "$!r.kuartersSenggara.kuarters.noRujukan")
+        #input_readonly_all_label("noUnit" "No. Unit" "$!r.kuartersSenggara.kuarters.noUnit")
+        #input_readonly_all_label("alamat1" "Alamat" "$!r.kuartersSenggara.kuarters.alamat1.toUpperCase() , $!r.kuartersSenggara.kuarters.alamat2.toUpperCase()")
+        #input_readonly_all_label("kawasan" "Kawasan" "$!r.kuartersSenggara.kuarters.lokasi.lokasi.lokasi")
+        #input_readonly_all_label("lokasi" "Lokasi" "$!r.kuartersSenggara.kuarters.lokasi.keterangan")
+        #input_readonly_all_label("kelas" "Kelas Kuarters" "$!r.kuartersSenggara.kuarters.kelas.id")
+  		#input_readonly_all_label("jenisKediaman" "Jenis Kuarters" "$!r.kuartersSenggara.kuarters.jenisKediaman.keterangan")
+      </table>
+      </fieldset></td>
+    <td width="50%" valign="top"><fieldset>
+      <legend class="legend">MAKLUMAT LAPORAN</legend>
+      <table width="100%" cellpadding="1" cellspacing="2">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #if ($!r.kuartersSenggara.tarikhTerimaLaporan) 
+        #set ($dateTerimaLaporan = "$!util.getDateTime($!r.kuartersSenggara.tarikhTerimaLaporan,'dd-MM-yyyy')")
+        #else #set ($dateTerimaLaporan="") #end
+        #input_readonly_all_label("tarikhTerimaLaporan" "Tarikh Terima Laporan" "$dateTerimaLaporan")
+        #if ($!r.kuartersSenggara.jenisLaporan == "D")
+        #input_readonly_all_label("jenisLaporan" "Jenis Laporan" "KUARTERS KOSONG")	
+        #elseif($!r.kuartersSenggara.jenisLaporan == "A")
+        #input_readonly_all_label("tarikhTerimaLaporan" "Jenis Laporan" "ADUAN KEROSAKAN")	
+        #end  	
+        #textarea_readonly("keteranganLaporan" "Keterangan" "$!r.kuartersSenggara.keteranganLaporan")
+        #textarea_readonly("tugasanDari" "Tugasan Dari" "$!r.kuartersSenggara.tugasan.pegawaiAgihan.userName")
+        #if ($!r.kuartersSenggara.tugasan.tarikhTugasan) 
+        #set ($dateTugasan = "$!util.getDateTime($!r.kuartersSenggara.tugasan.tarikhTugasan,'dd-MM-yyyy')")
+        #else #set ($dateTugasan="") #end
+        #input_readonly_all_label("tarikhTugasan" "Tarikh Tugasan" "$dateTugasan")
+        #textarea_readonly("catatanTugasan" "Catatan Tugasan" "$!r.kuartersSenggara.tugasan.catatan")
+        #input_readonly_all_label("status" "Status" "<b>$!r.kuartersSenggara.status.keterangan</b>")
+      </table>
+      </fieldset></td>
+  </tr>
+</table>

@@ -1,0 +1,40 @@
+<div id="content-format">
+	<pinLeft></pinLeft>
+	<pinRight></pinRight>
+	<header>$!rujukan.tajuk.toUpperCase()</header>
+	<section>
+		<div id="tabs">
+			<div id="tabs-2">
+				
+			#if ($!rujukan.butiran != '')
+				$!rujukan.butiran <br></br>
+			#end
+
+			#if ($!rujukan.fileName)
+				<ol>
+					<a href="../download?file=$!uploadDir$!rujukan.fileName" > <span class="print">$!rujukan.tajuk</strong><span> </a>
+				</ol>
+			#end
+
+			#set ($count=0)
+			#foreach ( $subRujukan in $listSubRujukan )
+				#set ($count=$count+1)
+				<ol>
+					$count. 
+					#if ($!subRujukan.fileName != '') 
+						<a href="../download?file=$!uploadDir$!subRujukan.fileName" > <span class="print">$!subRujukan.tajuk</strong><span> </a> 
+					#end
+					
+					#if ($!subRujukan.flagBaru == 'Y')
+						<img src="../images/new.gif"> 
+					#end 
+				</ol>
+			#end
+
+			#if ($!rujukan.butiran == '' && $!rujukan.fileName == '' && $count == '0')
+				<strong>TIADA MAKLUMAT</strong>
+			#end
+			</div>
+		</div>
+	</section>
+</div>

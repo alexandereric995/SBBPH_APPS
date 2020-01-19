@@ -1,0 +1,64 @@
+
+
+<fieldset>
+
+	<legend class="legend">SENARAI DEPOSIT</legend>
+    <table width="100%" border="0" cellspacing="1" cellpadding="1">
+		<tr>
+            <td colspan="5" align="center">
+				<span style="font-weight:bold;font-size:13px">
+					NO. WARTA :  $!objW.noWarta<br/>
+					TARIKH DIWARTAKAN : $!util.getDateTime($!objW.tarikhWarta,'dd-MM-yyyy')
+					<br/><br/>
+				</span>
+			</td>
+        </tr>
+		
+		<tr>
+			<td class="row_header" width="5%" valign="middle">BIL.</td>
+			<td class="row_header" style="text-align:left" width="45%" valign="middle">NAMA</td>
+			<td class="row_header" width="20%" valign="middle">NO. RESIT</td>
+			<td class="row_header" width="15%" valign="middle">TARIKH</td>
+			<td class="row_header" width="15%" valign="middle">AMAUN (RM)</td>
+		</tr>
+		
+		#if ( $listDepositWarta.size() > 0 )
+    		#set ( $count = 0 )
+			#set ( $jumlahAmaun = 0.00 )
+    		#foreach( $d in $listDepositWarta )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+				#set ( $jumlahAmaun = $jumlahAmaun + $!d.deposit.jumlahDeposit )
+    				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+					<td align="left">$!d.deposit.pendeposit.userName.toUpperCase()</td>
+            		<td align="center">$!d.deposit.noResit</td>
+            		<td align="center">$!util.getDateTime($!d.deposit.tarikhResit,'dd-MM-yyyy')</td>
+					<td align="center">$!util.formatDecimal($!d.deposit.jumlahDeposit)</td>
+                </tr>
+			#end
+			<tr><td colspan="5">&nbsp;</td></tr>
+			<tr>
+				<td colspan="4" align="right"><b>JUMLAH : </b></td>
+				<td align="center"><b><u>$!util.formatDecimal($jumlahAmaun)</u></b></td>
+			</tr>
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="5">Tiada Rekod</td>
+			</tr>
+		#end
+		
+		<tr>
+			<td colspan="6"><div id="err_cbDeposit" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		</tr>
+		
+	</table>
+		
+</fieldset>

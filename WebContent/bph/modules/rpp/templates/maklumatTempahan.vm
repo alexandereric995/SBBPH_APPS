@@ -1,0 +1,58 @@
+
+
+<fieldset>
+<legend class="legend">MAKLUMAT TEMPAHAN & BAYARAN</legend>
+    
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+            <td colspan="7">&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="30%">Keterangan</td>
+			<td class="row_header" width="10%">Kuantiti</td>
+			<td class="row_header" width="15%">Jenis Chalet</td>
+			<td class="row_header" width="15%">Tarikh Masuk</td>
+			<td class="row_header" width="15%">Tarikh Keluar</td>
+			<td class="row_header" width="10%">Jumlah Amaun (RM)</td>
+		</tr>
+		
+		#if ( $listTempahanDanBayaran.size() > 0 )
+    		#set ( $count = 0 )
+			#set ( $jumlahAmaun = 0.00 )
+    		#foreach( $d in $listTempahanDanBayaran )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+				#set ( $jumlahAmaun = $jumlahAmaun + $!d.debit )
+    				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+					<td align="left">$!d.keterangan</td>
+					<td align="center">$!d.bilanganUnit</td>
+            		<td align="center">$!d.permohonan.jenisUnitRpp.keterangan.toUpperCase()</td>
+            		<td align="center">$!util.getDateTime($!d.permohonan.tarikhMasukRpp,'dd-MM-yyyy')</td>
+        			<td align="center">$!util.getDateTime($!d.permohonan.tarikhKeluarRpp,'dd-MM-yyyy')</td>
+					<td align="center">$!d.debit</td>
+                </tr>
+			#end
+			<tr>
+				<td colspan="6" align="right"><b>JUMLAH : </b></td>
+				<td align="center"><b>$!util.formatDecimal($jumlahAmaun)</b></td>
+			</tr>
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="7">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+	
+</fieldset>	

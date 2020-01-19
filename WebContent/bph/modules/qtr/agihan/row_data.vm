@@ -1,0 +1,38 @@
+##if( $dev=="true" )
+
+<td>$!r.pemohon.userName</td>
+<td>$!r.pemohon.noKP</td>
+#if ( $bersyarat == "tidak" )
+	<td>$!r.noGiliran</td>
+#end
+<td>$!r.kelasKuarters</td>
+##<td>$!r.permohonan.lokasi.lokasi</td>
+<td>$!r.idLokasi.lokasi</td>
+#if ( $!r.permohonan.tarikhPermohonan )
+	#set( $tarikhPermohonan = $util.getDateTime($!r.permohonan.tarikhPermohonan, 'dd-MM-yyyy') )
+#else	
+	#set( $tarikhPermohonan = "-" )
+#end
+<td>$tarikhPermohonan</td>
+#if ( $!r.jenisKelasKuarters == "L" )
+	#set ($status = "HAKIKI")		
+#elseif ( $!r.jenisKelasKuarters == "D" )
+	#set ($status = "DOWNGRADE")
+#else
+	#set ($status = "TIADA MAKLUMAT")
+#end
+<td>$status</td>	
+
+###if ( $r.tarikhKemaskini )
+##	#set( $tarikhKemaskini = $util.getDateTime($r.tarikhKemaskini, 'dd-MM-yyyy - hh:mm:ss a') )
+###else	
+##	#set( $tarikhKemaskini = "-" )
+###end
+##<td>$tarikhKemaskini</td>
+###if ( $bersyarat == "ya" )
+##	<td>$!r.catatan</td>
+###end
+
+##else
+	##SEMENTARA
+	##parse("$path/notis.vm")   	

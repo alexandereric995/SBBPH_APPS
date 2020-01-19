@@ -1,0 +1,49 @@
+#foreach ( $item in $forum_items )
+
+	<table width="100%" cellpadding="2" cellspacing="0" border="0">
+		<tr>
+			#foreach ( $i in [1..$item.level])
+			<td width="8">
+				&nbsp;
+			</td>
+			#end
+			<!--
+			<td width="1px" bgcolor="lightgrey">
+				&nbsp;
+			</td>			
+			-->
+			<td>
+				<table width="100%" cellpadding="2" cellspacing="0" border="0">
+					<tr>
+						<td>
+							<table width="100%" cellpadding="2" cellspacing="0" class="table_header" >
+								<tr>	
+									<td colspan="2">
+										<a href="javascript:openForum_${formname}('$item.id')">
+										$item.title &nbsp;
+										<b>Author: </b>$item.postedBy
+										($item.getDatePosted().display())
+										</a>
+									</td>
+								</tr>								
+							</table>
+						</td>	
+					<tr>
+						<td class="table_row" >
+							$item.displayMessage()
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;
+			</td>
+		</tr>
+	</table>
+	
+	
+
+			
+#end

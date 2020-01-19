@@ -1,0 +1,123 @@
+#set ( $role  = ${session.getAttribute("_portal_role")} )
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td align="left" style="min-width: 350px;">
+			#if ( $userIsLogged )
+				#if ( ${session.getAttribute("_portal_role")} == "anon" )
+					<font class="font_welcome"><b>Mod Webmaster</b></font>
+				#elseif ( ${session.getAttribute("_portal_role")} == "root" || ${session.getAttribute("_portal_role")} == "admin" )
+					<font class="font_welcome">Selamat Datang&nbsp;$!{session.getAttribute("_portal_username")}</font>
+				#else		
+					#if ( $userTracker.dateTrack && $userTracker.timeTrack )
+						#set ( $lastLoginDate = $shortDate.format($userTracker.dateTrack) )
+						#set ( $lastLoginTime = $shortTime.format($userTracker.timeTrack) )
+					#elseif ( $userTracker == "pegawai" )
+						#set ( $lastLoginDate = "Log Kali Pertama" )
+						#set ( $lastLoginTime = "" )
+					#else
+						#set ( $lastLoginDate = "Log Kali Pertama" )
+						#set ( $lastLoginTime = "" )
+					#end
+					<font class="font_welcome">Selamat Datang&nbsp;$!{session.getAttribute("_portal_username")}</font>
+				#end
+			#end
+		</td> 
+		#if ( ${session.getAttribute("_portal_role")} == "anon" && ${session.getAttribute("_portal_action")} != "customize" && ${session.getAttribute("_portal_action")} != "pagetheme" )
+			<td align="center" width="350px" rowspan="2">
+				#if ( ${session.getAttribute("_portal_action")} != "addHtmlContentModule" && ${session.getAttribute("_portal_action")} != "contentManagerModule" && ${session.getAttribute("_portal_action")} != "propManagerModule")
+					<span class="bracket">(</span>
+				    <a href='javascript:document.location.href = "addHtmlContentModule"' class="font_welcome"><u>Tambah Modul HTML</u></a>
+			        <span class="straight">|</span>
+			        <a href='javascript:document.location.href = "contentManagerModule"' class="font_welcome"><u>Urusan Kandungan</u></a>
+			        <span class="straight">|</span>
+			        <a href='javascript:document.location.href = "propManagerModule"' class="font_welcome"><u>Urusan Lain-Lain</u></a>
+			        <span class="bracket">)</span>
+		        #elseif ( ${session.getAttribute("_portal_action")} == "addHtmlContentModule")
+			        <span class="bracket">(</span>
+			        <a href='javascript:document.location.href = "contentManagerModule"' class="font_welcome"><u>Urusan Kandungan</u></a>
+			        <span class="straight">|</span>
+			        <a href='javascript:document.location.href = "propManagerModule"' class="font_welcome"><u>Urusan Lain-Lain</u></a>
+			        <span class="bracket">)</span>
+			    #elseif ( ${session.getAttribute("_portal_action")} == "contentManagerModule")
+			        <span class="bracket">(</span>
+				    <a href='javascript:document.location.href = "addHtmlContentModule"' class="font_welcome"><u>Tambah Modul HTML</u></a>
+			        <span class="straight">|</span>
+			        <a href='javascript:document.location.href = "propManagerModule"' class="font_welcome"><u>Urusan Lain-Lain</u></a>
+			        <span class="bracket">)</span>
+			    #elseif ( ${session.getAttribute("_portal_action")} == "propManagerModule")
+			        <span class="bracket">(</span>
+				    <a href='javascript:document.location.href = "addHtmlContentModule"' class="font_welcome"><u>Tambah Modul HTML</u></a>
+			        <span class="straight">|</span>
+			        <a href='javascript:document.location.href = "contentManagerModule"' class="font_welcome"><u>Urusan Kandungan</u></a>
+			        <span class="bracket">)</span>
+		        #end
+        	</td>
+		#end
+		<td align="right" width="780" rowspan="2">
+			<table cellpadding="0" cellspacing="0" border="0" style="width: 100%">
+				<tr>
+					<td valign="middle" align="left" style="min-width: 200px;">
+						<div id="role_header">
+							#parse ( "vtl/main/user_role_tabs_menu.vm" )
+						</div>
+					</td>
+					<td align="right" width="175px">
+						<!-- <span class="font_language">Pilih Bahasa</span>
+						#if ( $lang == "en" ) <a href="?lang=bm"><span class="lang" onclick="changeLanguage('bm')" />BM</a> #elseif ( $lang == "bm" ) <a href="?lang=en"><span class="lang" onclick="changeLanguage('en')" />EN</a> #else <img src="../images/blank.gif" /> #end -->
+					
+							<form name=fx>
+							<input type=hidden name=command>
+							<div id="reportformatting">
+							<font class="font_welcome">Format :
+							#foreach ($i in ["PDF","EXCEL","RTF"])
+								#if ( ${session.getAttribute("rFormat")} == $i )
+									$i |
+								#else
+									<a class="font_welcome" href="#" onClick="javascript:doChangeReport('$i');"><u>$i</u></a> |
+								#end
+							#end
+							</font>
+							</div>
+						</form>
+						<script>
+						function doChangeReport(x) {
+						if ( !window.confirm("Tukar format report kepada "+x+" ?") ) return;
+						url = "../servlet/bph.laporan.FormatLaporan?format="+x;
+						actionName = "doChangeReport";
+						target = "reportformatting";
+						doAjaxUpdater(document.fx, url, target, actionName);
+						}
+						</script>
+					</td>
+			        <td align="right" width="275px">
+    			        #set ( $location = "pagetheme" )
+				        #set ( $caption = "Tema Halaman" )
+			        	#if ( $role == "anon" || $role == "root" ) 
+				        	#set ( $location = "customize")
+				        	#set ( $caption = "Tetapan" )
+			        	#end
+				        #if ( ${session.getAttribute("_portal_action")} != "customize" && ${session.getAttribute("_portal_action")} != "pagetheme" )
+							#if ( $role == "anon" || $role == "root" ) 
+								<a href='javascript:document.location.href = "${location}"' class="font_welcome"><u>${caption}</u></a>
+								<span class="straight">|</span>
+							#end
+				        #else
+					        <a href='javascript:document.location.href = "../c/"' class="font_welcome"><u>Selesai</u></a>
+							<span class="straight">|</span>
+						#end
+						<a href='javascript:document.location.href = "logout"' class="font_welcome"><u>Log Keluar</u></a>
+    				</td>						
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<font class="font_welcome_date"><i>Log Masuk Terakhir&nbsp;:&nbsp;$lastLoginDate&nbsp;$lastLoginTime</i></font>
+		</td>
+	</tr>	
+</table>
+
+##AZAM ADD ON 15/5/2016
+##<script type="text/javascript" src="../fck/fckeditor.js"></script>
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>

@@ -1,0 +1,138 @@
+ function doCetakLaporanSenaraiRuangKomersil() {
+	
+	var err_count = 0;
+	
+	var idSeksyen = $('idSeksyen').value;
+	var idNegeri = $('idNegeri').value;
+	var idJenisKegunaanRuang = $('idJenisKegunaanRuang').value;
+	var statusSewa = $('statusSewa').value;
+	var statusAktif = $('statusAktif').value;	
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+			
+		var url = "../servlet/bph.laporan.rk.LaporanSenaraiRuangKomersil?ID_NEGERI="+idNegeri+"&ID_JENIS_KEGUNAAN_RUANG="+idJenisKegunaanRuang+"&STATUS_SEWA="+statusSewa+"&STATUS_AKTIF="+statusAktif+"&ID_SEKSYEN="+idSeksyen;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener)) {
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		}		
+		return err_count == 0;
+	}
+}
+
+function doCetakLaporanSenaraiPenyewaanAktif() {
+	
+	var err_count = 0;
+		
+	var idSeksyen = $('idSeksyen').value;
+	var idNegeri = $('idNegeri').value;
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+			
+		var url = "../servlet/bph.laporan.rk.LaporanSenaraiPenyewaanAktif?ID_NEGERI="+idNegeri+"&ID_SEKSYEN="+idSeksyen;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener)) {
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		}		
+		return err_count == 0;
+	}
+}
+
+function doCetakLaporanSenaraiPenyewaanAkanTamat() {
+	
+	var err_count = 0;
+		
+	var idSeksyen = $('idSeksyen').value;
+	var idNegeri = $('idNegeri').value;
+	var tempoh = $('tempoh').value;
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+			
+		var url = "../servlet/bph.laporan.rk.LaporanSenaraiPenyewaanAkanTamat?ID_NEGERI="+idNegeri+"&TEMPOH="+tempoh+"&ID_SEKSYEN="+idSeksyen;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener)) {
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		}		
+		return err_count == 0;
+	}
+} 
+
+function doCetakLaporanSenaraiPenyewaanTamat() {
+	
+	var err_count = 0;
+	
+	var idSeksyen = $('idSeksyen').value;
+	var idNegeri = $('idNegeri').value;
+	var statusTunggakan = $('statusTunggakan').value;
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+			
+		var url = "../servlet/bph.laporan.rk.LaporanSenaraiPenyewaanTamat?ID_NEGERI="+idNegeri+"&STATUS_TUNGGAKAN="+statusTunggakan+"&ID_SEKSYEN="+idSeksyen;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener)) {
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		}		
+		return err_count == 0;
+	}
+}
+
+function doCetakLaporanKutipanBulanan() {
+
+	var err_count = 0;
+	
+	var idSeksyen = $('idSeksyen').value;
+	var tahun = $('tahun').value;
+	if ( tahun == "" ) {$('err_tahun').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ) {
+			return;
+		}
+		
+		var url = "../servlet/bph.laporan.rk.LaporanKutipanBulanan?TAHUN="+tahun+"&ID_SEKSYEN="+idSeksyen;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener)) {
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		}		
+		return err_count == 0;
+	}
+}
+
+function doCetakLaporanSenaraiABT() {
+
+	var err_count = 0;
+	
+	var idSeksyen = $('idSeksyen').value;
+	var tarikhHingga = $('tarikhHingga').value;
+	if ( tarikhHingga == "" ) {$('err_tarikhHingga').innerHTML = "** adalah mandatori!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ) {
+			return;
+		}
+			
+		var url = "../servlet/bph.laporan.rk.LaporanSenaraiABT?TARIKH="+tarikhHingga+"&ID_SEKSYEN="+idSeksyen;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener)) {
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+		}		
+		return err_count == 0;
+	}
+} 

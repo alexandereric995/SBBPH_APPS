@@ -1,0 +1,118 @@
+
+<nav class="breadcrumbs">
+  <ul>
+	<li class="active"><a href="javascript:void()">Maklumat Aduan</a></li>
+	#if($r)
+    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getGambar','')">Gambar</a></li>
+	#end
+  </ul>
+</nav>
+
+<fieldset>
+<legend class="legend">Maklumat Aduan Kerosakan</legend>
+
+<table width="100%">
+  <tr>
+    <td style="width:200px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+
+  #if($!r.status.id.equalsIgnoreCase("1429870728761"))
+	  #show("TARIKH ADUAN DIBUAT" "$!util.getDateTime($!r.tarikhAduan,'dd-MM-yyyy')")
+	  #show("JENIS KEROSAKAN" "$!r.barangDeposit.nama.toUpperCase()")
+      #show("KETERANGAN" "$!r.keterangan")
+      #show("KUANTITI" "$!r.kuantiti")
+	  #show("JUMLAH BAYARAN KEROSAKAN" "RM $!util.formatDecimal($!r.harga)")
+	  #show("STATUS ADUAN" "$!r.status.keterangan")
+  #else	
+	
+	  #date_input_required("tarikhAduan" "Tarikh Aduan Kerosakan" "$!util.getDateTime($!r.tarikhAduan,'dd-MM-yyyy')")
+	 
+	  <tr>
+		<td valign="top">Jenis Kerosakan &nbsp;<span style="color:#FF2A00">*</span></td>
+		<td valign="top">:</td>
+		<td valign="top">
+			<select class="texts" id="barangDeposit" name="barangDeposit" style="width:100%" onChange="doGetHarga(this.value);$('err_barangDeposit').innerHTML=''; at(this, event);">
+                <option value="">SILA PILIH</option>
+                #foreach( $n in $listBarangDeposit)
+                	<option value="$n.id" #if($n.id == $r.barangDeposit.id) selected #end>$n.nama.toUpperCase()</option>
+				#end
+				<option value="999" #if($r.barangDeposit.id == "999") selected #end>LAIN - LAIN</option>
+            </select>
+			<div id="err_barangDeposit" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	  </tr>
+	
+      #textarea("keterangan" "Keterangan" "$!r.keterangan")
+	  
+	  <tr>
+    	<td class="label" valign="top">Kuantiti &nbsp;<span style="color:#FF2A00">*</span></td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">
+			<input class="number3" type="text" id="kuantiti" name="kuantiti" value="$!r.kuantiti" onKeyUp="multiplyHarga(this.value);$('err_kuantiti').innerHTML=''; at(this, event);">
+    		<div id="err_kuantiti" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    	</td>
+      </tr>
+	 
+	  <tr>
+    	<td class="label" valign="top">Harga (RM) &nbsp;<span style="color:#FF2A00">*</span></td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">
+			<div id="divFieldHarga">
+				<input class="currency" type="text" id="harga" name="harga" value="$!r.harga" onKeyUp=" $('err_harga').innerHTML=''; at(this, event);">
+				<input type="hidden" id="hargaseunitVal" name="hargaseunitVal" value="$!r.barangDeposit.harga">
+    		</div>
+			<div id="err_harga" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    	</td>
+    </tr>
+	
+  #end
+  
+</table>
+
+</fieldset>
+
+#if($!r.status.id.equalsIgnoreCase("1429870728761"))
+<fieldset>
+<legend class="legend">Ulasan HQ</legend>
+
+    <table width="100%">
+      <tr>
+        <td style="width:200px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+      </tr>
+	  #show("ULASAN" "$!r.ulasanHq")   
+	  #show("TARIKH ULASAN" "$!util.getDateTime($!r.tarikhUlasanHq,'dd-MM-yyyy')") 
+    </table>
+
+</fieldset>
+#end
+
+
+#if(!$!r.status.id.equalsIgnoreCase("1429870728761"))
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="right">
+			#set ( $queryParam = "record_id=$!r.id" )
+			<input type="button" value="Simpan" onClick="if ( validateField() ) doDivAjaxCall$formname('div_main_entry','save_data','$queryParam')">
+			<input type="button" value="Kosongkan" onclick="javascript:kosongkan();">
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+#end
+
+<div id="aduanKerosakan"></div>
+
+<script>
+_jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+	  $('.number3').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+});
+</script>
+	

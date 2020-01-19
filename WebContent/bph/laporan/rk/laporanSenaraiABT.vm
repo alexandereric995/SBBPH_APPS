@@ -1,0 +1,44 @@
+<fieldset>
+<legend class="legend">Laporan Senarai Akaun Belum Terima</legend>
+<table width="100%">
+  <tr>
+    <td width="19%" valign="top"></td>
+    <td width="1%" valign="top"></td>
+    <td valign="top"></td>
+  </tr>
+ 	#if ($tarikhHingga)
+		#set ($dateHingga = "$!util.getDateTime($!tarikhHingga,'dd-MM-yyyy')")
+	#else 
+		#set ($dateHingga = "") 
+	#end
+  <tr>
+	<td class="label" valign="top">Laporan Sehingga &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<div>
+    		<input type="text" id="tarikhHingga" name="tarikhHingga" value="$dateHingga" >
+    		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+			<script>
+            	_jq("#tarikhHingga").Zebra_DatePicker({ 
+    				format: 'd-m-Y',
+					readonly_element: false,
+					onSelect: function(view, elements) {
+						$('err_tarikhHingga').innerHTML='';
+						at(this, event);
+					}
+            	});
+				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+    		</script>
+    		<div id="err_tarikhHingga" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</div>
+	</td>
+</tr>
+<tr>
+  <td></td>
+    <td class="label"></td>
+    <td><input type="button" name="cmdCetak" id="cmdCetak" value="Jana Laporan" onClick="javascript:doCetakLaporanSenaraiABT()"/>
+      <input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onClick="doDivAjaxCall3$formname('divMain','kembali','');"/></td>
+  </tr>
+</table>
+</fieldset>
+

@@ -1,0 +1,163 @@
+<fieldset>
+<legend class="legend">AGIHAN TUGAS</legend>
+	<table width="100%" cellpadding="1" cellspacing="2">
+		<tr>
+			<td class="label" style="width:15%">&nbsp;</td>
+			<td style="width:1%">&nbsp;</td>
+			<td style="width:84%">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="3" class="label"><input type="button" id="addAgihanTugas" name="addAgihanTugas" value="Tambah">
+				<script>
+					_jq('#addAgihanTugas').on('click', function(){
+						doDivAjaxCall3$formname('editAgihanTugas','addAgihanTugas','');
+					    jQuery('#editAgihanTugas').fadeIn();
+					});
+				</script>
+				<br />
+				<br />
+				<table width="100%" cellpadding="5" cellspacing="1">
+					<tr>
+						<td class="row_header" width="5%">Bil.</td>
+						<td class="row_header" width="35%">Unit</td>
+						<td class="row_header" width="35%">Nama Pegawai</td>
+						<td class="row_header" width="15%">Tarikh Tugasan</td>
+						<td class="row_header" width="5%">Hapus</td>
+					</tr>
+					#set ( $count = 0 )
+					#if ( $listAgihan.size() > 0) 
+						#foreach( $c in $listAgihan )
+							#set ( $count = $count + 1)
+							
+							#if ( $count % 2 == 0 ) 
+								#set ( $rowcolor = "#D0CFCE" ) 
+							#else 
+								#set ( $rowcolor = "#F0F0F0" ) 
+							#end
+							<tr bgcolor="$rowcolor">
+								<td align="center">$count</td>
+								<td>$c.seksyen.keterangan</td>
+								<td>$c.pegawai.userName</td>
+								<td align="center">$c.tarikhTugasan</td>
+								<td align="center"><a href="javascript:void()" onClick="deleteAgihanTugas('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a></td>
+							</tr>
+							<script>
+								_jq('#link$c.id').on('click', function(){
+									doDivAjaxCall3$formname('editAgihanTugas','editAgihanTugas','idAgihanTugas=$c.id');
+								    jQuery('#editAgihanTugas').fadeIn();
+								});
+							</script>
+						#end
+					#else
+					<tr >
+						<td align="center">&nbsp;</td>
+						<td align="center">Tiada Rekod</td>
+						<td align="center">&nbsp;</td>
+						<td align="center">&nbsp;</td>
+						<td align="center">&nbsp;</td>
+					</tr>
+					#end
+				</table>
+			</td>
+		</tr>
+	</table>
+</fieldset>
+<fieldset>
+<legend class="legend">KETERANGAN TEKNIKAL</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:29%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+##  #if ($!r.jenisAduan.id == '01') ## PENYELENGGARAAN KUARTERS
+	  #set ($checkCbE = '')
+	  #set ($checkCbM = '')
+	  #set ($checkCbB = '')
+	  #set ($checkCbP = '')
+	  #if ( $!listKategoriTeknikal.size() > 0)
+	  	#foreach( $c in $!listKategoriTeknikal )
+	  		#if ($!c.kategori == 'E') #set ($checkCbE = 'checked') #end
+	  		#if ($!c.kategori == 'M') #set ($checkCbM = 'checked') #end
+	  		#if ($!c.kategori == 'B') #set ($checkCbB = 'checked') #end
+	  		#if ($!c.kategori == 'P') #set ($checkCbP = 'checked') #end
+		#end  	
+	  #end
+	  <tr>
+	    <td class="label" valign="top">Kategori</td>
+	    <td valign="top">:</td>
+	    <td valign="top"><table width="100%" border="0" cellspacing="2" cellpadding="2">
+	        <tr>
+	          <td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="E" $checkCbE >&nbsp;Elektrikal (Bekalan Eletrik / Kerosakan Lampu / Soket / Kipas)</td>
+	        </tr>
+	        <tr>
+	          <td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="M" $checkCbM >&nbsp;Mekanikal (Lif / Paip Bekalan Air / Sistem Pencegahan Kebakaran)</td>
+	        </tr>
+	        <tr>
+	          <td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="B" $checkCbB >&nbsp;Bangunan (Bumbung / Siling / Dinding / Pintu / Tingkap / Jubin / Paip Sanitari / Water Proofing)</td>
+	        </tr>
+	        <tr>
+	          <td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="P" $checkCbP >&nbsp;Pembersihan / Landskap (Rumput / Kebersihan / Taman Permainan / Longkang)</td>
+	        </tr>
+	      </table></td>
+	  </tr>
+##  #end
+  
+##  #if ($!r.jenisAduan.id == '03') ## RAYUAN
+	  #set ($checkCb1 = '')
+	  #set ($checkCb2 = '')
+	  #set ($checkCb3 = '')
+	  #set ($checkCb4 = '')
+	  #set ($checkCb5 = '')
+	  #if ( $!listKategoriTeknikal.size() > 0)
+	  	#foreach( $c in $!listKategoriTeknikal )
+	  		#if ($!c.kategori == '1') #set ($checkCb1 = 'checked') #end
+	  		#if ($!c.kategori == '2') #set ($checkCb2 = 'checked') #end
+	  		#if ($!c.kategori == '3') #set ($checkCb3 = 'checked') #end
+	  		#if ($!c.kategori == '4') #set ($checkCb4 = 'checked') #end
+	  		#if ($!c.kategori == '5') #set ($checkCb5 = 'checked') #end
+		#end  	
+	  #end
+	  <tr>
+	    <td class="label" valign="top"></td>
+	    <td valign="top"></td>
+	    <td valign="top"><table width="100%" border="0" cellspacing="2" cellpadding="2">
+	        <tr>
+	          <td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="1" $checkCb1 >&nbsp;Mempercepatkan Permohonan Kuarters</td>
+	        </tr>
+	        <tr>
+	          <td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="2" $checkCb2 >&nbsp;Penurunan Kelas Permohonan Kuarters</td>
+	        </tr>
+	        <tr>
+	          <td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="3" $checkCb3 >&nbsp;Perlanjutan Tempoh Menduduki Kuarters (Bersara / Bertukar Tempat Bertugas / Kematian / Perceraian / Lain-lain)</td>
+	        </tr>
+	        <tr>
+	          <td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="4" $checkCb4 >&nbsp;Pertukaran Penama Kuarters (Bersara / Bertukar Tempat Bertugas / Kematian / Perceraian / Lain-lain)</td>
+	        </tr>
+	        <tr>
+	          <td valign="top"><input type="checkbox" id="cbKategori" name="cbKategori" value="5" $checkCb5 >&nbsp;Permohonan Kuarters Mengikut Kelayakan (Kenaikan Pangkat)</td>
+	        </tr>
+	      </table></td>
+	  </tr>
+##  #end
+
+	#input_email("emailFm" "Email Fm" "$!r.emailFm")
+    #input_email("emailCc" "Cc" "$!r.emailCc")
+  	#textarea("keteranganTeknikal" "Keterangan Teknikal" "$!r.keteranganTeknikal")
+  
+  <tr>
+    <td colspan="3" align="right"><input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:doSaveKeteranganTeknikal();"/></td>
+  </tr>
+  
+</table>
+</fieldset>
+
+
+## Popup popupAgihanTugas.vm
+<div id="editAgihanTugas" class="popup"></div>
+## Blank status page
+<div id="removeAgihanTugas"></div>
+
+
+
+

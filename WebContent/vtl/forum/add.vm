@@ -1,0 +1,59 @@
+#set ( $subject = $session.getAttribute("subject"))
+#set ( $message = $session.getAttribute("message"))
+
+<form name="${formname}" method="post" action="javascript:save_${formname}()">
+<b>Title:</b>
+						<input class="text" name="title" value="${subject}" style="width:650px; font-family:verdana; font-weight:bold">
+					#parse("vtl/editor/fck.vm")
+
+<textarea name="content" cols="40" rows="10" style="visibility:hidden"></textarea>
+<table>
+				#if ( $allowAttachment )
+				<tr>
+					<td class="table_row" >
+						<b>File(s):</b>&nbsp;
+						#foreach ( $file in $attachments )
+							[$file]
+							&nbsp
+						#end
+					</td>
+				</tr>				
+				#end
+				<tr>
+					<td>
+						<input class="button" type="button" value="Post a New Forum Topic" onclick="save_${formname}()">
+
+						<input class="button" type="button" value="Cancel" onclick="cancel_${formname}()">
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<input type="hidden" name="$formname" value="$formname">
+
+
+</form>
+
+<script>
+document.${formname}.message.value = document.${formname}.content.value;
+
+function save_${formname}() {
+add_${formname}();
+}
+
+function add_${formname}() {
+	document.${formname}.action = "?command=Add&subjectId=$!subjectId";
+	document.${formname}.submit();	
+}
+
+function cancel_${formname}() {
+	document.${formname}.action = "?";	
+	document.${formname}.submit();
+}
+function attachment_${formname}() {
+	document.${formname}.action = "?command=AttachmentTopic&subjectId=$!subjectId";
+	document.${formname}.submit();
+}
+
+</script>

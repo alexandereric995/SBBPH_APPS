@@ -1,0 +1,101 @@
+<div id="setPenghuni"></div>
+<div id="batalTawaran"></div>
+<fieldset>
+    <legend class="legend">Maklumat Bayaran Deposit</legend>
+    <table cellpadding="5" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td align="center" width="50%" valign="top">
+                #parse("$path/entry_sub/entry_page_sub_left.vm")
+            </td>
+            <td align="center" width="50%" valign="top">
+                #parse("$path/entry_sub/entry_page_sub_right.vm")
+            </td>
+        </tr>
+    </table>
+</fieldset>
+<fieldset>
+    <legend class="legend">Maklumat Kuarters Yang Ditawarkan</legend>
+    <table cellpadding="5" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td style="width:150px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <table width="100%">
+                    <td width="50%" align="center" valign="top">
+                        #parse("$path/sub_page/kuarters/sub_left.vm")
+                    </td>
+                    <td width="50%" align="center" valign="top">
+                        #parse("$path/sub_page/kuarters/sub_right.vm")
+                    </td>
+                </table>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+<fieldset>
+    <legend class="legend">Maklumat Akaun</legend>
+    <table cellpadding="5" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td style="width:150px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <table width="100%">
+                    <td width="50%" align="center" valign="top">
+                        #parse("$path/sub_page/akaun/sub_left.vm")
+                    </td>
+                    <td width="50%" align="center" valign="top">
+                        #parse("$path/sub_page/akaun/sub_right.vm")
+                    </td>
+                </table>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+##<fieldset>
+##    <legend class="legend">Maklumat Waris Untuk Dihubungi</legend>
+##    <table cellpadding="5" cellspacing="0" border="0" width="100%">
+##        <tr>
+##            <td style="width:150px"></td>
+##            <td style="width:10px"></td>
+##            <td></td>
+##        </tr>
+##        <tr>
+##            <td colspan="3">
+##                <table width="100%">
+##                    <td width="50%" align="center" valign="top">
+##                    ##start
+##                        <table cellpadding="5" cellspacing="0" border="0" width="95%" id="subLeft">
+##    						<tr>
+##						        <td style="width:150px"></td>
+##						        <td style="width:10px"></td>
+##						        <td></td>
+##						    </tr>
+##	                        #input("MyIDWaris" "No.Kad Pengenalan (MyID)" "$!r.idWaris")
+##       						#input("namaPenuhWaris" "Nama Penuh" "$!r.namaWaris")
+##        					#input("noTelefonWaris" "No.Telefon (mobile)" "$!r.phoneWaris")
+##						</table>
+##					##end
+##                    </td>
+##                    <td width="50%" align="center" valign="top">   
+##                    </td>
+##                </table>
+##            </td>
+##        </tr>
+##    </table>
+##</fieldset>
+<table cellpadding="5" cellspacing="0" border="0" width="100%">
+	<tr>
+		<td colspan="3" align="right">
+			<input type="button" id="btnBatal" name="btnBatal" value="Batal" onclick="doDivAjaxCall3$formname('batalTawaran','batalTawaran','')" />
+			<input type="button" id="btnPenghuni" name="btnPenghuni" value="Simpan" onclick="if ( validateField() ) doDivAjaxCall3$formname('setPenghuni','setPenghuni','')" />
+			<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block'; doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')" />
+		</td>
+	</tr>
+</table>
+<input type="hidden" id="idDeposit" name="idDeposit" value="$!r.id" /> 

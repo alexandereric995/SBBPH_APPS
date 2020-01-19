@@ -1,0 +1,77 @@
+
+
+	<table width="100%" cellpadding="2" cellspacing="2">
+			
+		#if( $!r )
+			#show("NAMA PEGAWAI PENYELARAS" "$!r.pemohon.userName.toUpperCase()")
+    		#show("NO. KAD PENGENALAN" "$!r.pemohon.noKP.toUpperCase()")
+    		#show("KEMENTERIAN / JABATAN" "$!r.pemohon.agensi.keterangan.toUpperCase() $!r.pemohon.agensi.kementerian.keterangan.toUpperCase()")
+		#else	
+    		#show("NAMA PEGAWAI PENYELARAS" "$!userLogin.userName.toUpperCase()")
+    		#show("NO. KAD PENGENALAN" "$!userLogin.noKP.toUpperCase()")
+    		#show("KEMENTERIAN / JABATAN" "$!userLogin.agensi.keterangan.toUpperCase() $!userLogin.agensi.kementerian.keterangan.toUpperCase()")
+		#end
+		
+		#input_required("bahagianUnit" "BAHAGIAN / UNIT" "$!r.bahagianUnit")
+		
+		<tr>
+        	<td class="label" valign="top">ALAMAT SURAT MENYURAT &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input type="text" id="alamatSurat1" name="alamatSurat1" value="$!r.alamatSurat1" onKeyUp=" $('err_alamatSurat').innerHTML='';" onBlur="this.value=this.value.toUpperCase();">
+        	</td>
+        </tr>
+
+		#input("alamatSurat2" "" "$!r.alamatSurat2")
+		#input("alamatSurat3" "" "$!r.alamatSurat3")
+		
+		<tr>
+			<td>POSKOD &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td>:</td>
+			<td>
+				<input type="text" class="number5digit" style="width:100px" name="poskodSurat" id="poskodSurat" value="$!r.poskodSurat" onKeyUp=" $('err_alamatSurat').innerHTML=''; at(this, event);" />
+			</td>
+		</tr>
+		
+		<tr>
+			<td>NEGERI &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td>:</td>
+			<td>
+				<select class="texts" id="negeriSurat" name="negeriSurat" style="width:300px" onChange="$('err_alamatSurat').innerHTML=''; at(this, event);">
+                <option value="">SILA PILIH</option>
+                #foreach( $n in $listNegeri)
+					<option value="$n.id" #if($n.id == $r.negeriSurat.id) selected #end>$!n.keterangan.toUpperCase()</option>
+				#end
+                </select>
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="2"></td>
+			<td>
+				<div id="err_alamatSurat" style="text-align:left;color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		
+		#if( $!r )
+			#show("GRED JAWATAN" "$util.replaceIfNull($!r.pemohon.gredJawatan.toUpperCase(),'-')")
+    		#show("NO. TELEFON" "$util.replaceIfNull($!r.pemohon.noTelefon,'-')")
+    		#show("NO. TELEFON BIMBIT" "$util.replaceIfNull($!r.pemohon.noTelefonBimbit,'-')")
+			#show("NO. FAKS" "$util.replaceIfNull($!r.pemohon.noFaks.trim(),'-')")
+			#show("EMEL" "$util.replaceIfNull($!r.pemohon.emel,'-')")
+		#else	
+    		#show("GRED JAWATAN" "$util.replaceIfNull($!userLogin.gredJawatan.toUpperCase(),'-')")
+    		#show("NO. TELEFON" "$util.replaceIfNull($!userLogin.noTelefon,'-')")
+    		#show("NO. TELEFON BIMBIT" "$util.replaceIfNull($!userLogin.noTelefonBimbit,'-')")
+			#show("NO. FAKS" "$util.replaceIfNull($!userLogin.noFaks,'-')")
+			#show("EMEL" "$util.replaceIfNull($!userLogin.emel,'-')")
+		#end
+		
+		<tr>
+            <td style="width:220px"></td>
+            <td style="width:10px"></td>
+			<td></td>
+		</tr>
+		
+	</table>
+	

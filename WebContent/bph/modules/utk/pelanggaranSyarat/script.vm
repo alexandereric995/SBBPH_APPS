@@ -1,0 +1,129 @@
+function validate() {
+	var err_count = 0;
+	return err_count == 0;
+}
+
+## START MAKLUMAT NOTIS 
+function deleteMaklumatNotis(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','removeNotis','idNotis=' + id);
+}
+
+function validateNotis(){
+	var err_count = 0;
+	
+	var noSiri = $('noSiri').value;
+	if ( noSiri == "" ) {$('err_noSiri').innerHTML = "No Siri adalah mandatori!"; err_count++;  }
+	
+	var idJenisNotis = $('idJenisNotis').value;
+	if ( idJenisNotis == "" ) {$('err_idJenisNotis').innerHTML = "Jenis Notis adalah mandatori!"; err_count++;  }
+	
+	var tarikhHantar = $('tarikhHantar').value;
+	if ( tarikhHantar == "" ) {$('err_tarikhHantar').innerHTML = "Tarikh Hantar Notis adalah mandatori!"; err_count++;  }
+	
+	return err_count == 0; 
+}
+
+function saveNotis() {
+	if ( validateNotis() ){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxChainCall$formname('editMaklumatNotis','saveNotis','','divTab','getNotis','');
+	}
+}
+## END MAKLUMAT NOTIS
+
+## START MAKLUMAT RAYUAN 
+function deleteMaklumatRayuan(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','removeRayuan','idRayuan=' + id);
+}
+
+function validateRayuan(){
+	var err_count = 0;
+	
+##	var noRayuan = $('noRayuan').value;
+##	if ( noRayuan == "" ) {$('err_noRayuan').innerHTML = "No Rayuan adalah mandatori!"; err_count++;  }
+	
+	var tarikhRayuan = $('tarikhRayuan').value;
+	if ( tarikhRayuan == "" ) {$('err_tarikhRayuan').innerHTML = "Tarikh Rayuan adalah mandatori!"; err_count++;  }
+		
+	var idJenisRayuan = $('idJenisRayuan').value;
+	if ( idJenisRayuan == "" ) {$('err_idJenisRayuan').innerHTML = "Jenis Rayuan adalah mandatori!"; err_count++;  }
+	
+	return err_count == 0; 
+}
+
+function saveRayuan() {
+	if ( validateRayuan() ){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxChainCall$formname('editMaklumatRayuan','saveRayuan','','divTab','getRayuan','');
+	}
+}
+## END MAKLUMAT RAYUAN
+
+## START MAKLUMAT KES PEGUAM
+function validateKesPeguam(){
+	var err_count = 0;
+	
+	var tarikhKeputusan = $('tarikhKeputusan').value;
+	if ( tarikhKeputusan == "" ) {$('err_tarikhKeputusan').innerHTML = "Tarikh Keputusan adalah mandatori!"; err_count++;  }
+	
+	var flagKeputusan = $('flagKeputusan').value;
+	if ( flagKeputusan == "" ) {$('err_flagKeputusan').innerHTML = "Keputusan adalah mandatori!"; err_count++;  }
+	
+	return err_count == 0; 
+}
+
+function saveKesPeguam() {
+
+	if ( validateKesPeguam() ){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxChainCall$formname('divTab','saveKesPeguam','');
+	}
+}
+
+## END MAKLUMAT KES PEGUAM
+
+## START UPDATE STATUS PENGHUNI
+function saveStatusPenghuni() {
+
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxChainCall$formname('divTab','saveStatusPenghuni','');
+}
+## END UPDATE STATUS PENGHUNI
+
+## START MAKLUMAT PERLANJUTAN 
+function deleteMaklumatPerlanjutan(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','removePerlanjutan','idPerlanjutan=' + id);
+}
+
+function validatePerlanjutan(){
+	var err_count = 0;
+	
+	return err_count == 0; 
+}
+
+function savePerlanjutan() {
+	if ( validatePerlanjutan() ){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxChainCall$formname('editMaklumatPerlanjutan','savePerlanjutan','','divTab','getPerlanjutan','');
+	}
+}
+## END MAKLUMAT NOTIS

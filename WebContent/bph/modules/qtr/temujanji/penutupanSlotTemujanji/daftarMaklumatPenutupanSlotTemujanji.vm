@@ -1,0 +1,133 @@
+<script>
+    _jq( document ).ready(function() {
+		_jq('#tarikhMula').Zebra_DatePicker({
+			format: 'd-m-Y',
+			direction: true,
+			disabled_dates: ['* * * 0,6'],
+			onSelect: function() {
+				_jq('#tarikhTamat').val(_jq(this).val());
+				_jq('#err_tarikhMula').html(''); 
+				_jq('#err_tarikhTamat').html(''); 
+			}
+        });
+		
+		_jq('#tarikhTamat').Zebra_DatePicker({
+			format: 'd-m-Y',
+			direction: true,
+			disabled_dates: ['* * * 0,6']
+        });
+    });
+</script>
+
+<fieldset>
+    <legend class="legend">PENUTUPAN SLOT E-TEMUJANJI</legend>
+    <table width="100%" cellpadding="5">
+		<tr>
+			<td width="50%" style="border-right: 1px dotted #CCC">
+				<table cellpadding="5" cellspacing="0" border="0" align="right">
+					<tr>
+                        <td style="width:150px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+					<tr>
+						<td>Tarikh Mula &nbsp;<span style="color:#FF2A00">*</span></td>
+            			<td>:</td>
+                		<td>
+                			<input type="text" id="tarikhMula" name="tarikhMula" value="" />
+                			<div id="err_tarikhMula" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                		</td>
+					</tr>
+					<tr>
+						<td>Tarikh Tamat &nbsp;<span style="color:#FF2A00">*</span></td>
+            			<td>:</td>
+                		<td>
+                			<input type="text" id="tarikhTamat" name="tarikhTamat" value="" />
+                			<div id="err_tarikhTamat" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                		</td>
+					</tr>
+				</table>
+			</td>
+			<td width="50%" id="masaTemujanji">
+				<table cellpadding="5" cellspacing="0" border="0">
+					<tr>
+                        <td style="width:150px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+					<tr>
+						<td>Masa Mula &nbsp;<span style="color:#FF2A00">*</span></td>
+            			<td>:</td>
+                		<td>
+							<select id="masaMula">
+								<option value="09:00 AM" #if ($masaMulaTemujanji == "09:00 AM") selected #end>09:00 AM</option>
+								<option value="09:30 AM" #if ($masaMulaTemujanji == "09:30 AM") selected #end>09:30 AM</option>
+								<option value="10:00 AM" #if ($masaMulaTemujanji == "10:00 AM") selected #end>10:00 AM</option>
+								<option value="10:30 AM" #if ($masaMulaTemujanji == "10:30 AM") selected #end>10:30 AM</option>
+								<option value="11:00 AM" #if ($masaMulaTemujanji == "11:00 AM") selected #end>11:00 AM</option>
+								<option value="11:30 AM" #if ($masaMulaTemujanji == "11:30 AM") selected #end>11:30 AM</option>
+								<option value="12:00 PM" #if ($masaMulaTemujanji == "12:00 PM") selected #end>12:00 PM</option>
+								<option value="12:30 PM" #if ($masaMulaTemujanji == "12:30 PM") selected #end>12:30 PM</option>
+								<option value="02:00 PM" #if ($masaMulaTemujanji == "02:00 PM") selected #end>02:00 PM</option>
+								<option value="02:30 PM" #if ($masaMulaTemujanji == "02:30 PM") selected #end>02:30 PM</option>
+								<option value="03:00 PM" #if ($masaMulaTemujanji == "03:00 PM") selected #end>03:00 PM</option>
+								<option value="03:30 PM" #if ($masaMulaTemujanji == "03:30 PM") selected #end>03:30 PM</option>
+							</select>
+							<div id="err_masaMula" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                		</td>
+					</tr>
+					<tr>
+						<td>Tamat Tamat &nbsp;<span style="color:#FF2A00">*</span></td>
+            			<td>:</td>
+                		<td>
+                			<select id="masaTamat">
+								<option value="09:00 AM" #if ($masaAkhirTemujanji == "09:00 AM") selected #end>09:00 AM</option>
+								<option value="09:30 AM" #if ($masaAkhirTemujanji == "09:30 AM") selected #end>09:30 AM</option>
+								<option value="10:00 AM" #if ($masaAkhirTemujanji == "10:00 AM") selected #end>10:00 AM</option>
+								<option value="10:30 AM" #if ($masaAkhirTemujanji == "10:30 AM") selected #end>10:30 AM</option>
+								<option value="11:00 AM" #if ($masaAkhirTemujanji == "11:00 AM") selected #end>11:00 AM</option>
+								<option value="11:30 AM" #if ($masaAkhirTemujanji == "11:30 AM") selected #end>11:30 AM</option>
+								<option value="12:00 PM" #if ($masaAkhirTemujanji == "12:00 PM") selected #end>12:00 PM</option>
+								<option value="12:30 PM" #if ($masaAkhirTemujanji == "12:30 PM") selected #end>12:30 PM</option>
+								<option value="02:00 PM" #if ($masaAkhirTemujanji == "02:00 PM") selected #end>02:00 PM</option>
+								<option value="02:30 PM" #if ($masaAkhirTemujanji == "02:30 PM") selected #end>02:30 PM</option>
+								<option value="03:00 PM" #if ($masaAkhirTemujanji == "03:00 PM") selected #end>03:00 PM</option>
+								<option value="03:30 PM" #if ($masaAkhirTemujanji == "03:30 PM") selected #end>03:30 PM</option>
+							</select>
+							<div id="err_masaTamat" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                		</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<table cellpadding="5" cellspacing="0" border="0" width="75%">
+					<tr>
+                        <td style="width:150px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+    				<tr>
+    					<td>Keterangan &nbsp;<span style="color:#FF2A00">*</span></td>
+            			<td>:</td>
+                		<td>
+							<input type="text" id="keterangan" name="keterangan" value="" onKeyUp="$('err_keterangan').innerHTML=''; at(this, event)" onBlur="this.value=this.value.toUpperCase();" />
+                			<div id="err_keterangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+                		</td>
+    				</tr>
+				</table>
+			</td>
+		</tr>
+    </table>
+</fieldset>
+
+<table cellpadding="5" cellspacing="0" border="0" width="100%">
+	<tr>
+		<td align="right">
+			<input type="button" id="btnSimpan" value="Simpan" onclick="javascript:doSaveRekod()" />
+			<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block'; doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')" />
+		</td>
+	</tr>
+</table>
+<div id="divResult"></div>

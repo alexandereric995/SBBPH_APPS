@@ -1,0 +1,170 @@
+<fieldset>
+<legend class="legend">Laporan Penguatkuasaan</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_required("tajuk" "Tajuk" "$!penguatkuasaan.tajuk")
+        #input("noRujukan" "No. Rujukan" "$!penguatkuasaan.noRujukan")
+        #textarea("keterangan" "Keterangan" "$!penguatkuasaan.keterangan")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #if ($penguatkuasaan.tarikhAduan) 
+        #set ($dateAduan="$!util.getDateTime($penguatkuasaan.tarikhAduan,'dd-MM-yyyy')") 
+        #else #set ($dateAduan="") #end
+        #date_input("tarikhAduan" "Tarikh Aduan" "$!dateAduan") 
+        
+        #if ($penguatkuasaan.tarikhSiasatan) 
+        #set ($dateSiasatan="$!util.getDateTime($penguatkuasaan.tarikhSiasatan,'dd-MM-yyyy')") 
+        #else #set ($dateSiasatan="") #end
+        #date_input("tarikhSiasatan" "Tarikh Siasatan" "$!dateSiasatan") 
+        
+        #if ($penguatkuasaan.tarikhPenguatkuasaan) 
+        #set ($datePenguatkuasaan="$!util.getDateTime($penguatkuasaan.tarikhPenguatkuasaan,'dd-MM-yyyy')") 
+        #else  #set ($datePenguatkuasaan="") #end
+        #date_input("tarikhPenguatkuasaan" "Tarikh Penguatkuasaan" "$!datePenguatkuasaan")
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="2" style="padding-top:0.3cm" ><hr/>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #if ($penguatkuasaan.tarikhLaporan) 
+        #set ($dateLaporan="$!util.getDateTime($penguatkuasaan.tarikhLaporan,'dd-MM-yyyy')") 
+        #else #set ($dateLaporan="") #end
+        #date_input("tarikhLaporan" "Tarikh Laporan" "$!dateLaporan")
+        #textarea("tujuanLaporan" "Tujuan" "$!penguatkuasaan.tujuanLaporan")
+        #textarea("lokasiTanah" "Lokasi Tanah" "$!penguatkuasaan.lokasiTanah")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input("jalanHubungan" "Jalan Hubungan" "$!penguatkuasaan.jalanHubungan")
+        #input("kawasanBerhampiran" "Kawasan Berhampiran" "$!penguatkuasaan.kawasanBerhampiran")
+        #input("jarakDariBandar" "Anggaran Jarak Dari Bandar Terdekat" "$!penguatkuasaan.jarakDariBandar")
+        #textarea("keadaanMukaBumi" "Keadaan Mukabumi" "$!penguatkuasaan.keadaanMukaBumi")
+        #textarea("butiranAtasTanah" "Butiran Atas Tanah" "$!penguatkuasaan.butiranAtasTanah")
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="2" style="padding-top:0.3cm" ><hr/>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #textarea("kemudahanAsas" "Kemudahan Asas" "$!penguatkuasaan.kemudahanAsas")
+        #textarea("utara" "Kemudahan Tanah Di Bahagian Utara" "$!penguatkuasaan.utara")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #textarea("timur" "Kemudahan Tanah Di Bahagian Timur" "$!penguatkuasaan.timur")
+        #textarea("selatan" "Kemudahan Tanah Di Bahagian Selatan" "$!penguatkuasaan.selatan")
+        #textarea("barat" "Kemudahan Tanah Di Bahagian Barat" "$!penguatkuasaan.barat")
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="2" style="padding-top:0.3cm" ><hr/>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #textarea("laporanTerkiniAtasTanah" "Laporan Atas Tanah Terkini" "$!penguatkuasaan.laporanTerkiniAtasTanah")
+        #textarea("pengambilanTanah" "Maklumat Berkaitan Pengambilan Tanah" "$!penguatkuasaan.pengambilanTanah")
+        <td class="label" valign="top">Pelan dan Gambar Tapak Disertakan</td>
+          <td valign="top">:</td>
+          <td valign="top"><select style="width:50%" class="texts" id="pelanGambar" name="pelanGambar" style="width:100%" onChange"$('err_pelanGambar').innerHTML='';">
+            <option value="">SILA PILIH</option>
+            <option value="Y" #if ( $!penguatkuasaan.pelanGambar == "Y" ) selected #end>ADA</option>
+            <option value="T" #if ( $!penguatkuasaan.pelanGambar  == "T" ) selected #end>TIADA</option>
+            </select>
+            <div id="err_pelanGambar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #textarea("ulasan" "Ulasan JKPTG" "$!penguatkuasaan.ulasan")
+        #textarea("syor" "Syor" "$!penguatkuasaan.syor")
+      </table></td>
+  </tr>
+  #if ($!command != 'addPenguatkuasaan')
+  <tr>
+    <td colspan="2" style="padding-top:0.3cm" ><hr/>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_readonly_all_label("diSediakanOleh" "Disediakan Oleh" "<b>$!penguatkuasaan.laporanOleh.userName</b>")
+        #if ($!penguatkuasaan.tarikhMasuk) 
+        #set ($dateMasuk ="$!util.getDateTime($!penguatkuasaan.tarikhMasuk,'dd-MM-yyyy hh:mm a')") 
+        #else #set ($dateMasuk="") #end
+        #input_normal("tarikhMasuk" "Tarikh Masuk" "<b>$!dateMasuk</b>")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_readonly_all_label("diKemaskiniOleh" "Dikemaskini Oleh" "<b>$!penguatkuasaan.kemaskiniOleh.userName</b>")
+        #if ($!penguatkuasaan.tarikhKemaskini) 
+        #set ($dateKemaskini ="$!util.getDateTime($!penguatkuasaan.tarikhKemaskini,'dd-MM-yyyy hh:mm a')") 
+        #else #set ($dateKemaskini="") #end
+        #input_normal("tarikhKemaskini" "Tarikh Kemaskini" "<b>$!dateKemaskini</b>")
+      </table></td>
+  </tr>
+  #end
+</table>
+</fieldset>
+<table width="100%">
+  <tr>
+    <td align="right"> #if ($!command != 'addPenguatkuasaan')
+      <input type="button" value="Cetak"  id="cmdCetak" onClick="javascript:doCetakLaporanPenguatkuasaan();"/>
+      #end
+      #if ($allowUpdate)
+      <input type="button" id="savePenguatkuasaan" name="savePenguatkuasaan" value="Simpan" onClick="javascript:doSaveMaklumatPenguatkuasaan();">
+      #end
+      <input type="button" id="batalPenguatkuasaan" name="batalPenguatkuasaan" value="Kembali" onClick="javascript:doBatalMaklumatPenguatkuasaan();">
+    </td>
+  </tr>
+</table>

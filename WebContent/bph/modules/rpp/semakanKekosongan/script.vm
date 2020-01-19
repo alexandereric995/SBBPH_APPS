@@ -1,0 +1,111 @@
+
+_jq( document ).ready(function() {
+	$('div_main').style.display='none';$('div_main_entry').style.display='block';
+	doDivAjaxCall$formname('div_main_entry','add_new_record','');
+});
+
+
+function validateViewListJenisUnit() {
+
+	var err_count = 0;
+	
+	var tarikhMasukRpp = $('tarikhMasukRpp').value;
+	var tarikhKeluarRpp = $('tarikhKeluarRpp').value;
+	
+	var dt1   = parseInt(tarikhMasukRpp.substring(0,2),10);
+   	var mon1  = parseInt(tarikhMasukRpp.substring(3,5),10)-1;
+   	var yr1   = parseInt(tarikhMasukRpp.substring(6,10),10);
+   	var date1 = new Date(yr1, mon1, dt1);
+	
+	var dt2   = parseInt(tarikhKeluarRpp.substring(0,2),10);
+   	var mon2  = parseInt(tarikhKeluarRpp.substring(3,5),10)-1;
+   	var yr2   = parseInt(tarikhKeluarRpp.substring(6,10),10);
+   	var date2 = new Date(yr2, mon2, dt2);
+	
+	
+	if ( tarikhMasukRpp == "" ) {$('err_tarikhMasukRpp').innerHTML = "Tarikh Daftar Masuk adalah mandatori!"; err_count++;  }
+
+	if ( tarikhKeluarRpp == "" ) {$('err_tarikhKeluarRpp').innerHTML = "Tarikh Daftar Keluar adalah mandatori!"; err_count++;  }
+	
+	if(date2 <= date1){
+		$('err_tarikhKeluarRpp').innerHTML = "Tarikh Daftar Keluar tidak kurang dan tidak sama dengan Tarikh Daftar Masuk" ; err_count++;  
+	}
+	
+	if (err_count == 0) {
+	##	if ( !window.confirm("Anda pasti?") ){
+	##		return;
+	##	}
+	}
+	return err_count == 0;
+}
+
+
+function doViewListJenisUnit(idrpp) {
+	if (validateViewListJenisUnit()) {
+		doDivAjaxCall3$formname('divResult','viewListJenisUnit','idListPeranginan='+idrpp);
+	}
+}
+
+function doFilterByGredJawatan() {
+	doDivAjaxCall3$formname('div_main_entry','filterByGredJawatan','');
+}
+
+function doChangeTarikhMula() {
+	doDivAjaxCall3$formname('div_main_entry','doChangeTarikhMula','');
+}
+
+function validateFilterByDate() {
+
+	var err_count = 0;
+	
+	var tarikhMasukRpp = $('tarikhMasukRpp').value;
+	var tarikhKeluarRpp = $('tarikhKeluarRpp').value;
+	
+	var dt1   = parseInt(tarikhMasukRpp.substring(0,2),10);
+   	var mon1  = parseInt(tarikhMasukRpp.substring(3,5),10)-1;
+   	var yr1   = parseInt(tarikhMasukRpp.substring(6,10),10);
+   	var date1 = new Date(yr1, mon1, dt1);
+	
+	var dt2   = parseInt(tarikhKeluarRpp.substring(0,2),10);
+   	var mon2  = parseInt(tarikhKeluarRpp.substring(3,5),10)-1;
+   	var yr2   = parseInt(tarikhKeluarRpp.substring(6,10),10);
+   	var date2 = new Date(yr2, mon2, dt2);
+	
+	
+	if ( tarikhMasukRpp == "" ) {$('err_tarikhMasukRpp').innerHTML = "Tarikh Daftar Masuk adalah mandatori!"; err_count++;  }
+
+	if ( tarikhKeluarRpp == "" ) {$('err_tarikhKeluarRpp').innerHTML = "Tarikh Daftar Keluar adalah mandatori!"; err_count++;  }
+	
+	if(date2 <= date1){
+		$('err_tarikhKeluarRpp').innerHTML = "Tarikh Daftar Keluar mestilah tidak kurang dan tidak sama dengan Tarikh Daftar Masuk" ; err_count++;  
+	}
+	
+	if (err_count == 0) { }
+	
+	return err_count == 0;
+}
+
+
+function doFilterByDate(){
+	if (validateFilterByDate()) {
+		doDivAjaxCall3$formname('div_main_entry','filterByGredJawatan','');
+		$('err_tarikhMasukRpp').innerHTML='';
+		$('err_tarikhKeluarRpp').innerHTML='';
+	}
+}
+
+function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+     document.body.innerHTML = printContents;
+     window.print();
+     document.body.innerHTML = originalContents;
+	 ##jQuery('#popupDetail').fadeOut();
+	 $('div_main_entry').style.display='none';
+	 $('div_main').style.display='block';
+	 $('div_main').style.display='none';$('div_main_entry').style.display='block';
+	 doDivAjaxCall$formname('div_main_entry','add_new_record','');
+}
+
+
+

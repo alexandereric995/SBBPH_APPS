@@ -1,0 +1,30 @@
+<fieldset>
+<legend class="legend">Maklumat Ruang</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("" "ID Ruang" "<b>$!r.idRuang</b>")
+        #input_normal("" "Nama Ruang" "<b>$!r.namaRuang</b>")
+        #if ($!r.jenisKegunaanRuang.id != '10')
+        	#input_normal("" "Jenis Perkhidmatan" "<b>$!r.jenisKegunaanRuang.keterangan</b>")
+        #else
+        	#input_normal("" "Jenis Perkhidmatan" "<b>$!r.jenisKegunaanRuang.keterangan ( $!r.jenisKegunaanLain )</b>")
+        #end
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("" "Lokasi" "<b>$!r.lokasi</b>")
+        #input_normal("" "Alamat" "<b>$!r.alamat1 $!r.alamat2 $!r.alamat3 $!r.poskod $!r.bandar.keterangan $!r.bandar.negeri.keterangan</b>")
+      </table></td>
+  </tr>
+</table>
+</fieldset>

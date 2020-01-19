@@ -1,0 +1,123 @@
+<fieldset>
+<legend class="legend">TUKAR KATA LALUAN</legend>
+<form name="freg" method="post">
+  <table width="100%" border="0" cellpadding="2" cellspacing="0">
+    <tr>
+      <td> #if ( $updateUserSuccess && $operation == "update" )
+        <table width="100%" border="0">
+          <tr>
+            <td><font color="blue" size="+1"> <b> Kemaskini Kata Laluan Berjaya : <u>$user_name<u> </b> </font> </td>
+          </tr>
+        </table>
+        #elseif ( $operation == "update" )
+        <table width="100%" border="0">
+          <tr>
+            <td><font color="red" size="+1"> <b> Kemaskini Kata Laluan gagal!! </b> </font> </td>
+          </tr>
+        </table>
+        #end <br>
+        <table border="0" cellpadding="2" cellspacing="2">
+          <tr>
+            <td>ID Pengguna</td>
+            <td>:</td>
+            <td><strong>$!user_login</strong>
+              <input type="hidden" name="user_login" style="border: none;" size="20" value="$!user_login" readonly>
+              <input type="hidden" name="user_name" style="border: none;" size="50" value="$!user_name" readonly>
+              <input type="hidden" name="user_login_alt" style="border: none;" size="50" value="$!user_login_alt" readonly>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Nama</td>
+            <td>:</td>
+            <td><strong>$!user_name</strong></td>
+            <td></td>
+          </tr>          
+          <tr>
+            <td>Kata Laluan</td>
+            <td>:</td>
+            <td valign="middle"><input type="password" name="user_password" size="30" value=""></td>
+            <td><font color="#0000FF">&#10102;</font></td>
+          </tr>
+          <tr>
+            <td>Sahkan Kata Laluan</td>
+            <td>:</td>
+            <td><input type="password" name="user_password2" size="30" value=""></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Hint Kata Laluan</td>
+            <td>:</td>
+            <td><input type="text" name="pwd_hint" size="40" value=""></td>            
+            <td><font color="#0000FF">&#10103;</font></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+            <td><input type="button" value="Kemaskini" onclick="submitRegister()"></td>
+            <td></td>
+          </tr>
+        </table>
+        <br />
+        <table cellpadding="5" cellspacing="0" border="0">
+         <tr>
+            <td valign="middle" align="center" style="color: #0000FF">&#10102;</td>
+            <td style="color: #0000FF">Masukkan kata laluan baru anda untuk menukar kata laluan lama</td>
+          </tr>
+          <tr>
+            <td valign="middle" align="center" style="color: #0000FF">&#10103;</td>            
+            <td style="color: #0000FF">Masukkan hint kata laluan. Pastikan hint yang dimasukkan BUKAN kata laluan anda!!</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <input type="hidden" name="user_role" value="$user_role">
+  <input type="hidden" name="command">
+</form>
+</fieldset>
+<br />
+<br />
+
+<script>
+function submitRegister() {
+    
+    if ( document.freg.user_login.value == "" ) { 
+    	document.freg.user_login.focus(); 
+    	return; 
+    }
+    if ( document.freg.user_password.value == "" ) { 
+    	alert("Kata Laluan adalah mandatori!");
+    	document.freg.user_password.focus(); 
+    	return; 
+    }
+    if ( document.freg.user_password2.value == "" ) { 
+    	alert("Sahkan Kata Laluan adalah mandatori!");
+    	document.freg.user_password2.focus(); 
+    	return; 
+    }    
+    if ( document.freg.user_password.value != document.freg.user_password2.value ) {
+        alert("Kata Laluan tidak sama!");
+        document.freg.user_password2.focus();
+        return;
+    }
+    if ( document.freg.pwd_hint.value == "" ) { 
+    	alert("Hint Kata Laluan adalah mandatori!");
+    	document.freg.pwd_hint.focus(); 
+    	return; 
+    }
+	
+	
+	if ( !window.confirm("Adakah Anda Pasti ?") ){
+		return;
+	}
+    document.freg.command.value = "update";
+    document.freg.action = "";
+    document.freg.submit();
+}   
+function resetFields() {
+    document.freg.user_name.value = "";
+    document.freg.user_password.value = "";  
+    document.freg.user_name.focus();
+}
+
+</script>

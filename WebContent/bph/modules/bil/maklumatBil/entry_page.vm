@@ -1,0 +1,119 @@
+<fieldset>
+<legend class="legend">Maklumat Bil</legend>
+<table width="100%">
+	<tr>
+		<td style="width:150px"></td>
+		<td style="width:10px"></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td class="label" valign="top">Jenis Bil &nbsp;<span style="color:#FF2A00">*</span></td>
+		<td valign="top">:</td>
+		<td><div id="selectKodBil"> #parse("$path/selectKodBil.vm") </div>
+		<div id="err_idKodBil" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+	</tr>
+  
+		#input_required("penerimaBayaran" "Bayaran Kepada" "$!r.penerimaBayaran")
+		<td></td>
+      	<td></td>
+      	<td><div id="err_penerimaBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+				
+		#input_required("noAkaun" "No Akaun" "$!r.noAkaun")
+		<td></td>
+      	<td></td>
+      	<td><div id="err_noAkaun" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+	
+		#input_required("alamat1" "Alamat" "$!r.alamat1")
+	    #input("alamat2" "" "$!r.alamat2")
+	    #input("alamat3" "" "$!r.alamat3")
+    	<td></td>
+      	<td></td>
+      	<td><div id="err_alamat" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+      	
+      	#postcode_required("poskod" "Poskod" "$!r.poskod")
+      	<td></td>
+      	<td></td>
+      	<td><div id="err_poskod" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+      	
+    <tr>
+      	<td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+      	<td valign="top">:</td>
+      	<td>#parse("$path/selectNegeri.vm")
+        <div id="err_negeri" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+    </tr>
+	<tr>
+	  	<td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+	  	<td valign="top">:</td>
+	  	<td><div id="selectBandar">#parse("$path/selectBandar.vm")
+		<div id="err_bandar" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+	</tr>
+	
+	#textarea("catatan" "Catatan" "$!r.catatan")
+	
+	<tr>
+	  	<td colspan="3">
+  			<table>
+  				<tr>
+					<td style="width:150px"></td>
+					<td style="width:10px"></td>
+					<td></td>
+				</tr>
+				#if(!$!seksyen)
+	  				<tr>
+					  	<td class="label">Unit &nbsp;<span style="color:#FF2A00">*</span></td>
+					  	<td valign="top">:</td>
+					  	<td>#parse("$path/selectSeksyen.vm")
+						<div id="err_idSeksyen" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+					</tr>
+					<tr>
+					  	<td colspan="3">
+				  			<div id="divSeksyen">
+								#if ($!command != 'add_new_record' && $!r.seksyen.id == '10' )								
+					  				#parse("$path/fieldPeranginan.vm")
+								#end
+							</div> 
+						</td>
+					</tr>
+				#else
+					<tr>
+					  	<td class="label">Unit &nbsp;<span style="color:#FF2A00">*</span></td>
+					  	<td valign="top">:</td>
+					  	<td><b>$seksyen.keterangan</b>
+					  	<input type="hidden" name="idSeksyen" id="idSeksyen" value="$seksyen.id"></td>
+					</tr>
+					<tr>
+					  	<td colspan="3">
+				  			<div id="divSeksyen">
+								#if ($!seksyen.id == '10' )								
+					  				#parse("$path/fieldPeranginan.vm")
+								#end
+							</div> 
+						</td>
+					</tr>
+				#end
+								
+				#input("namaPegawai" "Nama Pegawai" "$!r.namaPegawai")
+					
+				 <tr>
+					<td class="label" valign="top">Status Bil &nbsp;<span style="color:#FF2A00">*</span></td>
+					<td valign="top">:</td>
+					<td><div id="selectStatus">#parse("$path/selectStatus.vm")
+					<div id="err_idStatus" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+				</tr>
+		  	</table>	
+	  	</td>
+	</tr>
+
+	
+</table>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+  
+</script>

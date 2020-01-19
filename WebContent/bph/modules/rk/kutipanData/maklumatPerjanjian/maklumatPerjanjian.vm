@@ -1,0 +1,133 @@
+#set ($labelKadarSewa = '')
+#set ($labelTempoh = '')
+#if ($!perjanjian.idJenisSewa == 'H')
+   	#set ($labelKadarSewa = ' / HARI')
+   	#set ($labelTempoh = ' HARI')
+#elseif ($!perjanjian.idJenisSewa == 'B')
+   	#set ($labelKadarSewa = ' / BULAN')
+   	#set ($labelTempoh = ' BULAN')
+#elseif ($!perjanjian.idJenisSewa == 'T')
+   	#set ($labelKadarSewa = ' / TAHUN')
+   	#set ($labelTempoh = ' TAHUN')
+#end	    	
+        
+<fieldset>
+<legend class="legend">MAKLUMAT PERJANJIAN</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        #input("noRujukanSST" "No. Rujukan SST" "$!perjanjian.noRujukanSST") 	   	
+        #if ($!perjanjian.tarikhMulaSST)
+	   		#set ($dateMulaSST = "$!util.getDateTime($!perjanjian.tarikhMulaSST,'dd-MM-yyyy')")
+	   	#else 
+	   		#set ($dateMulaSST = "") 
+	   	#end
+	   	#date_input("tarikhMulaSST" "Tarikh Mula SST" "$dateMulaSST")
+	   	#if ($!perjanjian.tarikhAkuanTerimaSST)
+	   		#set ($dateAkuanTerimaSST = "$!util.getDateTime($!perjanjian.tarikhAkuanTerimaSST,'dd-MM-yyyy')")
+	   	#else 
+	   		#set ($dateAkuanTerimaSST = "") 
+	   	#end
+	   	#date_input("tarikhAkuanTerimaSST" "Tarikh Akuan Terima SST" "$dateAkuanTerimaSST")        
+	   	#textarea("catatan" "Catatan" "$!perjanjian.catatan")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        #input_required("noRujukan" "No. Siri Perjanjian" "$!perjanjian.noRujukan") 	   	
+        <tr>
+          <td class="label" valign="top">Jenis Sewaan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatPerjanjian/selectJenisSewaan.vm")
+            <div id="err_idJenisSewa" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #if ($!perjanjian.tarikhMula)
+	   		#set ($dateMula = "$!util.getDateTime($!perjanjian.tarikhMula,'dd-MM-yyyy')")
+	   	#else 
+	   		#set ($dateMula = "") 
+	   	#end
+	   	<tr>
+			<td class="label" valign="top">Tarikh Mula &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top">
+				<div>
+		    		<input type="text" id="tarikhMula" name="tarikhMula" value="$dateMula" onChange="doDivAjaxCall3$formname('divPerjanjian','getMaklumatPerjanjian','');">
+		    		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+					<script>
+		            	_jq("#tarikhMula").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+							readonly_element: false,
+							onSelect: function(view, elements) {
+								doDivAjaxCall3$formname('divPerjanjian','getMaklumatPerjanjian','');
+								$('err_tarikhMula').innerHTML='';							
+							}
+		            	});
+						_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+		    		</script>
+		    		<div id="err_tarikhMula" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+				</div>
+			</td>
+		</tr>
+	   	<tr>
+			<td class="label" valign="top">Tempoh &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top"><input name="tempoh" class="number" id="tempoh" onKeyUp=" $('err_tempoh').innerHTML=''; at(this, event);" onChange="doDivAjaxCall3$formname('divPerjanjian','getMaklumatPerjanjian','');" value="$!perjanjian.tempoh" maxlength="3" size="3">
+			$labelTempoh
+			<div id="err_tempoh" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr> 
+	   	#if ($!perjanjian.tarikhTamat)
+	   		#set ($dateTamat = "$!util.getDateTime($!perjanjian.tarikhTamat,'dd-MM-yyyy')")
+	   	#else 
+	   		#set ($dateTamat = "") 
+	   	#end
+	   	#date_input_required("tarikhTamat" "Tarikh Tamat" "$dateTamat")
+        <tr>
+			<td class="label" valign="top">Kadar Sewa (RM) &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top"><input name="kadarSewa" class="currency" id="kadarSewa" onKeyUp=" $('err_kadarSewa').innerHTML=''; at(this, event);" value="$!util.formatDecimal($!perjanjian.kadarSewa)" maxlength="11" size="11">
+			$labelKadarSewa
+			<div id="err_kadarSewa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr> 
+	   	#currency_required("deposit" "Deposit (RM)" "$!util.formatDecimal($!perjanjian.deposit)")	   	
+        <tr>
+          <td class="label" valign="top">Caj IWK Pukal ? &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatPerjanjian/selectCajIWKPukal.vm")
+            <div id="err_flagCajIWK" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #if ($!perjanjian.flagCajIWK == 'Y')
+	   		#currency_required("kadarBayaranIWK" "Kadar Bayaran IWK (RM)" "$!util.formatDecimal($!perjanjian.kadarBayaranIWK)")	
+	   	#end
+        
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<script>  
+	_jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+	});
+  
+	_jq('#kadarSewa').on('blur', function(){
+		var kadarSewa = $('kadarSewa').value;
+		var parseKadarSewa = parseFloat(kadarSewa.replace(/,/g, ''));
+		var deposit = parseKadarSewa * 3;
+		$('deposit').value = deposit;
+		$('err_deposit').innerHTML='';
+	});
+</script>

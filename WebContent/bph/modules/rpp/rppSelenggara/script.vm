@@ -1,0 +1,74 @@
+function validate() {
+	var err_count = 0;
+	return err_count == 0;
+}
+
+function doListingUnit() {
+	doDivAjaxCall3$formname('divListRppDanUnit','listingUnit','')
+}
+
+function doKosongkan() {
+	$('perkara').value = "";
+	$('catatan').value = "";
+	$('tarikhMula').value = "";
+	$('tarikhTamat').value = "";
+}
+
+function validatePilihan() {
+
+	var err_count = 0;
+	
+	var perkara = $('perkara').value;
+	if ( perkara == "" ) {$('err_perkara').innerHTML = "Perkara adalah mandatori!"; err_count++;  }
+	
+	var tarikhMula = $('tarikhMula').value;
+	if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "Tarikh Mula adalah mandatori!"; err_count++;  }
+	
+	var tarikhTamat = $('tarikhTamat').value;
+	if ( tarikhTamat == "" ) {$('err_tarikhTamat').innerHTML = "Tarikh Tamat adalah mandatori!"; err_count++;  }
+	
+	var flagJenisSelenggara1 = document.${formname}.flagJenisSelenggara[0].checked;
+	var flagJenisSelenggara2 = document.${formname}.flagJenisSelenggara[1].checked;
+	if ( flagJenisSelenggara1 == false && flagJenisSelenggara2 == false ) {$('err_flagJenisSelenggara').innerHTML = "Pilihan Kategori Selenggara adalah mandatori!"; err_count++;  }
+	
+	
+	##Validation after select radio button
+	##flagJenisSelenggara1 = LOKASI
+	##flagJenisSelenggara2 = UNIT
+	if ( flagJenisSelenggara1 != false || flagJenisSelenggara2 != false ) {
+	
+		if(flagJenisSelenggara1 == true){
+			var peranginan = "IGNORE";
+		}else{
+			var peranginan = $('peranginan').value;
+			if ( peranginan == "" ) {$('err_peranginan').innerHTML = "Lokasi Peranginan adalah mandatori!"; err_count++;  }
+		}
+		
+		var g = 0;
+    	var inputs = document.getElementsByName('cbPilihan');
+    	for(var x = 0; x < inputs.length; x++) {
+    		if(inputs[x].checked) {
+    			g += 1;
+    		}else{
+    			g += 0;
+    		}
+        }
+		
+		if ( peranginan != "" && g == 0 ) {$('err_cbPilihan').innerHTML = "Pilihan Unit/Lokasi adalah mandatori!"; err_count++;  }
+		
+	}##
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doSimpan() {
+	if (validatePilihan()) {
+		doDivAjaxCall3$formname('div_main_entry','simpanPilihan','')
+	}
+}
+

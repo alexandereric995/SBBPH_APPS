@@ -1,0 +1,97 @@
+
+<style>
+	.uppercasefont{
+		text-transform: uppercase !important;
+	}
+</style>	
+
+	            <table width="100%" cellpadding="1" cellspacing="1">
+		
+            		<tr>
+            			<td class="row_header" width="5%">Bil.</td>
+            			<td style="text-align:left !important" class="row_header" width="20%">Mod Bayaran</td>
+            			<td style="text-align:left !important" class="row_header" width="19%">Bank</td>
+            			<td style="text-align:left !important" class="row_header" width="15%">Tempat</td>
+            			<td style="text-align:left !important" class="row_header" width="10%">Tarikh</td>
+            			<td style="text-align:left !important" class="row_header" width="13%">No. Dokumen</td>
+            			<td style="text-align:left !important" class="row_header" width="13%">Amaun (RM)</td>
+						<td class="row_header" width="5%">&nbsp;</td>
+            		</tr>
+
+						#if ( $listPembayaran.size() > 0 )
+                            #set ( $count = 0 )
+                            ##set ( $jumlahAmaun = 0.00 )
+                            #foreach( $d in $listPembayaran )
+                                #set ( $count = $count + 1)
+                                #if ( $count % 2 == 0 ) 
+                                    #set ( $rowcolor = "#D0CFCE" ) 
+                                    #else 
+                                        #set ( $rowcolor = "#F0F0F0" ) 
+                                #end
+                               ##set ( $jumlahAmaun = $jumlahAmaun + $!d.rppPermohonan.jumlahAmaun )
+                                <tr bgcolor="$rowcolor">
+                                    <td align="center">$count</td>
+                                    <td>$!d.modBayaran</td>
+                                    <td>$!d.bank</td>
+                                    <td>$!d.tempat</td>##$!util.getDateTime($!d.rppPermohonan.tarikhMasukRpp,'dd-MM-yyyy')</td>
+                                    <td>$!d.tarikhBayaran</td>
+                                    <td>$!d.noDokumen</td>
+                                    <td align="right">$!d.amaunBayaran</td>
+                                    <td align="center"></td>
+                                </tr>
+                            #end
+                        #end
+					
+						#if ( $listBayaran.size() > 0 )
+						<tr>
+            				<td>&nbsp;</td>
+							<td>
+								$!selectModBayaran
+							</td>
+							<td>
+								<select class="texts" id="bank" name="bank" style="width:100%">
+                                    <option value="">SILA PILIH</option>
+                                    #foreach( $n in $selectBank)
+                                    	<option value="$n.id">$n.keterangan.toUpperCase()</option>
+                                    #end
+                                </select>
+							</td>
+							<td><input type="text" name="tempat" id="tempat" value="" class="uppercasefont" style="" onBlur="this.value=this.value.toUpperCase();" /></td>
+							<td>
+								$!util.getDateTime($!sysdate,'dd-MM-yyyy')
+								<input type="hidden" name="tarikhBayaran" id="tarikhBayaran" value="$!util.getDateTime($!sysdate,'dd-MM-yyyy')" />
+							</td>
+							<td><input type="text" name="noDokumen" id="noDokumen" value="" class="uppercasefont" style="" onBlur="this.value=this.value.toUpperCase();" /></td>
+							<td><input class="currency" type="text" name="amaunBayaran" id="amaunBayaran" value="" style="text-align:right;" onKeyUp="$('err_amaunBayaran').innerHTML=''; at(this, event);" /></td>
+							<td><input style="font-weight:bold" type="button" name="btnTambahMaklumatBayaran" id="btnTambahMaklumatBayaran" value="+"  onclick="doTambahBayaran('$!r.id'); $('err_selesaiBayaran').innerHTML='' " /></td>
+            			</tr>
+						
+						<tr>
+							<td colspan="8" style="padding-top:0.5cm">
+								<div id="err_modBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+								<div id="err_tarikhBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+								<div id="err_amaunBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+								<div id="err_selesaiBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+							</td>
+						</tr>
+						
+						#else
+						
+						<tr bgcolor="#F0F0F0">
+            				<td colspan="8">Tiada Rekod</td>
+            			</tr>
+						#end
+						
+				</table>
+					
+				
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>				
+				
+				

@@ -1,0 +1,965 @@
+#parse("bph/dashboard/style.vm")
+#parse("$path/script.vm")
+<table width="100%" border="0" cellspacing="0" cellpadding="5">
+  <tr>
+    <td width="60%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img src="../bph/dashboard/picture/myprofile.png"  width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Profil</b></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoKataLaluan()" class="help" title="Tukar Kata Laluan">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Tukar Kata Laluan</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoProfile()" class="help" title="Profil Pengguna">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Profil Pengguna</font></li>
+                              </a></td>
+                          </tr>
+                          <tr>
+                            <td><a href="javascript:gotoKalendar()" class="help" title="Kalendar Aktiviti">
+                              <li><font color="blue" style="font-size:110%">&nbsp;Kalendar Aktiviti</font></li>
+                              </a></td>
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+                <td width="50%" valign="top">&nbsp;</td>
+              </tr>
+            </table></td>
+        </tr>
+        ## LAYER 2 - 1
+        <tr>
+          <td>
+          	<table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          #if (($!portal_role == '(HASIL) Juruwang')||($!portal_role == '(HASIL) Penyelia'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Terimaan Hasil Kaunter</b></td>
+                          </tr>
+					       <tr>
+                            <td>
+                             <a href="javascript:gotoKaunterController()" class="help" title="Terimaan Hasil">
+							  <li><font color="blue" style="font-size:110%">&nbsp;Terimaan Hasil</font>
+							  #if ($bilDaftarKontrak)
+                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							  #end
+							  </li>
+							 </a>
+                            </td>
+					       </tr>
+					       #end
+					       #if (($!portal_role == '(DEPOSIT) Penyedia')||($!portal_role == '(DEPOSIT) Penyemak')||($!portal_role == '(DEPOSIT) Pelulus'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Semakan Dan Pelarasan</b></td>
+                          </tr>
+					       <tr>
+                            <td>				 
+                             <a href="javascript:gotoPelarasanDepositKuarters()" class="help" title="Pelarasan Deposit Kuarters">
+							  <li><font color="blue" style="font-size:110%">&nbsp;Pelarasan Deposit Kuarters</font>
+							  #if ($bilDaftarKontrak)
+                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							  #end
+							  </li>
+							 </a>
+                            </td>
+					       </tr>
+					       <tr>
+                            <td>				 
+                             <a href="javascript:gotoPelarasanDepositRK()" class="help" title="Pelarasan Deposit Ruang Komersil">
+							  <li><font color="blue" style="font-size:110%">&nbsp;Pelarasan Deposit Ruang Komersil</font>
+							  #if ($bilDaftarKontrak)
+                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							  #end
+							  </li>
+							 </a>
+                            </td>
+					       </tr>
+					       <tr>
+                            <td>				 
+                             <a href="javascript:gotoPelarasanDepositIR()" class="help" title="Pelarasan Deposit Rumah Peranginan">
+							  <li><font color="blue" style="font-size:110%">&nbsp;Pelarasan Deposit Rumah Peranginan</font>
+							  #if ($bilDaftarKontrak)
+                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							  #end
+							  </li>
+							 </a>
+                            </td>
+					       </tr>
+					       #end
+					       #if ($!portal_role == '(SUBSIDIARI) Penyedia')
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Semakan Tunggakan Dan Lebihan</b></td>
+                          </tr>
+					       <tr>
+                            <td>				 
+                             <a href="javascript:gotoAgihanSubsidiariKuarters()" class="help" title="Kuarters">
+							  <li><font color="blue" style="font-size:110%">&nbsp;Kuarters</font>
+							  #if ($bilDaftarKontrak)
+                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							  #end
+							  </li>
+							 </a>
+                            </td>
+					       </tr>
+					       <tr>
+                            <td>				 
+                             <a href="javascript:gotoAgihanSubsidiariIR()" class="help" title="Rumah Peranginan">
+							  <li><font color="blue" style="font-size:110%">&nbsp;Rumah Peranginan</font>
+							  #if ($bilDaftarKontrak)
+                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							  #end
+							  </li>
+							 </a>
+                            </td>
+					       </tr>
+					       #end
+					       #if (($!portal_role == '(SUBSIDIARI) Penyemak')||($!portal_role == '(SUBSIDIARI) Pelulus'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Pengesahan Dan Agihan</b></td>
+                          </tr>
+					       <tr>
+                            <td>				 
+                             <a href="javascript:gotoPelarasanSubsidiariKuarters()" class="help" title="Kuarters">
+							  <li><font color="blue" style="font-size:110%">&nbsp;Kuarters</font>
+							  #if ($bilDaftarKontrak)
+                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							  #end
+							  </li>
+							 </a>
+                            </td>
+					       </tr>
+					       <tr>
+                            <td>				 
+                             <a href="javascript:gotoPelarasanSubsidiariIR()" class="help" title="Rumah Peranginan">
+							  <li><font color="blue" style="font-size:110%">&nbsp;Rumah Peranginan</font>
+							  #if ($bilDaftarKontrak)
+                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							  #end
+							  </li>
+							 </a>
+                            </td>
+					       </tr>
+					       #end
+					      #if (($!portal_role == '(PEROLEHAN) Penyedia')||($!portal_role == '(PEROLEHAN) Penyemak')||($!portal_role == '(PEROLEHAN) Pelulus'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Permohonan Perolehan</b></td>
+                          </tr>
+                          #end
+                          #if ($!portal_role == '(PEROLEHAN) Penyedia')
+					       <tr>
+                            <td>				 
+                             <a href="javascript:gotoPermohonan()" class="help" title="Permohonan">
+							  <li><font color="blue" style="font-size:110%">&nbsp;Permohonan</font>
+							  #if ($bilDaftarKontrak)
+                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							  #end
+							  </li>
+							 </a>
+                            </td>
+					       </tr>					      
+					      #end
+					      #if ($!portal_role == '(PEROLEHAN) Penyemak')
+					       <tr>
+                            <td>				 
+                             <a href="javascript:gotoSokongan()" class="help" title="Sokongan Perolehan">
+							  <li><font color="blue" style="font-size:110%">&nbsp;Sokongan Perolehan</font>
+							  #if ($bilDaftarKontrak)
+                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							  #end
+							  </li>
+							 </a>
+                            </td>
+					       </tr>					      
+					      #end
+						  #if ($!portal_role == '(PEROLEHAN) Pelulus')
+					       <tr>
+                            <td>				 
+                             <a href="javascript:gotoKelulusan()" class="help" title="Sokongan Perolehan">
+							  <li><font color="blue" style="font-size:110%">&nbsp;Sokongan Perolehan</font>
+							  #if ($bilDaftarKontrak)
+                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							  #end
+							  </li>
+							 </a>
+                            </td>
+					       </tr>					      
+					       #end   
+                        </table></td>
+                    </tr>
+           	   </table>
+           	 </td>
+       ##kanan           
+ 				<td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+					#if (($!portal_role == '(HASIL) Juruwang') ||($!portal_role == '(HASIL) Penyelia')||($!portal_role == '(DEPOSIT) Penyedia')||($!portal_role == '(DEPOSIT) Penyemak')||($!portal_role == '(DEPOSIT) Pelulus')||($!portal_role == '(SUBSIDIARI) Penyedia')||($!portal_role == '(SUBSIDIARI) Penyemak')||($!portal_role == '(SUBSIDIARI) Pelulus'))
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                    #end  
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          #if (($!portal_role == '(HASIL) Juruwang') ||($!portal_role == '(HASIL) Penyelia'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Terimaan Hasil Berkelompok</b></td>
+                          </tr>
+					      <tr>
+                           <td>					
+                            <a href="javascript:gotoHasilBerkelompok()" class="help" title="Permohonan Berkelompok Rumah Peranginan">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Permohonan Berkelompok Rumah Peranginan</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>   
+                          </tr>
+                          #end
+                          #if($!portal_role == '(HASIL) Juruwang')
+                          <tr>				                       
+                           <td>
+                            <a href="javascript:gotoHasilBerkelompokKuarters()" class="help" title="Permohonan Berkumpulan Kuarters">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Permohonan Berkumpulan Kuarters</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>
+					      </tr>
+					      #end
+					      #if (($!portal_role == '(DEPOSIT) Penyedia')||($!portal_role == '(DEPOSIT) Penyemak')||($!portal_role == '(DEPOSIT) Pelulus'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Pewartaan Deposit</b></td>
+                          </tr>
+					      <tr>
+                           <td>					
+                            <a href="javascript:gotoPewartaanDeposit()" class="help" title="Pewartaan Deposit Kuarters">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Pewartaan Deposit Kuarters</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>   
+                          </tr>
+                          #end
+                          #if (($!portal_role == '(SUBSIDIARI) Penyedia')||($!portal_role == '(SUBSIDIARI) Penyemak')||($!portal_role == '(SUBSIDIARI) Pelulus'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Lejar Sewa</b></td>
+                          </tr>
+					      <tr>
+                           <td>					
+                            <a href="javascript:gotoLejarIndividu()" class="help" title="Lejar Sewa Kuarters">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Lejar Sewa Kuarters</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>   
+                          </tr>
+                          #end
+                        </table></td>
+                    </tr>
+                  </table></td>
+              </tr>
+            </table></td>
+
+        </tr>
+        ## LAYER 2 - 2
+        <tr>
+          <td>
+          	<table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          #if (($!portal_role == '(HASIL) Juruwang') || ($!portal_role == '(HASIL) Penyelia'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Terimaan Hasil Manual</b></td>
+                          </tr>
+											<tr>
+                                                <td>					
+                                                    <a href="javascript:gotoJanaInvoisBayaran()" class="help" title="Terimaan Manual Lain lain">
+														<li><font color="blue" style="font-size:110%">&nbsp;Terimaan Manual Lain lain</font>
+															#if ($bilDaftarKontrak)
+                                                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+															#end
+														</li>
+													</a>
+                                               </td>
+                                             </tr>
+                           #end
+                           #if($!portal_role == '(HASIL) Juruwang')
+                                             <tr>				                       
+                                                <td>
+                                                    <a href="javascript:gotoHasilManualController()" class="help" title="Terimaan Resit">
+														<li><font color="blue" style="font-size:110%">&nbsp;Terimaan Resit</font>
+															#if ($bilDaftarKontrak)
+                                                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+															#end
+														</li>
+													</a>
+                                               </td>
+					                        </tr>
+					        #end
+					        #if($!portal_role == '(HASIL) Penyelia')
+                                             <tr>				                       
+                                                <td>
+                                                    <a href="javascript:gotoHasilManual()" class="help" title="Terimaan Resit Manual">
+														<li><font color="blue" style="font-size:110%">&nbsp;Terimaan Resit Manual</font>
+															#if ($bilDaftarKontrak)
+                                                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+															#end
+														</li>
+													</a>
+                                               </td>
+					                        </tr>
+					       #end
+					       #if (($!portal_role == '(HASIL) Juruwang')||($!portal_role == '(HASIL) Penyelia'))
+					                        <tr>				                       
+                                                <td>					
+                                                    <a href="javascript:gotoCekManual()" class="help" title="Terimaan Cek">
+														<li><font color="blue" style="font-size:110%">&nbsp;Terimaan Cek</font>
+															#if ($bilDaftarKontrak)
+                                                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+															#end
+														</li>
+													</a>
+                                               </td>
+					                        </tr>
+					     #end
+					     #if (($!portal_role == '(DEPOSIT) Penyedia')||($!portal_role == '(DEPOSIT) Penyemak')||($!portal_role == '(DEPOSIT) Pelulus'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Lejar Pendeposit Kuarters</b></td>
+                          </tr>
+					      <tr>
+                           <td>					
+                            <a href="javascript:gotoLejarIndividuKuarters()" class="help" title="Lejar Individu">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Lejar Individu</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>   
+                          </tr>
+                          <tr>
+                           <td>					
+                            <a href="javascript:gotoMasterLejarKuarters()" class="help" title="Master Lejar">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Master Lejar</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>   
+                          </tr>
+                          <tr>
+                           <td>					
+                            <a href="javascript:gotoSenaraiPendepositKuarters()" class="help" title="Senarai Pendeposit">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Senarai Pendeposit</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>   
+                          </tr>
+                          <tr>
+                           <td>					
+                            <a href="javascript:gotoHistoryLejarIndividuKuarters()" class="help" title="Sejarah Lejar Individu">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Sejarah Lejar Individu</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>   
+                          </tr>
+                          #end
+                          #if ($!portal_role == '(SUBSIDIARI) Penyedia'||($!portal_role == '(SUBSIDIARI) Penyemak')||($!portal_role == '(SUBSIDIARI) Pelulus')||($!portal_role == '(PEROLEHAN) Penyedia')||($!portal_role == '(PEROLEHAN) Penyemak')||($!portal_role == '(PEROLEHAN) Pelulus'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Senarai Resit</b></td>
+                          </tr>                       
+					                        <tr>
+                                                <td>							
+                                                    <a href="javascript:gotoSenaraiResit()" class="help" title="Senarai Resit">
+														<li><font color="blue" style="font-size:110%">&nbsp;Senarai Resit</font>
+															#if ($bilDaftarKontrak)
+                                                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+															#end
+														</li>
+													</a>
+                                               </td>
+                                             </tr>
+                                             <tr>
+                                                <td>					
+                                                    <a href="javascript:gotoSejarahResit()" class="help" title="Sejarah Resit">
+														<li><font color="blue" style="font-size:110%">&nbsp;Sejarah Resit</font>
+															#if ($bilDaftarKontrak)
+                                                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+															#end
+														</li>
+													</a>
+                                               </td>
+                                             </tr>				                        
+					     #end
+                        </table></td>
+                    </tr>
+           	   </table>
+           	 </td>
+   	    #if (($!portal_role == '(HASIL) Juruwang') || ($!portal_role == '(HASIL) Penyelia')||($!portal_role == '(DEPOSIT) Penyedia')||($!portal_role == '(DEPOSIT) Penyemak')||($!portal_role == '(DEPOSIT) Pelulus'))               
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3"> 
+                         #if (($!portal_role == '(HASIL) Juruwang') || ($!portal_role == '(HASIL) Penyelia'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Penyata Pemungut</b></td>
+                          </tr>
+                         #end
+                          #if ($!portal_role == '(HASIL) Juruwang')
+					                        <tr>
+                                                <td>					
+                                                    <a href="javascript:gotoPenyataPemungut()" class="help" title="Penyata Pemungut">
+														<li><font color="blue" style="font-size:110%">&nbsp;Penyata Pemungut</font>
+															#if ($bilDaftarKontrak)
+                                                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+															#end
+														</li>
+													</a>
+                                               </td>
+                                             </tr>
+                          #end
+                          #if ($!portal_role == '(HASIL) Penyelia')                 
+                             <tr>
+                                 <td>					
+                                     <a href="javascript:gotoPerakuanPenyataPemungut()" class="help" title="Perakuan Penyata Pemungut">
+									 <li><font color="blue" style="font-size:110%">&nbsp;Perakuan Penyata Pemungut</font>
+									 #if ($bilDaftarKontrak)
+                                       <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+									 #end
+									 </li>
+									 </a>
+                                  </td>
+                             </tr>                                 
+					     #end
+					     #if (($!portal_role == '(DEPOSIT) Penyedia')||($!portal_role == '(DEPOSIT) Penyemak')||($!portal_role == '(DEPOSIT) Pelulus'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Lejar Pendeposit Ruang Komersil</b></td>
+                          </tr>
+					      <tr>
+                           <td>					
+                            <a href="javascript:gotoLejarIndividuRK()" class="help" title="Lejar Individu">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Lejar Individu</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>   
+                          </tr>
+                          <tr>
+                           <td>					
+                            <a href="javascript:gotoMasterLejarRK()" class="help" title="Master Lejar">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Master Lejar</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>   
+                          </tr>
+                          <tr>
+                           <td>					
+                            <a href="javascript:gotoSenaraiPendepositRK()" class="help" title="Senarai Pendeposit">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Senarai Pendeposit</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>   
+                          </tr>
+                          <tr>
+                           <td>					
+                            <a href="javascript:gotoHistoryLejarIndividuRK()" class="help" title="Sejarah Lejar Individu">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Sejarah Lejar Individu</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>   
+                          </tr>
+                          #end
+					      
+                        </table></td>
+                    </tr>
+                  </table></td>
+       #end           
+                #if (($!portal_role == '(SUBSIDIARI) Penyedia')||($!portal_role == '(SUBSIDIARI) Penyemak')||($!portal_role == '(SUBSIDIARI) Pelulus'))
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/images_stat.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3"> 
+     					  <tr>
+                            <td><font color="black" style="font-size:120%"><b>Laporan</b></td>
+                          </tr>
+							<tr>
+                              <td>					  
+                                  <a href="javascript:gotoSenaraiLaporanLejar()" class="help" title="Laporan Lejar Kewangan">
+									<li><font color="blue" style="font-size:110%">&nbsp;Laporan Lejar Kewangan</font>
+									#if ($bilDaftarKontrak)
+                                      <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+									#end
+									</li>
+								  </a>
+                              </td>
+                          </tr>
+                          #end
+                  #if (($!portal_role == '(PEROLEHAN) Penyedia')||($!portal_role == '(PEROLEHAN) Penyemak')||($!portal_role == '(PEROLEHAN) Pelulus'))
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+               ##       <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/images_stat.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3"> 
+     					  <tr>
+                   ##         <td><font color="black" style="font-size:120%"><b>Laporan</b></td>
+                          </tr>
+							<tr>
+                              <td>					  
+                                  <a href="javascript:gotoSenaraiLaporanLejar()" class="help" title="Laporan Lejar Kewangan">
+								##	<li><font color="blue" style="font-size:110%">&nbsp;Laporan Lejar Kewangan</font>
+									</li>
+								  </a>
+                              </td>
+                          </tr>
+                          #end
+                          
+                
+            </table></td>
+                    </tr>
+                  </table></td>      
+              </tr>
+            </table></td>
+        </tr>
+        
+        ## LAYER 2 - 3
+       #if (($!portal_role == '(HASIL) Juruwang')||($!portal_role == '(HASIL) Penyelia')||($!portal_role == '(DEPOSIT) Penyedia')||($!portal_role == '(DEPOSIT) Penyemak')||($!portal_role == '(DEPOSIT) Pelulus')||($!portal_role == '(SUBSIDIARI) Penyemak')||($!portal_role == '(SUBSIDIARI) Pelulus'))		       
+        <tr>
+          <td>
+          	<table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>		
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >    ##kiri
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                         #if (($!portal_role == '(HASIL) Juruwang')||($!portal_role == '(HASIL) Penyelia')||($!portal_role == '(DEPOSIT) Penyedia')||($!portal_role == '(DEPOSIT) Penyemak')||($!portal_role == '(DEPOSIT) Pelulus'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Senarai Resit</b></td>
+                          </tr>
+					        <tr>
+                              <td>							
+                              <a href="javascript:gotoSenaraiResit()" class="help" title="Senarai Resit">
+							  <li><font color="blue" style="font-size:110%">&nbsp;Senarai Resit</font>
+							  #if ($bilDaftarKontrak)
+                               <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							  #end
+							  </li>
+							  </a>
+                              </td>
+                            </tr>
+                     	    <tr>
+                              <td>					
+                              <a href="javascript:gotoSejarahResit()" class="help" title="Sejarah Resit">
+							  <li><font color="blue" style="font-size:110%">&nbsp;Sejarah Resit</font>
+							  #if ($bilDaftarKontrak)
+                               <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							  #end
+							  </li>
+							  </a>
+                              </td>
+                            </tr>                   
+					     #end
+                        </table></td>
+                      
+                    </tr>
+           	   </table>
+           	 </td>
+               #end
+             
+              #if (($!portal_role == '(SUBSIDIARI) Penyemak')||($!portal_role == '(SUBSIDIARI) Pelulus'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Semakan Tunggakan Dan Lebihan</b></td>
+                          </tr>
+					      <tr>
+                           <td>					
+                            <a href="javascript:gotoPelarasanSubsidiariKuarters()" class="help" title="Kuarters">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Kuarters</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>
+                          </tr>
+                          <tr>
+                           <td>					
+                            <a href="javascript:gotoPelarasanSubsidiariIR()" class="help" title="Rumah Peranginan">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Rumah Peranginan</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>
+                          </tr>
+              #end
+             
+     ##kanan               
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      #if (($!portal_role == '(DEPOSIT) Penyedia')||($!portal_role == '(DEPOSIT) Penyemak')||($!portal_role == '(DEPOSIT) Pelulus'))
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      #end
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          #if (($!portal_role == '(HASIL) Juruwang')||($!portal_role == '(HASIL) Penyelia'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Semakan RPP</b></td>
+                          </tr>  
+					                        <tr>
+                                                <td>					
+                                                    <a href="javascript:gotoSemakanPemohon()" class="help" title="Semakan Pemohon">
+														<li><font color="blue" style="font-size:110%">&nbsp;Semakan Pemohon</font>
+															#if ($bilDaftarKontrak)
+                                                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+															#end
+														</li>
+													</a>
+                                               </td>
+                                             </tr>             
+					     #end
+					     #if (($!portal_role == '(DEPOSIT) Penyedia')||($!portal_role == '(DEPOSIT) Penyemak')||($!portal_role == '(DEPOSIT) Pelulus'))
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Lejar Pendeposit Rumah Peranginan</b></td>
+                          </tr>  
+            			  <tr>
+                           <td>					
+                            <a href="javascript:gotoLejarIndividuIR()" class="help" title="Lejar Individu">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Lejar Individu</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>   
+                          </tr>
+                          <tr>
+                           <td>					
+                            <a href="javascript:gotoMasterLejarIR()" class="help" title="Master Lejar">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Master Lejar</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>   
+                          </tr>
+                          <tr>
+                           <td>					
+                            <a href="javascript:gotoSenaraiPendepositIR()" class="help" title="Senarai Pendeposit">
+							 <li><font color="blue" style="font-size:110%">&nbsp;Senarai Pendeposit</font>
+							 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+							 #end
+							 </li>
+							</a>
+                           </td>   
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+                  #end
+              </tr>  
+            </table></td>
+        </tr>
+        
+        ## LAYER 2 - 4
+        
+       #if($!portal_role == '(HASIL) Penyelia')
+        <tr>
+          <td>
+          	<table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Pembatalan Resit</b></td>
+                          </tr>
+                          <tr>
+                              <td>					
+                                  <a href="javascript:gotoPembatalanResit()" class="help" title="Pembatalan Resit">
+									<li><font color="blue" style="font-size:110%">&nbsp;Pembatalan Resit</font>
+										#if ($bilDaftarKontrak)
+                                        <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+										#end
+									</li>
+								  </a>
+                               </td>
+                          </tr>
+                        </table></td>
+                    </tr>
+           	   </table>
+           	 </td>
+                  
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Penyelenggaraan Kod</b></td>
+                          </tr>
+                          <tr>
+                              <td>					
+                                  <a href="javascript:gotoKodHasil()" class="help" title="Kod Hasil">
+									<li><font color="blue" style="font-size:110%">&nbsp;Kod Hasil</font>
+										#if ($bilDaftarKontrak)
+                                        <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+										#end
+									</li>
+								  </a>
+                               </td>
+                          </tr>
+                          <tr>
+                               <td>					
+                                  <a href="javascript:gotoKodJuruwang()" class="help" title="Kod Juruwang">
+									<li><font color="blue" style="font-size:110%">&nbsp;Kod Juruwang</font>
+										#if ($bilDaftarKontrak)
+                                        <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+										#end
+									</li>
+								  </a>
+                               </td>
+                          </tr>
+                          <tr>
+                               <td>					
+                                  <a href="javascript:gotoKodKaedahBayaran()" class="help" title="Kod Kaedah Bayaran">
+									<li><font color="blue" style="font-size:110%">&nbsp;Kod Kaedah Bayaran</font>
+										#if ($bilDaftarKontrak)
+                                        <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+										#end
+									</li>
+								  </a>
+                               </td>
+                          </tr>
+                          <tr>
+                               <td>					
+                                  <a href="javascript:gotoKodMesin()" class="help" title="Kod Mesin">
+									<li><font color="blue" style="font-size:110%">&nbsp;Kod Mesin</font>
+										#if ($bilDaftarKontrak)
+                                        <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+										#end
+									</li>
+								  </a>
+                               </td>
+                          </tr>
+                        </table></td>
+                    </tr>
+                  </table></td>
+              </tr>
+            </table></td>
+        </tr>
+        
+        #end
+        
+               ##new level
+ #if (($!portal_role == '(DEPOSIT) Penyedia')||($!portal_role == '(DEPOSIT) Penyemak')||($!portal_role == '(DEPOSIT) Pelulus'))                
+               
+        <tr>
+          <td>
+          	<table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">
+              <tr>
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/images_stat.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">                                       
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Laporan</b></td>
+                          </tr>
+                          #if (($!portal_role == '(HASIL) Juruwang')||($!portal_role == '(HASIL) Penyelia'))
+                          <tr>
+                              <td>
+                                  <a href="javascript:gotoSenaraiLaporan()" class="help" title="Senarai Laporan">
+									<li><font color="blue" style="font-size:110%">&nbsp;Senarai Laporan</font>
+									#if ($bilDaftarKontrak)
+                                      <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+									#end
+									</li>
+								  </a>
+                              </td>
+                          </tr>
+                          #end
+                          #if (($!portal_role == '(DEPOSIT) Penyedia')||($!portal_role == '(DEPOSIT) Penyemak')||($!portal_role == '(DEPOSIT) Pelulus')) 
+                          	<tr>
+                              <td>					  
+                                  <a href="javascript:gotoSenaraiLaporanLejar()" class="help" title="Laporan Lejar Kewangan">
+									<li><font color="blue" style="font-size:110%">&nbsp;Laporan Lejar Kewangan</font>
+									#if ($bilDaftarKontrak)
+                                      <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+									#end
+									</li>
+								  </a>
+                              </td>
+                          </tr>
+                          #end
+                        </table></td>
+                    </tr>
+           	   </table>
+           	 </td>
+                
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                    <tr>
+                      #if (($!portal_role == '(HASIL) Juruwang')||($!portal_role == '(HASIL) Penyelia'))
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">  
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Task Force</b></td>
+                          </tr>
+                          <tr>
+                                                <td>					
+                                                    <a href="javascript:gotoKemaskiniRekodBayaran()" class="help" title="Semakan Data Bayaran">
+														<li><font color="blue" style="font-size:110%">&nbsp;Semakan Data Bayaran</font>
+															#if ($bilDaftarKontrak)
+                                                                <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+															#end
+														</li>
+													</a>
+                                               </td>
+                                             </tr> 
+                     	#end
+                     	#if (($!portal_role == '(DEPOSIT) Penyemak')||($!portal_role == '(DEPOSIT) Pelulus'))
+                      <td width="15%" valign="top" align="center"><img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/></td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">  
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Pengesahan Dan Agihan</b></td>
+                          </tr>
+                          <tr>
+                           <td>					
+                            <a href="javascript:gotoAgihanDepositKuarters()" class="help" title="Agihan Deposit Kuarters">
+						  	 <li><font color="blue" style="font-size:110%">&nbsp;Agihan Deposit Kuarters</font>
+						  	 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+						     #end
+						     </li>
+					     	</a>
+                           </td>   
+                          </tr>
+                          <tr>
+                           <td>					
+                            <a href="javascript:gotoAgihanDepositRK()" class="help" title="Agihan Deposit Ruang Komersil">
+						  	 <li><font color="blue" style="font-size:110%">&nbsp;Agihan Deposit Ruang Komersil</font>
+						  	 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+						     #end
+						     </li>
+					     	</a>
+                           </td>   
+                          </tr>
+                          <tr>
+                           <td>					
+                            <a href="javascript:gotoAgihanDepositIR()" class="help" title="Agihan Deposit Rumah Peranginan">
+						  	 <li><font color="blue" style="font-size:110%">&nbsp;Agihan Deposit Rumah Peranginan</font>
+						  	 #if ($bilDaftarKontrak)
+                             <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+						     #end
+						     </li>
+					     	</a>
+                           </td>   
+                          </tr> 
+                     	#end
+                        </table></td>
+                    </tr>
+                  </table></td>
+              </tr>
+            </table></td>
+        </tr>
+	#end
+       
+        #if (($!portal_role == '(HASIL) Penyelia')||($!portal_role == '(DEPOSIT) Penyemak'))
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="3" class="dashboard_sub">             
+              <tr>           	
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >		##3
+                    <tr>  ##2                  
+                      <td width="15%" valign="top" align="center">
+                      	<img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/>
+                      </td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">  ##1
+                           
+                          <tr>
+                            <td><font color="black" style="font-size:120%"><b>Aduan</b></td>
+                          </tr>
+                          
+					       ##
+                          <tr>
+                              <td>					  
+                                  <a href="javascript:gotoSenaraiAduan()" class="help" title="Senarai Aduan">
+									<li><font color="blue" style="font-size:110%">&nbsp;Senarai Aduan</font>
+										#if ($bilDaftarKontrak)
+                                        <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+										#end
+									</li>
+								  </a>
+                               </td>
+                          </tr>
+                          ##              
+					  
+                        </table></td>																				##1
+                    </tr>  ##2
+                  </table></td>																						##3
+                <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3" >
+                	<tr>  ##2
+                      <td width="15%" valign="top" align="center">
+               ##       	<img  src="../bph/dashboard/picture/applyonline.png" width="30" height="30" align="center"/>
+                      </td>
+                      <td width="85%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="3">  ##1
+                          <tr>
+                    ##        <td><font color="black" style="font-size:120%"><b>Task Force</b></td>
+                          </tr>
+					           <tr>
+                                  <td>
+                                  <a href="javascript:gotoKemaskiniRekodBayaran()" class="help" title="Semakan Data Bayaran">
+				##				  <li><font color="blue" style="font-size:110%">&nbsp;Semakan Data Bayaran</font>
+								  #if ($bilDaftarKontrak)
+                                     <span id="blinkBilDaftarKontrak"><font color="red"><b>($!bilDaftarKontrak)</b></font></span>
+								  #end
+								  </li>
+								  </a>
+                                  </td>
+                      #end         </tr>               
+					   
+                        </table></td>																				##1
+                    </tr>  ##2
+                
+                
+                </table></td>
+              </tr> 
+            </table></td>
+        </tr>
+        
+      </table></td>
+  </tr>
+</table>

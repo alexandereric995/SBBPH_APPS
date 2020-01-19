@@ -1,0 +1,63 @@
+
+<fieldset>
+<legend class="legend">Maklumat Penghuni</legend>
+<table cellpadding="5" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td class="label" style="width:25%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:74%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="label">Kementerian &nbsp; <span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td> #parse("$path/maklumatPenghuni/selectKementerian.vm")
+      <div id="err_idKementerian" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Agensi / Jabatan &nbsp;<span style="color:#FF2A00">*</span> </td>
+    <td>:</td>
+    <td> <div id="selectAgensi">#parse("$path/maklumatPenghuni/selectAgensi.vm")</div>
+      <div id="err_idAgensi" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #if ($!rekod.tarikhMasuk) 
+  #set ($dateMasuk = "$!util.getDateTime($!rekod.tarikhMasuk,'dd-MM-yyyy')")
+  #else #set ($dateMasuk = "") #end
+  #date_input_required("tarikhMasuk" "Tarikh Masuk" "$dateMasuk")
+  
+  #if ($!rekod.tarikhKeluar) 
+  #set ($dateKeluar = "$!util.getDateTime($!rekod.tarikhKeluar,'dd-MM-yyyy')")
+  #else #set ($dateKeluar = "") #end
+  #date_input("tarikhKeluar" "Tarikh Keluar" "$dateKeluar")
+  #textarea_required("ruang" "Maklumat Ruang" "$!rekod.ruang")
+  #number_required("luas" "Luas Ruang (Meter Persegi)" "$!rekod.luas")
+  #textarea("catatan" "Catatan" "$!rekod.catatan")
+  <tr>
+    <td></td>
+    <td></td>
+    <td> #if ( $command == "addPenghuni" )
+      <input type="button" id="savePenghuni" name="savePenghuni" value="Simpan">
+      <input type="button" id="batalPenghuni" name="batalPenghuni" value="Keluar">
+      #elseif ( $command == "editPenghuni" )
+      <input type="button" id="saveExitPenghuni" name="saveExitPenghuni" value="Simpan">
+      <input type="button" id="batalPenghuni" name="batalPenghuni" value="Keluar">
+      #end </td>
+  </tr>
+</table>
+<input type="hidden" id="idPenghuni" name="idPenghuni" value="$rekod.id">
+<div id="statusPenghuni"></div>
+</fieldset>
+<script>
+_jq('#batalPenghuni').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getMaklumatPenghuni','');
+    jQuery('#editPenghuni').fadeOut();
+});
+
+_jq('#savePenghuni').on('click', function(){
+    savePenghuni();
+});
+
+_jq('#saveExitPenghuni').on('click', function(){
+	savePenghuni();
+});
+
+</script>

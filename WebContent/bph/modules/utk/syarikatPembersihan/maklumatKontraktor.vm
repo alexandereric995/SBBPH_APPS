@@ -1,0 +1,105 @@
+<fieldset>
+<legend class="legend">MAKLUMAT NAZIRAN KEBERSIHAN</legend>
+<table cellpadding="5" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">	
+    	<tr>
+    		<td width="50%" valign="top">
+    			<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+    				<tr>
+                        <td style="width:160px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+				  	#input_readonly_all_label("noFail" "No Fail Operasi" "<b>$!r.operasi.noFail</b>")
+				  	#input_readonly_all_label("tarikh" "Tarikh Operasi" "$util.getDateTime($!r.operasi.tarikh, 'dd-MM-yyyy')") 	
+				  	#input_readonly_all_label("tarikhMula" "Tarikh Mula Kerja" "$util.getDateTime($!r.tarikhMula, 'dd-MM-yyyy')") 	
+				  	#input_readonly_all_label("tarikhTamat" "Tarikh Tamat Kerja" "$util.getDateTime($!r.tarikhTamat, 'dd-MM-yyyy')") 	
+					#input_readonly_all_label("catatan" "Catatan" "$!r.catatan")
+					<tr>
+						<td>Status Kerja</td>
+						<td>:</td>
+						<td>
+						<select class="texts" id="statusKerja" name="statusKerja" style="width:40%">
+					    <option value="">SILA PILIH</option>
+					    <option #if ( $!r.status == '1' ) selected #end value="1">BARU</option>
+					    <option #if ( $!r.status == '2' ) selected #end value="2">DALAM PROSES</option>
+					    <option #if ( $!r.status == '3' ) selected #end value="3">KERJA TIDAK SELESAI</option>
+					    <option #if ( $!r.status == '4' ) selected #end value="4">KERJA SELESAI</option>
+						</select></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+</table>
+<br/>
+</fieldset>
+<fieldset>
+<legend class="legend">MAKLUMAT KONTRAKTOR</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_readonly_all_label("noPendaftaran" "No Pendaftaran" "$!r.kontraktor.id")
+        #input_readonly_all_label("namaKontraktor" "Nama Kontraktor" "$!r.kontraktor.namaKontraktor")
+        #input_readonly_all_label("namaPemilik" "Nama Pemilik" "$!r.kontraktor.namaPemilik")
+        #input_readonly_all_label("noTelefon" "No. Telefon" "$!r.kontraktor.noTelefon")
+        #input_readonly_all_label("noFaks" "No. Faks" "$!r.kontraktor.noFaks")
+        <tr>
+          <td class="label" valign="top">Bidang &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>&nbsp; AWAM &nbsp;&nbsp;
+            #if ($!r.kontraktor.flagAwam == 'Y') 
+				#set ($checkFlagAwam = "checked")
+			#else #set ($checkFlagAwam = "") #end
+            <input id="flagAwam" name="flagAwam" type="checkbox" value="Y" onclick=" $('err_bidang').innerHTML=''; at(this, event);" $!checkFlagAwam>
+            
+            &nbsp; ELEKTRIK &nbsp;&nbsp;
+            #if ($!r.kontraktor.flagElektrik == 'Y') 
+				#set ($checkFlagElektrik = "checked")
+			#else #set ($checkFlagElektrik = "") #end
+            <input id="flagElektrik" name="flagElektrik" type="checkbox" value="Y" onclick=" $('err_bidang').innerHTML=''; at(this, event);" $!checkFlagElektrik>
+            
+            <div id="err_bidang" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        
+        #input_readonly_all_label("kawasan" "Kawasan" "$!r.kontraktor.kawasan.keterangan")
+       
+        #input_readonly_all_label("pengkhususan" "Pengkhususan" "$!r.kontraktor.pengkhususan")
+        #input_readonly_all_label("gred" "Gred" "$!r.kontraktor.gred")
+      </table></td>
+      
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_readonly_all_label("alamat1" "Alamat" "$!r.kontraktor.alamat1")
+        #input_readonly_all_label("alamat2" "" "$!r.kontraktor.alamat2")
+        #input_readonly_all_label("alamat3" "" "$!r.kontraktor.alamat3")
+        <td></td><td></td>
+         <td><div id="err_alamat" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        
+        #input_readonly_all_label("poskod" "Poskod" "$!r.kontraktor.poskod")
+        <td></td><td></td>
+        
+        #input_readonly_all_label("negeri" "Negeri" "$!r.kontraktor.daerah.negeri.keterangan")
+        #input_readonly_all_label("daerah" "Daerah" "$!r.kontraktor.daerah.keterangan")
+
+        #input_readonly_all_label("kategori" "Kategori" "$!r.kontraktor.kategori")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+<p align="right">
+	<input type="button" value="Simpan" align='left' id="cmdSimpanKebersihan">
+ 	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+</p>
+<script>
+_jq('#cmdSimpanKebersihan').on('click', function(){
+	saveKebersihan();
+});
+</script>

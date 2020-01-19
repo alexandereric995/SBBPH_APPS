@@ -1,0 +1,557 @@
+#if( $r )
+#parse("$path/senaraiTab.vm")
+#end
+
+<input type="hidden" name="idRppPermohonan" id="idRppPermohonan" value="$!r.id" />
+
+<fieldset>
+<legend class="legend">maklumat permohonan</legend>
+
+    <table width="100%">
+    	<tr>
+    		<td style="width:190px"></td>
+    		<td style="width:10px"></td>
+    		<td></td>
+    	</tr>
+      
+		#if($!r.noTempahan)
+		<tr>
+			<td>No. Tempahan</td>
+			<td>:</td>
+			<td>$!r.noTempahan</td>
+		</tr>
+		#end
+		
+		#if($!r)
+		<tr>
+			<td>Status Tempahan</td>
+			<td>:</td>
+			<td>$!r.status.keterangan.toUpperCase()</td>
+		</tr>
+		#end
+		
+		<tr>
+			<td>Tarikh Permohonan</td>
+			<td>:</td>
+			<td>
+				$!util.getCurrentDate('dd-MM-yyyy')
+				
+				<!--
+				<input type="text" id="tarikhPermohonan" name="tarikhPermohonan" value="$!util.getDateTime($!r.tarikhPermohonan,'dd-MM-yyyy')" onChange=" $('err_tarikhPermohonan').innerHTML=''; at(this, event);">
+					<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+		    		<script>
+		            	_jq("#tarikhPermohonan").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+							readonly_element: false
+		            	});
+		    		</script>
+				<div id="err_tarikhPermohonan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+				-->	
+				
+			</td>
+		</tr>
+	  
+    	<tr>
+    		<td>Lokasi Rumah Peranginan  &nbsp;<span style='color:#FF2A00'>*</span></td>
+    		<td>:</td>
+    		<td>
+    			<select class="texts" id="peranginan" name="peranginan" style="width:100%" onChange="doDivAjaxCall3$formname('divListJenisUnit','findJenisUnit',''); $('err_peranginan').innerHTML=''; at(this, event);">
+                    <option value="">SILA PILIH</option>
+                    #foreach( $n in $selectPeranginan)
+                    	<option value="$n.id" #if($n.id == $r.rppPeranginan.id) selected #end>$!n.namaPeranginan.toUpperCase()</option>
+                    #end
+                </select>
+    			<div id="err_peranginan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    		</td>
+    	</tr>
+    	
+    </table>
+
+<div id="divListJenisUnit">
+	#if($r)
+		#parse("$path/form/senaraiJenisUnit.vm")
+	#end
+</div>
+
+</fieldset>
+	
+<br/>
+
+#if( $!r )
+<fieldset>
+<legend class="legend">MAKLUMAT BAYARAN</legend>
+    
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+            <td colspan="4">&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="60%">Keterangan</td>
+			<td class="row_header" width="10%">Kuantiti</td>
+			<td class="row_header" width="25%">Jumlah Amaun (RM)</td>
+		</tr>
+		
+		#if ( $listTempahanDanBayaran.size() > 0 )
+    		#set ( $count = 0 )
+			#set ( $jumlahAmaun = 0.00 )
+    		#foreach( $d in $listTempahanDanBayaran )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+				#set ( $jumlahAmaun = $jumlahAmaun + $!d.debit )
+    				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+					<td align="left">$!d.keterangan</td>
+					<td align="center">$!d.bilanganUnit</td>
+					<td align="center">$!d.debit</td>
+                </tr>
+			#end
+			<tr>
+				<td colspan="3" align="right"><b>JUMLAH : </b></td>
+				<td align="center"><b>RM $!util.formatDecimal($jumlahAmaun)</b></td>
+			</tr>
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="4">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+	
+</fieldset>	
+#end
+
+<fieldset>
+<legend class="legend">maklumat penginapan</legend>
+
+    <table width="100%" cellpadding="1" cellspacing="1" >
+    	<tr>
+    		<td style="width:190px"></td>
+    		<td style="width:10px"></td>
+    		<td>&nbsp;</td>
+    	</tr>
+		
+		<!--
+		<tr>
+    		<td valign="middle">Jumlah Kadar Sewa (RM)</td>
+    		<td valign="middle">:</td>
+    		<td valign="middle"></td>
+    	</tr>
+		-->
+		
+		<tr>
+			<td valign="middle">Tarikh Masuk &nbsp;<span style='color:#FF2A00'>*</span></td>
+			<td valign="middle">:</td>
+			<td valign="middle">
+				<input type="text" id="tarikhMasukRpp" name="tarikhMasukRpp" value="$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy')" >
+					<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+		    		<script>
+		            	_jq("#tarikhMasukRpp").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+							direction: 1,
+							pair: _jq('#tarikhKeluarRpp'),
+							readonly_element: false,
+							onSelect: function(view, elements) {
+        						$('err_tarikhMasukRpp').innerHTML='';
+								javascript:checkingDateInOut();
+        					}
+		            	});
+		    		</script>
+					<div id="err_tarikhMasukRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		 </tr>	
+				
+		 <tr>
+			<td>Tarikh Keluar &nbsp;<span style='color:#FF2A00'>*</span></td>
+    		<td>:</td>
+    		<td>
+				<input type="text" id="tarikhKeluarRpp" name="tarikhKeluarRpp" value="$!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')" >
+					<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+		    		<script>
+		            	_jq("#tarikhKeluarRpp").Zebra_DatePicker({ 
+		    				format: 'd-m-Y',
+							direction: 1,
+							readonly_element: false,
+							onSelect: function(view, elements) {
+        						$('err_tarikhKeluarRpp').innerHTML='';
+        					}
+		            	});
+		    		</script>
+					<div id="err_tarikhKeluarRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+    	</tr>
+		
+		<tr>
+			<td>Tempoh Penginapan</td>
+			<td>:</td>
+			<td><input type="text" style="width:10%;text-align:right" disabled name="lblBilMalam" id="lblBilMalam" value="$!util.replaceIfNull($!r.getTotalBilMalam().toString(),'0')" /> malam</td>
+		</tr>
+		
+		<tr><td colspan="3">&nbsp;</td></tr>
+		
+		<tr>
+			<td colspan="3">
+				<div id="divErrorDate"><input type="hidden" name="isPeak" id="isPeak" value="" /></div>
+			</td>
+		</tr>
+		
+    </table>
+
+</fieldset>
+	
+<br/>
+
+<fieldset>
+<legend class="legend">maklumat penggunaan</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2" >
+    	<tr>
+			<td style="width:20px"></td>
+    		<td style="width:150px"></td>
+    		<td style="width:10px"></td>
+    		<td></td>
+    	</tr>
+		<tr>
+			<td>1.</td>
+			<td>Jenis Aktiviti  &nbsp;<span style='color:#FF2A00'>*</span></td>
+			<td>:</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td colspan="3">(Sila tandakan di ruang berkenaan)</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td colspan="3">
+				<table width="100%" cellpadding="0" cellspacing="0" >
+					
+					#foreach($ak in $!selectAktiviti)
+						<tr>
+							<td>
+								<input type="checkbox" $!rppUtil.checkedActivity("$!r.id","$!ak.id") name="aktivitiRpp" id="$ak.id" value="$ak.id" onclick=" $('err_aktivitiRpp').innerHTML=''; at(this, event);" />$ak.keterangan.toUpperCase() 
+								#if($ak.id=="06")
+									&nbsp; :  <input type="text" style="width:40%" name="keteranganLain" id="keteranganLain" value="$!r.getKeteranganLainValue()" onKeyUp=" $('err_keteranganLain').innerHTML=''; at(this, event);" />
+								#end
+							</td>
+						</tr>
+					#end
+					
+					##<tr>
+						##
+						##<td width="20%"><input type="checkbox" name="aktivitiRpp" id="taklimat" value="02" /> Taklimat / Ceramah</td>
+						##<td width="60%"><input type="checkbox" name="aktivitiRpp" id="bengkel" value="03" /> Bengkel</td>
+					##</tr>
+					
+					##<tr>
+					##	<td><input type="checkbox" name="aktivitiRpp" id="seminar" value="04" /> Seminar</td>
+					##	<td><input type="checkbox" name="aktivitiRpp" id="aktiviti" value="05" /> Aktiviti</td>
+					##	<td><input type="checkbox" name="aktivitiRpp" id="lain" value="06" /> Lain - Lain  : <input type="text" style="width:40%" name="keteranganLain" id="keteranganLain" value="" /></td>
+					##</tr>
+					
+				</table>
+				<div id="err_aktivitiRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+				<div id="err_keteranganLain" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		<tr><td colspan="4">&nbsp;</td></tr>
+		<tr>
+			<td valign="top">2.</td>
+			<td valign="top">Bilangan Peserta</td>
+			<td valign="top">:</td>
+			<td valign="top">
+				Dewasa &nbsp;<span style='color:#FF2A00'>*</span> : 
+				<input type="text" style="width:10%;text-align:right" class="number2digit" name="bilDewasa" id="bilDewasa" value="$!r.bilDewasa" onKeyUp=" $('err_bilDewasa').innerHTML=''; at(this, event);" />
+				&nbsp;
+				Kanak - Kanak :
+				<input type="text" style="width:10%;text-align:right" class="number2digit" name="bilKanakKanak" id="bilKanakKanak" value="$!r.bilKanakKanak" onKeyUp=" $('err_bilKanakKanak').innerHTML=''; at(this, event);" />
+				<div id="err_bilDewasa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		<tr>
+			<td>3.</td>
+			<td>Senarai Aktiviti Utama</td>
+			<td>i.</td>
+			<td><input type="text" name="aktivitiUtama1" id="aktivitiUtama1" value="$!r.aktivitiUtama1" /></td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+			<td>ii.</td>
+			<td><input type="text" name="aktivitiUtama2" id="aktivitiUtama2" value="$!r.aktivitiUtama2" /></td>
+		</tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+			<td>iii.</td>
+			<td><input type="text" name="aktivitiUtama3" id="aktivitiUtama3" value="$!r.aktivitiUtama3" /></td>
+		</tr>
+	</table>
+	
+</fieldset>
+	
+<br/>
+
+<fieldset>
+<legend class="legend">maklumat kementerian / jabatan</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2" >
+    	<tr>
+			<td style="width:20px"></td>
+    		<td style="width:150px"></td>
+    		<td style="width:10px"></td>
+    		<td></td>
+    	</tr>
+		<tr>
+			<td>1.</td>
+			<td>Nama Pegawai Penyelaras</td>
+			<td>:</td>
+			<td>
+				#if( $!r )
+					$!r.pemohon.userName.toUpperCase()
+				#else
+					$!user.userName.toUpperCase()
+				#end
+			</td>
+		</tr>
+		<tr>
+			<td>2.</td>
+			<td>No. Kad Pengenalan</td>
+			<td>:</td>
+			<td>
+				#if( $!r )
+					$util.replaceIfNull($!r.pemohon.noKP,"-") 
+				#else
+					$util.replaceIfNull($!user.noKP,"-")
+				#end
+			</td>
+		</tr>
+		<tr>
+			<td>3.</td>
+			<td>Kementerian / Jabatan</td>
+			<td>:</td>
+			<td>
+				#if( $!r )
+					$!r.pemohon.agensi.keterangan.toUpperCase() $!r.pemohon.agensi.kementerian.keterangan.toUpperCase()
+				#else
+					$!user.agensi.keterangan.toUpperCase() $!user.agensi.kementerian.keterangan.toUpperCase()
+				#end
+			</td>
+		</tr>
+		<tr>
+			<td>4.</td>
+			<td>Bahagian / Unit  &nbsp;<span style='color:#FF2A00'>*</span></td>
+			<td>:</td>
+			<td>
+				<input type="text" name="bahagianUnit" id="bahagianUnit" value="$!r.bahagianUnit" onKeyUp=" $('err_bahagianUnit').innerHTML=''; at(this, event);" />
+				<div id="err_bahagianUnit" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		<tr>
+			<td>5.</td>
+			<td>Alamat Surat Menyurat  &nbsp;<span style='color:#FF2A00'>*</span></td>
+			<td>:</td>
+			<td>
+				<input type="text" name="alamatSurat1" id="alamatSurat1" value="$!r.alamatSurat1" onKeyUp=" $('err_alamatSurat').innerHTML=''; at(this, event);" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3"></td>
+			<td>
+				<input type="text" name="alamatSurat2" id="alamatSurat2" value="$!r.alamatSurat2" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3"></td>
+			<td>
+				<input type="text" name="alamatSurat3" id="alamatSurat3" value="$!r.alamatSurat3" />
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>
+				<table width="100%" cellpadding="0" cellspacing="0" >
+					<tr>
+						<td width="40%">Poskod : <input type="text" class="number5digit" style="width:100px" name="poskodSurat" id="poskodSurat" value="$!r.poskodSurat" onKeyUp=" $('err_alamatSurat').innerHTML=''; at(this, event);" /></td>
+						<td width="60%">Negeri : 
+							<select class="texts" id="negeriSurat" name="negeriSurat" style="width:300px" onChange="$('err_alamatSurat').innerHTML=''; at(this, event);">
+                                <option value="">SILA PILIH</option>
+                                #foreach( $n in $selectNegeriSurat)
+                                	<option value="$n.id" #if($n.id == $r.negeriSurat.id) selected #end>$!n.keterangan.toUpperCase()</option>
+                                #end
+                            </select>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3"></td>
+			<td><div id="err_alamatSurat" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		</tr>
+		<tr>
+			<td>6.</td>
+			<td>Jawatan / Gred Jawatan</td>
+			<td>:</td>
+			<td>
+				#if( $!r )
+					$util.replaceIfNull($!r.pemohon.gredJawatan.toUpperCase(),"-")
+				#else
+					$util.replaceIfNull($!user.gredJawatan.toUpperCase(),"-")
+				#end
+			</td>
+		</tr>
+		<tr>
+			<td>7.</td>
+			<td>No. Telefon Pejabat</td>
+			<td>:</td>
+			<td>
+				#if( $!r )
+					$util.replaceIfNull($!r.pemohon.noTelefon,"-")
+				#else
+					$util.replaceIfNull($!user.noTelefon,"-")
+				#end
+			</td>
+		</tr>
+		<tr>
+			<td>8.</td>
+			<td>No. Telefon Bimbit</td>
+			<td>:</td>
+			<td>
+				#if( $!r )
+					$util.replaceIfNull($!r.pemohon.noTelefonBimbit,"-")
+				#else
+					$util.replaceIfNull($!user.noTelefonBimbit,"-")
+				#end
+			</td>
+		</tr>
+		<tr>
+			<td>9.</td>
+			<td>No. Faks</td>
+			<td>:</td>
+			<td>
+				#if( $!r )
+					$util.replaceIfNull($!r.pemohon.noFaks.trim(),"-")
+				#else
+					$util.replaceIfNull($!user.noFaks.trim(),"-")
+				#end
+			</td>
+		</tr>
+		<tr>
+			<td>10.</td>
+			<td>Emel</td>
+			<td>:</td>
+			<td>
+				#if( $!r )
+					$util.replaceIfNull($!r.pemohon.emel,"-")
+				#else
+					$util.replaceIfNull($!user.emel,"-")
+				#end
+			</td>
+		</tr>
+	</table>
+	
+</fieldset>
+
+#if($!userRole.equalsIgnoreCase("(RPP) Penyemak") || $!userRole.equalsIgnoreCase("(RPP) Pelulus"))
+<fieldset>
+	
+	 <table width="100%" cellpadding="1" cellspacing="1" >
+    	<tr>
+    		<td style="width:190px"></td>
+    		<td style="width:10px"></td>
+    		<td>&nbsp;</td>
+    	</tr>
+		
+		#textarea("catatanPenyemak" "Catatan Penyemak" "$!r.catatanPenyemak")
+		
+	 </table>
+		
+</fieldset>
+#end
+#if( $!r.status.id.equalsIgnoreCase("1433097397170") )
+<fieldset>	
+        <legend class="legend">SENARAI CETAKAN</legend>
+        <table width="100%" >
+        
+        	#if( $!r )
+        	<tr>
+    			<td><a href="#" style="color:blue" id="cmdCetakSuratKelulusan" value="">SURAT KELULUSAN</a></td>
+        	</tr>
+       		#end
+        
+        </table>
+</fieldset>#end
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="left">
+			<div id="err_docSokongan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>	
+		</td>
+		<td align="right">##Fatin 13/06/2015
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+
+			##if(!$!userRole.equalsIgnoreCase("(AWAM) Penjawat Awam"))	
+			#if($!userRole.equalsIgnoreCase("(RPP) Penyemak") || $!userRole.equalsIgnoreCase("(RPP) Pelulus"))
+    			#if( $!r && $r.status.id=="1425259713412" )	
+					#if(!$!userRole.equalsIgnoreCase("(RPP) Penyedia"))	
+						<input type="button" value="Permohonan Lengkap" onClick="javascript:doSavePermohonanLengkap('$!listDokumen.size()')">	
+						##<input type="button" value="Permohonan Tidak Diluluskan" onClick="javascript:doSavePermohonanTidakLulus()">	
+						<input id="btnTidakLulus" onclick="javascript:doOpenPopupTidakLulus()" type="button" value="Permohonan Tidak Diluluskan" />	
+					#end
+				#end
+			#end
+			
+			##set ( $queryParam = "record_id=$!r.id" )
+			##<input type="button" value="Simpan" onClick="if ( validateField() ) doDivAjaxCall$formname('div_main_entry','save_data','$queryParam')">
+			
+			#if( $r.status.id=="1439694210108" )
+				<input type="button" value="Hantar Permohonan" onClick="javascript:doHantarPermohonan('$!r.id','$!listDokumen.size()')">	
+			#end	
+			
+			#if( !$r || ($r.status.id=="1439694210108" || $r.status.id=="2155884463563036") )
+    			#if(!$!userRole.equalsIgnoreCase("(RPP) Penyedia"))	
+    			<input type="button" value="Simpan" onClick="javascript:doSavePermohonan('$!r.id')">	
+    			#end
+			#end
+				
+			#if ( !$r )
+				##<input type="button" value="Kosongkan" onClick="doDivAjaxCall3$formname('div_main_entry','add_new_record','')">
+			#end
+			
+			##Pembatalan. 
+			##1.Dah lengkap
+			##2.Penyemak dan pelulus shj
+			#if($!userRole.equalsIgnoreCase("(RPP) Penyemak") || $!userRole.equalsIgnoreCase("(RPP) Pelulus"))
+    			#if( $!r.status.id=="1433097397170")
+    				<input type="button" id="btnPopupBatal" value="Batal Permohonan Kelompok" onClick="javascript:doBatalPermohonan()">
+    			#end
+			#end
+			
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+
+
+<div id="popupTidakLulus" class="popup"></div>
+	<script>
+    _jq('#cmdCetakSuratKelulusan').on('click', function(){
+		var idRppPermohonan = '$!r.id';
+    	var url = "../servlet/bph.laporan.rpp.SuratKelulusanPermohonanBerkelompok?idRppPermohonan="+idRppPermohonan;
+    	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+    	if ((document.window != null) && (!hWnd.opener))
+    	hWnd.opener = document.window;
+    	if (hWnd.focus != null) hWnd.focus();
+    });
+    </script>
+

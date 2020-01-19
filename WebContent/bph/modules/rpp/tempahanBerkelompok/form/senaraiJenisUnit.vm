@@ -1,0 +1,96 @@
+
+<br/>
+<table width="100%">
+	
+	<tr>
+		<td class="row_header" width="5%">Bil.</td>
+		<td class="row_header" width="30%">Jenis</td>
+		<td class="row_header" width="15%">Harga (RM)</td>
+		<td class="row_header" width="20%">Unit</td>
+		<td class="row_header" width="15%">Bil. Unit Mohon</td>
+		<td class="row_header" width="15%">Bil. Unit Lulus</td>
+	</tr>
+		
+	
+	#if ( $listJenisUnit.size() > 0 )
+		#set ( $count = 0 )
+    	#foreach( $d in $listJenisUnit )
+    			
+    	#set ( $count = $count + 1)
+        #if ( $count % 2 == 0 ) 
+			#set ( $rowcolor = "#D0CFCE" ) 
+        #else
+        	#set ( $rowcolor = "#F0F0F0" ) 
+		#end
+				
+    		<tr bgcolor="$rowcolor">
+    			<td align="center">$count</td>
+                <td align="center">$!d.keterangan.toUpperCase()</td>
+                <td align="center">$!d.kadarSewa</td>
+                <td align="center">$!d.listRppUnitSale().size()</td>
+            	<td align="center">
+					<select #if($!d.listRppUnitSale().size() == 0 || ($!userRole.equalsIgnoreCase("(RPP) Penyedia") || $!userRole.equalsIgnoreCase("(RPP) Penyemak") || $!userRole.equalsIgnoreCase("(RPP) Pelulus")) ) disabled #end class="texts" id="bilUnit" name="bilUnit$!d.id" style="width:100%" onChange="doCountTotalUnitMohon();$('err_bilUnit').innerHTML='';">
+                        <option value="0">SILA PILIH</option>
+                        #foreach($bilno in [1..$!d.listRppUnitSale().size()])
+                        	<option value="$bilno" #if($bilno==$!d.getKelompokValue($r.id)) selected #end>$bilno</option>
+                        #end
+                    </select>
+				</td>
+				<td align="center">
+					
+					#set($bilAvailable = 0)
+					#if( $!r.status.id == "1433097397170" || $!r.status.id == "1425259713415" )
+						#set($bilAvailable = $!d.listRppUnitSale().size())
+					#else
+						#set($bilAvailable = $!d.getBilAvailabilityKelompok($!r.id))
+					#end	
+					
+					<select #if(($!d.listRppUnitSale().size() == 0 || $!d.getKelompokValue($r.id) == 0) || (!$!userRole.equalsIgnoreCase("(RPP) Penyemak") && !$!userRole.equalsIgnoreCase("(RPP) Pelulus") ) ) disabled #end class="texts" id="bilUnitKelompok" name="bilUnitKelompok$!d.id" style="width:100%" onChange="doCountTotalUnitLulus();$('err_bilUnit').innerHTML='';">
+                        <option value="0">SILA PILIH</option>
+                        #foreach($bilno in [0..$bilAvailable])
+                        	<option value="$bilno" #if($bilno==$!d.getKelompokLulusValue($r.id)) selected #end>$bilno</option>
+                        #end
+                    </select>
+				</td>
+    		</tr>
+		#end
+	#else
+		<tr bgcolor="#F0F0F0">
+			<td colspan="6">Tiada Rekod</td>
+		</tr>
+	#end
+	
+	#if( $!r )
+	<tr>
+		<td colspan="3"><font color="blue">Arahan : Sila pilih satu rumah peranginan sahaja dan daftar bilangan unit mengikut pilihan.</font></td>	
+		<td align="right"><b>JUMLAH UNIT & KADAR  &nbsp; : &nbsp; </b></td>
+		<td><b>&nbsp; $!r.getKelompokValue() &nbsp; (RM $!util.formatDecimal($!r.getKelompokValueHarga()))</b></td>
+		<td><b>&nbsp; $!r.getKelompokLulusValue() &nbsp; (RM $!util.formatDecimal($!r.getKelompokLulusValueHarga()))</b></td>
+	</tr>
+	#end
+	
+	<tr>
+		<td colspan="5">
+			<br/>
+			#set($totalUnitMohon=0)
+			#set($totalUnitLulus=0)
+			#if( $!r )
+				#set($totalUnitMohon=$r.getKelompokValue())
+				#set($totalUnitLulus=$r.getKelompokLulusValue())
+			#end
+			<div id="divTotalUnitMohonSelected">#parse("$path/form/countUnitMohon.vm")</div>
+			<div id="divTotalUnitLulusSelected">#parse("$path/form/countUnitLulus.vm")</div>
+			<div id="err_bilUnit" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>	
+	</tr>
+	
+</table>
+	
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number2digit').autoNumeric('init', {aSep: '', vMin: '0', vMax: '99', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

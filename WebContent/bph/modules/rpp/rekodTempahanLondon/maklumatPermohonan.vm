@@ -1,0 +1,158 @@
+<fieldset>
+<legend class="legend">maklumat permohonan</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  #if ($!command != "add_new_record")
+  <tr>
+    <td>Status Permohonan</td>
+    <td>:</td>
+    <td> $!r.status.keterangan.toUpperCase() </td>
+  </tr>
+  <tr>
+    <td>Status Bayaran</td>
+    <td>:</td>
+    <td> $!r.keteranganStatusBayaran().toUpperCase() </td>
+  </tr>
+  #end
+  <tr>
+    <td valign="top">Peranginan &nbsp;
+      #if( $!r && ( $!r.status.id.equalsIgnoreCase("1430809277102") || $!r.status.id.equalsIgnoreCase("1430809277099") || $!r.status.id.equalsIgnoreCase("1435093978588") ) )
+      #else <span style="color:#FF2A00">*</span> #end </td>
+    <td valign="top">:</td>
+    <td valign="top"> #if( $!r && ($!r.status.id.equalsIgnoreCase("1430809277102") || $!r.status.id.equalsIgnoreCase("1430809277099") || $!r.status.id.equalsIgnoreCase("1435093978588") ) )
+      $!r.jenisUnitRpp.peranginan.namaPeranginan.toUpperCase()
+      #else
+      <select class="texts" id="peranginan" name="peranginan" style="width:100%" onChange="javascript:filterJenisUnit();$('err_peranginan').innerHTML=''; $('err_jenisUnit').innerHTML=''; at(this, event);" >
+        <option value="">SILA PILIH</option>
+        #foreach( $n in $listPeranginanLondon)
+        	<option value="$n.id" #if($!n.id == $!r.jenisUnitRpp.peranginan.id) selected #end >$n.namaPeranginan.toUpperCase()</option>
+        #end    	
+      </select>
+      <div id="err_peranginan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      #end </td>
+  </tr>
+  <tr>
+    <td valign="top"> Jenis &nbsp;
+      #if( $!r && ($!r.status.id.equalsIgnoreCase("1430809277102") || $!r.status.id.equalsIgnoreCase("1430809277099") || $!r.status.id.equalsIgnoreCase("1435093978588")) )
+      #else <span style="color:#FF2A00">*</span> #end </td>
+    <td valign="top">:</td>
+    <td valign="top"> #if( $!r && ($!r.status.id.equalsIgnoreCase("1430809277102") || $!r.status.id.equalsIgnoreCase("1430809277099") || $!r.status.id.equalsIgnoreCase("1435093978588")) )
+      $!r.jenisUnitRpp.keterangan.toUpperCase()
+      #else
+      <div id="divJenisUnit"> #parse("$path/divJenisUnit.vm") </div>
+      <div id="err_jenisUnit" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      #end </td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3"><span style="font-size:11px;font-weight:bold;text-decoration: underline;">MAKLUMAT PENGINAPAN</span> </td>
+  </tr>
+  #if( $!r && ($!r.status.id.equalsIgnoreCase("1430809277102") || $!r.status.id.equalsIgnoreCase("1430809277099") || $!r.status.id.equalsIgnoreCase("1435093978588")) )
+  #show("Tarikh Mohon" "$!util.getDateTime($!r.tarikhDaftarRekod,'dd-MM-yyyy')")
+  #show("Tarikh Masuk" "$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy')")
+  #show("Tarikh Keluar" "$!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')")
+  #show("Jumlah Bayaran (RM)" "$!util.formatDecimal($!r.debit)")
+  #show("Status Bayaran" "$!r.keteranganStatusBayaran()")
+  #else
+  <tr>
+    <td class="label" valign="top">Tarikh Masuk &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td class="label" valign="top">:</td>
+    <td valign="top"><div>
+        <input type="text" id="tarikhMasukRpp" readonly name="tarikhMasukRpp" value="$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy')" >
+        <span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+        <script>
+                    	_jq("#tarikhMasukRpp").Zebra_DatePicker({ 
+            				format: 'd-m-Y',
+        					readonly_element: false,
+							direction: true,
+							pair: _jq('#tarikhKeluarRpp'),
+        					onSelect: function(view, elements) {
+        						$('err_tarikhMasukRpp').innerHTML='';
+        					}
+                    	});
+        				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+            		</script>
+        <div id="err_tarikhMasukRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      </div></td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">Tarikh Keluar &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td class="label" valign="top">:</td>
+    <td valign="top"><div>
+        <input type="text" id="tarikhKeluarRpp" readonly name="tarikhKeluarRpp" value="$!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')" >
+        <span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+        <script>
+                    	_jq("#tarikhKeluarRpp").Zebra_DatePicker({ 
+            				format: 'd-m-Y',
+        					readonly_element: false,
+							direction: 1,
+        					onSelect: function(view, elements) {
+        						$('err_tarikhKeluarRpp').innerHTML='';
+        					}
+                    	});
+        				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+            		</script>
+        <div id="err_tarikhKeluarRpp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      </div></td>
+  </tr>
+  #end
+</table>
+</fieldset>
+#if( $!r )
+	#if( !$!r.status.id.equalsIgnoreCase("1435093978588") )
+    <fieldset>
+<legend class="legend">SENARAI CETAKAN</legend>
+<table width="100%" >
+      <tr>
+    <td><a href="#" style="color:blue" id="cmdCetakBorang" value="">BORANG TEMPAHAN</a> </td>
+  </tr>
+  ##<tr> Arahan dari Seksyen RPP : En Sapian pada 27/8/2019 supaya buang notifikasi ini
+  ##  <td><span id="blinkNotifikasiCetakBorangPermohonan"> <font color="red"><b>*Sila cetak dan hantar "Borang Permohonan London Tuan/Puan ke Pejabat Perdana Menteri (PMO)
+  ##    Bangunan Perdana Putra" Untuk Kelulusan.*</b><br/>
+  ##    </font> </span> </td>
+  ##</tr>
+      #if( $!r.flagBayar=="Y" && $!r.resitSewa )
+      <tr>
+    <td><a href="#" style="color:blue" id="cmdResitInv">RESIT BAYARAN</a></td>
+  </tr>
+      <script>
+            			_jq('#cmdResitInv').on('click', function(){
+                		    var idResit = '$!r.resitSewa.id';
+        					var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+        					var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+        					if ((document.window != null) && (!hWnd.opener))
+        					hWnd.opener = document.window;
+        					if (hWnd.focus != null) hWnd.focus();	
+            			});
+        	        </script>
+      #end
+    </table>
+</fieldset>
+    #end
+#end
+    <script>
+    _jq('#cmdCetakBorang').on('click', function(){
+		var idPermohonan = '$!r.id';
+    	var url = "../servlet/bph.laporan.rpp.BorangPermohonanMenginapLondon?idPermohonan="+idPermohonan;
+    	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+    	if ((document.window != null) && (!hWnd.opener))
+    	hWnd.opener = document.window;
+    	if (hWnd.focus != null) hWnd.focus();
+    });
+    </script>
+ 
+ <script>   	
+## START BLINK NOTIFICATION
+function blinker() {
+	_jq('#blinkNotifikasiCetakBorangPermohonan').fadeOut(1000);
+    _jq('#blinkNotifikasiCetakBorangPermohonan').fadeIn(1000);    
+}
+setInterval(blinker, 1000);
+## END BLINK NOTIFICATION
+</script>

@@ -1,0 +1,28 @@
+<fieldset>
+<legend class="legend">ULASAN PENGURUS BANGUNAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #if ($!r.tarikhUlasanPengurusBangunan) 
+  #set ($dateUlasanPengurusBangunan = "$!util.getDateTime($!r.tarikhUlasanPengurusBangunan,'dd-MM-yyyy')")
+  #else #set ($dateUlasanPengurusBangunan = "") #end
+  #date_input_required("tarikhUlasanPengurusBangunan" "Tarikh Ulasan" "$dateUlasanPengurusBangunan")
+  #textarea_required("ulasanPengurusBangunan" "Ulasan" "$!r.ulasanPengurusBangunan")
+</table>
+</fieldset>
+
+#parse("$path/status.vm")
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if ($!r.status.id == '1423568441671') ## PERMOHONAN BARU
+				<input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:saveUlasanPengurusBangunan();"/>
+		    #end
+		    <input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">	    
+		</td>
+	</tr>
+</table>

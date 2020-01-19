@@ -1,0 +1,59 @@
+
+<table width="80%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+  
+  #input("findNoPengenalan", "MyID", "")
+  #input("findNama", "Nama", "")
+  
+	<tr>
+		<td>Lokasi Peranginan</td>
+		<td>:</td>
+		<td>
+			<select id="findJenisRpp" name="findJenisRpp" style="width:100%">
+                <option value="">SILA PILIH</option>
+                #foreach( $n in $listJenisUnitLondon )
+                	<option value="$n.id">$!n.peranginan.namaPeranginan.toUpperCase() - $!n.keterangan.toUpperCase()</option>
+                #end
+            </select>
+		</td>
+	</tr>
+  
+  <tr>
+		<td class="label" valign="middle">Tarikh Masuk</td>
+		<td class="label" valign="middle">:</td>
+		<td class="label" colspan="5">
+			<div>
+				<input type="text" id="findTarikhMasukRpp" name="findTarikhMasukRpp" value="">
+                <span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+                <script>
+                	_jq("#findTarikhMasukRpp").Zebra_DatePicker({ 
+                		format: 'd-m-Y',
+                		readonly_element: false,
+						pair: _jq('#findTarikhKeluarRpp')
+                	});
+                </script>
+          	</div>
+      	</td>
+  	</tr>
+	
+	<tr>
+		<td class="label" valign="middle">Tarikh Keluar</td>
+		<td class="label" valign="middle">:</td>
+        <td class="label" colspan="5">
+			<div>
+				<input type="text" id="findTarikhKeluarRpp" name="findTarikhKeluarRpp" value="">
+                <span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+                <script>
+               		_jq("#findTarikhKeluarRpp").Zebra_DatePicker({ 
+                		format: 'd-m-Y',
+                		readonly_element: false
+                	});
+              	</script>
+			</div>
+      	</td>
+  	</tr>
+</table>

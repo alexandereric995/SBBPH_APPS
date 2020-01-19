@@ -1,0 +1,375 @@
+
+###parse("$path/kelulusanPermohonan/senaraiSubTab.vm")
+
+
+<div id="mainForm" name="mainForm">
+###if($!r.status.id == "1424860634481" || $!r.status.id == "1424860634484" || $!r.status.id == "1424860634487" || $!r.status.id == "1424860634490" )
+#if($!r.status.id == "1424860634481" || $!r.status.id == "1424860634484" || $!r.status.id == "1424860634487" || $!r.status.id == "1424860634490" || $!r.status.id == "1424860634493" || $!r.status.id == "1424860634496" || $!r.status.id == "1424860634499" || $!r.status.id == "1424924558493" || $!r.status.id == "1424860634502")
+<fieldset>
+<legend class="legend">Kertas Pertimbangan</legend>
+	<table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+		<tr>
+        	<td class="label" valign="top">Kategori</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				$!r.getKategoriPermohonan()
+			</td>
+        </tr>
+		<tr>
+        	<td class="label" valign="top">Bil. mesyuarat</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="bilMesyuarat" class="uppercasefont" name="bilMesyuarat" value="$!kp.bilMesyuarat" onKeyUp="$('err_bilMesyuarat').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_bilMesyuarat" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+		<tr>
+        	<td class="label" valign="top">No. Daftar</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="noDaftar" class="uppercasefont" name="noDaftar" value="$!kp.noDaftar" onKeyUp="$('err_noDaftar').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_noDaftar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+		<tr>
+        	<td class="label" valign="top">Syor bersyarat</td>##&nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+    			<input type="radio" #if($!kp.flagSyorBersyarat=='Y')checked#end id="flagSyorBersyarat1" name="flagSyorBersyarat" value="Y" onclick=" $('err_flagSyorBersyarat').innerHTML=''; at(this, event);">&nbsp;Ya
+    			<input type="radio" #if($!kp.flagSyorBersyarat=='T')checked#end id="flagSyorBersyarat2" name="flagSyorBersyarat" value="T" onclick=" $('err_flagSyorBersyarat').innerHTML=''; at(this, event);">&nbsp;Tidak
+				<div id="err_flagSyorBersyarat" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    		</td>
+        </tr>
+##		<tr>
+##        	<td  valign="top" class="label">Tarikh lengkap permohonan</td>
+##        	<td  valign="top" class="label">:</td>
+##        	<td valign="top">
+##				<input type="text" id="tarikhLengkapPermohonan" name="tarikhLengkapPermohonan" value="$!util.getDateTime($!kp.tarikhLengkapPermohonan,'dd-MM-yyyy')" style="width: 18%" onChange=" $('err_tarikhLengkapPermohonan').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()">
+##        		<script>
+##                _jq(function() {
+##                	jQuery("#tarikhLengkapPermohonan").datepicker({ 
+##                		dateFormat: "dd-mm-yy",
+##        				showOn: "both",
+##        				buttonImageOnly: true,
+##        				buttonImage: "../img/calendar_icon.gif",
+##        				buttonText: "Calendar",
+##                	});
+##                });
+##        		</script>
+##				<div id="err_tarikhLengkapPermohonan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##        	</td>
+##        </tr>
+		<tr>
+        	<td class="label" valign="top">Disediakan oleh</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="disediakanOleh" class="uppercasefont" name="disediakanOleh" value="$!kp.disediakanOleh" onKeyUp="$('err_disediakanOleh').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_disediakanOleh" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+		<tr>
+        	<td class="label" valign="top">Ulasan</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<textarea id="catatan" style="width:40% !important" class="uppercasefont" name="catatan" onKeyUp=" $('err_catatan').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()" onBlur="this.value=this.value.toUpperCase();">$!kp.catatan</textarea>
+				<div id="err_catatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+	</table>	
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+						
+##			#if(($kp.id != "" && $kp.id) && $!r.status.id == "1424860634481")
+##			<input type="button" value="Hantar Semakan" id="cmdHantarSemakan" />
+##			#end
+			#if($!r.status.id == "1424860634481")
+##    			#if($kp.id != "" && $kp.id)
+##    			<input type="button" value="Cetak"  id="cmdCetak"/>
+##    			#else
+##    			<input type="button" value="Cetak"  id="cmdCetak" disabled="disabled"/>
+##    			#end
+##    			<input type="button" value="Batal Permohonan" id="cmdBatalPermohonan" />
+##    			<input type="button" value="Simpan" id="cmdSaveKertasPertimbangan1" />
+##    			<input type="button" value="Kosongkan" id="cmdKosongkanKp1" />		
+	<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">		
+	#end
+		
+		</td>
+	</tr>
+</table>
+#end
+</div>
+###if($!r.status.id == "1424860634484" || $!r.status.id == "1424860634487" || $!r.status.id == "1424860634490")
+#if($!r.status.id == "1424860634484" || $!r.status.id == "1424860634487" || $!r.status.id == "1424860634490" || $!r.status.id == "1424860634493" || $!r.status.id == "1424860634496" || $!r.status.id == "1424860634499" || $!r.status.id == "1424924558493" || $!r.status.id == "1424860634502")
+<fieldset>
+<legend class="legend">Semakan Kertas Pertimbangan</legend>
+	<table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+		<tr>
+        	<td class="label" valign="top">Disemak oleh</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="disemakOleh" class="uppercasefont" name="disemakOleh" value="$!kp.disemakOleh" onKeyUp="$('err_disemakOleh').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_disemakOleh" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+		<tr>
+        	<td class="label" valign="top">Ulasan</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<textarea id="ulasanPenolongUrusetia" style="width:40% !important" class="uppercasefont" name="ulasanPenolongUrusetia" onKeyUp=" $('err_ulasanPenolongUrusetia').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()" onBlur="this.value=this.value.toUpperCase();">$!kp.ulasanPenolongUrusetia</textarea>
+				<div id="err_ulasanPenolongUrusetia" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+        <tr>
+        	<td  valign="top" class="label">Tarikh semakan</td>
+        	<td  valign="top" class="label">:</td>
+        	<td valign="top">$!util.getDateTime($!kp.tarikhSemakan,'dd-MM-yyyy')
+##				<input type="text" id="tarikhSemakan" name="tarikhSemakan" value="$!util.getDateTime($!kp.tarikhSemakan,'dd-MM-yyyy')" style="width: 18%" onChange=" $('err_tarikhSemakan').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()">
+##        		<script>
+##                _jq(function() {
+##                	jQuery("#tarikhSemakan").datepicker({ 
+##                		dateFormat: "dd-mm-yy",
+##        				showOn: "both",
+##        				buttonImageOnly: true,
+##        				buttonImage: "../img/calendar_icon.gif",
+##        				buttonText: "Calendar",
+##                	});
+##                });
+##        		</script>
+##				<div id="err_tarikhSemakan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+	</table>	
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if(($kp.disemakOleh != "" && $kp.disemakOleh) && $!r.status.id == "1424860634484")
+    			<input type="button" value="Hantar Pengesahan" id="cmdHantarPengesahan" />
+    			#end
+			#if($!r.status.id == "1424860634484")
+##    			#if($kp.id != "" && $kp.id)
+##    			<input type="button" value="Cetak"  id="cmdCetak"/>
+##    			#else
+##    			<input type="button" value="Cetak"  id="cmdCetak" disabled="disabled"/>
+##    			#end
+##    			<input type="button" value="Simpan" id="cmdSaveKertasPertimbangan2" />
+##    			<input type="button" value="Kosongkan" id="cmdKosongkanKp2" />
+    			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">  			
+    			
+			#end
+		</td>
+	</tr>
+</table>
+#end
+
+
+#if($!r.status.id == "1424860634487" || $!r.status.id == "1424860634490" || $!r.status.id == "1424860634493" || $!r.status.id == "1424860634496" || $!r.status.id == "1424860634499" || $!r.status.id == "1424924558493" || $!r.status.id == "1424860634502")
+<fieldset>
+<legend class="legend">Pengesahan Kertas Pertimbangan</legend>
+	<table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+		<tr>
+        	<td class="label" valign="top">Disahkan oleh</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input style="width:30%" type="text" id="disahkanOleh" class="uppercasefont" name="disahkanOleh" value="$!kp.disahkanOleh" onKeyUp="$('err_disahkanOleh').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+				<div id="err_disahkanOleh" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+		<tr>
+        	<td class="label" valign="top">Ulasan</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<textarea id="ulasanKetuaUrusetia" style="width:40% !important" class="uppercasefont" name="ulasanKetuaUrusetia" onKeyUp=" $('err_ulasanKetuaUrusetia').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()" onBlur="this.value=this.value.toUpperCase();">$!kp.ulasanKetuaUrusetia</textarea>
+				<div id="err_ulasanKetuaUrusetia" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+        <tr>
+        	<td  valign="top" class="label">Tarikh pengesahan</td>
+        	<td  valign="top" class="label">:</td>
+        	<td valign="top">$!util.getDateTime($!kp.tarikhPengesahan,'dd-MM-yyyy')
+##				<input type="text" id="tarikhPengesahan" name="tarikhPengesahan" value="$!util.getDateTime($!kp.tarikhPengesahan,'dd-MM-yyyy')" style="width: 18%" onChange=" $('err_tarikhPengesahan').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()">
+##        		<script>
+##                _jq(function() {
+##                	jQuery("#tarikhPengesahan").datepicker({ 
+##                		dateFormat: "dd-mm-yy",
+##        				showOn: "both",
+##        				buttonImageOnly: true,
+##        				buttonImage: "../img/calendar_icon.gif",
+##        				buttonText: "Calendar",
+##                	});
+##                });
+##        		</script>
+##				<div id="err_tarikhPengesahan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+	</table>	
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			
+			#if($!r.status.id != "1424860634481" || $!r.status.id != "1424860634484")
+##				#if($kp.id != "" && $kp.id)
+##    			<input type="button" value="Cetak"  id="cmdCetak"/>
+##    			#else
+##    			<input type="button" value="Cetak"  id="cmdCetak" disabled="disabled"/>
+##    			#end
+##			<input type="button" value="Simpan" id="cmdSaveKertasPertimbangan3" />
+##			<input type="button" value="Kosongkan" id="cmdKosongkanKp3" />
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+			#end
+		</td>
+	</tr>
+</table>
+#end
+
+<fieldset id="tableReport" style="display:none;">
+<legend class="legend">SENARAI LAPORAN</legend>
+<table width="100%" >
+	<tr>
+		<td><a href="#" style="color:blue" id="cmdCetakBorangJRP">Borang JRP</a></td>		
+	</tr>
+	<tr>	
+		<td><a href="#" style="color:blue"  id="cmdCetakKertasPertimbangan">Kertas Pertimbangan</a></td>
+	</tr>
+</table>
+</fieldset>
+
+<div id="statusKp"></div>
+<div id="statusBp"></div>	
+<script>
+_jq('#cmdHantarPengesahan').on('click', function(){
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = '$!r.id';
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('statusKp','hantarPengesahanKp','idPermohonan='+idPermohonan+'&selectedSubTab='+tabNo+'','divTab','getKelulusanPermohonan','selectedSubTab=1');
+	}
+});
+_jq('#cmdHantarSemakan').on('click', function(){
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = '$!r.id';
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('statusKp','hantarSemakanKp','idPermohonan='+idPermohonan+'&selectedSubTab='+tabNo+'','divTab','getKelulusanPermohonan','selectedSubTab=1');
+	}
+});
+_jq('#cmdKosongkanKp1').on('click', function(){
+	$('bilMesyuarat').value = "";
+	$('noDaftar').value = "";
+	$('tarikhLengkapPermohonan').value = "";
+	$('catatan').value = "";
+	$('disediakanOleh').value = "";
+	var inputs = document.${formname}.flagSyorBersyarat;
+    for(var i = inputs.length-1;i>=0;i--){
+        if(inputs[i].getAttribute("type")==="radio"){
+            inputs[i].checked=false;
+        }
+    }
+});
+_jq('#cmdKosongkanKp2').on('click', function(){
+	$('ulasanPenolongUrusetia').value = "";
+	$('disemakOleh').value = "";
+	$('tarikhSemakan').value = "";
+});
+_jq('#cmdKosongkanKp3').on('click', function(){
+	$('ulasanKetuaUrusetia').value = "";
+	$('disahkanOleh').value = "";
+	$('tarikhPengesahan').value = "";
+});
+_jq('#cmdSaveKertasPertimbangan1').on('click', function(){
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = '$!r.id';
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('statusKp','saveKertasPertimbanganUrusetia','idPermohonan='+idPermohonan+'&selectedSubTab='+tabNo+'','divTab','getKelulusanPermohonan','selectedSubTab=1');
+	}
+});
+_jq('#cmdSaveKertasPertimbangan2').on('click', function(){
+	var tabNo = $!selectedSubTab;
+	var idKertasPertimbangan = '$!kp.id';
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('statusKp','saveKertasPertimbanganPenolongUrusetia','idKertasPertimbangan='+idKertasPertimbangan+'&selectedSubTab='+tabNo+'','divTab','getKelulusanPermohonan','selectedSubTab=1');
+	}
+});
+_jq('#cmdSaveKertasPertimbangan3').on('click', function(){
+	var tabNo = $!selectedSubTab;
+	var idKertasPertimbangan = '$!kp.id';
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('statusKp','saveKertasPertimbanganKetuaUrusetia','idKertasPertimbangan='+idKertasPertimbangan+'&selectedSubTab='+tabNo+'','divTab','getKelulusanPermohonan','selectedSubTab=1');
+	}
+});
+
+_jq('#cmdBatalPermohonan').on('click', function(){
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = $!r.id;
+	
+	var mainForm = document.getElementById('mainForm');
+    	mainForm.style.display = 'none';
+    	
+		##doDivAjaxChainCall$formname('statusBp','batalPermohonan','idPermohonan='+idPermohonan+'&selectedSubTab='+tabNo+'','divTab','getKelulusanPermohonan','selectedSubTab=1');
+		doDivAjaxChainCall$formname('statusBp','batalPermohonan','idPermohonan='+idPermohonan);
+});
+
+_jq('#cmdCetak').on('click', function(){
+
+			if(document.getElementById('tableReport').style.display=="none"){
+				document.getElementById('tableReport').style.display="block";
+				}
+			else if(document.getElementById('tableReport').style.display=="block"){
+				document.getElementById('tableReport').style.display="none";
+				}
+});
+
+_jq('#cmdCetakBorangJRP').on('click', function(){
+	
+	var idPermohonan = $!r.id;
+	var jenis = document.${formName}.flagJenis.value;
+	
+			var url = "../servlet/bph.laporan.jrp.JRPBorangJRP?idPermohonan="+idPermohonan+"&jenisPermohonan="+jenis;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+});
+_jq('#cmdCetakKertasPertimbangan').on('click', function(){
+	
+	var idPermohonan = $!r.id;
+	var jenis = document.${formName}.flagJenis.value;
+	
+	if(jenis == "JRP7"){
+			var url = "../servlet/bph.laporan.jrp.JRPKertasPertimbangan?idPermohonan="+idPermohonan+"&jenis="+jenis;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+			}
+			else{
+			var url = "../servlet/bph.laporan.jrp.JRPKertasPertimbangan2?idPermohonan="+idPermohonan+"&jenis="+jenis;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+			}
+});
+</script>
+
+	

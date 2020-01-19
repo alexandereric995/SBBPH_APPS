@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="KEWResitSalinan_subKaedahBayaran"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="535"
+		 pageHeight="802"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idResit" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT b.keterangan mod_bayaran,
+       c.keterangan nama_bank,
+       d.no_rujukan,
+       d.no_cek,
+       d.no_eft,
+       a.id_transaksi_bank,
+       d.amaun_bayaran
+FROM kew_bayaran_resit a
+     JOIN kew_resit_kaedah_bayaran d ON d.id_bayaran_resit = a.id
+     JOIN ruj_cara_bayar b ON d.id_mod_bayaran = b.id
+     LEFT JOIN ruj_bank c ON d.id_bank = c.id
+WHERE a.id = $P!{idResit}
+ORDER BY b.keterangan ASC]]></queryString>
+
+	<field name="mod_bayaran" class="java.lang.String"/>
+	<field name="nama_bank" class="java.lang.String"/>
+	<field name="no_rujukan" class="java.lang.String"/>
+	<field name="no_cek" class="java.lang.String"/>
+	<field name="no_eft" class="java.lang.String"/>
+	<field name="id_transaksi_bank" class="java.lang.String"/>
+	<field name="amaun_bayaran" class="java.lang.Double"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="20"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="20"
+						height="20"
+						key="staticText-1"/>
+					<box leftPadding="2" rightPadding="2" topPadding="2" bottomPadding="2">					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Bil]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="20"
+						y="0"
+						width="130"
+						height="20"
+						key="staticText-2"/>
+					<box leftPadding="2" rightPadding="2" topPadding="2" bottomPadding="2">					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Mod Bayaran]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="150"
+						y="0"
+						width="200"
+						height="20"
+						key="staticText-4"/>
+					<box leftPadding="2" rightPadding="2" topPadding="2" bottomPadding="2">					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Bank]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="350"
+						y="0"
+						width="110"
+						height="20"
+						key="staticText-6"/>
+					<box leftPadding="2" rightPadding="2" topPadding="2" bottomPadding="2">					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[No. Dokumen]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="460"
+						y="0"
+						width="75"
+						height="20"
+						key="staticText-7"/>
+					<box leftPadding="2" rightPadding="2" topPadding="2" bottomPadding="2">					<bottomPen lineWidth="0.25" lineStyle="Dotted"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Amaun (RM)]]></text>
+				</staticText>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="25"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="0"
+						width="130"
+						height="25"
+						key="textField-2"/>
+					<box leftPadding="2" rightPadding="2" topPadding="2" bottomPadding="2"></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{mod_bayaran}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="150"
+						y="0"
+						width="200"
+						height="25"
+						key="textField-4"/>
+					<box leftPadding="2" rightPadding="2" topPadding="2" bottomPadding="2"></box>
+					<textElement verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nama_bank}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="350"
+						y="0"
+						width="110"
+						height="25"
+						key="textField-6"/>
+					<box leftPadding="2" rightPadding="2" topPadding="2" bottomPadding="2"></box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{no_rujukan} != null ? $F{no_rujukan}.trim(): "") + 
+($F{no_cek} != null ? $F{no_cek}.trim(): "") +
+($F{no_eft} != null ? $F{no_eft}.trim(): "") +
+($F{id_transaksi_bank} != null ? $F{id_transaksi_bank}.trim(): "")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,###,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="0"
+						width="75"
+						height="25"
+						key="textField-7"/>
+					<box leftPadding="2" rightPadding="2" topPadding="2" bottomPadding="2"></box>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{amaun_bayaran}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="20"
+						height="25"
+						key="textField-8"/>
+					<box topPadding="2" bottomPadding="2"></box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

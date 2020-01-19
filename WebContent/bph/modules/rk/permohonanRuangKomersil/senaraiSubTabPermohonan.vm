@@ -1,0 +1,135 @@
+<nav class="breadcrumbs">
+  <ul>
+    <li #if($!selectedSubTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatPermohonan','')" #end >Maklumat Permohonan</a></li>  
+  	<li #if($!selectedSubTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='2') onClick="doDivAjaxCall3$formname('divTab','getMaklumatRuang','')" #end >Maklumat Ruang</a></li>
+  	<li #if($!selectedSubTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='3') onClick="doDivAjaxCall3$formname('divTab','getMaklumatIndividu','')" #end >Maklumat Pemohon</a></li>
+  	<li #if($!selectedSubTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='4') onClick="doDivAjaxCall3$formname('divTab','getMaklumatSyarikat','')" #end >Maklumat Syarikat</a></li>
+    <li #if($!selectedSubTab=='5') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='5') onClick="doDivAjaxCall3$formname('divTab','getMaklumatLain','')" #end >Maklumat Lain</a></li>
+    <li #if($!selectedSubTab=='6') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='6') onClick="doDivAjaxCall3$formname('divTab','getDokumenSokongan','')" #end >Dokumen Sokongan</a></li>
+  </ul>
+</nav>
+
+<br/>
+
+#if ($!selectedSubTab == '1')
+	<div id="divPermohonan"> #parse("$path/maklumatPermohonanBaru.vm") </div>
+	<div id="divMaklumatSewaan"> #parse("$path/maklumatSewaan.vm") </div>
+	#if ($!r.status.id == '22803475845641')
+		#parse("$path/maklumatBatalPermohonan/maklumatBatalPermohonan.vm")
+	#end	
+	<table width="100%">
+	  <tr>
+	    <td align="right">
+	    	#if ($!allowUpdatePermohonan == 'Y')
+	    		<input id="simpan" name="simpan" type="button" value="Simpan" onClick="javascript:doKemaskiniMaklumatPermohonan();"/>
+	    	#end
+	    	
+			## TOLAK || SELESAI || BATAL
+	    	#if ($!r.status.id != '1434079231886' && $!r.status.id != '22803475845632' && $!r.status.id != '22803475845641')
+	    		<input id="btnBatal" name="btnBatal" type="button" value="Batal Permohonan"/>
+	    	#end
+	    	
+	    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	  </tr>
+	</table>
+#end
+
+#if ($!selectedSubTab == '2')
+	<div id="divRuang"> #parse("$path/maklumatRuang/maklumatRuang.vm") </div>
+	<table width="100%">
+	  <tr>
+	    <td align="right">
+	    	#if ($!allowUpdatePermohonan == 'Y')
+	    		#if ($!r.idJenisPermohonan == '1')
+	    			<input id="simpan" name="simpan" type="button" value="Simpan" onClick="javascript:doKemaskiniMaklumatRuang();"/>
+	    		#end
+	    	#end
+	    	
+			## TOLAK || SELESAI || BATAL
+	    	#if ($!r.status.id != '1434079231886' && $!r.status.id != '22803475845632' && $!r.status.id != '22803475845641')
+	    		<input id="btnBatal" name="btnBatal" type="button" value="Batal Permohonan"/>
+	    	#end
+	    	
+	    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	  </tr>
+	</table>
+#end
+
+#if ($!selectedSubTab == '3')
+	<div id="divIndividu"> #parse("$path/maklumatIndividu/maklumatIndividu.vm") </div>
+	<table width="100%">
+	  <tr>
+	    <td align="right">
+	    	#if ($!allowUpdatePermohonan == 'Y')
+	    		<input id="simpan" name="simpan" type="button" value="Simpan" onClick="javascript:doKemaskiniMaklumatIndividu();"/>
+	    	#end
+	    	
+			## TOLAK || SELESAI || BATAL
+	    	#if ($!r.status.id != '1434079231886' && $!r.status.id != '22803475845632' && $!r.status.id != '22803475845641')
+	    		<input id="btnBatal" name="btnBatal" type="button" value="Batal Permohonan"/>
+	    	#end
+	    	
+	    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	  </tr>
+	</table>
+#end
+
+#if ($!selectedSubTab == '4')
+	<div id="divSyarikat"> #parse("$path/maklumatSyarikat/maklumatSyarikat.vm") </div>
+	<table width="100%">
+	  <tr>
+	    <td align="right">
+	    	#if ($!allowUpdatePermohonan == 'Y')
+	    		<input id="simpan" name="simpan" type="button" value="Simpan" onClick="javascript:doKemaskiniMaklumatSyarikat();"/>
+	    	#end
+	    	
+			## TOLAK || SELESAI || BATAL
+	    	#if ($!r.status.id != '1434079231886' && $!r.status.id != '22803475845632' && $!r.status.id != '22803475845641')
+	    		<input id="btnBatal" name="btnBatal" type="button" value="Batal Permohonan"/>
+	    	#end
+	    	
+	    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	  </tr>
+	</table>
+#end
+
+#if ($!selectedSubTab == '5')
+	#parse("$path/maklumatLain/maklumatLain.vm")
+	<table width="100%">
+	  <tr>
+	    <td align="right">
+	    	#if ($!allowUpdatePermohonan == 'Y')
+	    		<input id="simpan" name="simpan" type="button" value="Simpan" onClick="javascript:doKemaskiniMaklumatLain();"/>
+	    	#end
+	    	
+			## TOLAK || SELESAI || BATAL
+	    	#if ($!r.status.id != '1434079231886' && $!r.status.id != '22803475845632' && $!r.status.id != '22803475845641')
+	    		<input id="btnBatal" name="btnBatal" type="button" value="Batal Permohonan"/>
+	    	#end
+	    	
+	    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	  </tr>
+	</table>	
+#end
+
+#if ($!selectedSubTab == '6')
+	#parse("$path/dokumenSokongan/start.vm")
+	<table width="100%">
+	  <tr>
+	    <td align="right">
+	    	
+			## TOLAK || SELESAI || BATAL
+	    	#if ($!r.status.id != '1434079231886' && $!r.status.id != '22803475845632' && $!r.status.id != '22803475845641')
+	    		<input id="btnBatal" name="btnBatal" type="button" value="Batal Permohonan"/>
+	    	#end
+	    	
+	    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	  </tr>
+	</table>	
+#end

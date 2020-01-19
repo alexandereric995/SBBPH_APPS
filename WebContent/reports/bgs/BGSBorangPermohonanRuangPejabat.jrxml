@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="BGSBorangPermohonanRuangPejabat"
+		 columnCount="5"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="590"
+		 pageHeight="700"
+		 columnWidth="110"
+		 columnSpacing="0"
+		 leftMargin="20"
+		 rightMargin="20"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idPermohonan" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT a.alamat1, a.alamat2, a.alamat3, a.poskod, e.keterangan negeri, d.keterangan bandar,
+c.keterangan agensi, b.keterangan kementerian, a.jabatan,
+a.no_telefon, a.no_faks, a.nama_pegawai, a.emel_pegawai, a.jumlah_perjawatan_semasa, a.jumlah_perjawatan_akan_datang,
+a.jumlah_keluasan_semasa, a.jumlah_keluasan_akan_datang, a.jenis_perkhidmatan,
+a.status_ruang_pejabat
+FROM bgs_permohonan a
+LEFT OUTER JOIN ruj_agensi c ON (a.id_agensi = c.id)
+LEFT OUTER JOIN ruj_bandar d ON (a.id_bandar = d.id)
+LEFT OUTER JOIN ruj_negeri e ON (d.id_negeri = e.id)
+LEFT OUTER JOIN ruj_kementerian b ON (c.id_kementerian = b.id)
+WHERE a.id = '$P!{idPermohonan}']]></queryString>
+
+	<field name="alamat1" class="java.lang.String"/>
+	<field name="alamat2" class="java.lang.String"/>
+	<field name="alamat3" class="java.lang.String"/>
+	<field name="poskod" class="java.lang.String"/>
+	<field name="negeri" class="java.lang.String"/>
+	<field name="bandar" class="java.lang.String"/>
+	<field name="agensi" class="java.lang.String"/>
+	<field name="kementerian" class="java.lang.String"/>
+	<field name="jabatan" class="java.lang.String"/>
+	<field name="no_telefon" class="java.lang.String"/>
+	<field name="no_faks" class="java.lang.String"/>
+	<field name="nama_pegawai" class="java.lang.String"/>
+	<field name="emel_pegawai" class="java.lang.String"/>
+	<field name="jumlah_perjawatan_semasa" class="java.lang.String"/>
+	<field name="jumlah_perjawatan_akan_datang" class="java.lang.String"/>
+	<field name="jumlah_keluasan_semasa" class="java.lang.String"/>
+	<field name="jumlah_keluasan_akan_datang" class="java.lang.String"/>
+	<field name="jenis_perkhidmatan" class="java.lang.String"/>
+	<field name="status_ruang_pejabat" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="660"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="430"
+						y="35"
+						width="110"
+						height="20"
+						key="staticText-1"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+				<text><![CDATA[Borang RPBGS 1]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="107"
+						y="80"
+						width="360"
+						height="30"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["KEPERLUAN RUANG PEJABAT OLEH JABATAN / PEJABAT PERSEKUTUAN DI BANGGUNAN GUNASAMA PERSEKUTUAN"]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="43"
+						y="340"
+						width="486"
+						height="20"
+						key="subreport-1"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idPermohonan">
+						<subreportParameterExpression><![CDATA[$P{idPermohonan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} +"\\bgs\\SubReport_MasalahBerkaitanRuangPejabat.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="23"
+						y="417"
+						width="506"
+						height="20"
+						key="subreport-2"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idPermohonan">
+						<subreportParameterExpression><![CDATA[$P{idPermohonan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} +"\\bgs\\SubReport_MaklumatPerjawatanRuangPejabat.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="23"
+						y="447"
+						width="506"
+						height="20"
+						key="subreport-3"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idPermohonan">
+						<subreportParameterExpression><![CDATA[$P{idPermohonan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\bgs\\SubReport_MaklumatPerjawatanRuangPejabatMengikutUnjuran10Tahun.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="23"
+						y="477"
+						width="506"
+						height="20"
+						key="subreport-4"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idPermohonan">
+						<subreportParameterExpression><![CDATA[$P{idPermohonan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir}+ "\\bgs\\SubReport_MaklumatKeperluanPejabat.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="23"
+						y="507"
+						width="506"
+						height="52"
+						key="subreport-6"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idPermohonan">
+						<subreportParameterExpression><![CDATA[$P{idPermohonan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\bgs\\SubReport_KeluasanRuangPejabatYangDipohon.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="23"
+						y="181"
+						width="506"
+						height="111"
+						key="subreport-7"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idPermohonan">
+						<subreportParameterExpression><![CDATA[$P{idPermohonan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\bgs\\SubReport_MaklumatPejabat.jasper"]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="0"
+						y="415"
+						width="550"
+						height="0"
+						key="element-6"/>
+				</break>
+				<break>
+					<reportElement
+						x="0"
+						y="445"
+						width="550"
+						height="0"
+						key="element-7"/>
+				</break>
+				<break>
+					<reportElement
+						x="0"
+						y="475"
+						width="550"
+						height="0"
+						key="element-8"/>
+				</break>
+				<break>
+					<reportElement
+						x="0"
+						y="505"
+						width="550"
+						height="0"
+						key="element-9"/>
+				</break>
+				<break>
+					<reportElement
+						x="0"
+						y="169"
+						width="550"
+						height="0"
+						key="element-10"/>
+				</break>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="23"
+						y="118"
+						width="506"
+						height="43"
+						key="subreport-8"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idPermohonan">
+						<subreportParameterExpression><![CDATA[$P{idPermohonan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\bgs\\SubReport_MaklumatPermohonan.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

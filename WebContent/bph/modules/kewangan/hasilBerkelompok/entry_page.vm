@@ -1,0 +1,197 @@
+<style>
+	.uppercasefont{
+		text-transform: uppercase !important;
+	}
+</style>
+
+<input type="hidden" id="id" name="id" value="$!r.id"/>
+<input type="hidden" id="idInvois" name="idInvois" value="$!inv.id"/>
+<input type="hidden" id="idResit" name="idResit" value="$!rsi.resit.id"/>
+	#if($errorMakePayment  == "Y")
+		<script>
+##	_jq.Zebra_Dialog('Transaksi Tidak Berjaya!',{
+##		'type': 'error',
+##		'title': 'Makluman'
+##		});
+		
+		alert("Transaksi Tidak Berjaya!");
+		</script>
+	#elseif($errorMakePayment  == "T")
+		<script>
+##	_jq.Zebra_Dialog('Transaksi Telah Berjaya!',{
+##		'type': 'error',
+##		'title': 'Makluman'
+##		});
+		
+		alert("Transaksi Telah Berjaya!");
+		</script>
+	#end
+<fieldset>
+<legend class="legend">MAKLUMAT PERMOHONAN KELOMPOK</legend>
+	<table width="100%">
+	
+	#show("NAMA AGENSI" "$!r.bahagianUnit.toUpperCase()")
+	#show("NAMA" "$!r.pemohon.userName.toUpperCase()")
+	#show("NO. KAD PENGENALAN" "$!r.pemohon.noKP")
+	
+	<tr><td colspan="3"><hr/></td></tr>
+	
+	<tr>
+    	<td class="label" valign="top" width="20%" >KOD HASIL</td>
+    	<td class="label" valign="top" width="1%">:</td>
+    	<td valign="top" width="79%">$!ak.kodHasil.kod</td>
+    </tr> 
+	
+	#show("NO. LO TEMPAHAN" "$!r.noLoTempahan.toUpperCase()")
+	#show("NO. RUJUKAN" "$!r.noTempahan.toUpperCase()")
+	#show("KETERANGAN BAYARAN" "$!util.replaceIfNull($!ak.keterangan.toUpperCase(),'-')")
+##	#show("JUMLAH BAYARAN (RM)" "$!util.formatDecimal($!r.amaunTotalSewaRpWithoutDeposit())")
+	<tr>
+	<td class="label" valign="top">JUMLAH BAYARAN (RM)</td>
+	<td class="label" valign="top">:</td>
+	<td class="label" valign="top">$!util.formatDecimal($!r.amaunTotalSewaRpWithoutDeposit())</td>
+	<input type="hidden" id="jumlahBayaranPerluDibayar" name="jumlahBayaranPerluDibayar" value="$!r.amaunTotalSewaRpWithoutDeposit()"  />
+</tr>
+</table>
+</fieldset>
+<fieldset>
+<legend class="legend">MAKLUMAT INVOIS</legend>
+
+<table width="100%" style="padding-top:0.2cm">
+	<tr>
+    		<td class="label" style="width:20%"></td>
+    		<td style="width:1%"></td>
+    		<td style="width:79%"></td>
+  		</tr>
+#if($!rsi)
+		<tr>
+		<td class="label">NO. INVOIS</td>
+		<td class="label">:</td>
+		<td class="label"><input type="text" id="noInvois" name="noInvois" value="$!inv.noInvois" disabled="true"></td>
+		</tr>
+#else
+	#input_required("noInvois" "NO. INVOIS" "$!inv.noInvois")
+#end
+	
+</table>
+</fieldset>
+#if($!inv.noInvois)
+<fieldset>
+<legend class="legend">MAKLUMAT BAYARAN</legend>
+
+<table width="100%" style="padding-top:0.2cm">
+	<tr>
+    		<td class="label" style="width:20%"></td>
+    		<td style="width:1%"></td>
+    		<td style="width:79%"></td>
+  		</tr>
+	
+	#if( $!rsi )
+		#show("NO. RESIT" "$!rsi.resit.noResit")
+		<tr><td colspan="3"><hr/></td></tr>
+	#end
+	<tr>
+    <td class="label" valign="top">NAMA PEMBAYAR &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td><select class="texts" id="namaPembayar" name="namaPembayar" style="width:100%" onChange="javascript=doChangeNamaPembayar()">
+    	<option value="">SILA PILIH</option>
+		<option value="$!r.bahagianUnit.toUpperCase()"  #if ($!rsi.resit.namaPembayar == $!r.bahagianUnit.toUpperCase()) selected #end>$!r.bahagianUnit.toUpperCase()</option>
+    	<option value="$!r.pemohon.userName.toUpperCase()"  #if ($!rsi.resit.namaPembayar == $!r.pemohon.userName.toUpperCase()) selected #end>$!r.pemohon.userName.toUpperCase()</option>
+    	<option value="LAIN - LAIN" #if ( $rsi.resit.namaPembayar != $!r.bahagianUnit.toUpperCase() && $rsi.resit.namaPembayar != $!r.pemohon.userName.toUpperCase()) selected #end>LAIN - LAIN</option>
+	</select>
+  	<div id="err_namaPembayar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+	  <tr>
+		<td class="label" valign="top">**Sila Nyatakan</td>
+		<td class="label" valign="top">:</td>
+		<td valign="top">
+			#set($namaPembayar = $!rsi.resit.namaPembayar)
+			<input type="text"  #if($namaPembayar != $!r.bahagianUnit.toUpperCase() && $namaPembayar != $!r.pemohon.userName.toUpperCase()) value="$!rsi.resit.namaPembayar" #else disabled  value="" #end id="namaPembayarLain" name="namaPembayarLain" onBlur="this.value=this.value.toUpperCase();"/>
+		</td>
+	</tr>
+	
+	#input_required("noEft" "NO. EFT" "$!rkb.noEft")
+	#date_input_required("tarikhEft" "TARIKH EFT" "$!util.getDateTime($!rkb.tarikhEft,'dd-MM-yyyy')")
+##	<tr>
+##	<td class="label" valign="top">AMAUN BAYARAN (RM) &nbsp;<span style="color:#FF2A00">*</span></td>
+##	<td class="label" valign="top">:</td>
+##	<td valign="top">
+##		<input style="width:18%" class="currency" type="text" id="amaunBayaran" name="amaunBayaran" value="$!util.formatDecimal($!rkb.amaunBayaran)" onKeyUp=" $('err_amaunBayaran').innerHTML=''; at(this, event);">
+##		<div id="err_amaunBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##	</td>
+##</tr>
+	<tr>
+		<td class="label" valign="top">AMAUN BAYARAN (RM)</td>
+		<td class="label" valign="top">:</td>
+		<td class="label" valign="top">$!util.formatDecimal($!r.amaunTotalSewaRpWithoutDeposit())</td>
+		<input type="hidden" id="amaunBayaran" name="amaunBayaran" value="$!r.amaunTotalSewaRpWithoutDeposit()"  />
+	</tr>
+	##currency_required("amaunCdc" "AMAUN CDC (RM)" "")
+	
+</table>
+</fieldset>
+
+#end
+
+<table width="100%" style="padding-top:0.4cm">
+	<tr>
+		<td>
+			Sila lengkapkan medan yang mandatori!
+			<div style="color:blue">Nota: Sila tekan butang TAB untuk bergerak ke field seterusnya.</div>
+		</td>
+	</tr>	
+	<tr>
+		<td align="right">
+			
+			#if($!inv) 
+				<input type="button" id="cetakResit" #if(!$!rsi) disabled #end name="cetakResit" value="Cetak Resit" onclick="doCetakResit()"/>
+				#if ($!r.statusBayaran != 'Y')
+					<input type="button" id="simpan" name="simpan" value="Simpan" onclick="doSimpanTerimaanBerkelompok()"/>
+				#elseif ($!userRole == '(HASIL) Penyelia' || $!userRole == '(HASIL) Penyelia Cawangan')
+					<input type="button" id="simpan" name="simpan" value="Simpan" onclick="doSimpanTerimaanBerkelompok()"/>
+				#end
+			#else
+				<input type="button" id="cetakResit" disabled name="cetakResit" value="Cetak Resit" onclick="doCetakResit()"/>
+				#if ($!r.statusBayaran != 'Y')
+					<input type="button" id="simpan" name="simpan" value="Simpan" onclick="doSimpanNoInvois()"/>
+				#elseif ($!userRole == '(HASIL) Penyelia' || $!userRole == '(HASIL) Penyelia Cawangan')
+					<input type="button" id="simpan" name="simpan" value="Simpan" onclick="doSimpanNoInvois()"/>
+				#end
+			#end
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+   _jq('#cetakResit').on('click', function(){
+	    var idResit = $('idResit').value;
+	    var bilCetak=$rsi.resit.bilCetakResit+1;
+		if(bilCetak == 1){
+     		var url = "../servlet/bph.laporan.kewangan.KEWResitAsal?idResit="+idResit+"&bilCetak="+bilCetak;
+     	}else{
+     		var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit+"&bilCetak="+bilCetak;
+     	}
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+		hWnd.opener = document.window;
+		if (hWnd.focus != null) hWnd.focus();	
+ });
+ 
+_jq('#namaPembayar').on('change', function(){
+	if($('namaPembayar').value == "LAIN - LAIN"){
+  			$('namaPembayarLain').disabled=false;
+  		}else{
+  			$('namaPembayarLain').disabled=true;
+  			$('namaPembayarLain').value="";
+  		}
+  
+ });
+</script>

@@ -1,0 +1,36 @@
+##<td>$!r.id</td>
+<td>$!r.gelanggang.nama</td>
+
+#if ($!r.tarikhMula)
+			#set ($dateMula = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+		  #else #set ($dateMula = "-") #end
+<td>$dateMula</td>
+
+###if ($!r.tarikhTamat)
+##			#set ($dateTamat = "$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')")
+##		  #else #set ($dateTamat = "-") #end
+##<td>$dateTamat</td>
+
+#if ($!r.masaMula)
+			#set ($timeMula = "$!util.getKeteranganMasa($!r.masaMula)")
+		  #else #set ($timeMula = "-") #end
+<td>$timeMula</td>
+
+#if ($!r.masaTamat)
+			#set ($timeTamat = "$!util.getKeteranganMasa($!r.masaTamat)")
+		  #else #set ($timeTamat = "-") #end
+<td>$timeTamat</td>
+
+#if ($!r.statusBayaran=="T")
+	#if ($!r.statusPermohonan=="B")
+			#set ($status = "TEMPAHAN DIBATALKAN")
+			<td><b>$status</b></td>
+	#else
+			#set ($status = "BELUM BAYAR")
+			<td><b>$status</b></td>
+	#end
+#else 
+			#set ($status = "TELAH BAYAR")
+			<td><b><span id='a' style='color: #228B22'>$status</span></b></td>
+#end
+

@@ -1,0 +1,128 @@
+
+<fieldset>
+<legend class="legend">penyata perkiraan tunggakan / lebihan / pelarasan bayaran menduduki rumah kerajaan</legend>
+
+    <table width="100%" cellpadding="2" cellspacing="2" border="0">
+		
+		<tr>
+    		<td width="20%">NAMA</td>
+    		<td width="1%">:</td>
+    		<td width="29%">$!r.pemohon.userName</td>
+    		<td width="25%" align="right">NO. FAIL</td>
+    		<td width="3%" align="right">:</td>
+    		<td width="22%"">$!r.kuarters.noRujukan.toUpperCase()</td>
+		</tr>
+		
+		<tr>
+			<td>NO. KAD PENGENALAN</td>
+			<td>:</td>
+			<td colspan="4">$!r.pemohon.noKP</td>
+		</tr>
+
+		<tr>
+			<td colspan="6"><br/>
+				* Pulangan balik ITP dan COLA bagi menduduki rumah Kerajaan berkuatkuasa mulai 1 April 2012 melalui
+				Surat Pekeliling Akauntan Negara Malaysia Bil 1/20. <br/>
+				** Bagi penghuni yang keluar dari rumah Kerajaan mulai Mei 2010, lebihan bayaran / pelarasan ITP dan COLA
+				dibayar oleh Jabatan penghuni sendiri.
+			</td>
+		</tr>
+		
+    </table>
+	
+	<table width="100%" cellpadding="2" cellspacing="1" border="0">
+		
+		<tr>
+			<td width="30%"></td>
+			<td width="15%"></td>
+			<td width="15%"></td>
+			<td width="20%"></td>
+			<td width="20%"></td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" rowspan="2" align="center">Tempoh</td>
+			<td class="row_header" colspan="2" align="center">Perkiraan</td>
+			<td class="row_header" rowspan="2" align="center">Pelarasan Jabatan (RM)</td>
+			<td class="row_header" rowspan="2" align="center">Tunggakan / Lebihan (RM)</td>
+		</tr>
+		
+		<tr>
+			<td class="row_header" align="center">Patut Bayar<br/>(RM)</td>
+			<td class="row_header" align="center">Telah Bayar<br/>(RM)</td>
+		</tr>
+		
+		<tr bgcolor="#F0F0F0">
+			<td colspan="5">
+				<b>
+				Tarikh Masuk Kuarters Kelas $!r.kuarters.kelas.id<br/>
+				$!util.getDateTime($!r.tarikhMasuk,"dd.MM.yyyy")
+				</b>
+				<br/><br/><br/><br/>
+			</td>
+		</tr>
+		
+		#set( $jumlahTunggakanLebihan = 0.00 )
+		#if ( $listInvois.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listInvois )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor" style="height:30px;min-height:30px">
+        			<td>$!util.getDateTime($!d.tarikhInvois,'dd-MM-yyyy') = 1 x $!util.formatDecimal($r.kuarters.sewa) ($d.catatanInvois)<br/></td>
+					<td align="center">$!util.formatDecimal($!d.debit)</td>
+            		<td align="center">$!util.formatDecimal($!d.kredit)</td>
+            		<td align="center"></td>
+					<td align="center">$!util.formatDecimal($!d.bakiBayaran())</td>
+                </tr>
+			
+			#set( $jumlahTunggakanLebihan = $!jumlahTunggakanLebihan + $!d.bakiBayaran() )
+			
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="5">Tiada Rekod Pembayaran</td>
+			</tr>
+		#end
+		
+		#if( $!r.tarikhKeluar && !$!r.tarikhKeluar.equalsIgnoreCase("") )
+		<tr bgcolor="#F0F0F0">
+			<td colspan="5">
+				<br/><br/><br/><br/>
+				<b>
+				Tarikh Keluar Kuarters Kelas $!r.kuarters.kelas.id<br/>
+				$!util.getDateTime($!r.tarikhKeluar,"dd.MM.yyyy")
+				</b>
+			</td>
+		</tr>
+		#end
+		
+		#if( $!r.kuarters.cajAir > 0 )
+			<tr bgcolor="#F0F0F0">
+    			<td colspan="5">
+    				<br/><br/><br/><br/>
+    				<b>
+    				Caj Pembentungan RM2.00/Sbln<br/>
+    				</b>
+    			</td>
+    		</tr>
+		#end
+		
+		<tr bgcolor="#F0F0F0">
+			<td colspan="3" align="right">
+    			JUMLAH
+    		</td>
+			<td></td>
+			<td align="center">$!util.formatDecimal($!jumlahTunggakanLebihan)</td>
+    	</tr>
+			
+	</table>
+
+</fieldset>
+

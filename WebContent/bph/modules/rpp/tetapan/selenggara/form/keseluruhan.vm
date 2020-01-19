@@ -1,0 +1,89 @@
+<fieldset>
+<legend class="legend">senarai pilihan</legend>
+
+    <table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="85%">Lokasi</td>
+			<td class="row_header" width="10%">Pilih</td>
+		</tr>
+		
+		#if ( $listRppPeranginan.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listRppPeranginan )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+            		<td>$!d.namaPeranginan.toUpperCase()</td>
+					<td align="center">
+						<input type="checkbox" name="idrpp" id="idrpp$!d.id" value="$!d.id" onclick="doDivAjaxCall$formname('divForm','savePilihanLokasiRpp','')" />
+					</td>
+                </tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="4">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+
+</fieldset>
+
+<br/>
+
+<fieldset>
+<legend class="legend">lokasi untuk diselenggara</legend>
+
+    <table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="85%">Lokasi</td>
+			<td class="row_header" width="10%">Hapus</td>
+		</tr>
+		
+		#if ( $listSelenggaraLokasi.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listSelenggaraLokasi )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+            		<td>$!d.rppPeranginan.namaPeranginan.toUpperCase()</td>
+					<td align="center">
+						<a href="javascript:void()" onclick="$('_wait').innerHTML='Please wait...';doDivAjaxCall3$formname('divForm','deletePilihanLokasiRpp','idSelenggaraLokasi=$!d.id')"><img src="../img/delete.gif" border="0"></a>
+					</td>
+                </tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="4">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+
+</fieldset>
+
+<table width="100%" style="padding-top:0.5cm">
+	<tr>
+		<td align="right">##Fatin 13/06/2015
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+		</td>
+	</tr>
+</table>

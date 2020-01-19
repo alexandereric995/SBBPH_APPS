@@ -1,0 +1,131 @@
+<script>
+	var a = "$!kelulusan";
+	##	var b = "$!result";
+	var b = "$!resultDate";
+	var c = "$!result2";
+	var permohonanId = "$!idPermohonan";
+	var status = "$!r.status.id";  
+	var j = "$resultPermohonanCompletion";
+	var pos="$!checkPoskod";
+
+	if ( pos != "" ) {
+		if ( pos == "false" ) {
+				swal({
+				title: "Perhatian!",
+				text: "Poskod yang dimasukkan salah. Poskod tidak sama dengan lokasi pekerjaan.",
+				type: "error"
+			});
+		}
+	}
+	
+	if ( a != "" ) {
+		if ( a == "false" ) {
+				swal({
+				title: "Perhatian!",
+				text: "Anda tidak layak memohon. Lokasi kuarters yang dipilih tidak setara dengan lokasi tempat bekerja.",
+				type: "error"
+			});
+		}
+	}
+	
+	if ( b != "" ) {
+		if ( b == "false" ) {
+    		swal({
+				title: "Perhatian!",
+				text: "Anda tidak layak memohon. Rumah telah siap diduduki / Tarikh jangka siap rumah kurang dari setahun.",
+				type: "error"
+			});
+		}
+	}
+	
+	if ( c != "" ) {
+		if ( c == "false" ) {
+			swal({
+				title: "Perhatian!",
+				text: "Anda tidak layak memohon. Lokasi rumah  yang dimiliki adalah dalam kawasan lingkungan 25km yang ditetapkan.",
+				type: "error"
+			});
+		}
+	}
+	
+	if ( a == "false" || b == "false" || c == "false" || pos == "false") {
+		_jq('#idPermohonan').val('$!idPermohonan');
+		doDivAjaxCall3$formname('entry_page','getPermohonan','idPermohonan=' + permohonanId);
+	} else {
+##		if ( status == '1419483289675' ) {
+##				swal({
+##				title: "Perhatian!",
+##				text: "Sila lengkapkan semua maklumat terlebih dahulu!",
+##				type: "error"
+##				});
+##		}
+		
+		if ( j == "true" ) {
+		_jq('#perakuanDetail').show();
+		} else {
+			_jq('#perakuanDetail').hide();
+		}
+		
+		doDivAjaxCall3$formname('detailLain','getPeribadi','');
+	}
+</script>
+
+#if ($kelulusan != "false")
+	#if ($result != "false")
+		#if ($result2 != "false")
+			<script>
+        		var permohonanId = "$!idPermohonan"; 
+        		var y = "$!resultPermohonanCompletion";
+        		
+        		if ( permohonanId != "" ) _jq('#idPermohonan').val('$!idPermohonan');
+        		
+        		_jq('#btnSemakLokasi').val('Simpan / Kemaskini');
+        		
+        		doDivAjaxCall3$formname('detailLain','getPeribadi','');
+##        		doDivAjaxCall3$formname('detailLain','getPekerjaan','');
+        		
+        		if ( y == "true") {
+            		_jq('#btnHantarPermohonan').prop('disabled', false);
+            	} else {
+            		_jq('#btnHantarPermohonan').prop('disabled', true);
+            	}
+        	</script>
+        	<br /><br />
+			
+        	<nav class="breadcrumbs">
+                <ul>
+                    <li>
+                        <a href="javascript:void()" onclick="doDivAjaxCall3$formname('entry_page','getPermohonan','')">Maklumat Permohonan</a>
+                    </li>
+                    <li class="active">
+                        <a href="javascript:void()">Maklumat Peribadi</a>
+                    </li>
+					<li id="perakuanDetail">
+	                    <a href="javascript:void()" onclick="doDivAjaxCall3$formname('entry_page','getPerakuan','')">Perakuan</a>
+	                </li>
+                </ul>
+            </nav>
+        
+        	<fieldset>
+                <legend class="legend">Maklumat Pemohon</legend>
+                <table cellpadding="5" cellspacing="0" border="0" width="100%">
+                	<tr>
+                        <td align="center" valign="top">
+        					<span id="detailLain">
+        						##parse("$path/sub_page/peribadi.vm")
+        					</span>
+                        </td>
+##                        <td align="center" valign="top" style="width:50%; border-left: 1px dotted #CCC;">
+##                            <span id="detailLain">
+##        						#parse("$path/sub_page/pekerjaan.vm")
+##        					</span>
+##                        </td>
+                	</tr>
+                </table>
+            </fieldset>
+			<p align="right">
+            	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+            </p>
+		#end
+	#end
+#end

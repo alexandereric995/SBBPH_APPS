@@ -1,0 +1,192 @@
+<style>
+.scrollitright {
+	height:60%; width: 100%; overflow: auto;
+}
+</style>
+<fieldset style="height:210px;min-height:210px">
+<div class="scrollitright">
+  <table width="100%" cellpadding="1" cellspacing="1">
+    <tr>
+      <td class="row_header" width="5%">&nbsp;</td>
+      <td class="row_header" width="20%">NO. INVOIS</td>
+      <td class="row_header" width="10%">KOD HASIL</td>
+      <td class="row_header" width="30%">KETERANGAN</td>
+      <td class="row_header" width="10%">AMAUN PERLU BAYAR (RM)</td>
+      <td class="row_header" width="10%">AMAUN BAYARAN(RM)</td>
+      <td class="row_header" width="10%">TEMPOH</td>
+    </tr>
+    #set ( $totalBil = 0 )
+    #set ($totalBilIr = 0)
+    #if ( $listInQueue.size() > 0 )
+    #set ( $count = 0 )
+    #foreach( $d in $listInQueue )
+    
+    #set ( $count = $count + 1)
+    #if ( $count % 2 == 0 ) 
+    #set ( $rowcolor = "#D0CFCE" ) 
+    #else 
+    #set ( $rowcolor = "#F0F0F0" ) 
+    #end
+    <tr bgcolor="$rowcolor">
+      <td align="center" ><input type="checkbox" name="cbRemovePilihan" id="cbRemovePilihan$!d.id" value="$!d.id" onclick="javascript:removePilihan('$!d.id')" />
+      </td>
+      <td> 
+      	#if( $d.deposit )
+        	$!d.deposit.noInvois.toUpperCase()
+        #else
+        	#if ($!d.invois.jenisBayaran.id == '04')	
+				#if ($!d.invois.kodHasil.id == '74202')
+        			<a href="javascript:void()" onClick="doDivAjaxCall3$formname('divPopupCetakInvois','doCetakInvoisRK','id=$!d.invois.id');"><font color="#0000FF"><strong>$!d.invois.noInvois.toUpperCase()</strong></font></a>
+        			<br/><b>KADAR SEWA : RM $!util.formatDecimal($!d.invois.getFailRuangKomersil().getPerjanjianSemasa().kadarSewa) </b><br/>
+        		#elseif ($!d.invois.kodHasil.id == '81199')
+        			<a href="javascript:void()" onClick="doDivAjaxCall3$formname('divPopupCetakInvois','doCetakInvoisIWKRK','id=$!d.invois.id');"><font color="#0000FF"><strong>$!d.invois.noInvois.toUpperCase()</strong></font></a>
+        			<br/><b>KADAR SEWA : RM $!util.formatDecimal($!d.invois.getFailRuangKomersil().getPerjanjianSemasa().kadarBayaranIWK) </b><br/>
+        		#else
+        			$!d.invois.noInvois.toUpperCase()
+        		#end
+        	#else
+        		$!d.invois.noInvois.toUpperCase()
+	        #end        
+        #end 
+      </td>
+      <td align="center"> 
+      	#if( $d.deposit )
+        	$!d.deposit.kodHasil.kod
+        #else
+        	$!d.invois.kodHasil.kod
+        #end 
+      </td>
+      <td align="center"> 
+      	#if( $d.deposit )
+        	$!d.deposit.keteranganDeposit.toUpperCase()
+        #else
+        	$!d.invois.keteranganBayaran.toUpperCase()
+        #end 
+      </td>
+      ## AMAUN PERLU BAYAR
+      <td align="center"> 
+        #if( $d.deposit )
+        	$!util.formatDecimal($!d.deposit.jumlahDeposit)       
+        #else
+        	$!util.formatDecimal($!d.invois.debit)     
+        #end 
+      </td>
+      ## AMAUN BAYARAN
+      <td align="center"> 
+      	#set($nilai = 0)
+        #set($nilaiIr = 0)
+        
+        #if( $d.deposit )
+        	#if($!d.deposit.kodHasil.kod.equals("72311")) ##kod deposit ir
+        		#set($nilaiIr = $!d.deposit.jumlahDeposit)
+        	#end
+        	$!util.formatDecimal($!d.amaunBayaran)
+        	#set($nilai = $!d.amaunBayaran)        
+        #else
+        	#if($!d.invois.kodHasil.kod.equals("74299"))##kod sewa ir
+        		#set($nilaiIr = $!d.invois.debit)
+        	#end
+        	#if($!d.invois.kodHasil.kod.equals("74304"))##kod sewa bot ir
+        		#set($nilaiIr = $nilaiIr + $!d.invois.debit)
+        	#end
+        	
+        	## ALLOW UTK RK EDIT AMAUN
+        	#if ($!d.invois.jenisBayaran.id == '04')
+        	<input class="currency" type="text" name="amaunAkanBayar$d.id" id="amaunAkanBayar$d.id" value="$!util.formatDecimal($!d.amaunBayaran)" onBlur="doDivAjaxCall3$formname('divSenaraiBayaranPilihan','doChangeAmaunBayaran','');"/>
+        	#else
+        		$!util.formatDecimal($!d.amaunBayaran)
+        		<input type="hidden" name="amaunAkanBayar$d.id" id="amaunAkanBayar$d.id" value="$!d.amaunBayaran" />   
+        	#end
+        	#set($nilai = $!d.amaunBayaran)        
+        #end 
+      </td>
+      ## TEMPOH
+      <td align="center"> 
+      	## ALLOW UTK RK EDIT TEMPOH
+      	#if ($!d.invois.jenisBayaran.id == '04')
+      		<input class="text" type="text" name="tarikhDari$d.id" id="tarikhDari$d.id" value="$!util.getDateTime($!d.tarikhDari,'dd-MM-yyyy')" onBlur="doDivAjaxCall3$formname('divSenaraiBayaranPilihan','doChangeTempoh','');"/>
+      		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+	    		<script>
+	            	_jq("#tarikhDari$d.id").Zebra_DatePicker({ 
+	    				format: 'd-m-Y',
+						readonly_element: false
+	            	});
+					_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+	    		</script>
+      		-
+      		<input class="text" type="text" name="tarikhHingga$d.id" id="tarikhHingga$d.id" value="$!util.getDateTime($!d.tarikhHingga,'dd-MM-yyyy')" onBlur="doDivAjaxCall3$formname('divSenaraiBayaranPilihan','doChangeTempoh','');"/>
+      		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+	    		<script>
+	            	_jq("#tarikhHingga$d.id").Zebra_DatePicker({ 
+	    				format: 'd-m-Y',
+						readonly_element: false
+	            	});
+					_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+	    		</script>
+      	#else	
+      	$!util.getDateTime($!d.tarikhDari,'dd-MM-yyyy') - $!util.getDateTime($!d.tarikhHingga,'dd-MM-yyyy')       
+	    #end      	
+      </td>
+    </tr>    
+    #set ( $totalBil = $totalBil + $!nilai )
+    #set ( $totalBilIr = $totalBilIr + $!nilaiIr )
+    #end
+    #else
+    <tr bgcolor="#F0F0F0">
+      <td colspan="7">Tiada Rekod</td>
+    </tr>
+    #end
+  </table>
+</div>
+##CALCULATE
+	#set ( $totalBaki = 0 )
+	#set ( $totalBayar = 0 )
+	#foreach( $tb in $listTempBayar )
+		#set ( $totalBayar = $totalBayar + $tb.amaunBayaran)
+	#end
+	
+	#set ( $totalBaki = $!totalBil - $totalBayar )
+<table width="100%" cellpadding="1" cellspacing="1" border="0">
+  <tr>
+    <td width="5%">&nbsp;</td>
+    <td width="25%">&nbsp;</td>
+    <td width="15%">&nbsp;</td>
+    <td width="40%">&nbsp;</td>
+    <td width="15%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+    <td align="right"><b>JUMLAH AMAUN BIL / INVOIS : &nbsp;</b></td>
+    <td align="right"><b>$!util.formatDecimal($!totalBil)</b>
+      <input type="hidden" name="txtJumlahInvois" id="txtJumlahInvois" value="$!totalBil" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+    <td align="right"><b>JUMLAH BAYARAN : &nbsp;</b></td>
+    <td align="right"><div style="float:left">&nbsp; -</div>
+      <div style="float:right"> <b>$!util.formatDecimal($!totalBayar)</b>
+        <input type="hidden" name="txtJumlahBayaran" id="txtJumlahBayaran" value="$!totalBayar" />
+      </div></td>
+  </tr>
+  <tr>
+    <td colspan="3" >&nbsp;</td>
+    <td align="right">&nbsp;</td>
+    <td align="right"><hr /></td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+    <td align="right"><b>BAKI : &nbsp;</b></td>
+    <td align="right"><b>$!util.formatDecimal($!totalBaki)</b>
+      <input type="hidden" name="txtBaki" id="txtBaki" value="$!util.formatDecimal($totalBaki)" />
+      <input type="hidden" name="totalBilIr" id="totalBilIr" value="$!totalBilIr" />
+    </td>
+  </tr>
+</table>
+</fieldset>
+
+<script>
+function removePilihan(idPilihan){
+	doDivAjaxChainCall$formname('divSenaraiBayaranPilihan','savePilihanRemoveQueue','idPilihan='+idPilihan,'divSenaraiBayaranAsal','refreshDivAsal','');
+}
+</script>

@@ -1,0 +1,84 @@
+#if(!$!selectedSubTab)
+	<div id="mainBangunan">
+		<fieldset>
+			<legend class="legend">SENARAI BANGUNAN</legend>
+			<table width="100%" cellpadding="1" cellspacing="2">
+			  <tr>
+			    <td class="label" style="width:15%">&nbsp;</td>
+			    <td style="width:1%">&nbsp;</td>
+			    <td style="width:84%">&nbsp;</td>
+			  </tr>
+			  <tr>
+			    <td colspan="3" class="label">
+			##    	<input type="button" id="addMaklumatBangunan" name="addMaklumatBangunan" value="Tambah">
+			##      <script>
+			##        _jq('#addMaklumatBangunan').on('click', function(){
+			##        	var div1 = document.getElementById('mainBangunan');
+			##    		div1.style.display = 'none';
+			##			doDivAjaxCall3$formname('editMaklumatBangunan','addMaklumatBangunan','');
+			##            jQuery('#editMaklumatBangunan').fadeIn();
+			##        });
+			##    </script>
+			##      <br />
+			##      <br />
+			      <table width="100%" cellpadding="5" cellspacing="1">
+			        <tr>
+					    <td class="row_header" width="5%">Bil.</td>
+					    <td class="row_header" width="20%">Nama Bangunan</td>
+					    <td class="row_header" width="5%">Papar</td>
+			##		    <td class="row_header" width="5%">Hapus</td>
+			        </tr>
+			        #set ( $count = 0 )
+			        #if ( $listBangunan.size() > 0) 
+			        #foreach( $c in $listBangunan )
+			        #set ( $count = $count + 1)
+			        
+			        #if ( $count % 2 == 0 ) 
+			        #set ( $rowcolor = "#D0CFCE" ) 
+			        #else 
+			        #set ( $rowcolor = "#F0F0F0" ) 
+			        #end
+			        <tr bgcolor="$rowcolor">
+			          	<td align="center">$!count</td>	
+					    <td align="left">$!c.namaBangunan</td>
+			          	<td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> </td>
+			##          	<td align="center"><a href="javascript:void()" onClick="deleteMaklumatBangunan('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+			        </tr>
+			        <script>
+			                    _jq('#link$c.id').on('click', function(){
+			                    	var div1 = document.getElementById('mainBangunan');
+			    					div1.style.display = 'none';
+									doDivAjaxCall3$formname('divTab','getDetailBangunan','idBangunan=$c.id');
+			                        jQuery('#editMaklumatBangunan').fadeIn();
+			                    });
+			                </script>
+			        #end
+			        #else
+			        <tr >
+			          <td align="center">&nbsp;</td>
+			          <td >Tiada Rekod</td>
+			          <td align="center">&nbsp;</td>
+			##          <td align="center">&nbsp;</td>
+			        </tr>
+			        #end
+			      </table></td>
+			  </tr>
+			</table>
+		</fieldset>
+		
+		<table width="100%">
+			<tr>
+				<td align="right">
+					<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	## Popup popupCadanganPembangunan.vm
+	<div id="editMaklumatBangunan"></div>
+	## Blank status page
+	<div id="removeMaklumatBangunan"></div>
+#else
+	#parse("$path/maklumatBangunan/start.vm")
+#end

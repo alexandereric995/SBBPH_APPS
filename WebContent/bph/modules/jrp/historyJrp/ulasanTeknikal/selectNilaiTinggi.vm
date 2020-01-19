@@ -1,0 +1,35 @@
+#if ( $idFlagKeputusan == "TS" )
+<table width="100%">
+  <tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+<tr>
+    		<td class="label" valign="top">Mempunyai GST? &nbsp;<span style="color:#FF2A00">*</span></td>
+    		<td valign="top">:</td>
+    		<td><select style="width:30%" class="texts" id="flagGst" name="flagGst" style="width:100%" onChange="$('err_flagGst').innerHTML=''; at(this, event);validateFlagGst();" >
+    			<option value="">SILA PILIH</option>
+    			<option value="Y" #if ( $ut.flagGst == "Y" ) selected #end>YA</option>
+    			<option value="T" #if ( $ut.flagGst  == "T" ) selected #end>TIDAK</option>
+				</select>
+      		<div id="err_flagGst" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  		</tr>
+		<tr>
+        	<td class="label" valign="top">Nilaian JPPH&nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				RM <input style="width:80px" type="text" id="nilaianJpphMp" class="currency" name="nilaianJpphMp" value="$!ut.nilaianJpphMp" onKeyUp="$('err_nilaianJpphMp').innerHTML='';at(this, event)" onBlur="calculateGst('1', '')"> smp 
+				<input style="width:80px" type="text" id="luasJpphMp" class="currency" name="luasJpphMp" value="$!ut.luasJpphMp" onKeyUp="$('err_nilaianJpphMp').innerHTML='';at(this, event)" onBlur="duplicateLuas('1', '')"> seluas mp<br/> 
+				(RM <input style="width:80px" type="text" id="nilaianJpphKp" class="currency" name="nilaianJpphKp" value="$!ut.nilaianJpphKp" onKeyUp="$('err_nilaianJpphMp').innerHTML='';at(this, event)" onBlur="calculateGst('', '1')"> skp 
+				<input style="width:80px" type="text" id="luasJpphKp" class="currency" name="luasJpphKp" value="$!ut.luasJpphKp" onKeyUp="$('err_nilaianJpphMp').innerHTML='';at(this, event)" onBlur="duplicateLuas('', '1')"> seluas kp) <br/>
+				(sila nyatakan dalam mp dan kp)<br/>
+				<div id="err_nilaianMp" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+</table>
+<div id="selectFlagGst"></div>
+  		#if($ut.flagGst == "Y")
+		<div id="flagGst1" name="flagGst1" style="display:block">#parse("$path/ulasanTeknikal/selectGst.vm")</div>
+		#end
+#end

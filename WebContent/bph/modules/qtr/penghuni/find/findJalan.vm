@@ -1,0 +1,10 @@
+<select id="findJalan" name="findJalan" style="width:100%">
+    <option value="">SILA PILIH</option>
+	#set( $oldRecord = "" )
+    #foreach( $fj in $findJalan )
+		#if ( $oldRecord != $fj.alamat1 )
+			<option value="$fj.alamat1">$fj.alamat1.toUpperCase()</option>
+		#end
+		#set( $oldRecord = $fj.alamat1 )
+    #end
+</select>

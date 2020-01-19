@@ -1,0 +1,116 @@
+#if ($role=="pentadbir_sistem_JKT")
+	#if ( $items.size() > 0 )
+		<table width="100%" align="center" border="0" cellpadding="5" cellspacing="0">
+			<tr>
+				<td align="right" colspan="2">
+					Page:
+					#if ( $pages > 0 )
+						#foreach ($num in [ 1..$pages ])
+							#if ( $num == $page_number )
+								<b>$num</b>
+							#else
+								<a href="javascript:goPage($num)">$num</a>
+							#end
+							..
+						#end
+					#end
+				</td>
+			</tr>
+			#foreach( $gb in $items )
+				<tr>
+					<td style="font-weight:bold; color: #0000FF; border-bottom: 1px solid #CCCCCC;" valign="top" align="left">
+						Tarikh : $util.getDateTime($gb.postedDate, "d MMM yy") | Masa : $util.getDateTime($gb.postedTime, "hh:mm:ss") 
+##						#if ( $allowDelete )
+##							[<a href="javascript:deleteEntry('$gb.uid')">X</a>]
+##						#end
+					</td>
+					<td align="right" style="font-weight:bold; color: #0000FF; border-bottom: 1px solid #CCCCCC;">
+						<a href="javascript:deleteEntry('$gb.uid')">[X]</a>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table width="100%" bgcolor="#FFFFE1" border="0" cellpaddin="0" cellspacing="0" style="border: 1px solid #CCCCCC;">
+							<tr class="table_header">
+							<tr><td align="right" valign="top" width="65px">Nama</td><td align="center" valign="top" width="10px">:</td><td><b>$gb.postedBy</b></td></tr>
+							<tr><td align="right" valign="top" >Emel</td><td align="center" valign="top">:</td><td><i>$gb.email</td></tr>
+							<tr><td align="right" valign="top" >Kategori</td><td align="center" valign="top">:</td><td>$gb.homepage</i></td></tr>
+							<tr><td align="right" valign="top" >Mesej</td><td align="center" valign="top">:</td><td>$util.putLineBreak($gb.message)</td></tr>
+						</table>
+					</td>
+				</tr>
+			#end
+			<tr>
+				<td align="right" colspan="2">
+					Page:
+					#if ( $pages > 0 )
+						#foreach ($num in [ 1..$pages ])
+							#if ( $num == $page_number )
+								<b>$num</b>
+							#else
+								<a href="javascript:goPage($num)">$num</a>
+							#end
+							>
+						#end
+					#end
+				</td>
+			</tr>
+		</table>
+	#end
+#else
+<table width="100%">
+	<tr>
+		<td colspan="2">
+			<!--<b>SIGN GUESTBOOK</b>-->
+		</td>
+	</tr>
+	<tr>
+		<td style="width:70px" align="right">Nama:</td>
+		<td><input name="posted_by" style="width:100%;"></td>
+	</tr>
+	<tr>
+		<td align="right">Emel:</td>
+		<td><input name="email" style="width:100%;"></td>
+	</tr>
+	<tr>
+		<td align="right">Kategori:</td>
+		<td>
+			<select id="homepage" name="homepage" style="width:100%">
+				<option value="Pertanyaan">Pertanyaan</option>
+				<option value="Cadangan">Cadangan</option>
+				<option value="Masalah">Masalah</option>
+				<option value="Lain-Lain">Lain-Lain</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td align="right" valign="top">Mesej:</td>
+		<td><textarea name="message" style="width:100%; height:100px"></textarea></br>
+			<input type="button" value="HANTAR" onclick="addGuestBookEntry()">
+		</td>
+	</tr>
+</table>
+#end
+
+<input type="hidden" name="uid">
+<input type="hidden" name="pagenum" value="$page_number">
+
+<script>
+function goPage(num) {
+	document.${formname}.pagenum.value = num;
+	doAjaxCall$formname('goPage');
+}
+
+function addGuestBookEntry() {
+	if ( document.${formname}.message.value == "" ) return;
+	if ( document.${formname}.posted_by.value == "" ) return;
+		doAjaxCall$formname('addGuestBookEntry');
+}
+
+function deleteEntry(id) {
+	if ( !window.confirm("Padam maklumbalas berikut?") ) return;
+		document.${formname}.uid.value = id;
+		doAjaxCall$formname('deleteGuestBookEntry');
+}
+
+</script>

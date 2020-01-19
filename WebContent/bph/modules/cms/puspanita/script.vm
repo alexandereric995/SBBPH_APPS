@@ -1,0 +1,102 @@
+function validate() {
+	var err_count = 0;
+		
+	var tahun = $('tahun').value;
+	if ( tahun == "" ) {$('err_tahun').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+	
+	    var newData = CKEDITOR.instances.keterangan.getData();  ## GET VALUE FROM CKEDITOR Add ByZUl
+        $('keterangan').value = newData;   ## GET VALUE FROM CKEDITOR Add ByZUl   
+        
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function kemaskiniMaklumat() {
+	var err_count = 0;
+		
+	var tahun = $('tahun').value;
+	if ( tahun == "" ) {$('err_tahun').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( window.confirm("Anda pasti?") ){
+		    $('keterangan').value = CKEDITOR.instances.keterangan.getData(); ## GET VALUE FROM CKEDITOR Add ByZUl  
+		    doDivAjaxCall3$formname('divTab','kemaskiniMaklumat','')
+		}
+	}
+}
+
+function simpanAktiviti() {
+	var err_count = 0;
+		
+	var namaAktiviti = $('namaAktiviti').value;
+	if ( namaAktiviti == "" ) {$('err_namaAktiviti').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( window.confirm("Anda pasti?") ){
+		    $('keterangan').value = CKEDITOR.instances.keterangan.getData(); ## GET VALUE FROM CKEDITOR Add ByZUl  
+		    doDivAjaxCall3$formname('divTab','simpanAktiviti','')
+		}
+	}
+}
+
+function deleteAktiviti(idAktiviti) {
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall3$formname('divTab','deleteAktiviti','idAktiviti='+idAktiviti)
+	}
+}
+
+## GAMBAR
+function uploadGambar() {
+	var idAktiviti = $('idAktiviti').value;	
+	$('err_gambar').innerHTML = '';
+	
+	var err_count = 0;
+	if ($('gambar').value != "" && !checkDoc($('gambar').value)) {
+		err_count++;
+    	$('gambar').value = "";
+    	$('err_gambar').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg,jpg atau png)';
+    }
+    
+    if (err_count == 0) {
+    	if ( window.confirm("Anda pasti?") ){
+	    	$('gambarMuatnaik').style.display = "";
+	    	document.${formName}.enctype='multipart/form-data';
+	    	document.${formName}.encoding ='multipart/form-data';
+	    	document.${formName}.target='upload_gambar';
+	    	document.${formName}.action='?command=uploadGambar&idAktiviti='+idAktiviti;
+	    	document.${formName}.submit();
+	    	$('gambar').value = "";
+	    }
+    }
+}
+
+function checkDoc(val){
+	var arr = val.split(".");
+    var arr1 = val.split("\\");
+    if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" || arr[1] == "png" || arr[1] == "PNG") {
+    	return true;
+    } else {
+    	return false;
+    }
+}
+
+function deleteGambar(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divTab','deleteGambar','idGambar='+id);
+}

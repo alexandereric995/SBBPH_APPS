@@ -1,0 +1,82 @@
+<input type="hidden" id="idJKH" name="idJKH" value="$!jkh.id">
+
+<fieldset>
+<legend class="legend">MAKLUMAT PENYEDIAAN JKH</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #input_readonly_all_label("noJKH" "No. JKH" "$!jkh.noJKH")
+  #date_input_required("tarikhJKH" "Tarikh JKH" "$!dateJKH")
+  <tr>
+	<td class="label" valign="top">Jumlah (RM) &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<input name="jumlah" class="currency" id="jumlah" onKeyUp=" $('err_jumlah').innerHTML=''; at(this, event);" value="$!util.formatDecimal($!jumlah)" maxlength="11" size="11" onChange="doDivAjaxCall$formname('divPenyediaanJKH','doCalculateJumlahKeseluruhan','')">
+		<div id="err_jumlah" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+  </tr>
+  
+  <tr>
+	<td class="label" valign="top">GST (%) &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<input name="gst" class="currency" id="gst" onKeyUp=" $('err_gst').innerHTML=''; at(this, event);" value="$!util.formatDecimal($!gst)" maxlength="11" size="11" onChange="doDivAjaxCall$formname('divPenyediaanJKH','doCalculateJumlahKeseluruhan','')">
+		<div id="err_gst" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+  </tr>
+  #input_readonly_all_label("jumlahKeseluruhan" "Jumlah Keseluruhan (RM)" "<b>$!util.formatDecimal($!jumlahKeseluruhan)</b>")  
+  <tr>
+    <td valign="top">Jadual Kadar Harga &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td valign="top">
+    	<input type=hidden name="dokumenJKH" id="dokumenJKH" value="$!jkh.fileJKH"> 
+	    #if ( $!jkh.fileJKH ) 
+			#if ($!jkh.fileJKH != "") 
+		    	<a href="../download?file=$!uploadDir$!jkh.fileJKH" ><font color="#0000FF"><strong>JADUAL KADAR HARGA</strong></font> </a> &nbsp;&nbsp;
+		    #end
+		#end
+		    
+      <input class="texts" type="file" id="lampiranJadualKadarHarga" name="lampiranJadualKadarHarga" style="width:500px" onFocus="$('err_lampiranJadualKadarHarga').innerHTML = '';" onChange="uploadLampiranJadualKadarHarga()">
+      <div id="uploadLampiranJadualKadarHarga" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+      <div id="err_lampiranJadualKadarHarga" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+   </td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">Agih Kunci Ke &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> #parse("$path/selectPenyemakSenggara.vm") 
+     <div id="err_idPenyemakSenggara" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  <tr>
+    <td class="label" valign="top" style="width:15%">Ulasan</td>
+    <td class="label" valign="top" style="width:1%">:</td>
+    <td valign="top" style="width:84%"><textarea id="catatanPenyedia" name="catatanPenyedia" onBlur="this.value=this.value.toUpperCase();">$!catatanPenyedia</textarea></td>
+  </tr>
+</table>
+</fieldset>
+
+<br>
+<table width="100%">
+  <tr>
+    <td align="right">
+    	<input type="button" value="Simpan" onclick="javascript:simpanPenyediaanJKH();">
+    	<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+
+<div id="lampiranJadualKadarHargaReload"></div>
+<iframe id="upload_lampiran_jadual_kadar_harga" name="upload_lampiran_jadual_kadar_harga" width="0px" height="0px" style="visibility:hidden"></iframe>
+
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

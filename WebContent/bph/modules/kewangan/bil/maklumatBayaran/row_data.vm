@@ -1,0 +1,63 @@
+<td>$!r.pendaftaranBil.jenisBil.keterangan</td>
+<td>$!r.pendaftaranBil.seksyen.keterangan</td>
+<td>$!r.pendaftaranBil.penerimaBayaran</td>
+<td>$!r.pendaftaranBil.noAkaun</td>
+##<td>$!r.noBil</td>
+
+##<td>$!r.bulan</td>
+#if($!r.bulan)
+	#if ($r.bulan == "1")
+	 	<td>JANUARY</td>
+	#elseif ( $!r.bulan == "2")
+		<td>FEBRUARY</td>
+	#elseif($r.bulan == "3")
+		<td>MARCH</td>
+	#elseif($!r.bulan == "4")
+		<td>APRIL</td>
+	#elseif($r.bulan == "5")
+		<td>MAY/td>
+	#elseif($!r.bulan == "6")
+		<td>JUNE</td>
+	#elseif($r.bulan == "7")
+		<td>JULY</td>
+	#elseif($!r.bulan == "8")
+		<td>AUGUST</td>
+	#elseif($r.bulan == "9")
+		<td>SEPTEMBER</td>
+	#elseif($!r.bulan == "10")
+		<td>OCTOBER</td>
+	#elseif($r.bulan == "11")
+		<td>NOVEMBER</td>
+	#elseif($!r.bulan == "12")
+		<td>DECEMBER</td>
+	#end
+#end
+
+<td align="right">$util.formatDecimal($!r.jumlahBil)</td>
+
+<td align="right">$!r.amaunSemasa</td>
+<td align="right">$!r.amaunBayaran</td>
+
+#if ($!r.tarikhAkhirBayaran)
+	#set($dateAkhirBayaran = $util.getDateTime($!r.tarikhAkhirBayaran,"dd-MM-yyyy"))
+#else 
+	#set($dateAkhirBayaran = "-") 
+#end
+<td>$dateAkhirBayaran</td>
+
+<td><b><i style='color: #04c;'>$!r.statusBil.keterangan</i><b/></td>
+
+#if ($!r.statusBayaran == 'Y')
+	<td><b>TELAH DIBAYAR</b></td>
+#elseif ($!r.statusBayaran == 'T')
+	<td>
+		<b><i id='$r.id' style='color: #FF0000;'>BELUM DIBAYAR</i></b>
+		<script>
+			function blinker() {
+		        _jq('#$r.id').fadeOut(750);
+		        _jq('#$r.id').fadeIn(750);
+		    }
+		    setInterval(blinker, 1500);
+		</script>
+	</td>
+#end

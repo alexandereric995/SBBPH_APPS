@@ -1,0 +1,98 @@
+<fieldset>
+<legend class="legend">Maklumat Maklumbalas</legend>
+<table width="100%">
+  <tr>
+    <td style="width:200px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  #input("noMaklumbalas" "No. Maklumbalas" "$!r.noMaklumbalas")
+  <tr>
+    <td class="label">Jenis Maklumbalas</td>
+    <td>:</td>
+    <td> #parse("$path/selectJenisMaklumBalas.vm") </td>
+  </tr>
+  <tr>
+    <td class="label">No. Pengenalan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><input type="text" class="texts" name="idPemohon" id="idPemohon" value="$!r.pemohon.id" style="width:100%" onKeyUp="$('err_idPemohon').innerHTML=''; at(this, event);" onChange="doDivAjaxCall3$formname('getPemohon','getPemohon','')">
+    	<div id="err_idPemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  <tr>
+    <td class="label">Nama Pemohon</td>
+    <td>:</td>
+    <td><div id="getPemohon">#parse("$path/namaPemohon.vm")</div>
+    	<div id="err_namaPemohon" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  #input("keterangan" "Keterangan" "$!r.keterangan")
+  #textarea("ulasanMaklumbalas" "Ulasan" "$!r.ulasanMaklumbalas")
+   <tr>
+	<td class="label">Tarikh Maklumbalas</td>
+	<td class="label">:</td>
+	#if ($!r.tarikhMaklumbalas) 
+  	#set ($dateMaklumbalas = "$!util.getDateTime($!r.tarikhMaklumbalas,'dd-MM-yyyy')")
+  	#else #set ($dateMaklumbalas="")
+  	#end
+	<td>
+		<input type="text" id="tarikhMaklumbalas" style="width:100px;" name="tarikhMaklumbalas" value="$dateMaklumbalas" style="width: 50%">
+		<script>
+        _jq(function() {
+        	jQuery("#tarikhMaklumbalas").datepicker({ 
+        		dateFormat: "dd-mm-yy",
+				showOn: "both",
+				buttonImageOnly: true,
+				buttonImage: "../img/calendar_icon.gif",
+				buttonText: "Calendar",
+        	});
+        });
+		</script>
+	</td>
+	</tr>
+</table>
+</fieldset>
+
+###if($userRole.equalsIgnoreCase("(RPP) Penyelia"))
+##<fieldset>
+##<legend class="legend">Ulasan Penyelia</legend>
+##<table width="100%">
+##  <tr>
+##    <td style="width:200px"></td>
+##    <td style="width:10px"></td>
+##    <td></td>
+##  </tr>
+##  #textarea("ulasanMaklumbalas" "Ulasan" "$!r.ulasanMaklumbalas")
+##</table>
+##</fieldset>
+###end
+
+##<table width="100%">
+##	<tr>
+##		<td align="right">
+##			#if($userRole.equalsIgnoreCase("(RPP) Penyelia"))
+##			<input id="cmdKembali" type="button" value="Kembali" onclick="location.reload();" />
+##			<input type="button" value="Kosongkan" id="cmdKosongkanMb" />
+##			<input type="button" value="Simpan" id="cmdSaveMb" />
+##			#end
+##		</td>
+##	</tr>
+##</table>
+
+<div id="maklumbalas"></div>
+<script>
+_jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+});
+  _jq('#cmdKosongkanMb').on('click', function(){
+	$('ulasanMaklumbalas').value = "";
+});
+_jq('#cmdSaveMb').on('click', function(){
+	
+	var idMaklumBalas = '$!r.id';
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('maklumbalas','saveMaklumBalas','idMaklumBalas='+idMaklumBalas);
+	}
+});
+</script>

@@ -1,0 +1,24 @@
+function validate() {
+	var err_count = 0;	
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function simpanBebasSenaraiHitam() {
+	var err_count = 0;
+	
+	var catatanBebasSenaraiHitam = $('catatanBebasSenaraiHitam').value;
+	if ( catatanBebasSenaraiHitam == "" ) {$('err_catatanBebasSenaraiHitam').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divMaklumatSenaraiHitam','simpanBebasSenaraiHitam','');
+	}
+}

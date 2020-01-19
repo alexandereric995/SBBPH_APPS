@@ -1,0 +1,140 @@
+#if ( !$relativeDir )
+    #set ( $relativeDir = "../../" )
+#end
+<script type="text/javascript" src="${relativeDir}cookie/cookie.js" ></script>
+<script type="text/javascript" src="${relativeDir}jquery/jquery-2.1.4.min.js" ></script>
+<script type="text/javascript" src="${relativeDir}jquery/jquery-ui-1.11.4.min.js" ></script>
+
+<script>
+	var _jQuery = jQuery.noConflict();
+    var _jq = jQuery.noConflict();
+</script>
+
+<script type="text/javascript" src="${relativeDir}jquery/jquery.easing-1.3.min.js" ></script>
+<script type="text/javascript" src="${relativeDir}jquery/jquery.bootstrap.newsbox.min.js" ></script>
+<script type="text/javascript" src="${relativeDir}jquery/jssor.min.js" ></script>
+<script type="text/javascript" src="${relativeDir}jquery/jssor.slider.min.js" ></script>
+<script type="text/javascript" src="${relativeDir}jquery/autoNumeric-1.9.39.min.js" ></script>
+<script type="text/javascript" src="${relativeDir}jquery/jquery.jgrowl.min.js" ></script>
+<script type="text/javascript" src="${relativeDir}jquery/zebra_datepicker.min.js" ></script>
+<script type="text/javascript" src="${relativeDir}jquery/zebra_dialog.min.js" ></script>
+<script type="text/javascript" src="${relativeDir}jquery/zebra_tooltips.min.js" ></script>
+<script type="text/javascript" src="${relativeDir}jquery/jquery.dataTables.min.js" ></script>
+<script type="text/javascript" src="${relativeDir}jquery/jquery.marquee.min.js" ></script>
+<script type="text/javascript" src="${relativeDir}jquery/printThis.min.js" ></script>
+<script type="text/javascript" src="${relativeDir}jquery/sweetalert.min.js" ></script>
+<script type="text/javascript" src="${relativeDir}jquery/prism.min.js" ></script>
+
+<link rel="stylesheet" type="text/css" href="${relativeDir}css/jquery-ui-1.11.4.min.css"/>
+<link rel="stylesheet" type="text/css" href="${relativeDir}css/jquery.jgrowl.min.css"/>
+<link rel="stylesheet" type="text/css" href="${relativeDir}css/zebra_datepicker.min.css"/>
+<link rel="stylesheet" type="text/css" href="${relativeDir}css/zebra_dialog.min.css"/>
+<link rel="stylesheet" type="text/css" href="${relativeDir}css/zebra_tooltips.min.css"/>
+<link rel="stylesheet" type="text/css" href="${relativeDir}css/jquery.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="${relativeDir}css/sweetalert.min.css"/>
+<link rel="stylesheet" type="text/css" href="${relativeDir}css/sweet_alert/google.min.css"/>
+<link rel="stylesheet" type="text/css" href="${relativeDir}css/prism.min.css"/>
+<link rel="stylesheet" type="text/css" href="${relativeDir}css/iconFont.min.css"/>
+
+<script>
+    _jq(document).ready(function () {
+    	_jq(".starter").fadeOut('slow');
+    	
+    	_jq(".info-h").hide();
+    	
+        _jq(window).scroll(function() {
+		
+            var x = _jq(window).scrollTop();
+            var w = _jq(window).height();
+            var d = _jq(document).height();
+            var z = d - w;
+            var y = 225 - x;
+			
+            if ( x < 125 ) _jq("#navigation").css({"top": y});
+            
+            if ( x < 50 ) {
+            	_jq(".info").slideDown('slow');
+            } else {
+            	_jq(".info").slideUp('slow');
+            }
+            
+            if ( x < 125 ) {
+            	_jq(".info-h").fadeOut('slow');
+            } else {
+            	_jq(".info-h").fadeIn('slow');
+            }
+            
+            if (x == z) {
+                _jq(".misc").removeClass("before-scroll").addClass("after-scroll");
+                _jq("#webHover").removeClass("webHover-before-scroll").addClass("webHover-after-scroll");
+                _jq("#keserasianHover").removeClass("keserasianHover-before-scroll").addClass("keserasianHover-after-scroll");
+                _jq("#scrollPosition").hide();
+            } else {
+                _jq(".misc").removeClass("after-scroll").addClass("before-scroll");
+                _jq("#webHover").removeClass("webHover-after-scroll").addClass("webHover-before-scroll");
+                _jq("#keserasianHover").removeClass("keserasianHover-after-scroll").addClass("keserasianHover-before-scroll");
+                _jq("#scrollPosition").fadeIn();
+            }
+        });
+    });
+	
+    _jq(document).keydown(function(e) {
+          if(e.ctrlKey && e.altKey && e.keyCode == 72) {
+                _jq('#rootLogin').show();
+          }
+          
+          if(e.escKey) {
+                _jq('#rootLogin').hide();
+          }
+    });
+	
+    function callAjaxLogin(username, password) {
+        var result;
+		
+        var url = '${serverUrl}/servlet/lebah.msg.LoginServlet';
+		
+        console.log(url);
+		
+        var qs = "username=" + username + "&password=" + password;
+		
+        new Ajax.Request(url,  {
+            method: 'post', 
+            parameters: qs, 
+            asynchronous: false,
+            onComplete: function(t) {
+                result = t.responseText;
+            }, on404: function(t) {
+                alert('Error 404: location "' + t.statusText + '" was not found.');
+                clearInterval(mTimer);
+            }, onFailure: function(t) {
+                alert('Error ' + t.status + ' -- ' + t.statusText);
+                clearInterval(mTimer);
+            }            				
+        });
+		
+        return result;
+    }
+    
+     function callAjaxPwdHint(username) {
+     	var result;
+	    var url = '${serverUrl}/servlet/lebah.msg.LoginServlet?p=p';
+	    var qs = "username=" + username ;
+	    new Ajax.Request(url,  {
+            method: 'post', 
+            parameters: qs, 
+            asynchronous: false,
+            onComplete: function(t) {
+                result = t.responseText;
+            }, on404: function(t) {
+                alert('Error 404: location "' + t.statusText + '" was not found.');
+                clearInterval(mTimer);
+            }, onFailure: function(t) {
+                alert('Error ' + t.status + ' -- ' + t.statusText);
+                clearInterval(mTimer);
+            }            				
+        });
+		
+        return result;
+     }
+    
+</script>

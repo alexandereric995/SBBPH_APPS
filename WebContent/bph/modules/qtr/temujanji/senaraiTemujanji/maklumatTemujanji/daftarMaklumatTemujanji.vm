@@ -1,0 +1,55 @@
+<fieldset>
+<legend class="legend">MAKLUMAT E-TEMUJANJI</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #if ($!r.tarikhMohonTemujanji) #set ($dateMohonTemujanji = "$!util.getDateTime($!r.tarikhMohonTemujanji,'dd-MM-yyyy')")
+        #else #set ($dateMohonTemujanji = "") #end
+        #date_input_required("tarikhMohonTemujanji" "Tarikh Mohon" "$dateMohonTemujanji")
+        
+        #if ($!r.tarikhTemujanji) #set ($dateTemujanji = "$!util.getDateTime($!r.tarikhTemujanji,'dd-MM-yyyy')")
+        #else #set ($dateTemujanji = "") #end
+        #date_input_required("tarikhTemujanji" "Tarikh Temujanji" "$dateTemujanji")
+        
+        <tr>
+          <td class="label" valign="top">Masa Temujanji &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td> #parse("$path/maklumatTemujanji/selectMasaTemujanji.vm")
+            <div id="err_idMasaTemujanji" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>             
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Sebab Keluar Kuarters &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td> #parse("$path/maklumatTemujanji/selectSebabTukarKuarters.vm")
+            <div id="err_idSebabBertukar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #textarea("keterangan" "Keterangan" "$!r.keterangan")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<div id="divPenghuni">
+	#parse("$path/maklumatPenghuni/maklumatPenghuni.vm")
+</div>
+
+<div id="divMaklumatSelepasKeluarKuarters">
+	#parse("$path/maklumatSelepasKeluarKuarters/maklumatSelepasKeluarKuarters.vm")
+</div>
+
+<div id="divMaklumatPertukaranJabatan">
+	#parse("$path/maklumatPertukaranJabatan/start.vm")
+</div>
+

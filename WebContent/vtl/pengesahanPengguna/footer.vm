@@ -1,0 +1,30 @@
+###if( $!userRole.equalsIgnoreCase("(QTR) Penyedia") || $!userRole.equalsIgnoreCase("(QTR) Pelulus"))
+	<input type="button" value="Cetak"  id="cmdCetak" align="right"/>
+###end
+
+<script>
+
+_jq('#cmdCetak').on('click', function(){
+		
+##	alert("masuk masuk")
+	var findLogPengguna = $('findLogPengguna').value;
+	var findNamaPengguna = $('findNamaPengguna').value;
+	
+	if(!findLogPengguna){
+		findLogPengguna = "";
+	}
+	if(!findNamaPengguna){
+		findNamaPengguna = "";
+	}
+
+	var url = "../servlet/bph.laporan.qtr.CetakSenaraiPengesahanPengguna?findLogPengguna="+findLogPengguna+"&findNamaPengguna="+findNamaPengguna;
+	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	if ((document.window != null) && (!hWnd.opener)){
+		hWnd.opener = document.window;
+	}
+	if (hWnd.focus != null){ 
+		hWnd.focus();
+	}
+});
+
+</script>

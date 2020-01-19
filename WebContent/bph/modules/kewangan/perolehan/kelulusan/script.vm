@@ -1,0 +1,24 @@
+function validate() {
+	var err_count = 0;
+	
+	var radio1 = document.${formname}.kelulusan[0].checked;
+	var radio2 = document.${formname}.kelulusan[1].checked;
+	if ( radio1 == false && radio2 == false ) {$('err_lulus').innerHTML = "Pilihan Sokongan adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doKosongkan() {
+    var inputs = document.${formname}.kelulusan;
+    for(var i = inputs.length-1;i>=0;i--){
+        if(inputs[i].getAttribute("type")==="radio"){
+            inputs[i].checked=false;
+        }
+    }
+	$('catatanLulus').value = "";
+}

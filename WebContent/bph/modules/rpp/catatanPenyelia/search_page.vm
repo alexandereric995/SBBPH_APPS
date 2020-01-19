@@ -1,0 +1,25 @@
+<table width="80%" cellpadding="1" cellspacing="1">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+	
+	#if(!$!userRole.equalsIgnoreCase("(RPP) Penyelia"))
+	<tr>
+        <td>Rumah Peranginan</td>
+        <td>:</td>
+        <td>
+			<select class="texts" id="findPeranginan" name="findPeranginan" style="width:100%">
+                <option value="">SILA PILIH</option>
+                #foreach( $n in $listPeranginan)
+                	<option value="$n.id">$n.namaPeranginan.toUpperCase()</option>
+                #end
+            </select>
+		</td>
+    </tr>
+	#end
+	
+	#date_input("findTarikhCatatan" "Tarikh Catatan" "")
+	#input("findTajuk" "Tajuk" "")
+</table>

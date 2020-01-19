@@ -1,0 +1,32 @@
+#if($command == 'addRayuan')
+	<select class="texts" id="idJenisRayuan" name="idJenisRayuan" style="width:80%" onChange="$('err_idJenisRayuan').innerHTML=''; doDivAjaxCall3$formname('selectFlagRayuan','selectFlagRayuan','')">
+	    <option value="">SILA PILIH</option>
+##	    <option #if ( $rekod.flagJenisRayuan == '1' ) selected #end value="1">RAYUAN KUARTERS</option>
+		<option #if ( $rekod.flagJenisRayuan == '1' ) selected #end value="1">RAYUAN PERLANJUTAN MENDUDUKI KUARTERS</option>
+	    <option #if ( $rekod.flagJenisRayuan == '2' ) selected #end value="2">RAYUAN KEKAL MENDUDUKI KUARTERS</option>
+	    <option #if ( $rekod.flagJenisRayuan == '3' ) selected #end value="3">RAYUAN BAYARAN SEWA</option>
+	    <option #if ( $rekod.flagJenisRayuan == '4' ) selected #end value="4">RAYUAN PENGURANGAN BAYARAN TUNGGAKAN</option>
+	    <option #if ( $rekod.flagJenisRayuan == '5' ) selected #end value="5">RAYUAN BAYAR SECARA ANSURAN</option>
+	</select>
+#else
+	<input type="hidden" id="idJenisRayuan" name="idJenisRayuan" value="$rekod.flagJenisRayuan"/>
+	
+	##jika new papar ini
+##	#if($rekod.flagJenisRayuan == '1')
+##		#set($flagRayuan = 'RAYUAN KUARTERS')
+	#if($rekod.flagJenisRayuan == '1')
+		#set($flagRayuan = 'RAYUAN PERLANJUTAN MENDUDUKI KUARTERS')
+	#elseif($rekod.flagJenisRayuan == '2')
+		#set($flagRayuan = 'RAYUAN KEKAL MENDUDUKI KUARTERS')
+	#elseif($rekod.flagJenisRayuan == '3')
+		#set($flagRayuan = 'RAYUAN BAYARAN SEWA')
+	#elseif($rekod.flagJenisRayuan == '4')
+		#set($flagRayuan = 'RAYUAN PENGURANGAN BAYARAN TUNGGAKAN')
+	#elseif($rekod.flagJenisRayuan == '5')
+		#set($flagRayuan = 'RAYUAN BAYAR SECARA ANSURAN')
+	#end
+	
+	##jika edit papar ini
+	$flagRayuan 
+	
+#end

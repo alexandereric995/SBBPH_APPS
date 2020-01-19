@@ -1,0 +1,89 @@
+
+##parse("$path/kelulusanPermohonan/senaraiSubTab.vm")
+
+
+
+##if($!r.status.id == "1424860634481" || $!r.status.id == "1424860634484" || $!r.status.id == "1424860634487" || $!r.status.id == "1424860634490" )
+<fieldset>
+<legend class="legend">Batal Permohonan</legend>
+	<table width="100%" cellspacing="2" cellpadding="2">
+		<tr>
+			<td style="width:24%"></td>
+            <td style="width:1%"></td>
+            <td style="width:75%"></td>
+		</tr>
+		<tr>
+        	<td  valign="top" class="label">Tarikh Pembatalan &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td  valign="top" class="label">:</td>
+        	<td valign="top">
+				<input type="text" id="tarikhBatalPermohonan" name="tarikhBatalPermohonan" value="$!util.getDateTime($!bp.tarikhBatal,'dd-MM-yyyy')" style="width: 18%" onChange=" $('err_tarikhBatalPermohonan').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()">
+        		<script>
+                _jq(function() {
+                	jQuery("#tarikhBatalPermohonan").datepicker({ 
+                		dateFormat: "dd-mm-yy",
+        				showOn: "both",
+        				buttonImageOnly: true,
+        				buttonImage: "../img/calendar_icon.gif",
+        				buttonText: "Calendar",
+                	});
+                });
+        		</script>
+				<div id="err_tarikhBatalPermohonan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+		<tr>
+        	<td class="label" valign="top">Justifikasi Pembatalan &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<textarea id="catatanBatal" style="width:40% !important" class="uppercasefont" name="catatanBatal" onKeyUp=" $('err_catatanBatal').innerHTML=''; at(this, event);this.value=this.value.toUpperCase()" onBlur="this.value=this.value.toUpperCase();">$!bp.catatanBatal</textarea>
+				<div id="err_catatanBatal" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+        </tr>
+	</table>	
+</fieldset>
+	
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if($userRole.equalsIgnoreCase("(JRP) Penyedia"))
+    			<input type="button" value="Batal Permohonan" id="cmdSaveBatalPermohonan" />
+    			<input type="button" value="Kosongkan" id="cmdKosongkanBp" />
+    		#end
+    			<input id="cmdKembali" type="button" value="Kembali" onclick="document.location = '$!tabIdAndClassName'" />
+		</td>
+	</tr>
+</table>
+##end
+<div id="statusBatal"></div>
+<script>	
+	_jq('#cmdSaveBatalPermohonan').on('click', function(){
+	var err_count = 0;
+	var tarikhBatal = $('tarikhBatalPermohonan').value;
+	var catatanBatal = $('catatanBatal').value;
+	
+	if ( tarikhBatal == "" ) {$('err_tarikhBatalPermohonan').innerHTML = "Tarikh Pembatalan adalah mandatori!"; err_count++;  }
+	if ( catatanBatal == "" ) {$('err_catatanBatal').innerHTML = "Justifikasi Pembatalan adalah mandatori!"; err_count++;  }
+	
+	var tabNo = $!selectedSubTab;
+	var idPermohonan = $!r.id;
+	
+	##var mainForm = document.getElementById('mainForm');
+  	##mainForm.style.display = 'none';
+    	
+	doDivAjaxChainCall$formname('statusBatal','simpanBatalPermohonan','idPermohonan='+idPermohonan);
+	return err_count == 0;
+});
+
+_jq('#cmdKosongkanBp').on('click', function(){
+	$('tarikhBatalPermohonan').value = "";
+	$('catatanBatal').value = "";
+	
+	$('err_tarikhBatalPermohonan').innerHTML ='';
+	$('err_catatanBatal').innerHTML ='';
+});
+
+_jq('#cmdKembali').on('click', function(){
+	location.reload();
+	
+});
+</script>

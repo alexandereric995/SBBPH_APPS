@@ -1,0 +1,151 @@
+#if ($!command == 'getMaklumatIndividuBerdaftar' || $!command == 'getPilihanIndividu')
+<fieldset>
+<legend class="legend">Maklumat Penyewa</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">No. Pengenalan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><input size="30" id="noPengenalan" name="noPengenalan" value="$!noPengenalan" onChange="doDivAjaxCall3$formname('divIndividu','getMaklumatIndividuBerdaftar','')" onKeyUp="$('err_noPengenalan').innerHTML=''; at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+            <input type="button" tabindex="4" value="CARI PENYEWA" id="btnSenaraiIndividu"/>
+            <div id="err_noPengenalan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #input_required("nama" "Nama" "$!individu.nama")
+        #input("jawatan" "Jawatan" "$!individu.jawatan")
+        <tr>
+          <td class="label" valign="top">Warganegara</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatIndividu/selectWarganegara.vm")
+            <div id="err_idWarganegara" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #input_required("alamat1" "Alamat" "$!individu.alamat1")
+        #input("alamat2" "" "$!individu.alamat2")
+        #input("alamat3" "" "$!individu.alamat3")
+        #postcode_required("poskod" "Poskod" "$!individu.poskod")
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatIndividu/selectNegeri.vm")
+            <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandar"> #parse("$path/maklumatIndividu/selectBandar.vm") </div>
+            <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>     
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        #input("alamat1Surat" "Alamat Surat-menyurat" "$!individu.alamat1Surat")
+        #input("alamat2Surat" "(Jika Berlainan)" "$!individu.alamat2Surat")
+        #input("alamat3Surat" "" "$!individu.alamat3Surat")
+        #postcode("poskodSurat" "Poskod" "$!individu.poskodSurat")
+        <tr>
+          <td class="label" valign="top">Negeri</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatIndividu/selectNegeriSurat.vm")</td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar</td>
+          <td valign="top">:</td>
+          <td><div id="selectBandarSurat"> #parse("$path/maklumatIndividu/selectBandarSurat.vm") </div></td>
+        </tr> 
+        #phone_number_required("noTelefon" "No. Telefon (Pejabat)" "$!individu.noTelefon")
+	    #phone_number_required("noTelefonBimbit" "No. Telefon Bimbit" "$!individu.noTelefonBimbit")
+	    #input_email("emel" "E-mel" "$!individu.emel")
+	    #input("noFaks" "No. Faks" "$!individu.noFaks")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+#else
+<fieldset>
+<legend class="legend">Maklumat Penyewa</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">No. Pengenalan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><input size="30" id="noPengenalan" name="noPengenalan" value="$!fail.pemohon.individu.id" onChange="doDivAjaxCall3$formname('divIndividu','getMaklumatIndividuBerdaftar','')" onKeyUp="$('err_noPengenalan').innerHTML=''; at(this, event)" onBlur="this.value=this.value.toUpperCase();">
+            <input type="button" tabindex="4" value="CARI PENYEWA" id="btnSenaraiIndividu"/>
+            <div id="err_noPengenalan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #input_required("nama" "Nama" "$!fail.pemohon.individu.nama")
+        #input("jawatan" "Jawatan" "$!fail.pemohon.individu.jawatan")
+        <tr>
+          <td class="label" valign="top">Warganegara</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatIndividu/selectWarganegara.vm")
+            <div id="err_idWarganegara" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        #input_required("alamat1" "Alamat" "$!fail.pemohon.individu.alamat1")
+        #input("alamat2" "" "$!fail.pemohon.individu.alamat2")
+        #input("alamat3" "" "$!fail.pemohon.individu.alamat3")
+        #postcode_required("poskod" "Poskod" "$!fail.pemohon.individu.poskod")
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatIndividu/selectNegeri.vm")
+            <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandar"> #parse("$path/maklumatIndividu/selectBandar.vm") </div>
+            <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>     
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input("alamat1Surat" "Alamat Surat-menyurat" "$!fail.pemohon.individu.alamat1Surat")
+        #input("alamat2Surat" "(Jika Berlainan)" "$!fail.pemohon.individu.alamat2Surat")
+        #input("alamat3Surat" "" "$!fail.pemohon.individu.alamat3Surat")
+        #postcode("poskodSurat" "Poskod" "$!fail.pemohon.individu.poskodSurat")
+        <tr>
+          <td class="label" valign="top">Negeri</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatIndividu/selectNegeriSurat.vm")</td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar</td>
+          <td valign="top">:</td>
+          <td><div id="selectBandarSurat"> #parse("$path/maklumatIndividu/selectBandarSurat.vm") </div></td>
+        </tr> 
+        #phone_number_required("noTelefon" "No. Telefon (Pejabat)" "$!fail.pemohon.individu.noTelefon")
+	    #phone_number_required("noTelefonBimbit" "No. Telefon Bimbit" "$!fail.pemohon.individu.noTelefonBimbit")
+	    #input_email("emel" "E-mel" "$!fail.pemohon.individu.emel")
+	    #input("noFaks" "No. Faks" "$!fail.pemohon.individu.noFaks")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+#end
+
+<div id="popupSenaraiIndividu" class="popup"></div>
+<script>
+	_jq('#btnSenaraiIndividu').on('click', function(){
+		doDivAjaxCall3$formname('popupSenaraiIndividu','getSenaraiIndividu','');
+	    jQuery('#popupSenaraiIndividu').fadeIn();
+	});
+</script>

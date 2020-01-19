@@ -1,0 +1,64 @@
+<fieldset>
+<legend class="legend">KEPUTUSAN</legend>
+
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #if ($!r.tarikhKeputusan) 
+  #set ($dateKeputusan = "$!util.getDateTime($!r.tarikhKeputusan,'dd-MM-yyyy')")
+  #else #set ($dateKeputusan = "") #end
+  #input_normal("tarikhKeputusan" "Tarikh Keputusan" "$dateKeputusan")
+  #if ($!r.flagKeputusan == 'Y') 
+  #set ($keputusan = "LULUS")
+  #else #set ($keputusan = "DITOLAK") #end
+  #input_normal("keputusan" "Keputusan" "$keputusan")
+  #if ($!r.status.id == '1423568441697') ## LULUS
+  <tr>
+  	<td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td ><br><a href="javascript:void" id="cetakSuratKelulusan"> <font color="#0000FF"><strong>CETAK SURAT KEPUTUSAN</strong></font> </a></td>
+  </tr>
+  #end
+  #if ($!r.status.id == '1423568441700') ## TOLAK
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td ><br><a href="javascript:void" id="cetakSuratPenolakan"> <font color="#0000FF"><strong>CETAK SURAT KEPUTUSAN</strong></font> </a></td>
+  </tr>
+  #end
+</table>
+
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+		    <input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+<script>   
+    _jq('#cetakSuratKelulusan').on('click', function(){
+    	var idPermohonan = '$!r.id';
+        		    
+		var url = "../servlet/bph.laporan.bgs.BGSSuratLulusPermohonanRuangPejabat?idPermohonan="+idPermohonan;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();	
+    	});
+    
+    _jq('#cetakSuratPenolakan').on('click', function(){
+    	var idPermohonan = '$!r.id';
+        		    
+		var url = "../servlet/bph.laporan.bgs.BGSSuratTolakPermohonanRuangPejabat?idPermohonan="+idPermohonan;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();	
+    	});
+</script>

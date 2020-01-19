@@ -1,0 +1,172 @@
+
+_jq( document ).ready(function() {
+	var redirect = "$!redirectSkrinTempahan";
+	if(redirect=="true"){
+		$('div_main').style.display='none';$('div_main_entry').style.display='block';
+		doDivAjaxCall$formname('div_main_entry','add_new_record','');
+	}
+});
+
+function validateSearch() {
+	var err_count = 0;
+        	
+    var txtSearchGuest = $('txtSearchGuest').value;
+    if ( txtSearchGuest == "" ) {$('err_txtSearchGuest').innerHTML = "Sila Masukkan Carian."; err_count++;  }
+        	
+    if (err_count == 0) {}
+    return err_count == 0;
+}
+		
+function doSearchGuest() {
+	if (validateSearch()){
+		doDivAjaxCall3$formname('divPopupSearchGuest','callPopupSearchGuest','');
+        jQuery('#divPopupSearchGuest').fadeIn();
+	}
+}
+
+function validateKemaskiniBank() {
+
+	var err_count = 0;
+	
+	var noAkaunBank = $('noAkaunBank').value;
+	if ( noAkaunBank == "" ) {$('err_noAkaunBank').innerHTML = "No. Akaun adalah mandatori!"; err_count++;  }
+	
+	var bank = $('bank').value;
+	if ( bank == "" ) {$('err_bank').innerHTML = "Bank adalah mandatori!"; err_count++;  }
+	
+	var cbSyarat = $('cbSyarat').checked;
+	if ( cbSyarat == false ) {$('err_cbSyarat').innerHTML = "* Sila tanda untuk mengesahkan maklumat yang dimasukkan adalah benar."; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doKemaskiniBank(){
+	if (validateKemaskiniBank()) {
+		doDivAjaxCall3$formname('divMaklumatTetamu','kemaskiniBank','');
+	}
+}
+
+function validateFilterJenisUnit(enabledEditDate) {
+	var err_count = 0;
+
+	var bilDewasa = $('bilDewasa').value;
+	if ( bilDewasa == "" ) {$('err_bilDewasa').innerHTML = "Bilangan Dewasa adalah mandatori!"; err_count++;  }
+	
+	var tarikhKeluar = $('tarikhKeluar').value;
+	if ( tarikhKeluar == "" ) {$('err_tarikhKeluar').innerHTML = "Tarikh Keluar adalah mandatori!"; err_count++;  }
+	
+	if (enabledEditDate=="true") {
+		var tarikhMasuk = $('tarikhMasuk').value;
+		if ( tarikhMasuk == "" ) {$('err_tarikhMasuk').innerHTML = "Tarikh Masuk adalah mandatori!"; err_count++;  }
+	}
+	
+	if (err_count == 0) { }
+	return err_count == 0;
+}
+
+function doFilterJenisUnitByRpp(idRpp,enabledEditDate) {
+	if( validateFilterJenisUnit(enabledEditDate) ){
+		doDivAjaxCall3$formname('divJenisUnitRpp','filterJenisUnitByRpp','idRpp='+idRpp);
+	}
+}
+
+function doFilterUnitByJenis(idJenisUnit) {
+	if( validateFilterJenisUnit() ){
+		doDivAjaxCall3$formname('divListUnit','filterUnitByJenis','idJenisUnit='+idJenisUnit);
+	}
+}
+
+function validateSimpanRekod(sizeUnit) {
+
+	var err_count = 0;
+	var checking = 0;
+	var size = sizeUnit;
+		
+	if( size > 1 ){
+        for( var i = 0; i < document.${formName}.cbUnit.length; i++ ){
+    		if(document.${formName}.cbUnit[i].checked){ 
+    			checking += 1; 
+    		};
+        }
+	}else{
+		if( document.${formName}.cbUnit.checked == true ){
+			checking += 1; 
+		}
+	}
+		
+    if ( checking == 0 ){$('err_cbUnit').innerHTML = "* Sila pilih unit terlebih dahulu."; err_count++;  }
+	
+	if (err_count == 0) { }
+	return err_count == 0;
+}
+
+function doSimpanRekod(sizeUnit) {
+	if( validateSimpanRekod(sizeUnit) ){
+		doDivAjaxCall$formname('divMaklumatTetamu','simpanRekod','');
+		swal("Hantar", "Maklumat tempahan berjaya disimpan.", "success");
+		window.scrollTo(0, 0);
+	}
+}
+
+function doPilihCaraBayaran() {
+	doDivAjaxCall$formname('divNoResit','pilihCaraBayaran','');
+}
+
+
+function validateSimpanBayaran(enabledEditDate) {
+	var err_count = 0;
+	
+	var radio1 = document.${formname}.flagJenisBayaran[0].checked;
+	var radio2 = document.${formname}.flagJenisBayaran[1].checked;
+	
+	if ( radio1 == false && radio2 == false ) {$('err_flagJenisBayaran').innerHTML = "Pilihan Penjanaan Resit adalah mandatori!"; err_count++;  }
+	
+	if(radio1 == true){
+		var noResitSewaDeposit = $('noResitSewaDeposit').value;
+		if ( noResitSewaDeposit == "" ) {$('err_noResitSewaDeposit').innerHTML = "No. Resit adalah mandatori!"; err_count++;  }
+	}else if(radio2 == true){
+		var noPusatTerima = $('noPusatTerima').value;
+		var noKodJuruwang = $('noKodJuruwang').value;
+		if ( noKodJuruwang == "" || noPusatTerima == "" ) {$('err_dataJuruwang').innerHTML = "Maklumat kod dan pusat terima juruwang perlu didaftarkan terlebih dahulu!"; err_count++;  }
+	}
+	
+	if (enabledEditDate=="true") {
+		var tarikhBayaran = $('tarikhBayaran').value;
+		if ( tarikhBayaran == "" ) {$('err_tarikhBayaran').innerHTML = "Tarikh Bayaran adalah mandatori!"; err_count++;  }
+	}
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function doSimpanBayaran(enabledEditDate) {
+	if( validateSimpanBayaran(enabledEditDate) ){
+		doDivAjaxCall3$formname('divMaklumatTetamu','simpanBayaran','');
+	}
+}
+
+function doDeletePermohonan(queryParam) {
+	if ( !confirm('Adakah anda pasti ?') ){ 
+		return; 
+	}else{
+		$('_wait').innerHTML='Please wait...';
+		$('div_main_entry').style.display='none';
+		$('div_main').style.display='block';
+		doDivAjaxChainCall$formname('divstatus','deletePermohonan',queryParam,'div_list','list_page',queryParam);
+	}	
+}
+
+
+
+
+

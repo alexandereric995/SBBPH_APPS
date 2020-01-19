@@ -1,0 +1,161 @@
+function validate() {
+	var err_count = 0;
+		
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if (flagAktif == 'Y') {
+		var turutan = $('turutan').value;
+		if ( turutan == "" ) {$('err_turutan').innerHTML = "** adalah mandatori!"; err_count++;  }
+	}
+	
+	if (err_count == 0) {
+	       
+	    var newData = CKEDITOR.instances.butiran.getData();  ## GET VALUE FROM CKEDITOR Add ByZUl
+        $('butiran').value = newData;   ## GET VALUE FROM CKEDITOR Add ByZUl
+	
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function kemaskiniMaklumat() {
+	var err_count = 0;
+		
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if (flagAktif == 'Y') {
+		var turutan = $('turutan').value;
+		if ( turutan == "" ) {$('err_turutan').innerHTML = "** adalah mandatori!"; err_count++;  }
+	}
+	
+	if (err_count == 0) {
+		if ( window.confirm("Anda pasti?") ){
+		     
+		     $('butiran').value = CKEDITOR.instances.butiran.getData(); ## GET VALUE FROM CKEDITOR Add ByZUl
+		
+		    doDivAjaxCall3$formname('divTab','kemaskiniMaklumat','')
+		}
+	}
+}
+
+function uploadGambar() {
+	var idRujukan = $('idRujukan').value;	
+	$('err_gambar').innerHTML = '';
+	
+	var err_count = 0;
+	if ($('gambar').value != "" && !checkDoc($('gambar').value)) {
+		err_count++;
+    	$('gambar').value = "";
+    	$('err_gambar').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (pdf)';
+    }
+    
+    if (err_count == 0) {
+    	if ( window.confirm("Anda pasti?") ){
+	    	$('gambarMuatnaik').style.display = "";
+	    	document.${formName}.enctype='multipart/form-data';
+	    	document.${formName}.encoding ='multipart/form-data';
+	    	document.${formName}.target='upload_gambar';
+	    	document.${formName}.action='?command=uploadGambar&idRujukan='+idRujukan;
+	    	document.${formName}.submit();
+	    	$('gambar').value = "";
+	    }
+    }
+}
+
+function hapusGambar() {
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall3$formname('divTab','hapusGambar','')
+	}
+}
+
+function simpanSubRujukan() {
+	var idRujukan = $('idRujukan').value;	
+	$('err_dokumen').innerHTML = '';
+	
+	var err_count = 0;
+	
+	var tajukSubRujukan = $('tajukSubRujukan').value;
+	if ( tajukSubRujukan == "" ) {$('err_tajukSubRujukan').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktifSubRujukan = $('flagAktifSubRujukan').value;
+	if ( flagAktifSubRujukan == "" ) {$('err_flagAktifSubRujukan').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var dokumen = $('dokumen').value;
+	if ( dokumen == "" ) {$('err_dokumen').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+		err_count++;
+    	$('dokumen').value = "";
+    	$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (pdf)';
+    }
+    
+    if (err_count == 0) {
+    	if ( window.confirm("Anda pasti?") ){
+	    	$('dokumenMuatnaik').style.display = "";
+	    	document.${formName}.enctype='multipart/form-data';
+	    	document.${formName}.encoding ='multipart/form-data';
+	    	document.${formName}.target='upload_dokumen';
+	    	document.${formName}.action='?command=simpanSubRujukan&idRujukan='+idRujukan+'&tajukSubRujukan='+tajukSubRujukan+'&&flagAktifSubRujukan='+flagAktifSubRujukan;
+	    	document.${formName}.submit();
+	    	$('dokumen').value = "";
+	    }
+    }
+}
+
+function simpanKemaskiniSubRujukan() {
+	var idSubRujukan = $('idSubRujukan').value;	
+	$('err_dokumen').innerHTML = '';
+	
+	var err_count = 0;
+	
+	var tajukSubRujukan = $('tajukSubRujukan').value;
+	if ( tajukSubRujukan == "" ) {$('err_tajukSubRujukan').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktifSubRujukan = $('flagAktifSubRujukan').value;
+	if ( flagAktifSubRujukan == "" ) {$('err_flagAktifSubRujukan').innerHTML = "** adalah mandatori!"; err_count++;  }
+		
+	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+		err_count++;
+    	$('dokumen').value = "";
+    	$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (pdf)';
+    }
+    
+    if (err_count == 0) {
+    	if ( window.confirm("Anda pasti?") ){
+	    	$('dokumenMuatnaik').style.display = "";
+	    	document.${formName}.enctype='multipart/form-data';
+	    	document.${formName}.encoding ='multipart/form-data';
+	    	document.${formName}.target='upload_dokumen';
+	    	document.${formName}.action='?command=simpanKemaskiniSubRujukan&idSubRujukan='+idSubRujukan+'&tajukSubRujukan='+tajukSubRujukan+'&flagAktifSubRujukan='+flagAktifSubRujukan;
+	    	document.${formName}.submit();
+	    	$('dokumen').value = "";
+	    }
+    }
+}
+
+function checkDoc(val) {
+	var arr = val.split(".");
+	var arr1 = val.split("\\");
+	if (arr[1] == "PDF" || arr[1] == "pdf") {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function deleteSubRujukan(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('divTab','deleteSubRujukan','idSubRujukan='+id);
+}

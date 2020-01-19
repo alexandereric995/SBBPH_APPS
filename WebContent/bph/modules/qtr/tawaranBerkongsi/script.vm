@@ -1,0 +1,34 @@
+function validate() {
+	var err_count = 0;
+	return err_count == 0;
+}
+
+function agihKuarters() {
+	var err_count = 0;
+	
+	var idPetugas = $('idPetugas').value;
+	if ( idPetugas == "" ) {$('err_idPetugas').innerHTML = "Sila pilih petugas"; err_count++;  }
+	
+	var valuePilihKuarters = $('valuePilihKuarters').value;
+	if ( valuePilihKuarters == "" ) {$('err_valuePilihKuarters').innerHTML = "Sila pilih 1 kuarters"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( window.confirm("Agih kuarters sekarang?") ){
+			doDivAjaxCall3$formname('agihKuarters','agihKuarters','');
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function hantarBersyarat() {
+	var err_count = 0;
+	
+	if (err_count == 0) {
+		if ( window.confirm("Hantar ke Senarai Menunggu Bersyarat?") ){
+			doDivAjaxCall3$formname('agihKuarters','hantarBersyarat','');
+		}
+	}
+	
+	return err_count == 0;
+}

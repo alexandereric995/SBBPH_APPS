@@ -1,0 +1,39 @@
+
+<fieldset>
+<legend class="legend">Laporan Senarai Permohonan Ruang Pejabat</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+	#if ($!r.tarikhTerima)
+ 		   #set ($dateMula = "$!util.getDateTime($!r.tarikhTerima,'dd-MM-yyyy')")
+	#else #set ($dateMula = "") #end
+	#date_input_required("tarikhTerima" "Tarikh Mula" "$dateMula")
+
+
+	#if ($!r.tarikhTerimaHingga)
+ 		  #set ($dateTamat = "$!util.getDateTime($!r.tarikhTerimaHingga,'dd-MM-yyyy')")
+	#else #set ($dateTamat = "") #end
+	#date_input_required("tarikhTerimaHingga" "Tarikh Tamat" "$dateTamat")
+</tr>
+  <tr>
+  <td class="label" valign="top">Status &nbsp;<span style="color:#FF2A00"></span></td><td valign="top">:</td><td>
+ 		<select id="status" name="status" style="width:50%" >
+    	<option value="" selected="selected">KESELURUHAN</option>
+    	<option value="PERMOHONAN BARU" #if ( $r.status == "PERMOHONAN BARU" ) selected #end>PERMOHONAN BARU</option>
+    	<option value="LULUS" #if ( $r.status == "LULUS" ) selected #end>LULUS</option>
+    	<option value="BATAL" #if ( $r.status == "BATAL" ) selected #end>BATAL</option>
+</select>
+</tr> 
+<tr>
+	<td></td>
+	<td class="label"></td>
+	<td><input type="button" name="cmdCetak" id="cmdCetak" value="Jana Laporan" onclick="javascript:doCetakLaporanSenaraiPermohonanBaru()"/><input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/></td>
+</tr>
+</table>
+</fieldset>
+<div id="cetakLaporan"></div>

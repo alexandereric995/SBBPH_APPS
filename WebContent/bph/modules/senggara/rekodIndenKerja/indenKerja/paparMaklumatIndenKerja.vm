@@ -1,0 +1,27 @@
+<fieldset>
+<legend class="legend">MAKLUMAT INDEN KERJA</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #input_readonly_all_label("kawasan" "Kawasan" "<b>$!r.lokasi.lokasi</b>")
+  #input_readonly_all_label("noInden" "No. Inden" "$!r.noInden")
+  #input_readonly_all_label("vot" "VOT" "$!r.vot")
+  #input_readonly_all_label("kerja" "Kerja" "$!r.kerja")
+  #if ($!r.tarikhIndenKerja) 
+  #set ($dateInden = "$!util.getDateTime($!r.tarikhIndenKerja,'dd-MM-yyyy')")
+  #else #set ($dateInden = "") #end
+  #input_readonly_all_label("tarikhIndenKerja" "Tarikh Inden Kerja" "$dateInden")
+  #input_readonly_all_label("jumlah" "Jumlah (RM)" "<b>$!util.formatDecimal($!r.jumlah)</b>")
+</table>
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>

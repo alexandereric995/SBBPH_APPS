@@ -1,0 +1,73 @@
+<div id="content-format">
+  <pinLeft></pinLeft>
+  <pinRight></pinRight>
+  <header>$unit.keterangan</header>
+  <fieldset>
+  <section>
+    <table cellpadding="10" cellspacing="0" border="0" width="100%">
+      <tr>
+        <td colspan="2" align="center" valign="middle"> 
+        	#foreach($rekod in $listKetuaUnit)
+	          <table cellpadding="5" cellspacing="0" border="0" width="100%">
+	            <tr>
+	            	#if ($rekod.fileName)
+	              		#if($!rekod.fileName != '')
+	              			<td rowspan="3" align="center" width="130"><img style="padding: 5px; border: 1px solid #CCC" src="../download?file=$!uploadDir$!rekod.fileName" width="130" height="150"/> </td>
+	              		#else	
+	              			<td rowspan="3" align="center" width="130"><img style="padding: 5px; border: 1px solid #CCC" src="../img/nophoto.gif" width="130" height="150"/> </td>
+		              	#end
+	              	#else	
+	              		<td rowspan="3" align="center" width="130"><img style="padding: 5px; border: 1px solid #CCC" src="../img/nophoto.gif" width="130" height="150"/> </td>
+	              	#end
+	              <td valign="top" width="275"><h3>$!rekod.nama</h3>
+	                <h4>$!rekod.jawatan</h4></td>
+	              <td valign="top" rowspan="3"><br />
+	                <table cellpadding="5" cellspacing="0" border="0" style="border-left: 1px solid #CCC">
+	                  <tr>
+	                    <td><i class="icon-mail on-left-more on-right"></i> <a href="mailto:$!rekod.email">$!rekod.email</a> </td>
+	                  </tr>
+	                  <tr>
+	                    <td><i class="icon-phone on-left-more on-right"></i> $!rekod.noTelefon </td>
+	                  </tr>
+	                  <tr>
+	                    <td><i class="icon-printer on-left-more on-right"></i> $!rekod.noFax </td>
+	                  </tr>
+	                  <tr>
+	                    <td>&nbsp;</td>
+	                  </tr>
+	                  <tr>
+	                    <td>&nbsp;</td>
+	                  </tr>
+	                </table></td>
+	            </tr>
+	          </table>
+          #end 
+      	</td>
+      </tr>
+    </table>
+    #if($listStafUnit.size() > 0)
+    <hr />    
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" class="table-bordered">
+      <thead>
+        <tr style="border:1px solid #000; font-size:17px;">
+          <td>NAMA</td>
+          <td>JAWATAN</td>
+          <td>E-MAIL</td>
+          <td>TELEFON</td>
+        </tr>
+      </thead>
+      #foreach($rekod in $listStafUnit)
+      <tr>
+        <td>$!rekod.nama</td>
+        <td>$!rekod.jawatan</td>
+        <td><a href="mailto:$!rekod.email">$!rekod.email</a></td>
+        <td nowrap>$!rekod.noTelefon</td>
+      </tr>
+      #end
+    </table>
+    #end
+    <br />
+    <input class="button-style" type="button" id="" name="" value="Kembali" onclick="doDivAjaxCall3$formname('content','getSubDirektori','idBahagian=$unit.bahagian.id')" />
+  </section>
+  </fieldset>
+</div>

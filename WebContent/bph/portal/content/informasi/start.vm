@@ -1,0 +1,35 @@
+<div id="content-format">
+  <pinLeft></pinLeft>
+  <pinRight></pinRight>
+  <header>$!informasi.tajuk.toUpperCase()</header>
+  <section>
+    <div id="tabs">
+      <div id="tabs-2">
+      	#if ($!informasi.butiran != '')
+	      	$!informasi.butiran
+			<br></br>
+		#end
+		
+        #set ($count=0)
+        #foreach ( $subInformasi in $listSubInformasi )
+        #set ($count=$count+1)
+        <ol>
+          $count. #if ($!subInformasi.fileName != '') <a href="../download?file=$!uploadDir$!subInformasi.fileName" > <span class="print">$!subInformasi.tajuk</strong><span> </a> #end
+        	#if ($!subInformasi.flagBaru == 'Y')
+				<img src="../images/new.gif"> 
+			#end
+			</br>
+			#if ($subInformasi.tarikhIklan)
+				#set($dateIklan = $util.getDateTime($!subInformasi.tarikhIklan,"dd-MM-yyyy"))
+				<strong>- Tarikh Kemaskini : $!dateIklan </strong>
+			#end
+        </ol>
+        #end
+        
+        #if ($!informasi.butiran == '' && $count == '0')
+        	<strong>TIADA MAKLUMAT</strong>
+        #end        
+      </div>
+    </div>
+  </section>
+</div>

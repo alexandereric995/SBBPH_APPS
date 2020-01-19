@@ -1,0 +1,56 @@
+<fieldset>
+    <form name="f" method="post">
+        <center>
+        	<table>
+        		<tr>
+        			<td>ID Pengguna</td><td>:</td><td><input type="text" name="user_id" value="$!user.login"></td><td><input type="button" value="Dapatkan ID" onclick="getUser()"></td>
+        		</tr>
+        	</table>
+        </center>
+    	<br />
+		<fieldset>
+            <table style="width: 50%" align="center" cellpadding="5" cellspacing="0" border="0">
+            	<tr>
+            		<td style="border-bottom: 1px solid #ccc" valign="middle">Nama Pengguna :</td>
+            		<td style="border-bottom: 1px solid #ccc"><b>$!user.name</b></td>
+            	</tr>
+            	<tr>
+            		<td style="border-bottom: 1px solid #ccc" valign="middle">Peranan Utama :</td>
+            		<td style="border-bottom: 1px solid #ccc"><b>$!user.role.description</b></td>
+            	</tr>
+            	<tr>
+            		<td valign="top">Peranan Sekunder :</td>
+            		<td>
+            			#foreach ( $role in $roleList )
+            				#if ( $role.name != $user.role.name && $role.name != "anon" )
+            					<input type="checkbox" name="roleList" value="$role.name" #if ( $user.isRole("$role.name") ) checked #end>$role.description</input><br />
+            				#end
+            			#end
+            		</td>
+            	</tr>
+            	<tr>
+					<td>
+						&nbsp;
+					</td>
+            		<td>
+						<input type="button" value="Simpan Peranan" onclick="updateRoles()">
+					</td>
+            	</tr>
+            </table>
+		</fieldset>
+        <input type="hidden" name="command">
+    </form>
+</fieldset>
+<br /><br />
+
+<script>
+function getUser(){
+    document.f.command.value = "getUser";
+    document.f.submit();
+}
+
+function updateRoles(){
+    document.f.command.value = "updateRoles";
+    document.f.submit();
+}
+</script>

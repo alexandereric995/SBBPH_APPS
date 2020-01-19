@@ -1,0 +1,178 @@
+<fieldset>
+
+	<legend class="legend">LEJAR PENDEPOSIT</legend>
+    <table width="100%" border="0" cellspacing="1" cellpadding="6">
+		
+		<tr>
+			<td class="row_header" width="15%">TARIKH</td>
+			<td class="row_header" width="15%">NO. RUJ</td>
+			<td class="row_header" width="40%">PERIHAL</td>
+			<td class="row_header" width="10%">DEBIT</td>
+			<td class="row_header" width="10%">KREDIT</td>
+			<td class="row_header" width="10%">BAKI</td>
+		</tr>
+		
+		<tr>
+			<td>$!util.getDateTime($!r.tarikhBayaran,'dd-MM-yyyy')</td>
+			<td>$!r.noResit</td>
+			<td>$!r.keteranganDeposit</td>
+			<td></td>
+			<td align="right">$!util.formatDecimal($!r.jumlahDeposit) &nbsp;</td>
+			<td align="right">$!util.formatDecimal($!r.jumlahDeposit) &nbsp;</td>
+		</tr>
+		
+		#if($!r.flagPulangDeposit=="Y")
+		<tr>
+			<td>$!util.getDateTime($!r.tuntutanDeposit.tarikhBaucer,'dd-MM-yyyy')</td>
+			<td>$!r.tuntutanDeposit.noBaucerPulanganDeposit</td>
+			<td>$!r.tuntutanDeposit.noEft $!util.getDateTime($!r.tuntutanDeposit.tarikhEft,'dd-MM-yyyy')</td>
+			<td align="right">$!util.formatDecimal($!r.bakiDeposit) &nbsp;</td>
+			<td align="right"></td>
+			<td align="right">
+				#set( $baki = $!r.jumlahDeposit - $!r.bakiDeposit )
+				$!util.formatDecimal($baki) &nbsp;
+			</td>
+		</tr>
+		#end
+		
+	</table>
+	
+</fieldset>
+
+
+<!--
+<fieldset>
+<legend class="legend">lejar pendeposit</legend>
+
+    <table width="100%" cellpadding="0" cellspacing="0">
+		
+		<tr>
+			<td align="left"><b>DEBIT</b></td>
+			<td></td>
+			<td align="right"><b>KREDIT</b></td>
+		</tr>
+		
+		<tr>
+			<td valign="top" style="width:48%;border-right-style:solid;border-right:thick #00000;border-top-style:solid;border-top: #00000;height:150px;">
+				<table width="100%" cellpadding="0" cellspacing="0">
+					<tr>
+            			<td style="width:20%" valign="top">TARIKH</td>
+						<td style="width:20%" valign="top">NO. RUJ</td>
+            			<td style="width:40%" valign="top">PERIHAL</td>
+            			<td style="width:20%" valign="top">AMAUN (RM)</td>
+            		</tr>
+					<tr><td colspan="4">&nbsp;</td></tr>
+					#if($!r.flagPulangDeposit=="Y")
+					<tr>
+						<td valign="top">$!util.getDateTime($!r.tuntutanDeposit.tarikhBaucer,'dd-MM-yyyy')</td>
+						<td valign="top">$!r.tuntutanDeposit.noBaucerPulanganDeposit</td>
+						<td valign="top">$!r.tuntutanDeposit.noEft $!util.getDateTime($!r.tuntutanDeposit.tarikhEft,'dd-MM-yyyy')</td>
+						<td valign="top" align="right">
+							$!util.formatDecimal($!r.bakiDeposit) &nbsp;
+						</td>
+					</tr>
+					#end
+				</table>
+			</td>
+			
+			<td width="2%" style="border-top-style:solid;border-top #00000;"></td>
+			
+			<td valign="top" width="50%" style="border-top-style:solid;border-top: #00000;height:150px" >
+				<table width="100%" cellpadding="0" cellspacing="0" border="0" >
+					<tr>
+            			<td style="width:20%" valign="top">TARIKH</td>
+						<td style="width:20%" valign="top">NO. RUJ</td>
+            			<td style="width:45%" valign="top">PERIHAL</td>
+            			<td style="width:15%" valign="top">AMAUN (RM)</td>
+            		</tr>
+					<tr><td colspan="4">&nbsp;</td></tr>
+					<tr>
+						<td valign="top">$!util.getDateTime($!r.tarikhBayaran,'dd-MM-yyyy')</td>
+						<td valign="top">$!r.noResit</td>
+						<td valign="top">$!r.keteranganDeposit</td>
+						<td valign="top" align="right">$!util.formatDecimal($!r.jumlahDeposit) &nbsp;</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		
+    </table>
+	
+	<br/>
+	
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="48%">
+				<table width="100%" cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td width="20%"></td>
+						<td width="60%"></td>
+						<td align="right" width="20%" style="border-top-style:solid;border-top: 0.5px solid #00000;border-width:2px">
+							#if($!r.flagPulangDeposit=="Y")
+							$!util.formatDecimal($!r.bakiDeposit) &nbsp;
+							#end
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td width="2%"></td>
+			<td width="50%">
+				<table width="100%" cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td width="20%"></td>
+						<td width="60%"></td>
+						<td align="right" width="20%" style="border-top-style:solid;border-top: 0.5px solid #00000;border-width:2px">
+							$!util.formatDecimal($!r.jumlahDeposit) &nbsp;
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</fieldset>
+<br/>
+-->
+
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			<input type="button" value="Cetak"  id="cmdCetak"/>
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+        
+<fieldset id="tableReport" style="display:none;">
+<legend class="legend">SENARAI LAPORAN</legend>
+<table width="100%" >
+	<tr>
+		<td><a href="#" style="color:blue" id="cmdTLajer">Lejar Pendeposit</a></td>		
+	</tr>
+</table>
+</fieldset>	
+<br/>
+<script>
+##start Report
+_jq('#cmdCetak').on('click', function(){
+
+			if(document.getElementById('tableReport').style.display=="none"){
+				document.getElementById('tableReport').style.display="block";
+				}
+			else if(document.getElementById('tableReport').style.display=="block"){
+				document.getElementById('tableReport').style.display="none";
+				}
+});
+
+_jq('#cmdTLajer').on('click', function(){
+
+	var idDeposit = $!r.id;
+	
+	var url = "../servlet/bph.laporan.kewangan.KEWTLajer?idDeposit='" + idDeposit + "'";
+	var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+	if ((document.window != null) && (!hWnd.opener))
+	hWnd.opener = document.window;
+	if (hWnd.focus != null) hWnd.focus();
+});
+##end Report
+</script>

@@ -1,0 +1,85 @@
+<input type="hidden" id="idFlagJenisBangunanBaru" name="idFlagJenisBangunanBaru" value="$!rekod.jenisBangunan"/>
+<fieldset>
+<legend class="legend">MAKLUMAT RUANG BARU</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  <input type="hidden" id="idPermohonanLokasiBaru" name="idPermohonanLokasiBaru" value="$!rekod.id">
+  #input("cawanganBaru" "Bahagian/Cawangan" "$!rekod.cawangan")
+  <tr>
+    <td class="label" valign="top">Jenis Bangunan</td>
+    <td valign="top">:</td>
+    <td><select class="texts" id="jenisBangunanBaru" name="jenisBangunanBaru" style="width:100%" onChange="javascript=doChangeJenisBangunanBaru()">
+    	<option value="">SILA PILIH</option>
+    	<option value="RUMAH KEDAI"  #if ( $!rekod.jenisBangunan == "RUMAH KEDAI" ) selected #end>RUMAH KEDAI</option>
+    	<option value="KEDIAMAN" #if ( $!rekod.jenisBangunan == "KEDIAMAN" ) selected #end>KEDIAMAN</option>
+    	<option value="LAIN - LAIN" #if ( $!rekod.jenisBangunan != "KEDIAMAN" && $!rekod.jenisBangunan != "RUMAH KEDAI" && $!rekod.jenisBangunan != "") selected #end>LAIN - LAIN</option>
+	</select>
+  	</td>
+  </tr>
+  </table>
+  <span id="selectJenisBangunanBaru"></span>
+
+	<div id="selectJenisBangunanBaru1" name="selectJenisBangunanBaru1" #if ($!rekod.jenisBangunan != "RUMAH KEDAI" && $!rekod.jenisBangunan != "KEDIAMAN" && $!rekod.jenisBangunan != "") style="display:block" #else style="display:none" #end>#parse("$path/maklumatPermohonan/selectJenisBangunanSediaAda.vm")</div>
+
+  <table>
+  	<tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #input("namaBangunanBaru" "Nama Bangunan" "$!rekod.namaBangunan")
+  #input_required("alamat1Baru" "Alamat" "$!rekod.alamat1")
+  #input("alamat2Baru" "" "$!rekod.alamat2")
+  #input("alamat3Baru" "" "$!rekod.alamat3")  
+  <td></td><td></td>
+  <td><div id="err_alamat1Baru" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  #postcode_required("poskodBaru" "Poskod" "$!rekod.poskod")  
+  <tr>
+    <td class="label">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td>#parse("$path/maklumatPermohonan/selectNegeriBaru.vm")
+      <div id="err_idNegeriBaru" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><div id="selectBandarBaru">
+      #parse("$path/maklumatPermohonan/selectBandarBaru.vm")</div>
+      <div id="err_idBandarBaru" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+   #input("namaPemilikPremisBaru" "Nama Pemilik Premis" "$!rekod.namaPemilikPremis") 
+  <tr>
+    <td class="label">Sewa Sebulan (RM)</td>
+    <td>:</td>
+   <td><input type="text" id="sewaSebulanBaru" class="currency" name="sewaSebulanBaru" value="$!rekod.sewaSebulan"/></td>
+   </tr>
+   <tr>
+    <td class="label">Sewa Bagi Satu Meter Persegi (RM)</td>
+    <td>:</td>
+   <td><input type="text" id="sewaMpBaru" class="currency" name="sewaMpBaru" value="$!rekod.sewaMp"/></td>
+   </tr>
+</table>
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+##			#if(!$!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal"))
+##			<input type="button" value="Simpan" onclick="javascript:doSaveMaklumatRuangBaru('$!rekod.id');">
+##			#end
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

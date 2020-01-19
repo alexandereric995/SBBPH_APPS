@@ -1,0 +1,91 @@
+<fieldset>
+<legend class="legend">Senarai Semakan</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:84%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3" class="label">
+    #if ($allowUpdate)
+      <input type="button" id="addSemakan" name="addSemakan" value="Tambah">
+
+      <script>
+        _jq('#addSemakan').on('click', function(){
+			doDivAjaxCall3$formname('divSemakan','addSemakan','');
+        });
+    </script>
+      <br />
+      <br />
+    #end
+      <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+          <td class="row_header" width="5%">Bil.</td>
+          <td class="row_header" >Perkara</td>
+          <td class="row_header" >Keterangan</td>
+          <td class="row_header" >Disediakan Oleh</td>
+          <td class="row_header" >Tarikh</td>
+          <td class="row_header" >Status</td>
+          <td class="row_header" width="5%">Papar</td>
+          #if ($allowUpdate)
+          <td class="row_header" width="5%">Hapus</td>
+          #end
+        </tr>
+        #set ( $count = 0 )
+        #if ( $listSemakan.size() > 0) 
+        #foreach( $c in $listSemakan )
+        #set ( $count = $count + 1)
+        
+        #if ( $count % 2 == 0 ) 
+        #set ( $rowcolor = "#D0CFCE" ) 
+        #else 
+        #set ( $rowcolor = "#F0F0F0" ) 
+        #end
+        <tr bgcolor="$rowcolor">
+          <td align="center">$!count</td>
+          <td align="left">$!c.perkara</td>
+          <td align="left">$!c.keterangan</td>
+          <td align="left">$!c.penyedia.userName</td>
+          <td align="center">$!util.getDateTime($!c.tarikhPenyediaan,'dd-MM-yyyy')</td>
+          <td align="center"><b>$!c.getKeteranganStatus()</b></td>
+          <td align="center"><a href="javascript:void()" id="linkPaparSemakan$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> 
+          	<script>
+				_jq('#linkPaparSemakan$c.id').on('click', function(){
+					doDivAjaxCall3$formname('divSemakan','doPaparMaklumatSemakan','idMaklumatSemakan=$c.id');
+				});                    
+			</script>
+          </td>
+          #if ($allowUpdate)
+          <td align="center">
+          	#if ($c.status == 'B')
+          		<a href="javascript:void()" onClick="doHapusMaklumatSemakan('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> 
+          	#end
+          	</td>#end
+        </tr>
+        #end
+        #else
+        <tr >
+          <td align="center">&nbsp;</td>
+          <td >Tiada Rekod</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          <td align="center">&nbsp;</td>
+          #if ($allowUpdate)
+          	<td align="center">&nbsp;</td>
+          #end
+        </tr>
+        #end
+      </table></td>
+  </tr>
+</table>
+<table width="100%">
+  <tr>
+    <td align="right"><input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+</fieldset>
+

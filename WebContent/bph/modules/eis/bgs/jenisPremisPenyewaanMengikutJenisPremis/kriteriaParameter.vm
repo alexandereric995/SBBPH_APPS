@@ -1,0 +1,32 @@
+<table width="75%" cellpadding="5" cellspacing="0">
+    <tr>
+        <td style="width:200px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+    <tr>
+<td class="label" valign="top">Tahun &nbsp;<span style="color:#FF2A00">*</span></td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">
+    		<div>
+        		<input type="text" id="yearStart" name="yearStart" value="" onclick="$('err_yearStart').innerHTML = ''">
+    			<script>
+                	_jq("#yearStart").Zebra_DatePicker({ 
+        				view: 'year',
+        				format: 'Y',
+                	});
+    				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+        		</script>
+    		</div>
+    		<div id="err_yearStart" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    	</td>
+    </tr>
+ <tr>
+	<tr>
+        <td class="label">Jenis Premis</td>
+        <td>:</td>
+        <td>
+            #parse("$path/findJenisPremis.vm")
+        </td>
+    </tr>
+</table>

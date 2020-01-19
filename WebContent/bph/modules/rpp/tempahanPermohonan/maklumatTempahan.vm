@@ -1,0 +1,130 @@
+
+
+<!--
+#if ($!userRole != '(RPP) Penyelia')
+<fieldset>
+<legend class="legend">carian kekosongan bilik</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2" border="0">
+		
+		
+		
+		#if(!$!userRole.equalsIgnoreCase("(AWAM) Penjawat Awam") 
+			&& !$!userRole.equalsIgnoreCase("(AWAM) Pesara") 
+			&& !$!userRole.equalsIgnoreCase("(AWAM) Badan Berkanun")
+			&& !$!userRole.equalsIgnoreCase("(AWAM) Pegawai Tadbir") )
+		<tr>
+			<td>GRED</td>
+			<td>:</td>
+			<td>
+				<select class="texts" id="qGred" name="qGred" style="width:100%">
+					<option value="">SILA PILIH</option>
+						#foreach( $n in $qListGred)
+							<option value="$n.id">$n.keterangan.toUpperCase()</option>
+						#end
+				</select>
+			</td>
+			<td colspan="4">&nbsp;</td>
+		</tr>
+		#end
+		
+		<tr>
+			<td>RUMAH PERANGINAN</td>
+			<td>:</td>
+			<td colspan="4">
+				<select class="texts" id="qPeranginan" name="qPeranginan" style="width:100%">
+					<option value="">SILA PILIH</option>
+						#foreach( $n in $qListPeranginan)
+							<option value="$n.id">$n.namaPeranginan.toUpperCase()</option>
+						#end
+				</select>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		
+		<tr><td colspan="7">&nbsp;</td></tr>
+		<tr>
+			<td colspan="7">
+				<span style='color:blue'>
+					Nota : <br/>
+					1. Sila masukkan / pilih mana-mana kriteria bagi proses carian. </br>
+					2. Carian adalah berdasarkan gred jawatan $!objUser.gredPerkhidmatan.keterangan.toUpperCase()
+				</span>
+			</td>
+		</tr>
+	</table>
+	
+</fieldset>
+
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+    			<input style="width:150px" id="btnCarian" type="button" value="CARIAN" onClick="doCarianKekosongan()">
+        		##<input style="width:150px" id="btnPaparSemua" type="button" value="PAPAR SEMUA" onClick="doPaparSemuaKekosongan()">
+    		</td>
+    	</tr>
+    </table>
+#end
+-->
+
+
+#if($!userRole.equalsIgnoreCase("(RPP) Penyedia") || $!userRole.equalsIgnoreCase("(RPP) Penyemak") 
+	|| $!userRole.equalsIgnoreCase("(RPP) Pelulus") || $!userRole.equalsIgnoreCase("(RPP) Penyelia"))
+	
+    <fieldset>
+    <legend class="legend">daftarkan tempahan</legend>
+    
+    		<input type="text" style="width:50%;height:20px !important" placeholder="CARIAN NAMA / NO.KP" name="carianPenginap" id="carianPenginap" value="$!carianPenginap" 
+    		onKeyUp="$('err_carianPenginap').innerHTML='' " />
+    		
+        	&nbsp;<input type="button" value="CARIAN" id="btnSearchRegister" />
+    		&nbsp;<input id="btnRemoveNama" type="button" value="KOSONGKAN" onClick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','add_new_record','');">
+        	
+    		<div id="err_carianPenginap" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    		
+        	<div id="divPopupSenaraiPenginap" class="popup"></div>
+        		
+        	<div id="divMaklumatPenginap">
+        		##parse("$path/daftarkanTempahan/maklumatPenginap.vm")
+        	</div>
+    	
+        	<script>
+                function validateCarian() {
+                	var err_count = 0;
+                	
+                	var carianPenginap = $('carianPenginap').value;
+        			var charlength = carianPenginap.length;
+            		if ( carianPenginap == "" || charlength < 3 ) {$('err_carianPenginap').innerHTML = "Sila masukkan carian sekurang-kurangnya 3 aksara"; err_count++;  }
+                	
+                	if (err_count == 0) {}
+                	
+                	return err_count == 0;
+                }
+                _jq('#btnSearchRegister').on('click', function(){
+                	if (validateCarian()){
+                		doDivAjaxCall3$formname('divPopupSenaraiPenginap','callPopupSenaraiPenginap','');
+                    	jQuery('#divPopupSenaraiPenginap').fadeIn();
+                	}
+                });
+            </script>
+    	
+    </fieldset>
+	
+#end
+
+
+<div id="divListKekosongan">
+	#parse("$path/carianKekosongan/start.vm")
+</div>	
+
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

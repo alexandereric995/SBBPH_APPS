@@ -1,0 +1,255 @@
+function validate() {
+	var err_count = 0;
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+## TERIMAAN KUNCI
+function validateTerimaanKunci() {
+	var err_count = 0;
+	
+	var tarikhTerimaKunci = $('tarikhTerimaKunci').value;
+	if ( tarikhTerimaKunci == "" ) {$('err_tarikhTerimaKunci').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idPenyemakSenggara = $('idPenyemakSenggara').value;
+	if ( idPenyemakSenggara == "" ) {$('err_idPenyemakSenggara').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function simpanTerimaanKunci(){
+	if (validateTerimaanKunci()){
+		doDivAjaxCall$formname('divTerimaanKunci','simpanTerimaanKunci','');
+	}
+}
+
+## AGIHAN TUGAS SEMAKAN KUARTERS
+function simpanAgihanTugas(){
+	var err_count = 0;
+	
+	var idPilihanTugasan = $('idPilihanTugasan').value;
+	if ( idPilihanTugasan == "" ) {$('err_idPilihanTugasan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (idPilihanTugasan == "1") {
+		var idPenyediaSenggara = $('idPenyediaSenggara').value;
+		if ( idPenyediaSenggara == "" ) {$('err_idPenyediaSenggara').innerHTML = "** mandatori!"; err_count++;  }
+	}
+
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divAgihanTugasSemakanKuarters','simpanAgihanTugas','');
+	}	
+}
+
+## SEMAKAN KUARTERS
+function simpanSemakanKuarters(){
+	var err_count = 0;
+	
+	var idPilihanTugasan = $('idPilihanTugasan').value;
+	if ( idPilihanTugasan == "" ) {$('err_idPilihanTugasan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (idPilihanTugasan == "1") {
+		var tarikhLawatan = $('tarikhLawatan').value;
+		if ( tarikhLawatan == "" ) {$('err_tarikhLawatan').innerHTML = "** mandatori!"; err_count++;  }
+		
+		var idJenisPembaikan = $('idJenisPembaikan').value;
+		if ( idJenisPembaikan == "" ) {$('err_idJenisPembaikan').innerHTML = "** mandatori!"; err_count++;  }
+		
+		if (idJenisPembaikan == "3") {
+			var idKontraktor = $('idKontraktor').value;
+			if ( idKontraktor == "" ) {$('err_idKontraktor').innerHTML = "** mandatori!"; err_count++;  }
+			
+			var idPenyemakSenggara = $('idPenyemakSenggara').value;
+			if ( idPenyemakSenggara == "" ) {$('err_idPenyemakSenggara').innerHTML = "** mandatori!"; err_count++;  }
+		}
+	}
+
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divSemakanKuarters','simpanSemakanKuarters','');
+	}	
+}
+
+function uploadLampiranLaporanKerosakan() {
+	var idLawatanTapak = $('idLawatanTapak').value;
+	$('err_lampiranLaporanKerosakan').innerHTML = '';
+
+	var err_count = 0;	
+	if ($('lampiranLaporanKerosakan').value != "" && $('lampiranLaporanKerosakan').files[0].size > 10485760) {
+		err_count++;
+		$('err_lampiranLaporanKerosakan').innerHTML = "Saiz fail adalah "+($('lampiranLaporanKerosakan').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 10MB.";
+		$('lampiranLaporanKerosakan').value = "";
+	}
+	
+	if (err_count == 0) {
+		$('uploadLampiranLaporanKerosakan').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_lampiran_laporan_kerosakan';
+		document.${formName}.action='?command=uploadLampiranLaporanKerosakan&idLawatanTapak='+idLawatanTapak;
+		document.${formName}.submit();
+	}
+}
+
+function checkDoc(val){
+	var arr = val.split(".");
+    var arr1 = val.split("\\");
+    if (arr[1] == "PDF" || arr[1] == "pdf" || arr[1] == "doc" || arr[1] == "DOC" || arr[1] == "docx" || arr[1] == "DOCX" 
+    || arr[1] == "xlsx" || arr[1] == "XLSX" || arr[1] == "xls" || arr[1] == "XLS" 
+    || arr[1] == "ppt" || arr[1] == "PPT" || arr[1] == "pptx" || arr[1] == "PPTX") {
+    	return true;
+    } else {
+    	return false;
+    }
+}
+
+## PEMBAIKAN OLEH AGENSI PELAKSANA / PEMAJU
+function simpanPembaikanAgensi(){
+	var err_count = 0;
+	
+	var tarikhSerahKontraktor = $('tarikhSerahKontraktor').value;
+	if ( tarikhSerahKontraktor == "" ) {$('err_tarikhSerahKontraktor').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tarikhTerimaKontraktor = $('tarikhTerimaKontraktor').value;
+	if ( tarikhTerimaKontraktor == "" ) {$('err_tarikhTerimaKontraktor').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idPenyediaSenggara = $('idPenyediaSenggara').value;
+	if ( idPenyediaSenggara == "" ) {$('err_idPenyediaSenggara').innerHTML = "** mandatori!"; err_count++;  }
+
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divPembaikanAgensi','simpanPembaikanAgensi','');
+	}	
+}
+
+## PENYEDIAAN JADUAL KADAR HARGA
+function simpanPenyediaanJKH(){
+	var err_count = 0;
+	
+	var tarikhJKH = $('tarikhJKH').value;
+	if ( tarikhJKH == "" ) {$('err_tarikhJKH').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var jumlah = $('jumlah').value;
+	if ( jumlah == "" ) {$('err_jumlah').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var gst = $('gst').value;
+	if ( gst == "" ) {$('err_gst').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var lampiranJadualKadarHarga = $('lampiranJadualKadarHarga').value;
+	var dokumenJKH = $('dokumenJKH').value;
+	if ( lampiranJadualKadarHarga == "" && dokumenJKH == "") {$('err_lampiranJadualKadarHarga').innerHTML = "** mandatori!"; err_count++;  }
+
+	var idPenyemakSenggara = $('idPenyemakSenggara').value;
+	if ( idPenyemakSenggara == "" ) {$('err_idPenyemakSenggara').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divPenyediaanJKH','simpanPenyediaanJKH','');
+	}	
+}
+
+function uploadLampiranJadualKadarHarga() {
+
+	var idJKH = $('idJKH').value;
+	$('err_lampiranJadualKadarHarga').innerHTML = '';
+
+	var err_count = 0;	
+	if ($('lampiranJadualKadarHarga').value != "" && $('lampiranJadualKadarHarga').files[0].size > 10485760) {
+		err_count++;
+		$('err_lampiranJadualKadarHarga').innerHTML = "Saiz fail adalah "+($('lampiranJadualKadarHarga').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 10MB.";
+		$('lampiranJadualKadarHarga').value = "";
+	}
+	
+	if (err_count == 0) {
+		$('uploadLampiranJadualKadarHarga').style.display = "";
+		document.${formName}.enctype='multipart/form-data';
+		document.${formName}.encoding ='multipart/form-data';
+		document.${formName}.target='upload_lampiran_jadual_kadar_harga';
+		document.${formName}.action='?command=uploadLampiranJadualKadarHarga&idJKH='+idJKH;
+		document.${formName}.submit();
+	}
+}
+
+## SEMAKAN PENYEDIAAN JADUAL KADAR HARGA
+function simpanSemakanPenyediaanJKH(){
+	var err_count = 0;
+	
+	var idKeputusan = $('idKeputusan').value;
+	if ( idKeputusan == "" ) {$('err_idKeputusan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (idKeputusan == "1") {
+		var idPelulusSenggara = $('idPelulusSenggara').value;
+		if ( idPelulusSenggara == "" ) {$('err_idPelulusSenggara').innerHTML = "** mandatori!"; err_count++;  }
+	} else {
+		var idPenyediaSenggara = $('idPenyediaSenggara').value;
+		if ( idPenyediaSenggara == "" ) {$('err_idPenyediaSenggara').innerHTML = "** mandatori!"; err_count++;  }
+	}
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divSemakanPenyediaanJKH','simpanSemakanPenyediaanJKH','');
+	}	
+}
+
+## PENGESYORAN PENYEDIAAN JADUAL KADAR HARGA
+function simpanPengesyoranPenyediaanJKH() {
+	var err_count = 0;
+	
+	var idKeputusan = $('idKeputusan').value;
+	if ( idKeputusan == "" ) {$('err_idKeputusan').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (idKeputusan == "2") {
+		var idPenyediaSenggara = $('idPenyediaSenggara').value;
+		if ( idPenyediaSenggara == "" ) {$('err_idPenyediaSenggara').innerHTML = "** mandatori!"; err_count++;  }
+	}
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divPengesyoranPenyediaanJKH','simpanPengesyoranPenyediaanJKH','');
+	}
+	return err_count == 0;
+}
+
+## SERAHAN KUNCI
+function validateSerahanKunci() {
+	var err_count = 0;
+	
+	var tarikhSerahKunci = $('tarikhSerahKunci').value;
+	if ( tarikhSerahKunci == "" ) {$('err_tarikhSerahKunci').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function simpanSerahanKunci(){
+	if (validateSerahanKunci()){
+		doDivAjaxCall$formname('divSerahanKunci','simpanSerahanKunci','');
+	}
+}

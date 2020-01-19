@@ -1,0 +1,57 @@
+<fieldset>
+<legend class="legend">DISEDIAKAN OLEH</legend>
+	#parse("$path/semakanKelulusan/catatanPenyedia.vm")
+</fieldset>
+
+<fieldset>
+<legend class="legend">DISEMAK OLEH</legend>
+	#parse("$path/semakanKelulusan/catatanPenyemak.vm")
+</fieldset>	
+
+<fieldset>
+<legend class="legend">KEPUTUSAN OLEH</legend>
+	#parse("$path/semakanKelulusan/catatanPelulus.vm")
+</fieldset>	
+
+#if ($!command == 'semakanTidakSokong' || $!command == 'semakanSokong' || $!command == 'keputusanLulus' || $!command == 'keputusanTolak')
+	#parse("$path/semakanKelulusan/ulasanSemakanKelulusan.vm")
+#end
+
+<table width="100%">
+  <tr>
+    <td align="right">
+    	#if ($!userRole == '(BGS) Penyedia')
+    		#if ($!r.status.id == '1423568441671') ## PERMOHONAN BARU
+    			<input type="button" value="Hantar Untuk Semakan" onclick="javascript:hantarSemakan();">    		
+    		#end
+	    #end
+	    
+	    #if ($!userRole == '(BGS) Penyemak')
+	    	#if ($!command != 'semakanTidakSokong' && $!command != 'semakanSokong' && $!command != 'simpanSokong' && $!command != 'simpanTidakSokong' && $!r.status.id == '1423568441683') ## SEMAKAN
+	    	<input type="button" value="Sokong" onclick="doDivAjaxCall$formname('divTab','semakanSokong','');">
+	    	<input type="button" value="Tidak Sokong" onclick="doDivAjaxCall$formname('divTab','semakanTidakSokong','');">
+	    	#elseif ($!command == 'semakanSokong')
+	    		<input type="button" value="Simpan" onclick="javascript:simpanSokong();">
+	    	#elseif ($!command == 'semakanTidakSokong')
+	    		<input type="button" value="Simpan" onclick="javascript:simpanTidakSokong();">
+	    	#end	    	
+    	#end
+    	
+    	#if ($!userRole == '(BGS) Pengesah')
+    		#if ($!command != 'keputusanLulus' && $!command != 'keputusanTolak' && $!command != 'simpanLulus' && $!command != 'simpanTolak' && $!r.status.id == '1423568441684') ## KEPUTUSAN
+    			<input type="button" value="Lulus" onclick="doDivAjaxCall$formname('divTab','keputusanLulus','');">
+	    		<input type="button" value="Tolak" onclick="doDivAjaxCall$formname('divTab','keputusanTolak','');">
+		    #elseif ($!command == 'keputusanLulus')
+	    		<input type="button" value="Simpan" onclick="javascript:simpanLulus();">
+	    	#elseif ($!command == 'keputusanTolak')
+	    		<input type="button" value="Simpan" onclick="javascript:simpanTolak();">
+	    	#end	    	
+    	#end
+    	#if ($!command == 'semakanTidakSokong' || $!command == 'semakanSokong' || $!command == 'keputusanLulus' || $!command == 'keputusanTolak')
+    		<input type="button" value="Batal" onClick="doDivAjaxCall3$formname('divTab','getSemakanKelulusan','')">
+	    #else
+    		<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    #end
+    </td>
+  </tr>
+</table>

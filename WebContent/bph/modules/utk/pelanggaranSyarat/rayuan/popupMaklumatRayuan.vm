@@ -1,0 +1,97 @@
+<fieldset>
+	<legend class="legend">Maklumat Rayuan</legend>
+	<table width="70%">
+		<tr>
+			<td style="width:20%"></td>
+			<td style="width:1%"></td>
+			<td style="width:49%"></td>
+		</tr>
+##		#input_required("noRayuan" "No Rayuan" "$!rekod.noRayuan")   ##. No. Rayuan perlu digantikan dengan bilangan rayuan yang dibuat oleh penghuni.
+##		#input_required("noRayuan" "Bilangan Rayuan" "$!rekod.noRayuan")
+		<tr>
+			<td class="label">Jenis Rayuan &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td>:</td>
+			<td>#parse("$path/rayuan/selectJenisRayuan.vm")
+			<div id="err_idJenisRayuan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		</tr>
+	</table>
+	<div id="selectFlagRayuan" name="selectFlagRayuan">
+		#parse("$path/rayuan/selectBilanganRayuan.vm")
+	</div>
+	<table width="70%">
+		<tr>
+			<td style="width:20%"></td>
+			<td style="width:1%"></td>
+			<td style="width:49%"></td>
+		</tr>
+		</tr>
+			#date_input_required("tarikhRayuan" "Tarikh Rayuan" "$!util.getDateTime($rekod.tarikhRayuan,'dd-MM-yyyy')")
+			#textarea("catatanRayuan" "Catatan" "$!rekod.catatanRayuan")
+	</table>
+</fieldset>
+
+#if ($!userRole == '(UTK) Penyedia')
+<fieldset>
+	<legend class="legend">Maklumat Keputusan</legend>
+		<table width="70%">
+			<tr>
+				<td style="width:20%"></td>
+				<td style="width:1%"></td>
+				<td style="width:49%"></td>
+			</tr>
+			#input_readonly_all_label("tarikhKelulusan" "Tarikh Keputusan" "$!util.getDateTime($rekod.tarikhKelulusan,'dd-MM-yyyy')")
+			
+			#if($rekod.flagKelulusanSub == 'L')
+				#set($kelulusan = 'LULUS')
+			#elseif($rekod.flagKelulusanSub == 'T')
+				#set($kelulusan = 'TIDAK LULUS')
+			#else
+				#set($kelulusan = '')
+			#end
+		  	#input_readonly_all_label("idKelulusan" "Keputusan" "$kelulusan")
+			#input_readonly_all_label("catatanKelulusan" "Catatan" "$!rekod.catatanKelulusan")
+		</table>
+</fieldset>
+#end
+
+#if ($!userRole == '(UTK) Penyemak' ||  $!userRole == '(UTK) Pelulus')
+<fieldset>
+	<legend class="legend">Maklumat Keputusan</legend>
+	<table width="70%">
+		<tr>
+			<td style="width:20%"></td>
+			<td style="width:1%"></td>
+			<td style="width:49%"></td>
+		</tr>
+			#date_input("tarikhKelulusan" "Tarikh Keputusan" "$!util.getDateTime($rekod.tarikhKelulusan,'dd-MM-yyyy')")
+			<tr>
+			<td class="label">Keputusan</td>
+			<td>:</td>
+			<td>#parse("$path/rayuan/seletKelulusan.vm")</td>
+		</tr>
+		
+	   #date_input("tarikhMula" "Tarikh Mula" "$!util.getDateTime($rekodLanjutan.tarikhMula,'dd-MM-yyyy')")
+	   #date_input("tarikhTamat" "Tarikh Tamat" "$!util.getDateTime($rekodLanjutan.tarikhTamat,'dd-MM-yyyy')")
+	   #textarea("catatanKelulusan" "Catatan" "$!rekodLanjutan.catatan")
+
+		</table>
+</fieldset>
+#end
+
+	
+<input type="hidden" id="idRayuan" name="idRayuan" value="$rekod.id">
+<p align="right">
+	<input type="button" value="Simpan" align='left' id="cmdSimpanRayuan">
+ 	<input type="button" value="Kembali" align='left' id="cmdKembali">
+</p>
+	
+<script>
+	_jq('#cmdKembali').on('click', function(){
+		doDivAjaxCall3$formname('divTab','getRayuan','');
+	    jQuery('#cmdKembali').fadeOut();
+	});
+	
+	_jq('#cmdSimpanRayuan').on('click', function(){
+		saveRayuan();
+	});
+</script>

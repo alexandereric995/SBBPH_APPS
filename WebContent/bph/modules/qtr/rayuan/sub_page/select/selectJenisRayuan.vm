@@ -1,0 +1,26 @@
+<select id="idJenisRayuan" name="idJenisRayuan" style="width:100%" onChange="$('err_idJenisRayuan').innerHTML=''; at(this, event);" >
+    <option value="">SILA PILIH</option>
+    #foreach( $jr in $selectJenisRayuan )
+        <option #if ( $jr.id ==  $!rayuan.jenisRayuan.id ) selected #end value="$jr.id">$jr.keterangan.toUpperCase()</option>
+    #end
+</select>
+
+<script>
+	var x = "$!rayuan.jenisRayuan.id";
+	
+	if ( x != "" ) {
+		if ( x == "QTR05" ) {
+			_jq("#lainLainRayuan").show();
+		} else {
+    		_jq("#lainLainRayuan").hide();
+    	}
+	}
+	
+    _jq("#idJenisRayuan").change(function() {
+    	if ( this.value == "QTR05" ) {
+    		_jq("#lainLainRayuan").show();
+    	} else {
+    		_jq("#lainLainRayuan").hide();
+    	}
+    });
+</script>

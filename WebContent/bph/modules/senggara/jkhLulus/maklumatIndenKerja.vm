@@ -1,0 +1,74 @@
+#if ($!command != 'simpanIndenKerja')
+<fieldset>
+<legend class="legend">MAKLUMAT INDEN KERJA</legend>
+	<table width="100%" cellpadding="1" cellspacing="2">
+	  <tr>
+	    <td class="label" style="width:15%"></td>
+	    <td style="width:1%"></td>
+	    <td style="width:84%"></td>
+	  </tr>
+      <tr>
+	    <td class="label" valign="top">No. Inden Kerja &nbsp;<span style="color:#FF2A00">*</span></td>
+	    <td valign="top">:</td>
+	    <td valign="top">#parse("$path/selectIndenKerja.vm")
+		<div id="err_idIndenKerja" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</td>
+	  </tr>
+      #input_readonly_all_label("vot" "VOT" "$!indenKerja.vot")	
+      #if ($!indenKerja.tarikhIndenKerja) 
+      	#set ($dateIndenKerja = "$!util.getDateTime($!indenKerja.tarikhIndenKerja,'dd-MM-yyyy')")
+      #else #set ($dateIndenKerja = "-") #end
+      #input_readonly_all_label("tarikhIndenKerja" "Tarikh Inden Kerja" "$dateIndenKerja") 	
+      #input_readonly_all_label("kerja" "Kerja" "$!indenKerja.kerja")
+      #input_readonly_all_label("jumlah" "Jumlah (RM)" "<b>$!util.formatDecimal($!indenKerja.jumlah)</b>")
+      
+      #if ($!selectIndenKerja.size() == '0')	    	
+        <tr>
+          <td style="width:150px">&nbsp;</td>
+          <td style="width:10px">&nbsp;</td>
+          <td><font class="blink" color="red"><b>TIADA INDEN KERJA YANG DIDAFTARKAN BAGI KAWASAN INI. SILA DAFTAR INDEN KERJA TERLEBIH DAHULU DI MENU PENYEDIAAN INDEN KERJA. </b></font><br/></td>
+        </tr>
+        #end
+	</table>
+</fieldset>
+#else
+<fieldset>
+<legend class="legend">MAKLUMAT INDEN KERJA</legend>
+	<table width="100%" cellpadding="1" cellspacing="2">
+	  <tr>
+	    <td class="label" style="width:15%"></td>
+	    <td style="width:1%"></td>
+	    <td style="width:84%"></td>
+	  </tr>
+      #input_readonly_all_label("noInden" "No. Inden Kerja" "$!r.indenKerja.noInden")	
+      #input_readonly_all_label("vot" "VOT" "$!r.indenKerja.vot")	
+      #if ($!r.indenKerja.tarikhIndenKerja) 
+      	#set ($dateIndenKerja = "$!util.getDateTime($!r.indenKerja.tarikhIndenKerja,'dd-MM-yyyy')")
+      #else #set ($dateIndenKerja = "-") #end
+      #input_readonly_all_label("tarikhIndenKerja" "Tarikh Inden Kerja" "$dateIndenKerja") 	
+      #input_readonly_all_label("kerja" "Kerja" "$!r.indenKerja.kerja")
+      #input_readonly_all_label("jumlah" "Jumlah (RM)" "<b>$!util.formatDecimal($!r.indenKerja.jumlah)</b>")
+      
+      #if ($!selectIndenKerja.size() == '0')	    	
+        <tr>
+          <td style="width:150px">&nbsp;</td>
+          <td style="width:10px">&nbsp;</td>
+          <td><font class="blink" color="red"><b>TIADA INDEN KERJA YANG DIDAFTARKAN BAGI KAWASAN INI. SILA DAFTAR INDEN KERJA TERLEBIH DAHULU DI MENU PENYEDIAAN INDEN KERJA. </b></font><br/></td>
+        </tr>
+        #end
+	</table>
+</fieldset>
+#end
+
+#parse("$path/status.vm")
+
+<table width="100%">
+  <tr>
+    <td align="right">
+    	#if ($!command != 'simpanIndenKerja')
+    		<input type="button" value="Simpan" onclick="javascript:simpanIndenKerja();">			
+    	#end
+	    <input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

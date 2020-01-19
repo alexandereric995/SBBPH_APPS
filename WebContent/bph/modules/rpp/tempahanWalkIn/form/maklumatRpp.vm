@@ -1,0 +1,49 @@
+
+	<br/>
+	
+	<table width="100%" cellpadding="1" cellspacing="1">
+		
+		<tr>
+			<td colspan="3">
+    			<span style="font-size:12px;font-weight:bold;text-decoration: underline;">RUMAH PERANGINAN</span>
+    		</td>
+		</tr>
+			
+	</table>
+	
+	<br/>
+	
+	<table width="100%" cellpadding="2" cellspacing="2" border="0">
+		<tr>
+			<td class="row_header" width="5%">BIL.</td>
+			<td class="row_header" style="text-align:left" width="80%">RUMAH PERANGINAN</td>
+			<td class="row_header" width="15%"></td>
+		</tr>
+		
+		#if ( $listRp.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $listRp )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+					<td align="center">$!count</td>
+					<td align="left">$!d.namaPeranginan.toUpperCase()</td>
+					<td align="center">
+						<input id="btnFilterJenisUnit" type="button" value="PILIH" onClick="doFilterJenisUnitByRpp('$!d.id','$!enabledEditDate')">
+					</td>
+                </tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="3"><span style="color:red;font-weight:bold;font-size:13px">TIADA REKOD</span></td>
+			</tr>
+		#end
+	</table>
+		
+	<div id="divJenisUnitRpp"></div>

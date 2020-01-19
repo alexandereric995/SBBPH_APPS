@@ -1,0 +1,65 @@
+
+<fieldset>
+<legend class="legend">MAKLUMAT PEJABAT SEKARANG / SEMASA</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:25%">&nbsp;</td>
+    <td style="width:1%">&nbsp;</td>
+    <td style="width:74%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Jenis Perkhidmatan Jabatan / Pejabat &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><input type="radio" name="jenisPerkhidmatan" id="jenisPerkhidmatan" value="O" #if($r.jenisPerkhidmatan == 'O') checked #end />
+      &nbsp;OPERASI (OPERATIONAL)
+      <input type="radio" name="jenisPerkhidmatan" id="jenisPerkhidmatan" value="F" #if($r.jenisPerkhidmatan == 'F') checked #end />
+      &nbsp;FUNGSI (FUNCTIONAL)
+      
+      <div id="err_jenisPerkhidmatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      </td>
+  </tr>
+  <tr>
+    <td>Status Ruang Pejabat Sekarang &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td><select name="statusRuangPejabat" id="statusRuangPejabat" style="width:50%" >
+        <option value="">SILA PILIH</option>
+        <option value="1" #if($r.statusRuangPejabat == '1') selected #end >SENDIRI</option>
+        <option value="2" #if($r.statusRuangPejabat == '2') selected #end>MENYEWA</option>
+        <option value="3" #if($r.statusRuangPejabat == '3') selected #end >MENUMPANG</option>
+      </select>
+      
+      <div id="err_statusRuangPejabat" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    </td>
+  </tr>
+</table>
+</fieldset>
+
+#parse("$path/status.vm")
+
+<table width="100%">
+  <tr>
+    <td align="right">
+    	#if ($!userRole == '(BGS) Pemohon')
+			#if ($!r.status.id == '1428384412943' || $!r.status.id == '1423568441685') ## DRAF PERMOHONAN || PERMOHONAN TIDAK LENGKAP
+				<input id="simpan" type="button" value="Simpan" onclick="javascript:saveMaklumatPejabat();"/>
+			#end 
+		#end 
+		
+		##if ($!userRole == '(BGS) Penyedia' && $!r.status.id == '1423568441671') ## PERMOHONAN BARU
+		#if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441671' || $!r.status.id == '1423568441694')) ## PERMOHONAN BARU/PINDAAN KERTAS PERTIMBANGAN
+			<input id="simpan" type="button" value="Simpan" onclick="javascript:saveMaklumatPejabat();"/>
+			<input id="kosong" type="reset" value="Kosongkan">
+		#end 	      	
+    </td>
+  </tr>
+</table>
+
+<br/>
+#parse("$path/maklumatPejabat/listMasalah.vm")
+
+<table width="100%">
+  <tr>
+    <td align="right"><input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

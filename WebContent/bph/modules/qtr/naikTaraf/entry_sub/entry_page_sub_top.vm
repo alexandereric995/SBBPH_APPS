@@ -1,0 +1,31 @@
+<script>
+	var y = "$!resultPermohonanCompletion";
+	var role = "$!currentRoleQTR";
+	
+##	if ( y == "true") {
+##		_jq('#btnHantarPermohonan').prop('disabled', false);
+##	} else {
+##		_jq('#btnHantarPermohonan').prop('disabled', true);
+##	}
+	
+	if ( role != "" ) {
+		if ( role == "Penyedia" ) {
+			if ( z == "1419483289678" ) {
+				_jq('#btnSaveRecordTemplate').val('Sahkan');
+			} else {
+				_jq('#btnSaveRecordTemplate').hide();
+			}
+		}
+	}
+</script>
+
+<div id="entry_page">
+	##parse("$path/entry_sub/entry_permohonan.vm")
+	#parse("$path/sub_page/pekerjaan.vm")
+</div>
+
+#if ($r.id)
+	<input type="hidden" id="idPermohonan" name="idPermohonan" value="$r.id" />
+#else
+	<input type="hidden" id="idPermohonan" name="idPermohonan" value="$!idPermohonan" />
+#end

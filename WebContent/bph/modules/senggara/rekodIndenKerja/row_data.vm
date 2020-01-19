@@ -1,0 +1,19 @@
+
+<td>$!r.lokasi.lokasi</td>
+<td>$!r.noInden</td>
+<td>$!r.vot</td>
+<td>$!r.kerja</td>
+#if ($!r.tarikhIndenKerja) 
+	#set ($dateIndenKerja = "$!util.getDateTime($!r.tarikhIndenKerja,'dd-MM-yyyy')")
+#else #set ($dateIndenKerja = "-") #end
+<td align="center">$dateIndenKerja</td>
+#if ($!showKontraktor) 
+	<td>$!r.kontraktor.namaKontraktor.toUpperCase()</td>
+#end
+<td align="right">$!util.formatDecimal($!r.jumlah)</td>
+#if ($!showTugasan) 
+	<td>$!r.tugasan.pegawaiTugasan.userName.toUpperCase()</td>
+#end
+#if ($!showStatus) 
+	<td><b>$!r.status.keterangan</b></td>
+#end

@@ -1,0 +1,26 @@
+function validate() {
+	var err_count = 0;
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function doSimpanBatalResit() {
+	var err_count = 0;
+	
+	var catatanBatalResit = $('catatanBatalResit').value;
+	if ( catatanBatalResit == "" ) {$('err_catatanBatalResit').innerHTML = "Catatan adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall3$formname('div_main_entry','simpanBatalResit','');
+	}
+	return err_count == 0;
+}
+

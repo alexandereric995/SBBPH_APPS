@@ -1,0 +1,100 @@
+
+
+<fieldset>
+<legend class="legend">kemaskini data bayaran ( IR sahaja ) </legend>
+
+	<table width="100%">
+		<tr>
+			<td style="width:340px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+		</tr>
+		
+		<tr>
+        	<td class="label" valign="top">ID PERMOHONAN / NO.TEMPAHAN / NAMA / NO.KP &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+				<input type="text" style="width:30%" id="carianPermohonan" name="carianPermohonan" value="" onKeyUp=" $('err_carianPermohonan').innerHTML=''; " onBlur="this.value=this.value.toUpperCase();">
+				<input id="btnDetail" type="button" value="CARI MAKLUMAT" onClick="javascript:getResultCarian()">	
+				<div id="err_carianPermohonan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+		
+		
+	</table>
+</fieldset>
+	
+
+<div id="divSenaraiPermohonan"></div>
+
+<div id="divMaklumatBayaran"></div>
+
+<script>
+function validateInput() {
+
+	var err_count = 0;
+	
+	var carianPermohonan = $('carianPermohonan').value;
+	if ( carianPermohonan == "" ) {$('err_carianPermohonan').innerHTML = "Maklumat carian adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {}
+	
+	return err_count == 0;
+}
+function getResultCarian() {
+	if (validateInput()) {
+		doDivAjaxCall$formname('divSenaraiPermohonan','getResultCarian','');
+	}
+}
+function getMaklumatBayaran(idpermohonan) {
+	doDivAjaxCall$formname('divMaklumatBayaran','getMaklumatBayaran','idpermohonan='+idpermohonan);
+}
+function cetakResit(idresit) {
+     var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idresit;
+     var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+     if ((document.window != null) && (!hWnd.opener))
+     hWnd.opener = document.window;
+     if (hWnd.focus != null) hWnd.focus();	
+}
+function popupMaklumatBayaran() {
+	doDivAjaxCall3$formname('popupMaklumatBayaran','openPopupMaklumatBayaran','');
+    jQuery('#popupMaklumatBayaran').fadeIn();
+}
+function doCreateRppAkaun(idp) {
+	if ( window.confirm("Adakah anda pasti?") ){
+		doDivAjaxChainCall$formname('divStatus','createRppAkaun','','divMaklumatBayaran','getMaklumatBayaran','idpermohonan='+idp);
+	}
+}
+function doCreateKewInvois(idp) {
+	if ( window.confirm("Adakah anda pasti?") ){
+		doDivAjaxChainCall$formname('divStatus','createKewInvois','','divMaklumatBayaran','getMaklumatBayaran','idpermohonan='+idp);
+	}
+}
+function doCreateKewDeposit(idp) {
+	if ( window.confirm("Adakah anda pasti?") ){
+		doDivAjaxChainCall$formname('divStatus','createKewDeposit','','divMaklumatBayaran','getMaklumatBayaran','idpermohonan='+idp);
+	}
+}
+function doDeletePermohonan() {
+	if ( window.confirm("Adakah anda pasti?") ){
+		doDivAjaxChainCall$formname('divMaklumatBayaran','deletePermohonan','','divSenaraiPermohonan','getResultCarian','');
+	}
+}
+function popupMaklumatResitLain() {
+	doDivAjaxCall3$formname('popupMaklumatResitLain','openPopupMaklumatResitLain','');
+    jQuery('#popupMaklumatResitLain').fadeIn();
+}
+function doOpenPopupUndoPembatalan() {
+	doDivAjaxCall3$formname('popupUndoPembatalan','openPopupUndoPembatalan','');
+    jQuery('#popupUndoPembatalan').fadeIn();
+}
+function doUndoPembatalan() {
+	if ( window.confirm("Adakah anda pasti?") ){
+		doDivAjaxChainCall$formname('divMaklumatBayaran','undoPembatalan','','divSenaraiPermohonan','getResultCarian','');
+	}
+}
+</script>
+
+
+
+

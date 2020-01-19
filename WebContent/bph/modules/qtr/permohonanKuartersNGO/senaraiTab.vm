@@ -1,0 +1,44 @@
+#parse("$path/header.vm")
+<br/>
+
+<nav class="breadcrumbs">
+  <ul>
+    <li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatPermohonan','')" #end >Maklumat Permohonan</a></li>
+    <li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divTab','getMaklumatKertasPertimbangan','')" #end >Kertas Pertimbangan</a></li>   
+  </ul>
+</nav>
+
+#if ($!selectedTab=='1')
+	#parse("$path/senaraiSubTabPermohonan.vm")
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/kertasPertimbangan/start.vm")
+	<table width="100%">
+	  <tr>
+	    <td align="right">
+	    	#if ($!allowUpdatePermohonan == 'Y')
+		    	<input id="simpan" name="simpan" type="button" value="Simpan" onClick="javascript:doKemaskiniMaklumatKertasPertimbangan();"/>
+	    	#end
+	    	#if ($!r.status.id == '1433140179898')
+		    	<input id="hantarMesyuarat" name="hantarMesyuarat" type="button" value="Hantar Ke Mesyuarat" onClick="javascript:doHantarKeMesyuarat();"/>
+	    	#end
+	    	
+			## TOLAK || SELESAI || BATAL
+	    	#if ($!r.status.id != '1434079231886' && $!r.status.id != '22803475845632' && $!r.status.id != '22803475845641')
+	    		<input id="btnBatal" name="btnBatal" type="button" value="Batal Permohonan"/>
+	    	#end
+	    	
+	    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	  </tr>
+	</table>
+#end
+
+<div id="popupBatalPermohonan" class="popup"></div>
+<script>
+	_jq('#btnBatal').on('click', function(){
+		doDivAjaxCall3$formname('popupBatalPermohonan','popupBatalPermohonan','');
+	    jQuery('#popupBatalPermohonan').fadeIn();
+	});
+</script>

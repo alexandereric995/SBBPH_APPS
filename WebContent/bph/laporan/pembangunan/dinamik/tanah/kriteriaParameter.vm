@@ -1,0 +1,108 @@
+<fieldset>
+<legend class="legend">PARAMETER</legend>
+<table width="100%">
+  <tr>
+    <td><table cellpadding="5" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+              <tr>
+                <td class="label" style="width:29%"></td>
+                <td style="width:1%"></td>
+                <td style="width:70%"></td>
+              </tr>
+              <tr>
+                <td class="label">Negeri</td>
+                <td>:</td>
+                <td> #parse("$path/findNegeri.vm") </td>
+              </tr>
+              <tr>
+                <td class="label">Daerah</td>
+                <td>:</td>
+                <td> #parse("$path/findDaerah.vm") </td>
+              </tr>
+              <tr>
+                <td class="label">Bandar/Pekan/Mukim</td>
+                <td>:</td>
+                <td> #parse("$path/findMukim.vm") </td>
+              </tr>
+              <tr>
+                <td class="label">Status Daftar</td>
+                <td>:</td>
+                <td><select style="width:100%" name="findStatusDaftar" id="findStatusDaftar" class="texts">
+                    <option value="">SILA PILIH</option>
+                    <option value="D">DAFTAR</option>
+                    <option value="B">BATAL</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="label">Kategori Tanah</td>
+                <td>:</td>
+                <td> #parse("$path/selectKategoriTanah.vm") </td>
+              </tr>
+            </table></td>
+            
+          <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+              <tr>
+                <td class="label" style="width:20%"></td>
+                <td style="width:1%"></td>
+                <td style="width:70%"></td>
+              </tr>     
+              <tr>
+                <td class="label">Jenis Hakmilik</td>
+                <td>:</td>
+                <td> #parse("$path/findJenisHakmilik.vm") </td>
+              </tr>
+              <tr>
+                <td class="label">Jenis Lot</td>
+                <td>:</td>
+                <td> #parse("$path/findJenisLot.vm") </td>
+              </tr>              
+              <tr>
+    #if ($!r.tarikhDaftar)
+ 		  #set ($dateMula = "$!util.getDateTime($!r.tarikhDaftar,'dd-MM-yyyy')")
+	#else #set ($dateMula = "") #end
+	#date_input_required("tarikhDaftar" "Tarikh Daftar" "$dateMula")
+			  </tr>
+              <tr>
+	#if ($!r.tarikhDaftarHingga)
+ 		  #set ($dateTamat = "$!util.getDateTime($!r.tarikhDaftarHingga,'dd-MM-yyyy')")
+	#else #set ($dateTamat = "") #end
+	#date_input_required("tarikhDaftarHingga" "Hingga" "$dateTamat")
+              </tr>           
+              </tr>
+            </table></td>
+        </tr>
+      </table></td>
+  </tr>
+  
+  <tr>
+    <td colspan="2"><hr />
+    </td>
+  </tr>  
+  <tr>
+    <td><table cellpadding="5" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td width="70%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+              <tr>
+                <td class="label" style="width:29%"></td>
+                <td style="width:1%"></td>
+                <td style="width:100%"></td>
+              </tr>
+              <tr>
+                <td valign="top" class="label">Tajuk Laporan  &nbsp;<span style="color:#FF2A00">*</span></td>
+                <td valign="top" class="label">:</td>
+                <td valign="top"><input type="text" onBlur="this.value=this.value.toUpperCase();" onKeyUp=" $('err_tajukLaporan').innerHTML=''; at(this, event);" value="" name="tajukLaporan" id="tajukLaporan">
+                  <div id="err_tajukLaporan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+              </tr>
+            </table></td>
+          <td width="50%" valign="top">&nbsp;</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><input type="button" value="Jana Laporan" onclick="janaLaporan()">
+      <input type="reset" value="Kosongkan" /></td>
+  </tr>
+</table>
+</fieldset>

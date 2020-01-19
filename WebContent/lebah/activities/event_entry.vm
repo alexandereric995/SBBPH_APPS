@@ -1,0 +1,83 @@
+<input type="hidden" id="activityEventId" name="activityEventId" value="$!activityEvent.id">
+
+<table>
+<tr><td style="width:150px"></td><td style="width:10px"></td><td></td></tr>
+<tr><td>Description</td><td>:</td><td><input class="texts" id="description" name="description" value="$!activityEvent.description"></td></tr>
+<tr><td>Location</td><td>:</td><td><input class="texts" id="locationRemark" name="locationRemark" value="$!activityEvent.locationRemark"></td></tr>
+<tr><td>Time</td><td>:</td><td>
+
+<select id="startTime" name="startTime" class="texts" style="width:100px">
+#foreach( $t in $times )
+#set ( $tf = $timeFormat.format($t) )
+<option value="$tf" #if ( $activityEvent.startDateTime && $tf == $timeFormat.format($activityEvent.startDateTime)) selected #end>$tf</option>
+#end
+</select>
+
+-
+
+<select id="endTime" name="endTime" class="texts" style="width:100px">
+#foreach( $t in $times )
+#set ( $tf = $timeFormat.format($t) )
+<option value="$tf" #if ( $activityEvent.endDateTime && $tf == $timeFormat.format($activityEvent.endDateTime)) selected #end>$tf</option>
+#end
+</select>
+
+</td></tr>
+
+<tr><td valign="top">Remark</td><td valign="top">:</td>
+<td>
+<textarea class="textarea" id="remark" name="remark">$!activityEvent.remark</textarea>
+</td></tr>
+
+<tr><td valign="top">Event Scope</td><td valign="top">:</td>
+<td>
+<select class="texts" id="publicEvent" name="publicEvent">
+<option value="0" #if ( $activityEvent.publicEvent == 0 ) selected #end>PERSONAL EVENT</option>
+<option value="1" #if ( $activityEvent.publicEvent == 1 ) selected #end>PUBLIC EVENT</option>
+</select>
+
+</td></tr>
+
+
+<tr><td valign="top">Color</td><td valign="top">:</td>
+<td>
+<table><tr><td id="selected_color" class="color_box" bgcolor="$!activityEvent.displayColor">&nbsp;</td></tr></table>
+<input type="hidden" id="displayColor" name="displayColor" value="$!activityEvent.displayColor">
+<table>
+<tr>
+#foreach( $c in ["#FFCCCC","#FF9999","#FFFF99","#CCCC33","#CCFFCC","#66FF66"] )
+<td class="color_box" style="cursor:pointer" bgcolor="$c" onclick="$('selected_color').style.backgroundColor='$c';$('displayColor').value='$c';">&nbsp;</td>
+#end
+</tr>
+
+<tr>
+#foreach( $c in ["#CCFFFF","#66FFFF","#CCCCFF","#9999FF","#FFCCFF","#FF99FF"] )
+<td class="color_box" style="cursor:pointer" bgcolor="$c" onclick="$('selected_color').style.backgroundColor='$c';$('displayColor').value='$c';">&nbsp;</td>
+#end
+</tr>
+
+</table>
+
+</td></tr>
+
+#**
+<tr><td>Recurring?</td><td>:</td>
+<td>
+<input type="radio" name="recurring" value="no" checked onclick="$('div_recurring').style.visibility='hidden'">No
+<input type="radio" name="recurring" value="yes" onclick="$('div_recurring').style.visibility='visible'">Yes
+<span id="div_recurring" style="visibility:hidden">
+&nbsp;&nbsp;&nbsp;Until: 
+</span>
+</td>
+</tr>
+**#
+
+<tr><td></td><td></td>
+<td>
+
+##if ( $activityEvent.userActivityEvent.userLogin == $userId )
+<input type="button" value="Save" onclick="doDivAjaxCall3$formname('calendar_events','save_activity_event','');clearActivityEventForm();$('event_entry').style.visibility='hidden';">
+##end
+<input type="button" value="Close" onclick="$('event_entry').style.visibility='hidden';">
+</td>
+</table>

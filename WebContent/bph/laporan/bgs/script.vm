@@ -1,0 +1,132 @@
+
+    function paparLaporan(idLaporan) {
+    	
+    	var div1 = document.getElementById('senaraiLaporan');
+    	div1.style.display = 'none';
+    	
+    	var div2 = document.getElementById('paparLaporan');
+    	div2.style.display = 'block';
+    	
+    	doDivAjaxCall3$formname('paparLaporan','paparLaporan','idLaporan='+ idLaporan); 
+    }
+    
+    function doCetakLaporanTerimaanPermohonanRuangPejabat() {
+
+	var err_count = 0;
+	
+	
+	$('err_tarikhTerima').innerHTML = "";
+	$('err_tarikhTerimaHingga').innerHTML = "";
+	
+	var id = $('tarikhTerima').value;	
+	if ( id == "" ) {$('err_tarikhTerima').innerHTML = "Tarikh Terima adalah mandatori!"; err_count++;  }
+	
+	var hingga = $('tarikhTerimaHingga').value;	
+	if ( hingga == "" ) {$('err_tarikhTerimaHingga').innerHTML = "Tarikh Sehingga adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}
+		
+       		 var url = "../servlet/bph.laporan.bgs.LaporanTerimaanPermohonanRuangPejabat?tarikh_mula="+id+"&tarikh_hingga="+hingga;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	
+	return err_count == 0;
+    }
+    
+    function doCetakLaporanSenaraiPermohonanBaru() {
+
+	var err_count = 0;
+	$('err_tarikhTerima').innerHTML = "";
+	$('err_tarikhTerimaHingga').innerHTML = "";
+	var status = $('status').value;
+	
+	var id = $('tarikhTerima').value;	
+	if ( id == "" ) {$('err_tarikhTerima').innerHTML = "Tarikh Terima adalah mandatori!"; err_count++;  }
+	
+	var hingga = $('tarikhTerimaHingga').value;	
+	if ( hingga == "" ) {$('err_tarikhTerimaHingga').innerHTML = "Tarikh Sehingga adalah mandatori!"; err_count++;  }
+	
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}
+		
+       		var url = "../servlet/bph.laporan.bgs.LaporanSenaraiPermohonanBaruRuangPejabat?status="+status;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	
+	return err_count == 0;
+    }
+    
+    function doCetakLaporanSenaraiRuangPejabat() {
+
+	var err_count = 0;
+	$('err_tarikhTerima').innerHTML = "";
+	$('err_tarikhTerimaHingga').innerHTML = "";
+	var status = $('status').value;
+	var zon = $('zon').value;
+	
+	var id = $('tarikhTerima').value;	
+	if ( id == "" ) {$('err_tarikhTerima').innerHTML = "Tarikh Terima adalah mandatori!"; err_count++;  }
+	
+	var hingga = $('tarikhTerimaHingga').value;	
+	if ( hingga == "" ) {$('err_tarikhTerimaHingga').innerHTML = "Tarikh Sehingga adalah mandatori!"; err_count++;  }
+	
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}
+		
+       		 var url = "../servlet/bph.laporan.bgs.LaporanSenaraiRuangPejabat?status="+status+"&zon="+zon;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	
+	return err_count == 0;
+    }
+    
+        function doCetakLaporanStatusKelulusanPermohonan() {
+
+	var err_count = 0;
+	var tahun = $('tahun').value;
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+		
+			return;
+		}
+		
+       		var url = "../servlet/bph.laporan.bgs.LaporanStatusKelulusanPermohonan?tahun="+tahun;
+			var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+			if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();
+	}
+	
+	return err_count == 0;
+    }
+	
+    
+    function doKembali(){
+    
+    location.reload();
+    
+    }
+    
+    

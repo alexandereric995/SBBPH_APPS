@@ -1,0 +1,43 @@
+<fieldset>
+<legend class="legend">Laporan Daftar Permohonan Rumah Peranginan</legend>
+<table width="80%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+  <tr>
+   <td class="label">Jenis Peranginan &nbsp;</td>
+   <td>:</td>
+   <td>
+     <span id="findJenisPeranginan">
+        #parse("$path/findJenisPeranginan.vm")
+     </span>
+   </td>
+</tr>
+<tr>
+   <td class="label">Nama Peranginan &nbsp;</td>
+   <td>:</td>
+   <td>
+     <span id="findPeranginan">
+        #parse("$path/findPeranginan.vm")
+     </span>
+   </td>
+</tr>
+
+    <tr>
+    <td class="label">Jenis Permohonan</td>
+    <td>:</td>
+    <td><select class="texts" name="jenis_permohonan" id="jenis_permohonan" style="width:80%" >
+    		<option value="" selected="selected">SILA PILIH</option>
+    		<option value="ONLINE" #if ( $r.idJenisPermohonan == "ONLINE" ) selected #end>ONLINE</option>
+    		<option value="WALKIN" #if ( $r.idJenisPermohonan == "WALKIN" ) selected #end>WALK-IN</option>
+    	</select></td>
+    </tr>
+  <tr>
+	<td></td>
+	<td class="label"></td>
+	<td><input type="button" name="cmdCetak" id="cmdCetak" value="Cetak" onclick="javascript:doCetakLaporanDaftarPemohonDanPermohonan()"/><input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/></td>
+</tr>
+</table>
+</fieldset>

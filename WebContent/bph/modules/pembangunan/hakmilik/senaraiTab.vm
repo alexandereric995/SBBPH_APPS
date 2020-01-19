@@ -1,0 +1,35 @@
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatHakmilik','')" #end >Maklumat Hakmilik</a></li>
+	<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divTab','getCadanganPembangunan','')" #end >Cadangan Pembangunan</a></li>
+	<li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('divTab','getRekodUrusan','')" #end >Rekod Urusan</a></li>
+	<li #if($!selectedTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedTab!='4') onClick="doDivAjaxCall3$formname('divTab','getPenguatkuasaan','')" #end >Rekod Penguatkuasaan</a></li>
+	<li #if($!selectedTab=='5') class="active" #end><a href="javascript:void()" #if($!selectedTab!='5') onClick="doDivAjaxCall3$formname('divTab','getDokumenSokongan','')" #end >Dokumen Sokongan</a></li>
+	<li #if($!selectedTab=='6') class="active" #end><a href="javascript:void()" #if($!selectedTab!='6') onClick="doDivAjaxCall3$formname('divTab','getLogSemakan','')" #end >Log Semakan</a></li>
+  </ul>
+</nav>	
+
+#if ($!selectedTab=='1')
+	#parse("$path/maklumatHakmilik/maklumatHakmilik.vm")
+#end
+
+#if ($!selectedTab=='2')
+	<input type="hidden" id="selectedSubTab" name="selectedSubTab" value="$!selectedSubTab">
+	#parse("$path/cadanganPembangunan/start.vm")
+#end
+
+#if ($!selectedTab=='3')
+	#parse("$path/rekodUrusan/senaraiSubTab.vm")
+#end
+
+#if ($!selectedTab=='4')
+	#parse("$path/penguatkuasaan/start.vm")
+#end
+
+#if ($!selectedTab=='5')
+	#parse("$path/dokumenSokongan/start.vm")
+#end
+
+#if ($!selectedTab=='6')
+	#parse("$path/logSemakan/start.vm")
+#end

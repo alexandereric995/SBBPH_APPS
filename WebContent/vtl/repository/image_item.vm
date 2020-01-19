@@ -1,0 +1,158 @@
+<table class="table_row" width="100%"align="center" cellpadding="1" cellspacing="0">
+	<tr class="table_header">
+		<td>
+			<b>$group.Name</b>
+		</td>
+	</tr>
+</table>
+<form name="list_item" method="post">
+<table class="table_row" width="100%"align="center" cellpadding="1" cellspacing="1">
+	#set ( $cnt = 0 )
+	
+#set ( $cols = 3 )
+	#foreach ( $item in $items)
+		#set ( $cnt = $cnt + 1 )
+		#set ($i = $page_number - 1 )
+		#set ($k = ($items.size() * $i) + $cnt )			
+#if ( $cnt % $cols == 1 )
+#if ( $cnt > 1 )</tr> #end
+			<tr>
+			#end
+							<td align="center">
+				<table cellpadding="0" cellspacing="2" border="0">
+		<tr>
+		<td align="center">
+				<a href="javascript:imageWindow('$item.fileName')">
+##												<img src="../download?file=$item.thumbFilename" border="0">
+																<img src="../viewImage?file=$item.fileName" border="0">
+				</a>
+								</td>
+								</tr>
+									#if ( $editing )
+									<tr>
+									<td align="center">
+				<input type="checkbox" name="item_ids" value="$item.id">
+				<a href="javascript:editImage('$item.id')">
+				<img src="../img/edit.gif" border="0">
+				</a>
+				</td>
+				</tr>
+				#end
+				<br>
+								<tr>
+				<td valign="top">
+		
+				$item.description
+				</td>
+				</tr>
+				</table>
+												</td>
+
+	#end
+	</tr>
+	
+	<tr>
+		<td   align="right">
+			&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4" align="right">
+			<b>Page </b>
+			#if ( $pages > 0 )
+				#foreach ($num in [ 1..$pages ])
+					#if ( $num == $page_number )
+						<b>$num</b>
+					#else
+						<a href="javascript:goPage($num)">
+						<u>$num</u>
+						</a>
+					#end
+				#end
+			#end
+		</td>
+	</tr>	
+	</table>
+	<br>
+	#if ( $editing )
+	<table class="table_row" width="100%"align="center" cellpadding="1" cellspacing="0">
+		<tr class="table_row2">
+			<td align="right">
+							[
+				<a href="javascript:addImage()">
+			Add New Image
+				</a>
+				]
+				[
+				<a href="javascript:deleteGroup()">
+				Delete This Category
+				</a>
+				]			
+				[
+				<a href="javascript:deleteChecked()">
+				Delete Selected Items
+				</a>
+				]				
+			</td>
+		</tr>
+	</table>	
+	#end
+<input type="hidden" name="command">
+<input type="hidden" name="item_id">	
+<input type="hidden" name="group_id" value="$group_id">
+<input type="hidden" name="pagenum" value="$page_number">
+</form>
+
+<script>
+function addImage() {
+document.list_item.command.value = "addImage";
+document.list_item.submit();
+}
+function editImage(uid) {
+document.list_item.item_id.value = uid;
+document.list_item.command.value = "editImage";
+document.list_item.submit();
+}
+function goPage(num) {
+		document.list_item.action = "?";
+	document.list_item.command.value = "goPage";
+	document.list_item.pagenum.value = num;
+	document.list_item.submit();
+}
+
+function getData(filename) {
+		document.list_item.action = "../download?file=" + filename;	
+	document.list_item.submit();
+}
+
+function imageWindow(filename) {
+window.open('../download?file=' + filename,'imageWindow','width=800,height=500,toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,copyhistory=yes,resizable=yes');
+}
+
+function deleteData(id) {
+	if ( !window.confirm("Are you sure?") ) return;
+			document.list_item.action = "";
+	document.list_item.command.value = "deleteItem";
+	document.list_item.item_id.value = id;
+	document.list_item.submit();
+}	
+
+function deleteChecked() {
+	if ( !window.confirm("Are you sure?") ) return;
+	document.list_item.command.value = "deleteChecked";
+	document.list_item.submit();
+}	
+
+function deleteGroup() {
+	if ( !window.confirm("Are you sure?") ) return;
+	document.list_item.command.value = "deleteGroup";
+	document.list_item.submit();
+}
+
+function deleteCategory() {
+	if ( !window.confirm("Are you sure?") ) return;
+			document.list_item.action = "";
+	document.list_item.command.value = "deleteCategory";
+	document.list_item.submit();
+}
+</script>

@@ -1,0 +1,56 @@
+
+<fieldset>
+<legend class="legend">Laporan Terimaan Permohonan Ruang Pejabat</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+    <td></td>
+  </tr>
+<tr>
+	<td class="label">Tarikh Terima &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label">:</td>
+	<td>
+		<input type="text" id="tarikhTerima" style="width:100px;" name="tarikhTerima" value="$!r.tarikhTerima" style="width: 50%">
+		<script>
+        _jq(function() {
+        	jQuery("#tarikhTerima").datepicker({ 
+        		dateFormat: "dd-mm-yy",
+				showOn: "both",
+				buttonImageOnly: true,
+				buttonImage: "../img/calendar_icon.gif",
+				buttonText: "Calendar",
+        	});
+        });
+		</script>
+		<div id="err_tarikhTerima" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+<tr>
+	<td class="label">Sehingga &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label">:</td>
+	<td>
+		<input type="text" id="tarikhTerimaHingga" style="width:100px;" name="tarikhTerimaHingga" value="$!r.tarikhTerimaHingga" style="width: 50%">
+		<script>
+        _jq(function() {
+        	jQuery("#tarikhTerimaHingga").datepicker({ 
+        		dateFormat: "dd-mm-yy",
+				showOn: "both",
+				buttonImageOnly: true,
+				buttonImage: "../img/calendar_icon.gif",
+				buttonText: "Calendar",
+        	});
+        });
+		</script>
+		<div id="err_tarikhTerimaHingga" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+<tr>
+	<td></td>
+	<td class="label"></td>
+	<td><input type="button" name="cmdCetak" id="cmdCetak" value="Cetak" onclick="javascript:doCetakLaporanTerimaanPermohonanRuangPejabat()"/><input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/></td>
+</tr>
+</table>
+</fieldset>
+<div id="cetakLaporan"></div>

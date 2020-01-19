@@ -1,0 +1,148 @@
+
+	
+<fieldset style="width:50% !important">
+<legend class="legend">BAYARAN LAIN</legend>
+	
+<input type="hidden" name="payerId" id="payerId" value="$!pembayar.id" />
+	
+	<table width="100%" cellpadding="2" cellspacing="1">
+		
+		<tr>
+			<td style="width:150px">&nbsp;</td>
+            <td style="width:10px"></td>
+            <td></td>
+		</tr>
+		
+		<tr>
+    		<td valign="top" >KOD HASIL &nbsp;<span style='color:#FF2A00'>*</span></td>
+    		<td valign="top">:</td>
+    		<td valign="top">
+    			<select id="kodHasil" name="kodHasil" style="width:100%" onChange="$('err_kodHasil').innerHTML=''; at(this, event);">
+                       <option value="">SILA PILIH</option>
+                       #foreach( $n in $listKodHasil )
+                       	<option value="$n.id">$n.kod - $n.keterangan.toUpperCase()</option>
+                       #end
+				</select>
+				<div id="err_kodHasil" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    		</td>
+    	</tr>
+		<tr>
+        	<td class="label" valign="top">NO. INVOIS / FAIL &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top"><input type="text" id="noInvoisLain" name="noInvoisLain" value="" onKeyUp=" $('err_noInvoisLain').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+        	<div id="err_noInvoisLain" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+        <tr>
+			<td class="label" valign="top">TARIKH MULA</td>
+        	<td class="label" valign="top">:</td>
+	    	<td valign="top"><input type="text" id="tarikhDari" name="tarikhDari" value="$!util.getDateTime($!d.tarikhDari,'dd-MM-yyyy')">
+				<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+	    		<script>
+	            	_jq("#tarikhDari").Zebra_DatePicker({ 
+	    				format: 'd-m-Y',
+						readonly_element: false
+	            	});
+					_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+	    		</script>
+			</td>
+	</tr>
+	<tr>
+			<td class="label" valign="top">TARIKH AKHIR</td>
+        	<td class="label" valign="top">:</td>
+	    	<td valign="top"><input type="text" id="tarikhHingga" name="tarikhHingga" value="$!util.getDateTime($!d.tarikhHingga,'dd-MM-yyyy')">
+				<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+	    		<script>
+	            	_jq("#tarikhHingga").Zebra_DatePicker({ 
+	    				format: 'd-m-Y',
+						readonly_element: false
+	            	});
+					_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+	    		</script>
+		</td>
+		<tr>
+        	<td class="label" valign="top">KETERANGAN &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top"><input type="text" id="keteranganLain" name="keteranganLain" value="" onKeyUp=" $('err_keteranganLain').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+        	<div id="err_keteranganLain" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+		
+		<tr>
+        	<td class="label" valign="top">AMAUN (RM) &nbsp;<span style="color:#FF2A00">*</span></td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top">
+        		<input class="currency" type="text" id="amaunBayaranLain" name="amaunBayaranLain" value="" onKeyUp=" $('err_amaunBayaranLain').innerHTML=''; at(this, event);">
+        		<div id="err_amaunBayaranLain" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        	</td>
+        </tr>
+
+		<tr>
+        	<td class="label" valign="top">NO. RUJUKAN</td>
+        	<td class="label" valign="top">:</td>
+        	<td valign="top"><input type="text" id="noRujukanLain" name="noRujukanLain" value="" onKeyUp="at(this, event)" onBlur="this.value=this.value.toUpperCase();"></td>
+        </tr>
+		
+	</table>
+
+	
+<br />
+	
+	<table width="100%">
+		<tr>
+			<td align="right">
+				<input id="btnSimpan" type="button"  value="Simpan" />
+				<input id="btnTutup" type="button"  value="Tutup" />
+			</td>
+		</tr>
+	</table>
+	
+</fieldset>
+	
+
+<script>
+	_jq('#btnTutup').on('click', function(){
+     	jQuery('#divPopupBayaranLain').fadeOut();
+  	});
+	
+	function validateBayaranLain() {
+
+    	var err_count = 0;
+    	
+    	var kodHasil = $('kodHasil').value;
+    	if ( kodHasil == "" ) {$('err_kodHasil').innerHTML = "Kod Hasil adalah mandatori!"; err_count++;  }
+    	
+    	var noInvoisLain = $('noInvoisLain').value;
+    	if ( noInvoisLain == "" ) {$('err_noInvoisLain').innerHTML = "No Invois adalah mandatori!"; err_count++;  }
+    	
+    	var keteranganLain = $('keteranganLain').value;
+    	if ( keteranganLain == "" ) {$('err_keteranganLain').innerHTML = "Keterangan Bayaran adalah mandatori!"; err_count++;  }
+    	
+    	var amaunBayaranLain = $('amaunBayaranLain').value;
+    	if ( amaunBayaranLain == "" ) {$('err_amaunBayaranLain').innerHTML = "Amaun Bayaran adalah mandatori!"; err_count++;  }
+    	
+    	if (err_count == 0) {
+    		if ( !window.confirm("Anda pasti?") ){
+    			return;
+    		}
+    	}
+    	
+    	return err_count == 0;
+    }
+	
+	_jq('#btnSimpan').on('click', function(){
+		if(validateBayaranLain()){
+			doDivAjaxChainCall$formname('divSenaraiBayaranPilihan','saveBayaranLain','','divMaklumatBayaran','refreshMaklumatBayaran','');
+			jQuery('#divPopupBayaranLain').fadeOut();
+		}
+  	});
+</script>	
+
+<script>
+    _jq(function($) {
+    $('.currency').autoNumeric('init'); 
+    $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+    $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+    $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

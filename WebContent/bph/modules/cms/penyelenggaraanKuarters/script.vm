@@ -1,0 +1,114 @@
+function validate() {
+	var err_count = 0;
+		
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+	
+	  		if ( !window.confirm("Anda pasti validate?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function kemaskiniMaklumat() {
+	var err_count = 0;
+		
+	var tajuk = $('tajuk').value;
+	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( window.confirm("Anda pasti kemaskini maklumat?") ){
+		
+##		    $('tajuk').value = CKEDITOR.instances.tajuk.getData(); ## GET VALUE FROM CKEDITOR Add ByZUl
+		  
+		    doDivAjaxCall3$formname('divMaklumat','kemaskiniMaklumat','')
+		}
+	}
+}
+
+##function uploadDokumen() {
+##	var id = $('id').value;	
+##	$('err_dokumen').innerHTML = '';
+##	
+##	var err_count = 0;
+##	if ($('dokumen').value != "" && !checkDoc($('dokumen').value)) {
+##		err_count++;
+##    	$('dokumen').value = "";
+##    	$('err_dokumen').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg,jpg atau png)';
+##    }
+##    
+##    if (err_count == 0) {
+##    	if ( window.confirm("Anda pasti upload?") ){
+##	    	$('dokumenMuatnaik').style.display = "";
+##	    	document.${formName}.enctype='multipart/form-data';
+##	    	document.${formName}.encoding ='multipart/form-data';
+##	    	document.${formName}.target='upload_dokumen';
+##	    	document.${formName}.action='?command=uploadDokumen&id='+id;
+##	    	document.${formName}.submit();
+##	    	$('dokumen').value = "";
+##	    }
+##    }
+##}
+##
+##function checkDoc(val) {
+##	var arr = val.split(".");
+##	var arr1 = val.split("\\");
+##	if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" || arr[1] == "PDF" || arr[1] == "pdf" || arr[1] == "doc" || arr[1] == "DOC" || arr[1] == "docx" || arr[1] == "DOCX" ) {
+##		return true;
+##	} else {
+##		return false;
+##	}
+##}
+
+
+function uploadGambar() {
+	var idpk = $('idpk').value;	
+	$('err_gambar').innerHTML = '';
+	
+	var err_count = 0;
+	if ($('gambar').value != "" && !checkDoc($('gambar').value)) {
+		err_count++;
+		$('gambar').value = "";
+		$('err_gambar').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (pdf)';
+    }
+    
+    if (err_count == 0) {
+    	if ( window.confirm("Anda pasti upload?") ){
+	    	$('gambarMuatnaik').style.display = "";
+	    	document.${formName}.enctype='multipart/form-data';
+	    	document.${formName}.encoding ='multipart/form-data';
+	    	document.${formName}.target='upload_gambar';
+	    	document.${formName}.action='?command=uploadGambar&idpk='+idpk;
+	    	document.${formName}.submit();
+##	    	$('gambar').value = "";
+	    }
+    }
+}
+function checkDoc(val) {
+	var arr = val.split(".");
+	var arr1 = val.split("\\");
+	if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" || arr[1] == "PDF" || arr[1] == "pdf" || arr[1] == "doc" || arr[1] == "DOC" || arr[1] == "docx" || arr[1] == "DOCX" ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function hapusGambar() {
+
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxCall3$formname('divMaklumat','hapusGambar','')
+	}
+}
+
+
+

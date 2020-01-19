@@ -1,0 +1,83 @@
+
+
+<style>
+.scrollitpopup {
+	height:300px; width: 100%; overflow: auto;
+}
+</style>
+
+
+<fieldset style="width:65%">
+<legend class="legend">senarai tempahan pada tempoh blocking/selenggara</legend>
+
+<br/>
+
+<input type="hidden" name="idSelenggara" id="idSelenggara" value="$!r.id" />
+
+	<div class="scrollitpopup">
+    	<table width="100%">
+    		
+    		<tr>
+    			<td class="row_header" width="5%">Bil.</td>
+    			<td class="row_header" width="25%">No. Tempahan</td>
+    			<td class="row_header" width="40%">Maklumat Pemohon</td>
+    			<td class="row_header" width="15%">Tarikh Masuk</td>
+    			<td class="row_header" width="15%">Tarikh Keluar</td>
+    		</tr>
+    		
+    		#if ( $listBooking.size() > 0 )
+        		#set ( $count = 0 )
+        		#foreach( $d in $listBooking )
+        			#set ( $count = $count + 1)
+                	#if ( $count % 2 == 0 ) 
+            			#set ( $rowcolor = "#D0CFCE" ) 
+            		#else 
+            			#set ( $rowcolor = "#F0F0F0" ) 
+    				#end
+    				
+            		<tr bgcolor="$rowcolor">
+            			<td align="center" style="font-size:10px">$count</td>
+                		<td align="left" style="font-size:10px">$!d.permohonan.noTempahan.toUpperCase()</td>
+    					<td align="left" style="font-size:10px">
+							$!d.permohonan.pemohon.userName
+							<div style='font-size:9px'>$!d.permohonan.pemohon.noKP</div> 
+							<div style='font-size:9px'>Gred:$!d.permohonan.pemohon.gredPerkhidmatan.keterangan.toUpperCase()</div> 
+							<span style='font-size:9px'>
+                        		$!d.permohonan.pemohon.noTelefonBimbit
+                        		<br/>
+                        		$!util.replaceIfNull($!d.permohonan.pemohon.noTelefon,"")
+                        	</span>
+						</td>
+    					<td align="center" style="font-size:10px">$!util.getDateTime($!d.tarikhMula,"dd/MM/yyyy")</td>
+    					<td align="center" style="font-size:10px">$!util.getDateTime($!d.tarikhTamat,"dd/MM/yyyy")</td>
+    				</tr>
+    			#end
+    		#else
+    			<tr bgcolor="#F0F0F0">
+    				<td colspan="5">Tiada Rekod</td>
+    			</tr>
+    		#end
+    		
+    	</table>
+	</div>
+	
+	<br/>
+	
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+				<hr/>
+    			<input type="button" id="btnKeluar" style="width:20%" name="btnKeluar" value="TUTUP">
+    		</td>
+    	</tr>
+    </table>
+	
+</fieldset>
+	
+
+<script>
+  _jq('#btnKeluar').on('click', function(){
+	doDivAjaxCall3$formname('divForm','selenggaraUnit','');
+    jQuery('#popupBookingList').fadeOut();
+  });
+</script>

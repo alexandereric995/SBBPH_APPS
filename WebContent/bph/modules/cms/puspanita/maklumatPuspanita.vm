@@ -1,0 +1,60 @@
+<fieldset>
+<legend class="legend">PUSPANITA</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">Tahun &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td class="label" valign="top">:</td>
+    <td valign="top"><div>
+        <input type="text" id="tahun" name="tahun" value="$!r.tahun" onclick="$('err_tahun').innerHTML=''">
+        <script>
+        	_jq("#tahun").Zebra_DatePicker({ 
+            	view: 'years',
+				format: 'Y'
+            });
+            _jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+       </script>
+      </div>
+      <div id="err_tahun" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  
+##  #textarea_no_case("keterangan" "Keterangan" "$!r.keterangan")
+    ## Start FOR CKEDITOR Add ByZUl
+	<tr>
+	    <td class="label">Keterangan</td>
+	    <td class="label">:</td>
+	    <td>
+	    <textarea rows="5" cols="5" id="keterangan" name="keterangan">$!r.keterangan</textarea>
+	    <script>
+	       CKEDITOR.replace( 'keterangan',
+	        {
+	            toolbar : 'Basic', /* Basic toolbar */
+	            uiColor : '#D6F3C8'
+	        });
+	    </script>
+	    </td>
+	</tr>
+	## End FOR CKEDITOR Add ByZUl
+  
+  <tr>
+    <td class="label" valign="top">Status &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td>#parse("$path/selectFlagAktif.vm")
+      <div id="err_flagAktif" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+</table>
+</fieldset>
+
+#if ($!command != 'add_new_record')
+<table width="100%">
+  <tr>
+    <td align="right"><input id="btnKemaskini" name="btnKemaskini" type="button" value="Simpan" onclick="javascript:kemaskiniMaklumat();"/>
+      <input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+#end 

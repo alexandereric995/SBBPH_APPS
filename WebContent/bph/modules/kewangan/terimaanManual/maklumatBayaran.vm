@@ -1,0 +1,157 @@
+
+<fieldset style="height:300px;min-height:200px">
+	<legend class="legend">MAKLUMAT BAYARAN</legend>
+	<table width="100%" cellpadding="1" cellspacing="1">
+		
+		<tr>
+			<td class="row_header" width="3%"><font style="font-size:80%">BIL.</font></td>
+            			<td style="text-align:center !important" class="row_header" width="12%"><font style="font-size:80%">MOD BAYARAN</font></td>
+            			<td style="text-align:center !important" class="row_header" width="15%"><font style="font-size:80%">BANK</font></td>
+            			<td style="text-align:center !important" class="row_header" width="15%"><font style="font-size:80%">TARIKH CEK / KIRIMAN WANG / WANG POS</font></td>
+            			<td style="text-align:center !important" class="row_header" width="13%"><font style="font-size:80%">NO. CEK / KIRIMAN WANG / WANG POS</font></td>
+            			<td style="text-align:center !important" class="row_header" width="15%"><font style="font-size:80%">TEMPAT</font></td>
+            			<td style="text-align:center !important" class="row_header" width="10%"><font style="font-size:80%">NO. RUJUKAN</font></td>
+            			<td style="text-align:center !important" class="row_header" width="7%"><font style="font-size:80%">AMAUN (RM)</font></td>
+            			<td style="text-align:center !important" class="row_header" width="7%"><font style="font-size:80%">MESIN</font></td>
+						<td class="row_header" width="3%"></td>
+            		</tr>
+
+						#if ( $listTempBayar.size() > 0 )
+                            #set ( $count = 0 )
+                            #foreach( $d in $listTempBayar )
+                                #set ( $count = $count + 1)
+                                #if ( $count % 2 == 0 ) 
+                                    #set ( $rowcolor = "#D0CFCE" ) 
+                                    #else 
+                                        #set ( $rowcolor = "#F0F0F0" ) 
+                                #end
+
+								<tr bgcolor="$rowcolor">
+                                    <td align="center"><font style="font-size:80%">$count</font></td>
+                                    <td><font style="font-size:80%">$!d.modBayaran.id - $!d.modBayaran.keterangan.toUpperCase()</font></td>
+                                    <td><font style="font-size:80%">$!d.bank.keterangan.toUpperCase()</font></td>
+                                    <td><font style="font-size:80%">$!util.getDateTime($!d.tarikhCek,'dd-MM-yyyy')</font></td>
+                                    <td><font style="font-size:80%">$!d.noCek.toUpperCase()</font></td>
+                                    <td><font style="font-size:80%">$!d.tempat</font></td>
+                                    <td><font style="font-size:80%">$!d.noRujukan</font></td>
+                                    <td align="right"><font style="font-size:80%">$!d.amaunBayaran</font></td>
+                                    <td><font style="font-size:80%">$!d.mesin.kodMesin.toUpperCase()</font></td>
+                                    <td align="center">
+										<a href="javascript:void()" onclick="hapusBayaran('$!d.id','$!pembayar.id')"><img src="../img/delete.gif" border="0"></a>
+									</td>
+                                </tr>
+                            #end
+                        #end
+					
+						#if ( $!sizeRecord > 0 )
+						<tr>
+            				<td>&nbsp;</td>
+							<td>
+								<select class="texts" id="modBayaran" name="modBayaran" style="width:100%" onChange="$('err_modBayaran').innerHTML=''; at(this, event);">
+                            		<option value="" style="font-size:80%">SILA PILIH</option>
+                                    #foreach( $n in $selectModBayaran)
+                            			<option value="$n.id" style="font-size:80%">$n.id - $n.keterangan.toUpperCase()</option>
+                                    #end
+                            	</select>
+							</td>
+							<td>
+								<select class="texts" id="bank" name="bank" style="width:100%">
+                                    <option value="" style="font-size:80%">SILA PILIH</option>
+                                    #foreach( $n in $selectBank)
+                                    	<option value="$n.id" style="font-size:80%">$n.keterangan.toUpperCase()</option>
+                                    #end
+                                </select>
+							</td>
+							<td>
+								<div>
+						    		<input type="text" style="font-size:80%" id="tarikhCek" name="tarikhCek" value="$!util.getDateTime($!d.tarikhCek,'dd-MM-yyyy')">
+									<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+						    		<script>
+						            	_jq("#tarikhCek").Zebra_DatePicker({ 
+						    				format: 'd-m-Y',
+											readonly_element: false
+						            	});
+										_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+						    		</script>
+								</div>
+							</td>
+							<td><input type="text" name="noCek" id="noCek" value="" class="uppercasefont" style="font-size:80%" onBlur="this.value=this.value.toUpperCase();" /></td>
+							<td><input type="text" name="tempat" id="tempat" value="" class="uppercasefont" style="font-size:80%" onBlur="this.value=this.value.toUpperCase();" /></td>
+							<td><input type="text" name="noRujukan" id="noRujukan" value="" class="uppercasefont" style="font-size:80%" onBlur="this.value=this.value.toUpperCase();" /></td>
+							<td><input class="currency" type="text" name="amaunBayaran" id="amaunBayaran" value="" style="text-align:right;font-size:80%" onKeyUp="$('err_amaunBayaran').innerHTML=''; at(this, event);" /></td>
+							<td>
+								<select class="texts" id="mesin" name="mesin" style="width:100%" onChange="$('err_mesin').innerHTML=''; at(this, event);" >
+                                    <option value="" style="font-size:80%">SILA PILIH</option>
+                                    #foreach( $n in $selectMesin)
+                                    	<option value="$n.id" style="font-size:80%">$n.kodMesin.toUpperCase()</option>
+                                    #end
+                                </select>
+							</td>
+							<td><input style="font-weight:bold;font-size:90%" type="button" name="btnTambahMaklumatBayaran" id="btnTambahMaklumatBayaran" value="+"  onclick="doTambahBayaran('$!pembayar.id'); $('err_selesaiBayaran').innerHTML='' " /></td>
+            			</tr>
+						
+						#else
+						
+						<tr bgcolor="#F0F0F0">
+            				<td colspan="10">Tiada bayaran perlu dibuat</td>
+            			</tr>
+						#end
+						
+						<tr>
+							<td colspan="8" style="padding-top:0.5cm">
+								<div id="err_modBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+								<div id="err_amaunBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+								<div id="err_mesin" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+								<div id="err_selesaiBayaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+							</td>
+						</tr>
+						
+				</table>
+		<br>
+</fieldset>
+	
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+  
+  function validateMaklumatBayaran() {
+
+    	var err_count = 0;
+    	
+    	var modBayaran = $('modBayaran').value;
+    	if ( modBayaran == "" ) {$('err_modBayaran').innerHTML = "* Mod Bayaran adalah mandatori!"; err_count++;  }
+    	
+    	var amaunBayaran = $('amaunBayaran').value;
+    	if ( amaunBayaran == "" ) {$('err_amaunBayaran').innerHTML = "* Amaun Bayaran adalah mandatori!"; err_count++;  }
+    	
+##    	var mesin = $('mesin').value;
+##    	if ( mesin == "" ) {$('err_mesin').innerHTML = "* Kod Mesin adalah mandatori!"; err_count++;  }
+##    	
+    	if (err_count == 0) {
+    		##if ( !window.confirm("Anda pasti?") ){
+    		##	return;
+    		##}
+    	}
+    	
+    	return err_count == 0;
+    }
+
+  function doTambahBayaran(payerId) {
+  	if ( validateMaklumatBayaran() ){
+    	doDivAjaxChainCall$formname('divMaklumatBayaran','tambahBayaran','payerId='+payerId,'divSenaraiBayaranPilihan','refreshDivQueue','payerId='+payerId);
+    }
+  }
+  
+  function hapusBayaran(idtempBayaran,payerId) {
+  	##if (window.confirm("Anda pasti?") ){
+  		doDivAjaxChainCall$formname('divMaklumatBayaran','hapusTempBayaran','idtempBayaran='+idtempBayaran+'&payerId='+payerId,'divSenaraiBayaranPilihan','refreshDivQueue','payerId='+payerId);
+	##}
+  }
+  
+</script>	
+

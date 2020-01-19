@@ -1,0 +1,80 @@
+<fieldset>
+<legend class="legend">Maklumat Projek</legend>
+
+<table cellpadding="5" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_required("namaProjek" "Projek" "$!cadanganPembangunan.namaProjek")
+  		#input("noRujukan" "No. Rujukan" "$!cadanganPembangunan.noRujukan")  
+  		#textarea("keterangan" "Keterangan Projek" "$!cadanganPembangunan.keterangan")     
+ 		#if ($!cadanganPembangunan.statusCadangan == '1')
+  		#input_normal("status" "Status" "<b>$!cadanganPembangunan.getKeteranganStatusProjek()</b>")
+  		#end  
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_required("kontraktor" "Kontraktor" "$!cadanganPembangunan.kontraktor")  	  	
+	  	#currency_required("hargaKontrak" "Harga Kontrak (RM)" "$!util.formatDecimal($!cadanganPembangunan.hargaKontrak)")  
+	  	#if ($cadanganPembangunan.tarikhMilikTapak) 
+	  	#set ($dateMilikTapak = "$!util.getDateTime($!cadanganPembangunan.tarikhMilikTapak,'dd-MM-yyyy')") 
+	  	#else 
+	  	#set ($dateMilikTapak="") 
+	  	#end
+	  	#date_input("tarikhMilikTapak" "Tarikh Milik Tapak" "$!dateMilikTapak")       
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+#if ($!selectedSubTab == '1')
+	#if ($!command != 'addCadanganPembangunan')
+		#parse("$path/cadanganPembangunan/maklumatPelaksanaanCadanganPembangunan.vm")
+	#end
+#else
+	#parse("$path/cadanganPembangunan/maklumatPelaksanaanCadanganPembangunan.vm")
+#end
+
+</fieldset>
+
+<table width="100%">
+  <tr>
+    <td align="right">
+    	#if ($allowUpdate)
+    	<input id="button" type="button" value="Simpan" onClick="javascript:doSaveCadanganPembangunan()">    
+    	#end	
+    	<input type="button" id="batalCadanganPembangunan" name="batalCadanganPembangunan" value="Kembali"></td>
+    </td>
+  </tr>
+</table>
+
+<script>
+_jq('#batalCadanganPembangunan').on('click', function(){
+	#if ($!selectedSubTab == '1')
+		doDivAjaxCall3$formname('divTab','getCadanganPembangunan','');
+	#end
+	#if ($!selectedSubTab == '2')
+		doDivAjaxCall3$formname('divTab','getDalamPembangunan','');
+	#end
+	#if ($!selectedSubTab == '3')
+		doDivAjaxCall3$formname('divTab','getSelesaiPembangunan','');
+	#end
+});
+</script>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

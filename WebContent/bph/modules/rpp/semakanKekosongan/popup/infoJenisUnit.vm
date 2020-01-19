@@ -1,0 +1,102 @@
+
+<input type="hidden" id="idJenisUnit" name="idJenisUnit" value="$!ju.id" />
+
+<fieldset style="width:40%">
+<legend class="legend">Maklumat Jenis Unit</legend>
+
+	<table width="100%">
+	  <tr>
+	    <td style="width:190px"></td>
+	    <td style="width:10px"></td>
+	    <td>&nbsp;</td>
+	  </tr>
+	  	#show("JENIS UNIT" "$!ju.keterangan")
+		#show("HAD DEWASA" "$!ju.hadDewasa")
+		#show("HAD KANAK-KANAK" "$!ju.hadKanakKanak")
+		#show("HAD TEMPAHAN UNIT" "$!ju.hadKuantiti")
+		#show("KADAR SEWA(RM)" "$!ju.kadarSewa")
+	</table>	
+	
+	<table width="100%">
+		
+		<tr>
+			<td style="width:190px"></td>
+    	    <td style="width:10px"></td>
+    	    <td>&nbsp;</td>    	
+		</tr>
+	  
+		<tr>
+			<td colspan="3"><span style="font-weight:bold;text-align:justify;font-size:12px;"><u>WAKTU LUAR PUNCAK</u></span></td>
+		</tr>
+		
+		<tr>
+			<td colspan="3">
+				<input type="radio" disabled #if($!ju.flagTiadaHadKelayakan=='Y') checked #end id="flagLuarPuncak1" name="flagLuarPuncak" value="TIADAHAD" onChange="doShowGred(this.value);$('err_flagLuarPuncak').innerHTML='';" />
+                <label for="flagLuarPuncak1" >TIADA HAD KELAYAKAN</label>
+				&nbsp;
+				<input type="radio" disabled #if($!ju.flagTiadaHadKelayakan=='N') checked #end id="flagLuarPunca2" name="flagLuarPuncak" value="HAD" onChange="doShowGred(this.value);$('err_flagLuarPuncak').innerHTML='';" />
+                <label for="flagLuarPuncak2" >ADA HAD KELAYAKAN</label>
+				&nbsp;
+				<input type="radio" disabled #if($!ju.flagJulatGredKelayakan=='Y') checked #end id="flagLuarPuncak3" name="flagLuarPuncak" value="JULAT" onChange="doShowGred(this.value);$('err_flagLuarPuncak').innerHTML='';" />
+                <label for="flagLuarPuncak3" >JULAT GRED</label>
+				<div id="err_flagLuarPuncak" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		
+		<tr><td colspan="3"><div id="divFlagWaktuLuarPuncak">#parse("$path/popup/waktuLuarPuncak.vm")</div></td></tr>
+		
+		<tr><td colspan="3">&nbsp;</td></tr>
+		
+		<tr>
+			<td colspan="3"><span style="font-weight:bold;text-align:justify;font-size:12px;"><u>WAKTU PUNCAK</u></span></td>
+		</tr>
+		
+		<tr>
+			<td colspan="3">
+				<input type="radio" disabled #if($!ju.flagTiadaHadKelayakanWaktuPuncak=='Y') checked #end id="flagPuncak1" name="flagPuncak" value="TIADAHADWP" onChange="doShowGredWP(this.value);$('err_flagPuncak').innerHTML='';" />
+                <label for="flagPuncak1" >TIADA HAD KELAYAKAN</label>
+				&nbsp;
+				<input type="radio" disabled #if($!ju.flagTiadaHadKelayakanWaktuPuncak=='N') checked #end id="flagPuncak2" name="flagPuncak" value="HADWP" onChange="doShowGredWP(this.value);$('err_flagPuncak').innerHTML='';" />
+                <label for="flagPuncak2" >ADA HAD KELAYAKAN</label>
+				&nbsp;
+				<input type="radio" disabled #if($!ju.flagJulatGredKelayakanWaktuPuncak=='Y') checked #end id="flagPuncak3" name="flagPuncak" value="JULATWP" onChange="doShowGredWP(this.value);$('err_flagPuncak').innerHTML='';" />
+                <label for="flagPuncak3" >JULAT GRED</label>
+				<div id="err_flagPuncak" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		
+		<tr><td colspan="3"><div id="divFlagWaktuPuncak">#parse("$path/popup/waktuPuncak.vm")</div></td></tr>
+		
+	</table>	
+	
+	<br/><br/>
+
+    <table width="100%">
+    	<tr>
+    		<td align="right">
+    			#if( $!ju )
+    			<input type="button" value="Cetak" onclick="javascript:window.print()">
+    			#end	
+    			<input type="button" id="btnKeluar" name="btnKeluar" value="Keluar">
+    		</td>
+    	</tr>
+    </table>
+
+
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+  
+  _jq('#btnKeluar').on('click', function(){
+    jQuery('#popupDetail').fadeOut();
+  });
+  
+</script>
+
+

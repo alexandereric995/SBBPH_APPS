@@ -1,0 +1,80 @@
+<fieldset>
+<legend class="legend">Laporan Senarai Hitam Pemohon</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+
+	#if ($!r.tarikhMula)
+ 		   #set ($dateMula = "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+	#else #set ($dateMula = "") #end
+	#date_input_required("tarikhMula" "Tarikh Mula" "$dateMula")
+
+
+	#if ($!r.tarikhTamat)
+ 		  #set ($dateTamat = "$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')")
+	#else #set ($dateTamat = "") #end
+	#date_input_required("tarikhTamat" "Tarikh Tamat" "$dateTamat")
+
+<tr>
+    <td class="label">Status</td>
+    <td>:</td>
+    <td><select class="texts" name="flag1" id="flag1" style="width:40%">
+    		<option value="" selected="selected">SILA PILIH</option>
+    		<option value="Y" #if ( $r.flagAktif == "Y" ) selected #end>AKTIF</option>
+    		<option value="T" #if ( $r.flagAktif == "T" ) selected #end>TIDAK</option>
+    	</select></td>
+  </tr>
+  
+##	<tr>
+##        <td class="label" valign="top">Gred Perkhidmatan&nbsp;<span style="color:#FF2A00">*</span>
+##        </td>
+##        <td valign="top">:</td>
+##        <td>
+##            <span id="listKelasPerkhidmatan">
+##                #parse("$path/selectKelasPerkhidmatan.vm")
+##            </span>
+##            <div id="err_idKelasPerkhidmatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##        </td>
+##    </tr>
+##    <tr>
+##        <td class="label" valign="top">Gred Jawatan&nbsp;<span style="color:#FF2A00">*</span>
+##        </td>
+##        <td valign="top">:</td>
+##        <td>
+##            <span id="listGredJawatan">
+##                #parse("$path/selectGredJawatan.vm")
+##            </span>
+##            <div id="err_idGredJawatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##        </td>
+##    </tr>
+    <tr>
+		<td valign="top"><span>Kelas Perkhidmatan</span></td>
+		<td valign="top">:</td>
+		<td valign="top"><span id="listKelasPerkhidmatan"> #parse("$path/selectKelasPerkhidmatan.vm") </span>
+		<div id="err_idKelasPerkhidmatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+	</tr>
+	<tr>
+		<td valign="top"><span>Gred Perkhidmatan</span></td>
+		<td valign="top">:</td>
+		<td valign="top"><span id="listGredPerkhidmatan"> #parse("$path/selectGredPerkhidmatan.vm") </span>
+		<div id="err_idGredPerkhidmatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+	</tr>
+<tr>
+	<td></td>
+	<td class="label"></td>
+	<td><input type="button" name="cmdCetak" id="cmdCetak" value="Cetak" onclick="javascript:doCetakLaporanSenaraiHitamPemohon()"/><input type="reset" value="Kosongkan" /><input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/></td>
+</tr>
+</table>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

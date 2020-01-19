@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SuratKelulusanPermohonanBerkelompok_Subreport3"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="800"
+		 pageHeight="842"
+		 columnWidth="800"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="idRppPermohonan" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT users.user_name, users.no_kp, users.no_telefon,
+rpp_permohonan.alamat_surat_1, rpp_permohonan.alamat_surat_2,rpp_permohonan.alamat_surat_3, rpp_permohonan.poskod_surat, ruj_negeri.keterangan negeri, rpp_permohonan.no_tempahan,
+rpp_permohonan.tarikh_masuk_rpp, rpp_permohonan.tarikh_keluar_rpp,
+rpp_peranginan.nama_peranginan, ruj_jenis_unit_rpp.keterangan jenisunit, ruj_jenis_unit_rpp.kadar_sewa, rpp_kelompok_unit.bil_unit_lulus,
+DATEDIFF(rpp_permohonan.tarikh_keluar_rpp,rpp_permohonan.tarikh_masuk_rpp) AS totalHari
+FROM  rpp_permohonan
+LEFT OUTER JOIN users ON rpp_permohonan.id_pemohon = users.user_login
+LEFT OUTER JOIN rpp_kelompok_unit ON rpp_kelompok_unit.id_permohonan = rpp_permohonan.id
+LEFT JOIN ruj_jenis_unit_rpp ON rpp_kelompok_unit.id_jenis_unit_rpp = ruj_jenis_unit_rpp.id
+LEFT OUTER JOIN rpp_peranginan ON rpp_permohonan.id_peranginan = rpp_peranginan.id
+LEFT JOIN ruj_negeri ON rpp_permohonan.id_negeri_surat = ruj_negeri.id
+where rpp_permohonan.id = '$P!{idRppPermohonan}']]></queryString>
+
+	<field name="user_name" class="java.lang.String"/>
+	<field name="no_kp" class="java.lang.String"/>
+	<field name="no_telefon" class="java.lang.String"/>
+	<field name="alamat_surat_1" class="java.lang.String"/>
+	<field name="alamat_surat_2" class="java.lang.String"/>
+	<field name="alamat_surat_3" class="java.lang.String"/>
+	<field name="poskod_surat" class="java.lang.String"/>
+	<field name="negeri" class="java.lang.String"/>
+	<field name="no_tempahan" class="java.lang.String"/>
+	<field name="tarikh_masuk_rpp" class="java.sql.Date"/>
+	<field name="tarikh_keluar_rpp" class="java.sql.Date"/>
+	<field name="nama_peranginan" class="java.lang.String"/>
+	<field name="jenisunit" class="java.lang.String"/>
+	<field name="kadar_sewa" class="java.lang.Double"/>
+	<field name="bil_unit_lulus" class="java.lang.Integer"/>
+	<field name="totalHari" class="java.lang.Long"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="20"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="0"
+						width="150"
+						height="20"
+						key="textField-1"
+						isPrintRepeatedValues="false"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["2.1 Jenis / Nama Chalet :"]]></textFieldExpression>
+				</textField>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="20"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="50"
+						y="0"
+						width="130"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{jenisunit}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="210"
+						y="0"
+						width="170"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["- "+$F{bil_unit_lulus} + " unit"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="30"
+						y="0"
+						width="20"
+						height="20"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($V{REPORT_COUNT}.toString().equals("1") ? "i" :
+$V{REPORT_COUNT}.toString().equals("2") ? "ii" : 
+$V{REPORT_COUNT}.toString().equals("3") ? "iii" :
+$V{REPORT_COUNT}.toString().equals("4") ? "iv" : 
+$V{REPORT_COUNT}.toString().equals("5") ? "v" : 
+$V{REPORT_COUNT}.toString().equals("6") ? "vi" : 
+$V{REPORT_COUNT}.toString().equals("7") ? "vii" : 
+$V{REPORT_COUNT}.toString().equals("8") ? "viii" : 
+$V{REPORT_COUNT}.toString().equals("9") ? "viiii" : 
+$V{REPORT_COUNT}.toString().equals("10") ? "x" : "")]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="80"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="10"
+						width="120"
+						height="20"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["2.2 Tarikh Masuk"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="260"
+						y="10"
+						width="120"
+						height="20"
+						key="textField-4"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Tarikh Keluar"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="50"
+						width="120"
+						height="20"
+						key="textField-5"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["2.4 Waktu Daftar Masuk"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="260"
+						y="50"
+						width="120"
+						height="20"
+						key="textField-6"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Waktu Daftar Keluar"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="30"
+						width="120"
+						height="20"
+						key="textField-7"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["2.3 Bil / Malam / Hari"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="130"
+						y="10"
+						width="110"
+						height="20"
+						key="textField-8"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[": "+$F{tarikh_masuk_rpp}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="130"
+						y="30"
+						width="110"
+						height="20"
+						key="textField-9"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[": "+$F{totalHari} + " Hari"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="130"
+						y="50"
+						width="110"
+						height="20"
+						key="textField-10"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[": "+"2:00 PM"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="380"
+						y="50"
+						width="110"
+						height="20"
+						key="textField-11"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[": "+"12:00 PM"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="380"
+						y="10"
+						width="110"
+						height="20"
+						key="textField-12"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[": "+$F{tarikh_keluar_rpp}]]></textFieldExpression>
+				</textField>
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

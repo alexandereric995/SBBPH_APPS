@@ -1,0 +1,68 @@
+##<nav class="breadcrumbs">
+##  <ul>
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getMaklumatPermohonan','')">Maklumat Permohonan</a></li>
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getMaklumatDokumenSokongan','')">Dokumen Sokongan</a></li>
+##    #if ($!r.status.id != '1424860634472') ##PERMOHONAN BARU
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getMaklumatUlasan','')">Ulasan Ahli JRP</a></li>
+##
+##    #if ($!r.status.id != '1424860634475') ##ULASAN JRP
+##    #if(!$!userRole.equalsIgnoreCase("(JRP) Pemohon"))
+##    #if($!userRole.equalsIgnoreCase("(JRP) Penyemak"))
+##    <li class="active"><a href="javascript:void()">Agihan Tugas</a></li>
+##    #end
+##    #if ($!r.status.id != '1424860634478') ##PERMOHONAN LENGKAP
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getKelulusanPermohonan','')">Kelulusan Permohonan</a></li>
+##    #if ($!r.status.id == '1424860634493') ##LULUS
+##    <li><a href="javascript:void()" onClick="doDivAjaxCall3$formname('divTab','getMaklumatPerjanjian','')">Kontrak Perjanjian</a></li>
+##    #end
+##    #end
+##    #end
+##    #end
+##    #end
+##  </ul>
+##</nav>
+
+<fieldset>
+<legend class="legend">AGIHAN TUGASAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  <tr>
+    <td valign="top">Pegawai&nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td valign="top"> #parse("$path/agihanTugas/selectPenyediaJRP.vm")
+      <div id="err_idPenyediaJRP" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #textarea("catatanAgihan" "Catatan" "$!r.catatanAgihan")
+  
+  <tr>
+  <td  valign="top" class="label">Tarikh Agihan</td> ##&nbsp;<span style="color:#FF2A00">*</span>
+  <td  valign="top" class="label">:</td>
+  <td valign="top">$!util.getDateTime($!r.tarikhAgihan,'dd-MM-yyyy')
+##	<input type="text" id="tarikhAgihan" name="tarikhAgihan" value="$!util.getDateTime($!r.tarikhAgihan,'dd-MM-yyyy')" style="width: 18%" disabled>
+  </td>
+  </tr>
+  
+##  #if ($!r.tarikhAgihan) 
+##  #set ($dateAgihan = "$!util.getDateTime($!r.tarikhAgihan,'dd-MM-yyyy')")
+##  #else #set ($dateAgihan = "") #end
+##  #date_input_required("tarikhAgihan" "Tarikh Agihan" "$dateAgihan")
+ 
+</table>
+</fieldset>
+
+#set ( $queryParam = "id=$r.id&record_id=$r.id&data_size=$data_size&total_page=$total_page&page_num=$!current_page_num" )
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if($!userRole.equalsIgnoreCase("(JRP) Penyemak") && $!r.status.id == '1424860634478') ##PERMOHONAN LENGKAP
+			<input type="button" value="Agih" onclick="javascript:doAgihTugasan('$!r.id');">
+			#end
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>

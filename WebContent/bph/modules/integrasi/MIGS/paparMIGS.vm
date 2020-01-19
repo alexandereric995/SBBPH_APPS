@@ -1,0 +1,46 @@
+
+<fieldset>
+<legend class="legend">MAKLUMAT MIGS</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_readonly_all_label("id" "MIGS Transaction Id" "$!r.id")
+        #input_readonly_all_label("vpcAmount" "Amount (RM)" "$!util.formatDecimal($!r.getAmaunBayaran())")
+        #input_readonly_all_label("vpcLocale" "VPC Locale" "$!r.vpcLocale")
+        #input_readonly_all_label("vpcBatchNo" "VPC Batch No" "$!r.vpcBatchNo")
+        #input_readonly_all_label("vpcCommand" "VPC Command" "$!r.vpcCommand")
+        #input_readonly_all_label("vpcMessage" "VPC Message" "$!r.vpcMessage")
+        #input_readonly_all_label("vpcVersion" "VPC Version" "$!r.vpcVersion")
+        #input_readonly_all_label("vpcCard" "VPC Card" "$!r.vpcCard")
+        #input_readonly_all_label("vpcOrderInfo" "VPC Order Info" "$!r.vpcOrderInfo")
+        #input_readonly_all_label("vpcReceiptNo" "VPC Receipt No" "$!r.vpcReceiptNo")
+                
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_readonly_all_label("vpcMerchant" "VPC Merchant" "$!r.vpcMerchant")
+        #input_readonly_all_label("vpcMerchTxnRef" "VPC Merch Txn Ref" "$!r.vpcMerchTxnRef")
+        #input_readonly_all_label("idPermohonan" "ID Permohonan" "$!r.idPermohonan")
+        #input_readonly_all_label("vpcAuthorizeId" "VPC Authorize Id" "$!r.vpcAuthorizeId")
+        #input_readonly_all_label("vpcTransactionNo" "VPC Transaction No" "$!r.vpcTransactionNo")
+        #input_readonly_all_label("vpcAcqResponseCode" "VPC AcqResponse Code" "$!r.vpcAcqResponseCode")
+        #input_readonly_all_label("vpcTxnResponseCode" "VPC TxnResponse Code" "$!r.vpcTxnResponseCode")
+        #input_readonly_all_label("flagModul" "Flag Modul" "$!r.flagModul")
+        #input_readonly_all_label("flagManagePayment" "Flag ManagePayment" "$!r.flagManagePayment")
+        #if ($!r.createdDate) 
+			#set ($createdDate = "$!util.getDateTime($!r.createdDate,'dd-MM-yyyy hh:mm:ss a')")
+		#else #set ($createdDate = "") #end	
+        #input_readonly_all_label("createdDate" "Created Date" "$createdDate")
+      </table></td>
+  </tr>
+</table>
+</fieldset>

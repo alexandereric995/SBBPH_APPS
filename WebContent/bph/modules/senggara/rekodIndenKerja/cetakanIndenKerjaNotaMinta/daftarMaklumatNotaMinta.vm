@@ -1,0 +1,219 @@
+<fieldset>
+<legend class="legend">MAKLUMAT CETAKAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td width="50%" valign="top"><table width="100%" cellpadding="1" cellspacing="2">
+        <tr>
+          <td class="label" style="width:29%"><a href="#" id="cetakNotaMinta"> <font color="#0000FF"><strong>NOTA MINTA</strong></font> </a></td>
+        </tr>
+        <tr>
+          <td ><a href="#" id="cetakIndenKerja"> <font color="#0000FF"><strong>INDEN KERJA</strong></font> </a></td>
+        </tr>
+        <tr>
+          <td ><a href="#" id="cetakSuratSetujuTerima"> <font color="#0000FF"><strong>SURAT SETUJU TERIMA</strong></font> </a></td>
+        </tr>
+        <tr>
+          <td >
+          	#if ( $!r.kontraktor.filenameProfil ) 
+      			<a href="../download?file=$!uploadDir$!r.kontraktor.filenameProfil" > <font color="#0000FF"><strong>PROFIL SYARIKAT</strong></font> </a>
+      		#else
+      		PROFIL SYARIKAT
+      		#end
+      	 </td>
+        </tr>
+        <tr>
+          <td >
+          	#if ( $!r.kontraktor.filenameBank ) 
+      			<a href="../download?file=$!uploadDir$!r.kontraktor.filenameBank" > <font color="#0000FF"><strong>MAKLUMAT BANK</strong></font> </a>
+      		#else
+      		MAKLUMAT BANK
+      		#end
+      	 </td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table width="100%" cellpadding="1" cellspacing="2">
+        <tr>
+          <td class="label" style="width:29%">
+		  	#if ( $!r.kontraktor.filenamePP ) 
+      			<a href="../download?file=$!uploadDir$!r.kontraktor.filenamePP" > <font color="#0000FF"><strong>SIJIL PERAKUAN PENDAFTARAN CIDB</strong></font> </a>
+      		#else
+      		SIJIL PERAKUAN PENDAFTARAN CIDB
+      		#end
+		  </td>
+        </tr>
+        <tr>
+          <td >
+		  	#if ( $!r.kontraktor.filenameSPKK ) 
+      			<a href="../download?file=$!uploadDir$!r.kontraktor.filenameSPKK" > <font color="#0000FF"><strong>SIJIL PEROLEHAN KERJA KERAJAAN</strong></font> </a>
+      		#else
+      		SIJIL PEROLEHAN KERJA KERAJAAN
+      		#end
+		  </td>
+        </tr>
+        <tr>
+          <td >
+		  	#if ( $!r.kontraktor.filenameSTB ) 
+      			<a href="../download?file=$!uploadDir$!r.kontraktor.filenameSTB" > <font color="#0000FF"><strong>SIJIL TARAF BUMIPUTERA</strong></font> </a>
+      		#else
+      		SIJIL TARAF BUMIPUTERA
+      		#end
+		  </td>
+        </tr>
+        <tr>
+          <td >
+		  	#if ( $!r.kontraktor.filenameST ) 
+      			<a href="../download?file=$!uploadDir$!r.kontraktor.filenameST" > <font color="#0000FF"><strong>SIJIL SURUHANJAYA TENAGA</strong></font> </a>
+      		#else
+      		SIJIL SURUHANJAYA TENAGA
+      		#end
+		  </td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">MAKLUMAT NOTA MINTA</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:29%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+  #if ($!r.tarikhTTPengesyor) 
+  #set ($dateTTPengesyor = "$!util.getDateTime($!r.tarikhTTPengesyor,'dd-MM-yyyy')")
+  #else #set ($dateTTPengesyor = "") #end
+  #date_input("tarikhTTPengesyor" "Tarikh Tandatangan Pengesyor" "$dateTTPengesyor")
+  #if ($!r.tarikhTTKPSU) 
+  #set ($dateTTKPSU = "$!util.getDateTime($!r.tarikhTTKPSU,'dd-MM-yyyy')")
+  #else #set ($dateTTKPSU = "") #end
+  #date_input("tarikhTTKPSU" "Tarikh Tandatangan KPSU(E) PK" "$dateTTKPSU")
+  #if ($!r.tarikhTTKew) 
+  #set ($dateTTKew = "$!util.getDateTime($!r.tarikhTTKew,'dd-MM-yyyy')")
+  #else #set ($dateTTKew = "") #end
+  #date_input("tarikhTTKew" "Tarikh Tandatangan PSU Unit Kewangan" "$dateTTKew")
+  #if ($!r.tarikhTTSUB) 
+  #set ($dateTTSUB = "$!util.getDateTime($!r.tarikhTTSUB,'dd-MM-yyyy')")
+  #else #set ($dateTTSUB = "") #end
+  #date_input("tarikhTTSUB" "Tarikh Tandatangan SUB(E)" "$dateTTSUB")
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">MAKLUMAT SST</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:29%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+  #if ($!r.tarikhSST) 
+  #set ($dateSST = "$!util.getDateTime($!r.tarikhSST,'dd-MM-yyyy')")
+  #else #set ($dateSST = "") #end
+  #date_input_required("tarikhSST" "Tarikh Mula Kerja" "$dateSST")
+  #if ($!r.tarikhAkhirSiapKerja) 
+  #set ($dateAkhirSiapKerja = "$!util.getDateTime($!r.tarikhAkhirSiapKerja,'dd-MM-yyyy')")
+  #else #set ($dateAkhirSiapKerja = "") #end
+  #input_readonly_all_label("tarikhAkhirSiapKerja" "Tarikh Akhir Siap Kerja" "<b>$dateAkhirSiapKerja</b>")
+  #input_required("noRujukanSST" "No. Rujukan SST" "$!r.noRujukanSST")
+  #if ($!r.tarikhTTSST) 
+  #set ($dateTTSST = "$!util.getDateTime($!r.tarikhTTSST,'dd-MM-yyyy')")
+  #else #set ($dateTTSST = "") #end
+  #date_input("tarikhTTSST" "Tarikh Tandatangan SST" "$dateTTSST")
+</table>
+</fieldset>
+
+#if ($!command == 'hantarTugasan')
+<fieldset>
+<legend class="legend">MAKLUMAT TUGASAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:29%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">Agih Tugasan Ke &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> #parse("$path/selectPenyemakSenggara.vm") 
+     <div id="err_idPenyemakSenggara" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  #textarea("catatan" "Catatan" "")
+</table>
+</fieldset>
+#end
+
+#if ($!command == 'penukaranKontraktor')
+<fieldset>
+<legend class="legend">MAKLUMAT PENUKARAN KONTRAKTOR</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:29%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">Sebab Penukaran &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> #parse("$path/cetakanIndenKerjaNotaMinta/selectSebabPenukaran.vm") 
+     <div id="err_idSebabPenukaran" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+</table>
+</fieldset>
+#end
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if ($!command == 'penukaranKontraktor')
+				<input type="button" value="Simpan" onclick="javascript:simpanPenukaranKontraktor();">
+				<input type="button" value="Batal" onclick="doDivAjaxCall$formname('divCetakanIndenKerjaNotaMintaRecordModule','getMaklumatNotaMinta','');">
+			#end
+			#if ($!command == 'hantarTugasan')
+				<input type="button" value="Simpan" onclick="javascript:simpanHantarTugasan();">
+				<input type="button" value="Batal" onclick="doDivAjaxCall$formname('divCetakanIndenKerjaNotaMintaRecordModule','getMaklumatNotaMinta','');">
+			#end
+			#if ($!command != 'penukaranKontraktor' && $!command != 'hantarTugasan')
+				<input type="button" value="Simpan" onclick="javascript:updateNotaMinta();">
+				#if ( $r.tarikhTTSST )
+					<input type="button" value="Hantar Tugasan" onclick="doDivAjaxCall$formname('divCetakanIndenKerjaNotaMintaRecordModule','hantarTugasan','');">
+				#end
+				<input type="button" value="Penukaran Kontraktor" onclick="doDivAjaxCall$formname('divCetakanIndenKerjaNotaMintaRecordModule','penukaranKontraktor','');">
+				<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+			#end
+		</td>
+	</tr>
+</table>
+
+<script>
+	_jq('#cetakNotaMinta').on('click', function(){
+    	var idIndenKerja = '$!r.id';
+        		    
+		var url = "../servlet/bph.laporan.senggara.CetakNotaMinta?idIndenKerja="+idIndenKerja;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();	
+    });
+    	
+    _jq('#cetakIndenKerja').on('click', function(){
+    	var idIndenKerja = '$!r.id';
+        		    
+		var url = "../servlet/bph.laporan.senggara.CetakIndenKerja?idIndenKerja="+idIndenKerja;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();	
+    });
+    
+    _jq('#cetakSuratSetujuTerima').on('click', function(){
+    	var idIndenKerja = '$!r.id';
+        		    
+		var url = "../servlet/bph.laporan.senggara.CetakSuratSetujuTerima?idIndenKerja="+idIndenKerja;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();	
+    });
+</script>

@@ -1,0 +1,57 @@
+<style type="text/css">
+
+.style2 {
+	color: #FF0000;
+	font-weight: bold;
+}
+.blink {
+	animation: blink 1s steps(5, start) infinite;
+}
+@keyframes blink {
+ to {
+ visibility: hidden;
+}
+</style>
+<div id="senaraiLaporan">
+<fieldset>
+	<legend class="legend">Senarai Laporan</legend>
+
+<table id="tableID">
+  
+    <tr>
+    	<td><a href="#" style="color:blue" onclick="javascript:paparLaporan('3')">Laporan Senarai Aduan Senggara</td>
+    </tr>
+##    <tr>
+##    	<td><a href="#" style="color:blue" onclick="javascript:paparLaporan('4')">Laporan Statistik Rekod Kuarters Senggara</td>
+##    </tr>
+     <tr>
+    	<td><a href="#" style="color:blue" onclick="javascript:paparLaporan('5')">Laporan Statistik Sumber Aduan</td>
+    </tr>
+##     <tr>
+##    	<td><a href="#" style="color:blue" onclick="javascript:paparLaporan('1')">Laporan Senarai Daftar Kontraktor</td>
+##    </tr>
+##    <tr>
+##    	<td><a href="#" style="color:blue" onclick="javascript:paparLaporan('2')">Laporan Senarai Hitam Kontraktor</td>
+##    </tr>
+    <tr>
+    	<td><a href="#" style="color:blue" onclick="javascript:paparLaporan('6')">Laporan Senarai Kuarters Senggara<font class="blink" ><span class="style2">  Baru</font></td>
+    </tr>
+</table>
+</fieldset>
+</fieldset>
+</div>
+ <span id="paparLaporan"/>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+  
+
+
+</script>
+<script>
+#parse("$path/script.vm")
+</script>

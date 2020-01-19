@@ -1,0 +1,14 @@
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedSubTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='1') onClick="doDivAjaxCall3$formname('divPenguatkuasaan','doPaparMaklumatPenguatkuasaan','')" #end >Laporan Penguatkuasaan</a></li>
+	<li #if($!selectedSubTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedSubTab!='2') onClick="doDivAjaxCall3$formname('divPenguatkuasaan','getDokumenSokonganPenguatkuasaan','')" #end >Dokumen Sokongan</a></li>
+  </ul>
+</nav>	
+
+#if ($!selectedSubTab=='1')
+	#parse("$path/penguatkuasaan/maklumatPenguatkuasaan.vm")
+#end
+
+#if ($!selectedSubTab=='2')
+	#parse("$path/penguatkuasaan/dokumenSokongan.vm")
+#end

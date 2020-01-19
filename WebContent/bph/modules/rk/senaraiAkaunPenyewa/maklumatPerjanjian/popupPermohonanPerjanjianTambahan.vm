@@ -1,0 +1,165 @@
+#set ($labelKadarSewa = '')
+#set ($labelTempoh = '')
+#if ($!perjanjian.idJenisSewa == 'H')
+   	#set ($labelKadarSewa = ' / HARI')
+   	#set ($labelTempoh = ' HARI')
+#elseif ($!perjanjian.idJenisSewa == 'B')
+   	#set ($labelKadarSewa = ' / BULAN')
+   	#set ($labelTempoh = ' BULAN')
+#elseif ($!perjanjian.idJenisSewa == 'T')
+   	#set ($labelKadarSewa = ' / TAHUN')
+   	#set ($labelTempoh = ' TAHUN')
+#end	
+
+<fieldset>
+	<legend class="legend">MAKLUMAT PERMOHONAN</legend>
+	<table width="100%">
+	   <tr>
+          <td style="width:39%"></td>
+          <td style="width:1%"></td>
+          <td style="width:60%"></td>
+        </tr>
+        #if ($!permohonan.tarikhPermohonan) #set ($datePermohonan = "$!util.getDateTime($!permohonan.tarikhPermohonan,'dd-MM-yyyy')")
+        #else #set ($datePermohonan = "") #end
+        #date_input_required("tarikhPermohonan" "Tarikh Mohon" "$datePermohonan")
+        #input_required("noRujukanPermohonan" "No. Rujukan Surat / Permohonan" "$!permohonan.noRujukanPermohonan")     
+        #if ($!permohonan.tarikhTerimaPermohonan) #set ($dateTerimaPermohonan = "$!util.getDateTime($!permohonan.tarikhTerimaPermohonan,'dd-MM-yyyy')")
+        #else #set ($dateTerimaPermohonan = "") #end
+        #date_input_required("tarikhTerimaPermohonan" "Tarikh Terima" "$dateTerimaPermohonan")
+        	   
+	   <tr>
+          <td class="label" valign="top">Jenis Permohonan &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatPerjanjian/selectJenisPermohonanPerjanjianTambahan.vm")
+            <div id="err_idJenisPerjanjian" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+        
+        #if ($!perjanjian.idJenisPerjanjian != '5')
+	        #if ($!perjanjian.tarikhMula)
+		   		#set ($dateMula = "$!util.getDateTime($!perjanjian.tarikhMula,'dd-MM-yyyy')")
+		   	#else 
+		   		#set ($dateMula = "") 
+		   	#end
+		   	<tr>
+				<td class="label" valign="top">Tarikh Mula &nbsp;<span style="color:#FF2A00">*</span></td>
+				<td class="label" valign="top">:</td>
+				<td valign="top">
+					<div>
+			    		<input type="text" id="tarikhMula" name="tarikhMula" value="$dateMula" onChange="doDivAjaxCall3$formname('popupPerjanjian','doChangeJenisPermohonanPerjanjianTambahan','');">
+			    		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+						<script>
+			            	_jq("#tarikhMula").Zebra_DatePicker({ 
+			    				format: 'd-m-Y',
+								readonly_element: false,
+								onSelect: function(view, elements) {
+									doDivAjaxCall3$formname('popupPerjanjian','doChangeJenisPermohonanPerjanjianTambahan','');
+									$('err_tarikhMula').innerHTML='';							
+								}
+			            	});
+							_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+			    		</script>
+			    		<div id="err_tarikhMula" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+					</div>
+				</td>
+			</tr>
+		   	<tr>
+				<td class="label" valign="top">Tempoh &nbsp;<span style="color:#FF2A00">*</span></td>
+				<td class="label" valign="top">:</td>
+				<td valign="top"><input name="tempoh" class="number" id="tempoh" onKeyUp=" $('err_tempoh').innerHTML=''; at(this, event);" onChange="doDivAjaxCall3$formname('popupPerjanjian','doChangeJenisPermohonanPerjanjianTambahan','');" value="$!perjanjian.tempoh" maxlength="3" size="3">
+				$labelTempoh
+				<div id="err_tempoh" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+				</td>
+			</tr> 
+		   	#if ($!perjanjian.tarikhTamat)
+		   		#set ($dateTamat = "$!util.getDateTime($!perjanjian.tarikhTamat,'dd-MM-yyyy')")
+		   	#else 
+		   		#set ($dateTamat = "") 
+		   	#end
+		   	#date_input_required("tarikhTamat" "Tarikh Tamat" "$dateTamat")
+		   	#if ($!perjanjian.idJenisPerjanjian == '2' || $!perjanjian.idJenisPerjanjian == '3')
+		   	<tr>
+			<td class="label" valign="top">Kadar Sewa Ditawarkan (RM) &nbsp;<span style="color:#FF2A00">*</span></td>
+			<td class="label" valign="top">:</td>
+			<td valign="top"><input name="kadarSewa" class="currency" id="kadarSewa" onKeyUp=" $('err_kadarSewa').innerHTML=''; at(this, event);" value="$!util.formatDecimal($!perjanjian.kadarSewa)" maxlength="11" size="11">
+			$labelKadarSewa
+			<div id="err_kadarSewa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr> 
+		   	#end	     
+	   	#end
+	   	
+	   	#if ($!perjanjian.idJenisPerjanjian == '5')  	 
+	   		#textarea_required("catatanPerjanjian" "Catatan" "$!perjanjian.catatan")  
+	   	#else
+	   		#textarea("catatanPerjanjian" "Catatan" "$!perjanjian.catatan")  
+	   	#end
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        <tr>
+        	<td style="width:29%"></td>
+          	<td style="width:1%"></td>
+          	<td style="width:70%">
+          		<input id="btnSimpanKemaskiniPerjanjian" type="button" value="Simpan" />
+				<input id="btnTutup" type="button"  value="Tutup" />
+			</td>
+	  </tr>
+	</table>
+</fieldset>
+
+<script>  
+	
+	_jq('#btnTutup').on('click', function(){
+     	jQuery('#popupPerjanjian').fadeOut();
+  	});
+  	
+	_jq('#btnSimpanKemaskiniPerjanjian').on('click', function(){
+		var err_count = 0;
+		
+		var tarikhPermohonan = $('tarikhPermohonan').value;
+		if ( tarikhPermohonan == "" ) {$('err_tarikhPermohonan').innerHTML = "** mandatori!"; err_count++;  }
+		
+		var noRujukanPermohonan = $('noRujukanPermohonan').value;
+		if ( noRujukanPermohonan == "" ) {$('err_noRujukanPermohonan').innerHTML = "** mandatori!"; err_count++;  }
+		
+		var tarikhTerimaPermohonan = $('tarikhTerimaPermohonan').value;
+		if ( tarikhTerimaPermohonan == "" ) {$('err_tarikhTerimaPermohonan').innerHTML = "** mandatori!"; err_count++;  }
+	
+		var idJenisPerjanjian = $('idJenisPerjanjian').value;
+		if ( idJenisPerjanjian == "" ) {$('err_idJenisPerjanjian').innerHTML = "** mandatori!"; err_count++;  }
+		
+		if ( idJenisPerjanjian != "") {
+			if ( idJenisPerjanjian != "5") {
+				var tarikhMula = $('tarikhMula').value;
+				if ( tarikhMula == "" ) {$('err_tarikhMula').innerHTML = "** mandatori!"; err_count++;  }
+				
+				var tempoh = $('tempoh').value;
+				if ( tempoh == "" ) {$('err_tempoh').innerHTML = "** mandatori!"; err_count++;  }
+				
+				var tarikhTamat = $('tarikhTamat').value;
+				if ( tarikhTamat == "" ) {$('err_tarikhTamat').innerHTML = "** mandatori!"; err_count++;  }
+			}			
+		
+			if ( idJenisPerjanjian == "2" || idJenisPerjanjian == "3") {
+				var kadarSewa = $('kadarSewa').value;
+				if ( kadarSewa == "" ) {$('err_kadarSewa').innerHTML = "** mandatori!"; err_count++;  }
+			}
+			
+			if ( idJenisPerjanjian == "5") {
+				var catatanPerjanjian = $('catatanPerjanjian').value;
+				if ( catatanPerjanjian == "" ) {$('err_catatanPerjanjian').innerHTML = "** mandatori!"; err_count++;  }
+			}						
+		}			
+
+		if (err_count == 0) {
+			if ( !window.confirm("Anda pasti?") ){
+				return;
+			}
+			doDivAjaxCall$formname('divTab','doDaftarPermohonanPerjanjianTambahan','');
+			jQuery('#popupPerjanjian').fadeOut();
+		}
+		
+  	});
+</script>

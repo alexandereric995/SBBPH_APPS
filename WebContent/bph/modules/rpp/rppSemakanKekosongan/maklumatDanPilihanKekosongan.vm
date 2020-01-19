@@ -1,0 +1,136 @@
+
+
+
+<fieldset>
+<legend class="legend">MAKLUMAT KEKOSONGAN</legend>
+    
+	<table width="100%">
+	
+		<tr>
+			
+			<td width="50%" valign="top">
+				<table width="100%" cellpadding="2" cellspacing="2">
+					<tr bgcolor="#D0CFCE">
+            			<td><b>Bilangan Bilik Kekosongan</b></td>
+            			<td align="center">
+            				$!mk.totalOfAvailable
+            				<input type="hidden" name="totalOfAvailable" id="totalOfAvailable" value="$!mk.totalOfAvailable" />
+            			</td>
+            		</tr>
+            		<tr bgcolor="#F0F0F0">
+            			<td width="70%"><b>Jenis Unit</b></td>
+            			<td align="center" width="30%">
+            				$!mk.jenisUnit
+            				<input type="hidden" name="jenisUnitKosong" id="jenisUnitKosong" value="$!mk.jenisUnit" />
+            			</td>
+            		</tr>
+					<tr bgcolor="#D0CFCE">
+            			<td><b>Gred Minimum Kelayakan</b></td>
+            			<td align="center">
+            				$!mk.gredKelayakan #if( $!mk.flagCheckWaktuPuncak.equals(true) ) <span style='color:blue'>**</span> #end
+            				<input type="hidden" name="kadarSewaKosong" id="kadarSewaKosong" value="$!mk.kadarSewa" />
+            			</td>
+            		</tr>
+            		<tr bgcolor="#F0F0F0">
+            			<td><b>Kadar Sewa Semalam</b></td>
+            			<td align="center">
+            				RM $!mk.kadarSewa #if( $!mk.flagCheckWaktuPuncak.equals(true) ) <span style='color:blue'>**</span> #end
+            				<input type="hidden" name="kadarSewaKosong" id="kadarSewaKosong" value="$!mk.kadarSewa" />
+            			</td>
+            		</tr>
+            		<tr bgcolor="#D0CFCE">
+            			<td><b>Had Tempahan</b></td>
+            			<td align="center">
+            				$!mk.hadKuantiti
+            				<input type="hidden" name="hadKuantitiKosong" id="hadKuantitiKosong" value="$!mk.hadKuantiti" />
+            			</td>
+            		</tr>
+            		<tr bgcolor="#F0F0F0">
+            			<td><b>Had Bilangan Dewasa</b></td>
+            			<td align="center">
+            				$!mk.hadDewasa
+            				<input type="hidden" name="hadDewasaKosong" id="hadDewasaKosong" value="$!mk.hadDewasa" />
+            			</td>
+            		</tr>
+            		<tr bgcolor="#D0CFCE">
+            			<td><b>Had Bilangan Kanak-Kanak</b></td>
+            			<td align="center">
+            				$!mk.hadKanakKanak
+            				<input type="hidden" name="hadKanakKanakKosong" id="hadKanakKanakKosong" value="$!mk.hadKanakKanak" />
+            			</td>
+            		</tr>
+					#if( $!mk.flagCheckWaktuPuncak.equals(true) )
+					<tr>
+						<td colspan="2"><span style='color:blue'>** Waktu puncak</span></td>
+					</tr>
+					#end
+				</table>	
+			</td>
+			
+			<td width="50%" style="padding-left:0.3cm;padding-right:0.3cm" valign="top">
+				<!--
+				#if ($listGambar.size() > 0)
+					<div style="width:100%;height:150;overflow:auto"> 
+    					#foreach ($i in $listGambar)
+        				<div style="float:right;padding:0.1cm">
+        					<a href="../download?file=$!uploadDir$!i.photofilename"> 
+                    			#if ($i.thumbfilename != "") 
+                    				<img style="border:1px solid black;width:120px;height:120px;margin:4px 0 4px;" width="120px" height="120px" id="photoImg" src="../download?file=$!uploadDir$i.thumbfilename" border="0" /> 
+                    			#else 
+                    				#set($photofilename = $!i.photofilename.substring($!i.photofilename.lastIndexOf('/'))) 
+                    				<span class="print">$!photofilename</span> 
+                    			#end 
+                    		</a>
+        				</div>
+    					#end
+					</div>
+				#end
+				-->
+			</td>
+		
+		</tr>			
+		
+	</table>
+</fieldset>	
+
+<fieldset>
+<legend class="legend">KEMUDAHAN YANG DISEDIAKAN</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+			<td class="row_header" width="5%">Bil.</td>
+			<td class="row_header" width="30%">Jenis Kemudahan</td>
+			<td class="row_header" width="10%">Kuantiti</td>
+			<td class="row_header" width="20%">Kadar Sewa (RM)</td>
+			<td class="row_header" width="35%">Catatan</td>
+		</tr>
+		
+		#if ( $jenisUnitRPP.peranginan.listKemudahan.size() > 0 )
+    		#set ( $count = 0 )
+    		#foreach( $d in $jenisUnitRPP.peranginan.listKemudahan )
+    			
+    			#set ( $count = $count + 1)
+            	#if ( $count % 2 == 0 ) 
+        			#set ( $rowcolor = "#D0CFCE" ) 
+        		#else 
+        			#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+				
+        		<tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+            		<td align="center">$!d.nama.toUpperCase()</td>
+            		<td align="center">$!d.bilangan</td>
+        			<td align="center">$!util.formatDecimal($!d.kadarSewa)</td>
+        			<td align="center">$!d.catatan.toUpperCase()</td>
+                </tr>
+			#end
+		#else
+			<tr bgcolor="#F0F0F0">
+				<td colspan="5">Tiada Rekod</td>
+			</tr>
+		#end
+		
+	</table>
+
+</fieldset>

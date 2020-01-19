@@ -1,0 +1,16 @@
+#if ($!command == 'daftarAktiviti' || $!command == 'simpanAktiviti' || $!command == 'kemaskiniAktiviti' || $!command == 'deleteGambar')
+	<div id="divMaklumatAktiviti">
+  		<input type="hidden" id="idAktiviti" name="idAktiviti" value="$!aktiviti.id">
+  		#parse("$path/aktiviti/maklumatAktiviti.vm") 
+  	</div>
+#else	
+	#parse("$path/aktiviti/listAktiviti.vm")
+	
+<table width="100%">
+  <tr>
+  	<td align="right"><input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')"></td>
+  </tr>
+</table>
+#end
+
+

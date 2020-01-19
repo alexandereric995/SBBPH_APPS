@@ -1,0 +1,35 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top">
+    	<fieldset><legend class="legend">Maklumat Permohonan</legend>
+    	<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("" "No. Fail" "<b>$!r.noFail</b>")          
+        #input_normal("" "Nama Penyewa" "<b>$!r.pemohon.individu.nama ($!r.pemohon.individu.id)</b>")        
+        #input_normal("" "Nama Syarikat" "<b>$!r.pemohon.syarikat.nama ($!r.pemohon.syarikat.id)</b>")        
+        #input_normal("" "Kadar Sewa (RM)" "<b>$!util.formatDecimal($!perjanjian.kadarSewa) ($!perjanjian.getKeteranganIdJenisSewa())</b>")
+        #input_normal("" "Deposit (RM)" "<b>$!util.formatDecimal($!perjanjian.deposit)</b>")         
+      </table></fieldset></td>
+    <td width="50%" valign="top">
+    	<fieldset><legend class="legend">Maklumat Ruang</legend>
+    	<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("" "ID Ruang" "<b>$!r.ruang.idRuang</b>")
+        #input_normal("" "Nama Ruang" "<b>$!r.ruang.namaRuang</b>")
+        #input_normal("" "Kegunaan Ruang" "<b>$!r.ruang.jenisKegunaanRuang.keterangan</b>")
+        #if ($!ruang.jenisKegunaanRuang.id == '10')
+        	#input_normal("" "Lain - Lain " "<b>$!r.ruang.jenisKegunaanLain</b>")
+        #end
+        #input_normal("" "Lokasi" "<b>$!r.ruang.lokasi</b>")
+        #input_normal("" "Alamat" "<b>$!r.ruang.alamat1 $!r.ruang.alamat2 $!r.ruang.alamat3, $!r.ruang.poskod $!r.ruang.bandar.keterangan, $!r.ruang.bandar.negeri.keterangan</b>")
+      </table></fieldset></td>
+  </tr>
+</table>

@@ -1,0 +1,86 @@
+#parse("$path/ulasanTeknikal/senaraiSubTab.vm")
+<div id="mainPage">
+<fieldset><legend class="legend">Maklumat Jkptg (Jabatan Ketua Pengarah Tanah dan Galian)</legend>
+#if($!userRole.equalsIgnoreCase("(JRP) Pemohon") && (($users.flagHq == 'Y' && ($r.status.id == '1438356583122' || $r.status.id == '1436841294664')) || ($users.flagHq == 'T' && ($r.status.id == '1424860634472' || $!r.status.id == '1424860634475'))))
+	<p align="left">
+ 		<input type="button" value="Tambah" align='left' id="addMaklumatJkptg">
+ 		<script>
+			_jq('#addMaklumatJkptg').on('click', function(){
+			$('mainPage').style.display = 'none';
+			doDivAjaxCall3$formname('editMaklumatJkptg','addJkptg','');
+            jQuery('#editMaklumatJkptg').fadeIn();
+        	});
+		</script>
+	</p>
+#end
+	<br /><br />
+    <table width="100%" cellpadding="5" cellspacing="1">
+        <tr>
+            <td class="row_header" width="5%">Bil.</td>
+            <td class="row_header" width="25%">Tarikh Hantar</td>
+			<td class="row_header" width="20%">Tarikh Terima</td>
+            <td class="row_header" width="10%">Status</td>
+            <td class="row_header" width="5%">Papar</td>
+            #if($!userRole.equalsIgnoreCase("(JRP) Pemohon") && (($users.flagHq == 'Y' && ($r.status.id == '1438356583122' || $r.status.id == '1436841294664')) || ($users.flagHq == 'T' && ($r.status.id == '1424860634472' || $!r.status.id == '1424860634475'))))
+		    <td class="row_header" width="5%">Hapus</td>
+		    #end
+        </tr>
+        #if ( $listJkptg.size() > 0) 
+    		#set ( $count = 0 )
+    		#foreach( $c in $listJkptg)
+    			#set ( $count = $count + 1)
+				
+    			#if ( $count % 2 == 0 ) 
+					#set ( $rowcolor = "#D0CFCE" ) 
+				#else 
+					#set ( $rowcolor = "#F0F0F0" ) 
+				#end
+    			<tr bgcolor="$rowcolor">
+    				<td align="center">$count</td>
+    				<td align="center">$util.getDateTime($c.tarikhHantarUlasan, "dd/MM/yyyy")</td>
+					<td align="center">$util.getDateTime($c.tarikhUlasan, "dd/MM/yyyy")</td>
+					#if($c.flagKeputusan == 'S')
+						#set ($keputusan = 'SOKONG')
+					#elseif($c.flagKeputusan == 'TS')
+						#set ($keputusan = 'TIDAK SOKONG')
+					#elseif($c.flagKeputusan == 'SB')
+						#set ($keputusan = 'SOKONG BERSYARAT')
+					#else
+						#set ($keputusan = '')
+					#end
+					<td align="center">$keputusan</td>
+					<td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> </td>
+          			#if($!userRole.equalsIgnoreCase("(JRP) Pemohon") && (($users.flagHq == 'Y' && ($r.status.id == '1438356583122' || $r.status.id == '1436841294664')) || ($users.flagHq == 'T' && ($r.status.id == '1424860634472' || $!r.status.id == '1424860634475'))))
+          			<td align="center"><a href="javascript:void()" onClick="deleteMaklumatJkptg('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
+        			#end
+        			</tr>
+        			<script>
+        			_jq('#link$c.id').on('click', function(){
+        			$('mainPage').style.display = 'none';
+					doDivAjaxCall3$formname('editMaklumatJkptg','editJkptg','idJkptg=$c.id');
+            		jQuery('#editMaklumatJkptg').fadeIn();
+            		});
+       			</script>
+    		#end
+	#else
+	<tr >
+		<td align="center">&nbsp;</td>
+		<td >Tiada Rekod</td>
+		<td align="center">&nbsp;</td>
+		<td align="center">&nbsp;</td>
+		<td align="center">&nbsp;</td>
+		#if($!userRole.equalsIgnoreCase("(JRP) Pemohon") && (($users.flagHq == 'Y' && ($r.status.id == '1438356583122' || $r.status.id == '1436841294664')) || ($users.flagHq == 'T' && ($r.status.id == '1424860634472' || $!r.status.id == '1424860634475'))))
+		<td align="center">&nbsp;</td>
+		#end
+	</tr>
+	#end
+    </table>
+</fieldset>
+<p align="right">
+ 	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+</p>
+</div>
+## Popup
+<div id="editMaklumatJkptg"></div>
+## Blank status page
+<div id="removeMaklumatJkptg"></div>

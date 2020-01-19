@@ -1,0 +1,93 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%">
+    <tr>
+        <td style="width:100px"></td>
+        <td style="width:5px"></td>
+        <td></td>
+    </tr>
+	#input_normal("noRujukan" "No. ID Kuarters" "$!r.noRujukan")
+    <tr>
+        <td class="label">Kelas&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listKelasKuarters">
+                #parse("$path/select/selectKelasKuarters.vm")
+            </span>
+            <div id="err_idKelasKuarters" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">Jenis Kuarters&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listJenisKediaman">
+                #parse("$path/select/selectJenisKediaman.vm")
+            </span>
+            <div id="err_idJenisKediaman" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+	<tr>
+        <td class="label">Kegunaan Kuarters&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+            <span id="listJenisKegunaanKuarters">
+                #parse("$path/select/selectJenisKegunaanKuarters.vm")
+            </span>
+            <div id="err_idJenisKegunaanKuarters" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    ##number_required("kapasiti" "Kapasiti" "$!r.kapasiti")
+	##number_required("kapasitiSemasa" "Kapasiti Semasa" "$!r.kapasitiSemasa")
+    #currency_required("deposit" "Deposit" "$!r.deposit")
+    #currency_required("sewa" "Sewa (RM)" "$!r.sewa")
+    ##<tr>
+        ##<td class="label">Caj Air BPH&nbsp;<span style="color:#FF2A00">*</span></td>
+        ##<td>:</td>
+        ##<td>
+            ##<input type="radio" name="cajAir" value="1" #if($r.cajAir==1) checked="checked" #end />ADA
+            ##<input type="radio" name="cajAir" value="0" #if($r.cajAir==0) checked="checked" #end />TIADA
+			##<div id="err_valueCajAir" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			##<input type="hidden" id="valueCajAir" name="valueCajAir" value="$!r.cajAir"/>
+			##<script>
+			    ##_jq("input[name='cajAir']").change(function() {
+					##_jq('#valueCajAir').val(this.value);
+					##_jq('#err_valueCajAir').html("");
+                ##});
+			##</script>
+        ##</td>
+    ##</tr>
+    <tr>
+        <td class="label">Status Kuarters&nbsp;<span style="color:#FF2A00">*</span></td>
+        <td>:</td>
+        <td>
+			<span id="listStatusKuarters">
+                #parse("$path/select/selectStatusKuarters.vm")
+            </span>
+            <div id="err_idStatusKuarters" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+	<tr>
+        <td class="label">Flag Aktif</td>
+        <td>:</td>
+        <td>
+			<select id="pilihFlagAktif" name="pilihFlagAktif" style="width:100%">
+                <option value="">SILA PILIH</option>
+            	<option #if ( $!r.flagAktif == 0 ) selected #end value="0">YA</option>
+            	<option #if ( $!r.flagAktif == 1 ) selected #end value="1">TIDAK</option>
+            </select>
+        </td>
+    </tr>
+	#textarea("catatanFlagAktif" "Catatan" "$!r.catatan")
+	#input("kapasiti" "Kapasiti" "$!r.kapasiti")
+	#input("kapasitiSemasa" "Kapasiti Semasa" "$!r.kapasitiSemasa")
+	
+</table>
+
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+		$('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

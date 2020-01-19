@@ -1,0 +1,26 @@
+##FAtin 14/06/2015
+##<td>$!r.noTempahan</td>
+#if(!$!userRole.equalsIgnoreCase("(AWAM) Penjawat Awam"))
+<td>	
+	<a href="javascript:void()" style="color:blue" onclick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')">
+		$!r.pemohon.noKP
+	</a>	
+</td>	
+#end
+<td>
+	<a href="javascript:void()" style="color:blue" onclick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')">
+		$!r.rppPeranginan.namaPeranginan.toUpperCase()
+	</a>
+	<br/><span style='font-size:10px'>- $!r.jenisUnitRpp.keterangan.toUpperCase()</span>
+</td>
+<td>
+	<a href="javascript:void()" onclick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')">
+		$!util.replaceIfNull($!util.getDateTime($!r.tarikhPembatalan,'dd-MM-yyyy'),"TIADA TARIKH PEMBATALAN")
+	</a>
+</td>
+<td>$!util.getDateTime($!r.tarikhMasukRpp,'dd-MM-yyyy') - $!util.getDateTime($!r.tarikhKeluarRpp,'dd-MM-yyyy')</td>
+##<td>$!r.permohonanBayaranBalik.status.keterangan</td>
+<td>
+	<b> SEWA - $!util.replaceIfNull($!r.getObjKewSubsidiari().status.keterangan.toUpperCase(),"TIADA PERMOHONAN BAYARAN BALIK")</b><br/>
+	<b> DEPOSIT - $!util.replaceIfNull($!r.getObjKewTuntutanDeposit().status.keterangan.toUpperCase(),"TIADA PERMOHONAN TUNTUTAN DEPOSIT")</b><br/>
+</td>

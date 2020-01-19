@@ -1,0 +1,36 @@
+<table cellpadding="5" cellspacing="0" border="0" width="95%" id="entryRight">
+    <tr>
+        <td style="width:205px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+	#input_normal("namaPemohon" "Nama Pemohon" "$!r.agihan.pemohon.userName")
+    #input_normal("noKP" "No. Kad Pengenalan" "$!r.agihan.pemohon.noKP")
+	
+	#if ( $!r.agihan.pemohon.statusPerkahwinan.id != "01" ) 
+		#input_normal("bilAnak" "Bil. Anak" "$!r.agihan.pemohon.bilAnak") 
+	#end
+	
+	#if ( $!uj.getFlagITP() == "1" ) 
+		#set( $FlagITP = "ADA" )
+	#else
+		#set( $FlagITP = "TIADA" )
+	#end
+	
+	#if ( $!uj.getFlagEPW() == "1" ) 
+		#set( $FlagEPW = "ADA" )
+	#else
+		#set( $FlagEPW = "TIADA" )
+	#end
+	
+	#if ( $!uj.getFlagCola() == "1" ) 
+		#set( $FlagCola = "ADA" )
+	#else
+		#set( $FlagCola = "TIADA" )
+	#end
+	
+    #input_normal("itp" "Imbuhan Tetap Perumahan (ITP)" "$FlagITP")
+    #input_normal("epw" "Elaun Perumahan Wilayah (EPW)" "$FlagEPW")
+	#input_normal("cola" "Bantuan Sara Hidup (COLA)" "$FlagCola")
+	##input_required("gelaran" "Gelaran Dalam Surat" "$!r.titleDalamSurat")
+</table>

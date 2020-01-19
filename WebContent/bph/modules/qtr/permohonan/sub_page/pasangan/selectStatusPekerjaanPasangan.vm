@@ -1,0 +1,64 @@
+<select id="idStatusPekerjaanPasangan" name="idStatusPekerjaanPasangan" style="width:100%" onChange="$('err_idStatusPekerjaanPasangan').innerHTML=''; at(this, event);">
+    <option value="">SILA PILIH</option>
+    #foreach( $spp in $selectStatusPekerjaanPasangan)
+        <option #if ( $spp.id ==  $us.statusPekerjaanPasangan.id ) selected #end value="$spp.id">$spp.keterangan.toUpperCase()</option>
+    #end
+</select>
+
+<script>
+	var x = "$us.statusPekerjaanPasangan.id";
+	
+	if ( x == 1 ) {
+		_jq("#bekerja3").show();
+		_jq("#bekerja1").hide();
+		_jq("#bekerja2").hide();
+		_jq("#bekerja4").hide();
+		_jq("#bekerja5").show();
+	} else if ( x == 2 ) {
+		_jq("#bekerja4").show();
+		_jq("#bekerja1").show();
+		_jq("#bekerja2").hide();
+		_jq("#bekerja3").hide();
+		_jq("#bekerja5").show();
+	} else if ( x == 3 ) {
+		_jq("#bekerja1").show();
+		_jq("#bekerja2").show();
+		_jq("#bekerja3").hide();
+		_jq("#bekerja4").hide();
+		_jq("#bekerja5").show();
+	} else {
+		_jq("#bekerja1").hide();
+		_jq("#bekerja2").hide();
+		_jq("#bekerja3").hide();
+		_jq("#bekerja4").hide();
+		_jq("#bekerja5").hide();
+	}
+	
+    _jq("#idStatusPekerjaanPasangan").change(function() {
+    	if ( this.value == 1 ) {
+    		_jq("#bekerja3").show();
+			_jq("#bekerja1").hide();
+			_jq("#bekerja2").hide();
+			_jq("#bekerja4").hide();
+			_jq("#bekerja5").show();
+    	} else if ( this.value == 2 ) {
+    		_jq("#bekerja4").show();
+			_jq("#bekerja1").show();
+			_jq("#bekerja2").hide();
+			_jq("#bekerja3").hide();
+			_jq("#bekerja5").show();
+    	} else if ( this.value == 3 ) {
+    		_jq("#bekerja1").show();
+    		_jq("#bekerja2").show();
+			_jq("#bekerja3").hide();
+			_jq("#bekerja4").hide();
+			_jq("#bekerja5").show();
+    	} else {
+    		_jq("#bekerja1").hide();
+    		_jq("#bekerja2").hide();
+			_jq("#bekerja3").hide();
+			_jq("#bekerja4").hide();
+			_jq("#bekerja5").hide();
+    	}
+    });
+</script>

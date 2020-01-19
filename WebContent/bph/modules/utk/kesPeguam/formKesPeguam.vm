@@ -1,0 +1,62 @@
+
+<style>
+textarea{
+	height:200px;
+}
+</style>
+<fieldset>
+	<legend class="legend">Kes Peguam</legend>
+	
+	<table cellpadding ="0" cellspacing="0" border="0" width="100%">
+		<tr>
+			<td>
+				#parse("$path/maklumatPenghuni.vm")
+			</td>
+			<td>
+				#parse("$path/maklumatKuarters.vm")
+			</td>
+		</tr>
+	</table>
+	
+	<br /><br />
+	<b><u>Maklumat Kes Peguam</u></b>
+	<table cellpadding="5" cellspacing="0" border="0" width="100%">
+	<table width="100%">
+	   <tr>
+	      <td style="width:200px"></td>
+	      <td style="width:10px"></td>
+	      <td></td>
+	   </tr>
+	   <br />
+	   ## Label Tarikh ditukar kepada Tarikh Dirujuk Kepada JPN - 20161005 - UAT
+	   #date_input("tarikh" "Tarikh Dirujuk Kepada JPN" "$!util.getDateTime($!r.tarikhKeputusan,'dd-MM-yyyy')")
+	   
+	   ##	 #input("kesalahan" "Kesalahan" "$!rekod.kesalahan")
+	      
+		## -----start comment UAT ---
+		## comment dari UAT no 3 = Tambah medan status kes a. Selesai b. Tidak selesai, 
+		## Note: telah ada pada keputusan cuma ubah title keputusan kepada status Kes.           	
+	   <tr>
+		##<td>Keputusan &nbsp;<span style="color:#FF2A00">*</span></td> Disable ganti bawah
+		<td>Status Kes &nbsp;</td> ## <span style="color:#FF2A00">*</span>
+	      <td>:</td>
+	      <td>
+	         #parse("$path/selectKeputusan.vm")
+	         <div id="err_flagKeputusan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	      </td>
+	   </tr>
+		## -----end comment UAT ---
+	   
+	   <tr>
+	      <td>Jenis Kes &nbsp;</td> ##<span style="color:#FF2A00">*</span>
+	      <td>:</td>
+	      <td>
+	         #parse("$path/selectJenisKes.vm")
+	         <div id="err_statusJenisKes" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	      </td>
+	   </tr>
+	   
+	   #textarea("catatan" "Catatan" "$!r.catatan")
+	   
+	</table>    
+</fieldset>

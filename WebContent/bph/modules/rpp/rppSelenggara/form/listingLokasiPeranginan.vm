@@ -1,0 +1,131 @@
+
+#if($r)
+<fieldset>
+<legend class="legend">lokasi untuk diselenggara</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+    		<td style="width:150px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+    	</tr>
+		<tr>
+    		<td colspan="3">
+				
+				<table width="100%" cellpadding="2" cellspacing="2">
+
+					<tr>
+            			<td class="row_header" width="10%">Bil.</td>
+            			<td class="row_header" width="75%">Lokasi</td>
+            			<td class="row_header" width="15%">Hapus</td>
+            		</tr>
+            		
+            		#if ( $listSavedPeranginan.size() > 0 )
+            			
+                		#set ( $count = 0 )
+                		#foreach( $d in $listSavedPeranginan )
+                			
+                			#set ( $count = $count + 1)
+                        	#if ( $count % 2 == 0 ) 
+                    			#set ( $rowcolor = "#D0CFCE" ) 
+                    		#else 
+                    			#set ( $rowcolor = "#F0F0F0" ) 
+            				#end
+            				
+                    		<tr bgcolor="$rowcolor">
+                    			<td align="center">$count</td>
+                        		<td>$!d.rppPeranginan.namaPeranginan.toUpperCase()</td>
+            					<td align="center"></td>
+                            </tr>
+            			#end
+            		#else
+            			<tr bgcolor="#F0F0F0">
+            				<td colspan="3">Tiada Rekod</td>
+            			</tr>
+            		#end
+            	
+            	</table>
+				
+			</td>
+    	</tr>
+		
+		<tr>
+    		<td colspan="3">
+				<div id="err_cbPilihan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+    	</tr>
+		
+	</table>
+
+</fieldset>
+#end
+
+
+<fieldset>
+<legend class="legend">pilihan lokasi untuk diselenggara</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+    		<td style="width:150px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+    	</tr>
+		<tr>
+    		<td colspan="3">
+				
+				<table width="100%" cellpadding="2" cellspacing="2">
+            		
+            		<tr>
+            			<td class="row_header" width="10%">Bil.</td>
+            			<td class="row_header" width="75%">Lokasi</td>
+            			<td class="row_header" width="15%">Pilih</td>
+            		</tr>
+            		
+            		#if ( $listPeranginan.size() > 0 )
+            			
+                		#set ( $count = 0 )
+                		#foreach( $d in $listPeranginan )
+                			
+                			#set ( $count = $count + 1)
+                        	#if ( $count % 2 == 0 ) 
+                    			#set ( $rowcolor = "#D0CFCE" ) 
+                    		#else 
+                    			#set ( $rowcolor = "#F0F0F0" ) 
+            				#end
+            				
+                    		<tr bgcolor="$rowcolor">
+                    			<td align="center">$count</td>
+                        		<td>$!d.namaPeranginan.toUpperCase()</td>
+            					<td align="center"><input type="checkbox" id="cbPilihan$!d.id" name="cbPilihan" value="$!d.id" onclick="$('err_cbPilihan').innerHTML=''; at(this, event);" /></td>
+                            </tr>
+            			#end
+            		#else
+            			<tr bgcolor="#F0F0F0">
+            				<td colspan="3">Tiada Rekod</td>
+            			</tr>
+            		#end
+            	
+            	</table>
+				
+			</td>
+    	</tr>
+		
+		<tr>
+    		<td colspan="3">
+				<div id="err_cbPilihan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+    	</tr>
+		
+	</table>
+
+
+</fieldset>
+
+
+
+
+
+	
+		
+	
+	

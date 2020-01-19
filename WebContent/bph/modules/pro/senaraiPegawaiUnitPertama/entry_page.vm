@@ -1,0 +1,76 @@
+<div id="getPegawai" name="getPegawai">
+<fieldset>
+<legend class="legend">MAKLUMAT PEGAWAI</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  
+  	#if($command != 'add_new_record')
+	  	#if($command == 'pilihPegawai')
+		  	<tr>		
+				<td class="label" valign="top">Cari Pegawai<span style="color:#FF2A00">*</span></td>
+			  	<td valign="top">:</td>
+			  	<td>
+			  		<input style=" width:300px;" type="text" placeholder="NO. KP" name="kadPengenalan" id="kadPengenalan" tabindex="3" value="$!carianPembayar" onKeyUp=" $('err_carianPembayar').innerHTML='';" />
+			  		<input type="button" tabindex="4" value="CARI" id="btnCariUser" onclick="" />
+					<div id="err_carianUser" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+				</td>
+			</tr>
+			#mykad("pegawai" "No Kad Pengenalan" "$!pegawai.id")		
+		#else
+	  		#input_readonly_all_label("Nama" "Nama" "$!r.pegawai.userName")
+	  		#input_readonly_all_label("pegawai" "No Kad Pengenalan" "$!r.pegawai.id")
+	  		<input type="hidden" id="pegawai" name="pegawai" value="$!r.pegawai.id">
+		#end
+	#else
+		<tr>		
+			<td class="label" valign="top">Cari Pegawai<span style="color:#FF2A00">*</span></td>
+		  	<td valign="top">:</td>
+		  	<td>
+		  		<input style=" width:300px;" type="text" placeholder="NO. KP" name="kadPengenalan" id="kadPengenalan" tabindex="3" value="$!carianPembayar" onKeyUp=" $('err_carianPembayar').innerHTML='';" />
+		  		<input type="button" tabindex="4" value="CARI" id="btnCariUser" onclick="" />
+				<div id="err_carianUser" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		#mykad("pegawai" "No Kad Pengenalan" "$!pegawai.id")
+  	#end
+  	  	
+  	<tr>
+	  <td class="label" valign="top">Seksyen &nbsp;<span style="color:#FF2A00">*</span></td>
+	  <td valign="top">:</td>
+	  <td>#parse("$path/selectBahagian.vm")
+	    <div id="err_idBahagian" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+	</tr>
+  	  	
+	<tr>
+	  <td class="label" valign="top">Unit &nbsp;<span style="color:#FF2A00">*</span></td>
+	  <td valign="top">:</td>
+	  <td>
+	  	<div id="selectSeksyen">#parse("$path/selectSeksyen.vm")</div>
+	    <div id="err_idSeksyen" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+	</tr>
+	
+</table>
+</fieldset>
+</div>
+
+<div id="popupCarianUser" class="popup"></div>
+
+<script>
+	  _jq(function($) {
+	      $('.currency').autoNumeric('init'); 
+	 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+	 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+		  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+	 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+	  });
+  
+ 
+	_jq('#btnCariUser').on('click', function(){
+		doDivAjaxCall3$formname('popupCarianUser','cariUser','');
+	    jQuery('#popupCarianUser').fadeIn();
+	});
+</script>

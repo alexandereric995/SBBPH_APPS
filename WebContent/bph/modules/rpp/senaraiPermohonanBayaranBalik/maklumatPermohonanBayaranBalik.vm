@@ -1,0 +1,378 @@
+<style>
+	.uppercasefont{
+		text-transform: uppercase !important;
+	}
+</style>
+
+##<fieldset>
+##<legend class="legend">Maklumat Permohonan</legend>
+##<table width="100%">
+##  <tr>
+##    <td style="width:230px"></td>
+##    <td style="width:10px"></td>
+##    <td></td>
+##  </tr>
+##  
+##  <tr>
+##    <td>Status Bayaran Balik</td>
+##    <td>:</td>
+##    <td><font color='blue'>$!util.replaceIfNull($!r.getObjKewSubsidiari().status.keterangan.toUpperCase(),"TIADA BAYARAN BALIK")</font></td>
+##  </tr>
+##  
+  #if ( $listInvois.size() > 0 )
+			#set ( $count = 0 )
+    		#set ( $count = $count + 1)
+			#set ( $jumlahLebihanTunggakan = '0.00' )
+			#set ( $jumlahDebit = 0)
+			#set ( $rowcolor = "#D0CFCE" )
+			#set ( $catatanPelarasan = '')
+			#set ( $amaunPelarasan = 0)
+    		#foreach( $d in $listInvois )
+				#set ( $tarikhInvois = $!util.getDateTime($!d.tarikhInvois,'dd/MM/yyyy').toUpperCase())
+				#set ( $jumlahLebihanTunggakan = $jumlahLebihanTunggakan + $!d.tunggakanLebihan() )
+				#set ( $jumlahDebit = $jumlahDebit + $!d.debit)
+				#set ( $noResit = $!d.lejar().noResit.toUpperCase())
+				#set ( $amaunPelarasan = $amaunPelarasan + $!d.amaunPelarasan)	
+				#set ( $catatanPelarasan = $!d.catatanPelarasan)
+			#end
+  #else
+  			#set ( $count = 0 )
+    		#set ( $count = $count + 1)
+			#set ( $jumlahLebihanTunggakan = '0.00' )
+			#set ( $jumlahDebit = 0)
+			#set ( $rowcolor = "#D0CFCE" )
+			#set ( $catatanPelarasan = '')
+  			#set ( $amaunPelarasan = 0)
+  #end
+##  #input_readonly_all_label("selectNoTempahan","No Tempahan","$!r.noTempahan.toUpperCase()")
+##  #input_readonly_all_label("idPemohon","No. Pengenalan","$!r.pemohon.noKP")
+##  ##input_readonly_all_label("amaun","Bayaran Pulangan Sewa Diterima","RM $!util.formatDecimal($!r.amaunBayaranBalikWithoutDeposit())")
+##  #input_readonly_all_label("amaun","Bayaran Pulangan Sewa Diterima","RM $!util.formatDecimal($amaunPelarasan)")
+##  #show("Bayaran Deposit Diterima" "RM $!util.formatDecimal($!r.amaunDeposit())")
+##  
+##  ##textarea("justifikasi" "Justifikasi" "$!s.justifikasi")
+##  ##show("Justifikasi" "$!r.permohonanBayaranBalik.catatan.toUpperCase()")	
+##  
+##  #show("Tarikh Pembatalan" "$!util.getDateTime($!r.tarikhPembatalan,'dd-MM-yyyy')")	
+##  #show("Catatan Batal" "$!r.catatanPembatalan.toUpperCase()")
+##  #show("Dibatalkan Oleh" "$!r.pemohonBatal.userName.toUpperCase()")	
+##  ##<input type="hidden" name="justifikasi" id="justifikasi" value="Pembatalan tempahan setelah bayaran sewa dibuat." />
+##  
+## </table>
+## </fieldset>
+
+<fieldset>
+<legend class="legend">MAKLUMAT PERMOHONAN</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+			<td width="38%" valign="top">
+				<table width="100%" cellpadding="1" cellspacing="1">
+					  <tr>
+					    <td>Status Bayaran Balik</td>
+					    <td>:</td>
+					    <td><font color='blue'>$!util.replaceIfNull($!r.getObjKewSubsidiari().status.keterangan.toUpperCase(),"TIADA BAYARAN BALIK")</font></td>
+					  </tr>
+##					<tr>
+##            			<td width="50%">Deposit (RM)</td>
+##            			<td width="3%">:</td>
+##            			<td width="47%">$!util.formatDecimal($!r.amaunDeposit())</td>
+##            		</tr>
+            		  #input_readonly_all_label("selectNoTempahan","No Tempahan","$!r.noTempahan.toUpperCase()")
+					  #input_readonly_all_label("idPemohon","No. Pengenalan","$!r.pemohon.noKP")
+					  ##input_readonly_all_label("amaun","Bayaran Pulangan Sewa Diterima","RM $!util.formatDecimal($!r.amaunBayaranBalikWithoutDeposit())")
+					  #input_readonly_all_label("amaun","Bayaran Pulangan Sewa Diterima","RM $!util.formatDecimal($amaunPelarasan)")
+					  ##show("Bayaran Deposit Diterima" "RM $!util.formatDecimal($!r.amaunDeposit())")
+				</table>
+			</td>
+			
+			<td width="2%">&nbsp;</td>	
+			
+			<td width="60%" valign="top">
+				<table width="100%" cellpadding="1" cellspacing="1">
+					  #show("Status Tempahan" "<font color='blue'>$!r.status.keterangan</font>")
+					  #show("Tarikh Pembatalan" "$!util.getDateTime($!r.tarikhPembatalan,'dd-MM-yyyy')")	
+					  #show("Catatan Batal" "$!r.catatanPembatalan.toUpperCase()")
+					  #show("Dibatalkan Oleh" "$!r.pemohonBatal.userName.toUpperCase()")	
+				</table>
+			</td>
+		</tr>
+	</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">MAKLUMAT PULANGAN DEPOSIT</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+			<td width="38%" valign="top">
+				<table width="100%" cellpadding="1" cellspacing="1">
+					<tr>
+            			<td width="50%">Deposit (RM)</td>
+            			<td width="3%">:</td>
+            			<td width="47%">$!util.formatDecimal($!r.amaunDeposit())</td>
+            		</tr>
+					#show("Bilangan Kerosakan" "$!r.jumlahBilanganKerosakan()")
+					#show("Jumlah Nilai Kerosakan (RM)" "$!util.formatDecimal($!r.jumlahNilaiKerosakan())")
+					#show("<b>Baki Deposit (RM)</b>" "<b>$!util.formatDecimal($!r.bakiDeposit())</b>")
+				</table>
+			</td>
+			
+			<td width="2%">&nbsp;</td>	
+			
+			<td width="60%" valign="top">
+				<table width="100%" cellpadding="1" cellspacing="1">
+					<tr>
+            			<td width="35%">Tarikh Permohonan Tuntutan Deposit</td>
+            			<td width="3%">:</td>
+            			<td width="62%">
+							#if( $!dep.tuntutanDeposit )
+								$!util.getDateTime($!dep.tuntutanDeposit.tarikhPermohonan,'dd-MM-yyyy')
+							#else
+								$!util.getCurrentDate('dd-MM-yyyy')
+							#end	
+						</td>
+            		</tr>
+					<tr>
+		    			<td width="20%" valign="top">Bank</td>
+		    			<td width="1%" valign="top">:</td>
+		    			<td width="79%" valign="top">$!util.replaceIfNull($!r.pemohon.bank.keterangan,'Tiada Maklumat')</td>
+		    		</tr>
+					<tr>
+						<td valign="top">No. Akaun</td>
+						<td valign="top">:</td>
+						<td valign="top">$!util.replaceIfNull($!r.pemohon.noAkaunBank,'Tiada Maklumat')</td>
+					</tr>
+					#if( $!dep.tuntutanDeposit )
+						#show("Catatan" "$!util.replaceIfNull($!dep.tuntutanDeposit.catatanPenyeliaRpp,'-')")
+					#else
+						##textarea("catatanPenyeliaRpp" "Catatan" "$!dep.tuntutanDeposit.catatanPenyeliaRpp")
+					#end
+					
+				</table>
+			</td>
+		</tr>
+	</table>
+</fieldset>
+
+<br/>
+
+<fieldset>
+<legend class="legend">maklumat sewa /deposit rumah peranginan</legend>
+	
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		
+		<tr><td colspan="6"></td></tr>
+		<tr>
+			<td colspan="6">
+				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">SEWA</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="row_header" width="2%">BIL</td>
+			<td class="row_header" width="8%">TARIKH BAYARAN</td>
+			<td class="row_header" width="10%">BAYARAN SEWA DITERIMA (RM)</td>
+			<td class="row_header" width="10%">PULANGAN BALIK SEWA (RM)</td>
+			<td class="row_header" width="10%">NO. RESIT</td>
+			<td class="row_header" width="20%">CATATAN</td>
+			<td class="row_header" width="10%">NO. BAUCER BAYARAN</td>
+			<td class="row_header" width="10%">TARIKH BAUCER</td>
+			<td class="row_header" width="10%">NO.EFT</td>
+			<td class="row_header" width="10%">TARIKH EFT</td>
+		</tr>
+		
+		#if ( $listInvois.size() > 0 )
+			#set ( $count = 0 )
+    		#set ( $count = $count + 1)
+			#set ( $jumlahLebihanTunggakan = '0.00' )
+			#set ( $jumlahDebit = 0)
+			#set ( $catatanPelarasan = '')
+			#set ( $amaunPelarasan = 0)
+    		#foreach( $d in $listInvois )
+				#set ( $tarikhInvois = $!util.getDateTime($!d.tarikhInvois,'dd/MM/yyyy').toUpperCase())
+				#set ( $jumlahLebihanTunggakan = $jumlahLebihanTunggakan + $!d.tunggakanLebihan() )
+				#set ( $jumlahDebit = $jumlahDebit + $!d.debit)
+				#set ( $noResit = $!d.lejar().noResit.toUpperCase())
+				#set ( $amaunPelarasan = $amaunPelarasan + $!d.amaunPelarasan)	
+				#set ( $catatanPelarasan = $!d.catatanPelarasan)
+			#end	
+    		<tr>
+				<td align="center">$count</td>
+    			<td align="center">$tarikhInvois</td>
+				<td align="right">$!util.formatDecimal($jumlahDebit)</td>
+    			<td align="right">$!util.formatDecimal($amaunPelarasan)</td>
+    			<td align="center">$noResit</td>
+    			<td align="center">$catatanPelarasan</td>
+    			<td align="center">$!s.noBaucerBayaran</td>
+    			<td align="center">$!util.getDateTime($!s.tarikhBaucer,'dd/MM/yyyy')</td>
+    			<td align="center">$!s.noEFT</td>
+    			<td align="center">$!util.getDateTime($!s.tarikhEFT,'dd/MM/yyyy')</td>
+	    	</tr>	
+    	#else
+    		<tr bgcolor="#F0F0F0">
+    			<td colspan="10">TIADA REKOD PEMBAYARAN BALIK</td>
+    		</tr>
+    	#end
+		
+		<tr><td colspan="6"></td></tr>
+		<tr>
+			<td colspan="6">
+				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">DEPOSIT</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="row_header" width="2%">BIL</td>
+			<td class="row_header" width="8%">TARIKH BAYARAN</td>
+			<td class="row_header" width="10%">DEPOSIT DITERIMA (RM)</td>
+			<td class="row_header" width="10%">PULANGAN BALIK DEPOSIT (RM)</td>
+			<td class="row_header" width="10%">NO. RESIT</td>
+			<td class="row_header" width="20%">CATATAN</td>
+			<td class="row_header" width="10%">NO. BAUCER BAYARAN</td>
+			<td class="row_header" width="10%">TARIKH BAUCER</td>
+			<td class="row_header" width="10%">NO.EFT</td>
+			<td class="row_header" width="10%">TARIKH EFT</td>
+		</tr>
+		<tr bgcolor="#F0F0F0">
+				<td align="center">1</td>
+    			<td align="center">$!util.getDateTime($!tuntutan.deposit.tarikhDeposit,'dd/MM/yyyy').toUpperCase()</td>
+				<td align="right">$!util.formatDecimal($!tuntutan.deposit.jumlahDeposit)</td>
+    			<td align="right">$!util.formatDecimal($!tuntutan.deposit.jumlahDeposit)</td>
+    			<td align="center">$!tuntutan.deposit.noResit.toUpperCase()</td>
+    			<td align="center">$!tuntutan.catatanPelarasanDeposit.toUpperCase()</td>
+    			<td align="center">$!tuntutan.noBaucerPulanganDeposit.toUpperCase()</td>
+    			<td align="center">$!util.getDateTime($!tuntutan.tarikhBaucer,'dd-MM-yyyy')</td>
+				<td align="center">$!tuntutan.noEft.toUpperCase()</td>
+    			<td align="center">$!util.getDateTime($!tuntutan.tarikhEft,'dd-MM-yyyy')</td>
+	    </tr>	
+	    		
+    	<tr>
+    		<td colspan="6">
+			<div id="err_catatan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+    	</tr>
+			
+	</table>
+	
+</fieldset>
+
+#if( ($!r.getIdResitDeposit() && !$!r.getIdResitDeposit().equalsIgnoreCase(""))  || ($!r.getIdResitSewa() && !$!r.getIdResitSewa().equalsIgnoreCase("")) )
+<fieldset>
+<legend class="legend">SENARAI CETAKAN</legend>
+	
+	<table width="100%" >
+		
+    		#if( $!r.getIdResitSewa() && !$!r.getIdResitSewa().equalsIgnoreCase("") )
+            	<tr>
+            		<td><a href="#" style="color:blue" id="cmdResitInv">RESIT SEWA</a></td>		
+            	</tr>
+    		#end
+		
+        	#if( $!r.getIdResitDeposit() && !$!r.getIdResitDeposit().equalsIgnoreCase("") )
+			<tr>
+        		<td><a href="#" style="color:blue" id="cmdResitDep">RESIT DEPOSIT </a></td>		
+        	</tr>
+			#end
+			
+			<tr>
+    			##langkawi
+    			#if( $!r.rppPeranginan.id.equalsIgnoreCase("3"))
+    				##<td><a href="#" style="color:blue" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!r.id&jenisSurat=suratKelulusanLangkawi&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN LANGKAWI</a></td>
+    				<td><a href="#" style="color:blue" id="cmdCetakSuratKelulusan">SURAT KELULUSAN LANGKAWI</a></td>
+    			##port dickson
+    			#elseif($!r.rppPeranginan.id.equalsIgnoreCase("14") )
+    				##<td><a href="#" style="color:blue" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!r.id&jenisSurat=suratKelulusanPD&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN PORT DICKSON</a></td>
+    				<td><a href="#" style="color:blue" id="cmdCetakSuratKelulusan">SURAT KELULUSAN PORT DICKSON</a></td>
+    			#else
+    				##<td><a href="#" style="color:blue" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!r.id&jenisSurat=suratKelulusan&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN</a></td>
+    				<td><a href="#" style="color:blue" id="cmdCetakSuratKelulusan">SURAT KELULUSAN</a></td>
+    			#end	
+        	</tr>
+			
+			#if( $!dep && $!dep.tuntutanDeposit )
+			<tr>
+    			<td>
+						<a href="#" style="color:blue" id="cmdCetakPengesahanDeposit" >SURAT PENGESAHAN DEPOSIT</a>		
+    			</td>
+    		</tr>
+			#end
+			
+			#if( $!r.pemohon.dokumenBank && !$!r.pemohon.dokumenBank.equalsIgnoreCase("") )
+			<tr>
+    			<td>
+    				<a href="../download?file=$!uploadDir$!r.pemohon.dokumenBank"><span class="print" style="color:#0000FF">DOKUMEN PENYATA BANK<span></a> 
+    			</td>
+    		</tr>
+			#end
+
+        	<script>
+        		_jq('#cmdResitDep').on('click', function(){
+        		    var idResit = '$!r.getIdResitDeposit()';
+        		    
+					var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+					var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+					if ((document.window != null) && (!hWnd.opener))
+					hWnd.opener = document.window;
+					if (hWnd.focus != null) hWnd.focus();	
+    			});
+    			_jq('#cmdResitInv').on('click', function(){
+        		    var idResit = '$!r.getIdResitSewa()';
+        		    
+					var url = "../servlet/bph.laporan.kewangan.KEWResitSalinan?idResit="+idResit;
+					var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+					if ((document.window != null) && (!hWnd.opener))
+					hWnd.opener = document.window;
+					if (hWnd.focus != null) hWnd.focus();	
+    			});
+	        </script>
+		
+    </table>
+
+</fieldset>
+#end
+ 
+
+<script>
+_jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+});
+  _jq('#cmdKosongkanPermohonan').on('click', function(){
+	$('justifikasi').value = "";
+	$('resitBayaran').checked = "";
+	$('salinanAkaunBank').checked = "";
+	$('suratTawaran').checked = "";
+	$('suratSokongan').checked = "";
+});
+_jq('#cmdSavePermohonan').on('click', function(){
+	
+	var idPermohonan = '$!r.id';
+	if (window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('paparanPemohon','savePermohonan','idPermohonan='+idPermohonan);
+	}
+});
+_jq('#cmdCetak').on('click', function(){
+    		var idPermohonan = $!r.id;
+    		var url = "../servlet/bph.laporan.rpp.BayaranBalikDeposit?idPermohonan="+idPermohonan;
+    		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+    		if ((document.window != null) && (!hWnd.opener))
+    		hWnd.opener = document.window;
+    		if (hWnd.focus != null) hWnd.focus();
+    });
+</script>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			##<input type="button" value="Simpan" id="cmdSavePermohonan" />	
+			##<input type="button" value="Kosongkan" id="cmdKosongkanPermohonan" />
+			##if($!userRole.equalsIgnoreCase("(AWAM) Penjawat Awam"))
+			##	<input type="button" value="Mohon Pulangan Deposit" id="cmdMohonDeposit" />	
+			##end
+			##<input type="button" value="Cetak Surat Tuntutan Deposit" id="cmdCetak">
+			<input id="cmdKembali" type="button" value="Kembali" onclick="location.reload();" />
+		</td>
+	</tr>
+</table>

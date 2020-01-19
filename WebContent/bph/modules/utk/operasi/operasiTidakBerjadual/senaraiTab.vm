@@ -1,0 +1,27 @@
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatOperasi','')" #end >Maklumat Operasi</a></li>
+	<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divTab','getMaklumatPegawai','')" #end >Maklumat Pegawai</a></li>
+	#if($r.jenisOperasi.id != 'NK')
+	<li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('divTab','getMaklumatKesalahan','')" #end >Maklumat Pesalah</a></li>
+	#else
+	<li #if($!selectedTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedTab!='4') onClick="doDivAjaxCall3$formname('divTab','getMaklumatKontraktor','')" #end >Maklumat Kontraktor</a></li>
+	#end
+  </ul>
+</nav>
+<br/>
+#if ($!selectedTab=='1')
+	#parse("$path/maklumatOperasi.vm")
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/pegawaiOperasi/senaraiPegawaiOperasi.vm")
+#end
+
+#if ($!selectedTab=='3')
+	#parse("$path/kesalahan/senaraiKesalahan.vm")
+#end
+
+#if ($!selectedTab=='4')
+	#parse("$path/kontraktor/senaraiKontraktor.vm")
+#end

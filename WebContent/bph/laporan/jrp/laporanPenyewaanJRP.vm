@@ -1,0 +1,34 @@
+<fieldset>
+<legend class="legend">Laporan Penyewaan Ruang Pejabat</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>  
+  <tr>
+    <td class="label">Negeri</td>
+    <td>:</td>
+    <td>#parse("$path/findNegeri.vm")</td>
+  </tr> 
+  <tr>
+    <td class="label">Kementerian</td><td>:</td><td>
+	<span id="selectDaerah">#parse("$path/findKementerian.vm")</span>
+     </td>
+  </tr>
+<tr>
+	<td></td>
+	<td class="label"></td>
+	<td><input type="button" name="cmdCetak" id="cmdCetak" value="Jana Laporan" onclick="javascript:doCetakLaporanPenyewaanJRP()"/><input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/></td>
+</tr>
+</table>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

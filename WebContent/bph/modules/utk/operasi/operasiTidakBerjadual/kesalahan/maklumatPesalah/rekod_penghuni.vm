@@ -1,0 +1,176 @@
+<fieldset>
+<legend class="legend">Maklumat Penghuni</legend>
+	<table cellpadding="5" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">	
+    	<tr>
+    		<td width="50%" valign="top">
+    			<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+    				<tr>
+                        <td style="width:150px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+                  $!penghuni.id
+                   #input_readonly_all_label("gelaran" "Gelaran" "$!penghuni.pemohon.gelaran.keterangan")
+                   #input_readonly_all_label("jenisPengenalan" "Jenis Pengenalan" "$!penghuni.pemohon.jenisPengenalan.keterangan")
+  	  
+  				   #input_readonly_all_label("jantina" "Jantina" "$!penghuni.pemohon.jantina.keterangan")
+			       #input_readonly_all_label("alamat1" "Alamat" "$!penghuni.pemohon.alamat1")
+			       #input_readonly_all_label("alamat2" "" "$!penghuni.pemohon.alamat2")
+			       #input_readonly_all_label("alamat3" "" "$!penghuni.pemohon.alamat3")
+			       #input_readonly_all_label("poskod" "Poskod" "$!penghuni.pemohon.poskod")
+			  	   #input_readonly_all_label("negeri" "Negeri" "$!penghuni.pemohon.bandapenghuni.negeri.keterangan") 
+				   #input_readonly_all_label("bandar" "Bandar" "$!penghuni.pemohon.bandapenghuni.keterangan")
+				   
+				   	#set ($tarikhMasukKuarters = $!util.getDateTime($!tarikhMasuk,'dd-MM-yyyy'))
+			        #if ($!penghuni.tarikhMasuk) 
+			        	#set ($tarikhMasukKuarters = "$!util.getDateTime($!penghuni.tarikhMasuk,'dd-MM-yyyy')") 
+			        #end
+				   #input_readonly_all_label("tarikhMasukKuarters" "Tarikh Masuk Kuarters" "$tarikhMasukKuarters" )
+				   
+    			</table>
+    		</td>
+    		<td width="50%" valign="top">
+    			<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+    				<tr>
+                        <td style="width:150px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+                    
+                    #input_readonly_all_label("nama" "Nama" "$!penghuni.pemohon.userName")
+                    #input_readonly_all_label("kadPengenalan" "Kad Pengenalan Baru" "$!penghuni.pemohon.noKP")
+		 		  
+  					 #if ( $peribadi.tarikhLahir )
+	 					#input_readonly_all_label("tarikhLahir" "Tarikh Lahir" "$util.getDateTime($!penghuni.pemohon.tarikhLahir,'dd-MM-yyyy')")
+ 		 			#end
+				 		 			
+  				     #input_readonly_all_label("statusPerkahwinan" "Status Perkahwinan" "$!penghuni.pemohon.statusPerkahwinan.keterangan")
+				     #input_readonly_all_label("bilAnak" "Bilangan Anak" "$!penghuni.pemohon.bilAnak") 
+				  	 #input_readonly_all_label("bangsa" "Bangsa" "$!penghuni.pemohon.bangsa.keterangan") 
+				     #input_readonly_all_label("noTel" "Telefon Rumah" "$!penghuni.pemohon.noTelefon")
+				     #input_readonly_all_label("noTelBimbit" "Telefon Bimbit" "$!penghuni.pemohon.noTelefonBimbit")
+ 		 			
+                  </table>
+    		</td>
+    	</tr>
+  </table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">Maklumat Pekerjaan</legend>
+	<table cellpadding="5" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">	
+    	<tr>
+    		<td width="50%">
+    			<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+    				<tr>
+                        <td style="width:150px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+##					   	#input_readonly_all_label("skimPerkhidmatan" "Skim Perkhidmatan" "$!pekerjaan.skimPerkhidmatan.id - $!pekerjaan.skimPerkhidmatan.keterangan")
+						#input_readonly_all_label("jawatan" "Jawatan" "$!pekerjaan.jawatan.keterangan")
+   					   	#input_readonly_all_label("gredJawatan" "Gred Jawatan" "$!pekerjaan.gredJawatan.keterangan")
+					   	#if ( $pekerjaan.tarikhLantikan )
+				 			#input_readonly_all_label("tarikhLantikan" "Tarikh Lantikan" "$util.getDateTime($!pekerjaan.tarikhLantikan ,'dd-MM-yyyy')")
+			 		 	#end
+
+						#input_readonly_all_label("jenisPerkhidmatan" "Jenis Perkhidmatan" "$!pekerjaan.jenisPerkhidmatan.keterangan")
+						#input_readonly_all_label("statusPerkhidmatan" "Status Perkhidmatan" "$!pekerjaan.statusPerkhidmatan.keterangan")
+						#input_readonly_all_label("alamat1Pekerjaan" "Alamat" "$!pekerjaan.alamat1")
+						#input_readonly_all_label("alamat2Pekerjaan" "" "$!pekerjaan.alamat2")
+						#input_readonly_all_label("alamat3Pekerjaan" "" "$!pekerjaan.alamat2")
+						#input_readonly_all_label("poskodPekerjaan" "Poskod" "$!pekerjaan.poskod" )
+						#input_readonly_all_label("negeri" "Negeri" "$!pekerjaan.negeri.keterangan")
+    			</table>
+    		</td>
+    		<td width="50%" valign ="top">
+    			<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+    				<tr>
+                        <td style="width:150px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+					   #input_readonly_all_label("bandar" "Bandar" "$!pekerjaan.bandapenghuni.keterangan")
+##					   #input_readonly_all_label("gelaranJawatan" "Gelaran Jawatan" "$!pekerjaan.gelaranJawatan")
+##					   #input_readonly_all_label("gredGaji" "Gred Gaji" "$!pekerjaan.gredGaji")
+					   #input_readonly_all_label("noGaji" "No Gaji" "$!pekerjaan.noGaji")
+                       #input_readonly_all_label("gajiPokok" "Gaji Pokok" "$!pekerjaan.gajiPokok")
+                       #input_readonly_all_label("namaKementerian" "Kementerian" "$!pekerjaan.namaKementerian.keterangan")
+					   #input_readonly_all_label("jabatan" "Jabatan" "$!pekerjaan.jabatan.keterangan")
+					   #input_readonly_all_label("namaBahagian" "Nama Bahagian" "$!pekerjaan.namaBahagian")
+					   #input_readonly_all_label("noTelPejabat" "No Tel Pejabat" "$!pekerjaan.noTelPejabat")
+					   #input_readonly_all_label("noFaks" "Telefon Bimbit" "$!pekerjaan.noFaks")
+					   #input_readonly_all_label("email" "Email" "$!pekerjaan.email")
+				</table>
+    		</td>
+    	</tr>
+  </table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">Maklumat Kuarters</legend>
+	<table cellpadding="5" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">	
+    	<tr>
+    		<td width="50%">
+    			<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+    				<tr>
+                        <td style="width:150px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+                    
+                    #input_readonly_all_label("noUnit" "No Unit" "$!penghuni.kuarters.noUnit")
+                     					
+##                  #input_readonly_all_label("kelas" "Kelas Kuarters" "$!penghuni.kuarters.kelas.gredMula - $!penghuni.kuarters.kelas.gredAkhir")  #zul ganti yang bawah untuk dapatkan kelas kuarters 
+					#input_readonly_all_label("kelas" "Kelas Kuarters" "$!penghuni.kuarters.kelas.id")
+                     
+                    #input_readonly_all_label("jenisKuarters" "Jenis Kuarters" "$!penghuni.kuarters.jenisKediaman.keterangan")
+                    
+                    #input_readonly_all_label("jenisKuarters" "Kegunaan Kuarters" "$!penghuni.kuarters.jenisKegunaanKuarters.keterangan")
+                    
+                    #input_readonly_all_label("sewa" "Sewa (RM)" "$!penghuni.kuarters.sewa")
+ 					
+ 					#if($!penghuni.kuarters.cajAir == '0') 
+ 						#set($caj ='TIADA') 
+ 					#elseif ($!penghuni.kuarters.cajAir == '1') 
+ 						#set($caj ='ADA') 
+ 					#else 
+ 						#set($caj='') 
+ 					#end
+## 					#input_readonly_all_label("cajAir" "Caj Air" "$caj")
+					#input_readonly_all_label("cajAir" "IWK" "$caj") ## Caj Air tukar kepada IWK 
+ 					
+ 					#input_readonly_all_label("catatan" "Catatan" "$!penghuni.kuarters.catatan")
+ 
+    			</table>
+    		</td>
+    		<td width="50%">
+    			<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 5px;">
+    				<tr>
+                        <td style="width:150px"></td>
+                        <td style="width:10px"></td>
+                        <td></td>
+                    </tr>
+				    #input_readonly_all_label("lokasi" "Lokasi" "$!penghuni.kuarters.lokasi.keterangan")
+				    
+  					#input_readonly_all_label("tempat" "Kawasan" "$!penghuni.kuarters.kawasan")
+  					
+  					#input_readonly_all_label("bandar" "Bandar" "$!penghuni.kuarters.bandapenghuni.keterangan")
+  					
+  					#input_readonly_all_label("negeri" "Negeri" "$!penghuni.kuarters.bandapenghuni.negeri.keterangan")		
+  					
+  					#input_readonly_all_label("fasa" "Fasa" "$!penghuni.kuarters.fasa.keterangan")
+  					
+  					#input_readonly_all_label("presint" "Presint" "$!penghuni.kuarters.alamat2")
+    			</table>
+    		</td>
+    	</tr>
+  	</table>
+  	<table width="100%">
+	<tr>
+		<td align="right">
+			<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+	</table>
+</fieldset>

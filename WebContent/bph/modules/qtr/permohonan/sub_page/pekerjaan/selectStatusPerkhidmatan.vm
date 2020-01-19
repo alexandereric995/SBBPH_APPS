@@ -1,0 +1,37 @@
+<select id="idStatusPerkhidmatan" name="idStatusPerkhidmatan" style="width:100%" onChange="$('err_idStatusPerkhidmatan').innerHTML=''; at(this, event);">
+    <option value="">SILA PILIH</option>
+    #foreach( $n in $selectStatusPerkhidmatan )
+        <option #if ( $n.id ==  $!uj.statusPerkhidmatan.id) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+    #end
+</select>
+	
+##<script>
+##	var x = "$uj.statusPerkhidmatan.id";
+##	
+##	if ( x != "" ) {
+##		if ( x == "03" ) {
+##    			swal({
+##				title: "Perhatian!",
+##				text: "Status Perkhidmatan Sambilan tidak layak untuk membuat permohonan!",
+##				type: "error"
+##				});
+##    	} else if ( x == "02" ) {
+##			_jq("#perKontrak").show();
+##		} else {
+##    		_jq("#perKontrak").hide();
+##    	}
+##	}
+##	
+##    _jq("#idStatusPerkhidmatan").change(function() {
+##    	if ( this.value == "03" ) {
+##    			swal({
+##				title: "Perhatian!",
+##				text: "Status Perkhidmatan Sambilan tidak layak untuk membuat permohonan!",
+##				type: "error"
+##				});
+##    	} else if ( this.value == "02" ) {
+##    		_jq("#perKontrak").show();
+##    	} else {
+##    		_jq("#perKontrak").hide();
+##    	}
+##    });

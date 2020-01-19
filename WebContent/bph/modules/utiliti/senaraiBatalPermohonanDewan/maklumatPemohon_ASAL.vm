@@ -1,0 +1,111 @@
+<div id="divPemohon">	
+#if ( $!pemohon != "" )
+<fieldset>
+<legend class="legend">MAKLUMAT PENYEWA</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+##      <tr>
+##          <td class="label">No. Pengenalan &nbsp;<span style="color:#FF2A00">*</span></td>
+##          <td class="label">:</td>
+##          <td><input type="label" id="noPendaftaran" name="noPendaftaran" value="$!noPendaftaran" onKeyUp=" $('err_noPendaftaran').innerHTML=''; at(this, event);" onBlur="doDivAjaxCall3$formname('divTab','getMaklumatPemohonBerdaftar','')">
+##            <div id="err_noPendaftaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+##        </tr>
+          #input_normal("noPendaftaran" "No.Pengenalan" "$!pemohon.noPendaftaran")
+		  #input_normal("nama" "Nama" "$!pemohon.userName")
+		  #input_normal("noTel" "No. Telefon" "$!pemohon.noTelefon")
+		  #input_normal("noTelBimbit" "No. Telefon Bimbit" "$!pemohon.noTelefonBimbit")
+		  #input_normal("noFax" "No. Faks" "$!pemohon.noFaks")
+		  #input_normal("emel" "E-mel" "$!pemohon.emel")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_required("alamat1" "Alamat" "$!pemohon.alamat1")
+        #input("alamat2" "" "$!pemohon.alamat2")
+        #input("alamat3" "" "$!pemohon.alamat3")
+        <td></td><td></td>
+         <td><div id="err_alamat" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        
+        #input_normal("poskod" "Poskod" "$!pemohon.poskod")
+        #input_normal("negeri" "Negeri" "$!r.bandar.negeri.keterangan")
+		#input_normal("bandar" "Bandar" "$!r.bandar.keterangan")
+        <td></td><td></td>
+         <td><div id="err_poskod" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        <tr>
+          <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectNegeri.vm")
+            <div id="err_negeri" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td><div id="selectBandar">
+            #parse("$path/selectBandar.vm")
+            <div id="err_bandar" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+#else
+
+<fieldset>
+<legend class="legend">MAKLUMAT PENYEWA</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+       
+## 		#if ($!r.pemohon.id != "")
+## 			#input_normal("noPendaftaran" "No. Pengenalan" "$!r.pemohon.id")
+## 		
+## 		#else
+## 		  <tr>
+##          <td class="label">No. Pengenalan &nbsp;<span style="color:#FF2A00">*</span></td>
+##          <td class="label">:</td>
+##          <td><input type="text" id="noPendaftaran" name="noPendaftaran" value="$!noPendaftaran" onKeyUp=" $('err_noPendaftaran').innerHTML=''; at(this, event);" onBlur="doDivAjaxCall3$formname('divTab','getMaklumatPemohonBerdaftar','')">
+##            <div id="err_noPendaftaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+##        </tr>
+##		#end
+		  #input_normal("noPendaftaran" "No.Pengenalan" "$!pemohon.noPendaftaran")        
+		  #input_normal("nama" "Nama" "$!r.pemohon.userName")
+		  #input_normal("noTel" "No. Telefon" "$!r.pemohon.noTelefon")
+		  #input_normal("noTelBimbit" "No. Telefon Bimbit" "$!r.pemohon.noTelefonBimbit")
+		  #input_normal("noFax" "No. Faks" "$!r.pemohon.noFaks")
+		  #input_normal("emel" "E-mel" "$!r.pemohon.emel")
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input_normal("alamat1" "Alamat" "$!r.pemohon.alamat1")
+        #input_normal("alamat2" "" "$!r.pemohon.alamat2")
+        #input_normal("alamat3" "" "$!r.pemohon.alamat3")
+        <td></td><td></td>
+        #input_normal("poskod" "Poskod" "$!r.pemohon.poskod")
+        #input_normal("negeri" "Negeri" "$!r.bandar.negeri.keterangan")
+		#input_normal("bandar" "Bandar" "$!r.bandar.keterangan")
+      
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+#end
+</div>	

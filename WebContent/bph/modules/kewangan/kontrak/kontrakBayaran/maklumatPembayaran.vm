@@ -1,0 +1,188 @@
+<style>
+/*---- FOR NOTIFICATION ----*/
+.blinkColorBiru {
+	color: #0033FF;
+	font-weight: bold;
+}
+.blinkColorMerah{
+	color: #FF0000;
+	font-weight: bold;
+}
+.blinkColorHitam{
+	color: #000000;
+	font-weight: bold;
+}
+
+.blink {
+	animation: blink 1s steps(5, start) infinite;
+}
+@keyframes blink {
+ to {
+ visibility: hidden;
+}
+
+/*---- FOR NOTIFICATION ----*/
+</style>
+
+
+<fieldset>
+<legend class="legend">MAKLUMAT PEMBAYARAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+    <tr>
+        <td class="label" style="width:15%">&nbsp;</td>
+        <td style="width:1%">&nbsp;</td>
+        <td style="width:84%">&nbsp;</td>
+    </tr>
+    <tr>
+	    <td colspan="3" class="label">
+##	    <input type="button" id="addMaklumatBayaran" name="addMaklumatBayaran" value="Tambah">
+##	    <script>
+##		    _jq('#addMaklumatBayaran').on('click', function(){
+##			    doDivAjaxCall3$formname('maklumatPembayaranForm','addMaklumatBayaran','');
+##			    jQuery('#maklumatPembayaranForm').fadeIn();
+##		    });
+##	    </script>
+	    <br />
+	    <br />
+	    <table width="100%" cellpadding="5" cellspacing="1">
+	        <tr>
+	            <td class="row_header" width="5%">Bil.</td>
+	            <td class="row_header" width="10%">Tarikh Transaksi</td>
+	            <td class="row_header" width="20%">Invois</td>
+	           	<td class="row_header" width="30%">Keterangan</td>
+##	           	 <td class="row_header" width="20%">Resit</td>
+	            <td class="row_header" width="20%">Baucer</td>
+	            <td class="row_header" width="10%">Debit</td>
+	            <td class="row_header" width="10%">Kredit</td>
+##	            <td class="row_header" width="10%">Jumlah</td>
+	            <td class="row_header" width="10%">Status</td>
+	            #if($!r.statusBayaran == 0 || $!r.statusBayaran == 1)
+		            <td class="row_header" width="5%">Papar</td>
+		            <td class="row_header" width="5%">Hapus</td>    
+				#end           
+	        </tr>
+	        #set ( $count = 0 )
+	        #if ( $rekodMaklumatBayaran.size() > 0) 
+	            #foreach( $c in $rekodMaklumatBayaran )
+		            ## untuk create table color row
+		            #set ( $count = $count + 1)
+		            #if ( $count % 2 == 0 ) 
+		                #set ( $rowcolor = "#D0CFCE" ) 
+		            #else 
+		                #set ( $rowcolor = "#F0F0F0" ) 
+		            #end
+		            ## untuk create table color
+		           
+					## Untuk create table data
+	                <tr bgcolor="$rowcolor">
+	                    <td align="center">$count</td>
+	                    
+	                    #if ($c.tarikhTransaksi) 
+                           #set ($tarikhTransaksi="$!util.getDateTime($c.tarikhTransaksi,'dd-MM-yyyy')") 
+                        #else 
+                           #set ($tarikhTransaksi="") 
+                        #end
+                        <td align="center">$tarikhTransaksi</td>
+	                    
+	                    <td>
+		                    #if ($c.tarikhInvois) 
+	                           #set ($tarikhInvois="$!util.getDateTime($c.tarikhInvois,'dd-MM-yyyy')") 
+	                        #else 
+	                           #set ($tarikhInvois="") 
+	                        #end
+                        	<b>Tarikh : </b>$tarikhInvois<br />
+	                    	<b>No : </b>$c.noInvois<br />
+	                    </td>
+	                    
+	                    <td align="center">$!c.keterangan</td>
+
+						## diminta remove pada sesi PAT
+##	                    <td>
+##							#if ($c.tarikhResit) 
+##	                           #set ($dateTarikhResit = "$!util.getDateTime($c.tarikhResit,'dd-MM-yyyy')") 
+##	                        #else 
+##	                           #set ($dateTarikhResit = "") 
+##	                        #end
+##							<b>Tarikh : </b>$dateTarikhResit<br/>	
+##							<b>No : </b>$!c.noResit<br/>
+##						</td>
+	                   
+	                    <td>
+		                    #if ($c.tarikhBaucer) 
+	                           #set ($tarikhBaucer="$!util.getDateTime($c.tarikhBaucer,'dd-MM-yyyy')") 
+	                        #else 
+	                           #set ($tarikhBaucer="") 
+	                        #end
+	                        <b>Tarikh : </b>$!tarikhBaucer<br/>
+		                    <b>No : </b>$!c.noBaucer<br/>
+	                    </td>
+	                    
+	                    <td align="center">$!util.formatDecimal($!c.debit)</td>
+	                    <td align="center">$!util.formatDecimal($!c.kredit)</td>
+##	                    <td align="center">$!c.jumlah</td>
+	                    <td align="center">	
+	                    	#if($!c.statusBayaran == 0)
+	                    		<span class="blinkColorBiru">SEMAKAN UNIT</span>
+	                    	#elseif($!c.statusBayaran == 1)
+	                    		<font class="blink" ><span class="blinkColorBiru">SEMAKAN KEWANGAN</span></font>
+	                    		<font class="blink" ><span class="blinkColorMerah">$!statusPeringatan</span></font>
+	                    	#elseif($!c.statusBayaran == 2)
+	                    		<span class="blinkColorHitam">TELAH BAYAR</span>
+	                    	#end
+	                    </td>
+	                     #if($!c.statusBayaran == 0 || $!c.statusBayaran == 1)  
+	                  	<td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a> </td>
+	                    <td align="center"><a href="javascript:void()" onClick="deleteMaklumatBayaran('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a>
+	                    #else
+                    	#end
+	                    </td>
+	                </tr>
+	                 ## Untuk create table data
+
+	                 ## Script untuk Edit Maklumat 
+	                <script>
+	                    _jq('#link$c.id').on('click', function(){
+		                    doDivAjaxCall3$formname('maklumatPembayaranForm','editMaklumatBayaran','addMaklumatBayaran=$c.id');
+		                    jQuery('#maklumatPembayaranForm').fadeIn();
+	                    });
+	                </script>
+	                ## Script untuk Edit Maklumat
+	            #end    
+	        #else
+	            <tr>
+	                <td align="center">&nbsp;</td>
+	                <td ><strong>TIADA REKOD</strong></td>
+	                <td align="center">&nbsp;</td>
+	                <td align="center">&nbsp;</td>
+	                <td align="center">&nbsp;</td>
+	                <td align="center">&nbsp;</td>
+	                <td align="center">&nbsp;</td>
+	            </tr>
+	        #end
+	        </table>
+	    </td>
+    </tr>
+</table>
+</fieldset>
+
+## Status tindakan Berjaya atau pun tidak
+#parse("$path/statusTindakan.vm") 
+
+## Popup maklumatPembayaranForm.vm
+<div id="maklumatPembayaranForm" class="popupWide"></div> ##popupWide
+
+## Blank status page
+<div id="removeMaklumatBon"></div>
+
+
+###if ($!command != "add_new_record")
+##    <table width="100%">
+##      <tr>
+##        <td align="right">
+##            <input id="btnKemaskiniMaklumatPembayaran" name="btnKemaskiniMaklumatPembayaran" type="button" value="Simpan" onclick="javascript:doSaveMaklumatPembayaran();"/>
+##            <input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+##        </td>
+##      </tr>
+##    </table>
+###end
+ 

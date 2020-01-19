@@ -1,0 +1,236 @@
+
+function validate() {
+	var err_count = 0;
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+##MAKLUMAT LOKASI PERANGINAN
+function validateMaklumatLokasiPeranginan() {
+	var err_count = 0;
+	return err_count == 0;
+}
+
+function doSaveMaklumatLokasiPeranginan(idPeranginan){
+	if ( validateMaklumatLokasiPeranginan() ){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxCall$formname('divTab','doSaveMaklumatLokasiPeranginan','idPeranginan='+idPeranginan);
+	}
+}
+
+function validateMaklumatPenyelia() {
+	var err_count = 0;
+	return err_count == 0;
+}
+
+function saveMaklumatPenyelia() {
+	if ( validateMaklumatPenyelia() ){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxChainCall$formname('divTab','saveMaklumatPenyelia','','divTab','getMaklumatPenyelia','');
+	}
+}
+
+function deleteMaklumatPenyelia(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','removeMaklumatPenyelia','idMaklumatPenyelia=' + id);
+}
+
+function validateKemudahan() {
+	var err_count = 0;
+	
+	var nama = $('nama').value;
+	if ( nama == "" ) {$('err_nama').innerHTML = "Nama adalah mandatori!"; err_count++;  }
+	
+	var flagSewa1 = document.${formname}.flagSewa[0].checked;
+	var flagSewa2 = document.${formname}.flagSewa[1].checked;
+	if ( flagSewa1 == false && flagSewa2 == false ) {$('err_flagSewa').innerHTML = "Pilihan Untuk Disewa adalah mandatori!"; err_count++;  }
+	
+	var kadarSewa = $('kadarSewa').value;
+	if ( kadarSewa == "" && flagSewa1 == true) {$('err_kadarSewa').innerHTML = "Kadar Sewa adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function saveKemudahan() {
+	if ( validateKemudahan() ){
+		doDivAjaxChainCall$formname('divTab','saveKemudahan','');
+		jQuery('#popupKemudahan').fadeOut();
+	}
+}
+
+function doValidateKadarSewa() {
+	var radio1 = document.${formname}.flagSewa[0].checked;
+	var radio2 = document.${formname}.flagSewa[1].checked;
+	if(radio2 == true){
+		document.getElementById("kadarSewa").readOnly = true;
+		document.getElementById("kadarSewa").value = "";
+	}else{
+		document.getElementById("kadarSewa").readOnly = false;
+	}
+}
+
+function deleteKemudahan(idKemudahan) {
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('divTab','deleteKemudahan','idKemudahan='+idKemudahan);
+	}
+}
+
+function validateJenisUnit() {
+	var err_count = 0;
+	
+	var idPeranginan = $('idPeranginan').value;
+	if ( idPeranginan == "" ) {$('err_idPeranginan').innerHTML = "Lokasi Peranginan adalah mandatori!"; err_count++;  }
+	
+	var keterangan = $('keterangan').value;
+	if ( keterangan == "" ) {$('err_keterangan').innerHTML = "Jenis Unit adalah mandatori!"; err_count++;  }
+	
+	var hadDewasa = $('hadDewasa').value;
+	if ( hadDewasa == "" ) {$('err_hadDewasa').innerHTML = "Had Dewasa adalah mandatori!"; err_count++;  }
+	
+	var hadKuantiti = $('hadKuantiti').value;
+	if ( hadKuantiti == "" ) {$('err_hadKuantiti').innerHTML = "Had Tempahan Unit adalah mandatori!"; err_count++;  }
+	
+	var kadarSewa = $('kadarSewa').value;
+	if ( kadarSewa == "" ) {$('err_kadarSewa').innerHTML = "Kadar Sewa adalah mandatori!"; err_count++;  }
+	
+	var flagLuarPuncak1 = document.${formname}.flagLuarPuncak[0].checked;
+	var flagLuarPuncak2 = document.${formname}.flagLuarPuncak[1].checked;
+	var flagLuarPuncak3 = document.${formname}.flagLuarPuncak[2].checked;
+	if ( flagLuarPuncak1 == false && flagLuarPuncak2 == false && flagLuarPuncak3 == false ) {
+		$('err_flagLuarPuncak').innerHTML = "Pilihan Kategori Waktu Luar Puncak adalah mandatori!"; err_count++;  
+	}else{
+
+		var flagHad = document.${formname}.flagLuarPuncak[1].checked;
+		if(flagHad == true){
+			var gredMinimumKelayakan = $('gredMinimumKelayakan').value;
+			if ( gredMinimumKelayakan == "" ) {$('err_gredMinimumKelayakan').innerHTML = "Gred Kelayakan adalah mandatori!"; err_count++;  }
+		}
+		
+		var flagJulat = document.${formname}.flagLuarPuncak[2].checked;
+		if(flagJulat == true){
+			var gredMinimumKelayakan = $('gredMinimumKelayakan').value;
+			if ( gredMinimumKelayakan == "" ) {$('err_gredMinimumKelayakan').innerHTML = "Gred (dari) adalah mandatori!"; err_count++;  }
+			var gredMaksimumKelayakan = $('gredMaksimumKelayakan').value;
+			if ( gredMaksimumKelayakan == "" ) {$('err_gredMaksimumKelayakan').innerHTML = "Gred (hingga) adalah mandatori!"; err_count++;  }
+		}
+		
+	}
+	
+	var flagPuncak1 = document.${formname}.flagPuncak[0].checked;
+	var flagPuncak2 = document.${formname}.flagPuncak[1].checked;
+	var flagPuncak3 = document.${formname}.flagPuncak[2].checked;
+	if ( flagPuncak1 == false && flagPuncak2 == false && flagPuncak3 == false ) {
+		$('err_flagPuncak').innerHTML = "Pilihan Kategori Waktu Puncak adalah mandatori!"; err_count++;  
+	}else{
+		
+		var flagHadWP = document.${formname}.flagPuncak[1].checked;
+		if(flagHadWP == true){
+			var gredKelayakanWaktuPuncak = $('gredKelayakanWaktuPuncak').value;
+			if ( gredKelayakanWaktuPuncak == "" ) {$('err_gredKelayakanWaktuPuncak').innerHTML = "Gred Kelayakan adalah mandatori!"; err_count++;  }
+		}
+		
+		var flagJulatWP = document.${formname}.flagPuncak[2].checked;
+		if(flagJulatWP == true){
+			var gredKelayakanWaktuPuncak = $('gredKelayakanWaktuPuncak').value;
+			if ( gredKelayakanWaktuPuncak == "" ) {$('err_gredKelayakanWaktuPuncak').innerHTML = "Gred (dari) adalah mandatori!"; err_count++;  }
+			var gredMaksimumKelayakanWaktuPuncak = $('gredMaksimumKelayakanWaktuPuncak').value;
+			if ( gredMaksimumKelayakanWaktuPuncak == "" ) {$('err_gredMaksimumKelayakanWaktuPuncak').innerHTML = "Gred (hingga) adalah mandatori!"; err_count++;  }
+		}
+		
+	}
+
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function saveJenisUnit() {
+	if ( validateJenisUnit() ){
+		doDivAjaxChainCall$formname('divTab','saveJenisUnit','');
+		jQuery('#popupJenisUnit').fadeOut();
+	}
+}
+
+function deleteJenisUnit(idJenisUnit) {
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('divTab','deleteJenisUnit','idJenisUnit='+idJenisUnit);
+	}
+}
+
+function validateUnit() {
+	var err_count = 0;
+	
+	var noUnit = $('noUnit').value;
+	if ( noUnit == "" ) {$('err_noUnit').innerHTML = "No. Unit adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function saveUnit() {
+	if ( validateUnit() ){
+		doDivAjaxCall3$formname('divSenaraiUnit','saveUnit','');
+		jQuery('#popupUnit').fadeOut();
+	}
+}
+
+function deleteUnit(idUnit,idJenisUnit) {
+	if ( window.confirm("Anda pasti?") ){
+		doDivAjaxChainCall$formname('divSenaraiUnit','deleteUnit','idJenisUnit='+idJenisUnit+'&idUnit='+idUnit);
+	}
+}
+
+function doShowGred(val){
+	if(val=="TIADAHAD"){
+		$('divFlagWaktuLuarPuncak').style.display='none';
+	}else{
+		$('divFlagWaktuLuarPuncak').style.display='block';
+		doDivAjaxCall3$formname('divFlagWaktuLuarPuncak','showGred','');
+	}
+}
+
+function doShowGredWP(val){
+	if(val=="TIADAHADWP"){
+		$('divFlagWaktuPuncak').style.display='none';
+	}else{
+		$('divFlagWaktuPuncak').style.display='block';
+		doDivAjaxCall3$formname('divFlagWaktuPuncak','showGredWP','');
+	}
+}
+
+
+
+
+
+
+
+
+

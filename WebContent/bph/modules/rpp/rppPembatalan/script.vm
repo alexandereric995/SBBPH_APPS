@@ -1,0 +1,38 @@
+function doFilterCarianPeranginan(){
+	doDivAjaxCall3$formname('divCarianPeranginan','filterCarianRpp','')
+}
+
+function doKosongkanPembatalan() {
+	##$('tarikhPembatalan').value = "";
+	$('catatanPembatalan').value = "";
+}
+
+function validatePembatalan() {
+	var err_count = 0;
+	
+	##var tarikhPembatalan = $('tarikhPembatalan').value;
+	##if ( tarikhPembatalan == "" ) {$('err_tarikhPembatalan').innerHTML = "Tarikh Pembatalan adalah mandatori!"; err_count++;  }
+	
+	var catatanPembatalan = $('catatanPembatalan').value;
+	if ( catatanPembatalan == "" ) {$('err_catatanPembatalan').innerHTML = "Catatan Pembatalan adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		var msg = "Adakah anda pasti untuk membatalkan tempahan? ";
+		##"\nBayaran Balik Tempahan : "+
+		##"\n1. Bayaran 50% diterima dari jumlah bayaran Pembatalan dibuat dari hari ditempah sehingga hari ke-14 ";
+		
+		if ( !window.confirm(msg) ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function doSavePembatalan() {
+	if (validatePembatalan()){
+	##if ( window.confirm("Adakah anda pasti untuk membatalkan tempahan?") ){	
+		doDivAjaxCall3$formname('statusUpdate','getSavePembatalan','');
+	##}
+	}
+}

@@ -1,0 +1,115 @@
+<script>
+	var j = "$resultPermohonanCompletion";
+	
+	if ( j == "true" ) {
+		_jq('#perakuanDetail').show();
+	} else {
+		_jq('#perakuanDetail').hide();
+	}
+</script>
+
+<br /><br />
+ 	
+<nav class="breadcrumbs">
+    <ul>
+        <li class="active">
+            <a href="javascript:void()">Maklumat Permohonan</a>
+        </li>
+		#if ( !$disableAddNewRecordButton )
+		#else
+			#if ( !$kelulusan )
+				
+			#else
+				<li>
+                    <a href="javascript:void()" onclick="doDivAjaxCall3$formname('entry_page','kelulusan1Retrieve','')">Maklumat Peribadi</a>
+                </li>
+			#end
+			<li id="perakuanDetail">
+                <a href="javascript:void()" onclick="doDivAjaxCall3$formname('entry_page','getPerakuan','')">Perakuan</a>
+            </li>
+		#end
+    </ul>
+</nav>
+
+<br />
+<input type="hidden" id="hiddenRole" name="hiddenRole" value="$!qtrstaff">
+<fieldset>
+    <legend class="legend">Lokasi Kuarters&nbsp;<span style="color:#FF2A00">*</span>
+    </legend>
+    <table width="100%" cellpadding="5" cellspacing="0" border="0">
+        <tr>
+            <td width="50%">
+                <span id="selectLokasiPermohonan">
+                    #parse("$path/select/selectLokasiPermohonan.vm")
+                </span>
+                <div id="err_idLokasiPermohonan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+            <td width="50%"></td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend class="legend">Lokasi Pekerjaan</legend>
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+    	<tr>
+            <td width="50%">
+    			<table cellpadding="5" cellspacing="0" border="0" width="100%" id="alamatPekerjaan">
+    				<tr>
+			            <td style="width:200px"></td>
+			            <td style="width:10px"></td>
+			            <td></td>
+			        </tr>
+			        #postcode_required("poskodPekerjaan" "Poskod" "$!uj.getPoskod()")
+			        <tr>
+			            <td class="label" valign="top">Negeri&nbsp;<span style="color:#FF2A00">*</span>
+			            </td>
+			            <td valign="top">:</td>
+			            <td>
+			                <span id="listNegeriPekerjaan">
+			                    #parse("$path/select/selectNegeriPekerjaan.vm")
+			                </span>
+			                <div id="err_idNegeriPekerjaan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			            </td>
+			        </tr>
+			        <tr>
+			            <td class="label">Bandar&nbsp;<span style="color:#FF2A00">*</span></td>
+			            <td>:</td>
+			            <td>
+			                <span id="listBandarPekerjaan">
+			                    #parse("$path/select/selectBandarPekerjaan.vm")
+			                </span>
+			                <div id="err_idBandarPekerjaan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			            </td>
+			        </tr>
+			    </table>
+            </td>
+            <td width="50%"></td>
+        </tr>
+    </table>
+</fieldset>	
+
+<fieldset>
+    <legend class="legend">Maklumat Pinjaman</legend>
+    <table width="100%" cellpadding="5" cellspacing="0" border="0">
+        <tr>
+            <td width="50%">
+            	<span id="infoPinjaman">
+					#parse("$path/sub_page/pinjaman.vm")
+				</span>
+            </td>
+            <td width="50%"></td>
+        </tr>
+    </table>
+</fieldset>
+
+
+<p align="right">
+###if( $penghuni==true )
+	<input type="button" id="btnSemakLokasi" name="btnSemakLokasi" value="Semak Kelayakan" onclick="semakLokasi()" />			
+	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+###else	
+##	<input type="button" id="btnSemakLokasi" name="btnSemakLokasi" value="Semak Kelayakan" onclick="semakLokasi()" />			
+##	<input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+###end
+</p>

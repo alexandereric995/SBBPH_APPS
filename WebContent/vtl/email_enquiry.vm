@@ -1,0 +1,152 @@
+<script language="javascript">
+function formCheck() {
+	formObj = document.email_enquiry
+	
+	if (formObj.enq.value == "")
+	{
+		alert('Please select your Enquiry');
+		formObj.comments.focus();
+		return false;
+	}	
+	
+	if (formObj.email.value == ""){
+		alert("Please type in your email.");
+		formObj.email.focus();
+		return false;}
+	
+		var theIndex = formObj.email.value.indexOf("@");
+
+		if (theIndex == -1 || formObj.email.value.indexOf(".", theIndex) == -1) {
+		alert("Invalid email address");
+		formObj.email.focus();
+		return false;
+	}	
+	
+	if (formObj.comments.value == "")
+	{
+		alert('Please enter your Comments');
+		formObj.comments.focus();
+		return false;
+	}
+	return true;
+}
+</script>
+<form name="email_enquiry" method="post">
+
+
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td valign="top" width="8">&nbsp;</td>
+    <td valign="top">
+    <br>
+	<table cellspacing="0" cellpadding="5" border="0" style="border-collapse: collapse" bordercolor="#111111">
+		<tr>
+			<td align="right">Select Enquiry:</td>
+			<td>
+				<select name="enq" onChange="setEnquiry()">
+				<option value="">- select -</option>
+				<option value="1">IN-FUSION SOLUTIONS</option>
+				<option value="2">IN-FUSION SYSTEMS</option>
+				<option value="3">IN-FUSION EDUCATION</option>
+				</select></td>
+		</tr>
+		<tr>
+			<td align="right">Name:</td>
+			<td><input name="name" size="50"></td>
+		</tr>
+		<tr>
+			<td align="right">Contact No:</td>
+			<td><input name="contactno" size="10"></td>
+		</tr>
+		<tr>
+			<td align="right">Email:</td>
+			<td><input name="email" size="40" value=""></td>
+		</tr>		
+		<tr>
+			<td align="right" valign="top">Address:</td>
+			<td><textarea name="address" cols="30" rows="4"></textarea></td>
+		</tr>
+        <tr>
+			<td align="right" valign="top">Comments/<br>Remarks:</td>
+			<td>
+			<textarea name="comments" cols="50" rows="5"></textarea></td>
+		</tr>
+		<tr>
+			<td align="right" valign="top">&nbsp;</td>
+			<td>
+				<input class="button" type="button" value="Send" onclick="send()"></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				&nbsp;</table>
+	
+	
+	<input type="hidden" name="sendto" >
+	<input type="hidden" name="cc" >
+	<input type="hidden" name="bcc" >
+	<input type="hidden" name="subject" >
+	<input type="hidden" name="command">
+	
+	
+	
+	
+	
+	
+	
+	<input type="hidden" name="host" value="mail.in-fusion.com.my">
+	
+	
+	</td>
+    <td valign="top" width="8">&nbsp;</td>
+  </tr>
+</table>
+
+
+</form>
+<script>
+function send() {
+	if ( formCheck() ) {
+		document.email_enquiry.command.value = "send";
+		document.email_enquiry.action = "";
+		document.email_enquiry.submit();	
+	}
+}
+function setEnquiry() {
+	var f = document.email_enquiry;
+	var e = f.enq.value;
+	var subject = "General Enquiry to IWC";
+	var sendto = "sbahrin@in-fusion.com.my, sbahrin2@yahoo.com";
+	var cc = "sbahrin@in-fusion.com.my, sbahrin2@yahoo.com";
+	var bcc = "sbahrin@in-fusion.com.my, sbahrin2@yahoo.com";
+	
+	
+	if ( e == "1" ) {
+		subject = "Enquiry to IN-FUSION SOLUTIONS";
+		sendto = "msalmis@in-fusion.com.my";
+		cc = "aznin@in-fusion.com.my, azhar@in-fusion.com.my";
+		bcc = "gan@in-fusion.com.my";
+
+	}
+	else if ( e == "2" ) {
+		subject = "Enquiry to IN-FUSION SYSTEMS";
+		sendto = "dimyati@in-fusion.com.my";
+		cc = "msalmis@in-fusion.com.my, aznin@in-fusion.com.my, azhar@in-fusion.com.my";
+		bcc = "gan@in-fusion.com.my";	
+	}
+	
+	else if ( e == "3" ) {
+		subject = "Enquiry to IN-FUSION EDUCATION";
+		sendto = "ismail@in-fusion.com.my";
+		cc = "msalmis@in-fusion.com.my, aznin@in-fusion.com.my, azhar@in-fusion.com.my";
+		bcc = "gan@in-fusion.com.my";	
+	}
+	
+	
+	f.subject.value = subject;
+	f.sendto.value = sendto;
+	f.cc.value = cc;
+	f.bcc.value = bcc;
+	
+}
+</script>

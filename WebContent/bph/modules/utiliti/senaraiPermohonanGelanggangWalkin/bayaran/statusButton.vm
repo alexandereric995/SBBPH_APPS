@@ -1,0 +1,32 @@
+
+#if($!r.statusBayaran=="T")	
+    <table width="100%">
+    	<tr>
+    		<td align="right">
+    			##<input type="button" value="Cetak" onclick="javascript:window.print()">
+    			##<input id="btnRecordTemplateSave" type="button" value="Bayar" onClick="doBayarTempahan()">
+    			<input id="btnRecordTemplateSave" type="button" value="Bayar" onClick="doBayarTempahanFPX()">
+    			##<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">	
+				<input id="btnBack" type="button" value="Kembali" onClick="kembaliMain()">
+				
+				<div id="pilihanFPX">
+				
+				</div>
+				<div id="pilihanMIGS">
+
+				</div>
+    		</td>
+    	</tr>
+    </table>
+#else
+	<table cellpadding="5" cellspacing="0" border="0" width="100%" style="margin-top: 5px;">
+		<tr>
+			<td style="background: #22C322; color: #FFF; font-weight: bold; box-shadow: 0px 2px 5px #999;">
+				PEMBAYARAN TELAH DIBUAT
+			</td>
+		</tr>
+	</table>
+#end
+	
+
+	

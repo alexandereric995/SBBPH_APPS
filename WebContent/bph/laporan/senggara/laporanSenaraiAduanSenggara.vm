@@ -1,0 +1,73 @@
+<fieldset>
+<legend class="legend">MAKLUMAT REKOD</legend>
+<table width="100%">
+	<tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+	</tr>
+	<tr>
+	<td valign="top" class="label">No Rujukan</td>
+	<td valign="top" class="label">:</td>
+	<td valign="top"><input type="text" style="width:50%" onBlur="this.value=this.value.toUpperCase();" onKeyUp="at(this, event)" value="" name="findPeganganHakmilik" id="findPeganganHakmilik"></td>
+	</tr>
+    <tr>
+    <td class="label">Jenis Aduan</td>
+    <td>:</td>
+    <td><select style="width:100%" name="idJenisAduan" id="idJenisAduan" class="texts">
+    <option value="">SILA PILIH</option>
+    <option value="A">ADUAN</option>                    
+    <option value="E">E-TEMUJANJI</option>
+    <option value="D">DAFTAR KELUAR KUARTERS</option>
+    </select>
+    </td>
+    <tr>
+    <td class="label">Kelas Kuarters</td>
+    <td>:</td>
+    <td>
+    <span id="listKelasKuarters">
+        #parse("$path/selectKelasKuarters.vm")
+    </span>
+    </td>
+    </tr>
+    <tr>
+    <td class="label">Lokasi Kuarters</td>
+    <td>:</td>
+    <td>
+    <span id="listLokasiKuarters">
+        #parse("$path/selectLokasiKuarters.vm")
+    </span>
+    </td>
+    </tr>
+    <tr>
+    <td class="label">Negeri</td>
+    <td>:</td>
+  	<td> #parse("$path/findNegeri.vm") </td>
+	</tr>
+    <tr>
+    <td class="label">Status</td>
+    <td>:</td>
+    <td><select style="width:100%" name="findStatusDaftar" id="findStatusDaftar" class="texts">
+    <option value="">SILA PILIH</option>
+    <option value="D">SELESAI</option>                    
+    <option value="B">DALAM PEMBAIKAN</option>
+    <option value="B">TIDAK SELESAI</option>
+    </select>
+    </td>
+  <tr>
+	<td></td>
+	<td class="label"></td>
+	<td><input type="button" name="cmdCetak" id="cmdCetak" value="Jana Laporan" onclick="javascript:doCetakLaporanSenaraiAduanSenggara()"/>
+	<input type="button" name="cmdKembali" id="cmdKembali" value="Kembali" onclick="javascript:doKembali()"/><input type="reset" value="Kosongkan" /></td>
+  </tr>
+</table>
+</fieldset>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

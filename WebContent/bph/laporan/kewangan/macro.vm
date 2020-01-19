@@ -1,0 +1,621 @@
+#macro( quietnull $a)
+#if($a)$a#end
+#end
+
+#macro( recurse $a )
+  global recurse $a
+  #set( $a = $a - 1)
+  #if ($a > 0)
+    #recurse( $a )
+  #end
+#end
+
+#macro( callrecurse )
+   #set( $count = 5)
+   #recurse( $count )
+#end
+
+#macro( testbool $b )
+ #if($b)
+  arg true
+ #end
+ #if( ! $b )
+  arg false
+ #end
+#end
+
+
+## COPY FROM MACRO.VM
+#macro ( title $title )
+<tr>
+	<td colspan="3"></td>
+</tr>
+<tr>
+	<td class="section_title" colspan="3">$title</td>
+</tr>
+<tr>
+	<td colspan="3"></td>
+</tr>
+#end
+
+#macro ( displayStatus $status )
+	#if ( $status == "R" )"Belum Proses"
+	#elseif ( $status == "P" )"Dalam Proses"
+	#elseif ( $status == "S" )"Selesai"
+	#end
+#end
+
+#macro ( show $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">$value</td>
+</tr>
+#end
+
+#macro ( input $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input type="text" id="$input_id" name="$input_id" value="$value" onKeyUp="at(this, event)" onBlur="this.value=this.value.toUpperCase();"></td>
+</tr>
+#end
+
+#macro ( input_with_placeholder $input_id $input_title $value $placeholder )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input type="text" id="$input_id" name="$input_id" value="$value" onKeyUp="at(this, event)" onBlur="this.value=this.value.toUpperCase();" placeholder="$placeholder"></td>
+</tr>
+#end
+
+#macro ( input_no_case $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input type="text" id="$input_id" name="$input_id" value="$value" onKeyUp="at(this, event)"></td>
+</tr>
+#end
+
+#macro ( input_normal $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">$value</td>
+</tr>
+#end
+
+#macro ( input_normal_hidden $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td valign="top">:</td>
+	<td valign="top">$value</td>
+</tr>
+<input type=hidden name="$input_id" id="$input_id" value="$value">
+#end
+
+#macro ( input_email $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<input type="text" id="$input_id" name="$input_id" value="$value" onKeyUp=" $('err_$input_id').innerHTML=''; at(this, event);">
+		<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+#end
+
+#macro ( input_email_required $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<input type="text" id="$input_id" name="$input_id" value="$value" onKeyUp=" $('err_$input_id').innerHTML=''; at(this, event);">
+		<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+#end
+
+#macro ( input_email_readonly $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input type="text" id="$input_id" name="$input_id" value="$value" readonly></td>
+</tr>
+#end
+
+#macro ( input_email_with_placeholder $input_id $input_title $value $placeholder )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<input type="text" id="$input_id" name="$input_id" value="$value" onKeyUp=" $('err_$input_id').innerHTML=''; at(this, event);" placeholder="$placeholder">
+		<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+#end
+
+#macro ( input_required $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input type="text" id="$input_id" name="$input_id" value="$value" onKeyUp=" $('err_$input_id').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+	<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+#end
+
+#macro ( name_required_with_note $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input type="text" id="$input_id" name="$input_id" value="$value" onKeyUp=" $('err_$input_id').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+	<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	<i style="color: #FF0000">Nama seperti dalam MyKad</i>
+	</td>
+</tr>
+#end
+
+#macro ( input_required_with_placeholder $input_id $input_title $value $placeholder )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input type="text" id="$input_id" name="$input_id" value="$value" onKeyUp=" $('err_$input_id').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();" placeholder="$placeholder">
+	<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+#end
+
+#macro ( input_required_no_case $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input type="text" id="$input_id" name="$input_id" value="$value" onKeyUp=" $('err_$input_id').innerHTML=''; at(this, event);">
+	<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+#end
+
+#macro ( input_readonly $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top"><input type="text" value="$input_title" readonly></td>
+	<td class="label" valign="top"><input type="text" value=":"></td>
+	<td valign="top"><input type="text" id="$input_id" name="$input_id" value="$value" readonly></td>
+</tr>
+#end
+
+#macro ( input_readonly_label $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td class="label" valign="top"><input type="text" id="$input_id" name="$input_id" value="$value" readonly></td>
+</tr>
+#end
+
+#macro ( input_readonly_all_label $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td class="label" valign="top">$value</td>
+</tr>
+#end
+
+#macro ( password $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input type="password" id="$input_id" name="$input_id" value="$value" onKeyUp="at(this, event)"></td>
+</tr>
+#end
+
+#macro ( password_required $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input type="password" id="$input_id" name="$input_id" value="$value" onKeyUp=" $('err_$input_id').innerHTML=''; at(this, event);">
+	<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+#end
+
+#macro ( password_readonly $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top"><input type="text" value="$input_title" readonly></td>
+	<td class="label" valign="top"><input type="text" value=":" readonly></td>
+	<td valign="top"><input type="password" id="$input_id" name="$input_id" value="$value" readonly></td>
+</tr>
+#end
+
+#macro ( alamat_readonly $input_id $input_title $value)
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top"></td>
+	<td valign="top">$value</td>
+</tr>
+#end
+
+#macro ( currency $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input class="currency" type="text" id="$input_id" name="$input_id" value="$value" onKeyUp="at(this, event)"></td>
+</tr>
+#end
+
+#macro ( currency_required $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<input class="currency" type="text" id="$input_id" name="$input_id" value="$value" onKeyUp=" $('err_$input_id').innerHTML=''; at(this, event);">
+		<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+#end
+
+#macro ( currency_readonly $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top"><input type="text" value="$input_title" readonly></td>
+	<td class="label" valign="top"><input type="text" value=":" readonly></td>
+	<td valign="top"><input class="currency" type="text" id="$input_id" name="$input_id" value="$value" readonly></td>
+</tr>
+#end
+
+#macro ( currency_readonly_label $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input class="currency" type="text" id="$input_id" name="$input_id" value="$value" readonly></td>
+</tr>
+#end
+
+#macro ( number $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input class="number" type="text" id="$input_id" name="$input_id" value="$value" onKeyUp="at(this, event)"></td>
+</tr>
+#end
+
+#macro ( number_required $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<input class="number" type="text" id="$input_id" name="$input_id" value="$value" onKeyUp=" $('err_$input_id').innerHTML=''; at(this, event);">
+		<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+#end
+
+#macro ( number_readonly $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input class="number" type="text" id="$input_id" name="$input_id" value="$value" readonly></td>
+</tr>
+#end
+
+#macro ( phone_number $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input class="phone_number" type="text" id="$input_id" name="$input_id" value="$value" onKeyUp="at(this, event)"></td>
+</tr>
+#end
+
+#macro ( phone_number_with_placeholder $input_id $input_title $value $placeholder)
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input class="phone_number" type="text" id="$input_id" name="$input_id" value="$value" onKeyUp="at(this, event)" placeholder="$placeholder"></td>
+</tr>
+#end
+
+#macro ( phone_number_required $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<input class="phone_number" type="text" id="$input_id" name="$input_id" value="$value" onKeyUp=" $('err_$input_id').innerHTML=''; at(this, event);">
+		<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+#end
+
+#macro ( phone_number_readonly $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input class="phone_number" type="text" id="$input_id" name="$input_id" value="$value" readonly></td>
+</tr>
+#end
+
+#macro ( postcode $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input class="postcode" type="text" id="$input_id" name="$input_id" value="$value" onKeyUp="at(this, event)"></td>
+</tr>
+#end
+
+#macro ( postcode_required $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<input class="postcode" type="text" id="$input_id" name="$input_id" value="$value" onKeyUp=" $('err_$input_id').innerHTML=''; at(this, event);">
+		<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+#end
+
+#macro ( postcode_readonly $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input class="postcode" type="text" id="$input_id" name="$input_id" value="$value" readonly></td>
+</tr>
+#end
+
+#macro ( mykad $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input class="mykad" type="text" id="$input_id" name="$input_id" value="$value" onKeyUp="at(this, event)"></td>
+</tr>
+#end
+
+#macro ( mykad_with_placeholder $input_id $input_title $value $placeholder)
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input class="mykad" type="text" id="$input_id" name="$input_id" value="$value" onKeyUp="at(this, event)" placeholder="$placeholder"></td>
+</tr>
+#end
+
+#macro ( mykad_required $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<input class="mykad" type="text" id="$input_id" name="$input_id" value="$value" onKeyUp=" $('err_$input_id').innerHTML=''; at(this, event);">
+		<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+#end
+
+#macro ( mykad_readonly $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><input class="mykad" type="text" id="$input_id" name="$input_id" value="$value" readonly></td>
+</tr>
+#end
+
+#macro ( textarea $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><textarea id="$input_id" name="$input_id" onBlur="this.value=this.value.toUpperCase();">$value</textarea></td>
+</tr>
+#end
+
+#macro ( textarea_no_case $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top"><textarea id="$input_id" name="$input_id">$value</textarea></td>
+</tr>
+#end
+
+#macro ( textarea_required $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<textarea id="$input_id" name="$input_id" onKeyUp="$('err_$input_id').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">$value</textarea>
+		<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+#end
+
+#macro ( textarea_readonly $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">$value</td>
+</tr>
+#end
+
+#macro ( textarea_readonly_label $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td class="label" valign="top"><input type="text" id="$input_id" name="$input_id" value="$value" readonly></td>
+</tr>
+#end
+
+#macro ( select $input_id $input_title $list $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<select id="$input_id" name="$input_id" value="$value">
+			<option value=""></option>
+			#foreach( $i in $list )
+				<option #if ( $i.id == $value ) selected #end value="$i.id">$i.name</option>
+			#end
+		</select>
+	</td>
+</tr>
+#end
+
+#macro ( select_required $input_id $input_title $list $value )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td valign="top" valign="top">:</td>
+	<td valign="top">
+		<select id="$input_id" name="$input_id" value="$value" onChange="$('err_$input_id').innerHTML=''; at(this, event);">
+			<option value=""></option>
+			#foreach( $i in $list )
+				<option #if ( $i.id == $value ) selected #end value="$i.id">$i.name</option>
+			#end
+		</select>
+		<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+</tr>
+#end
+
+#macro ( date_input $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<div>
+    		<input type="text" id="$input_id" name="$input_id" value="$value">
+			<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+    		<script>
+            	_jq("#$input_id").Zebra_DatePicker({ 
+    				format: 'd-m-Y',
+					readonly_element: false
+            	});
+				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+    		</script>
+		</div>
+	</td>
+</tr>
+#end
+
+#macro ( date_input_with_placeholder $input_id $input_title $value $placeholder)
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<div>
+    		<input type="text" id="$input_id" name="$input_id" value="$value" placeholder="$placeholder">
+			<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+    		<script>
+            	_jq("#$input_id").Zebra_DatePicker({ 
+    				format: 'd-m-Y',
+					readonly_element: false
+            	});
+				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+    		</script>
+		</div>
+	</td>
+</tr>
+#end
+
+#macro ( date_input_required $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<div>
+    		<input type="text" id="$input_id" name="$input_id" value="$value" >
+    		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+			<script>
+            	_jq("#$input_id").Zebra_DatePicker({ 
+    				format: 'd-m-Y',
+					readonly_element: false,
+					onSelect: function(view, elements) {
+						$('err_$input_id').innerHTML='';
+						at(this, event);
+					}
+            	});
+				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+    		</script>
+    		<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</div>
+	</td>
+</tr>
+#end
+
+#macro ( date_input_required_with_placeholder $input_id $input_title $value $placeholder )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<div>
+    		<input type="text" id="$input_id" name="$input_id" value="$value" placeholder="$placeholder">
+    		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+			<script>
+            	_jq("#$input_id").Zebra_DatePicker({ 
+    				format: 'd-m-Y',
+					readonly_element: false,
+					onSelect: function(view, elements) {
+						$('err_$input_id').innerHTML='';
+						at(this, event);
+					}
+            	});
+				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+    		</script>
+    		<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</div>
+	</td>
+</tr>
+#end
+
+#macro ( date_input_required_with_placeholder $input_id $input_title $value $placeholder )
+<tr>
+	<td class="label" valign="top">$input_title &nbsp;<span style="color:#FF2A00">*</span></td>
+	<td class="label" valign="top">:</td>
+	<td valign="top">
+		<div>
+    		<input type="text" id="$input_id" name="$input_id" value="$value" placeholder="$placeholder">
+    		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+			<script>
+            	_jq("#$input_id").Zebra_DatePicker({ 
+    				format: 'd-m-Y',
+					readonly_element: false,
+					onSelect: function(view, elements) {
+						$('err_$input_id').innerHTML='';
+						at(this, event);
+					}
+            	});
+				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+    		</script>
+    		<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</div>
+	</td>
+</tr>
+#end
+
+#macro ( date_input_readonly_label $input_id $input_title $value )
+<tr>
+	<td class="label" valign="top">$input_title</td>
+	<td class="label" valign="top">:</td>
+	<td class="label" valign="top">
+		<input type="text" id="$input_id" name="$input_id" value="$value" readonly style="width: 150px">
+		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+	</td>
+</tr>
+#end
+
+#macro ( date_input_range $input_id $input_title $value $input_id1 $value1)
+<tr>
+  <td class="label" valign="top">$input_title</td>
+  <td class="label" valign="top">:</td>
+  <td valign="top"><div>
+      <input type="text" id="$input_id" name="$input_id" value="$value" placeholder="dd-mm-yyyy">
+      &nbsp;&nbsp; - &nbsp;&nbsp;
+      <input type="text" id="$input_id1" name="$input_id1" value="$value1" placeholder="dd-mm-yyyy">
+      <script>
+            	_jq("#$input_id").Zebra_DatePicker({ 
+    				format: 'd-m-Y',
+					readonly_element: false
+            	});
+				_jq("#$input_id1").Zebra_DatePicker({ 
+    				format: 'd-m-Y',
+					readonly_element: false
+            	});
+				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+    		</script>
+    		<div id="err_$input_id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+		</div>
+	</td>
+    </div></td>
+</tr>
+#end
+

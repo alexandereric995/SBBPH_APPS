@@ -1,0 +1,89 @@
+
+
+<fieldset style="width:50% !important">
+<legend class="legend">terma dan syarat bagi $!rpp.jenisPeranginan.id $!rpp.namaPeranginan.toUpperCase()</legend>
+
+	<table cellpadding="1" cellspacing="1" width="100%">
+		
+		<tr><td colspan="3">&nbsp;</td></tr>
+		
+		#if ( $listTermaSyaratPeranginan.size() > 0 )
+        		#set ( $count = 0 )
+        		#foreach( $d in $listTermaSyaratPeranginan )
+        			
+        			#set ( $count = $count + 1)
+                	#if ( $count % 2 == 0 ) 
+            			##set ( $rowcolor = "#D0CFCE" ) 
+            		#else 
+            			##set ( $rowcolor = "#F0F0F0" ) 
+    				#end
+    				
+            		<tr bgcolor="#F0F0F0">
+            			<td valign="middle" align="center" width="10%">$count</td>
+                		<td valign="middle" width="70%">$!d.termaSyaratRpp.keterangan.toUpperCase()</td>
+						<td valign="middle" align="center" width="20%">
+							<input type="checkbox" name="setuju[]" id="setuju$!d.id" value="$!d.id" style="width:25px;height:20px;display:block;" onclick="$('err_chkmsg').innerHTML='';at(this, event)" />
+						</td>
+                    </tr>
+    			#end
+		#end
+		
+	</table>
+	
+	<br />
+	<table width="100%">
+		<tr>
+			<td><div id="err_chkmsg" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+		</tr>
+		<tr>
+			<td align="right">
+				<input id="btnAgree" type="button" value="Setuju" />
+				<input id="btnDisagree" type="button"  value="Tidak Setuju)" />
+			</td>
+		</tr>
+	</table>
+	
+</fieldset>		
+
+
+<script>
+	_jq('#btnDisagree').on('click', function(){
+     	jQuery('#popupTempahSekarang').fadeOut();
+  	});
+	
+	function validateCheckbox() {
+
+    	var err_count = 0;
+    	
+		var inputs =  document.getElementsByName("setuju[]");
+		
+        var is_checked = false;
+        for(var x = 0; x < inputs.length; x++) {
+        	is_checked = inputs[x].checked;
+            if(!is_checked){ 
+				$('err_chkmsg').innerHTML = "* Anda mesti bersetuju dengan kesemua terma dan syarat yang ditetapkan"; err_count++;
+				break;
+			}
+        }
+    	
+		if (err_count == 0) {
+    		
+    	}
+    	
+    	return err_count == 0;
+    }
+	
+	_jq('#btnAgree').on('click', function(){
+		if(validateCheckbox()){
+			var recordId = "";
+			doDivAjaxCall$formname('div_main_entry','save_data','record_id='+recordId);
+			jQuery('#popupTempahSekarang').fadeOut();
+		}
+  	});
+</script>
+
+
+
+
+
+

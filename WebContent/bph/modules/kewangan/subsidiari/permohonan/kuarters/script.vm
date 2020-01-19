@@ -1,0 +1,34 @@
+
+_jq( document ).ready(function() {
+	var datasize = "$!data_size";
+	if(parseInt(datasize) > 0){
+		$('btnAddNewRecordTemplate').style.display='none';
+	}
+});
+
+function validate() {
+	var err_count = 0;
+	
+	var noAkaunBank = $('noAkaunBank').value;
+	if ( noAkaunBank == "" ) {$('err_noAkaunBank').innerHTML = "Akaun Bank adalah mandatori!"; err_count++;  }
+	
+	var namaBank = $('namaBank').value;
+	if ( namaBank == "" ) {$('err_namaBank').innerHTML = "Nama Bank adalah mandatori!"; err_count++;  }
+	
+	var flagSijilAkuanMasuk = $('flagSijilAkuanMasuk').checked;
+	if ( flagSijilAkuanMasuk == "" ) {$('err_flagSijilAkuanMasuk').innerHTML = "Sijil Akaun Masuk adalah mandatori!"; err_count++;  }
+	
+	var flagSijilAkuanKeluar = $('flagSijilAkuanKeluar').checked;
+	if ( flagSijilAkuanKeluar == "" ) {$('err_flagSijilAkuanKeluar').innerHTML = "Sijil Akaun Keluar adalah mandatori!"; err_count++;  }
+	
+	var justifikasiPemohon = $('justifikasiPemohon').value;
+	if ( justifikasiPemohon == "" ) {$('err_justifikasiPemohon').innerHTML = "Justifikasi Pemohon adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}

@@ -1,0 +1,367 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#tblrpp').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+	_jq(document).ready(function() {
+        _jq('#tblLondon').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+
+<input type="hidden" name="id" id="id" value="$!r.id" />
+
+<fieldset>
+	
+	
+    <legend class="legend">maklumat pemohon</legend>
+    
+	<table width="100%">
+		<tr>
+			<td colspan="3" style="padding-right:0.1cm" valign="top">
+    			<div style="width:100%;height:50px"> 
+    				<div style="float:left;padding:0.1cm">
+						
+						#if ( $!profilePhotoName != "") 
+							<img style="border:1px solid black;width:120px;height:120px;margin:4px 0 4px;" width="120px" height="120px" id="photoImg" src="../download?file=$!uploadDir$!profilePhotoName" border="0">
+						#end
+						
+						<!--
+						#if ( $!r.avatar )
+							<img style="border:1px solid black;width:120px;height:120px;margin:4px 0 4px;" width="120px" height="120px" id="photoImg" src="../download?file=$!profilePhotoFileName" border="0" />	
+                        #else
+                        	<img style="border:1px solid black;width:110px;height:120px;margin:4px 0 4px;" width="120px" height="120px" id="photoImg" src="../img/nophoto.gif" border="0" />
+						#end
+						-->
+    				</div>
+    			</div>
+			</td>
+		</tr>
+	</table>
+				
+	<table width="100%">
+		<tr>
+			<td style="width:170px"></td>
+            <td style="width:10px"></td>
+            <td></td>
+		</tr>
+      
+		<tr>
+			<td colspan="3">
+				<table width="100%" border="0">
+					<tr>
+						##KIRI
+						<td valign="top" width="40%">
+							<table width="100%">
+								<tr>
+                        			<td style="width:160px"></td>
+                                    <td style="width:10px"></td>
+                                    <td></td>
+                        		</tr>
+								#show("NO. KAD PENGENALAN" "$!util.replaceIfNull($!r.noKP,'-')")
+                        		#show("NAMA" "$!util.replaceIfNull($!r.userName.toUpperCase(),'-')")
+                        		#show("GRED" "$!util.replaceIfNull($!r.gredPerkhidmatan.keterangan.toUpperCase(),'-')")
+                        		#show("JANTINA" "$!util.replaceIfNull($!r.jantina.keterangan.toUpperCase(),'-')")
+                        		#show("BANGSA" "$!util.replaceIfNull($!r.bangsa.keterangan.toUpperCase(),'-')")
+                        		#show("AGAMA" "$!util.replaceIfNull($!r.agama.keterangan.toUpperCase(),'-')")
+							</table>
+						</td>
+						
+						##KANAN
+						<td valign="top" width="60%">
+							<table width="100%">
+								<tr>
+                        			<td style="width:160px"></td>
+                                    <td style="width:10px"></td>
+                                    <td></td>
+                        		</tr>
+								#show("ALAMAT" "$!util.replaceIfNull($!r.userAddress,'-')")
+                        		#show("" "$!util.replaceIfNull($!r.userAddress2,'-')")
+                        		#show("" "$!util.replaceIfNull($!r.userAddress3,'-')")
+                        		#show("POSKOD" "$!util.replaceIfNull($!r.userPostcode,'-')")
+                        		#show("BANDAR" "$!util.replaceIfNull($!r.userBandar.keterangan.toUpperCase(),'-')")
+                        		#show("NEGERI" "$!util.replaceIfNull($!r.userBandar.negeri.keterangan.toUpperCase(),'-')")
+								#show("NO. TELEFON" "$!util.replaceIfNull($r.noTelefon,'-')")
+                        		#show("NO. TELEFON BIMBIT" "$!util.replaceIfNull($!r.noTelefonBimbit,'-')")
+                        		#show("EMEL" "$!util.replaceIfNull($!r.emel,'-')")
+							</table>
+						</td>
+						
+					</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr><td colspan="3">&nbsp;</td></tr>
+		
+		<tr>
+			<td colspan="3"><hr/></td>
+		</tr>
+		
+		<tr>
+			<td colspan="3">
+				<span style="font-size:12px;font-weight:bold;text-decoration: underline;">MAKLUMAT PASANGAN</span>
+			</td>
+		</tr>
+
+		#show("NAMA" "$!util.replaceIfNull($!r.rekodSpouse().getNamaPasangan().toUpperCase(),'-')")
+		#show("NO. KAD PENGENALAN" "$!util.replaceIfNull($!r.rekodSpouse().getNoKPPasangan(),'-')")
+		#show("NO. TELEFON" "$!util.replaceIfNull($!r.rekodSpouse().getNoTelBimbit(),'-')")
+		
+		<tr><td colspan="3">&nbsp;</td></tr>
+		
+		<tr>
+			<td colspan="3"><hr/></td>
+		</tr>
+		
+		<tr>
+			<td colspan="3">
+				<span style="font-size:12px;font-weight:bold;text-decoration: underline;">MAKLUMAT BANK</span>
+			</td>
+		</tr>
+		
+		#show("NO. AKAUN BANK" "$!util.replaceIfNull($!r.noAkaunBank,'-')")
+		#show("BANK" "$!util.replaceIfNull($!r.bank.keterangan.toUpperCase(),'-')")
+		
+		<tr>
+			<td>DOKUMEN PENYATA BANK</td>
+			<td>:</td>
+			<td>
+				#if( $!r.dokumenBank && !$!r.dokumenBank.equalsIgnoreCase("") )
+					<a href="../download?file=$!uploadDir$!r.dokumenBank"><span class="print" style="color:#0000FF"><strong>MUAT TURUN</strong><span></a> 
+				#else
+					TIADA
+				#end
+			</td>
+		</tr>
+		
+    </table>
+	
+	<div id="divCatatanHqPengguna">#parse("$path/catatanHqPengguna.vm")</div>
+	
+</fieldset>
+
+<br/>
+
+
+#if( $blacklisted )
+
+	  <fieldset id="makluman" style="font-weight:bold;color:red; background-color:#D8CEF6">
+            <table cellpadding="5" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td style="color:red;font-size:15px;font-weight:bold;text-align:justify;" id="notaLulusOperator">
+        				* PENGGUNA TELAH DISENARAI HITAM.
+        			</td>
+                </tr>
+            </table>
+        </fieldset>	
+	<br/>		
+		
+#end
+
+<fieldset>
+    <legend class="legend">senarai tempahan rpp / rt</legend>
+    
+	<table id="tblrpp" class="display" cellspacing="0" width="100%">
+		
+		<thead>
+    		<tr>
+    			<th class="row_header" width="5%">Bil.</th>
+    			<th class="row_header" width="30%">Maklumat Peranginan</th>
+    			<th class="row_header" width="10%">Tarikh Mohon</th>
+    			<th class="row_header" width="10%">Tarikh Daftar Masuk</th>
+    			<th class="row_header" width="10%">Tarikh Daftar Keluar</th>
+    			<th class="row_header" width="25%">Status</th>
+				<th class="row_header" width="10%">Senarai Cetakan</th>
+    		</tr>
+        </thead>
+		
+			<tbody>
+				
+    			#set ( $count = 0 )
+    			#foreach( $d in $listRpp )
+        			
+        			#set ( $count = $count + 1)
+                	#if ( $count % 2 == 0 ) 
+            			#set ( $rowcolor = "#D0CFCE" ) 
+            		#else 
+            			#set ( $rowcolor = "#F0F0F0" ) 
+    				#end
+    				
+    				
+                		<tr bgcolor="$rowcolor">
+                			<td align="center">$count</td>
+        					<td align="left" style="font-size:10px">
+        						<b>No. Tempahan :</b> $!d.noTempahan.toUpperCase() <br/>
+                            	<b>Lokasi :</b> $!d.rppPeranginan.namaPeranginan.toUpperCase()<br/>
+								
+								#if($!d.jenisPemohon=="KELOMPOK")
+									##<b>Jenis Unit :</b> > 1 unit<br/>
+									<span style="font-size:10px"><i>(Permohonan Berkelompok)</i></span><br/>
+								#else
+									<b>Jenis Unit :</b> &nbsp;$!d.kuantiti UNIT $!d.jenisUnitRpp.keterangan.toUpperCase()<br/>
+								#end
+								
+								#if($!d.catatanBookingHq && !$!d.catatanBookingHq.equalsIgnoreCase(""))
+								<a href="#" style="color:blue;font-size:10px" id="openPopupCatatanHQ$!d.id" >Catatan HQ</a>
+								<script>
+            						_jq('#openPopupCatatanHQ$!d.id').on('click', function(){
+                						doDivAjaxCall3$formname('popupCatatanHQ','openPopupCatatanHQ','idprmhn=$d.id');
+                                        jQuery('#popupCatatanHQ').fadeIn();
+                                    });
+                                </script>
+								#end
+								
+        					</td>
+        					<td align="center">$!util.getDateTime($!d.tarikhPermohonan,'dd-MM-yyyy')</td>
+                    		<td align="center">$!util.getDateTime($!d.tarikhMasukRpp,'dd-MM-yyyy')</td>
+                			<td align="center">$!util.getDateTime($!d.tarikhKeluarRpp,'dd-MM-yyyy')</td>
+        					<td align="center" style="font-size:10px">
+								$!d.status.keterangan.toUpperCase()
+								#if($!d.status.id == "1435093978588" || $!d.status.id == "1425259713418" )
+									<div>
+										<b>Tarikh Pembatalan :</b> $!util.getDateTime($!d.tarikhPembatalan,'dd-MM-yyyy') <br/>
+										<b>Sebab :</b> $!d.catatanPembatalan <br/>
+										<b>Dibatalkan Oleh :</b> $!d.pemohonBatal.userName
+									</div>
+								#elseif($!d.status.id == "1430809277102" || $!d.status.id == "1430809277099" )
+									<div>
+										<b>Tarikh Lulus / Tidak :</b> $!util.getDateTime($!d.tarikhKelulusanSub,'dd-MM-yyyy') <br/>
+										<b>Sebab :</b> $!d.catatanSub <br/>
+										<b>Semakan Oleh :</b> $!d.pelulusPremier.userName
+									</div>
+								#end
+							</td>
+							<td>
+								
+								#if( $!d.statusBayaran == "Y")
+									
+    								#if( !$!d.rppPeranginan.id.equalsIgnoreCase("3") && !$!d.rppPeranginan.id.equalsIgnoreCase("14") )
+    									
+										#if( $!d.getIdResitSewa() != "" && $!d.getIdResitSewa() )
+    									<a href="#" style="color:blue;font-size:10px" onclick="cetakResitSewa('$!d.getIdResitSewa()')" >RESIT SEWA</a> <br/>
+										#end
+										
+    									#if( !$!d.getIdResitDeposit().equalsIgnoreCase("") && ($!d.getIdResitDeposit() != $!d.getIdResitSewa()) )
+    										<a href="#" style="color:blue;font-size:10px" onclick="cetakResitSewa('$!d.getIdResitDeposit()')" >RESIT DEPOSIT </a> <br/>
+    									#end
+
+									#end
+    								
+    								##langkawi
+                        			#if( $!d.rppPeranginan.id.equalsIgnoreCase("3"))
+                        				<a href="#" style="color:blue;font-size:10px" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!d.id&jenisSurat=suratKelulusanLangkawi&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN LANGKAWI</a> <br/>
+                        			##port dickson
+                        			#elseif($!d.rppPeranginan.id.equalsIgnoreCase("14") )
+                        				<a href="#" style="color:blue;font-size:10px" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!d.id&jenisSurat=suratKelulusanPD&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN PORT DICKSON</a> <br/>
+                        			#else
+                        				<a href="#" style="color:blue;font-size:10px" id="cmdSuratKelulusan" onclick="window.open('../servlet/bph.print.CreatePDFServlet?pathUrl=v/bph.print.PrintSuratRPP?idRppPermohonan=$!d.id&jenisSurat=suratKelulusan&pdfName=SuratKelulusan','Surat Kelulusan','width=900,height=600')">SURAT KELULUSAN</a> <br/>
+    								#end
+								
+								#end
+								
+							</td>
+                        </tr>
+    			#end
+			
+			</tbody>
+			
+	</table>
+	
+</fieldset>
+
+<br/>
+
+<fieldset>
+    <legend class="legend">senarai tempahan London</legend>
+    
+	<table id="tblLondon" class="display" cellspacing="0" width="100%">
+		
+		<thead>
+    		<tr>
+    			<th class="row_header" width="5%">Bil.</th>
+    			<th class="row_header" width="30%">Maklumat Peranginan</th>
+    			<th class="row_header" width="10%">Tarikh Mohon</th>
+    			<th class="row_header" width="10%">Tarikh Daftar Masuk</th>
+    			<th class="row_header" width="10%">Tarikh Daftar Keluar</th>
+    			<th class="row_header" width="15%">Status</th>
+				<th class="row_header" width="20%">Senarai Cetakan</th>
+    		</tr>
+        </thead>
+		
+			<tbody>
+				
+    			#set ( $count = 0 )
+    			#foreach( $d in $listLondon )
+        			
+        			#set ( $count = $count + 1)
+                	#if ( $count % 2 == 0 ) 
+            			#set ( $rowcolor = "#D0CFCE" ) 
+            		#else 
+            			#set ( $rowcolor = "#F0F0F0" ) 
+    				#end
+    				
+    				
+                		<tr bgcolor="$rowcolor">
+                			<td align="center">$count</td>
+        					<td align="left" style="font-size:10px">
+                            	<b>Lokasi :</b> $!d.jenisUnitRpp.peranginan.namaPeranginan.toUpperCase()<br/>
+                            	<b>Jenis Unit :</b> $!d.jenisUnitRpp.keterangan.toUpperCase()<br/>
+								
+								#if($!d.catatanHq && !$!d.catatanHq.equalsIgnoreCase(""))
+								<a href="#" style="color:blue;font-size:10px" id="openPopupCatatanLondon$!d.id" >Catatan HQ</a>
+								<script>
+            						_jq('#openPopupCatatanLondon$!d.id').on('click', function(){
+                						doDivAjaxCall3$formname('popupCatatanHQ','openPopupCatatanLondon','idLondon=$d.id');
+                                        jQuery('#popupCatatanHQ').fadeIn();
+                                    });
+                                </script>
+								#end
+								
+        					</td>
+        					<td align="center">$!util.getDateTime($!d.tarikhDaftarRekod,'dd-MM-yyyy')</td>
+                    		<td align="center">$!util.getDateTime($!d.tarikhMasukRpp,'dd-MM-yyyy')</td>
+                			<td align="center">$!util.getDateTime($!d.tarikhKeluarRpp,'dd-MM-yyyy')</td>
+        					<td align="center" style="font-size:10px">
+								$!d.status.keterangan.toUpperCase()
+							</td>
+							<td>
+								<a href="#" style="color:blue;font-size:10px" onclick="cetakSuratLondon('$!d.id')" >BORANG PERMOHONAN LONDON</a> <br/>
+							</td>
+                        </tr>
+    			#end
+			
+			</tbody>
+			
+	</table>
+	
+</fieldset>
+
+<br/>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+<div id="popupCatatanHQ" class="popup"></div>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

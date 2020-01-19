@@ -1,0 +1,85 @@
+<script>
+	_jq("#bekerja1").hide();
+	_jq("#bekerja2").hide();
+</script>
+
+<div id="simpanPasangan"></div>
+<table cellpadding="5" cellspacing="0" border="0" width="95%" id="pemohonPasangan">
+    <tr>
+        <td style="width:150px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+    </tr>
+    #input_required("namaPasangan" "Nama" "$!us.namaPasangan")
+    <tr>
+        <td class="label" valign="middle">Jenis Pengenalan&nbsp;<span style="color:#FF2A00">*</span>
+        </td>
+        <td valign="middle">:</td>
+        <td>
+            <span id="listJenisPengenalanPasangan">
+                #parse("$path/entry_sub/penghuni/pasangan/selectJenisPengenalanPasangan.vm")
+            </span>
+            <div id="err_idJenisPengenalanPasangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    #input_required("pasanganNoKP" "No. Kad Pengenalan" "$!us.noKPPasangan")
+    <tr>
+        <td class="label" valign="middle">Pekerjaan&nbsp;<span style="color:#FF2A00">*</span>
+        </td>
+        <td valign="middle">:</td>
+        <td>
+            <span id="listStatusPekerjaanPasangan">
+                #parse("$path/entry_sub/penghuni/pasangan/selectStatusPekerjaanPasangan.vm")
+            </span>
+            <div id="err_idStatusPekerjaanPasangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        </td>
+    </tr>
+    <tbody id="bekerja1">
+        #input_required("pasanganJenisPekerjaan" "Jenis Pekerjaan" "$!us.jenisPekerjaan")
+        ##currency_required("pasanganGaji" "Pendapatan / Gaji" "$!us.gajiPasangan")
+	</tbody>
+	<tbody id="bekerja2">
+        ##input_required("pasanganSyarikat" "Nama Syarikat" "$!us.namaSyarikat")
+        #input_required("pasanganAlamatKerja1" "Alamat Pejabat" "$!us.alamatPejabat1")
+        #input("pasanganAlamatKerja2" "" "$!us.alamatPejabat2")
+        ##input("pasanganAlamatKerja3" "" "$!us.alamatPejabat3")
+        #postcode_required("pasanganPoskodKerja" "Poskod" "$!us.poskodPejabat")
+        <tr>
+            <td class="label" valign="middle">Negeri&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td valign="middle">:</td>
+            <td>
+                <span id="listNegeri">
+                    #parse("$path/entry_sub/penghuni/pasangan/selectNegeriPasangan.vm")
+                </span>
+                <div id="err_idNegeriPasangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+        <tr>
+            <td valign="middle" class="label">Bandar&nbsp;<span style="color:#FF2A00">*</span></td>
+            <td valign="middle">:</td>
+            <td>
+                <span id="selectBandarPasangan">
+                    #parse("$path/entry_sub/penghuni/pasangan/selectBandarPasangan.vm")
+                </span>
+                <div id="err_idBandarPasangan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+            </td>
+        </tr>
+        #input_required("pasanganNoTelKerja" "No. Telefon Pejabat" "$!us.noTelPejabat")
+        ##input("pasanganNoFaksKerja" "Faks Pejabat" "$!us.noFaksPejabat")
+    </tbody>
+    #input_required("pasanganNoTelBimbit" "No Tel Bimbit" "$!us.noTelBimbit")
+    <tr>
+        <td colspan="2"></td>
+        <td>
+            <input type="button" id="btnSimpanPasangan" name="btnSimpanPasangan" value="Simpan / Kemaskini" onclick="simpanPasangan()" />
+        </td>
+    </tr>
+</table>
+<script>
+    _jq(function($) {
+        $('.currency').autoNumeric('init', {aSign: 'RM '}); 
+        $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+        $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+        $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+    });
+</script>

@@ -1,0 +1,25 @@
+function tolakPembayaran() {
+
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall$formname('statusInfo','tolakPembayaran','');
+}
+
+function doCheckedIn(queryParam) {
+	if ( !confirm('Adakah anda pasti ?') ){ 
+		return; 
+	}else{
+		$('_wait').innerHTML='Please wait...';
+		doDivAjaxChainCall$formname('divstatus','checkedIn',queryParam,'div_list','list_page',queryParam);
+	}	
+}
+
+function doNoShow(queryParam) {
+	if ( !confirm('Adakah anda pasti ?') ){ 
+		return; 
+	}else{
+		$('_wait').innerHTML='Please wait...';
+		doDivAjaxChainCall$formname('divstatus','noShow',queryParam,'div_list','list_page',queryParam);
+	}	
+}

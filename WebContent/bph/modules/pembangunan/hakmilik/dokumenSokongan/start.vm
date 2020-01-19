@@ -1,0 +1,43 @@
+<fieldset>
+<legend class="legend">Dokumen Sokongan</legend>
+<table width="100%">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  #if ($allowUpdate)
+  <tr>
+    <td class="label" valign="top">Jenis Dokumen &nbsp;<span style="color:#FF2A00">*</span>
+    <td valign="top">:</td>
+    <td><div id="jenisDokumen"> #parse("$path/dokumenSokongan/selectJenisDokumen.vm") </div>
+      <div id="err_idJenisDokumen" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #input_required("tajukDokumen" "Tajuk" "")        
+  #textarea("keteranganDokumen" "Keterangan" "")
+  <tr>
+    <td>Muatnaik Dokumen</td>
+    <td>:</td>
+    <td><input class="texts" type="file" id="dokumen" name="dokumen" style="width:100%" onfocus="$('err_dokumen').innerHTML = '';" onChange="checkUpload()">
+      <div id="dokumenMuatnaik" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+      <div id="err_dokumen" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  #end
+  <tr>
+    <td colspan="3" align="center"><div id="refreshListDokumen">#parse("$path/dokumenSokongan/listDokumen.vm")</div></td>
+  </tr>
+</table>
+<iframe id="upload_doc" name="upload_doc" width="0px" height="0px" style="visibility:hidden"></iframe>
+</fieldset>
+<table width="100%">
+  <tr>
+    <td align="right"><input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

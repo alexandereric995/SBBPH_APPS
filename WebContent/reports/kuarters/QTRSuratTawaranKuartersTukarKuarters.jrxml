@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="QTRSuratTawaranKuartersTukarKuarters"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="590"
+		 pageHeight="850"
+		 columnWidth="530"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="90"
+		 bottomMargin="50"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idTawaran" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT kua_kuarters.id_kelas_kuarters, kua_tawaran.tarikh_surat, kua_tawaran.tarikh_surat_sebenar, kua_tawaran.kepada, kua_tawaran.no_fail fail, kua_agihan.kelas_kuarters, users.user_name, users.user_login, 
+users_job.bahagian BahagianJob, users_job.alamat_1 alamat1Job, users_job.alamat_2 alamat2Job, users_job.alamat_3 alamat3Job, users_job.poskod poskodJob,
+ruj_bandar.keterangan BandarJob, ruj_negeri.keterangan NegeriJob,
+kua_kuarters.no_unit noUnitKuarters, kua_kuarters.blok blokKuarters, kua_kuarters.alamat_1 alamat1Kuarters, kua_kuarters.alamat_2 alamat2Kuarters, kua_kuarters.alamat_3 alamat3Kuarters,
+kua_kuarters.kawasan kawasanKuarters, kua_kuarters.poskod poskodKuarters, ruj_bandar_1.keterangan BandarKuarters, ruj_negeri_1.keterangan NegeriKuarters,
+kua_kuarters.kadar_deposit, kua_kuarters.kadar_sewa, users_1.user_name namaPegawai
+FROM kua_agihan
+JOIN kua_kuarters ON (kua_agihan.id_kuarters = kua_kuarters.id)
+JOIN kua_tawaran ON (kua_tawaran.id_agihan = kua_agihan.id)
+JOIN kua_permohonan ON (kua_agihan.id_permohonan = kua_permohonan.id)
+JOIN users ON (kua_permohonan.id_pemohon = users.user_login)
+JOIN users_job ON (users.user_login = users_job.user_login)
+JOIN ruj_bandar ON (users_job.id_bandar = ruj_bandar.id)
+JOIN ruj_negeri ON (ruj_bandar.id_negeri = ruj_negeri.id)
+JOIN sbbphdb.ruj_bandar ruj_bandar_1 ON (kua_kuarters.id_bandar = ruj_bandar_1.id)
+JOIN sbbphdb.ruj_negeri ruj_negeri_1 ON (ruj_bandar_1.id_negeri = ruj_negeri_1.id)
+LEFT OUTER JOIN sbbphdb.users users_1 ON (kua_tawaran.id_pegawai = users_1.user_login)
+where kua_tawaran.id = '$P!{idTawaran}']]></queryString>
+
+	<field name="id_kelas_kuarters" class="java.lang.String"/>
+	<field name="tarikh_surat" class="java.sql.Date"/>
+	<field name="tarikh_surat_sebenar" class="java.sql.Date"/>
+	<field name="kepada" class="java.lang.String"/>
+	<field name="fail" class="java.lang.String"/>
+	<field name="kelas_kuarters" class="java.lang.String"/>
+	<field name="user_name" class="java.lang.String"/>
+	<field name="user_login" class="java.lang.String"/>
+	<field name="BahagianJob" class="java.lang.String"/>
+	<field name="alamat1Job" class="java.lang.String"/>
+	<field name="alamat2Job" class="java.lang.String"/>
+	<field name="alamat3Job" class="java.lang.String"/>
+	<field name="poskodJob" class="java.lang.String"/>
+	<field name="BandarJob" class="java.lang.String"/>
+	<field name="NegeriJob" class="java.lang.String"/>
+	<field name="noUnitKuarters" class="java.lang.String"/>
+	<field name="blokKuarters" class="java.lang.String"/>
+	<field name="alamat1Kuarters" class="java.lang.String"/>
+	<field name="alamat2Kuarters" class="java.lang.String"/>
+	<field name="alamat3Kuarters" class="java.lang.String"/>
+	<field name="kawasanKuarters" class="java.lang.String"/>
+	<field name="poskodKuarters" class="java.lang.String"/>
+	<field name="BandarKuarters" class="java.lang.String"/>
+	<field name="NegeriKuarters" class="java.lang.String"/>
+	<field name="kadar_deposit" class="java.lang.String"/>
+	<field name="kadar_sewa" class="java.lang.Double"/>
+	<field name="namaPegawai" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="657"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="206"
+						width="71"
+						height="15"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Tuan/Puan"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="223"
+						width="489"
+						height="36"
+						key="textField-3"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["PERUNTUKAN KUARTERS KERAJAAN " + 
+($F{noUnitKuarters} == null ?"":$F{noUnitKuarters}.trim()) +
+($F{blokKuarters} == null ?"":$F{blokKuarters}.trim().toUpperCase())+" "+
+($F{alamat1Kuarters} == null ?"":$F{alamat1Kuarters}.trim().toUpperCase())+" "+
+($F{alamat2Kuarters} == null ?"":$F{alamat2Kuarters}.trim().toUpperCase())+" "+
+($F{alamat3Kuarters} == null ?"":$F{alamat3Kuarters}.trim().toUpperCase())+", "+
+($F{poskodKuarters} == null ?"":$F{poskodKuarters}.trim())+" "+
+($F{BandarKuarters} == null ?"":$F{BandarKuarters}.trim())+" "+
+($F{NegeriKuarters}== null ?"":$F{NegeriKuarters}.trim())+
+" ( KELAS "+$F{id_kelas_kuarters}+" )"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="259"
+						width="489"
+						height="15"
+						key="textField-4"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Dengan hormatnya saya diarah merujuk kepada perkara di atas:"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="278"
+						width="489"
+						height="42"
+						key="textField-5"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["2. Dimaklumkan tuan/puan ditawarkan kuarters seperti di atas. Sila lengkapkan dan kembalikan semula Surat Setuju Terima seperti di LAMPIRAN A dalam tempoh tujuh (7) hari bekerja dari tarikh surat ini. Tawaran ini adalah terbatal sekiranya tiada maklum balas diterima dalam tempoh tersebut."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="320"
+						width="489"
+						height="30"
+						key="textField-6"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["3. Dengan peruntukan kuarters ini, Imbuhan Tetap Perumahan (ITP)  tidak akan dibayar dan bayaran Bantuan Sara Hidup (COLA) adalah berdasakan perenggan 3.g Pekeliling Perkhidmatan Bil.6 Tahun 2007."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="350"
+						width="489"
+						height="58"
+						key="textField-7"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["4. Sekiranya bersetuju dengan tawaran ini, Tuan perlu membuat bayaran deposit kuarters sebanyak RM " + ($F{kadar_deposit} != null ? $F{kadar_deposit} : "")+" Caj pembetungan akan ditolak melalui gaji bulanan sebanyak RM "+ (($F{id_kelas_kuarters}.equals("A")) ? "8.00" : 
+($F{id_kelas_kuarters}.equals("B")) ? "8.00" : ($F{id_kelas_kuarters}.equals("C")) ? "8.00" : ($F{id_kelas_kuarters}.equals("D")) ? "8.00" : ($F{id_kelas_kuarters}.equals("E")) ? "8.00" : ($F{id_kelas_kuarters}.equals("F")) ? "2.00" : ($F{id_kelas_kuarters}.equals("G")) ? "2.00" : ($F{id_kelas_kuarters}.equals("H")) ? "2.00" : ($F{id_kelas_kuarters}.equals("I")) ? "2.00" : "2.00") +" sebulan. Proses melengkapkan dokumen dari memasuki kuarters  adalah   daripada tarikh surat ini. tiga puluh (30) hari daripada tarikh surat ini. Rujuk senarai semak seperti di Lampiran B."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="466"
+						width="489"
+						height="40"
+						key="textField-8"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["6. Tawaran ini dibuat berdasarkan maklumat dalam borang permohonan yang diisi. Bahagian ini berhak membatalkan tawaran sekiranya didapati maklumat yang dikemukakan adalah tidak benar."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="408"
+						width="489"
+						height="58"
+						key="textField-22"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["5. Kunci kuaters di "+($F{noUnitKuarters} == null ?"":$F{noUnitKuarters})+", "+($F{alamat1Kuarters}== null ?"":$F{alamat1Kuarters})+" ,"+($F{alamat2Kuarters} == null ?"":$F{alamat2Kuarters})+" ,"+($F{alamat3Kuarters} == null ?"":$F{alamat3Kuarters})+" ,"+($F{poskodKuarters} == null ?"":$F{poskodKuarters})+" ,"+($F{BandarKuarters}== null ?"":$F{BandarKuarters}.trim())+" ,"+($F{NegeriKuarters}== null ?"":$F{NegeriKuarters})+" hendaklah diserahkan dalam tempoh empat belas (14) hari daripada tarikh kunci kuaters baru diambil. Sewa akan dikenakan sekiranya kuarters tidak diserahkan dalam tempoh yang ditetapkan atau kuaters baru akan ditarik balik."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="440"
+						y="11"
+						width="68"
+						height="20"
+						key="textField-23"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{fail}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="43"
+						width="201"
+						height="15"
+						key="textField-24"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{user_name}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="57"
+						width="201"
+						height="15"
+						key="textField-25"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["NO.KP : "+$F{user_login}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="76"
+						width="201"
+						height="15"
+						key="textField-26"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Melalui dan salinan :"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="349"
+						y="11"
+						width="80"
+						height="20"
+						key="textField-27"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Rujukan Kami"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="429"
+						y="11"
+						width="11"
+						height="20"
+						key="textField-28"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="439"
+						y="24"
+						width="69"
+						height="20"
+						key="textField-29"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{tarikh_surat_sebenar}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="349"
+						y="24"
+						width="80"
+						height="20"
+						key="textField-30"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Tarikh"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="429"
+						y="24"
+						width="10"
+						height="20"
+						key="textField-31"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="19"
+						y="91"
+						width="390"
+						height="104"
+						key="textField-32"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{kepada} == null ?"":$F{kepada}.trim())+" \n"+
+($F{BahagianJob} == null ?"":$F{BahagianJob}.trim())+" \n"+
+($F{alamat1Job} == null ?"":$F{alamat1Job}.trim())+" "+($F{alamat2Job} == null ?"":$F{alamat2Job}.trim())+" "+($F{alamat3Job} == null ?"":$F{alamat3Job}.trim())+" \n"+
+($F{poskodJob} == null ?"":$F{poskodJob}.trim())+" "+($F{BandarJob} == null ?"":$F{BandarJob}.trim())+" \n"+
+($F{NegeriJob} == null ?"":$F{NegeriJob}.trim())]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="511"
+						width="201"
+						height="15"
+						key="textField-33"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Sekian, terima kasih."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="532"
+						width="201"
+						height="15"
+						key="textField-34"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["BERKHIDMAT UNTUK NEGARA"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="547"
+						width="201"
+						height="15"
+						key="textField-35"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["BERILTIZAM PENUHI HASRAT"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="561"
+						width="201"
+						height="21"
+						key="textField-36"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Saya yang menurut perintah"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="612"
+						width="201"
+						height="15"
+						key="textField-37"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["("+ $F{namaPegawai}+")"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="627"
+						width="201"
+						height="15"
+						key="textField-38"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["b.p Ketua Setiausaha Negara"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="20"
+						y="642"
+						width="441"
+						height="15"
+						key="textField-39"/>
+					<box></box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Nota : Surat ini dijana oleh komputer, tandatangan tidak diperlukan"]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

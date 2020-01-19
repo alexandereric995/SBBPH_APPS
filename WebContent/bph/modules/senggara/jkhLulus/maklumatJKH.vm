@@ -1,0 +1,59 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><fieldset>
+      <legend class="legend">MAKLUMAT JADUAL KADAR HARGA</legend>
+      <table width="100%" cellpadding="1" cellspacing="2">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+ 		#input_readonly_all_label("noJKH" "No. JKH" "$!r.noJKH")	
+      #if ($!r.tarikhJKH) 
+      	#set ($dateJKH = "$!util.getDateTime($!r.tarikhJKH,'dd-MM-yyyy')")
+      #else #set ($dateJKH = "-") #end
+      #input_readonly_all_label("tarikhJKH" "Tarikh JKH" "$dateJKH") 	
+      #input_readonly_all_label("jumlah" "Jumlah (RM)" "$!util.formatDecimal($!r.jumlah)")
+      #input_readonly_all_label("gst" "GST (%)" "$!util.formatDecimal($!r.gst)")
+      #input_readonly_all_label("jumlahKeseluruhan" "Jumlah Keseluruhan (RM)" "$!util.formatDecimal($!r.jumlahKeseluruhan)")
+	  <tr>
+	    <td valign="top">Jadual Kadar Harga</td>
+	    <td valign="top">:</td>
+	    <td valign="top"><input type=hidden name="dokumenJKH" id="dokumenJKH" value="$!r.fileJKH"> 
+	    	#if ( $!r.fileJKH ) 
+		    	#if ($!r.fileJKH != "") 
+		    		<a href="../download?file=$!uploadDir$!r.fileJKH" > 
+		    			<font color="#0000FF"><strong>JADUAL KADAR HARGA</strong></font> </a> &nbsp;&nbsp;
+		    	#end
+		    #end	
+	    </td>
+	  </tr>
+      </table>
+      </fieldset></td>
+    <td width="50%" valign="top"><fieldset>
+      <legend class="legend">MAKLUMAT SEMAKAN JADUAL KADAR HARGA</legend>
+      <table width="100%" cellpadding="1" cellspacing="2">
+        <tr>
+          <td class="label" style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_readonly_all_label("sediaOleh" "Disediakan Oleh" "$!r.penyedia.userName")
+      #if ($!r.tarikhJKH) 
+      	#set ($dateSedia = "$!util.getDateTime($!r.tarikhJKH,'dd-MM-yyyy')")
+      #else #set ($dateSedia = "-") #end
+      #input_readonly_all_label("tarikhPenyediaan" "Tarikh Penyediaan" "$dateSedia")	
+      #input_readonly_all_label("semakanOleh" "Disemak Oleh" "$!r.penyemak.userName")	
+      #if ($!r.tarikhSemakan) 
+      	#set ($dateSemakan = "$!util.getDateTime($!r.tarikhSemakan,'dd-MM-yyyy')")
+      #else #set ($dateSemakan = "-") #end
+      #input_readonly_all_label("tarikhSemakan" "Tarikh Semakan" "$dateSemakan")	
+      #input_readonly_all_label("syorOleh" "Disyorkan Oleh" "$!r.pelulus.userName")
+      #if ($!r.tarikhKelulusan) 
+      	#set ($dateKelulusan = "$!util.getDateTime($!r.tarikhKelulusan,'dd-MM-yyyy')")
+      #else #set ($dateKelulusan = "-") #end
+      #input_readonly_all_label("tarikhPengesyoran" "Tarikh Pengesyoran" "$dateKelulusan")
+      </table>
+      </fieldset></td>
+  </tr>
+</table>

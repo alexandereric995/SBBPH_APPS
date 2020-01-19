@@ -1,0 +1,32 @@
+
+##Display senarai terma untuk daftar permohonan baru
+##if($!r)
+	
+	<div id="divForm">
+		#if($!blockBooking || $!blacklisted || !$!bukaUntukDitempah)
+			#parse("$path/notis.vm")
+		#else
+			#parse("$path/form/formPermohonan.vm")
+		#end
+	</div>
+	
+	
+	
+	<input type="hidden" name="idRppPermohonan" id="idRppPermohonan" value="$!r.id" />
+	
+##else
+##	<div id="divTerma">
+##    	#parse("$path/terma.vm")
+##    </div>
+##end
+
+<div id="statusUpdate"></div>
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

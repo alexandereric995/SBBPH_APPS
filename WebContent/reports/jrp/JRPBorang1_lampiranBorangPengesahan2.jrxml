@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="JRPBorang1_lampiranBorangPengesahan2"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="idPermohonan" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT A.tujuan_permohonan, 
+C.user_login, C.user_name disediakan_oleh, C.keterangan_jawatan jawatan1, C.id_kelas_perkhidmatan perkhidmatan1, C.id_gred_perkhidmatan gred_perkhidmatan1, 
+D.user_name disahkan_oleh, D.keterangan_jawatan jawatan2, D.id_kelas_perkhidmatan perkhidmatan2, D.id_gred_perkhidmatan gred_perkhidmatan2,
+F.keterangan jawatan_disediakan_oleh, H.keterangan jawatan_disahkan_oleh
+FROM jrp_permohonan A
+JOIN jrp_kertas_pertimbangan ON jrp_kertas_pertimbangan.id_permohonan = A.id
+JOIN users C ON jrp_kertas_pertimbangan.disahkan_oleh = C.user_login
+JOIN users D ON jrp_kertas_pertimbangan.disediakan_oleh = D.user_login
+JOIN users_job E ON C.user_login = E.user_login
+JOIN ruj_jawatan F ON E.id_jawatan = F.id
+JOIN users_job G ON D.user_login = G.user_login
+JOIN ruj_jawatan H ON G.id_jawatan = H.id
+WHERE A.id = $P{idPermohonan}]]></queryString>
+
+	<field name="tujuan_permohonan" class="java.lang.String"/>
+	<field name="user_login" class="java.lang.String"/>
+	<field name="disediakan_oleh" class="java.lang.String"/>
+	<field name="jawatan1" class="java.lang.String"/>
+	<field name="perkhidmatan1" class="java.lang.String"/>
+	<field name="gred_perkhidmatan1" class="java.lang.String"/>
+	<field name="disahkan_oleh" class="java.lang.String"/>
+	<field name="jawatan2" class="java.lang.String"/>
+	<field name="perkhidmatan2" class="java.lang.String"/>
+	<field name="gred_perkhidmatan2" class="java.lang.String"/>
+	<field name="jawatan_disediakan_oleh" class="java.lang.String"/>
+	<field name="jawatan_disahkan_oleh" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="792"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="16"
+						y="76"
+						width="20"
+						height="20"
+						key="staticText-12"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[iv.]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement
+						x="52"
+						y="76"
+						width="40"
+						height="20"
+						key="rectangle-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="116"
+						y="71"
+						width="400"
+						height="30"
+						key="staticText-15"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Mendapat sokongan Jabatan Ketua Pengarah Tanah dan Galian]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="15"
+						y="166"
+						width="21"
+						height="20"
+						key="staticText-27"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[vii.]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement
+						x="51"
+						y="166"
+						width="40"
+						height="20"
+						key="rectangle-6"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="115"
+						y="161"
+						width="400"
+						height="30"
+						key="staticText-28"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Mendapat sokongan Pejabat Ketua Pegawai Keselamatan Kerajaan]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="16"
+						y="256"
+						width="20"
+						height="20"
+						key="staticText-30"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[viii.]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement
+						x="52"
+						y="256"
+						width="40"
+						height="20"
+						key="rectangle-7"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="116"
+						y="251"
+						width="400"
+						height="30"
+						key="staticText-31"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Mendapat sokongan Jabatan Bomba dan Penyelamat Malaysia]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="16"
+						y="346"
+						width="20"
+						height="20"
+						key="staticText-33"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[ix.]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement
+						x="52"
+						y="346"
+						width="40"
+						height="20"
+						key="rectangle-8"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="116"
+						y="341"
+						width="400"
+						height="30"
+						key="staticText-34"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Mandapat tawaran daripada pemilik bangunan]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="16"
+						y="445"
+						width="20"
+						height="20"
+						key="staticText-36"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[x.]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement
+						x="52"
+						y="445"
+						width="40"
+						height="20"
+						key="rectangle-9"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="116"
+						y="440"
+						width="400"
+						height="30"
+						key="staticText-37"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Pelan lantai]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="16"
+						y="485"
+						width="20"
+						height="20"
+						key="staticText-38"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[xi.]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement
+						x="52"
+						y="485"
+						width="40"
+						height="20"
+						key="rectangle-10"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="116"
+						y="480"
+						width="400"
+						height="30"
+						key="staticText-39"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Gambar bangunan]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="16"
+						y="525"
+						width="20"
+						height="20"
+						key="staticText-40"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[xii.]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement
+						x="52"
+						y="525"
+						width="40"
+						height="20"
+						key="rectangle-11"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="116"
+						y="520"
+						width="400"
+						height="30"
+						key="staticText-41"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[Alasan]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="116"
+						y="550"
+						width="400"
+						height="18"
+						key="textField-1"/>
+					<box></box>
+					<textElement verticalAlignment="Top" isStyledText="true">
+						<font pdfFontName="Helvetica" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Alasan penyewaan baru adalah " + ($F{tujuan_permohonan} == null ? "" : "<style isBold='true' pdfFont='Helvetica-Bold'>" + $F{tujuan_permohonan} + "</style>")]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="5"
+						y="580"
+						width="330"
+						height="20"
+						key="staticText-43"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[3. Disahkan bahawa:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="15"
+						y="610"
+						width="501"
+						height="29"
+						key="staticText-44"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<text><![CDATA[3.1  Bangunan yang dimohon ini sangat sesuai untuk ruang pejabat dan keluasannya adalah selaras dengan garis 
+       panduan keluasan ruang pejabat]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="15"
+						y="650"
+						width="501"
+						height="29"
+						key="staticText-45"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<text><![CDATA[3.2  Semua maklumat yang dinyatakan dalam permohonan kelulusan penyewaan ruang pejabat ini adalah lengkap 
+       dan benar.]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="730"
+						width="91"
+						height="20"
+						key="textField-2"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Disahkan oleh"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="399"
+						y="0"
+						width="130"
+						height="20"
+						key="staticText-47"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[LAMPIRAN E]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="299"
+						y="20"
+						width="230"
+						height="20"
+						key="staticText-48"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Oblique" size="7" isItalic="true"/>
+					</textElement>
+				<text><![CDATA[Surat Pekeliling Am Bil.3 Tahun 2011]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="116"
+						y="105"
+						width="399"
+						height="48"
+						key="subreport-1"
+						positionType="Float"/>
+					<subreportParameter  name="idPermohonan">
+						<subreportParameterExpression><![CDATA[$P{idPermohonan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idAgensi">
+						<subreportParameterExpression><![CDATA["1804"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\jrp\\JRPBorang1_lampiranBorangPengesahan_subreport3.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="116"
+						y="194"
+						width="399"
+						height="48"
+						key="subreport-2"
+						positionType="Float"/>
+					<subreportParameter  name="idPermohonan">
+						<subreportParameterExpression><![CDATA[$P{idPermohonan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idAgensi">
+						<subreportParameterExpression><![CDATA["1262"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\jrp\\JRPBorang1_lampiranBorangPengesahan_subreport3.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="116"
+						y="282"
+						width="399"
+						height="48"
+						key="subreport-3"
+						positionType="Float"/>
+					<subreportParameter  name="idPermohonan">
+						<subreportParameterExpression><![CDATA[$P{idPermohonan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="idAgensi">
+						<subreportParameterExpression><![CDATA["2005"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\jrp\\JRPBorang1_lampiranBorangPengesahan_subreport3.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="116"
+						y="373"
+						width="399"
+						height="48"
+						key="subreport-4"
+						positionType="Float"/>
+					<subreportParameter  name="idPermohonan">
+						<subreportParameterExpression><![CDATA[$P{idPermohonan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\jrp\\JRPBorang1_lampiranBorangPengesahan_subreport4.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="690"
+						width="91"
+						height="20"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Disediakan oleh"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="710"
+						width="91"
+						height="20"
+						key="textField-4"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Jawatan"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="750"
+						width="91"
+						height="20"
+						key="textField-5"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Jawatan"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="120"
+						y="730"
+						width="20"
+						height="20"
+						key="textField-6"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="120"
+						y="690"
+						width="20"
+						height="20"
+						key="textField-7"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="120"
+						y="710"
+						width="20"
+						height="20"
+						key="textField-8"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="120"
+						y="750"
+						width="20"
+						height="20"
+						key="textField-9"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="140"
+						y="730"
+						width="376"
+						height="20"
+						key="textField-10"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{disahkan_oleh}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="140"
+						y="690"
+						width="376"
+						height="20"
+						key="textField-11"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{disediakan_oleh}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="140"
+						y="710"
+						width="376"
+						height="20"
+						key="textField-12"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{jawatan_disediakan_oleh}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="140"
+						y="750"
+						width="376"
+						height="20"
+						key="textField-13"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{jawatan_disahkan_oleh}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="52"
+						y="525"
+						width="40"
+						height="20"
+						key="staticText-49"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[\]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="52"
+						y="485"
+						width="40"
+						height="20"
+						key="staticText-50"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[\]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="52"
+						y="445"
+						width="40"
+						height="20"
+						key="staticText-51"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[\]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="52"
+						y="346"
+						width="40"
+						height="20"
+						key="staticText-52"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[\]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="52"
+						y="256"
+						width="40"
+						height="20"
+						key="staticText-53"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[\]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="51"
+						y="166"
+						width="40"
+						height="20"
+						key="staticText-54"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[\]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="52"
+						y="76"
+						width="40"
+						height="20"
+						key="staticText-55"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<text><![CDATA[\]]></text>
+				</staticText>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

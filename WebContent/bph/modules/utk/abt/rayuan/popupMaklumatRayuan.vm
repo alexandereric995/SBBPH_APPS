@@ -1,0 +1,63 @@
+<fieldset>
+   <legend class="legend">Maklumat Rayuan</legend>
+   <table width="70%">
+      <tr>
+         <td style="width:20%"></td>
+         <td style="width:1%"></td>
+         <td style="width:49%"></td>
+      </tr>
+      ##     #input_required("noRayuan" "No Rayuan" "$!rekod.noRayuan") disable
+      <tr>
+         <td class="label">Jenis Rayuan &nbsp;<span style="color:#FF2A00">*</span></td>
+         <td>:</td>
+         <td>
+            #parse("$path/rayuan/selectJenisRayuan.vm")
+            <div id="err_idJenisRayuan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+         </td>
+      </tr>
+   </table>
+   <div id="selectFlagRayuan" name="selectFlagRayuan">
+      #parse("$path/rayuan/selectBilanganRayuan.vm")
+   </div>
+   <table width="70%">
+      <tr>
+         <td style="width:20%"></td>
+         <td style="width:1%"></td>
+         <td style="width:49%"></td>
+      </tr>
+      </tr>
+      #date_input_required("tarikhRayuan" "Tarikh Rayuan" "$!util.getDateTime($rekod.tarikhRayuan,'dd-MM-yyyy')")
+      #textarea("catatanRayuan" "Catatan" "$!rekod.catatanRayuan")
+   </table>
+</fieldset>
+<fieldset>
+   <legend class="legend">Maklumat Kelulusan SUB</legend>
+   <table width="70%">
+      <tr>
+         <td style="width:20%"></td>
+         <td style="width:1%"></td>
+         <td style="width:49%"></td>
+      </tr>
+      #date_input("tarikhKelulusan" "Tarikh Kelulusan" "$!util.getDateTime($rekod.tarikhKelulusan,'dd-MM-yyyy')")
+      <tr>
+         <td class="label">Kelulusan SUB</td>
+         <td>:</td>
+         <td>#parse("$path/rayuan/seletKelulusan.vm")</td>
+      </tr>
+      #textarea("catatanKelulusan" "Catatan" "$!rekod.catatanKelulusan")
+   </table>
+</fieldset>
+<input type="hidden" id="idRayuan" name="idRayuan" value="$rekod.id">
+	<p align="right">
+	<input type="button" value="Simpan" align='left' id="cmdSimpanRayuan">
+ 	<input type="button" value="Kembali" align='left' id="cmdKembali">
+	</p>
+<script>
+_jq('#cmdKembali').on('click', function(){
+	doDivAjaxCall3$formname('divTab','getRayuan','');
+    jQuery('#cmdKembali').fadeOut();
+});
+_jq('#cmdSimpanRayuan').on('click', function(){
+	saveRayuan();
+});
+</script>

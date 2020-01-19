@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="KEWResitSejarah"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="980"
+		 columnWidth="595"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.zoom" value="1.0" />
+	<property name="ireport.x" value="0" />
+	<property name="ireport.y" value="0" />
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="idResit" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="namaSalinan" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT no_resit, tarikh_resit, nama, no_fail, no_kp, juruwang, street, street2, postcode, city
+FROM kew_bayaran_lain_temp
+where id = '$P!{idResit}']]></queryString>
+
+	<field name="no_resit" class="java.lang.String"/>
+	<field name="tarikh_resit" class="java.sql.Date"/>
+	<field name="nama" class="java.lang.String"/>
+	<field name="no_fail" class="java.lang.String"/>
+	<field name="no_kp" class="java.lang.String"/>
+	<field name="juruwang" class="java.lang.String"/>
+	<field name="street" class="java.lang.String"/>
+	<field name="street2" class="java.lang.String"/>
+	<field name="postcode" class="java.lang.String"/>
+	<field name="city" class="java.lang.String"/>
+
+		<background>
+			<band height="58"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="245"
+						y="0"
+						width="349"
+						height="58"
+						forecolor="#CCCCCC"
+						key="textField-2"/>
+					<box rightPadding="5"></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None">
+						<font size="20"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["RESIT SALINAN"]]></textFieldExpression>
+				</textField>
+			</band>
+		</background>
+		<title>
+			<band height="425"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="50"
+						y="200"
+						width="60"
+						height="22"
+						key="staticText-1"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[No. Resit]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="50"
+						y="222"
+						width="60"
+						height="22"
+						key="staticText-2"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Nama]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="50"
+						y="244"
+						width="60"
+						height="22"
+						key="staticText-3"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[No. Fail]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="50"
+						y="266"
+						width="60"
+						height="22"
+						key="staticText-4"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[No. KP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="50"
+						y="288"
+						width="60"
+						height="22"
+						key="staticText-5"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Alamat]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="110"
+						y="200"
+						width="10"
+						height="22"
+						key="staticText-6"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="110"
+						y="222"
+						width="10"
+						height="22"
+						key="staticText-7"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="110"
+						y="266"
+						width="10"
+						height="22"
+						key="staticText-8"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="110"
+						y="244"
+						width="10"
+						height="22"
+						key="staticText-9"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="110"
+						y="288"
+						width="10"
+						height="22"
+						key="staticText-10"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="349"
+						y="200"
+						width="60"
+						height="22"
+						key="staticText-11"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Tarikh Resit]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="409"
+						y="200"
+						width="10"
+						height="22"
+						key="staticText-12"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="349"
+						y="222"
+						width="60"
+						height="22"
+						key="staticText-13"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Mesin]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="409"
+						y="222"
+						width="10"
+						height="22"
+						key="staticText-14"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="409"
+						y="244"
+						width="10"
+						height="22"
+						key="staticText-15"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="349"
+						y="244"
+						width="60"
+						height="22"
+						key="staticText-16"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Kod PTJ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="409"
+						y="266"
+						width="10"
+						height="22"
+						key="staticText-17"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="349"
+						y="266"
+						width="60"
+						height="22"
+						key="staticText-18"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Juruwang]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="349"
+						y="288"
+						width="60"
+						height="22"
+						key="staticText-19"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Tran Id]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="409"
+						y="288"
+						width="10"
+						height="22"
+						key="staticText-20"/>
+					<box rightPadding="3"></box>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="120"
+						y="200"
+						width="217"
+						height="22"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{no_resit}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="120"
+						y="222"
+						width="217"
+						height="22"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nama}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="120"
+						y="266"
+						width="217"
+						height="22"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{no_kp}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="120"
+						y="288"
+						width="217"
+						height="22"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{street} != null ? $F{street}.trim(): "")  + 
+($F{street2} != null ? " " + $F{street2}.trim(): "") +
+($F{postcode} != null ? ", " + $F{postcode}.trim(): " ")+
+($F{city} != null ? " " + $F{city}.trim(): " ")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="419"
+						y="200"
+						width="131"
+						height="22"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{tarikh_resit}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="419"
+						y="222"
+						width="131"
+						height="22"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="419"
+						y="266"
+						width="131"
+						height="22"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{juruwang}]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="16"
+						y="65"
+						width="564"
+						height="53"
+						key="subreport-2"/>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\kewangan\\headerSurat.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="419"
+						y="244"
+						width="131"
+						height="22"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["060101"]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="9"
+						y="349"
+						width="580"
+						height="18"
+						key="subreport-1"
+						positionType="Float"/>
+					<subreportParameter  name="idResit">
+						<subreportParameterExpression><![CDATA[$P{idResit}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="namaSalinan">
+						<subreportParameterExpression><![CDATA[$P{namaSalinan}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\kewangan\\KEWResitSejarah_subreport1.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="8"
+						y="405"
+						width="580"
+						height="19"
+						key="subreport-3"
+						positionType="Float"/>
+					<subreportParameter  name="idResit">
+						<subreportParameterExpression><![CDATA[$P{idResit}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir} + "\\kewangan\\KEWResitSejarah_subreport2.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

@@ -1,0 +1,112 @@
+<style>
+.scrollitright {
+	##width:100%; overflow-x: hidden; max-height: 150px; border:#000 solid 1px;
+	height:100%; width: 100%; font-size: 12px; overflow: auto;
+}
+</style>
+<fieldset style="height:250px;min-height:200px">
+##	<legend class="legend">maklumat bil / invois</legend>
+	<div class="scrollitright">
+	<table width="100%" cellpadding="1" cellspacing="1">
+		
+		<tr>
+			<td class="row_header" width="3%">&nbsp;</td>
+            			<td style="text-align:center !important" class="row_header" width="15%"><font style="font-size:80%">KOD HASIL</font></td>
+            			<td style="text-align:center !important" class="row_header" width="15%"><font style="font-size:80%">NO. INVOIS / FAIL</font></td>
+            			<td style="text-align:center !important" class="row_header" width="15%"><font style="font-size:80%">TARIKH MULA</font></td>
+            			<td style="text-align:center !important" class="row_header" width="15%"><font style="font-size:80%">TARIKH AKHIR</font></td>
+            			<td style="text-align:center !important" class="row_header" width="19%"><font style="font-size:80%">KETERANGAN</font></td>
+            			<td style="text-align:center !important" class="row_header" width="15%"><font style="font-size:80%">AMAUN BAYARAN (RM)</font></td>
+						<td class="row_header" width="3%"></td>
+            		</tr>
+
+						#if ( $listInvois.size() > 0 )
+                            #set ( $count = 0 )
+                            #foreach( $d in $listInvois )
+                                #set ( $count = $count + 1)
+                                #if ( $count % 2 == 0 ) 
+                                    #set ( $rowcolor = "#D0CFCE" ) 
+                                    #else 
+                                        #set ( $rowcolor = "#F0F0F0" ) 
+                                #end
+
+								<tr bgcolor="$rowcolor">
+                                    <td align="center"><input type="checkbox" name="cbPilihanAsal" id="cbPilihanAsal$!d.id" value="$!d.id" onclick="javascript:pilihBayarAsal('$!d.id');$('err_selesaiBayaran').innerHTML=''; at(this, event);" /></td>
+                                    <td><font style="font-size:80%">$d.kodHasil.kod - $d.kodHasil.keterangan.toUpperCase()</font></td>
+                                    <td><font style="font-size:80%">$!d.noInvois</font></td>
+                                    <td><font style="font-size:80%">$!util.getDateTime($!d.tarikhDari,'dd-MM-yyyy')</font></td>
+                                    <td><font style="font-size:80%">$!util.getDateTime($!d.tarikhHingga,'dd-MM-yyyy')</font></td>
+                                    <td><font style="font-size:80%">$!d.keteranganBayaran</font></td>
+                                    <td align="right"><font style="font-size:80%">$!util.formatDecimal($!d.debit)</font></td>
+                                    <td align="center">
+										<a href="javascript:void()" onclick="hapusInvois('$!d.id')"><img src="../img/delete.gif" border="0"></a>
+									</td>
+                                </tr>
+                            #end
+                        #end
+                        
+						<tr>
+            				<td>&nbsp;</td>
+							<td valign="top" >
+								<select id="kodHasil" name="kodHasil" style="width:100%" onChange="$('err_kodHasil').innerHTML=''; at(this, event);">
+					                       <option value="">SILA PILIH</option>
+					                       #foreach( $n in $listKodHasil )
+					                       	<option value="$n.id">$n.kod - $n.keterangan.toUpperCase()</option>
+					                       #end
+										</select>
+							</td>
+							<td valign="top"><input type="text" name="noInvois" id="noInvois" value="" class="uppercasefont" onBlur="$('err_noInvois').innerHTML='';this.value=this.value.toUpperCase();" /></td>
+							<td>
+								<div>
+						    		<input type="text" id="tarikhDari" name="tarikhDari" value="$!util.getDateTime($!d.tarikhDari,'dd-MM-yyyy')">
+									<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+						    		<script>
+						            	_jq("#tarikhDari").Zebra_DatePicker({ 
+						    				format: 'd-m-Y',
+											readonly_element: false
+						            	});
+										_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+						    		</script>
+								</div>
+							</td>
+							<td>
+								<div>
+						    		<input type="text" id="tarikhHingga" name="tarikhHingga" value="$!util.getDateTime($!d.tarikhHingga,'dd-MM-yyyy')">
+									<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+						    		<script>
+						            	_jq("#tarikhHingga").Zebra_DatePicker({ 
+						    				format: 'd-m-Y',
+											readonly_element: false
+						            	});
+										_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+						    		</script>
+								</div>
+							</td>
+							<td valign="top" ><input type="text" name="keteranganBayaran" id="keteranganBayaran" value="" onBlur="this.value=this.value.toUpperCase();" /></td>
+							<td valign="top"><input type="text" class="currency" name="debit" id="debit" value="" class="uppercasefont" style="text-align:right" onBlur="$('err_debit').innerHTML='';this.value=this.value.toUpperCase();" /></td>
+							
+							#set ( $queryParam = "record_id=$!r.id" )
+							<td valign="top"><input style="font-weight:bold;font-size:90%" type="button" name="btnTambahMaklumatInvoisj" id="btnTambahMaklumatInvoisj" value="+" onclick="addInvois()"/></td>
+						</tr>
+						
+					<tr>
+						<td colspan="8" style="padding-top:0.5cm">
+							<div id="err_kodHasil" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+							<div id="err_noInvois" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+							<div id="err_debit" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+						</td>
+					</tr>
+				</table>
+				</div>
+</fieldset>
+	
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>	
+

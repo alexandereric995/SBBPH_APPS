@@ -1,0 +1,10 @@
+<select id="idNegeriSyarikat" name="idNegeriSyarikat" style="width:100%" onChange="doDivAjaxCall3$formname('selectBandarSyarikat','selectBandarSyarikat','');$('err_idNegeriSyarikat').innerHTML='';">
+    <option value="">SILA PILIH</option>
+    #foreach( $n in $selectNegeri )
+    	#if ($!command == 'getMaklumatSyarikatBerdaftar' || $!command == 'getPilihanSyarikat')
+    	<option #if ( $n.id == $syarikat.bandar.negeri.id ) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+    	#else
+    	<option #if ( $n.id == $fail.pemohon.syarikat.bandar.negeri.id ) selected #end value="$n.id">$n.keterangan.toUpperCase()</option>
+    	#end
+    #end
+</select>

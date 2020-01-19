@@ -1,0 +1,65 @@
+
+<input type="hidden" name="idSelenggara" id="idSelenggara" value="$!r.id" />
+
+<fieldset>
+<legend class="legend">maklumat selenggara</legend>
+<table width="100%" cellpadding="2" cellspacing="2">
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  
+  #input_required("perkara" "Perkara" "$!r.perkara")
+  #input("catatan" "Catatan" "$!r.catatan")
+  #date_input_required("tarikhMula" "Tarikh Mula" "$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')")
+  #date_input_required("tarikhTamat" "Tarikh Tamat" "$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')")
+  
+  <tr><td colspan="3">&nbsp;</td></tr>
+
+  <tr>
+	<td valign="top">Kategori Selenggara &nbsp;<span style='color:#FF2A00'>*</span></td>
+	<td valign="top">:</td>
+	<td valign="top">
+		<input type="radio" #if($!r.flagJenisSelenggara=='LOKASI') checked #end id="flagJenisSelenggara1" name="flagJenisSelenggara" value="LOKASI" onclick="doDivAjaxCall3$formname('divListRppDanUnit','getListRppDanUnit',''); $('err_flagJenisSelenggara').innerHTML=''; at(this, event);" />
+        <label for="flagJenisSelenggara1" >Keseluruhan Lokasi</label>
+		<input type="radio" #if($!r.flagJenisSelenggara=='UNIT') checked #end id="flagJenisSelenggara2" name="flagJenisSelenggara" value="UNIT" onclick="doDivAjaxCall3$formname('divListRppDanUnit','getListRppDanUnit',''); $('err_flagJenisSelenggara').innerHTML=''; at(this, event);" />
+		<label for="flagJenisSelenggara2" >Unit</label>
+		<div id="err_flagJenisSelenggara" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	</td>
+  </tr>
+  
+</table>
+
+</fieldset>
+
+<div id="divListRppDanUnit">
+	#if($!r.flagJenisSelenggara =='UNIT')
+		#parse("$path/form/listingUnit.vm")
+	#end
+			
+	#if($!r.flagJenisSelenggara =='LOKASI')
+		#parse("$path/form/listingLokasiPeranginan.vm")
+	#end
+</div>
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">##Fatin 13/06/2015
+    			<input type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+    			<input id="btnSimpan" type="button" value="Simpan" onClick="doSimpan()">
+        		<input id="btnClearForm" type="button" value="Kosongkan" onClick="doKosongkan()">
+        		<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>
+
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

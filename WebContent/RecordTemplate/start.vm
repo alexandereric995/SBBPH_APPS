@@ -1,0 +1,119 @@
+
+#if($!displayLabelTitleOnTop.equalsIgnoreCase("true"))
+	#parse("${viewPath}/label_titles.vm")
+#else
+	<!-- LEAVE IT BLANK-->
+#end
+
+<style type="text/css">
+	.blinking {
+    	-webkit-animation-name: blinker;
+    	-webkit-animation-duration: 1s;
+    	-webkit-animation-timing-function: linear;
+    	-webkit-animation-iteration-count: infinite;
+    
+    	-moz-animation-name: blinker;
+    	-moz-animation-duration: 1s;
+    	-moz-animation-timing-function: linear;
+    	-moz-animation-iteration-count: infinite;
+    
+    	animation-name: blinker;
+    	animation-duration: 1s;
+    	animation-timing-function: linear;
+    	animation-iteration-count: infinite;
+    }
+    @-moz-keyframes blinker {  
+    	0% { opacity: 1.0; }
+    	50% { opacity: 0.0; }
+    	100% { opacity: 1.0; }
+    }
+    @-webkit-keyframes blinker {  
+    	0% { opacity: 1.0; }
+    	50% { opacity: 0.0; }
+    	100% { opacity: 1.0; }
+    }
+    @keyframes blinker {  
+    	0% { opacity: 1.0; }
+    	50% { opacity: 0.0; }
+    	100% { opacity: 1.0; }
+    }
+</style>
+
+<script type="text/javascript">
+
+calndr.showNavigationDropdowns();
+
+var isNN = (navigator.appName.indexOf("Netscape")!=-1);
+function at(input, e) {
+  var keyCode = (isNN) ? e.which : e.keyCode; 
+  if ( keyCode == 13 ) {
+    input.form[(getIndex(input)+1) % input.form.length].focus();
+  }
+}
+
+function getIndex(input) {
+    var index = -1, i = 0, found = false;
+    while (i < input.form.length && index == -1) {
+    	if (input.form[i] == input)index = i;
+    	else i++;
+    }
+    return index;
+}
+
+##CALENDAR SCRIPT
+    function openCalendar(e, f) {
+       if ( e.style.visibility=='hidden' ) { 
+           e.style.visibility='visible'; 
+           e.style.width='150px';
+           e.style.height='150px';
+           doDivAjaxCall3$formname(e,'get_calendar','element_id=' + f.id + '&div_id=' + e.id);
+       } else { 
+           e.style.visibility='hidden';
+       }
+    }
+    
+    function openCalendarY1(e, f) {
+       if ( e.style.visibility=='hidden' ) { 
+           e.style.visibility='visible'; 
+           e.style.width='150px';
+           e.style.height='150px';
+           doDivAjaxCall3$formname(e,'get_calendar','element_id=' + f.id + '&div_id=' + e.id + '&year_range=before');
+       } else { 
+           e.style.visibility='hidden';
+       }
+    }
+    
+    function openCalendarY2(e, f) {
+       if ( e.style.visibility=='hidden' ) { 
+           e.style.visibility='visible'; 
+           e.style.width='150px';
+           e.style.height='150px';
+           doDivAjaxCall3$formname(e,'get_calendar','element_id=' + f.id + '&div_id=' + e.id + '&year_range=after');
+       } else { 
+           e.style.visibility='hidden';
+       }
+    }
+    
+    function sort(fieldName) {
+    	doDivAjaxCall3$formname('div_list','order_record','sortBy=' + fieldName)
+    	request.getSession().setAttribute("_sortByOrder", "DESC");
+    }
+    
+	function validateField() {
+		return validate();
+	}    
+    
+#parse("$viewPath/script.vm")
+</script>
+
+#parse("$templateDir/macro.vm")
+#parse("$viewPath/top.vm")
+
+<table border="0" width="100%" style="background-color: none">
+    <tr>
+    	<td>
+            <div id="div_main">#parse("$templateDir/entry.vm")</div>
+            <div id="div_main_entry" style="display:none"></div>
+    	</td>
+    </tr>
+</table>

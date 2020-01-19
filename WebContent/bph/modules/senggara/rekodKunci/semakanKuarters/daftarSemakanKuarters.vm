@@ -1,0 +1,73 @@
+<input type="hidden" id="idLawatanTapak" name="idLawatanTapak" value="$!semakanSemasa.id">
+
+<fieldset>
+<legend class="legend">MAKLUMAT SEMAKAN KUARTERS</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">Pilihan Tugasan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td>#parse("$path/semakanKuarters/selectPilihanTugasan.vm")
+      <div id="err_idPilihanTugasan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>  
+  #if ($!idPilihanTugasan == '1')
+  #date_input_required("tarikhLawatan" "Tarikh Lawatan" "$!dateLawatan")
+  <tr>
+    <td class="label" valign="top">Jenis Pembaikan &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td>#parse("$path/semakanKuarters/selectJenisPembaikan.vm")
+      <div id="err_idJenisPembaikan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  #if ($!idJenisPembaikan == '3')
+  <tr>
+    <td class="label" valign="top">Agensi Pelaksana / Pemaju &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td>#parse("$path/semakanKuarters/selectKontraktor.vm")
+      <div id="err_idKontraktor" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  #end
+  <tr>
+    <td class="label" valign="top" style="width:15%">Ulasan</td>
+    <td class="label" valign="top" style="width:1%">:</td>
+    <td valign="top" style="width:84%"><textarea id="ulasanLawatan" name="ulasanLawatan" onBlur="this.value=this.value.toUpperCase();">$!ulasanLawatan</textarea></td>
+  </tr>
+  <tr>
+    <td valign="top">Laporan Kerosakan &nbsp;</td>
+    <td valign="top">:</td>
+    <td valign="top">
+      <input class="texts" type="file" id="lampiranLaporanKerosakan" name="lampiranLaporanKerosakan" style="width:500px" onFocus="$('err_lampiranLaporanKerosakan').innerHTML = '';" onChange="uploadLampiranLaporanKerosakan()">
+      <div id="uploadLampiranLaporanKerosakan" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+      <div id="err_lampiranLaporanKerosakan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+   </td>
+  </tr>
+  #if ($!idJenisPembaikan == '3')
+  <tr>
+    <td class="label" valign="top">Agih Kunci Ke &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> #parse("$path/selectPenyemakSenggara.vm") 
+     <div id="err_idPenyemakSenggara" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  #end
+  #else
+  #textarea("catatanTugasan" "Catatan Tugasan" "")	  
+  #end
+    
+</table>
+</fieldset>
+
+<br>
+<table width="100%">
+  <tr>
+    <td align="right">
+    	<input type="button" value="Simpan" onclick="javascript:simpanSemakanKuarters();">
+    	<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+
+<div id="lampiranLaporanKerosakanReload"></div>
+<iframe id="upload_lampiran_laporan_kerosakan" name="upload_lampiran_laporan_kerosakan" width="0px" height="0px" style="visibility:hidden"></iframe>

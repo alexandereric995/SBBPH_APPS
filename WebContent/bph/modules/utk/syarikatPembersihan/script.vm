@@ -1,0 +1,54 @@
+function validate() {
+	var err_count = 0;
+	return err_count == 0;
+}
+
+## START MAKLUMAT NAZIRAN KEBERSIHAN
+function validateKebersihan(){
+	var err_count = 0;
+	
+	return err_count == 0; 
+}
+
+function saveKebersihan() {
+	if ( validateKebersihan() ){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxChainCall$formname('divTab','saveKebersihan','');
+	}
+}
+## END MAKLUMAT NAZIRAN KEBERSIHAN
+
+## START MAKLUMAT NOTIS 
+function deleteMaklumatNotis(id) {
+	if ( !window.confirm("Anda pasti?") ){
+		return;
+	}
+	doDivAjaxCall3$formname('divTab','removeNotis','idNotis=' + id);
+}
+
+function validateNotis(){
+	var err_count = 0;
+	
+	var noSiri = $('noSiri').value;
+	if ( noSiri == "" ) {$('err_noSiri').innerHTML = "No Siri adalah mandatori!"; err_count++;  }
+	
+	var idJenisNotis = $('idJenisNotis').value;
+	if ( idJenisNotis == "" ) {$('err_idJenisNotis').innerHTML = "Jenis Notis adalah mandatori!"; err_count++;  }
+	
+	var tarikhHantar = $('tarikhHantar').value;
+	if ( tarikhHantar == "" ) {$('err_tarikhHantar').innerHTML = "Tarikh Hantar Notis adalah mandatori!"; err_count++;  }
+	
+	return err_count == 0; 
+}
+
+function saveNotis() {
+	if ( validateNotis() ){
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		doDivAjaxChainCall$formname('editMaklumatNotis','saveNotis','','divTab','getNotis','');
+	}
+}
+## END MAKLUMAT NOTIS

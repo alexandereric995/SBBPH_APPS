@@ -1,0 +1,110 @@
+
+#parse("$path/tabbed.vm")
+
+<fieldset>
+<legend class="legend">DAFTAR KELUAR</legend>
+
+	<table width="100%" cellpadding="2" cellspacing="2">
+		
+		<tr>
+			<td width="20%"></td>
+            <td width="1%"></td>
+            <td width="79%"></td>
+        </tr>
+		
+		#if( $r.status.id != "1435512646303" ) ## ID STATUS SELESAI
+		
+    		<tr>
+    			<td valign="top">Tarikh Keluar &nbsp;<span style="color:#FF2A00">*</span></td>
+    			<td valign="top">:</td>
+    			<td valign="top">
+					#set( $dateChOut = "")
+    				#if( !$!bilik.tarikhDaftarKeluar )
+    					#set( $dateChOut = "$!util.getDateTime($r.tarikhKeluarRpp,'dd-MM-yyyy')")
+    				#else
+    					#set( $dateChOut = "$!util.getDateTime($!bilik.tarikhDaftarKeluar,'dd-MM-yyyy')")
+    				#end
+				
+						<input type="text" id="tarikhDaftarKeluar" name="tarikhDaftarKeluar" value="$!dateChOut" >
+            					<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+            		    		<script>
+            		            	_jq("#tarikhDaftarKeluar").Zebra_DatePicker({ 
+            		    				format: 'd-m-Y',
+            							readonly_element: false,
+										##direction: true,
+										onSelect: function(view, elements) {
+                    						$('err_tarikhDaftarKeluar').innerHTML='';
+                    					}
+            		            	});
+            		    		</script>
+						<div id="err_tarikhDaftarKeluar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+              	</td>
+    		</tr>
+    		
+    		<tr>
+    			<td valign="top">Masa Keluar &nbsp;<span style="color:#FF2A00">*</span></td>
+    			<td valign="top">:</td>
+    			<td valign="top">
+    				<select class="texts" id="masaKeluarJam" name="masaKeluarJam" style="width:50px" onChange=" $('err_masaDaftarKeluar').innerHTML='' " >
+                        <option value="">JAM</option>
+                        #foreach( $n in [1..12])
+                        	<option value="$n" #if($n == $!bilik.masaKeluarJam) selected #end>$n</option>
+                        #end
+                    </select>
+    				&nbsp; : &nbsp;
+    				<select class="texts" id="masaKeluarMinit" name="masaKeluarMinit" style="width:60px" onChange=" $('err_masaDaftarKeluar').innerHTML='' " >
+                        <option value="">MINIT</option>
+                        #foreach( $n in [0..59])
+                        	<option value="$n" #if($n == $!bilik.masaKeluarMinit) selected #end >$n</option>
+                        #end
+                    </select>
+    				&nbsp;
+    				<select class="texts" id="masaKeluarAmPm" name="masaKeluarAmPm" style="width:50px">
+                        <option value="PM" #if($!bilik.masaKeluarAmPm == "PM") selected #end >PM</option>
+    					<option value="AM" #if($!bilik.masaKeluarAmPm == "AM") selected #end >AM</option>
+                    </select>
+    				<div id="err_masaDaftarKeluar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    			</td>
+    		</tr>
+    		
+    		<tr>
+    			<td valign="top">Catatan</td>
+    			<td valign="top">:</td>
+    			<td valign="top">
+    				<textarea id="catatanKeluar" class="uppercasefont" name="catatanKeluar" onKeyUp="$('err_catatanKeluar').innerHTML='';at(this, event)" onBlur="this.value=this.value.toUpperCase();">$!bilik.catatanKeluar</textarea>
+    				<div id="err_catatanKeluar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+    			</td>
+    		</tr>
+		
+		#else
+			
+			#show("Tarikh Keluar" "$!util.getDateTime($!bilik.tarikhDaftarKeluar,'dd-MM-yyyy')")
+			#show("Catatan" "$!bilik.catatanKeluar.toUpperCase()")
+			
+		#end	
+		
+	</table>
+
+</fieldset>
+
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+				#if( $r.status.id != "1435512646303") 
+					#set($btnamek = "Daftar Keluar")
+					#if( $r.status.id=="1425259713424" )
+						#set($btnamek = "Simpan")
+						<input id="btnDaftarKeluar" type="button" value="$btnamek" onClick="doDaftarKeluar('$!r.id')">
+					#else
+						<input id="btnPopupKeluar" type="button" value="Daftar Keluar" onclick="javascript:doCallPopupKeluar()" />	
+					#end
+				#end
+				#if( !$!bilik.tarikhDaftarKeluar )	
+        		##<input id="btnClearForm" type="button" value="Kosongkan" onClick="doKosongkanDaftarKeluar()">
+        		#end
+				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    		</td>
+    	</tr>
+    </table>	
+
+<div id="divPopupDaftarKeluar" class="popup"></div>

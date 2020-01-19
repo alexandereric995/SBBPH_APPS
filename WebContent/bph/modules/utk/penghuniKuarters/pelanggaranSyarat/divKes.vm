@@ -1,0 +1,56 @@
+#if($showOperasi == 'CP' || $showPelanggaran == '1435633886800') ## 1435633886800 PENGUNCIAN TAYAR KENDERAAN
+	<table width="100%">
+	   <tr>
+	      <td style="width:150px"></td>
+	      <td style="width:10px"></td>
+	      <td></td>
+	   </tr>
+	   #input_required("jenisKenderaan" "Jenis Kenderaan" "$!rekod.jenisKenderaan") 	
+	   #input_required("noPlat" "No Plat Kenderaan" "$!rekod.noPlat")
+	   #currency_required("amaun" "Amaun (RM)" "$!ak.debit")
+	</table>
+#end
+
+
+
+##bak old code sblm buang dropdown jenis operasi
+###if ($showOperasi == 'PS')
+##<table width="100%">
+##   <tr>
+##      <td style="width:150px"></td>
+##      <td style="width:10px"></td>
+##      <td></td>
+##   </tr>
+##   <tr>
+##      <td class="label">Jenis Kes &nbsp;<span style="color:#FF2A00">*</span></td>
+##      <td>:</td>
+##      <td>
+##         #parse("$path/pelanggaranSyarat/selectKes.vm")
+##         <div id="err_idKes" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##      </td>
+##      </td>
+##   </tr>
+##   <tr>
+##      <td class="label">Jenis Kesalahan&nbsp;<span style="color:#FF2A00">*</span></td>
+##      <td>:</td>
+##      <td>
+##         <div id="selectPelanggaran">#parse("$path/pelanggaranSyarat/selectJenisPelanggaranSyarat.vm")</div>
+##         <div id="err_idJenisPelanggaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+##      </td>
+##      </td>
+##   </tr>
+##</table>
+###end
+###if($showOperasi == 'CP' || ($showPelanggaran == '1435633886800')) ## $showOperasi == 'PS' && 
+##<table width="100%">
+##   <tr>
+##      <td style="width:150px"></td>
+##      <td style="width:10px"></td>
+##      <td></td>
+##   </tr>
+##   #input_required("jenisKenderaan" "Jenis Kenderaan" "$!rekod.jenisKenderaan") 	
+##   #input_required("noPlat" "No Plat Kenderaan" "$!rekod.noPlat")
+##   #currency_required("amaun" "Amaun (RM)" "$!ak.debit")
+##</table>
+###end
+

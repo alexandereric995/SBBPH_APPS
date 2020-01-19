@@ -1,0 +1,70 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#tblRekod').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+
+<fieldset >
+<legend class="legend">LOG CATATAN</legend>
+<input type="button" id="addCatatanPermohonan" name="addCatatanPermohonan" value="Tambah Catatan">
+<script>
+        _jq('#addCatatanPermohonan').on('click', function(){
+			doDivAjaxCall3$formname('popupCatatanPermohonan','addCatatanPermohonan','');
+			jQuery('#popupCatatanPermohonan').fadeIn();
+        });
+    </script>
+    
+<div class="scrollitpopup">
+  <table id="tblRekod" class="display" width="100%" cellpadding="5" cellspacing="1">
+    <thead>
+      <tr>
+        <td bgcolor="#ABABAB" class="row_header" width="5%" align="center">Bil.</td>
+        <td bgcolor="#ABABAB" class="row_header" width="15%" align="center">Tarikh</td>
+        <td bgcolor="#ABABAB" class="row_header" width="15%" align="center">Catatan Oleh</td>
+        <td bgcolor="#ABABAB" class="row_header" >Catatan</td>  
+        <td bgcolor="#ABABAB" class="row_header" width="5%" >Hapus Catatan</td>            
+      </tr>
+    </thead>
+    <tbody>
+    
+    #set ( $count = 0 ) 
+    #foreach( $c in $listCatatanPermohonan )
+    #set ( $count = $count + 1)
+    
+    #if ( $count % 2 == 0 ) 
+    #set ( $rowcolor = "#D0CFCE" ) 
+    #else 
+    #set ( $rowcolor = "#F0F0F0" ) 
+    #end
+    <tr bgcolor="$rowcolor">
+      <td align="center">$count</td>
+		#if ($!c.tarikhDaftar)
+			#set($dateDaftar = $util.getDateTime($!c.tarikhDaftar,"dd-MM-yyyy hh:mm:ss a"))
+		#else 
+			#set($dateDaftar = "-") 
+		#end      
+      <td align="center">$!dateDaftar</td>
+      <td align="center">$!c.daftarOleh.userName</td>
+      <td>$!c.catatan</td>
+      
+      <td align="center">
+      	#if ($!userId.toUpperCase() == $!c.daftarOleh.id.toUpperCase())
+      	<span id="hapusCatatan">
+			<a href="javascript:void()" onClick="deleteCatatan($!c.id)" ><img src="../img/delete.gif" border="0"></a>
+		</span>
+		#end
+      </td>
+    </tr>
+    #end
+    </tbody>
+    
+  </table>
+</div>
+</fieldset>
+
+
+<div id="popupCatatanPermohonan" class="popup"></div>

@@ -1,0 +1,10 @@
+
+<td>$!r.sellerOrderNo</td>
+<td>$!r.sellerExOrderNo</td>
+<td>$!util.formatDecimal($!util.getDouble($!r.txnAmount))</td>	 
+<td>$!r.flagModul</td>
+<td>$!r.productDesc</td>
+#if ($!r.requestDate) 
+	#set ($requestDate = "$!util.getDateTime($!r.requestDate,'dd-MM-yyyy hh:mm:ss a')")
+#else #set ($requestDate = "") #end	
+<td>$requestDate</td>

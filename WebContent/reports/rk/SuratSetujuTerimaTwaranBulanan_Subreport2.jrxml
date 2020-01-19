@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="SuratSetujuTerimaTwaranBulanan_Subreport2"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="540"
+		 pageHeight="842"
+		 columnWidth="540"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="AllSectionsNoDetail"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="idFail" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT rk_permohonan.id_fail
+FROM rk_permohonan
+WHERE rk_permohonan.id_fail= '$P!{idFail}']]></queryString>
+
+	<field name="id_fail" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="274"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="10"
+						y="10"
+						width="244"
+						height="19"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<text><![CDATA[Salinan kepada:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="34"
+						width="348"
+						height="189"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="11"/>
+					</textElement>
+				<text><![CDATA[Pesuruhjaya Tanah Persekutuan
+Jabatan Ketua Pengarah Tanah dan Galian Persekutuan
+(Seksyen Pengutkuasa dan Hasil Persekutuan)
+Aras 2, Podium 1, Wisma Sumber Asli,
+No. 25, Persiaran Perdana, Presint 4,
+62574 PUTRAJAYA.
+
+Pengurus Bangunan
+Gemilang Maintenance Services Sdn.Bhd.
+Aras 3, Bangunan Persekutuan Pulau Pinang
+Jalan Anson
+10400 PULAU PINANG.
+
+AK(E)W,BPH,JPM
+]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="10"
+						y="240"
+						width="520"
+						height="34"
+						key="subreport-1"/>
+					<subreportParameter  name="idFail">
+						<subreportParameterExpression><![CDATA[$P{idFail}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ReportDir">
+						<subreportParameterExpression><![CDATA[$P{ReportDir}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{ReportDir}+ "\\rk\\SuratSetujuTerimaTwaranBulanan_Subreport3.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

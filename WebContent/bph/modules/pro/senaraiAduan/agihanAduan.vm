@@ -1,0 +1,23 @@
+<fieldset>
+<legend class="legend">AGIHAN ADUAN</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:29%"></td>
+    <td style="width:1%"></td>
+    <td style="width:70%"></td>
+  </tr>
+  #if ($!command != 'agihanAduan')
+  #input_normal("urusetia" "Agihan Oleh" "<b>$!r.urusetia.userName.toUpperCase()</b>")
+  #textarea_readonly("ulasanUrusetia" "Ulasan Ke Pengadu" "$!r.ulasanUrusetia")
+  #else
+  #textarea_required("ulasanUrusetia" "Ulasan Ke Pengadu" "$!r.ulasanUrusetia")
+  <tr>
+    <td class="label" valign="top">Agihan Ke Unit &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td valign="top">:</td>
+    <td>#parse("$path/selectSeksyen.vm")
+      <div id="err_idSeksyen" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+  </tr>
+  #textarea("catatan" "Catatan" "$!r.catatan")
+  #end
+</table>
+</fieldset>

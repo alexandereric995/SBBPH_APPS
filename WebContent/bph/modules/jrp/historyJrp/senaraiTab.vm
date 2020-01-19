@@ -1,0 +1,62 @@
+<nav class="breadcrumbs">
+  <ul>
+  	<li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatPermohonan','')" #end >Maklumat Permohonan</a></li>
+  	<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divTab','getMaklumatDokumenSokongan','')" #end >Dokumen Sokongan</a></li>
+    #if ($!r.status.id != '1424860634472') ##PERMOHONAN BARU
+    <li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('divTab','getMaklumatUlasan','')" #end >Ulasan Ahli JRP</a></li>
+    	#if($!userRole.equalsIgnoreCase("(JRP) Pemohon"))
+    		#if ($!r.status.id == '1424860634475') ##ULASAN JRP
+    		<li #if($!selectedTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedTab!='4') onClick="doDivAjaxCall3$formname('divTab','getSemakanUlasan','')" #end >Semakan Ulasan Ahli JRP</a></li>
+    		#end
+    	#end
+    	#if ($!r.status.id == '1424860634502') ##BATAL PERMOHONAN
+		<li #if($!selectedTab=='5') class="active" #end><a href="javascript:void()" #if($!selectedTab!='5') onClick="doDivAjaxCall3$formname('divTab','getMaklumatBatalPermohonan','')" #end >Maklumat Pembatalan</a></li>
+		#end
+    	#if ($!r.status.id != '1424860634475' && $!r.status.id != '1424860634502') ##ULASAN JRP
+    		#if(!$!userRole.equalsIgnoreCase("(JRP) Pemohon"))
+    		<li #if($!selectedTab=='6') class="active" #end><a href="javascript:void()" #if($!selectedTab!='6') onClick="doDivAjaxCall3$formname('divTab','getAgihanTugas','')" #end >Agihan Tugas</a></li>
+    			#if ($!r.status.id != '1424860634478') ##PERMOHONAN LENGKAP
+    			<li #if($!selectedTab=='7') class="active" #end><a href="javascript:void()" #if($!selectedTab!='7') onClick="doDivAjaxCall3$formname('divTab','getKelulusanPermohonan','')" #end >Kelulusan Permohonan</a></li>
+    			#end
+    		#end
+    		#if ($!r.status.id == '1424860634493' || $!r.status.id == '1424860634499') ##LULUS || LULUS BERSYARAT
+    		<li #if($!selectedTab=='8') class="active" #end><a href="javascript:void()" #if($!selectedTab!='8') onClick="doDivAjaxCall3$formname('divTab','getMaklumatPerjanjian','')" #end >Kontrak Perjanjian</a></li>
+    		#end
+    	#end
+    #end
+    </ul>
+</nav>
+	
+<br/>
+
+#if ($!selectedTab=='1')
+	#parse("$path/maklumatPermohonan/start.vm")
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/dokumenSokongan/start.vm")
+#end
+
+#if ($!selectedTab=='3')
+	#parse("$path/ulasanTeknikal/start.vm")
+#end
+
+#if ($!selectedTab=='4')
+	#parse("$path/semakanUlasan/start.vm")
+#end
+
+#if ($!selectedTab=='5')
+	#parse("$path/batalPermohonan/start.vm")
+#end
+
+#if ($!selectedTab=='6')
+	#parse("$path/agihanTugas/start.vm")
+#end
+
+#if ($!selectedTab=='7')
+	#parse("$path/kelulusanPermohonan/start.vm")
+#end
+
+#if ($!selectedTab=='8')
+	#parse("$path/maklumatPerjanjian/start.vm")
+#end

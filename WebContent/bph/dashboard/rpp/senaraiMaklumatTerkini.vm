@@ -1,0 +1,81 @@
+
+
+<style>
+.scrollit {
+	height:100%; width: 100%; overflow: auto;
+}
+</style>
+
+#if ( $senaraiMaklumatTerkini.size() > 0 )
+<fieldset style="height:200px;min-height:200px">
+	<legend class="legend">maklumat terkini</legend>
+    
+	<div class="scrollit">
+    	<table width="100%" cellpadding="0" cellspacing="0">
+			
+    		#if ( $senaraiMaklumatTerkini.size() > 0 )
+        		#set ( $count = 0 )
+        		#foreach( $d in $senaraiMaklumatTerkini )
+        			
+        			#set ( $count = $count + 1)
+                	#if ( $count % 2 == 0 ) 
+            			#set ( $rowcolor = "#D0CFCE" ) 
+            		#else 
+            			#set ( $rowcolor = "#F0F0F0" ) 
+    				#end
+    				
+            		<tr bgcolor="$rowcolor">
+						<td width="1%"></td>
+                		<td width="20%" height="50px">
+							<div style="font-weight:bold">$!d.pendaftar.userName.toUpperCase()</div>
+							<div style="font-size:9px">$!d.tarikhCatatan</div>
+						</td>
+						<td width="1%">:</td>
+    					<td width="73%">$!d.catatan.toUpperCase()</td>
+						<td width="5%" align="center">
+							
+							#if($!portal_role.equalsIgnoreCase("(RPP) Penyedia") 
+                            	|| $!portal_role.equalsIgnoreCase("(RPP) Penyemak") 
+                            	|| $!portal_role.equalsIgnoreCase("(RPP) Pelulus") )
+	
+								<a href="javascript:void()" onclick="deleteMaklumat('$!d.id')"><img src="../img/delete.gif" border="0"></a>
+							
+							#end	
+
+						</td>
+                    </tr>
+    			#end
+    		#else
+    			<tr bgcolor="#F0F0F0">
+    				<td colspan="5"><b>TIADA MAKLUMAT TERKINI</b></td>
+    			</tr>
+    		#end
+    	  
+        </table>	
+	</div>
+	
+</fieldset>
+#end
+
+<br/>
+
+##role hq shj
+#if($!portal_role.equalsIgnoreCase("(RPP) Penyedia") 
+	|| $!portal_role.equalsIgnoreCase("(RPP) Penyemak") 
+	|| $!portal_role.equalsIgnoreCase("(RPP) Pelulus") )
+	
+    <table width="100%" cellpadding="0" cellspacing="0">
+    	<tr>
+    		<td align="right">
+    			<input id="btnAddNew" onclick="addNewNotice()" type="button" value="TAMBAH MAKLUMAT TERKINI" />
+    		</td>
+    	</tr>
+    </table>
+
+#end	
+
+	
+<div id="popupDaftar" class="popup"></div>
+
+
+

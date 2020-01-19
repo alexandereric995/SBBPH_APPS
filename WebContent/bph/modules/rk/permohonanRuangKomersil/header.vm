@@ -1,0 +1,35 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top">
+    	<fieldset><legend class="legend">Maklumat Permohonan</legend>
+    	<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("" "No. Permohonan" "<b>$!r.noPermohonan</b>")        
+        #input_normal("" "Nama Pemohon" "<b>$!r.fail.pemohon.individu.nama ($!r.fail.pemohon.individu.id)</b>")         
+        #input_normal("" "Nama Syarikat" "<b>$!r.fail.pemohon.syarikat.nama ($!r.fail.pemohon.syarikat.id)</b>")   
+        #input_normal("" "Jenis Permohonan" "<b>$!r.getJenisPermohonan()</b>")
+        #input_normal("" "Status Permohonan" "<b>$!r.status.keterangan</b>")                    
+      </table></fieldset></td>
+    <td width="50%" valign="top">
+    	<fieldset><legend class="legend">Maklumat Ruang</legend>
+    	<table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("" "ID Ruang" "<b>$!r.fail.ruang.idRuang</b>")
+        #input_normal("" "Nama Ruang" "<b>$!r.fail.ruang.namaRuang</b>")
+        #input_normal("" "Kegunaan Ruang" "<b>$!r.fail.ruang.jenisKegunaanRuang.keterangan</b>")
+        #if ($!r.ruang.jenisKegunaanRuang.id == '10')
+        	#input_normal("" "Lain - Lain " "<b>$!r.fail.ruang.jenisKegunaanLain</b>")
+        #end
+        #input_normal("" "Lokasi" "<b>$!r.fail.ruang.lokasi</b>")
+        #input_normal("" "Kadar Sewa Ruang (RM)" "<b>$!util.formatDecimal($!r.fail.ruang.kadarSewa) ($!r.fail.ruang.getKeteranganIdJenisSewa())</b>")
+      </table></fieldset></td>
+  </tr>
+</table>

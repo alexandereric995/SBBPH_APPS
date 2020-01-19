@@ -1,0 +1,158 @@
+  
+<fieldset>
+<legend class="legend">maklumat pemohon</legend>
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr>
+			<td style="width:166px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		
+		#show("NAMA" "$!r.penuntut.userName.toUpperCase()")
+		#show("NO. KAD PENGENALAN" "$!r.penuntut.noKP")
+		
+	</table>
+</fieldset>
+		
+		
+<fieldset>
+<legend class="legend">maklumat permohonan</legend>
+	<table width="100%" cellpadding="1" cellspacing="1">
+		<tr>
+			<td style="width:166px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">MAKLUMAT KUARTERS TERDAHULU</span>
+			</td>
+		</tr>
+		<tr><td colspan="3">&nbsp;</td></tr>
+		
+		#show("JUMLAH DEPOSIT (RM)" "$!util.formatDecimal($!r.deposit.jumlahDeposit)")
+		#show("JENIS KUARTERS" "$!r.deposit.getMaklumatKuarters().jenisKediaman.keterangan.toUpperCase()")
+		#show("ALAMAT" "$!r.deposit.getMaklumatKuarters().noUnit.toUpperCase()")
+		#if( $!r.deposit.getMaklumatKuarters().alamat1 && !$!r.deposit.getMaklumatKuarters().alamat1.equalsIgnoreCase("") ) #show("" "$!r.deposit.getMaklumatKuarters().alamat1.toUpperCase()") #end
+		#if( $!r.deposit.getMaklumatKuarters().alamat2 && !$!r.deposit.getMaklumatKuarters().alamat2.equalsIgnoreCase("") ) #show("" "$!r.deposit.getMaklumatKuarters().alamat2.toUpperCase()") #end
+		#if( $!r.deposit.getMaklumatKuarters().alamat3 && !$!r.deposit.getMaklumatKuarters().alamat3.equalsIgnoreCase("") ) #show("" "$!r.deposit.getMaklumatKuarters().alamat3.toUpperCase()") #end
+		#show("" "$!r.deposit.getMaklumatKuarters().kawasan")
+		
+	</table>	
+	
+	<br/>
+	
+	<table width="100%">
+		<tr>
+			<td style="width:2%"></td>
+			<td style="width:1%"></td>
+			<td style="width:30%">&nbsp;</td>
+			<td style="width:67%">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				<span style="font-size:11px;font-weight:bold;text-decoration: underline;">SENARAI SEMAK</span>
+			</td>
+		</tr>
+		<tr><td colspan="4">&nbsp;</td></tr>
+		
+		<tr>
+			<td valign="middle">
+				<input type="checkbox" disabled #if($!r.resitBayaranDeposit=="Y") checked #end name="resitBayaranDeposit" id="resitBayaranDeposit" value="Y" style="width:18px;height:18px;display:block;" onclick="$('err_resitBayaranDeposit').innerHTML='';at(this, event)" />
+			</td>
+			<td valign="middle">&nbsp;</td>
+			<td valign="middle">
+				RESIT ASAL BAYARAN DEPOSIT
+				<div id="err_resitBayaranDeposit" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+			<td valign="middle">&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td valign="middle">
+				<input type="checkbox" disabled #if($!r.sijilAkaunMasuk=="Y") checked #end name="sijilAkaunMasuk" id="sijilAkaunMasuk" value="Y" style="width:18px;height:18px;display:block;" onclick="$('err_sijilAkaunMasuk').innerHTML='';at(this, event)" />
+			</td>
+			<td valign="middle">&nbsp;</td>
+			<td valign="middle">
+				SIJIL AKUAN MASUK RUMAH
+				<div id="err_sijilAkaunMasuk" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+			<td valign="middle">&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td valign="middle">
+				<input type="checkbox" disabled #if($!r.sijilAkaunKeluar=="Y") checked #end name="sijilAkaunKeluar" id="sijilAkaunKeluar" value="Y" style="width:18px;height:18px;display:block;" onclick="$('err_sijilAkaunKeluar').innerHTML='';at(this, event)" />
+			</td>
+			<td valign="middle">&nbsp;</td>
+			<td valign="middle">
+				SIJIL AKUAN KELUAR RUMAH
+				<div id="err_sijilAkaunKeluar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+			<td valign="middle">&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td valign="middle">
+				<input type="checkbox" disabled #if($!r.salinanAkaunBank=="Y") checked #end name="salinanAkaunBank" id="salinanAkaunBank" value="Y" style="width:18px;height:18px;display:block;" onclick="$('err_salinanAkaunBank').innerHTML='';at(this, event)" />
+			</td>
+			<td valign="middle">&nbsp;</td>
+			<td valign="middle">
+				SALINAN AKAUN BANK
+				<div id="err_salinanAkaunBank" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+			<td valign="middle">&nbsp;</td>
+		</tr>
+		
+	</table>
+</fieldset>
+
+
+<fieldset>
+<legend class="legend">pengesahan dan agihan</legend>
+	<table width="100%" cellpadding="2" cellspacing="2">
+		<tr>
+			<td style="width:230px"></td>
+			<td style="width:10px"></td>
+			<td></td>
+		</tr>
+		
+		#show("TARIKH PENGESAHAN DAN AGIHAN" "$!util.replaceIfNull($!util.getDateTime($!r.agihan.tarikhAgihan,'dd-MM-yyyy'),$!util.getCurrentDate('dd-MM-yyyy'))")
+		
+		<tr>
+			<td valign="top">PEGAWAI PENYEDIA <span style='color:#FF2A00'>*</span></td>
+			<td valign="top">:</td>
+			<td valign="top">
+				<select class="texts" id="penyedia" name="penyedia" style="width:100%" onChange="$('err_penyedia').innerHTML=''; at(this, event);">
+                    <option value="">SILA PILIH</option>
+                    #foreach( $n in $listPenyedia)
+                    	<option value="$n.id" #if($n.id == $r.agihan.penyedia.id) selected #end>$n.userName.toUpperCase()</option>
+                    #end
+                </select>
+				<div id="err_penyedia" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+			</td>
+		</tr>
+		
+		#textarea("catatanPenyelia" "CATATAN" "$!r.agihan.catatanPenyelia.toUpperCase()")
+		
+	</table>
+</fieldset>
+		
+		
+<script>
+_jq(document).ready(function () {
+	var statusId = "$!r.status.id";
+	if(statusId=="1436464445665"){
+		_jq('#btnSaveRecordTemplate').val('Sahkan dan Agih Permohonan');
+	}else{
+		_jq('#btnSaveRecordTemplate').val('Kemaskini');
+	}
+});
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

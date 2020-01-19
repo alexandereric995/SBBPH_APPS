@@ -1,0 +1,264 @@
+## PROFIL PENGGUNA
+if ( $('role').value == "(AWAM) Pesara" && $('role').value == "(AWAM) Pesara Polis / Tentera " && $('role').value == "(AWAM) Pengguna Awam") {
+	_jq("#mandatoriTelefon").hide();
+}
+
+_jq("#btnKemaskiniPengguna").click(function() {
+	validate();
+});
+    
+function validate() {
+	var err_count = 0;
+	
+	if ( $('role').value == "(AWAM) Badan Berkanun") {
+		var idBadanBerkanun = $('idBadanBerkanun').value;
+		if ( idBadanBerkanun == "" ) { 
+			$('err_idBadanBerkanun').innerHTML = "** mandatori"; err_count++;  
+		}
+	}
+	
+   	var idJantina = $('idJantina').value;
+	if ( idJantina == "" ) { 
+		$('err_idJantina').innerHTML = "** mandatori"; err_count++;  
+	}
+			
+	var idBangsa = $('idBangsa').value;
+	if ( idBangsa == "" ) { 
+		$('err_idBangsa').innerHTML = "** mandatori"; err_count++;  
+	}
+			
+	var idAgama = $('idAgama').value;
+	if ( idAgama == "" ) { 
+	   $('err_idAgama').innerHTML = "** mandatori"; err_count++;  
+	}          
+
+    var alamat = $('userAddress').value;
+    if ( alamat == "" ) { 
+       	$('err_alamat').innerHTML = "** mandatori"; err_count++;  
+    }
+
+    var poskod = $('poskod').value;
+    if ( poskod == "" ) { 
+       	$('err_poskod').innerHTML = "** mandatori"; err_count++;  
+    }
+
+    var idNegeri = $('idNegeri').value;
+    if ( idNegeri == "" ) { 
+      	$('err_idNegeri').innerHTML = "** mandatori"; err_count++;  
+    }
+
+    var idBandar = $('idBandar').value;
+    if ( idBandar == "" ) { 
+      	$('err_idBandar').innerHTML = "** mandatori"; err_count++;  
+    }   
+
+    if ($('role').value != "(AWAM) Pesara" && $('role').value != "(AWAM) Pesara Polis / Tentera" && $('role').value != "(AWAM) Pengguna Awam") {
+    	var noTelefon = $('noTelefon').value;
+    	if ( noTelefon == "" ) { 
+    		$('err_noTelefon').innerHTML = "** mandatori"; err_count++;  
+        }
+    }
+
+    var noTelefonBimbit = $('noTelefonBimbit').value;
+    if ( noTelefonBimbit == "" ) { 
+       	$('err_noTelefonBimbit').innerHTML = "** mandatori"; err_count++;  
+    }          
+
+    var email = $('emel').value;        
+    if ( email == "" ) { 
+    	$('err_email').innerHTML = "** mandatori"; err_count++;
+    } else {
+		var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	    if (!filter.test(email)) {
+	    	$('err_emailChecking').innerHTML = "Sila masukkan format email yang betul"; err_count++;
+	    }
+    }
+        
+    if (err_count == 0) {
+    	if ( window.confirm("Anda pasti?") ){
+	    	doDivAjaxCall3$formname('divProfil','kemaskiniPengguna','')
+	    }
+	}
+   	return err_count == 0;	
+}
+
+function uploadProfilePhoto() {
+	var idPengguna = $('idPengguna').value;	
+	$('err_profilePhoto').innerHTML = '';
+	
+	var err_count = 0;
+	if ($('profilePhoto').value != "" && !checkDoc($('profilePhoto').value)) {
+		err_count++;
+    	$('profilePhoto').value = "";
+    	$('err_profilePhoto').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg atau jpg)';
+    }
+    
+    if (err_count == 0) {
+    	if ( window.confirm("Anda pasti?") ){
+	    	$('profilePhotoMuatnaik').style.display = "";
+	    	document.${formName}.enctype='multipart/form-data';
+	    	document.${formName}.encoding ='multipart/form-data';
+	    	document.${formName}.target='upload_profil_photo';
+	    	document.${formName}.action='?command=uploadProfilPhoto&idPengguna='+idPengguna;
+	    	document.${formName}.submit();
+	    	$('profilePhoto').value = "";
+	    }
+    }
+}
+
+function checkDoc(val){
+	var arr = val.split(".");
+    var arr1 = val.split("\\");
+    if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" ) {
+    	return true;
+    } else {
+    	return false;
+    }
+}
+
+## MAKLUMAT PERJAWATAN
+function semakanHRMIS() {
+	if ( window.confirm("Anda pasti?") ){
+	    doDivAjaxCall3$formname('divProfil','semakanHRMIS','')
+	}
+}
+
+function semakanPESARA() {
+	if ( window.confirm("Anda pasti?") ){
+	    doDivAjaxCall3$formname('divProfil','semakanPESARA','')
+	}
+}
+
+function uploadDokumenPengesahan() {
+
+	var idPengguna = $('idPengguna').value;	
+	$('err_dokumenPengesahan').innerHTML = '';
+
+	var err_count = 0;	
+	if ($('dokumenPengesahan').value != "" && !checkDokumenPengesahan($('dokumenPengesahan').value)) {
+		err_count++;
+		$('dokumenPengesahan').value = "";
+		$('err_dokumenPengesahan').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+	}
+	if ($('dokumenPengesahan').value != "" && $('dokumenPengesahan').files[0].size > 2097152) {
+		err_count++;
+		$('err_dokumenPengesahan').innerHTML = "Saiz fail adalah "+($('dokumenPengesahan').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('dokumenPengesahan').value = "";
+	}
+	if (err_count == 0) {
+		if ( window.confirm("Anda pasti?") ){
+			$('uploadDokumenPengesahan').style.display = "";
+			document.${formName}.enctype='multipart/form-data';
+			document.${formName}.encoding ='multipart/form-data';
+			document.${formName}.target='upload_dokumen_pengesahan';
+			document.${formName}.action='?command=uploadDokumenPengesahan&idPengguna='+idPengguna;
+			document.${formName}.submit();
+			$('dokumenPengesahan').value = "";
+		}
+	}
+}
+
+function checkDokumenPengesahan(val){
+	var arr = val.split(".");
+    var arr1 = val.split("\\");
+    if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" || arr[1] == "PDF" || arr[1] == "pdf" || arr[1] == "doc" || arr[1] == "DOC" || arr[1] == "docx" || arr[1] == "DOCX" ) {
+    	return true;
+    } else {
+    	return false;
+    }
+}
+
+_jq("#btnHapusDokumenPengesahan").click(function() {
+	if ( window.confirm("Anda pasti?") ){
+	    doDivAjaxCall3$formname('divProfil','hapusDokumenPengesahan','')
+	}
+});
+
+_jq("#btnHantarPengesahan").click(function() {
+	var err_count = 0;	
+	if ($('lampiranPerjawatan').value == "") {
+		err_count++;
+		$('err_dokumenPengesahan').innerHTML = 'Sila muatnaik dokumen pengesahan jawatan / perkhidmatan';
+	}
+	
+	if (err_count == 0) {
+		if ( window.confirm("Anda pasti?") ){
+		    doDivAjaxCall3$formname('divProfil','hantarPengesahan','')
+		}
+	}
+});
+
+## MAKLUMAT BANK
+_jq("#btnKemaskiniMaklumatBank").click(function() {
+	validateMaklumatBank();
+});
+
+function validateMaklumatBank() {
+	var err_count = 0;
+   	var idBank = $('idBank').value;
+	if ( idBank == "" ) { 
+		$('err_idBank').innerHTML = "** mandatori"; err_count++;  
+	}
+			
+	var noAkaunBank = $('noAkaunBank').value;
+	if ( noAkaunBank == "" ) { 
+		$('err_noAkaunBank').innerHTML = "** mandatori"; err_count++;  
+	}
+			
+	var cawanganBank = $('cawanganBank').value;
+	if ( cawanganBank == "" ) { 
+	   $('err_cawanganBank').innerHTML = "** mandatori"; err_count++;  
+	}          
+        
+    if (err_count == 0) {
+    	if ( window.confirm("Anda pasti?") ){
+	    	doDivAjaxCall3$formname('divProfil','kemaskiniMaklumatBank','')
+	    }
+	}
+   	return err_count == 0;	
+}
+
+function uploadLampiranAkaun() {
+
+	var idPengguna = $('idPengguna').value;	
+	$('err_lampiranAkaun').innerHTML = '';
+
+	var err_count = 0;	
+	if ($('lampiranAkaun').value != "" && !checkLampiranAkaun($('lampiranAkaun').value)) {
+		err_count++;
+		$('lampiranAkaun').value = "";
+		$('err_lampiranAkaun').innerHTML = 'Muat naik fail haruslah format yang telah ditetapkan (jpeg, jpg, doc, docx atau pdf)';
+	}
+	if ($('lampiranAkaun').value != "" && $('lampiranAkaun').files[0].size > 2097152) {
+		err_count++;
+		$('err_lampiranAkaun').innerHTML = "Saiz fail adalah "+($('lampiranAkaun').files[0].size/(1024*1024)).toFixed(2)+" MB, Sila pastikan saiz fail tidak melebihi 2MB.";
+		$('lampiranAkaun').value = "";
+	}
+	if (err_count == 0) {
+		if ( window.confirm("Anda pasti?") ){
+			$('uploadLampiranAkaun').style.display = "";
+			document.${formName}.enctype='multipart/form-data';
+			document.${formName}.encoding ='multipart/form-data';
+			document.${formName}.target='upload_bank';
+			document.${formName}.action='?command=uploadLampiranAkaun&idPengguna='+idPengguna;
+			document.${formName}.submit();
+			$('lampiranAkaun').value = "";
+		}
+	}
+}
+
+function checkLampiranAkaun(val){
+	var arr = val.split(".");
+    var arr1 = val.split("\\");
+    if (arr[1] == "jpeg" || arr[1] == "jpg" || arr[1] == "JPEG" || arr[1] == "JPG" || arr[1] == "PDF" || arr[1] == "pdf" || arr[1] == "doc" || arr[1] == "DOC" || arr[1] == "docx" || arr[1] == "DOCX" ) {
+    	return true;
+    } else {
+    	return false;
+    }
+}
+
+_jq("#btnHapusLampiranAkaun").click(function() {
+	if ( window.confirm("Anda pasti?") ){
+	    doDivAjaxCall3$formname('divProfil','hapusLampiranAkaun','')
+	}
+});

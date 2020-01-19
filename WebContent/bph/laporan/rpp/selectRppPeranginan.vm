@@ -1,0 +1,12 @@
+<select id="idPeranginan" name="idPeranginan" style="width:80%" >
+    <option value="">SILA PILIH</option>
+    #foreach( $gj in $selectRppPeranginan )
+        <option #if ( $gj.id ==  $!uj.nama_peranginan.id) selected #end value="$gj.id">$gj.namaPeranginan.toUpperCase()</option>
+    #end
+</select>
+
+<script>
+_jq('#idPeranginan').on('change', function(){
+		doDivAjaxCall3$formname('selectJenisUnitRpp','selectJenisUnitRpp','');
+    });
+</script>

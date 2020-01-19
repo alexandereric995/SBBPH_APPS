@@ -1,0 +1,68 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#penghuniKesPeguam').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+
+<fieldset><legend class="legend">Maklumat Kes Peguam</legend>
+<p align="left">
+ 		<input type="button" value="Tambah" align='left' id="cmdTambahKesPeguam">
+	</p>
+	<br /><br />
+	
+	<table id="penghuniKesPeguam" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Bil.</th>
+                <th>Tarikh</th>
+                <th>Keputusan</th>
+                <th>Catatan</th>
+                <th>Papar</th>
+                <th>Hapus</th>
+            </tr>
+        </thead>
+		
+		<tbody>
+			#set( $count = 0 )
+    		#foreach ( $c in $kesPeguamList )
+    			#set ( $count = $count + 1 )
+                <tr>
+                    <td align="center" >$count</td>
+                    <td align="center" >$util.getDateTime($c.tarikhKeputusan, "dd-MM-yyyy")</td>
+                    #if($!c.flagKeputusan == '1')
+        				#set($flagKeputusan = 'BERSALAH')
+        			#elseif($!c.flagKeputusan == '2')
+        				#set($flagKeputusan = 'TIDAK BERSALAH')
+			        #end
+                    <td align="center" >$!flagKeputusan</td>
+                    <td align="center" >$!catatan</td>
+                    <td align="center" ><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a></td>
+                    <td align="center" ><a href="javascript:void()" onClick="deleteKP('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a></td>
+                </tr>
+                <script>
+                    _jq('#link$c.id').on('click', function(){
+                    	
+						doDivAjaxCall3$formname('editpopup','editKP','idKP=$c.id');
+                        jQuery('#editpopup').fadeIn();
+                    });
+                </script>
+			#end
+		</tbody>
+    </table>
+    
+</fieldset>
+
+<div id="addpopup" class="popup"></div>
+<div id="editpopup" class="popup"></div>
+
+
+<script>
+        _jq('#cmdTambahKesPeguam').on('click', function(){
+			doDivAjaxCall3$formname('addpopup','addPeguam','');
+            jQuery('#addpopup').fadeIn();
+        });
+ </script>

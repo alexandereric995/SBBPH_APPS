@@ -1,0 +1,113 @@
+<fieldset>
+<legend class="legend">MAKLUMAT KEPERLUAN PEJABAT</legend>
+<table width="100%" cellpadding="5" cellspacing="1">
+  <tr>
+    <td width="5%" class="row_header">Bil.</td>
+    <td width="65%" class="row_header">Perkara</td>
+   	<td width="10%" class="row_header">Luas Semasa (Meter Persegi)</td>
+    <td width="10%" class="row_header">Luas Yang Dipohon (Meter Persegi)</td>
+    <td width="5%" class="row_header">Papar</td>
+    #if ($!userRole == '(BGS) Pemohon')
+  		#if ($!r.status.id == '1428384412943' || $!r.status.id == '1423568441685') ## DRAF PERMOHONAN || PERMOHONAN TIDAK LENGKAP
+    		<td width="5%" class="row_header">Hapus</td>
+    	#end
+  	#end
+  	#if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441671' || $!r.status.id == '1423568441694')) ## PERMOHONAN BARU
+  		<td width="5%" class="row_header">Hapus</td>
+	#end
+  </tr>
+  #set ( $count = 0 )
+  #set ($jumLuasSemasa = 0)
+  #set ($jumLuasAkanDatang = 0)  
+  #if ( $listKeperluanPejabat.size() > 0)     
+  #foreach( $c in $listKeperluanPejabat )
+  #set ( $count = $count + 1)
+  
+  #set ( $jumLuasSemasa = $jumLuasSemasa + $util.getDouble($c.luasSemasa))
+  #set ( $jumLuasAkanDatang = $jumLuasAkanDatang + $util.getDouble($c.luasAkanDatang))
+  
+  #if ( $count % 2 == 0 ) 
+  #set ( $rowcolor = "#D0CFCE" ) 
+  #else 
+  #set ( $rowcolor = "#F0F0F0" ) 
+  #end
+  <tr bgcolor="$rowcolor">
+    <td align="center">$count</td>
+    <td>$c.perkara</td>
+    <td align="center">$!util.formatLuas($c.luasSemasa)</td>
+    <td align="center">$!util.formatLuas($c.luasAkanDatang)</td>
+    <td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit.gif" border="0"> </a></td>
+    #if ($!userRole == '(BGS) Pemohon')
+  		#if ($!r.status.id == '1428384412943' || $!r.status.id == '1423568441685') ## DRAF PERMOHONAN || PERMOHONAN TIDAK LENGKAP
+    		<td align="center"><a href="javascript:void()" onClick="deleteKeperluanPejabat('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a></td>
+      	#end
+  	#end
+  	#if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441671' || $!r.status.id == '1423568441694')) ## PERMOHONAN BARU
+  		<td align="center"><a href="javascript:void()" onClick="deleteKeperluanPejabat('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a></td>
+	#end
+  </tr>
+  <script>
+                    _jq('#link$c.id').on('click', function(){
+						doDivAjaxCall3$formname('editKeperluanPejabat','editKeperluanPejabat','idKeperluanPejabat=$c.id');
+                        jQuery('#editKeperluanPejabat').fadeIn();
+                    });
+                </script>
+  #end
+  #end
+  
+  #if ($!userRole == '(BGS) Pemohon')
+  	#if ($!r.status.id == '1428384412943' || $!r.status.id == '1423568441685') ## DRAF PERMOHONAN || PERMOHONAN TIDAK LENGKAP
+  <tr>
+    <td align="center"></td>
+    <td><input type="text" id="iPerkara" class="text" name="iPerkara" value="" onKeyUp=" $('err_iPerkara').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+      <div id="err_iPerkara" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+    <td><input type="text" id="iLuasSemasa" class="luas" name="iLuasSemasa" value="" onKeyUp=" $('err_iLuasSemasa').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+      <div id="err_iLuasSemasa" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+    <td><input type="text" id="iLuasAkanDatang" class="luas" name="iLuasAkanDatang" value="" onKeyUp=" $('err_iLuasAkanDatang').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+      <div id="err_iLuasAkanDatang" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+    <td><input style="font-weight:bold" type="button" name="btnTambahMaklumatKeperluanPejabat" id="btnTambahMaklumatKeperluanPejabat" value="+"  onclick="saveIKeperluanPejabat();" /></td>
+  </tr>
+  	#end
+  #end
+  
+  #if ($!userRole == '(BGS) Penyedia' && ($!r.status.id == '1423568441671' || $!r.status.id == '1423568441694')) ## PERMOHONAN BARU
+  <tr>
+    <td align="center"></td>
+    <td><input type="text" id="iPerkara" class="text" name="iPerkara" value="" onKeyUp=" $('err_iPerkara').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+      <div id="err_iPerkara" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+    <td><input type="text" id="iLuasSemasa" class="text" name="iLuasSemasa" value="" onKeyUp=" $('err_iLuasSemasa').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+      <div id="err_iLuasSemasa" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+    <td><input type="text" id="iLuasAkanDatang" class="text" name="iLuasAkanDatang" value="" onKeyUp=" $('err_iLuasAkanDatang').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();">
+      <div id="err_iLuasAkanDatang" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+    <td><input style="font-weight:bold" type="button" name="btnTambahMaklumatKeperluanPejabat" id="btnTambahMaklumatKeperluanPejabat" value="+"  onclick="saveIKeperluanPejabat();" /></td>
+  </tr>
+  #end
+  	
+  <tr>
+    <td colspan="2">&nbsp;</td>
+    <td colspan="2" style="padding-top:0.3cm" ><hr/></td>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" align="right"><strong>JUMLAH : </strong></td>
+    <td align="center"><strong>$!util.formatLuas($!jumLuasSemasa)</strong></td>
+    <td align="center"><strong>$!util.formatLuas($!jumLuasAkanDatang)</strong></td>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  
+</table>
+</fieldset>
+
+## Popup maklumatKeperluanPejabat.vm
+<div id="editKeperluanPejabat" class="popup"></div>
+## Blank status page
+<div id="removeKeperluanPejabat"></div>
+
+#parse("$path/keperluanPejabat/status.vm")
+
+<table width="100%">
+  <tr>
+    <td align="right"><input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

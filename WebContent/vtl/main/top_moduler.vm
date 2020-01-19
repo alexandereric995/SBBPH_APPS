@@ -1,0 +1,30 @@
+
+<table class="top_menu_background" width="100%"  cellspacing="1" cellpadding="0" border="0">
+<tr>
+<td>
+
+<table cellspacing="0" cellpadding="0" border="0">
+<tr height="30px">
+							
+#foreach ($module in $modules)
+	#if (${session.getAttribute("_portal_module")} == ${module.id})
+											
+	<td align="center" class="top_menu_active"
+	style="cursor:hand; cursor:pointer;" onclick="document.location='${session.getAttribute("_portal_action")}?_portal_module=${module.id}'">
+	&nbsp;${module.customTitle}&nbsp;
+	</td>
+	<td align="center">&nbsp;</td>
+	#else
+	<td align="center" class="top_menu"
+	style="cursor:hand; cursor:pointer;" onclick="document.location='${session.getAttribute("_portal_action")}?_portal_module=${module.id}'">
+	&nbsp;${module.customTitle}&nbsp;
+	</td>
+	<td align="center">&nbsp;</td>
+	#end
+#end	
+				
+</tr>
+</table>
+</td>
+</tr>
+</table>

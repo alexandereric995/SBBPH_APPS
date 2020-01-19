@@ -1,0 +1,40 @@
+<fieldset>
+<legend class="legend">Maklumat Lain</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        #number("tempohPengalaman" "Tempoh Pengalaman (Bidang Berkaitan)" "$!maklumatLain.tempohPengalaman")
+        <tr>
+          <td class="label" valign="top">Sewa Kepada Pihak Lain</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatLain/selectFlagSewaPihakLain.vm")
+            <div id="err_flagSewaPihakLain" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>            
+        #textarea("sebabDisewakan" "Jika 'YA' sila nyatakan sebab" "$!maklumatLain.sebabDisewakan")
+        #currency("anggaranSewaan" "Anggaran Kadar Sewa (RM)" "$!util.formatDecimal($!maklumatLain.anggaranSewaan)")  
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:34%"></td>
+          <td style="width:1%"></td>
+          <td style="width:65%"></td>
+        </tr>
+        #number("bilPengurus" "Bilangan Pengurus" "$!maklumatLain.bilPengurus")
+        #number("bilPenyelia" "Bilangan Penyelia" "$!maklumatLain.bilPenyelia")
+        #number("bilPelayan" "Bilangan Pelayan" "$!maklumatLain.bilPelayan")
+        #number("bilPekerjaAm" "Bilangan Pekerja Am" "$!maklumatLain.bilPekerjaAm")
+        <tr>
+          <td class="label" valign="top">Melibatkan Pekerja Asing (Jika Ada)</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/maklumatLain/selectFlagPekerjaAsing.vm")
+            <div id="err_flagPekerjaAsing" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</fieldset>

@@ -1,0 +1,19 @@
+<table width="100%">
+  <tr>
+    <td align="center"> 
+    	#if ($c.fileName)
+    		<img src="../download?file=$!uploadDir$!c.fileName" border="0">
+    	#else
+    		#set($noPhoto = 'profilePhoto/no_photo.jpg')
+    		<img src="../download?file=$!uploadDir$noPhoto" border="0">
+    	#end
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+    	<input type="file" id="profilePhoto$!c.id" name="profilePhoto$!c.id" onChange="uploadProfilePhoto('$!c.id')">
+      	<div id="err_profilePhoto$!c.id" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      	<div id="profilePhotoMuatnaik$!c.id" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+    </td>
+  </tr>
+</table>

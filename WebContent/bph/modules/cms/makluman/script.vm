@@ -1,0 +1,47 @@
+function validate() {
+	var err_count = 0;
+		
+##	var tajuk = $('tajuk').value;
+##	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+##	if (flagAktif == 'Y') {
+##		var turutan = $('turutan').value;
+##		if ( turutan == "" ) {$('err_turutan').innerHTML = "** adalah mandatori!"; err_count++;  }
+##	}
+	
+	if (err_count == 0) {
+	    
+	    var newData = CKEDITOR.instances.butiran.getData();  ## GET VALUE FROM CKEDITOR Add ByZUl
+        $('butiran').value = newData;   ## GET VALUE FROM CKEDITOR Add ByZUl   
+                            
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	return err_count == 0;
+}
+
+function kemaskiniMaklumat() {
+	var err_count = 0;
+		
+##	var tajuk = $('tajuk').value;
+##	if ( tajuk == "" ) {$('err_tajuk').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+	var flagAktif = $('flagAktif').value;
+	if ( flagAktif == "" ) {$('err_flagAktif').innerHTML = "** adalah mandatori!"; err_count++;  }
+	
+##	if (flagAktif == 'Y') {
+##		var turutan = $('turutan').value;
+##		if ( turutan == "" ) {$('err_turutan').innerHTML = "** adalah mandatori!"; err_count++;  }
+##	}
+	
+	if (err_count == 0) {
+		if ( window.confirm("Anda pasti?") ){
+            $('butiran').value = CKEDITOR.instances.butiran.getData(); ## GET VALUE FROM CKEDITOR Add ByZUl
+		    doDivAjaxCall3$formname('divRefresh','kemaskiniMaklumat','')
+		}
+	}
+}

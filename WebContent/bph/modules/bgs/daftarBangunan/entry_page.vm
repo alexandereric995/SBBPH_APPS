@@ -1,0 +1,214 @@
+<fieldset>
+<legend class="legend">Maklumat Ruang</legend>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input("kodDAK" "Kod DAK" "$!r.kodDAK")
+        #input("namaRuang" "Nama Ruang" "$!r.namaRuang")	
+        #input("fungsiRuang" "Fungsi Ruang" "$!r.fungsiRuang")
+        <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input("luasRuang" "Luas Ruang (Meter Persegi)" "$!r.luasRuang")
+        #input("tinggiSiling" "Tinggi Siling (M)" "$!r.tinggiSiling")        
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">Maklumat Aras</legend>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input("kodDAK" "Kod DAK" "$!r.aras.kodDAK")
+        #input("namaAras" "Nama Aras" "$!r.aras.namaAras")	
+        <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #set ($jenisAras = "")
+        #if ($!r.aras.jenisAras == 'A')
+        	#set ($jenisAras = "ATAS TANAH")
+        #elseif ($!r.aras.jenisAras == 'B')	
+        	#set ($jenisAras = "BAWAH TANAH")
+        #end
+        #input("jenisAras" "Jenis Aras" "$jenisAras")
+        #input("luasAras" "Luas Aras (Meter Persegi)" "$!r.aras.luasAras")        
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">Maklumat Bangunan</legend>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input("kodDPA" "Kod DPA" "$!r.aras.bangunan.kodDPA")
+        #input("kodDAK" "Kod DAK" "$!r.aras.bangunan.kodDAK")
+        #input("namaBangunan" "Nama Bangunan" "$!r.aras.bangunan.namaBangunan")	
+        #input("luas" "Luas (Meter Persegi)" "$!r.aras.bangunan.luas")
+        #input("kegunaanBangunan" "Kegunaan Bangunan" "$!r.aras.bangunan.kegunaanBangunan")
+        #input("noPendaftaran" "No. Pendaftaran" "$!r.aras.bangunan.noPendaftaran")
+        <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input("namaKontraktor" "Nama Kontraktor" "$!r.aras.bangunan.namaKontraktor")
+        #input("bidangKerjaKontraktor" "Bidang Kerja Kontraktor" "$!r.aras.bangunan.bidangKerjaKontraktor")  
+        #input("namaPerunding" "Nama Perunding" "$!r.aras.bangunan.namaPerunding")
+        #input("bidangKerjaPerunding" "Bidang Kerja Perunding" "$!r.aras.bangunan.bidangKerjaPerunding")  
+        #input("tahunSiapBina" "Tahun Siap Bina" "$!r.aras.bangunan.tahunSiapBina")
+        #input("kosBinaan" "Kos Binaan (RM)" "$!r.aras.bangunan.kosBinaan")              
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+	
+<fieldset>
+<legend class="legend">Maklumat Premis</legend>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input("kodDPA" "Kod DPA" "$!r.aras.bangunan.premis.kodDPA")
+        #input("namaPremis" "Nama Premis" "$!r.aras.bangunan.premis.namaPremis")
+        #input("zon" "Zon" "$!r.aras.bangunan.premis.zon.keterangan")
+		##input("negeri" "Negeri" "$!r.aras.bangunan.premis.mukim.daerah.negeri.keterangan")
+        ##input("daerah" "Daerah" "$!r.aras.bangunan.premis.mukim.daerah.keterangan")
+        ##input("mukim" "Mukim" "$!r.aras.bangunan.premis.mukim.keterangan")
+        		<tr>
+					<td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00"></span></td>
+					<td valign="top">:</td>
+					<td>
+						#parse("$path/selectNegeri.vm")
+						<div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+					</td>
+				</tr>
+			
+				<tr>
+					<td class="label" valign="top">Daerah &nbsp;<span style="color:#FF2A00"></span></td> ## asalnya bandar tukar kepada daerah
+					<td valign="top">:</td>
+					<td>
+						<div id="selectDaerah">#parse("$path/selectDaerah.vm")
+						<div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="label" valign="top">Mukim &nbsp;<span style="color:#FF2A00"></span></td>
+					<td valign="top">:</td>
+					<td>
+						<div id="selectMukim">#parse("$path/selectMukim.vm")
+						<div id="err_idMukim" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+					</td>
+				</tr>	
+        #input("alamat1" "Alamat" "$!r.aras.bangunan.premis.alamat1")
+        #input("alamat2" "" "$!r.aras.bangunan.premis.alamat2")  
+        #input("alamat3" "" "$!r.aras.bangunan.premis.alamat3")
+        #input("poskod" "Bidang Kerja Perunding" "$!r.aras.bangunan.premis.poskod")  
+        ##input("negeri" "Negeri" "$!r.aras.bangunan.premis.bandar.negeri.keterangan")
+        ##input("bandar" "Bandar" "$!r.aras.bangunan.premis.bandar.keterangan")
+        
+        <tr>
+					<td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00"></span></td>
+					<td valign="top">:</td>
+					<td>
+						#parse("$path/selectNegeriBandar.vm")
+						<div id="err_idNegeriBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+					</td>
+				</tr>
+			
+				<tr>
+					<td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00"></span></td> ## asalnya bandar tukar kepada daerah
+					<td valign="top">:</td>
+					<td>
+						<div id="selectBandar">#parse("$path/selectBandar.vm")
+						<div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+					</td>
+				</tr>
+				
+        #textarea("catatan" "Catatan" "$!r.aras.bangunan.premis.catatan")        
+        <tr>
+          <td colspan="3" height="10px">&nbsp;</td>
+        </tr>
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:150px"></td>
+          <td style="width:10px"></td>
+          <td></td>
+        </tr>
+        #input("pemilikPremis" "Pemilik Premis" "$!r.aras.bangunan.premis.pemilikPremis")
+        ##input("kementerian" "Kementerian" "$!r.aras.bangunan.premis.agensi.kementerian.keterangan")
+        					<tr>## new code
+						<td class="label">Kementerian &nbsp;<span style="color:#FF2A00">*</span></td>
+						<td>:</td>
+						<td>
+							#parse("$path/selectKementerian.vm")
+							<div id="err_idKementerian" style="color:#CC0000;font-weight:bold;border:2px #000">
+						</td>
+					</tr>
+        ##input("agensi" "Agensi" "$!r.aras.bangunan.premis.agensi.keterangan")
+        <tr>## new code
+						<td class="label">Agensi / Jabatan &nbsp;<span style="color:#FF2A00">*</span></td>
+						<td>:</td>
+						<td>
+							<div id="selectAgensi">
+								#parse("$path/selectAgensi.vm")
+							<div id="err_idAgensi" style="color:#CC0000;font-weight:bold;border:2px #000">
+						</td>
+					</tr>
+        #input("kategoriPremis" "Kategori Premis" "$!r.aras.bangunan.premis.kategoriPremis")	
+        #input("subKategoriPremis" "Subkategori Premis" "$!r.aras.bangunan.premis.subkategoriPremis")
+        #input("tahunSiapBina" "Tahun Siap Bina" "$!r.aras.bangunan.premis.tahunSiapBina")
+        #input("luasPremis" "Luas Premis (Hektar)" "$!r.aras.bangunan.premis.luasPremis")
+        #input("luasBangunan" "Luas Bangunan (Meter Persegi)" "$!r.aras.bangunan.premis.luasBangunan")  
+        #input("luasBinaanLuar" "Luas Binaan Luar (Meter Persegi)" "$!r.aras.bangunan.premis.luasBinaanLuar")
+        #input("kosAsal" "Kos Asal (RM)" "$!r.aras.bangunan.premis.kosAsal")  
+        #input("kosTambahan" "Kos Tambahan (RM)" "$!r.aras.bangunan.premis.kosTambahan")
+        #input("jumlahKos" "Jumlah Kos (RM)" "$!r.aras.bangunan.premis.jumlahKos")      
+                                  
+      </table></td>
+  </tr>
+</table>
+</fieldset>

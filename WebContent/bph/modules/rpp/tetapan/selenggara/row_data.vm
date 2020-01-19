@@ -1,0 +1,39 @@
+
+<style>
+.scrollitListing {
+	height:50px; width: 100%; overflow: auto;
+}
+</style>
+
+<td valign="top" style="font-size:10px"><a href="javascript:void()" style="color:blue" onclick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','edit','$queryParam')">$!r.perkara.toUpperCase()</a></td>
+<td valign="top" style="font-size:10px">$!util.getDateTime($!r.tarikhMasuk,'dd-MM-yyyy')</td>
+<td valign="top" style="font-size:10px">$!r.idMasuk.userName.toUpperCase()</td>
+<td valign="top" style="font-size:10px">$!r.catatan.toUpperCase()</td>
+<td valign="top" style="font-size:10px">
+	$!r.flagJenisSelenggara
+	#if($!r.flagJenisSelenggara.equalsIgnoreCase("UNIT") && $!r.getListSelenggaraLokasi().size() > 0)
+		<div>
+			($!r.getListSelenggaraLokasi().get(0).rppPeranginan.namaPeranginan.toUpperCase())
+		</div
+	#end	
+</td>
+<td valign="top" style="font-size:10px">
+	#if($!r.flagJenisSelenggara.equalsIgnoreCase("LOKASI"))
+		<div class="scrollitListing">
+		#foreach( $e in $!r.getListSelenggaraLokasi() )
+			<div>$!e.rppPeranginan.namaPeranginan.toUpperCase()</div>
+		#end	
+		</div>
+	#elseif($!r.flagJenisSelenggara.equalsIgnoreCase("UNIT"))
+		<div class="scrollitListing">
+		#foreach( $d in $!r.getListSelenggaraLokasi() )
+			<div>
+				$!d.rppUnit.noUnit.toUpperCase()
+				$!d.rppUnit.namaUnit.toUpperCase()
+			</div>
+		#end	
+		</div>
+	#end	
+</td>
+<td valign="top" style="font-size:10px">$!util.getDateTime($!r.tarikhMula,'dd-MM-yyyy')</td>
+<td valign="top" style="font-size:10px">$!util.getDateTime($!r.tarikhTamat,'dd-MM-yyyy')</td>

@@ -1,0 +1,150 @@
+<style>
+	.uppercasefont{
+		text-transform: uppercase !important;
+	}
+</style>
+
+<input type="hidden" id="id" name="id" value="$!r.id"/>
+
+<fieldset>
+<legend class="legend">Maklumat Resit</legend>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>
+        #input_normal("" "No. Resit" "<b>$!r.noResit</b>")
+        #input_normal("" "No. Resit Lama" "<b>$!r.noResitLama</b>")
+        #input_normal("" "Nama" "<b>$!r.namaPembayar</b>")
+        #input_normal("" "No. Fail" "")
+        #input_normal("" "No. KP" "<b>$!r.noPengenalanPembayar</b>")
+        #input_normal("" "Alamat" "<b>$!r.alamatPembayar</b>")   
+        #input_normal("" "Tarikh Bayaran" "<b>$!util.getDateTime($!r.tarikhBayaran,'dd-MM-YYYY')</b>")
+        #input_normal("" "Mesin" "<b>$!r.kodMesin</b>")
+        #input_normal("" "Kod PTJ" "<b>060101</b>")          
+      </table></td>
+    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+        <tr>
+          <td style="width:29%"></td>
+          <td style="width:1%"></td>
+          <td style="width:70%"></td>
+        </tr>        
+        #input_normal("" "Juruwang" "<b>$!r.juruwangKod</b>")
+        #input_normal("" "Tran ID" "<b>$!r.idTransaksiBank</b>")            
+        #input_normal("" "Jenis Resit" "<b>$!r.getKeteranganFlagJenisResit()</b>")       
+        #input_normal("" "Jumlah Bayaran (RM)" "<b>$!util.formatDecimal($!r.jumlahAmaunBayaran)</b>")
+        #input_normal("" "Bil. Cetakan Resit" "<b>$!r.bilCetakResit</b>")       
+        #if ($!r.flagVoid == 'Y')
+        	#input_normal("" "Status Resit" "<b>BATAL</b>")    
+        #elseif ($!r.flagVoid == 'T')
+        	#input_normal("" "Status Resit" "<b>AKTIF</b>")    
+        #else
+        	#input_normal("" "Status Resit" "")    
+        #end 
+        #input_normal("" "Tarikh Batal Resit" "<b>$!util.getDateTime($!r.tarikhBatalResit,'dd-MM-YYYY')</b>")
+        #input_normal("" "Catatan Batal Resit" "<b>$!r.catatanBatalResit</b>")
+      </table></td>
+  </tr>
+</table>
+</fieldset>
+
+#if( $rpp )
+	<fieldset>
+	<legend class="legend">Maklumat Tempahan RP/RPP/RT</legend>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	  <tr>
+	    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+	        <tr>
+	          <td style="width:29%"></td>
+	          <td style="width:1%"></td>
+	          <td style="width:70%"></td>
+	        </tr>
+	        #input_normal("" "No. Tempahan" "<b>$!rpp.noTempahan</b>")
+	        #input_normal("" "Lokasi" "<b>$!rpp.rppPeranginan.namaPeranginan.toUpperCase()</b>")
+	        #input_normal("" "Tarikh Menginap" "<b>$!util.getDateTime($!rpp.tarikhMasukRpp,'dd/MM/yyyy') - $!util.getDateTime($!rpp.tarikhKeluarRpp,'dd/MM/yyyy')</b>")
+	      </table></td>
+	    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+	        <tr>
+	          <td style="width:29%"></td>
+	          <td style="width:1%"></td>
+	          <td style="width:70%"></td>
+	        </tr>
+	      </table></td>
+	  </tr>
+	</table>
+	</fieldset>
+#end
+
+#if( $london )
+	<fieldset>
+	<legend class="legend">Maklumat Tempahan Rumah Peranginan London</legend>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	  <tr>
+	    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+	        <tr>
+	          <td style="width:29%"></td>
+	          <td style="width:1%"></td>
+	          <td style="width:70%"></td>
+	        </tr>
+	        #input_normal("" "No. Tempahan" "<b>$!london.noTempahan</b>")
+	        #input_normal("" "Lokasi" "<b>$!london.jenisUnitRpp.peranginan.namaPeranginan.toUpperCase()</b>")
+	        #input_normal("" "Tarikh Menginap" "<b>$!util.getDateTime($!london.tarikhMasukRpp,'dd/MM/yyyy') - $!util.getDateTime($!london.tarikhKeluarRpp,'dd/MM/yyyy')</b>")
+	      </table></td>
+	    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+	        <tr>
+	          <td style="width:29%"></td>
+	          <td style="width:1%"></td>
+	          <td style="width:70%"></td>
+	        </tr>
+	      </table></td>
+	  </tr>
+	</table>
+	</fieldset>
+#end
+
+#if( $gelanggang )
+	<fieldset>
+	<legend class="legend">Maklumat Tempahan Dewan / Gelanggang</legend>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	  <tr>
+	    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+	        <tr>
+	          <td style="width:29%"></td>
+	          <td style="width:1%"></td>
+	          <td style="width:70%"></td>
+	        </tr>
+	        #input_normal("" "No. Tempahan" "<b>$!gelanggang.idTempahan</b>")
+	        #input_normal("" "Dewan" "<b>$!gelanggang.dewan.nama.toUpperCase()</b>")
+	        #input_normal("" "Gelanggang" "<b>$!gelanggang.gelanggang.nama.toUpperCase()</b>")	        
+	        #input_normal("" "Tarikh Tempahan" "<b>$!util.getDateTime($!gelanggang.tarikhMula,'dd/MM/yyyy') - $!util.getDateTime($!gelanggang.tarikhTamat,'dd/MM/yyyy')</b>")
+	     	#input_normal("" "Masa Tempahan" "<b>$!util.getKeteranganMasa($!gelanggang.masaMula) - $!util.getKeteranganMasa($!gelanggang.masaTamat)</b>")
+	      </table></td>
+	    <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
+	        <tr>
+	          <td style="width:29%"></td>
+	          <td style="width:1%"></td>
+	          <td style="width:70%"></td>
+	        </tr>
+	      </table></td>
+	  </tr>
+	</table>
+	</fieldset>
+#end
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td >&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right"> 
+    	#if($userRole.equalsIgnoreCase("(HASIL) Penyelia") || $userRole.equalsIgnoreCase("(HASIL) Penyelia Cawangan") || $userRole.equalsIgnoreCase("(ICT) Pentadbir Sistem"))
+      		<input type="button" id="resetBilCetak" name="resetBilCetak" value="Reset Bilangan Cetakan" onclick="doResetBilCetak()"/>
+      	#end
+      <input type="button" id="cetak" name="cetak" value="Papar Resit" onclick="doCetakResit()"/>
+      <input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

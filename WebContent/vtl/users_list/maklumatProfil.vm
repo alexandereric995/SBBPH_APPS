@@ -1,0 +1,121 @@
+<fieldset>
+<legend class="legend">PROFIL PENGGUNA</legend>
+
+#parse("$path/status.vm")
+
+<table width="90%" align="center" border="0" cellpadding="5" cellspacing="0">
+  <tr>
+    <td width="20%"></td>
+    <td width="2%"></td>
+    <td></td>
+    <td rowspan="20" width="40%" valign="top"><fieldset>
+      <legend class="legend">GAMBAR PROFIL</legend>
+      <div id="divPhoto">#parse("$path/divPhoto.vm")</div>
+      </fieldset></td>
+  </tr>
+  #input_normal("noKadPengenalan" "No. Kad Pengenalan" "<b>$!pengguna.id</b>")
+  <tr>
+    <td class="label">Gelaran</td>
+    <td>:</td>
+    <td> #parse("$path/selectGelaran.vm")
+      <div id="err_idGelaran" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #input_normal("nama" "Nama" "<b>$!pengguna.gelaran.keterangan</b> <b>$!pengguna.userName</b>")
+  #input_normal("peranan" "Peranan Pengguna" "<b>$!pengguna.role.name</b>")
+  #if ($!pengguna.role.name == '(AWAM) Badan Berkanun')
+  <tr>
+    <td class="label">Badan Berkanun &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> #parse("$path/selectBadanBerkanun.vm")
+      <div id="err_idBadanBerkanun" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #end
+  <tr>
+    <td class="label">Jantina &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> #parse("$path/selectJantina.vm")
+      <div id="err_idJantina" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Agama &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> #parse("$path/selectAgama.vm")
+      <div id="err_idAgama" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td class="label">Bangsa &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> #parse("$path/selectBangsa.vm")
+      <div id="err_idBangsa" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td valign="top">Alamat</span> <span style="color:#FF2A00">*</span> </td>
+    <td valign="top">:</td>
+    <td valign="top"><input class="input-style" type="text" id="userAddress" name="userAddress" value="$!pengguna.userAddress" onKeyUp="at(this, event)" onChange="$('err_alamat').innerHTML=''; at(this, event);" onBlur="this.value=this.value.toUpperCase();" />
+      <div id="err_alamat" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+    <td valign="top">:</td>
+    <td valign="top"><input class="input-style" type="text" id="userAddress2" name="userAddress2" value="$!pengguna.userAddress2" onKeyUp="at(this, event)" onChange="at(this, event);" onBlur="this.value=this.value.toUpperCase();"/></td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+    <td valign="top">:</td>
+    <td valign="top"><input class="input-style" type="text" id="userAddress3" name="userAddress3" value="$!pengguna.userAddress3" onKeyUp="at(this, event)" onChange="at(this, event);" onBlur="this.value=this.value.toUpperCase();"/></td>
+  </tr>
+  <tr>
+    <td valign="top"><span>Poskod</span> <span style="color:#FF2A00">*</span> </td>
+    <td valign="top">:</td>
+    <td valign="top"><input class="input-style postcode"  type="text" name="poskod" id="poskod" value="$!pengguna.userPostcode" style="width: 100%" maxlength="5" onFocus="$('regResult').innerHTML='';" onChange="$('err_poskod').innerHTML=''; at(this, event);"/>
+      <div id="err_poskod" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td valign="top"><span>Negeri</span> <span style="color:#FF2A00">*</span> </td>
+    <td valign="top">:</td>
+    <td valign="top"><span id="listNegeri"> #parse("$path/selectNegeri.vm") </span>
+      <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td valign="top"><span>Bandar</span> <span style="color:#FF2A00">*</span> </td>
+    <td valign="top">:</td>
+    <td valign="top"><span id="listBandar"> #parse("$path/selectBandar.vm") </span>
+      <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td valign="top"><span>No. Telefon</span> <span id="mandatoriTelefon" style="color:#FF2A00">*</span> </td>
+    <td valign="top">:</td>
+    <td valign="top"><input class="input-style number" type="text" id="noTelefon" name="noTelefon" value="$!pengguna.noTelefon" onKeyUp="at(this, event)" onChange="$('err_noTelefon').innerHTML=''; at(this, event);" />
+      <div id="err_noTelefon" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td valign="top"><span>No. Telefon Bimbit</span> <span style="color:#FF2A00">*</span> </td>
+    <td valign="top">:</td>
+    <td valign="top"><input  class="input-style  number" type="text" id="noTelefonBimbit" name="noTelefonBimbit" value="$!pengguna.noTelefonBimbit" onKeyUp="at(this, event)" onChange="$('err_noTelefonBimbit').innerHTML=''; at(this, event);" />
+      <div id="err_noTelefonBimbit" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  <tr>
+    <td valign="top"><span>Emel</span> <span style="color:#FF2A00">*</span> </td>
+    <td valign="top">:</td>
+    <td valign="top"><input class="input-style" type="text" name="emel" id="emel" value="$!pengguna.emel" style="width: 100%" onFocus="$('regResult').innerHTML='';" onChange="$('err_email').innerHTML='';$('err_emailChecking').innerHTML=''; at(this, event);" />
+      <div id="err_email" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      <div id="err_emailChecking" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+</table>
+</fieldset>
+
+<table width="100%">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+  	#if ($!userRole == '(UTILITI) Penyedia' || $!userRole == '(UTILITI) Pelulus')
+    <td align="right"><input type="button" value="Kemaskini Akses Gelanggang" id="btnKemaskini" name="btnKemaskini" onclick="kemaskiniFlagGelanggang()">
+    <input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')"></td>
+    #else
+    <td align="right"><input type="button" value="Simpan" id="btnKemaskiniPengguna" name="btnKemaskiniPengguna" onclick="validate()">
+    <input type="button" value="Set Semula Katalaluan" id="btnResetPassword" name="btnResetPassword" onclick="resetPassword()">
+    <input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')"></td>
+    #end
+  </tr>
+</table>

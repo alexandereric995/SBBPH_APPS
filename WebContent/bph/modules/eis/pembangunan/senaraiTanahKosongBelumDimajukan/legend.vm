@@ -1,0 +1,26 @@
+<fieldset>
+<legend class="legend">PETUNJUK</legend>
+#if ($senaraiNegeri.size() > 0)
+<table width="50%" style="font-size:13px;" cellpadding="1" cellspacing="1">
+  <tr>
+    <td class="row_header" width="5%" align="center">Bil.</td>
+    <td class="row_header" width="25%">Abbrev</td>
+    <td class="row_header" width="70%">Negeri</td>
+  </tr>
+  #set ($count=0)
+  #foreach ($i in $senaraiNegeri)
+  #set ($count=$count+1)
+  
+  #if ( $count % 2 == 0 ) 
+  #set ( $rowcolor = "#D0CFCE" ) 
+  #else 
+  #set ( $rowcolor = "#F0F0F0" ) 
+  #end
+  <tr bgcolor="$rowcolor">
+    <td align="center">$count</td>
+    <td align="center">$!i.abbrev</td>
+    <td >$!i.keterangan</td>
+  #end
+</table>
+#end
+</fieldset>

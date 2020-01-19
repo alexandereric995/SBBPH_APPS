@@ -1,0 +1,134 @@
+
+<script>
+    _jq(document).ready(function() {
+        _jq('#tblpengguna').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+	_jq(document).ready(function() {
+        _jq('#tblvip').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+    
+    _jq( document ).ready(function() {
+	
+		#if ( $error_flag == "record_delete_success" )
+			hapusBerjaya ();
+		#end
+			
+     });
+     
+function hapusBerjaya () {
+    swal({
+		title: "Makluman",
+		text: "Pengguna VIP berjaya dihapuskan!",
+		type: "success"
+		});
+    }
+</script>
+
+
+<fieldset>
+    <legend class="legend">Senarai Pengguna</legend>
+	
+	<table id="tblpengguna" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+    			<th class="row_header" width="8%">Bil.</th>
+    			<th class="row_header" width="22%">Nama</th>
+    			<th class="row_header" width="10%">No. Kad Pengenalan</th>
+    			<th class="row_header" width="20%">Kementerian</th>
+    			<th class="row_header" width="20%">Agensi</th>
+    			<th class="row_header" width="10%">Gred Jawatan</th>
+    			<th class="row_header" width="10%">Pilih VIP</th>
+    		</tr>
+        </thead>
+		
+		<tbody>
+			#set( $count = 0 )
+    		#foreach ( $d in $listPemohonDanStatusVIP )
+    			#set ( $count = $count + 1 )
+                <tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+            		<td>$!d.userName.toUpperCase()</td>
+					<td>$!d.noKp</td>
+					<td>$!d.agensi.toUpperCase()</td>
+					<td>$!d.kementerian.toUpperCase()</td>
+					<td>$!d.kelasPerkhidmatan $!d.gredPerkhidmatan</td>
+					<td align="center">
+						<input type="checkbox" name="flagVip" id="flagVip$!d.userLogin" value="$!d.userLogin" onclick="doDivAjaxCall$formname('div_main','saveRecord','idpengguna=$!d.userLogin')" />
+					</td>
+                </tr>
+			#end
+		</tbody>
+    </table>
+	
+</fieldset>	
+
+<br/><br/>
+
+<fieldset>
+    <legend class="legend">Senarai Pengguna vip</legend>
+	
+	<table id="tblvip" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+    			<th class="row_header" width="8%">Bil.</th>
+    			<th class="row_header" width="22%">Nama</th>
+    			<th class="row_header" width="10%">No. Kad Pengenalan</th>
+    			<th class="row_header" width="20%">Kementerian</th>
+    			<th class="row_header" width="20%">Agensi</th>
+    			<th class="row_header" width="10%">Gred Jawatan</th>
+    			<th class="row_header" width="10%">Hapus</th>
+    		</tr>
+        </thead>
+		
+		<tbody>
+			#set( $count = 0 )
+    		#foreach ( $d in $listVip )
+    			#set ( $count = $count + 1 )
+                <tr bgcolor="$rowcolor">
+        			<td align="center">$count</td>
+            		<td>$!d.pemohon.userName.toUpperCase()</td>
+					<td>$!d.pemohon.id</td>
+					<td>$!d.pemohon.agensi.keterangan.toUpperCase()</td>
+					<td>$!d.pemohon.agensi.kementerian.keterangan.toUpperCase()</td>
+					<td>$!d.pemohon.gredPerkhidmatan.keterangan.toUpperCase()</td>
+					<td align="center">
+						<a href="javascript:void()" onclick="doDivAjaxCall$formname('div_main','deleteRecord','idvip=$!d.id')"><img src="../img/delete.gif" border="0"></a>
+					</td>
+                </tr>
+			#end
+		</tbody>
+    </table>
+	
+</fieldset>	
+
+
+	<!--
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+    			<input style="width:120px" type="button" value="Cetak Skrin" onclick="javascript:window.print()">
+    			<input style="width:120px" id="btnSimpan" type="button" value="Simpan" onClick="javascript:doSave()">
+    		</td>
+    	</tr>
+    </table>
+	-->	
+	
+<script>
+function doSave() {
+	document.${formName}.command.value = "saveRecord";
+	document.${formName}.action = "?_portal_module=bph.modules.rpp.tetapan.PemohonVIPController";
+	document.${formName}.submit();
+}
+</script>
+
+
+
+

@@ -1,0 +1,36 @@
+
+#if($!flagLuarPuncak.equalsIgnoreCase("HAD"))
+	
+	&nbsp; GRED KELAYAKAN : &nbsp;
+	<select class="texts" disabled id="gredMinimumKelayakan" name="gredMinimumKelayakan" style="width:100px" onChange=" $('err_gredMinimumKelayakan').innerHTML='';">
+		<option value="">SILA PILIH</option>
+		#foreach( $n in $listGredPerkhidmatan)
+			<option value="$n.id" #if($n.id == $!ju.gredMinimumKelayakan) selected #end>$n.keterangan.toUpperCase()</option>
+		#end
+	</select>
+	<div id="err_gredMinimumKelayakan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+
+#elseif($!flagLuarPuncak.equalsIgnoreCase("JULAT"))
+	
+	&nbsp; GRED (DARI) : &nbsp;
+	<select class="texts" disabled id="gredMinimumKelayakan" name="gredMinimumKelayakan" style="width:100px" onChange=" $('err_gredMinimumKelayakan').innerHTML='';">
+		<option value="">SILA PILIH</option>
+		#foreach( $n in $listGredPerkhidmatan)
+			<option value="$n.id" #if($n.id == $!ju.gredMinimumKelayakan) selected #end>$n.keterangan.toUpperCase()</option>
+		#end
+	</select>
+	
+	&nbsp; GRED (HINGGA) : &nbsp;
+	<select class="texts" disabled id="gredMaksimumKelayakan" name="gredMaksimumKelayakan" style="width:100px" onChange=" $('err_gredMaksimumKelayakan').innerHTML='';">
+		<option value="">SILA PILIH</option>
+		#foreach( $n in $listGredPerkhidmatan)
+			<option value="$n.id" #if($n.id == $!ju.gredMaksimumKelayakan) selected #end>$n.keterangan.toUpperCase()</option>
+		#end
+	</select>
+	
+	<div id="err_gredMinimumKelayakan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	<div id="err_gredMaksimumKelayakan" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+	
+#end		
+	
+	

@@ -1,0 +1,129 @@
+<br />
+<form name="fcus" method="post">
+    <table cellpadding="2" cellspacing="0" border="0" align="center">
+    	<tr><td>
+    		<input type="button" value="Tukar Tema Halaman" onclick="document.location.href='pagetheme'">
+    	</td></tr>
+    </table>
+    
+    <table width="600" align="center" cellspacing="2" border="0">
+    	<tr>
+    		<td style="font-weight:bold; font-family: Tahoma, Helvetica, Georgia, sans-serif">
+    			Tab Semasa
+    		</td>
+    	</tr>
+    	<tr>
+    		<td align="center">
+    			<ul id="tablist" style="list-style-type:none; padding: 10px;">
+    				#set ($cnt = 0 )
+    				#foreach( $tab in $tabs)
+    					#set ( $cnt = $cnt + 1 )
+    					<li id="tablist_$cnt" style="cursor:hand">
+                            <table width="80%" cellspacing="0" cellpadding="4" border="0" bgcolor="#ffffff">
+                                <tr>
+                                	<!-- <td bgcolor="#ffffff" style="background:url('../img/tab_left.jpg') no-repeat;width:5px;"></td> -->
+                                	<td class="module_tab_customize">
+                                		<table width="100%">
+                                			<tr>
+                                				<td width="10" align="center"><a style="cursor:hand;cursor:pointer;">::</a></td>
+                                				<td>
+                                					<a style="cursor:hand;cursor:pointer;">
+                                						$tab.title
+                                					</a>
+                                					<input type="hidden" name="tabIds" value="${tab.id}">
+                                				</td>
+                                				<td width="50%" align="right">
+                                					#if ( !$tab.locked )
+                                						<a href="javascript:listModules('$tab.id')" style="text-decoration:underline">Kandungan</a>
+                                						|
+                                						
+                                						<a href="javascript:editTab('$tab.id', '$tab.title', 'Kemaskini')" style="text-decoration:underline">Tukar Nama</a>
+                                						|
+                                						<a href="javascript:deleteTab('$tab.id')" style="text-decoration:none">X</a>
+                                					#else
+                                						<img src="../img/icon_lock.gif">
+                                					#end
+                                				</td>
+                                			</tr>
+                                		</table>
+                                	</td>
+                                	<!-- <td bgcolor="#ffffff" style="background:url('../img/tab_right.jpg') no-repeat;width:5px"></td> -->
+                                </tr>
+                            </table>
+    					</li>
+    				#end
+    			</ul>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td align="center" height="40">
+    			<input type="button" value="Simpan Tab" onclick="saveTabs()">
+    		</td>
+    	</tr>
+    	<tr>
+    		<td align="center" height="40">
+    			Tab:
+    			<input name="tab_title" style="width:200px">    			
+    			<input type="button" name="buttonTab" value="Tambah" onclick="doTab()">
+    			<input type="button" name="buttonReset" value="Kosongkan" onclick="doReset('Tambah')">
+    		</td>
+    	</tr>
+    </table>
+	<input type="hidden" name="tabId">
+</form>
+
+<script type="text/javascript" language="javascript" charset="utf-8">
+Sortable.create('tablist');
+</script>
+
+<script>
+function addNewTab() {
+    document.fcus.action = "customize?type=tab&do=add";
+    document.fcus.submit();
+}
+
+function deleteTab(tabid) {
+    if ( !confirm("Delete this Tab?") ) return;
+    document.fcus.action = "customize?type=tab&tabId=" + tabid + "&do=deleteTab";
+    document.fcus.submit();
+}
+
+function saveTabs() {
+    document.fcus.action = "customize?type=tab&do=saveTabs";
+    document.fcus.submit();
+}
+
+function addTab() {
+    if ( document.fcus.tab_title.value == "" ) return;
+        document.fcus.action = "customize?type=tab&do=addTab";
+        document.fcus.submit();
+}
+
+function editTab(id, title, butValue) {
+    document.fcus.tabId.value = id;
+    document.fcus.tab_title.value = title;
+    document.fcus.buttonTab.value = butValue;
+}
+
+function updateTab() {
+    document.fcus.action = "customize?type=tab&do=updateTab";
+    document.fcus.submit();
+}
+
+function doTab() {
+    if ( document.fcus.buttonTab.value == "Update" || document.fcus.buttonTab.value == "Kemaskini" ) updateTab();
+    else addTab();
+}
+
+function doReset(butValue){
+    document.fcus.buttonTab.value = butValue;
+    document.fcus.tab_title.value = "";
+    document.fcus.tabId.value = "";
+}
+
+function listModules(tabId) {
+    document.fcus.tabId.value = tabId;
+    document.fcus.action = "customize?type=tab&do=listModules";
+    document.fcus.submit();
+}
+</script>

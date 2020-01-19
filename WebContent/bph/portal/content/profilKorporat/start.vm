@@ -1,0 +1,36 @@
+<div id="content-format">
+  <pinLeft></pinLeft>
+  <pinRight></pinRight>
+  <header>$!profilKorporat.tajuk.toUpperCase()</header>
+  <section>
+    <div id="tabs">
+      <div id="tabs-2">
+      	#if ($!profilKorporat.butiran != '')
+	      	$!profilKorporat.butiran
+			<br></br>
+		#end
+
+		#if ($!profilKorporat.fileName)
+	    <ol>
+	      	 <a href="../download?file=$!uploadDir$!profilKorporat.fileName" > <span class="print">$!profilKorporat.tajuk</strong><span> </a>
+		</ol>
+		#end
+		
+        #set ($count=0)
+        #foreach ( $subProfilKorporat in $listSubProfilKorporat )
+        #set ($count=$count+1)
+        <ol>
+          $count. #if ($!subProfilKorporat.fileName != '') <a href="../download?file=$!uploadDir$!subProfilKorporat.fileName" > <span class="print">$!subProfilKorporat.tajuk</strong><span> </a> #end
+        	#if ($!subProfilKorporat.flagBaru == 'Y')
+				<img src="../images/new.gif"> 
+			#end 
+        </ol>
+        #end
+        
+        #if ($!profilKorporat.butiran == '' && $!profilKorporat.fileName == '' && $count == '0')
+        	<strong>TIADA MAKLUMAT</strong>
+        #end        
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,134 @@
+function validate() {
+	var err_count = 0;
+	
+	var id = $('id').value;
+	if ( id == "" ) {$('err_id').innerHTML = "No. Pengenalan / SSM adalah mandatori!"; err_count++;  }
+	
+	var nama = $('nama').value;
+	if ( nama == "" ) {$('err_nama').innerHTML = "Nama adalah mandatori!"; err_count++;  }
+	
+	var alamat1 = $('alamat1').value;
+	if ( alamat1 == "" ) {$('err_alamat1').innerHTML = "Alamat adalah mandatori!"; err_count++;  }
+	
+	var poskod = $('poskod').value;
+	if ( poskod == "" ) {$('err_poskod').innerHTML = "Poskod adalah mandatori!"; err_count++;  }
+	
+	var negeri = $('negeri').value;
+	if ( negeri == "" ) {$('err_negeri').innerHTML = "Negeri adalah mandatori!"; err_count++;  }
+	
+	var bandar = $('bandar').value;
+	if ( bandar == "" ) {$('err_bandar').innerHTML = "Bandar adalah mandatori!"; err_count++;  }
+
+	var txtJumlahInvois = $('txtJumlahInvois').value;
+	if ( txtJumlahInvois == 0.0 ) {$('err_selesaiBayaran').innerHTML = "Tiada bil/invois dipilih"; err_count++;  }
+	
+	var txtBaki = $('txtBaki').value;
+	var parseBaki = parseFloat(txtBaki.replace(/,/g, ''));
+	
+    if ( parseBaki > 0 ) { $('err_selesaiBayaran').innerHTML = "* Bayaran masih tidak mencukupi. Sila buat pembayaran penuh"; err_count++;  }
+                        	
+    
+	var flagJenisPembayarLain1 = document.${formname}.flagJenisPembayarLain[0].checked;
+	var flagJenisPembayarLain2 = document.${formname}.flagJenisPembayarLain[1].checked;
+	if ( flagJenisPembayarLain1 == false && flagJenisPembayarLain2 == false ) {$('err_flagJenisPembayarLain').innerHTML = "Pilihan Kategori Pembayar adalah mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+	
+		if(parseBaki < 0){
+	    	if ( !window.confirm("Jumlah Amaun Bayaran melebihi jumlah yang perlu dibayar. Anda pasti?") ){
+				return;
+			}
+	    }
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	
+	return err_count == 0;
+}
+
+  function hapusInvois(idInvois) {
+  	##if (window.confirm("Anda pasti?") ){
+
+  		doDivAjaxChainCall$formname('divMaklumatInvois','hapusInvois','idInvois='+idInvois);
+	##}
+  }
+  
+  function hapusBayaran(idtempBayaran) {
+  	##if (window.confirm("Anda pasti?") ){
+  		doDivAjaxChainCall$formname('divMaklumatBayaran','hapusTempBayaran','idtempBayaran='+idtempBayaran,'divSenaraiBayaranPilihan','refreshDivQueue','');
+	##}
+  }
+  function validatePembayar() {
+	var err_count = 0;
+	
+	var id = $('id').value;
+	if ( id == "" ) {$('err_id').innerHTML = "No. Pengenalan / SSM adalah mandatori!"; err_count++;  }
+	
+	var nama = $('nama').value;
+	if ( nama == "" ) {$('err_nama').innerHTML = "Nama adalah mandatori!"; err_count++;  }
+	
+	var alamat1 = $('alamat1').value;
+	if ( alamat1 == "" ) {$('err_alamat1').innerHTML = "Alamat adalah mandatori!"; err_count++;  }
+	
+	var poskod = $('poskod').value;
+	if ( poskod == "" ) {$('err_poskod').innerHTML = "Poskod adalah mandatori!"; err_count++;  }
+	
+	var negeri = $('negeri').value;
+	if ( negeri == "" ) {$('err_negeri').innerHTML = "Negeri adalah mandatori!"; err_count++;  }
+	
+	var bandar = $('bandar').value;
+	if ( bandar == "" ) {$('err_bandar').innerHTML = "Bandar adalah mandatori!"; err_count++;  }
+	
+	var flagJenisPembayarLain1 = document.${formname}.flagJenisPembayarLain[0].checked;
+	var flagJenisPembayarLain2 = document.${formname}.flagJenisPembayarLain[1].checked;
+	if ( flagJenisPembayarLain1 == false && flagJenisPembayarLain2 == false ) {$('err_flagJenisPembayarLain').innerHTML = "Pilihan Kategori Pembayar adalah mandatori!"; err_count++;  }
+	
+	
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+  function savePembayar(){
+  if (  validatePembayar() )
+  	{ doDivAjaxCall$formname('div_main_entry','save_data','$queryParam');}
+  }
+  
+  function pilihBayarAsal(idPilihan){
+	doDivAjaxChainCall$formname('divMaklumatInvois','savePilihanBayar','idPilihan='+idPilihan,'divSenaraiBayaranPilihan','refreshDivQueue','');
+}
+
+function removePilihan(idPilihan){
+	doDivAjaxChainCall$formname('divSenaraiBayaranPilihan','savePilihanRemoveQueue','idPilihan='+idPilihan,'divMaklumatInvois','refreshDivAsal','');
+}
+
+
+function validateMaklumatInvois() {
+
+    	var err_count = 0;
+    	
+    	var kodHasil = $('kodHasil').value;
+		if ( kodHasil == "" ) {$('err_kodHasil').innerHTML = "Kod Hasil adalah mandatori!"; err_count++;  }
+		
+		var noInvois = $('noInvois').value;
+		if ( noInvois == "" ) {$('err_noInvois').innerHTML = "No. Invois adalah mandatori!"; err_count++;  }
+		
+		var debit = $('debit').value;
+		if ( debit == "" ) {$('err_debit').innerHTML = "Amaun Bayaran adalah mandatori!"; err_count++;  }
+	
+    	return err_count == 0;
+    }
+
+ function addInvois() {
+  	if ( validateMaklumatInvois() ){
+##    	doDivAjaxChainCall$formname('divMaklumatInvois','addInvois','');
+    	doDivAjaxChainCall$formname('divMaklumatInvois','addInvois','','divMaklumatBayaran','refreshMaklumatBayaran','');
+##		doDivAjaxChainCall$formname('divMaklumatInvois','addInvois','','divSenaraiBayaranPilihan','refreshDivQueue','');
+    }
+  }

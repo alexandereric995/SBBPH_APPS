@@ -1,0 +1,136 @@
+<fieldset>
+<legend class="legend">SENARAI CETAKAN</legend>
+
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  <tr>
+    <td colspan="3"><br>-<a href="javascript:void" id="cetakBorangPermohonan"> <font color="#0000FF"><strong>BORANG PERMOHONAN</strong></font></a></td>
+  </tr>
+  #if ( $!r.dokumenPengerusi ) 
+  	#if ($!r.dokumenPengerusi  != "")  	  
+	  <tr>
+	    <td colspan="3"><br>-<a href="../download?file=$!uploadDir$!r.dokumenPengerusi" > <font color="#0000FF"><strong>SURAT ULASAN PENGERUSI BANGUNAN</strong></font> </a></td>
+	  </tr>
+	#end
+  #end
+  #if ( $!r.dokumenPengurus ) 
+  	#if ($!r.dokumenPengurus  != "")  	  
+	  <tr>
+	    <td colspan="3"><br>-<a href="../download?file=$!uploadDir$!r.dokumenPengurus" > <font color="#0000FF"><strong>SURAT ULASAN PENGURUS BANGUNAN</strong></font> </a></td>
+	  </tr>
+	#end
+  #end
+  <tr>
+    <td colspan="3"><br>-<a href="javascript:void" id="cetakKertasPertimbangan"> <font color="#0000FF"><strong>KERTAS PERTIMBANGAN</strong></font> </a></td>
+  </tr>
+  <tr>
+    <td colspan="3"><br>-<a href="javascript:void" id="cetakMemoKeputusanSUB"> <font color="#0000FF"><strong>MEMO KEPUTUSAN SUB</strong></font> </a></td>
+  </tr>
+  #if ($!r.status.id == '1423568441697') ## LULUS
+  <tr>
+    <td colspan="3"><br>-<a href="javascript:void" id="cetakSuratKelulusan"> <font color="#0000FF"><strong>SURAT KEPUTUSAN</strong></font> </a></td>
+  </tr>
+  #end
+  #if ($!r.status.id == '1423568441700') ## TOLAK
+  <tr>
+    <td colspan="3"><br>-<a href="javascript:void" id="cetakSuratPenolakan"> <font color="#0000FF"><strong>SURAT KEPUTUSAN</strong></font> </a></td>
+  </tr>
+  #end
+</table>
+</fieldset>
+
+<fieldset>
+<legend class="legend">KEPUTUSAN SUB</legend>
+
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:15%"></td>
+    <td style="width:1%"></td>
+    <td style="width:84%"></td>
+  </tr>
+  #if ($!r.tarikhKeputusan) 
+  #set ($dateKeputusan = "$!util.getDateTime($!r.tarikhKeputusan,'dd-MM-yyyy')")
+  #else #set ($dateKeputusan = "") #end
+  #date_input_required("tarikhKeputusan" "Tarikh Keputusan SUB" "$dateKeputusan")
+  <tr>
+    <td class="label">Keputusan SUB &nbsp;<span style="color:#FF2A00">*</span></td>
+    <td>:</td>
+    <td> #parse("$path/keputusanSUB/selectKeputusanSUB.vm")
+      <div id="err_idKeputusan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #textarea("catatanKeputusan" "Catatan" "$!r.catatanKeputusan")
+</table>
+
+</fieldset>
+
+<table width="100%">
+	<tr>
+		<td align="right">
+			#if ($!userRole == '(BGS) Penyedia' && $!r.status.id == '1423568441691') ## KEPUTUSAN SUB
+				<input id="simpan" name="simpan" type="button" value="Simpan" onclick="javascript:simpanKeputusanSUB();"/>
+				#if ($!r.flagKeputusan == 'L' || $!r.flagKeputusan == 'T')
+					<input id="selesai" name="selesai" type="button" value="Selesai" onclick="javascript:simpanSelesai();"/>
+				#end
+			#end
+		    <input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+		</td>
+	</tr>
+</table>
+
+#parse("$path/status.vm")
+
+<script>
+	_jq('#cetakBorangPermohonan').on('click', function(){
+    	var idPermohonan = '$!r.id';
+        		    
+		var url = "../servlet/bph.laporan.bgs.BGSBorangPermohonanRuangPejabat?idPermohonan="+idPermohonan;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();	
+    	});
+    	
+    _jq('#cetakKertasPertimbangan').on('click', function(){
+    	var idPermohonan = '$!r.id';
+        		    
+		var url = "../servlet/bph.laporan.bgs.BGSKertasPertimbangan?idPermohonan="+idPermohonan;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();	
+    	});
+    	
+    _jq('#cetakMemoKeputusanSUB').on('click', function(){
+    	var idPermohonan = '$!r.id';
+        		    
+		var url = "../servlet/bph.laporan.bgs.BGSMemoKeputusanSUB?idPermohonan="+idPermohonan;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();	
+    	});
+    
+    _jq('#cetakSuratKelulusan').on('click', function(){
+    	var idPermohonan = '$!r.id';
+        		    
+		var url = "../servlet/bph.laporan.bgs.BGSSuratLulusPermohonanRuangPejabat?idPermohonan="+idPermohonan;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();	
+    	});
+    
+    _jq('#cetakSuratPenolakan').on('click', function(){
+    	var idPermohonan = '$!r.id';
+        		    
+		var url = "../servlet/bph.laporan.bgs.BGSSuratTolakPermohonanRuangPejabat?idPermohonan="+idPermohonan;
+		var hWnd = window.open(url,'Cetak','full=yes, resizable=yes,scrollbars=yes');
+		if ((document.window != null) && (!hWnd.opener))
+			hWnd.opener = document.window;
+			if (hWnd.focus != null) hWnd.focus();	
+    	});
+</script>

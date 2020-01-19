@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style type="text/css">
+	.style3 {font-size: x-large}
+	.style4 {font-size: small}
+</style>
+</head>
+
+<body>
+<blockquote>	
+  <div align="left">
+    <h1 align="left">
+		<img src="jata.png" height="75" alt="jata" /> 
+		<img src="Logo BPH.jpg" height="75" alt="bph" />
+	</h1>
+  </div>
+</blockquote>
+<p class="style3">LAPORAN SENARAI PERMOHONAN KUARTERS PADA </p>
+<table width="100%" border="1" class="style4">
+  <tr>
+    <td width="31">BIL</td>
+    <td width="94">NO.DAFTAR</td>
+    <td width="80">TARIKH DAFTAR</td>
+    <td width="352">NAMA PEMOHON</td>
+    <td width="127">NO.KAD PENGENALAN</td>
+    <td width="55">GRED</td>
+    <td width="428">KEMENTERIAN</td>
+    <!-- <td width="54">KELAS </td> -->
+    <td width="103">NO.TEL</td>
+    <!-- <td width="95">NO.HP</td> -->
+    <!-- <td width="54">KELAS TURUN</td> -->
+  </tr>
+  #set($count = 0)
+  #foreach( $r in $qp )
+	#set($count = $count + 1)
+      <tr>
+        <td>$count.</td>
+        <td>$!r.id</td>
+        <td>$!r.tarikhPermohonan</td>
+        <td>$!r.pemohon.nama</td>
+        <td>$!r.pemohon.noPengenalan</td>
+        <td>F29</td>
+        <td>KEMENTERIAN KEWANGAN</td>
+        <!-- <td>E</td> -->
+        <td>$!r.pemohon.noTel</td>
+        <!-- <td>$r.pemohon.noTelBimbit</td> -->
+        <!-- <td>Y</td> -->
+      </tr>
+  #end
+</table>
+</body>
+</html>

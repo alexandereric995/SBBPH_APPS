@@ -1,0 +1,216 @@
+
+<input type="hidden" name="idUser" id="idUser" value="$!objUser.id" />
+<input type="hidden" name="idPermohonan" id="idPermohonan" value="$!r.id" />
+
+	##if($!blockBooking)
+	##<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+	##	<p>
+	##		<strong>* MAAF, HAD PERMOHONAN TELAH MELEBIHI 3 KALI UNTUK TAHUN $!util.getCurrentDate("yyyy")</strong>
+	##    </p>
+	##</div>
+	##end
+	
+	#if(!$!flagPenggunaAktif)
+	<div align="left" style="color:red;border: 1px solid silver; height: 60px; padding:5px">
+		<p>
+			<strong>* MAAF, SEBARANG URUSAN PERMOHONAN TIDAK DIBENARKAN SEHINGGA SEMAKAN SURAT PENGESAHAN JAWATAN / GRED PERKHIDMATAN DILAKUKAN.</strong>
+		</p>
+		<p><strong>* SEMAKAN INI DIBUAT DALAM TEMPOH WAKTU BEKERJA (ISNIN HINGGA JUMAAT) SAHAJA.</strong></p>
+	</div>
+	#end
+	
+	
+	#if($!bookingFail)
+	<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+		<p>
+			<strong>* MAAF, MAKLUMAT TEMPAHAN GAGAL DIDAFTARKAN, SILA BUAT TEMPAHAN SEMULA. </strong>
+			&nbsp;&nbsp;<input type="button" id="btnTempahSemula" name="btnTempahSemula" value="Tempah Semula" onclick="$('div_main').style.display='none';$('div_main_entry').style.display='block';doDivAjaxCall$formname('div_main_entry','add_new_record','')" />
+		</p>
+	</div>
+	#end
+	
+	#if($!blacklisted)
+	<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+		<p>
+			<strong>* MAAF, PERMOHONAN TIDAK DAPAT DITERUSKAN. ANDA TELAH DISENARAI HITAM.</strong>
+	    </p>
+	</div>
+	#end
+	
+	
+	#if(!$!accountInfoExist)
+		<fieldset id="makluman" style="font-weight:bold;color:red; background-color:#D8CEF6">
+            <table cellpadding="5" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td style="font-weight:bold;text-align:justify;">
+						SILA KEMASKINI MAKLUMAT AKAUN BANK UNTUK MENERUSKAN PROSES TEMPAHAN.
+					</td>
+                </tr>
+            </table>
+        </fieldset>
+				
+		<fieldset>
+        <legend class="legend">maklumat akaun bank</legend>
+        	<table width="100%" cellpadding="1" cellspacing="1">
+        		<tr>
+        			<td style="width:49%"></td>
+        			<td style="width:1%"></td>
+        			<td style="width:50%"></td>
+        		</tr>
+        		<tr>
+        			<td valign="top" width="40%">
+        				<table width="100%" cellpadding="1" cellspacing="1">
+        					<tr>
+                    			<td style="width:30%"></td>
+                    			<td style="width:1%"></td>
+                    			<td style="width:69%"></td>
+                    		</tr>
+        					#number_required("noAkaunBank" "NO. AKAUN BANK" "$!objUser.noAkaunBank")
+        				</table>
+        			</td>
+        			<td  width="5%">&nbsp;</td>
+        			<td valign="top" width="55%">
+        				<table width="100%" cellpadding="1" cellspacing="1">
+        					<tr>
+                    			<td style="width:20%"></td>
+                    			<td style="width:1%"></td>
+                    			<td style="width:79%"></td>
+                    		</tr>
+							<tr>
+								<td>BANK &nbsp;<span style="color:#FF2A00">*</span></td>
+								<td>:</td>
+								<td>
+									<select class="texts" id="bank" name="bank" style="width:100%" onChange="$('err_bank').innerHTML=''; at(this, event);">
+                                		<option value="">SILA PILIH</option>
+                                		#foreach( $n in $listBank)
+                                			<option value="$n.id" #if($n.id == $!objUser.bank.id) selected #end>$n.keterangan.toUpperCase()</option>
+                                		#end
+                                	</select>
+        							<div id="err_bank" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+								</td>
+							</tr>
+        				</table>
+        			</td>
+        		</tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
+				<tr>
+					<td colspan="3">
+						<input type="checkbox" name="cbSyarat" id="cbSyarat" value="Y" onclick=" $('err_cbSyarat').innerHTML=''; at(this, event);" />
+						<span style="font-size:12px;font-weight:bold;border:2px #000">Saya mengesahkan bahawa maklumat akaun adalah benar bagi tujuan pemulangan bayaran balik.</span>
+						<div id="err_cbSyarat" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+					</td>
+				</tr>
+        	</table>
+        </fieldset> 
+		<table width="100%">
+    		<tr>
+    			<td align="right">
+					<input id="btnUpdateBank" type="button" value="Kemaskini" onClick="doKemaskiniBank()">
+    				<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    			</td>
+           </tr>
+    	</table>
+	#end	
+	
+	
+	#if(!$!bukaUntukDitempah)
+	<br/>
+	<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+		<p>
+			<strong>* MAAF, PERMOHONAN TEMPAHAN SECARA ONLINE BELUM DIBUKA.</strong>
+	    </p>
+	</div>
+	
+	
+	<fieldset>
+	<legend class="legend">SENARAI TARIKH TEMPAHAN ONLINE DIBUKA</legend>
+		<table width="100%" cellpadding="2" cellspacing="2">
+		
+    		<tr>
+    			<td class="row_header" width="5%">Bil.</td>
+				<td class="row_header" width="10%">Status</td>
+				<td class="row_header" width="15%">Perkara</td>
+    			<td class="row_header" width="20%">Tarikh Tempahan Online Dibuka</td>
+    			<td class="row_header" width="15%">Tarikh Menginap Dari</td>
+    			<td class="row_header" width="15%">Tarikh Menginap Hingga</td>
+    			<td class="row_header" width="20%">Catatan</td>
+    		</tr>
+    		
+    		#if ( $listBukaTempahan.size() > 0 )
+        		#set ( $count = 0 )
+        		#foreach( $d in $listBukaTempahan )
+        			
+        			#set ( $count = $count + 1)
+                	#if ( $count % 2 == 0 ) 
+            			#set ( $rowcolor = "#D0CFCE" ) 
+            		#else 
+            			#set ( $rowcolor = "#F0F0F0" ) 
+    				#end
+    				
+            		<tr bgcolor="$rowcolor">
+            			<td align="center">$count</td>
+						<td align="center">
+							<span style='color:#FF2A00'><b>$!d.statusFlagAktif()</b></span>
+						</td>
+                		<td align="center">$!d.perkara.toUpperCase()</td>
+                		<td align="center">$!util.getDateTime($!d.tarikhBukaTempahan,'dd-MM-yyyy')</td>
+            			<td align="center">$!util.getDateTime($!d.tarikhMenginapDari,'dd-MM-yyyy')</td>
+						<td align="center">$!util.getDateTime($!d.tarikhMenginapHingga,'dd-MM-yyyy')</td>
+						<td align="center">$!d.catatan.toUpperCase()</td>
+                    </tr>
+    			#end
+    		#else
+    			<tr bgcolor="#F0F0F0">
+    				<td colspan="6">Tiada Rekod</td>
+    			</tr>
+    		#end
+    		
+    	</table>
+	</fieldset>
+	
+	#end
+	
+	
+	#if($!isSelenggara)
+		<br/>
+		<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+    		<p>
+    			<strong>* MAAF, LOKASI PERANGINAN INI SEDANG MENJALANKAN PROSES PENYELENGGARAAN.</strong>
+    	    </p>
+    	</div>
+	#end	
+	
+	#if($!unitNotAvailable)
+		<br/>
+		<div align="left" style="font-size:12px;color:red;border: 1px solid silver; height: 40px; padding:5px">
+    		<p>
+    			<strong>
+					* MAAF, TIADA KEKOSONGAN BAGI PILIHAN TARIKH DARI $!selectedTarikhDari  HINGGA  $!selectedTarikhHingga. 
+				</strong>
+    	    </p>
+    	</div>
+	#end
+	
+	#if( !$!skrinBayaranPenyelia )
+		#set ( $queryParam = "record_id=$r.id&data_size=$data_size&total_page=$total_page" )
+		<br/>
+		<div align="left" style="color:red;border: 1px solid silver; height: 40px; padding:5px">
+    		<p>
+    			<strong>* MAAF, SKRIN BAYARAN INI HANYA UNTUK PAPARAN PENYELIA SAHAJA. </strong>
+				&nbsp;&nbsp;<input type="button" id="btnSummary" name="btnSummary" value="Kembali" onClick="doDivAjaxCall3$formname('div_main_entry','edit','$queryParam')" />
+    	    </p>
+    	</div>
+	#end
+	
+
+	
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+	  $('.phone_number').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>
+

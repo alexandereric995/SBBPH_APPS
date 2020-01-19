@@ -1,0 +1,76 @@
+
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
+	<tr>
+		<td style="width:200px"></td>
+        <td style="width:10px"></td>
+        <td></td>
+	</tr>
+	
+	<tr>
+    	<td class="label" valign="top">
+			TARIKH PENYATA PEMUNGUT 
+			#if( !$!userRole.equalsIgnoreCase("(HASIL) Penyelia") )
+				&nbsp;<span style="color:#FF2A00">*</span>
+			#end
+		</td>
+    	<td class="label" valign="top">:</td>
+    	<td valign="top">
+			#if( $!userRole.equalsIgnoreCase("(HASIL) Penyelia") )
+				$!util.getDateTime($!r.tarikhPenyataPemungut,'dd-MM-yyyy')
+				<input type="hidden" id="tarikhPenyataPemungut" name="tarikhPenyataPemungut" value="$!util.getDateTime($!r.tarikhPenyataPemungut,'dd-MM-yyyy')"/>
+			#else	
+    			#set( $datepp = $!util.replaceIfNull($!util.getDateTime($!r.tarikhPenyataPemungut,'dd-MM-yyyy'),$!util.getCurrentDate('dd-MM-yyyy')))
+        		<div>
+            		<input type="text" id="tarikhPenyataPemungut" name="tarikhPenyataPemungut" value="$!datepp" >
+            		<span style="color:#FF2A00">&nbsp;cth: dd-mm-yyyy</span>
+        			<script>
+                    	_jq("#tarikhPenyataPemungut").Zebra_DatePicker({ 
+            				format: 'd-m-Y',
+        					readonly_element: false,
+        					onSelect: function(view, elements) {
+        						$('err_tarikhPenyataPemungut').innerHTML='';
+    							javascript:doFilterModBayaranByDate();
+        					}
+                    	});
+        				_jq(".Zebra_DatePicker").css("zIndex", 2147483647);
+            		</script>
+            		<div id="err_tarikhPenyataPemungut" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+        		</div>
+			#end	
+    	</td>
+    </tr>
+	
+	<tr>
+		<td valign="top">
+			MOD / KAEDAH BAYARAN 
+			#if( !$!userRole.equalsIgnoreCase("(HASIL) Penyelia") )
+				&nbsp;<span style="color:#FF2A00">*</span>
+			#end
+		</td>
+		<td valign="top">:</td>
+		<td valign="top">
+			<div id="divKaedahBayaran">
+				#if( $!userRole.equalsIgnoreCase("(HASIL) Penyelia") )
+					$r.kaedahBayaran.keterangan.toUpperCase()
+					<input type="hidden" id="kaedahBayaran" name="kaedahBayaran" value="$r.kaedahBayaran.id"/>
+				#else
+					#parse("$path/selectKaedahBayaran.vm")
+				#end
+			</div>
+		</td>
+	</tr>
+</table>
+
+<br/>
+
+<div id="divMaklumatPenyataPemungut">#parse("$path/maklumatPenyataPemungut.vm")</div>
+
+
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

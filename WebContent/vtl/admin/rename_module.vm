@@ -1,0 +1,38 @@
+<form name="f" method="post">
+    <table>
+        <tr>
+            <td>Pilih Kumpulan untuk Namakan Semula</td>
+            <td>:</td>
+            <td>
+                <select name="groupList">
+                    #foreach( $name in $groupList)
+        				<option value="$name">$name</option>
+                    #end
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Isikan Nama Baru</td>
+            <td>:</td>
+            <td>
+				<input name="newName" size="40">
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+        		<input type="button" value="Tukar Nama" onclick="saveName()">
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" name="command">
+</form>
+
+<script>
+function saveName() {
+if ( document.f.newName.value == "" ) return;
+    document.f.command.value = "saveName";
+    document.f.submit();
+}
+</script>

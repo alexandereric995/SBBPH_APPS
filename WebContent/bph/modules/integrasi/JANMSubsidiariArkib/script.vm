@@ -1,0 +1,17 @@
+function doCarian() {
+	var err_count = 0;
+	
+	var findIc = $('findIc').value;
+	if ( findIc == "" ) {$('err_findIc').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tarikhDari = $('tarikhDari').value;
+	if ( tarikhDari == "" ) {$('err_tarikhDari').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var tarikhHingga = $('tarikhHingga').value;
+	if ( tarikhHingga == "" ) {$('err_tarikhHingga').innerHTML = "** mandatori!"; err_count++;  }
+	
+	if (err_count == 0) {
+		doDivAjaxCall$formname('divRekod','doCarian','');
+	}
+	return err_count == 0;
+}

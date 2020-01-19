@@ -1,0 +1,74 @@
+<style>
+.uppercasefont {
+	text-transform: uppercase !important;
+}
+</style>
+<input type="hidden" id="id" name="id" value="$!r.id"/>
+<fieldset>
+<legend class="legend">MAKLUMAT RESIT</legend>
+<table width="100%" style="padding-bottom:0.2cm">
+  <tr>
+    <td class="label" valign="top" width="20%" >NO. RESIT</td>
+    <td class="label" valign="top" width="1%">:</td>
+    <td valign="top" width="79%">$!r.noResit</td>
+  </tr>
+  #if ($!r.tarikhResit) 
+  	#set ($dateResit = "$!util.getDateTime($!r.tarikhResit,'dd-MM-yyyy')")
+  #else #set ($dateResit="") #end
+  <tr>
+    <td class="label" valign="top">TARIKH</td>
+    <td class="label" valign="top">:</td>
+    <td valign="top">$dateResit</td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">NAMA</td>
+    <td class="label" valign="top">:</td>
+    <td valign="top">$!r.nama</td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">NO. FAIL</td>
+    <td class="label" valign="top">:</td>
+    <td valign="top">$!r.noFail</td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">NO. KP</td>
+    <td class="label" valign="top">:</td>
+    <td valign="top">$!r.noKP</td>
+  </tr>
+  <tr>
+    <td class="label" width="20%" valign="top">ALAMAT</td>
+    <td class="label" width="2%" valign="top">:</td>
+    <td width="78%" valign="top">$!r.street $!r.street2 $!r.poskod $!r.city</td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">KOD PTJ</td>
+    <td class="label" valign="top">:</td>
+    <td valign="top">060101</td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">JURUWANG</td>
+    <td class="label" valign="top">:</td>
+    <td valign="top">$!r.juruwang</td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">TRAN ID</td>
+    <td class="label" valign="top">:</td>
+    <td valign="top"></td>
+  </tr>
+</table>
+</fieldset>
+<table width="100%" style="padding-top:0.4cm">
+  <tr>
+    <td align="right"><input type="button" id="cetak" name="cetak" value="Papar Resit" onClick="doCetakResit()"/>
+      <input id="button" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+<script>
+  _jq(function($) {
+      $('.currency').autoNumeric('init'); 
+ 	  $('.number').autoNumeric('init', {aSep: '', vMin: '0', vMax: '999999999999999', lZero: 'keep'} );
+ 	  $('.postcode').autoNumeric('init', {aSep: '', vMin: '00000', vMax: '99999', lZero: 'keep'} );
+ 	  $('.mykad').autoNumeric('init', {aSep: '', vMin: '000000000000', vMax: '999999999999', lZero: 'allow'} );
+  });
+</script>

@@ -1,0 +1,20 @@
+
+<iframe id="upload_video" name="upload_video" width="0px" height="0px" style="visibility:hidden"></iframe>
+<div id="refreshVideo"> </div>
+<table width="100%">
+  #if ( $!r.fileName )
+  <tr>
+    <td align="left"> #if ( $!r.fileName != "")
+      <video width="250px" controls>
+        <source src="../download?file=$!uploadDir$!r.fileName" type="video/mp4">
+        Harap maaf video tidak dapat dimainkan<br />
+        Sekiranya anda menggunakan pelayar safari, sila dapatkan <a href="#Quicktime" onclick="window.open('https://www.apple.com/quicktime/download/');" title="Dapatkan Quicktime">Quicktime</a> </video>
+      #end </td>
+  </tr>
+  #end
+  <tr>
+    <td align="left"><input type="file" id="video" name="video" onChange="uploadVideo()">
+      <div id="err_video" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
+      <div id="videoMuatnaik" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div></td>
+  </tr>
+</table>

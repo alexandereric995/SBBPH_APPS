@@ -1,0 +1,437 @@
+<table cellpadding="5" cellspacing="0">
+    <tbody>
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>animation_speed_hide</strong></td>
+
+            <td class="nowrap" valign="top"><em>integer</em></td>
+
+            <td valign="top">
+                <p>The speed, in milliseconds, by which the overlay and the
+                dialog box will be animated when closing.&nbsp;</p>
+
+                <p>Default is 250</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>animation_speed_show</strong></td>
+
+            <td class="nowrap" valign="top"><em>integer</em></td>
+
+            <td valign="top">
+                <p>The speed, in milliseconds, by which the overlay and the
+                dialog box will be animated when appearing.&nbsp;</p>
+
+                <p>Default is 0</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>auto_close</strong></td>
+
+            <td class="nowrap" valign="top"><em>mixed</em></td>
+
+            <td valign="top">
+                <p>The number of milliseconds after which to automatically
+                close the dialog box or FALSE to not automatically close the
+                dialog box.&nbsp;</p>
+
+                <p>Default is FALSE.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>buttons</strong></td>
+
+            <td class="nowrap" valign="top"><em>mixed</em></td>
+
+            <td valign="top">
+                <p>Use this for localization and for adding custom
+                buttons.&nbsp;</p>
+
+                <p>If set to TRUE, the default buttons will be used, depending
+                on the type of the dialog box: [&#8216;Yes&#8217;,
+                &#8216;No&#8217;] for &#8220;question&#8221; type and
+                [&#8216;Ok&#8217;] for the other dialog box types.</p>
+
+                <p>For custom buttons, use an array containing the captions of
+                the buttons to display: [&#8216;My button 1&#8242;, &#8216;My
+                button 2&#8242;].</p>
+
+                <p>Set to FALSE if you want no buttons.</p>
+
+                <p>Note that when the dialog box is closed as a result of
+                clicking a button, the &#8220;onClose&#8221; event is triggered
+                and the callback function (if any) receives as argument the
+                caption of the clicked button.</p>
+
+                <p>See the comments for the &#8220;onClose&#8221; event below
+                for more information.</p>
+
+                <p>You can also attach callback functions to individual buttons
+                by using objects in the form of:<br>
+                [<br>
+                {caption: &#8216;My button 1&#8242;, callback: function() { //
+                code }},<br>
+                {caption: &#8216;My button 2&#8242;, callback: function() { //
+                code }}<br>
+                ]</p>
+
+                <p>The main difference is that a callback function attached
+                this way is executed as soon as the button is clicked rather
+                than *after* the dialog box is closed, as it is the case with
+                the &#8220;onClose&#8221; event.</p>
+
+                <p>Callback functions attached to buttons get as argument the
+                entire dialog box jQuery object.</p>
+
+                <p>A callback function returning FALSE will prevent the dialog
+                box from closing.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>center_buttons</strong></td>
+
+            <td class="nowrap" valign="top"><em>boolean</em></td>
+
+            <td valign="top">
+                <p>Setting this property to TRUE will instruct the plugin to
+                center any available buttons instead of floating them to the
+                right&nbsp;</p>
+
+                <p>Default is FALSE.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>custom_class</strong></td>
+
+            <td class="nowrap" valign="top"><em>mixed</em></td>
+
+            <td valign="top">
+                <p>An extra class to add to the dialog box&#8217;s
+                container.&nbsp;</p>
+
+                <p>Useful for customizing a dialog box elements&#8217; styles
+                at run-time.</p>
+
+                <p>For example, setting this value to &#8220;mycustom&#8221;
+                and in the CSS file having something like <em>.mycustom
+                .ZebraDialog_Title { background: red }</em> would set the
+                dialog box title&#8217;s background to red.</p>
+
+                <p>See the CSS file for what can be changed.</p>
+
+                <p>Default is FALSE</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>keyboard</strong></td>
+
+            <td class="nowrap" valign="top"><em>boolean</em></td>
+
+            <td valign="top">
+                <p>When set to TRUE, pressing the ESC key will close the dialog
+                box.&nbsp;</p>
+
+                <p>Default is TRUE.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>max_height</strong></td>
+
+            <td class="nowrap" valign="top"><em>integer</em></td>
+
+            <td valign="top">
+                <p>The maximum height, in pixels, before the content in the
+                dialog box is scrolled.</p>
+
+                <p>If set to &#8220;0&#8221; the dialog box&#8217;s height will
+                automatically adjust to fit the entire content.</p>
+
+                <p>Default is &#8220;0&#8221;.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>message</strong></td>
+
+            <td class="nowrap" valign="top"><em>string</em></td>
+
+            <td valign="top">
+                <p>The message in the dialog box &#8211; this is passed as
+                argument when the plugin is called.&nbsp;</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>modal</strong></td>
+
+            <td class="nowrap" valign="top"><em>boolean</em></td>
+
+            <td valign="top">
+                <p>When set to TRUE there will be a semitransparent overlay
+                behind the dialog box, preventing users from clicking the
+                page&#8217;s content.&nbsp;</p>
+
+                <p>Default is TRUE.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>overlay_close</strong></td>
+
+            <td class="nowrap" valign="top"><em>boolean</em></td>
+
+            <td valign="top">
+                <p>Should the dialog box close when the overlay is
+                clicked?&nbsp;</p>
+
+                <p>Default is TRUE.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>overlay_opacity</strong></td>
+
+            <td class="nowrap" valign="top"><em>double</em></td>
+
+            <td valign="top">
+                <p>The opacity of the overlay (between 0 and 1)&nbsp;</p>
+
+                <p>Default is .9</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>position</strong></td>
+
+            <td class="nowrap" valign="top"><em>mixed</em></td>
+
+            <td valign="top">
+                <p>Position of the dialog box.&nbsp;</p>
+
+                <p>Can be either &#8220;center&#8221; (which would center the
+                dialog box) or an array with 2 elements, in the form of
+                [&#8216;horizontal_position +/- offset&#8217;,
+                &#8216;vertical_position +/- offset&#8217;] (notice how
+                everything is enclosed in quotes) where
+                &#8220;horizontal_position&#8221; can be &#8220;left&#8221;,
+                &#8220;right&#8221; or &#8220;center&#8221;,
+                &#8220;vertical_position&#8221; can be &#8220;top&#8221;,
+                &#8220;bottom&#8221; or &#8220;middle&#8221;, and
+                &#8220;offset&#8221; represents an optional number of pixels to
+                add/substract from the respective horizontal or vertical
+                position.</p>
+
+                <p>Positions are relative to the viewport (the area of the
+                browser that is visible to the user)!</p>
+
+                <p>Examples:</p>
+
+                <p>[&#8216;left + 20&#8242;, &#8216;top + 20&#8242;] would
+                position the dialog box in the top-left corner, shifted 20
+                pixels inside.</p>
+
+                <p>[&#8216;right &#8211; 20&#8242;, &#8216;bottom &#8211;
+                20&#8242;] would position the dialog box in the bottom-right
+                corner, shifted 20 pixels inside.</p>
+
+                <p>[&#8216;center&#8217;, &#8216;top + 20&#8242;] would
+                position the dialog box in center-top, shifted 20 pixels
+                down.</p>
+
+                <p>Default is [&#8216;center&#8217;, &#8216;middle&#8217;]</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>reposition_speed</strong></td>
+
+            <td class="nowrap" valign="top"><em>integer</em></td>
+
+            <td valign="top">
+                <p>The duration (in milliseconds) of the animation used to
+                reposition the dialog box when the browser window is
+                resized.&nbsp;</p>
+
+                <p>Default is 100.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>show_close_button</strong></td>
+
+            <td class="nowrap" valign="top"><em>boolean</em></td>
+
+            <td valign="top">
+                <p>When set to TRUE, a &#8220;close&#8221; button (the little
+                &#8220;x&#8221;) will be shown in the upper right corner of the
+                dialog box. If the dialog box has a title bar then the
+                &#8220;close&#8221; button will be shown in the title bar,
+                vertically centered and respecting the right padding.</p>
+
+                <p>If the dialog box does not have a title bar then the
+                &#8220;close&#8221; button will be shown in the upper right
+                corner of the body of the dialog box, respecting the position
+                related properties set in the stylesheet.</p>
+
+                <p>Default is TRUE</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>source</strong></td>
+
+            <td class="nowrap" valign="top"><em>mixed</em></td>
+
+            <td valign="top">
+                <p>Add content via AJAX, iFrames or from inline elements
+                (together with the already applied events).&nbsp;</p>
+
+                <p>This property can be any of the following:</p>
+
+                <p>&#8211; &#8216;ajax': object &#8211; where
+                &#8220;object&#8221; can be an object with any of the
+                properties you&#8217;d normally use to make an AJAX call in
+                jQuery (see the description for the &#8220;settings&#8221;
+                argument at http://api.jquery.com/jQuery.ajax/), or it can be a
+                string representing a valid URL whose content to be fetched via
+                AJAX and placed inside the dialog box.</p>
+
+                <p>Example:</p>
+
+                <p>source: {&#8216;ajax': &#8216;http://myurl.com/&#8217;}</p>
+
+                <p>source: {&#8216;ajax': {<br>
+                &#8216;url': &#8216;http://myurl.com/&#8217;,<br>
+                &#8216;cache': false<br>
+                }}</p>
+
+                <p>Note that you cannot use the &#8220;success&#8221; property
+                as it will always be overwritten by the library; use the
+                &#8220;complete&#8221; property instead, if you have to!</p>
+
+                <p>&#8211; &#8216;iframe': object &#8211; where
+                &#8220;object&#8221; can be an object where property names can
+                be valid attributes of the &lt;iframe&gt; tag (see
+                https://developer.mozilla.org/en-US/docs/HTML/Element/iframe),
+                or it can be a string representing a valid URL to be loaded
+                inside an iFrame and placed inside the dialog box.</p>
+
+                <p>Example:</p>
+
+                <p>source: {&#8216;iframe':
+                &#8216;http://myurl.com/&#8217;}</p>
+
+                <p>source: {&#8216;iframe': {<br>
+                &#8216;src': &#8216;http://myurl.com/&#8217;,<br>
+                &#8216;width': 480,<br>
+                &#8216;height': 320,<br>
+                &#8216;scrolling': &#8216;no&#8217;<br>
+                }}</p>
+
+                <p>Note that you should always set the iFrame&#8217;s width and
+                height and adjust the dialog box&#8217;s &#8220;width&#8221;
+                property accordingly!</p>
+
+                <p>&#8211; &#8216;inline': selector &#8211; where
+                &#8220;element&#8221; is a jQuery element from the page; the
+                element will be copied and placed inside the dialog box
+                together with any attached events! if you just want the
+                element&#8217;s inner HTML, use
+                $(&#8216;#element&#8217;).html().</p>
+
+                <p>Example:</p>
+
+                <p>source: {&#8216;inline': $(&#8216;#myelement&#8217;)}</p>
+
+                <p>Default is FALSE</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>title</strong></td>
+
+            <td class="nowrap" valign="top"><em>string</em></td>
+
+            <td valign="top">
+                <p>Title of the dialog box&nbsp;</p>
+
+                <p>Default is &#8220;&#8221; (an empty string &#8211; no
+                title)</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>type</strong></td>
+
+            <td class="nowrap" valign="top"><em>mixed</em></td>
+
+            <td valign="top">
+                <p>Dialog box type.&nbsp;</p>
+
+                <p>Can be any of the following:</p>
+
+                <p>&#8211; confirmation<br>
+                &#8211; error<br>
+                &#8211; information<br>
+                &#8211; question<br>
+                &#8211; warning</p>
+
+                <p>If you don&#8217;t want an icon, set the &#8220;type&#8221;
+                property to FALSE.</p>
+
+                <p>By default, all types except &#8220;question&#8221; have a
+                single button with the caption &#8220;Ok&#8221;; type
+                &#8220;question&#8221; has two buttons, with the captions
+                &#8220;Ok&#8221; and &#8220;Cancel&#8221; respectively.</p>
+
+                <p>Default is &#8220;information&#8221;.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top">
+            <strong>vcenter_short_message</strong></td>
+
+            <td class="nowrap" valign="top"><em>boolean</em></td>
+
+            <td valign="top">
+                <p>Should short messages be vertically centered?&nbsp;</p>
+
+                <p>Default is TRUE.</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="nowrap" valign="top"><strong>width</strong></td>
+
+            <td class="nowrap" valign="top"><em>integer</em></td>
+
+            <td valign="top">
+                <p>Width of the dialog box&nbsp;</p>
+
+                <p>By default, the width of the dialog box is set in the CSS
+                file. Use this property to override the default width at
+                run-time.</p>
+
+                <p>Must be an integer, greater than 0. Anything else will
+                instruct the script to use the default value, as set in the CSS
+                file. Value should be no less than 200 for optimal output.</p>
+
+                <p>Default is 0 &#8211; use the value from the CSS file.</p>
+            </td>
+        </tr>
+
+    </tbody>
+</table>

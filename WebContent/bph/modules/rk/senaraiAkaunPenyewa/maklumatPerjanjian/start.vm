@@ -1,0 +1,88 @@
+<script>
+    _jq(document).ready(function() {
+        _jq('#tblPerjanjian').DataTable({
+    		"language": {
+                "url": "../css/jquery.dataTables/Malay.json"
+            }
+    	});
+    } );
+</script>
+
+<fieldset >
+<legend class="legend">SENARAI PERJANJIAN</legend>
+  <table id="tblPerjanjian" class="display" width="100%" cellpadding="5" cellspacing="1">  	
+	<input id="btnTambahPerjanjian" type="button"  value="Kutipan Data Perjanjian" />
+	&nbsp;
+	<input id="btnDaftarPermohonanPerjanjianTambahan" type="button"  value="Daftar Permohonan Perjanjian Tambahan" />
+	<br/><br/>
+    <thead>
+      <tr>
+        <td class="row_header" width="5%">Bil.</td>
+        <td class="row_header" >No. Siri Perjanjian</td>        
+        <td class="row_header" >Tarikh Mula</td>
+        <td class="row_header" >Tarikh Tamat</td>
+        <td class="row_header" >Kadar Sewa (RM)</td>
+        <td class="row_header" >Deposit (RM)</td>
+        <td class="row_header" >Kadar Bayaran IWK (RM)</td>
+        <td class="row_header" >Jenis Sewaan</td>
+        <td class="row_header" >Jenis Perjanjian</td>
+        <td class="row_header" >&nbsp;</td>
+        <td class="row_header" >&nbsp;</td>
+      </tr>
+    </thead>
+    <tbody>
+    
+    #set ( $count = 0 ) #foreach( $c in $listPerjanjian )
+    #set ( $count = $count + 1)
+    
+    #if ( $count % 2 == 0 ) 
+    #set ( $rowcolor = "#D0CFCE" ) 
+    #else 
+    #set ( $rowcolor = "#F0F0F0" ) 
+    #end
+    <tr bgcolor="$rowcolor">
+      <td align="center">$count</td>
+      <td align="center">$c.noRujukan</td>
+      #if ($!c.tarikhMula) #set ($dateMula = "$!util.getDateTime($!c.tarikhMula,'dd-MM-yyyy')")
+      #else #set ($dateMula = "") #end
+      <td align="center">$dateMula</td>
+      #if ($!c.tarikhTamat) #set ($dateTamat = "$!util.getDateTime($!c.tarikhTamat,'dd-MM-yyyy')")
+      #else #set ($dateTamat = "") #end
+      <td align="center">$dateTamat</td>
+      <td align="center">$!util.formatDecimal($!c.kadarSewa)</td>
+      <td align="center">$!util.formatDecimal($!c.deposit)</td>
+      <td align="center">$!util.formatDecimal($!c.kadarBayaranIWK)</td>
+      <td align="center">$!c.getKeteranganIdJenisSewa()</td>
+      <td align="center">$!c.getJenisPerjanjian()</td>
+      <td align="center"><a href="javascript:void()" id="updatePerjanjian$c.id"><img src="../img/edit_bak.gif" border="0"></a></td>
+      
+      <td align="center">#if ($!c.flagKutipanData == 'Y' && $!c.idJenisPerjanjian != '1') <span id="hapusPerjanjian"><a href="javascript:void()" onClick="deletePerjanjian($!c.id)" ><img src="../img/delete.gif" border="0"></a></span> #end </td>      
+      </td>
+    </tr>
+    <script>	
+		_jq('#updatePerjanjian$c.id').on('click', function(){
+			doDivAjaxCall3$formname('popupPerjanjian','popupPaparMaklumatPerjanjian','perjanjianId=$c.id');
+		    jQuery('#popupPerjanjian').fadeIn();
+		});
+	</script>
+    #end
+    </tbody>
+    
+  </table>
+</fieldset>
+
+<div id="popupPerjanjian" class="popup"></div>
+<script>
+	_jq('#btnTambahPerjanjian').on('click', function(){
+		doDivAjaxCall3$formname('popupPerjanjian','popupDaftarMaklumatPerjanjian','');
+	    jQuery('#popupPerjanjian').fadeIn();
+	});
+	_jq('#btnDaftarPermohonanPerjanjianTambahan').on('click', function(){
+		doDivAjaxCall3$formname('popupPerjanjian','popupDaftarPermohonanPerjanjianTambahan','');
+	    jQuery('#popupPerjanjian').fadeIn();
+	});
+</script>
+
+#if ($!command == 'doDaftarPermohonanPerjanjianTambahan')
+	#parse("$path/maklumatPerjanjian/status.vm")
+#end

@@ -1,0 +1,26 @@
+<nav class="breadcrumbs">
+    <ul>
+        <li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getPelanggaranSyarat','')" #end >Maklumat Pelanggaran Syarat</a></li>
+		<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onclick="doDivAjaxCall3$formname('divTab','getNotis','')" #end >Maklumat Notis</a></li>
+		<li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3')onclick="doDivAjaxCall3$formname('divTab','getRayuan','')" #end >Maklumat Rayuan</a></li>
+		#if($!r.operasi.jenisPelanggaranSyarat.flagKes == '2')
+		<li #if($!selectedTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedTab!='4')onclick="doDivAjaxCall3$formname('divTab','getKesPeguam','')" #end >Maklumat Kes Peguam</a></li>
+		#end
+    </ul>	
+</nav>
+<br/>
+#if ($!selectedTab=='1')
+	#parse("$path/maklumatKesalahan.vm")
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/notis/start.vm")
+#end
+
+#if ($!selectedTab=='3')
+	#parse("$path/rayuan/start.vm")
+#end
+
+#if ($!selectedTab=='4')
+	#parse("$path/kesPeguam/start.vm")
+#end

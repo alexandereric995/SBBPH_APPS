@@ -1,0 +1,73 @@
+
+<style>
+.scrollitpopup {
+	height:500px; width: 100%; overflow: auto;
+}
+</style>
+
+<fieldset style="width:60%">
+<legend class="legend">Senarai Selenggara</legend>
+	
+##<input type="hidden" id="idJenisUnit" name="idJenisUnit" value="$!jns.id" />
+
+<br/>
+
+	<div class="scrollitpopup">
+	<table cellpadding="1" cellspacing="1" width="100%">
+		
+		<tr>
+			<th class="row_header" width="5%">BIL.</th>
+    		<th class="row_header" width="20%">NO. & NAMA UNIT</th>
+    		<th class="row_header" width="40%">CATATAN</th>
+			<th class="row_header" width="20%">TARIKH MULA<br/>SELENGGARA</th>
+			<th class="row_header" width="15%">TARIKH TAMAT<br/>SELENGGARA</th>
+    	</tr>
+		
+		#if ( $senaraiSelenggara.size() > 0 )
+			#set( $count = 0 )
+			#foreach ( $d in $senaraiSelenggara )
+        			
+    		#set ( $count = $count + 1)
+				#if ( $count % 2 == 0 ) 
+					#set ( $rowcolor = "#D0CFCE" ) 
+            	#else 
+            		#set ( $rowcolor = "#F0F0F0" ) 
+    			#end
+    				
+				<tr bgcolor="$rowcolor">
+					<td align="center">$count</td>
+                	<td>$!d.noUnit $!d.namaUnit</td>
+    				<td>$!d.perkara <br/><span style='font-size:9px'>$!d.catatan</span></td>
+    				<td align="center">$!util.getDateTime($!d.tarikhMula,'dd-MM-yyyy')</td>
+    				<td align="center">$!util.getDateTime($!d.tarikhTamat,'dd-MM-yyyy')</td>
+				</tr>
+				
+    			#end
+    		#else
+    			<tr bgcolor="#F0F0F0">
+    				<td colspan="5">TIADA REKOD</td>
+    			</tr>
+    		#end
+		
+	</table>
+	</div>
+	
+	<br/>
+	
+	<table width="100%">
+    	<tr>
+    		<td align="right">
+    			<input type="button" id="btnKeluar" name="btnKeluar" value="Keluar">
+    		</td>
+    	</tr>
+    </table>
+
+</fieldset>
+	
+<script>
+  _jq('#btnKeluar').on('click', function(){
+    jQuery('#popupDetail').fadeOut();
+  });
+</script>
+
+

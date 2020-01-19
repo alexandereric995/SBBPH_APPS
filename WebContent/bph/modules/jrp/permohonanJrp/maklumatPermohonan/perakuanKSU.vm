@@ -1,0 +1,33 @@
+<fieldset>
+<legend class="legend">PERAKUAN Ketua Jabatan</legend>
+<table width="100%" cellpadding="1" cellspacing="2">
+  <tr>
+    <td class="label" style="width:30%"></td>
+    <td style="width:1%"></td>
+    <td style="width:69%"></td>
+  </tr>
+  <tr>
+    <td class="label" valign="top">Perakuan Ketua Jabatan sama ada mempunyai &nbsp;<span style="color:#FF2A00">*</span> peruntukan untuk membayar penyewaan ruang pejabat</td>
+    </td>
+    <td class="label" valign="top">:</td>
+    <td valign="top">
+    	<input type="radio" #if($!r.flagPerakuanPeruntukan=='Y') checked #end id="flagPerakuanPeruntukan1" name="flagPerakuanPeruntukan" value="Y" onclick=" $('err_flagPerakuanPeruntukan').innerHTML=''; at(this, event);">&nbsp;YA
+      	<input type="radio" #if($!r.flagPerakuanPeruntukan=='T') checked #end id="flagPerakuanPeruntukan2" name="flagPerakuanPeruntukan" value="T" onclick=" $('err_flagPerakuanPeruntukan').innerHTML=''; at(this, event);">&nbsp;TIDAK
+      	<div id="err_flagPerakuanPeruntukan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+  </tr>
+  #input_required("namaKSU" "Nama Ketua Jabatan" "$!r.namaKSU")
+  #input_required("jawatanKSU" "Jawatan Ketua Jabatan" "$!r.jawatanKSU")
+</table>
+</fieldset>
+<table width="100%">
+  <tr>
+    <td align="right">
+##     	#if(!$!userRole.equalsIgnoreCase("(JRP) JawatanKuasa Teknikal"))
+		#if($!userRole.equalsIgnoreCase("(JRP) Pemohon") && (($users.flagHq == 'Y' && ($r.status.id == '1438356583122' || $r.status.id == '1436841294664')) || ($users.flagHq == 'T' && ($r.status.id == '1424860634472' || $!r.status.id == '1424860634475'))))
+      	<input type="button" value="Simpan" onclick="javascript:doSavePerakuanKSU('$!r.id');">
+      	#end
+##      #end
+      	<input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>

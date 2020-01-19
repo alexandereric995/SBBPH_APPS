@@ -1,0 +1,31 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+  <tr>
+    <td style="width:150px"></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td style="width:150px"> 
+    	#if ($!r.pelanFileName  != "") 
+    		<a href="../download?file=$!uploadDir$!r.pelanFileName" > 
+    			#if ($!r.pelanThumbFile != "") 
+    				<img style="margin:4px 0 4px;" id="photoImg" src="../download?file=$!uploadDir$!r.pelanThumbFile" border="0"> 
+    			#else 
+    				<img src="../images/doc_icon.png" border="0">
+    			#end 
+    		</a>
+      <input id="hapusPelan" name="hapusPelan" type="button" value="Hapus" onClick="javascript:doHapusPelan();"/>
+      #end 
+    </td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+  <td style="width:150px"><input class="texts" type="file" id="dokumenPelan" name="dokumenPelan" style="width:500px" onFocus="$('err_dokumenPelan').innerHTML = '';" onChange="uploadPelan()">
+      <div id="muatNaikPelan" style="display:none"> <img src="../img/indicator.gif"> <span style="font-weight:bold;color:#008000;">Sedang Muatnaik...</span> </div>
+      <div id="err_dokumenPelan" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+    <td style="width:10px"></td>
+    <td></td>
+  </tr>
+</table>
+<iframe id="upload_Pelan" name="upload_Pelan" width="0px" height="0px" style="visibility:hidden"></iframe>

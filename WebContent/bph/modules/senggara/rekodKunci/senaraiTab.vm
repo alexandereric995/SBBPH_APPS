@@ -1,0 +1,35 @@
+#parse("$path/header.vm")
+
+<nav class="breadcrumbs">
+  <ul>
+	<li #if($!selectedTab=='1') class="active" #end><a href="javascript:void()" #if($!selectedTab!='1') onClick="doDivAjaxCall3$formname('divTab','getMaklumatTerimaanKunci','')" #end >Maklumat Terimaan Kunci</a></li>
+	<li #if($!selectedTab=='2') class="active" #end><a href="javascript:void()" #if($!selectedTab!='2') onClick="doDivAjaxCall3$formname('divTab','getMaklumatSemakanKuarters','')" #end >Maklumat Semakan Kuarters</a></li>
+	<li #if($!selectedTab=='3') class="active" #end><a href="javascript:void()" #if($!selectedTab!='3') onClick="doDivAjaxCall3$formname('divTab','getMaklumatJKH','')" #end >Maklumat JKH</a></li>
+	<li #if($!selectedTab=='4') class="active" #end><a href="javascript:void()" #if($!selectedTab!='4') onClick="doDivAjaxCall3$formname('divTab','getMaklumatSerahanKunci','')" #end >Maklumat Serahan Kunci</a></li>
+  </ul>
+</nav>
+	
+<br/>
+
+#if ($!selectedTab=='1')
+	#parse("$path/terimaanKunci/paparTerimaanKunci.vm")
+#end
+
+#if ($!selectedTab=='2')
+	#parse("$path/semakanKuarters/listSemakanKuarters.vm")
+	<br>
+	<table width="100%">
+	  <tr>
+	    <td align="right"><input id="button" type="button" value="Kembali" onclick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+	    </td>
+	  </tr>
+	</table>
+#end
+
+#if ($!selectedTab=='3')
+	#parse("$path/penyediaanJKH/paparPenyediaanJKH.vm")
+#end
+
+#if ($!selectedTab=='4')
+	#parse("$path/serahanKunci/paparSerahanKunci.vm")
+#end
