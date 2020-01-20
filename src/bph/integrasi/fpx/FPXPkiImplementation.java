@@ -2,7 +2,7 @@
 # These sample codes are provided for information purposes only. It does not imply any recommendation or endorsement by anyone.
   These sample codes are provided for FREE, and no additional support will be provided for these sample pages. 
   There is no warranty and no additional document. USE AT YOUR OWN RISK.
-*/
+ */
 
 package bph.integrasi.fpx;
 
@@ -40,7 +40,7 @@ public class FPXPkiImplementation {
 	public static String signData(String pvtKeyFileName, String dataToSign,
 			String signatureAlg) throws IOException, NoSuchAlgorithmException,
 			NoSuchProviderException, InvalidKeyException, SignatureException {
-
+		System.out.println(pvtKeyFileName);
 		PrivateKey privateKey = getPrivateKey(pvtKeyFileName);
 		Signature signature = Signature.getInstance(signatureAlg, "BC");
 		signature.initSign(privateKey);
@@ -53,10 +53,10 @@ public class FPXPkiImplementation {
 	}
 
 	public static boolean verifyData(String pubKeyFileName,
-			String calcCheckSum, String checkSumFromMsg,
-			String signatureAlg) throws NoSuchAlgorithmException,
-			NoSuchProviderException, IOException, InvalidKeySpecException,
-			InvalidKeyException, SignatureException, CertificateException {
+			String calcCheckSum, String checkSumFromMsg, String signatureAlg)
+			throws NoSuchAlgorithmException, NoSuchProviderException,
+			IOException, InvalidKeySpecException, InvalidKeyException,
+			SignatureException, CertificateException {
 		PublicKey pubKey = getPublicKey(pubKeyFileName);
 		Signature verifier = Signature.getInstance(signatureAlg, "BC");
 		verifier.initVerify(pubKey);

@@ -59,9 +59,16 @@ public class FPXUtil {
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
 		
-		FPXUtil x = new FPXUtil();
-//		x.reQueryFPX(sellerOrderNo, sellerExOrderNo, txnAmount);
-//		x.reQueryFPX("1838566605391550", "20170324182829", "100");
+		System.out.println("REQUERY START");
+		FPXUtil fx = new FPXUtil();
+		System.out.println("sellerOrderNo : 197689759622081");
+		System.out.println("sellerExOrderNo : 20200120044423");
+		System.out.println("txnAmount : 250.0");
+		FPXRecords fpx = fx.reQueryFPX("197689759622081", "20200120044423", "250.0");
+		if (fpx != null) {
+			System.out.println("fpxTxnId : " + fpx.getId());
+		}
+		System.out.println("REQUERY END");
 	}
 
 	public FPXUtil(HttpSession session) {
@@ -887,7 +894,7 @@ public class FPXUtil {
 			fpx_checkSum+=fpx_makerName+"|"+fpx_msgToken+"|"+fpx_msgType+"|"+fpx_productDesc+"|"+fpx_sellerBankCode+"|"+fpx_sellerExId+"|";
 			fpx_checkSum+=fpx_sellerExOrderNo+"|"+fpx_sellerId+"|"+fpx_sellerOrderNo+"|"+fpx_sellerTxnTime+"|"+fpx_txnAmount+"|"+fpx_txnCurrency+"|"+fpx_version;
 			
-			String keyPath = ResourceBundle.getBundle("dbconnection").getString("FPX_SELLER_ID");
+			String keyPath = ResourceBundle.getBundle("dbconnection").getString("FPX_KEY_PATH");
 			
 			final_checkSum = FPXPkiImplementation.signData(keyPath, fpx_checkSum,"SHA1withRSA");
 			
