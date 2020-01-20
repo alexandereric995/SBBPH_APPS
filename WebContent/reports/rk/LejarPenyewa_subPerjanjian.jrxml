@@ -24,10 +24,10 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
-	<parameter name="ID_FAIL" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ID_FAIL" isForPrompting="true" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT rk_perjanjian.no_rujukan,
-       rk_perjanjian.tarikh_mula,
-       rk_perjanjian.tarikh_tamat,
+       DATE_FORMAT(rk_perjanjian.tarikh_mula, '%d/%m/%Y') as tarikh_mula,
+       DATE_FORMAT(rk_perjanjian.tarikh_tamat, '%d/%m/%Y') as tarikh_tamat,
        rk_perjanjian.kadar_sewa,
        rk_perjanjian.deposit,
        rk_perjanjian.kadar_bayaran_iwk,
@@ -47,8 +47,8 @@ WHERE     rk_perjanjian.flag_aktif = 'Y'
 ORDER BY rk_perjanjian.tarikh_mula, rk_perjanjian.id_jenis_perjanjian ASC]]></queryString>
 
 	<field name="no_rujukan" class="java.lang.String"/>
-	<field name="tarikh_mula" class="java.sql.Date"/>
-	<field name="tarikh_tamat" class="java.sql.Date"/>
+	<field name="tarikh_mula" class="java.lang.String"/>
+	<field name="tarikh_tamat" class="java.lang.String"/>
 	<field name="kadar_sewa" class="java.lang.Double"/>
 	<field name="deposit" class="java.lang.Double"/>
 	<field name="kadar_bayaran_iwk" class="java.lang.Double"/>
@@ -276,7 +276,7 @@ ORDER BY rk_perjanjian.tarikh_mula, rk_perjanjian.id_jenis_perjanjian ASC]]></qu
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="7"/>
 					</textElement>
-				<textFieldExpression   class="java.util.Date"><![CDATA[$F{tarikh_mula}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{tarikh_mula}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -348,7 +348,7 @@ ORDER BY rk_perjanjian.tarikh_mula, rk_perjanjian.id_jenis_perjanjian ASC]]></qu
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="7"/>
 					</textElement>
-				<textFieldExpression   class="java.util.Date"><![CDATA[$F{tarikh_tamat}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{tarikh_tamat}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
