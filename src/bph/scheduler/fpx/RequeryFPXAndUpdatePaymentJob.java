@@ -1,10 +1,24 @@
 package bph.scheduler.fpx;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 
+import javax.net.ssl.HttpsURLConnection;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -12,9 +26,11 @@ import org.quartz.JobExecutionException;
 
 import bph.entities.integrasi.FPXRecords;
 import bph.entities.integrasi.FPXRecordsRequest;
+import bph.entities.kod.BankFPX;
 import bph.entities.rpp.RppPermohonan;
 import bph.entities.rpp.RppRekodTempahanLondon;
 import bph.entities.utiliti.UtilPermohonan;
+import bph.integrasi.fpx.FPXPkiImplementation;
 import bph.integrasi.fpx.FPXUtil;
 import bph.utils.Util;
 import db.persistence.MyPersistence;
@@ -32,6 +48,9 @@ public class RequeryFPXAndUpdatePaymentJob implements Job {
 		
 		try {
 			mp = new MyPersistence();
+			
+			//GET LATEST FPX BANK STATUS
+			updateStatusFPXBankList(mp);
 			
 			//REQUERY BASED ON NO RESPONSE DURING TRANSACTION.
 			requeryNoResponseTransaction(mp);
@@ -60,6 +79,97 @@ public class RequeryFPXAndUpdatePaymentJob implements Job {
 		myLogger.info("Finish RequeryFPXAndUpdatePaymentJob on : " + new Date());
 		System.out.println("Finish RequeryFPXAndUpdatePaymentJob on : " + new Date());
 	}	
+	
+	private void updateStatusFPXBankList(MyPersistence mp) {
+		try {			
+			mp.begin();
+			List<BankFPX> listBankFPX = mp.list("select x from BankFPX x where x.isActive = 'Y'");
+			for (BankFPX bankFPX : listBankFPX) {
+				bankFPX.setIsOnline("T");
+			}
+			mp.commit();
+			
+			String fpx_msgType = "BE";
+			String fpx_msgToken = "01";
+			String fpx_sellerExId = ResourceBundle.getBundle("dbconnection").getString("FPX_SELLER_EX_ID");
+			String fpx_version = "7.0";
+
+			HashMap<String, String> respMap = new HashMap<String, String>();
+
+			String chkSumStr = fpx_msgToken + "|" + fpx_msgType + "|"
+					+ fpx_sellerExId + "|" + fpx_version;
+
+			String final_checkSum = FPXPkiImplementation.signData(
+					ResourceBundle.getBundle("dbconnection").getString("FPX_KEY_PATH"), chkSumStr, "SHA1withRSA");
+			StringBuilder postDataStrBuilder = new StringBuilder();
+			postDataStrBuilder.append("fpx_msgType="
+					+ URLEncoder.encode(fpx_msgType, "UTF-8"));
+			postDataStrBuilder.append("&fpx_msgToken="
+					+ URLEncoder.encode(fpx_msgToken, "UTF-8"));
+			postDataStrBuilder.append("&fpx_sellerExId="
+					+ URLEncoder.encode(fpx_sellerExId, "UTF-8"));
+			postDataStrBuilder.append("&fpx_version="
+					+ URLEncoder.encode(fpx_version, "UTF-8"));
+			postDataStrBuilder.append("&fpx_checkSum="
+					+ URLEncoder.encode(final_checkSum, "UTF-8"));
+
+			URLConnection conn = (HttpsURLConnection) new URL(
+					"https://mepsfpx.com.my/FPXMain/RetrieveBankList")
+					.openConnection();
+
+			conn.setDoOutput(true);
+			BufferedWriter outputWriter = new BufferedWriter(
+					new OutputStreamWriter(conn.getOutputStream()));
+			outputWriter.write(postDataStrBuilder.toString(), 0, postDataStrBuilder
+					.toString().length());
+
+			outputWriter.flush();
+			outputWriter.close();
+			
+			BufferedReader inputReader = new BufferedReader(new InputStreamReader(
+					conn.getInputStream()));
+			String strResponse = inputReader.readLine();
+			inputReader.close();
+			strResponse = strResponse.trim();
+			if (strResponse == null || strResponse.equals("ERROR")) {
+				System.out.println("An error occured!..Response[" + strResponse
+						+ "]");
+				return;
+			} else {
+				StringTokenizer strToknzr = new StringTokenizer(strResponse, "&");
+				while (strToknzr.hasMoreElements()) {
+					String temp = strToknzr.nextToken();
+					if (temp.contains("=")) {
+						String nvp[] = temp.split("=");
+						String name = nvp[0];
+						String value = "";
+						if (nvp.length == 2)
+							value = URLDecoder.decode(nvp[1], "UTF-8");
+						respMap.put(name, value);					
+					} else {
+						System.out.println("Parsing Error!" + temp);
+					}
+				}				
+				
+				mp.begin();
+				String[] parts = respMap.get("fpx_bankList").toString().split(",");
+				for (String r:parts) {
+					String bankCode = StringUtils.substringBefore(r, "~").trim();
+					String isActive = StringUtils.substringAfter(r, "~").trim();
+					
+					BankFPX bankFPX = (BankFPX) mp.get("select x from BankFPX x where x.isActive = 'Y' and x.code = '" + bankCode + "'");
+					if (bankFPX != null) {
+						if ("A".equals(isActive)) {
+							bankFPX.setIsOnline("Y");
+						}
+					}
+				}
+				mp.commit();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 
 	private void requeryNoResponseTransaction(MyPersistence mp) {
 		FPXUtil fpxUtil = new FPXUtil();

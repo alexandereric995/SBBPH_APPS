@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpSession;
@@ -859,8 +860,8 @@ public class FPXUtil {
 		try {
 			fpx_msgType = "AE"; 
 			fpx_msgToken = "01";
-			fpx_sellerExId = "EX00000345"; //BPH
-			fpx_sellerId = "SE00000392";//
+			fpx_sellerExId = ResourceBundle.getBundle("dbconnection").getString("FPX_SELLER_EX_ID");
+			fpx_sellerId = ResourceBundle.getBundle("dbconnection").getString("FPX_SELLER_ID");
 			
 			fpx_sellerExOrderNo = sellerExOrderNo;//MERCHANT ORDER NO
 			fpx_sellerOrderNo = sellerOrderNo;
@@ -880,15 +881,15 @@ public class FPXUtil {
 			fpx_makerName="";
 			fpx_buyerIban="";
 			fpx_productDesc="X";
-			fpx_version="5.0";
+			fpx_version="7.0";
 		
 			fpx_checkSum=fpx_buyerAccNo+"|"+fpx_buyerBankBranch+"|"+fpx_buyerBankId+"|"+fpx_buyerEmail+"|"+fpx_buyerIban+"|"+fpx_buyerId+"|"+fpx_buyerName+"|";
 			fpx_checkSum+=fpx_makerName+"|"+fpx_msgToken+"|"+fpx_msgType+"|"+fpx_productDesc+"|"+fpx_sellerBankCode+"|"+fpx_sellerExId+"|";
 			fpx_checkSum+=fpx_sellerExOrderNo+"|"+fpx_sellerId+"|"+fpx_sellerOrderNo+"|"+fpx_sellerTxnTime+"|"+fpx_txnAmount+"|"+fpx_txnCurrency+"|"+fpx_version;
 			
-			String certPath = "D:/SMIExchange/bph.gov.my.key";
+			String keyPath = ResourceBundle.getBundle("dbconnection").getString("FPX_SELLER_ID");
 			
-			final_checkSum = FPXPkiImplementation.signData(certPath, fpx_checkSum,"SHA1withRSA");
+			final_checkSum = FPXPkiImplementation.signData(keyPath, fpx_checkSum,"SHA1withRSA");
 			
 			//GET ALL DATA TO MAP & SEND			
 			///SEND HTTP
