@@ -100,8 +100,8 @@ public class FrmKuaPermohonanSubRecord extends FrmKuaPermohonanRecord {
 				if (r.getStatus() != null) {
 					if ("1431903258428".equals(r.getStatus().getId()) // KELUAR KUARTERS
 						|| "1419601227598".equals(r.getStatus().getId())// PERMOHONAN DITOLAK
-						|| "1431327994521".equals(r.getStatus().getId())// KUARTERS DITOLAK
-						|| "1431327994524".equals(r.getStatus().getId()) // PERMOHONAN DIBATALKAN
+						|| "1431327994521".equals(r.getStatus().getId())// TOLAK TAWARAN
+						|| "1431327994524".equals(r.getStatus().getId()) // BATAL TAWARAN
 					) {
 						a = false;
 					} else {
