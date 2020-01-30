@@ -19,6 +19,7 @@ import bph.entities.kod.Bahagian;
 import bph.entities.kod.Bandar;
 import bph.entities.kod.Bangsa;
 import bph.entities.kod.Bank;
+import bph.entities.kod.BankFPX;
 import bph.entities.kod.BlokUtk;
 import bph.entities.kod.Bulan;
 import bph.entities.kod.CaraBayar;
@@ -430,6 +431,12 @@ public class DataUtil {
 	public List<Bank> getListBank() {
 		List<Bank> list = db
 				.list("select x from Bank x order by x.keterangan asc");
+		return list;
+	}
+	
+	public List<BankFPX> getListBankFPX() {
+		List<BankFPX> list = db
+				.list("select x from BankFPX x where x.isActive = 'Y' order by x.displayName asc");
 		return list;
 	}
 	

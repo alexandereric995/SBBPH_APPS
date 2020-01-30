@@ -40,7 +40,6 @@ public class FPXPkiImplementation {
 	public static String signData(String pvtKeyFileName, String dataToSign,
 			String signatureAlg) throws IOException, NoSuchAlgorithmException,
 			NoSuchProviderException, InvalidKeyException, SignatureException {
-		System.out.println(pvtKeyFileName);
 		PrivateKey privateKey = getPrivateKey(pvtKeyFileName);
 		Signature signature = Signature.getInstance(signatureAlg, "BC");
 		signature.initSign(privateKey);
