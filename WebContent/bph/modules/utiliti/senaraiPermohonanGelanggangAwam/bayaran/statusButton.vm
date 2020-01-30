@@ -1,28 +1,17 @@
-#if ($blockPayment==true)
-##	<table cellpadding="5" cellspacing="0" border="0" width="100%" style="margin-top: 5px;">
-##		<tr>
-##			<td style="background: #F4170B; color: #FFF; font-weight: bold; box-shadow: 0px 2px 5px #999;">
-##				TEMPOH MASA UNTUK MEMBUAT PEMBAYARAN TELAH TAMAT.HARAP MAKLUM.
-##			</td>
-##		</tr>
-##	</table>
-#end
 #if($!r.statusBayaran=="T")	
     <table width="100%">
     	<tr>
     		<td align="right">
     			#if($!r.statusPermohonan=="Y")
     				#if ($blockPayment==false)
-			    		<input id="btnRecordTemplateSave" type="button" value="Bayar" onClick="doBayarTempahanFPX()">    
+			    		<input id="btnRecordTemplateSave" type="button" value="Bayar" onClick="doBayarTempahanFPX()"> 
+			    		#if ($!userId == 'FAIZAL' || $!userId == '740219015244' || $!userId == '800814015558')
+			    			<input id="btnRecordTemplateSave" type="button" value="Bayar New" onClick="doBayarTempahanFPX1()"> 
+			    		#end  
 			    	#end
 			    #end
     			<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">	
-				<div id="pilihanFPX">
-				
-				</div>
-				<div id="pilihanMIGS">
-
-				</div>
+				<div id="pilihanFPX"></div>
     		</td>
     	</tr>
     </table>

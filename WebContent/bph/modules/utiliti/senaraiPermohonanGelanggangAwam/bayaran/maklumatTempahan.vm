@@ -13,7 +13,6 @@ Sekiranya pembayaran telah dilakukan namun status bayaran tidak dikemaskini,<br>
 		
 		<tr>
 			<td class="row_header" width="5%">Bil.</td>
-##			<td class="row_header" width="15%">No.Tempahan</td>
 			<td class="row_header" width="25%">Nama Gelanggang</td>
 			<td class="row_header" width="10%">Masa Mula</td>
 			<td class="row_header" width="10%">Masa Tamat</td>
@@ -34,16 +33,11 @@ Sekiranya pembayaran telah dilakukan namun status bayaran tidak dikemaskini,<br>
 				#end
 				
 				#if ($!d.amaun)
-				##set ( $jumlahAmaun = $!d.amaun )
 				#set ($jumlahAmaun = "$!util.formatDecimal($!d.amaun)")
     			#end	
         		<tr bgcolor="$rowcolor">
         			<td align="center">$count</td>
-##        			<td align="center">$!d.id</td>
                     <td align="center">$!d.gelanggang.nama</td>
- 
-##            		<td align="center">$!util.getDateTime($!d.tarikhMula,'dd-MM-yyyy')</td>
-##            		<td align="center">$!util.getDateTime($!d.tarikhTamat,'dd-MM-yyyy')</td>
             		#if ($!d.masaMula)
 						#set ($timeMula = "$!util.getKeteranganMasa($!r.masaMula)")
 		  			#else 
@@ -67,10 +61,6 @@ Sekiranya pembayaran telah dilakukan namun status bayaran tidak dikemaskini,<br>
 					<td align="center">RM$jumlahAmaun</td>
                 </tr>
 			#end
-##			<tr>
-##				<td colspan="7" align="right"><b>JUMLAH : </b></td>
-##				<td align="left"><b>$jumlahAmaun</b></td>
-##			</tr>
 		#else
 			<tr bgcolor="#F0F0F0">
 				<td colspan="8">Tiada Rekod</td>
@@ -80,8 +70,3 @@ Sekiranya pembayaran telah dilakukan namun status bayaran tidak dikemaskini,<br>
 	</table>
 	
 </fieldset>
-
-##<div id="footnote1" align="left" style="color:#CC0000;font-weight:bold;font-size:20px;border:10px #000">
-##**Peringatan Penting. 
-##Sekiranya status bayaran anda belum bertukar walaupun pembayaran telah berjaya dibuat, sila semak semula dalam tempoh 24 jam untuk maklumat pembayaran dikemaskini
-##</div>

@@ -1,0 +1,6 @@
+<select class="texts" id="idBankFPX" name="idBankFPX" style="width:100%" onChange="doDivAjaxCall3$formname('divPilihanBayaran1','doChangeBankFPX','');$('err_idBankFPX').innerHTML='';">
+    <option value="">SILA PILIH</option>
+    #foreach( $n in $listBankFPX)
+    	<option #if ($!idBankFPX == $!n.code) selected #end #if ($!n.isOnline == 'T') disabled #end value="$n.code">$n.displayName #if ($!n.isOnline == 'T') (OFFLINE) #end </option>
+    #end
+</select>
