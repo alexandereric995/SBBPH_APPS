@@ -90,6 +90,7 @@ public class SenaraiPermohonanGelanggangRecordModuleAwam extends
 		userId = (String) request.getSession().getAttribute("_portal_login");
 		userRole = (String) request.getSession().getAttribute("_portal_role");
 		context.put("jadualtempahan", "default");
+		context.put("userId", userId);
 	}
 
 	@Override
@@ -377,6 +378,8 @@ public class SenaraiPermohonanGelanggangRecordModuleAwam extends
 			context.put("d", permohonan);
 			context.put("listUtilPermohonan", getListPermohonan(permohonan));
 			context.put("selectedTab", "2");
+			userId = (String) request.getSession().getAttribute("_portal_login");
+			context.put("userId", userId);
 		} catch (Exception e) {
 			System.out.println("Error getBayaran : " + e.getMessage());
 		} finally {

@@ -110,6 +110,7 @@ public class SenaraiPermohonanGelanggangRecordModule extends LebahRecordTemplate
 		}
 		context.put("selectNegeri", dataUtil.getListNegeri());
 		context.put("userRole", userRole);
+		context.put("userId", userId);
 		paintJadualMula();
 	}
 
