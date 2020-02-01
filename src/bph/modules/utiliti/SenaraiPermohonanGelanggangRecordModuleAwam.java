@@ -788,9 +788,9 @@ public class SenaraiPermohonanGelanggangRecordModuleAwam extends
 				userRole = (String) request.getSession().getAttribute(
 						"_portal_role");
 				if ("(AWAM) Penjawat Awam".equalsIgnoreCase(userRole)) {
-					session.setAttribute("returnlink", "../c/1431069110780");
+					session.setAttribute("returnlink", "../sbbphv2/c/1431069110780");
 				} else {
-					session.setAttribute("returnlink", "../c/1438069927208");
+					session.setAttribute("returnlink", "../sbbphv2/c/1438069927208");
 				}
 
 				// AZAM ADD - 14/1/2016
@@ -943,9 +943,9 @@ public class SenaraiPermohonanGelanggangRecordModuleAwam extends
 			userRole = (String) request.getSession().getAttribute(
 					"_portal_role");
 			if ("(AWAM) Penjawat Awam".equalsIgnoreCase(userRole)) {
-				session.setAttribute("returnlink", "../c/1431069110780");
+				session.setAttribute("returnlink", "../sbbphv2/c/1431069110780");
 			} else {
-				session.setAttribute("returnlink", "../c/1438069927208");
+				session.setAttribute("returnlink", "../sbbphv2/c/1438069927208");
 			}
 
 			// AZAM ADD - 14/1/2016

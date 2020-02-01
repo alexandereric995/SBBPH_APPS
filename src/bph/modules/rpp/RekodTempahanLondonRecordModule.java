@@ -515,26 +515,12 @@ public class RekodTempahanLondonRecordModule extends LebahRecordTemplateModule<R
 			context.put("fpx_checkSum", final_checkSum);
 			
 			String noruj = ldn.getNoTempahan()!=null?ldn.getNoTempahan():"";
-			
-			// MIGS
-			context.put("URL", "https://migs.mastercard.com.au/vpcpay");
-			context.put("accessCode", "95541A4A");
-			context.put("noRujukan", noruj);
-			context.put("mercID", "10701400013");
-			context.put("itemDesc", "PEMBAYARAN SEWA DEPOSIT RP");//max 34 char only
-			Double jum= ldn.getDebit()*100;
-			String jumlah=jum.toString();
-			
-			String[] amaun = jumlah.split("\\.");
-			String amaun1 = amaun[0].toString();
-			context.put("amaun", amaun1);
-			context.put("hashCode", "C4342B9D0330CDD09FB7337EAF95FDA8");
 
 			HttpSession session = request.getSession();
 			session.setAttribute("sesIdPermohonan", ldn.getId());
 			session.setAttribute("sesModul", "LONDON");
 			session.setAttribute("sesRole",(String) request.getSession().getAttribute("_portal_role") );
-			session.setAttribute("returnlink","../c/1425001362331?_portal_module=bph.modules.rpp.RekodTempahanLondonRecordModule");	
+			session.setAttribute("returnlink","../sbbphv2/c/1425001362331?_portal_module=bph.modules.rpp.RekodTempahanLondonRecordModule");	
 			
 			FPXUtil fpxUtil = new FPXUtil(session) ;
 			fpxUtil.registerFPXRequest(fpx_sellerId, fpx_sellerExId, fpx_sellerOrderNo, fpx_sellerExOrderNo, fpx_txnAmount, fpx_productDesc, "LONDON", mp);

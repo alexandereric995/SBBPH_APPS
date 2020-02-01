@@ -1599,7 +1599,7 @@ public class TempahanRPRecordModule extends
 					session.setAttribute("sesModul", "IR");
 					session.setAttribute("sesRole", (String) request
 							.getSession().getAttribute("_portal_role"));
-					session.setAttribute("returnlink", "../c/1425001361831");
+					session.setAttribute("returnlink", "../sbbphv2/c/1425001361831");
 
 					// AZAM ADD - 14/1/2016
 					FPXUtil fpxUtil = new FPXUtil(session);
