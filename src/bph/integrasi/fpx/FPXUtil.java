@@ -61,10 +61,10 @@ public class FPXUtil {
 		
 		System.out.println("REQUERY START");
 		FPXUtil fx = new FPXUtil();
-		System.out.println("sellerOrderNo : 197689759622081");
-		System.out.println("sellerExOrderNo : 20200120044423");
-		System.out.println("txnAmount : 250.0");
-		FPXRecords fpx = fx.reQueryFPX("197689759622081", "20200120044423", "250.0");
+		System.out.println("sellerOrderNo : 197304049427264");
+		System.out.println("sellerExOrderNo : 20200131095646");
+		System.out.println("txnAmount : 1.0");
+		FPXRecords fpx = fx.reQueryFPX("197304049427264", "20200131095646", "1.0");
 		if (fpx != null) {
 			System.out.println("fpxTxnId : " + fpx.getId());
 		}

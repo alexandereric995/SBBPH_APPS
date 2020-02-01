@@ -58,7 +58,6 @@ public class SenaraiPermohonanGelanggangRecordModule extends LebahRecordTemplate
 
 	@Override
 	public void afterSave(UtilPermohonan r) {
-		// r.setIdTempahan(r.getId());
 		createRecordBayaran(r);
 		try {
 			insertJadualTempahan(r.getDewan().getId(), r.getGelanggang()
@@ -111,6 +110,7 @@ public class SenaraiPermohonanGelanggangRecordModule extends LebahRecordTemplate
 		}
 		context.put("selectNegeri", dataUtil.getListNegeri());
 		context.put("userRole", userRole);
+		context.put("userId", userId);
 		paintJadualMula();
 	}
 
@@ -211,30 +211,6 @@ public class SenaraiPermohonanGelanggangRecordModule extends LebahRecordTemplate
 		}
 		
 		return true;
-		
-		
-/*		UtilJadualTempahan jadualTempahan = null;
-		List<UtilJadualTempahan> list = mp
-				.list("select x from UtilJadualTempahan x where x.permohonan.id = '"
-						+ r.getId() + "'");
-		if (r.getStatusBayaran().equals("Y")
-				|| r.getStatusPermohonan().equals("R")) {
-			return false;
-		} else {
-			for (int y = 0; y < list.size(); y++) {
-				jadualTempahan = list.get(y);
-				if (jadualTempahan != null) {
-					mp.remove(jadualTempahan);
-				}
-			}
-			UtilAkaun mn = (UtilAkaun) mp
-					.get("select x from UtilAkaun x where x.permohonan.id = '"
-							+ r.getId() + "' ");
-			if (mn != null) {
-				mp.remove(mn);
-			}
-			return true;
-		}*/
 	}
 
 	@SuppressWarnings("unchecked")
@@ -1080,9 +1056,7 @@ public class SenaraiPermohonanGelanggangRecordModule extends LebahRecordTemplate
 			h.put("date", tarikhTempahan);
 			try {
 				mp = new MyPersistence();
-				// List<TempJadualTempahan> list =
-				// mp.list("select t from TempJadualTempahan t where t.tempAsetPBT.id = :idAset and t.tarikhTempahan = :date",
-				// h);
+
 				List<UtilJadualTempahan> list = mp
 						.list(
 								"select t from UtilJadualTempahan t where t.gelanggang.id = :idAset and t.tarikhTempahan = :date",
@@ -1103,10 +1077,6 @@ public class SenaraiPermohonanGelanggangRecordModule extends LebahRecordTemplate
 						context.put("hour" + (x + 1), bgcolour);
 					}
 				}
-//				for (int x = 7; x < 23; x++) {
-//					bgcolour = "#008800";
-//					context.put("hour" + (x + 1), bgcolour);
-//				}
 
 				// PAINT JADUAL BASED ON STATUS
 				for (int y = 0; y < list.size(); y++) {
@@ -1159,20 +1129,6 @@ public class SenaraiPermohonanGelanggangRecordModule extends LebahRecordTemplate
 				@SuppressWarnings("deprecation")
 				
 				int hari=tarikhTempahan.getDay();
-//				if(hari==0 || hari == 6)
-//				{
-//					context.put("jadualtempahan" , "weekend");
-//				}
-//				else if( hari== 1 || hari == 2 || hari== 3 || hari == 4 || hari== 5)
-//				{
-//					context.put("jadualtempahan" , "weekdays");
-//				}
-//				else
-//				{
-//					context.put("jadualtempahan" , "default");
-//				}
-				
-//				List<TempJadualTempahan> list =mp.list("select t from TempJadualTempahan t where t.tempAsetPBT.id = :idAset and t.tarikhTempahan = :date",h);
 				List<UtilJadualTempahan> list = mp
 						.list(
 								"select t from UtilJadualTempahan t where t.gelanggang.id = :idAset and t.tarikhTempahan = :date",
@@ -1188,7 +1144,7 @@ public class SenaraiPermohonanGelanggangRecordModule extends LebahRecordTemplate
 					}
 				}else{
 					//08082018 - CHANGES BY PEJE - UNTUK CAWANGAN WEEKDAYS JUGA BUKA PAGI KE PETANG
-					if (gelanggang.getDewan() != null) {
+					if (gelanggang != null && gelanggang.getDewan() != null) {
 						if (gelanggang.getDewan().getKodCawangan() != null) {
 							for (int x = 7; x < 23; x++) {
 								bgcolour = "#008800";
@@ -1323,37 +1279,8 @@ public class SenaraiPermohonanGelanggangRecordModule extends LebahRecordTemplate
 		}
 	}
 
-	// public KewBayaranResit createResit(UtilPermohonan r){
-	//		
-	// KewBayaranResit resit = new KewBayaranResit();
-	// resit.setPembayar(r.getPemohon());
-	// resit.setNoResit(UtilKewangan.generateReceiptNo(db,mp.find(Users.class,
-	// userId)));
-	// resit.setTarikhBayaran(new Date());
-	// resit.setFlagJenisBayaran("ONLINE");
-	// resit.setTarikhDaftar(new Date());
-	// resit.setUserPendaftar(mp.find(Users.class, userId));
-	// resit.setJumlahAmaunBayaran(r.getAmaun());
-	// resit.setFlagJenisResit("2"); //INVOIS
-	// mp.persist(resit);
-	//		
-	// KewResitKaedahBayaran kb = new KewResitKaedahBayaran();
-	// kb.setResit(resit);
-	// kb.setAmaunBayaran(resit.getJumlahAmaunBayaran());
-	// kb.setModBayaran(mp.find(CaraBayar.class, "T"));
-	// mp.persist(kb);
-	//		
-	// return resit;
-	// }
-
-	// update utilpermohonan,
-	// update util akaun,
-	// update kew invois,
-	// insert kew bayaran resit,
-	// insert kew resit kaedah bayaran
 	@Command("bayarTempahan")
-	// public void updateBayarTempahan(UtilPermohonan r){ //real using fpx
-	public void updateBayarTempahan() { // test local only
+	public void updateBayarTempahan() {
 		try {
 			mp = new MyPersistence();
 			mp.begin();
@@ -1433,34 +1360,4 @@ public class SenaraiPermohonanGelanggangRecordModule extends LebahRecordTemplate
 		}
 	}
 
-	// public void updateInvoisInFinance(RppAkaun ak, Users pemohon) {
-	// KewInvois inv = (KewInvois) mp
-	// .get("select x from KewInvois x where x.idLejar = '"
-	// + ak.getId() + "' and x.jenisBayaran.id = '02' ");
-	// inv.setFlagBayar("Y");
-	// inv.setKredit(ak.getDebit());
-	// inv.setFlagQueue("Y");
-	// }
-	//
-	// public void updateDepositInFinance(RppAkaun ak, Users pemohon) {
-	// KewDeposit dep = (KewDeposit) mp
-	// .get("select x from KewDeposit x where x.idLejar = '"
-	// + ak.getId() + "' and x.jenisBayaran.id = '02' ");
-	// dep.setFlagBayar("Y");
-	// dep.setFlagQueue("Y");
-	// dep.setNoResit(ak.getNoResit());
-	// }
-
-	// public void kemaskiniRecordBayaran(UtilPermohonan r) {
-	//
-	// userId = (String) request.getSession().getAttribute("_portal_login");
-	// Users user = (Users) mp.find(Users.class, userId);
-	// Double kadarSewa = r.getAmaun();
-	// UtilAkaun mn = (UtilAkaun) mp
-	// .get("select x from UtilAkaun x where x.permohonan.id = '"
-	// + r.getIdTempahan() + "' ");
-	// mn.setAmaunBayaranSeunit(kadarSewa);
-	// mn.setIdKemaskini(user);
-	// mn.setTarikhKemaskini(new Date());
-	// }
 }
