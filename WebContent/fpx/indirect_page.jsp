@@ -406,7 +406,7 @@ try
 								
                                 //AZAM ADD
 								if (urlReturn == null || urlReturn == "null" || urlReturn == "") {
-									urlReturn = "../c/";
+									urlReturn = "../sbbphv2/c/";
 								}
 								
 								FPXUtil fpxUtil = null;

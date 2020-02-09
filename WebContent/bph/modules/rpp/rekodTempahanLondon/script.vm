@@ -61,13 +61,34 @@ function doBayarTempahanFPX(){
 }
 
 function hantarBayaran() {
-	startFPX();
+	var err_count = 0;
+    var idBankFPX = $('idBankFPX').value;
+	if ( idBankFPX == "" ) {
+		$('err_idBankFPX').innerHTML = "** Pilihan Bank adalah mandatori!"; 
+		err_count++;  
+	} else {
+		var amaun = $('fpx_txnAmount').value;
+		if ( amaun > 30000 ) {
+			alert("Had Transaksi Maksimum adalah RM 30,000.00!");
+			err_count++;  
+		} else if ( amaun < 1 ){
+			alert("Had Transaksi Minimum adalah RM 1.00!");
+			err_count++;  
+		}
+	}
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		submitFPX();
+	}
 }
 
-function startFPX() {
+function submitFPX() {
 	document.${formName}.method='post';
 	document.${formName}.target='_self';
-	document.${formName}.action='https://www.mepsfpx.com.my/FPXMain/sellerNVPReceiver.jsp';
+	document.${formName}.action='https://www.mepsfpx.com.my/FPXMain/seller2DReceiver.jsp';
 	document.${formName}.submit();
 }
 

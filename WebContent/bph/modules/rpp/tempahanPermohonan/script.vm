@@ -128,35 +128,40 @@ function doHantarBuktiPembayaran(){
 
 
 ##ONLINE PAYMENT
-
-function alertFPX() {
-	alert("UNTUK MAKLUMAN TUAN/PUAN, PIHAK KAMI MENGHADAPI MASALAH BAGI PEMBAYARAN SECARA ONLINE PADA MASA INI,\nSILA BUAT BAYARAN MELALUI KAUNTER HASIL.");			
-}
-
 function doBayarTempahanFPX(){
 	alert("Sila pastikan anda memuatnaik DOKUMEN PENYATA BANK bagi memudahkan PROSES PEMULANGAN DEPOSIT.");
 	doDivAjaxCall3$formname('pilihanFPX','paparPilihan','');
 }
 
 function hantarBayaran() {
-		startFPX();
+	var err_count = 0;
+    var idBankFPX = $('idBankFPX').value;
+	if ( idBankFPX == "" ) {
+		$('err_idBankFPX').innerHTML = "** Pilihan Bank adalah mandatori!"; 
+		err_count++;  
+	} else {
+		var amaun = $('fpx_txnAmount').value;
+		if ( amaun > 30000 ) {
+			alert("Had Transaksi Maksimum adalah RM 30,000.00!");
+			err_count++;  
+		} else if ( amaun < 1 ){
+			alert("Had Transaksi Minimum adalah RM 1.00!");
+			err_count++;  
+		}
+	}
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+		submitFPX();
+	}
 }
 
-function hantarKredit() {
-		startMIGS();
-}
-
-function startFPX() {
+function submitFPX() {
 	document.${formName}.method='post';
 	document.${formName}.target='_self';
-	document.${formName}.action='https://www.mepsfpx.com.my/FPXMain/sellerNVPReceiver.jsp';
-	document.${formName}.submit();
-}
-
-function startMIGS() {
-	document.${formName}.method='post';
-	document.${formName}.target='_self';
-	document.${formName}.action='../migs/vpc_jsp_serverhost_DO.jsp';
+	document.${formName}.action='https://www.mepsfpx.com.my/FPXMain/seller2DReceiver.jsp';
 	document.${formName}.submit();
 }
 
