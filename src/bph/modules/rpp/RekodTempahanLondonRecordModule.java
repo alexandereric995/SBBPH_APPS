@@ -15,6 +15,8 @@ import lebah.template.OperatorDateBetween;
 import lebah.template.OperatorEqualTo;
 import portal.module.entity.Role;
 import portal.module.entity.Users;
+import bph.entities.integrasi.FPXRecords;
+import bph.entities.integrasi.FPXRecordsRequest;
 import bph.entities.kew.KewJenisBayaran;
 import bph.entities.kewangan.KewInvois;
 import bph.entities.kod.GredPerkhidmatan;
@@ -35,6 +37,13 @@ public class RekodTempahanLondonRecordModule extends LebahRecordTemplateModule<R
 	private static final long serialVersionUID = 1L;
 	private DataUtil dataUtil;
 	private MyPersistence mp;
+	
+	private String fpxSellerExId = ResourceBundle.getBundle("dbconnection")
+			.getString("FPX_SELLER_EX_ID");
+	private String fpxSellerId = ResourceBundle.getBundle("dbconnection")
+			.getString("FPX_SELLER_ID");
+	private String keyPath = ResourceBundle.getBundle("dbconnection")
+			.getString("FPX_KEY_PATH");
 	
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -431,108 +440,7 @@ public class RekodTempahanLondonRecordModule extends LebahRecordTemplateModule<R
 		}
 		
 		return templateDir + "/entry_fields.vm";
-	}
-	
-	
-	/**
-	 * ONLINE PAYMENT
-	 * 
-	 * */
-	@Command("paparPilihan")
-	public String paparPilihan() throws Exception {
-		
-		String idrekod = getParam("idrekod");
-		
-		try {
-			mp = new MyPersistence();
-			RppRekodTempahanLondon ldn = (RppRekodTempahanLondon) mp.find(RppRekodTempahanLondon.class, idrekod);
-			
-			String serverName = request.getServerName();
-			String contextPath = request.getContextPath();
-			int serverPort = request.getServerPort();
-			String server = serverPort != 80 ? serverName + ":" + serverPort : serverName;
-			String image_url = "http://" + server + contextPath;
-			context.put("imageUrl", image_url);
-
-			String fpx_checkSum = "";
-			String final_checkSum = "";
-			String fpx_msgType = "AR";
-			String fpx_msgToken = "01";
-			String fpx_sellerExId = "EX00000345";
-			String fpx_sellerExOrderNo = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-			String fpx_sellerTxnTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-			String fpx_sellerOrderNo = ldn.getId();
-			String fpx_sellerId = "SE00000392";
-			String fpx_sellerBankCode = "01";
-			String fpx_txnCurrency = "MYR";
-
-			String fpx_txnAmount = Double.toString(ldn.getDebit());
-			String fpx_buyerEmail = "";
-			String fpx_buyerName = "";
-			String fpx_buyerBankId = "";
-			String fpx_buyerBankBranch = "";
-			String fpx_buyerAccNo = "";
-			String fpx_buyerId = "";
-			String fpx_makerName = "";
-			String fpx_buyerIban = "";
-			String fpx_productDesc = "Pembayaran Tempahan London";
-			String fpx_version = "5.0";
-
-			fpx_checkSum = fpx_buyerAccNo + "|" + fpx_buyerBankBranch + "|"
-			+ fpx_buyerBankId + "|" + fpx_buyerEmail + "|" + fpx_buyerIban
-			+ "|" + fpx_buyerId + "|" + fpx_buyerName + "|";
-			fpx_checkSum += fpx_makerName + "|" + fpx_msgToken + "|" + fpx_msgType
-			+ "|" + fpx_productDesc + "|" + fpx_sellerBankCode + "|"
-			+ fpx_sellerExId + "|";
-			fpx_checkSum += fpx_sellerExOrderNo + "|" + fpx_sellerId + "|"
-			+ fpx_sellerOrderNo + "|" + fpx_sellerTxnTime + "|"
-			+ fpx_txnAmount + "|" + fpx_txnCurrency + "|" + fpx_version;
-
-			final_checkSum = FPXPkiImplementation.signData(
-			"D:\\SMIExchange\\bph.gov.my.key", fpx_checkSum,
-			"SHA1withRSA");
-
-			context.put("fpx_msgType", fpx_msgType);
-			context.put("fpx_msgToken", fpx_msgToken);
-			context.put("fpx_sellerExId", fpx_sellerExId);
-			context.put("fpx_sellerExOrderNo", fpx_sellerExOrderNo);
-			context.put("fpx_sellerTxnTime", fpx_sellerTxnTime);
-			context.put("fpx_sellerOrderNo", fpx_sellerOrderNo);
-			context.put("fpx_sellerId", fpx_sellerId);
-			context.put("fpx_sellerBankCode", fpx_sellerBankCode);
-			context.put("fpx_txnCurrency", fpx_txnCurrency);
-			context.put("fpx_txnAmount", fpx_txnAmount);
-			context.put("fpx_buyerEmail", fpx_buyerEmail);
-			context.put("fpx_buyerName", fpx_buyerName);
-			context.put("fpx_buyerBankId", fpx_buyerBankId);
-			context.put("fpx_buyerBankBranch", fpx_buyerBankBranch);
-			context.put("fpx_buyerAccNo", fpx_buyerAccNo);
-			context.put("fpx_buyerId", fpx_buyerId);
-			context.put("fpx_makerName", fpx_makerName);
-			context.put("fpx_buyerIban", fpx_buyerIban);
-			context.put("fpx_productDesc", fpx_productDesc);
-			context.put("fpx_version", fpx_version);
-			context.put("fpx_checkSum", final_checkSum);
-			
-			String noruj = ldn.getNoTempahan()!=null?ldn.getNoTempahan():"";
-
-			HttpSession session = request.getSession();
-			session.setAttribute("sesIdPermohonan", ldn.getId());
-			session.setAttribute("sesModul", "LONDON");
-			session.setAttribute("sesRole",(String) request.getSession().getAttribute("_portal_role") );
-			session.setAttribute("returnlink","../sbbphv2/c/1425001362331?_portal_module=bph.modules.rpp.RekodTempahanLondonRecordModule");	
-			
-			FPXUtil fpxUtil = new FPXUtil(session) ;
-			fpxUtil.registerFPXRequest(fpx_sellerId, fpx_sellerExId, fpx_sellerOrderNo, fpx_sellerExOrderNo, fpx_txnAmount, fpx_productDesc, "LONDON", mp);
-			
-		} catch (Exception e) {
-			System.out.println("Error paparPilihan : "+e.getMessage());
-		}finally{
-			if (mp != null) { mp.close(); }
-		}
-
-		return "bph/modules/fpx/pilihan.vm";
-	}
+	}	
 	
 	@SuppressWarnings("unchecked")
 	@Command("batalPermohonan")
@@ -590,6 +498,344 @@ public class RekodTempahanLondonRecordModule extends LebahRecordTemplateModule<R
 		
 		return templateDir + "/entry_fields.vm";
 	}
+	
+	/** START PEMBAYARAN FPX **/
+	@Command("paparPilihan")
+	public String paparPilihan() throws Exception {
+		String vm = "";
+		String idPermohonan = getParam("idrekod");
+		context.remove("recheckPaymentMsg");
+		try {
+			mp = new MyPersistence();
+			Boolean belumBayar = reCheckPaymentStatus(mp, idPermohonan);
+
+			if (belumBayar) {
+				RppRekodTempahanLondon r = (RppRekodTempahanLondon) mp.find(RppRekodTempahanLondon.class,
+						idPermohonan);
+				String serverName = request.getServerName();
+				String contextPath = request.getContextPath();
+				int serverPort = request.getServerPort();
+				String server = serverPort != 80 ? serverName + ":"
+						+ serverPort : serverName;
+				String image_url = "http://" + server + contextPath;
+				context.put("imageUrl", image_url);
+
+				context.put("listBankFPX", dataUtil.getListBankFPX());
+				vm = "bph/modules/fpx/pilihan.vm";
+			} else {
+				String msg = "Rekod transaksi pembayaran sedang diproses. Sila semak semula dalam tempoh 30 minit untuk status pembayaran dikemaskini.<br>Harap maklum.";
+				context.put("recheckPaymentMsg", msg);
+				vm = "bph/modules/fpx/pending.vm";
+			}
+		} catch (Exception e) {
+			System.out.println("Error paparPilihan FPX RPP London : " + e.getMessage());
+		} finally {
+			if (mp != null) {
+				mp.close();
+			}
+		}
+		return vm;
+	}
+
+	@Command("doChangeBankFPX")
+	public String doChangeBankFPX() throws Exception {
+		String idPermohonan = getParam("idrekod");
+		try {
+			mp = new MyPersistence();
+			RppRekodTempahanLondon r = (RppRekodTempahanLondon) mp.find(RppRekodTempahanLondon.class,
+					idPermohonan);
+			String fpx_checkSum = "";
+			String final_checkSum = "";
+			String fpx_msgType = "AR";
+			String fpx_msgToken = "01";
+			String fpx_sellerExId = fpxSellerExId;
+			String fpx_sellerExOrderNo = new SimpleDateFormat("yyyyMMddHHmmss")
+					.format(new Date());
+			String fpx_sellerTxnTime = new SimpleDateFormat("yyyyMMddHHmmss")
+					.format(new Date());
+			String fpx_sellerOrderNo = r.getId();
+			String fpx_sellerId = fpxSellerId;
+			String fpx_sellerBankCode = "01";
+			String fpx_txnCurrency = "MYR";
+
+			String fpx_txnAmount = Double.toString(r.getDebit());
+			String fpx_buyerEmail = "";
+			if (r != null && r.getPemohon() != null
+					&& r.getPemohon().getEmel() != null)
+				fpx_buyerEmail = r.getPemohon().getEmel();
+			String fpx_buyerName = "";
+			if (r != null && r.getPemohon() != null
+					&& r.getPemohon().getUserName() != null)
+				fpx_buyerName = r.getPemohon().getUserName();
+			String fpx_buyerBankId = getParam("idBankFPX");
+			String fpx_buyerBankBranch = "";
+			String fpx_buyerAccNo = "";
+			String fpx_buyerId = "";
+			String fpx_makerName = "";
+			String fpx_buyerIban = "";
+			String fpx_productDesc = "Pembayaran Tempahan London";
+			String fpx_version = "7.0";
+
+			fpx_checkSum = fpx_buyerAccNo + "|" + fpx_buyerBankBranch + "|"
+					+ fpx_buyerBankId + "|" + fpx_buyerEmail + "|"
+					+ fpx_buyerIban + "|" + fpx_buyerId + "|" + fpx_buyerName
+					+ "|";
+			fpx_checkSum += fpx_makerName + "|" + fpx_msgToken + "|"
+					+ fpx_msgType + "|" + fpx_productDesc + "|"
+					+ fpx_sellerBankCode + "|" + fpx_sellerExId + "|";
+			fpx_checkSum += fpx_sellerExOrderNo + "|" + fpx_sellerId + "|"
+					+ fpx_sellerOrderNo + "|" + fpx_sellerTxnTime + "|"
+					+ fpx_txnAmount + "|" + fpx_txnCurrency + "|" + fpx_version;
+
+			final_checkSum = FPXPkiImplementation.signData(keyPath,
+					fpx_checkSum, "SHA1withRSA");
+
+			context.put("fpx_msgType", fpx_msgType);
+			context.put("fpx_msgToken", fpx_msgToken);
+			context.put("fpx_sellerExId", fpx_sellerExId);
+			context.put("fpx_sellerExOrderNo", fpx_sellerExOrderNo);
+			context.put("fpx_sellerTxnTime", fpx_sellerTxnTime);
+			context.put("fpx_sellerOrderNo", fpx_sellerOrderNo);
+			context.put("fpx_sellerId", fpx_sellerId);
+			context.put("fpx_sellerBankCode", fpx_sellerBankCode);
+			context.put("fpx_txnCurrency", fpx_txnCurrency);
+			context.put("fpx_txnAmount", fpx_txnAmount);
+			context.put("fpx_buyerEmail", fpx_buyerEmail);
+			context.put("fpx_buyerName", fpx_buyerName);
+			context.put("fpx_buyerBankId", fpx_buyerBankId);
+			context.put("fpx_buyerBankBranch", fpx_buyerBankBranch);
+			context.put("fpx_buyerAccNo", fpx_buyerAccNo);
+			context.put("fpx_buyerId", fpx_buyerId);
+			context.put("fpx_makerName", fpx_makerName);
+			context.put("fpx_buyerIban", fpx_buyerIban);
+			context.put("fpx_productDesc", fpx_productDesc);
+			context.put("fpx_version", fpx_version);
+			context.put("fpx_checkSum", final_checkSum);
+
+			context.put("idBankFPX", getParam("idBankFPX"));
+
+			HttpSession session = request.getSession();
+			session.setAttribute("sesIdPermohonan", r.getId());
+			session.setAttribute("sesModul", "LONDON");
+			session.setAttribute("sesRole", (String) request.getSession()
+					.getAttribute("_portal_role"));
+			userRole = (String) request.getSession().getAttribute(
+					"_portal_role");
+			session.setAttribute("returnlink","../sbbphv2/c/1425001362331?_portal_module=bph.modules.rpp.RekodTempahanLondonRecordModule");	
+
+			// AZAM ADD - 14/1/2016
+			FPXUtil fpxUtil = new FPXUtil(session);
+			fpxUtil.addUpdatePayment_Transaction((String) request.getSession()
+					.getAttribute("_portal_login"), (String) session
+					.getAttribute("sesIdPermohonan"), fpx_txnAmount,
+					(String) session.getAttribute("sesModul"));
+
+			fpxUtil.registerFPXRequest(fpx_sellerId, fpx_sellerExId,
+					fpx_sellerOrderNo, fpx_sellerExOrderNo, fpx_txnAmount,
+					fpx_productDesc, "LONDON", mp);
+		} catch (Exception e) {
+			System.out.println("Error doChangeBankFPX FPX RP LONDON: "
+					+ e.getMessage());
+		} finally {
+			if (mp != null) {
+				mp.close();
+			}
+		}
+		return "bph/modules/fpx/pilihan.vm";
+	}
+
+	// ADD BY PEJE - TEKAN BUTANG BAYAR, CHECK DULU SAMAADA PAYMENT DAH DIBUAT
+	// ATAU BELUM
+	private Boolean reCheckPaymentStatus(MyPersistence mp, String idPermohonan) {
+		boolean bool = true;
+
+		try {
+			// REQUERY BASED ON NO RESPONSE DURING TRANSACTION.
+			requeryNoResponseTransaction(mp, idPermohonan);
+
+			// REQUERY BASED ON DEBITAUTHCODE = 09 (TRANSACTION PENDING).
+			requeryPendingTransaction(mp, idPermohonan);
+
+			// QUERY DATA FPXRECORDS - CHECK PAYMENT SUCCESS(00) / PENDING(09)
+			FPXRecords fpxRecords = (FPXRecords) mp
+					.get("select x from FPXRecords x where x.debitAuthCode in ('00', '09') and x.sellerOrderNo = '"
+							+ idPermohonan + "' order by x.id asc");
+			if (fpxRecords != null) {
+				bool = false;
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return bool;
+	}
+
+	private void requeryNoResponseTransaction(MyPersistence mp,
+			String idPermohonan) {
+		FPXUtil fpxUtil = new FPXUtil();
+		try {
+			int loopRequery = 0;
+			while (loopRequery < 3) {
+				List<FPXRecordsRequest> listFPXRecordRequest = mp
+						.list("select x from FPXRecordsRequest x where (x.fpxTxnId is null or x.fpxTxnId = '') and x.sellerOrderNo = '"
+								+ idPermohonan + "' order by x.id asc");
+				if (listFPXRecordRequest.size() > 0) {
+					for (FPXRecordsRequest fpxRecordRequest : listFPXRecordRequest) {
+						FPXRecords fpxMyClear = fpxUtil.reQueryFPX(
+								fpxRecordRequest.getSellerOrderNo(),
+								fpxRecordRequest.getSellerExOrderNo(),
+								fpxRecordRequest.getTxnAmount());
+						mp.begin();
+						if (fpxMyClear != null) {
+							boolean addRecord = false;
+							FPXRecords fpxRecords = (FPXRecords) mp.find(
+									FPXRecords.class, fpxMyClear.getId());
+							if (fpxRecords == null) {
+								fpxRecords = new FPXRecords();
+								fpxRecords.setId(fpxMyClear.getId());
+								addRecord = true;
+							}
+							fpxRecords.setBuyerBankBranch(fpxMyClear
+									.getBuyerBankBranch());
+							fpxRecords.setBuyerBankId(fpxMyClear
+									.getBuyerBankId());
+							fpxRecords.setBuyerIban(fpxMyClear.getBuyerIban());
+							fpxRecords.setBuyerId(fpxMyClear.getBuyerId());
+							fpxRecords.setBuyerName(fpxMyClear.getBuyerName());
+							fpxRecords.setCreditAuthCode(fpxMyClear
+									.getCreditAuthCode());
+							fpxRecords.setCreditAuthNo(fpxMyClear
+									.getCreditAuthNo());
+							fpxRecords.setDebitAuthCode(fpxMyClear
+									.getDebitAuthCode());
+							fpxRecords.setDebitAuthNo(fpxMyClear
+									.getDebitAuthNo());
+							fpxRecords
+									.setFpxTxnTime(fpxMyClear.getFpxTxnTime());
+							fpxRecords.setMakerName(fpxMyClear.getMakerName());
+							fpxRecords.setMsgToken(fpxMyClear.getMsgToken());
+							fpxRecords.setMsgType(fpxMyClear.getMsgType());
+							fpxRecords
+									.setSellerExId(fpxMyClear.getSellerExId());
+							fpxRecords.setSellerExOrderNo(fpxMyClear
+									.getSellerExOrderNo());
+							fpxRecords.setSellerId(fpxMyClear.getSellerId());
+							fpxRecords.setSellerOrderNo(fpxMyClear
+									.getSellerOrderNo());
+							fpxRecords.setSellerTxnTime(fpxMyClear
+									.getSellerTxnTime());
+							fpxRecords.setTxnAmount(fpxMyClear.getTxnAmount());
+							fpxRecords.setTxnCurrency(fpxMyClear
+									.getTxnCurrency());
+							if (addRecord) {
+								mp.persist(fpxRecords);
+							}
+							fpxRecordRequest.setFpxTxnId(fpxMyClear.getId());
+							fpxRecordRequest.setRespondDate(new Date());
+						} else {
+							if (fpxUtil.isSuccessRequery()) {
+								int daysBetween = Util.daysBetween(
+										fpxRecordRequest.getRequestDate(),
+										new Date());
+								if (daysBetween >= 2) {
+									mp.remove(fpxRecordRequest);
+								}
+							}
+						}
+						mp.commit();
+					}
+					loopRequery++;
+				} else {
+					break;
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private void requeryPendingTransaction(MyPersistence mp, String idPermohonan) {
+		FPXUtil fpxUtil = new FPXUtil();
+		try {
+			int loopRequery = 0;
+			while (loopRequery < 3) {
+				List<FPXRecords> listFPXRecords = mp
+						.list("select x from FPXRecords x where x.debitAuthCode = '09' and x.sellerOrderNo = '"
+								+ idPermohonan + "' order by x.id asc");
+				if (listFPXRecords.size() > 0) {
+					for (FPXRecords fpxRecords : listFPXRecords) {
+						FPXRecords fpxMyClear = fpxUtil.reQueryFPX(
+								fpxRecords.getSellerOrderNo(),
+								fpxRecords.getSellerExOrderNo(),
+								fpxRecords.getTxnAmount());
+						mp.begin();
+						if (fpxMyClear != null) {
+							boolean addRecord = false;
+							FPXRecords newFpxRecords = (FPXRecords) mp.find(
+									FPXRecords.class, fpxMyClear.getId());
+							if (newFpxRecords == null) {
+								newFpxRecords = new FPXRecords();
+								newFpxRecords.setId(fpxMyClear.getId());
+								addRecord = true;
+							}
+							newFpxRecords.setBuyerBankBranch(fpxMyClear
+									.getBuyerBankBranch());
+							newFpxRecords.setBuyerBankId(fpxMyClear
+									.getBuyerBankId());
+							newFpxRecords.setBuyerIban(fpxMyClear
+									.getBuyerIban());
+							newFpxRecords.setBuyerId(fpxMyClear.getBuyerId());
+							newFpxRecords.setBuyerName(fpxMyClear
+									.getBuyerName());
+							newFpxRecords.setCreditAuthCode(fpxMyClear
+									.getCreditAuthCode());
+							newFpxRecords.setCreditAuthNo(fpxMyClear
+									.getCreditAuthNo());
+							newFpxRecords.setDebitAuthCode(fpxMyClear
+									.getDebitAuthCode());
+							newFpxRecords.setDebitAuthNo(fpxMyClear
+									.getDebitAuthNo());
+							newFpxRecords.setFpxTxnTime(fpxMyClear
+									.getFpxTxnTime());
+							newFpxRecords.setMakerName(fpxMyClear
+									.getMakerName());
+							newFpxRecords.setMsgToken(fpxMyClear.getMsgToken());
+							newFpxRecords.setMsgType(fpxMyClear.getMsgType());
+							newFpxRecords.setSellerExId(fpxMyClear
+									.getSellerExId());
+							newFpxRecords.setSellerExOrderNo(fpxMyClear
+									.getSellerExOrderNo());
+							newFpxRecords.setSellerId(fpxMyClear.getSellerId());
+							newFpxRecords.setSellerOrderNo(fpxMyClear
+									.getSellerOrderNo());
+							newFpxRecords.setSellerTxnTime(fpxMyClear
+									.getSellerTxnTime());
+							newFpxRecords.setTxnAmount(fpxMyClear
+									.getTxnAmount());
+							newFpxRecords.setTxnCurrency(fpxMyClear
+									.getTxnCurrency());
+							if (addRecord) {
+								mp.persist(newFpxRecords);
+								mp.remove(fpxRecords);
+							}
+						} else {
+							if (fpxUtil.isSuccessRequery()) {
+								mp.remove(fpxRecords);
+							}
+						}
+						mp.commit();
+					}
+					loopRequery++;
+				} else {
+					break;
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	/** END PEMBAYARAN FPX **/
 
 }
 

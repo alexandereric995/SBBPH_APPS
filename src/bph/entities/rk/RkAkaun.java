@@ -94,6 +94,8 @@ public class RkAkaun {
 	public RkAkaun() {
 		setId(UID.getUID());
 		setFlagAktif("Y");
+		setDebit(0);
+		setKredit(0);
 		setTarikhMasuk(new Date());
 	}
 

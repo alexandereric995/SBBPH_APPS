@@ -695,7 +695,7 @@ public class SenaraiPermohonanGelanggangRecordModuleAwam extends
 		return getPath() + "/entry_page.vm";
 	}
 	
-	/** START PEMBAYARAN FPX **/
+	/** START PEMBAYARAN FPX **/	
 	@Command("paparPilihan")
 	public String paparPilihan() throws Exception {
 		String vm = "";
@@ -715,135 +715,9 @@ public class SenaraiPermohonanGelanggangRecordModuleAwam extends
 						+ serverPort : serverName;
 				String image_url = "http://" + server + contextPath;
 				context.put("imageUrl", image_url);
-
-				String fpx_checkSum = "";
-				String final_checkSum = "";
-				String fpx_msgType = "AR";
-				String fpx_msgToken = "01";
-				String fpx_sellerExId = fpxSellerExId;
-				String fpx_sellerExOrderNo = new SimpleDateFormat(
-						"yyyyMMddHHmmss").format(new Date());
-				String fpx_sellerTxnTime = new SimpleDateFormat(
-						"yyyyMMddHHmmss").format(new Date());
-				String fpx_sellerOrderNo = r.getIdTempahan();
-				String fpx_sellerId = fpxSellerId;
-				String fpx_sellerBankCode = "01";
-				String fpx_txnCurrency = "MYR";
-
-				String fpx_txnAmount = Double.toString(r.getAmaun());
-				String fpx_buyerEmail = "";
-				String fpx_buyerName = "";
-				String fpx_buyerBankId = "";
-				String fpx_buyerBankBranch = "";
-				String fpx_buyerAccNo = "";
-				String fpx_buyerId = "";
-				String fpx_makerName = "";
-				String fpx_buyerIban = "";
-				String fpx_productDesc = "Pembayaran Tempahan Gelanggang";
-				String fpx_version = "5.0";
-
-				fpx_checkSum = fpx_buyerAccNo + "|" + fpx_buyerBankBranch + "|"
-						+ fpx_buyerBankId + "|" + fpx_buyerEmail + "|"
-						+ fpx_buyerIban + "|" + fpx_buyerId + "|"
-						+ fpx_buyerName + "|";
-				fpx_checkSum += fpx_makerName + "|" + fpx_msgToken + "|"
-						+ fpx_msgType + "|" + fpx_productDesc + "|"
-						+ fpx_sellerBankCode + "|" + fpx_sellerExId + "|";
-				fpx_checkSum += fpx_sellerExOrderNo + "|" + fpx_sellerId + "|"
-						+ fpx_sellerOrderNo + "|" + fpx_sellerTxnTime + "|"
-						+ fpx_txnAmount + "|" + fpx_txnCurrency + "|"
-						+ fpx_version;
-
-				final_checkSum = FPXPkiImplementation.signData(
-						keyPath, fpx_checkSum,
-						"SHA1withRSA");
-
-				context.put("fpx_msgType", fpx_msgType);
-				context.put("fpx_msgToken", fpx_msgToken);
-				context.put("fpx_sellerExId", fpx_sellerExId);
-				context.put("fpx_sellerExOrderNo", fpx_sellerExOrderNo);
-				context.put("fpx_sellerTxnTime", fpx_sellerTxnTime);
-				context.put("fpx_sellerOrderNo", fpx_sellerOrderNo);
-				context.put("fpx_sellerId", fpx_sellerId);
-				context.put("fpx_sellerBankCode", fpx_sellerBankCode);
-				context.put("fpx_txnCurrency", fpx_txnCurrency);
-				context.put("fpx_txnAmount", fpx_txnAmount);
-				context.put("fpx_buyerEmail", fpx_buyerEmail);
-				context.put("fpx_buyerName", fpx_buyerName);
-				context.put("fpx_buyerBankId", fpx_buyerBankId);
-				context.put("fpx_buyerBankBranch", fpx_buyerBankBranch);
-				context.put("fpx_buyerAccNo", fpx_buyerAccNo);
-				context.put("fpx_buyerId", fpx_buyerId);
-				context.put("fpx_makerName", fpx_makerName);
-				context.put("fpx_buyerIban", fpx_buyerIban);
-				context.put("fpx_productDesc", fpx_productDesc);
-				context.put("fpx_version", fpx_version);
-				context.put("fpx_checkSum", final_checkSum);
-
-				HttpSession session = request.getSession();
-				session.setAttribute("sesIdPermohonan", r.getId());
-				session.setAttribute("sesModul", "UTIL");
-				session.setAttribute("sesRole", (String) request.getSession()
-						.getAttribute("_portal_role"));
-				userRole = (String) request.getSession().getAttribute(
-						"_portal_role");
-				if ("(AWAM) Penjawat Awam".equalsIgnoreCase(userRole)) {
-					session.setAttribute("returnlink", "../sbbphv2/c/1431069110780");
-				} else {
-					session.setAttribute("returnlink", "../sbbphv2/c/1438069927208");
-				}
-
-				// AZAM ADD - 14/1/2016
-				FPXUtil fpxUtil = new FPXUtil(session);
-				fpxUtil.addUpdatePayment_Transaction((String) request
-						.getSession().getAttribute("_portal_login"),
-						(String) session.getAttribute("sesIdPermohonan"),
-						fpx_txnAmount, (String) session
-								.getAttribute("sesModul"));
-
-				fpxUtil.registerFPXRequest(fpx_sellerId, fpx_sellerExId,
-						fpx_sellerOrderNo, fpx_sellerExOrderNo, fpx_txnAmount,
-						fpx_productDesc, "UTIL", mp);
-				vm = "bph/modules/fpx/pilihan.vm";
-			} else {
-				String msg = "Rekod transaksi pembayaran sedang diproses.Sila semak semula dalam tempoh 30 minit untuk status pembayaran dikemaskini.<br>Harap maklum.";
-				context.put("recheckPaymentMsg", msg);
-				vm = "bph/modules/fpx/pending.vm";
-			}
-		} catch (Exception e) {
-			System.out.println("Error paparPilihan FPX Gelanggang : "
-					+ e.getMessage());
-		} finally {
-			if (mp != null) {
-				mp.close();
-			}
-		}
-
-		return vm;
-	}
-	
-	@Command("paparPilihan1")
-	public String paparPilihan1() throws Exception {
-		String vm = "";
-		String idTempahan = getParam("idTempahan");
-		context.remove("recheckPaymentMsg");
-		try {
-			mp = new MyPersistence();
-			Boolean belumBayar = reCheckPaymentStatus(mp, idTempahan);
-
-			if (belumBayar) {
-				UtilPermohonan r = (UtilPermohonan) mp.find(
-						UtilPermohonan.class, idTempahan);
-				String serverName = request.getServerName();
-				String contextPath = request.getContextPath();
-				int serverPort = request.getServerPort();
-				String server = serverPort != 80 ? serverName + ":"
-						+ serverPort : serverName;
-				String image_url = "http://" + server + contextPath;
-				context.put("imageUrl", image_url);
 				
 				context.put("listBankFPX", dataUtil.getListBankFPX());
-				vm = "bph/modules/fpx/pilihan1.vm";
+				vm = "bph/modules/fpx/pilihan.vm";
 			} else {
 				String msg = "Rekod transaksi pembayaran sedang diproses. Sila semak semula dalam tempoh 30 minit untuk status pembayaran dikemaskini.<br>Harap maklum.";
 				context.put("recheckPaymentMsg", msg);
@@ -966,7 +840,7 @@ public class SenaraiPermohonanGelanggangRecordModuleAwam extends
 				mp.close();
 			}
 		}
-		return "bph/modules/fpx/pilihan1.vm";
+		return "bph/modules/fpx/pilihan.vm";
 	}
 
 	private Boolean reCheckPaymentStatus(MyPersistence mp, String idPermohonan) {
