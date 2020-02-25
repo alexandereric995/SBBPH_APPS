@@ -130,16 +130,22 @@ public class SenaraiPermohonanDewanRecordModule extends
 
 	@Override
 	public void begin() {
-		String idCawangan="";
+		String idCawangan = "";
 		userId = (String) request.getSession().getAttribute("_portal_login");
 		userRole = (String) request.getSession().getAttribute("_portal_role");
 		if ("(UTILITI) Penyedia Cawangan".equalsIgnoreCase(userRole)|| "(UTILITI) Pelulus Cawangan".equalsIgnoreCase(userRole)) {
-			KodPetugas petugas = (KodPetugas) db.get("select x from KodPetugas x where x.petugas.id = '" + userId + "'");
-			if (petugas != null) {
-				idCawangan=petugas.getCawangan().getId();
-				this.addFilter("dewan.kodCawangan.id= '" + idCawangan + "'");
-			} else {
+			List<KodPetugas> listPetugas = db.list("select x from KodPetugas x where x.petugas.id = '" + userId + "'");
+			for (KodPetugas petugas : listPetugas) {
+				if ("".equals(idCawangan)) {
+					idCawangan = petugas.getCawangan().getId();
+				} else {
+					idCawangan = idCawangan + ", " + petugas.getCawangan().getId();
+				}
+			}
+			if ("".equals(idCawangan)) {
 				this.addFilter("dewan is null");
+			} else {
+				this.addFilter("dewan.kodCawangan.id in (" + idCawangan + ")");
 			}
 		}
 		
