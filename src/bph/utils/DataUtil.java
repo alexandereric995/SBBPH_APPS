@@ -996,15 +996,22 @@ public class DataUtil {
 	
 	//add by rozai 17/7/2017--listkan gelanggang ikut cawangan
 	public List<UtilDewan> getListDewanGelanggang(String idCawangan) {
-		List<UtilDewan> list = db
-			.list("select x from UtilDewan x where x.lokasi <> 'PRESINT 9' and x.kodCawangan.id = '"+idCawangan+"' order by x.seq asc");
+		List<UtilDewan> list = null;
+		if (idCawangan != null && !"".equals(idCawangan)) {
+			list = db
+					.list("select x from UtilDewan x where x.lokasi <> 'PRESINT 9' and x.kodCawangan.id in (" + idCawangan + ") order by x.seq asc");
+		} else {
+			list = db
+					.list("select x from UtilDewan x where x.lokasi <> 'PRESINT 9' and x.kodCawangan.id = '' order by x.seq asc");
+		}
+				
 		return list;
 	}
 	
 	//add by rozai 17/7/2017--listkan dewan ikut cawangan
 	public List<UtilDewan> getListDewanSahaja(String idCawangan) {
 		List<UtilDewan> list = null;
-		if (idCawangan != null) {
+		if (idCawangan != null && !"".equals(idCawangan)) {
 			list = db
 					.list("select x from UtilDewan x where x.nama like '%DEWAN%' and x.kodCawangan.id in ("+idCawangan+") order by x.seq asc");
 		} else {
