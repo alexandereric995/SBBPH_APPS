@@ -353,6 +353,27 @@ function doKemaskiniAkuanTerimaSST(){
 	}
 }
 
+## COMMENT BY PEJE - TEMPORARY FOR PKP. SST MASIH BOLEH PROCEED EVEN DEPOSIT BELUM DIBAYAR
+##
+##function doPenyediaanPerjanjian(){
+##	var err_count = 0;
+##
+##	var tarikhAkuanTerimaSST = $('tarikhAkuanTerimaSST').value;
+##	if ( tarikhAkuanTerimaSST == "" ) {$('err_tarikhAkuanTerimaSST').innerHTML = "** mandatori!"; err_count++;  }
+##	
+##	var deposit = $('deposit').value;
+##	deposit = deposit * 1;
+##	var idResit = $('idResit').value;
+##	if ( idResit == "" && deposit > 0) { alert('BAYARAN DEPOSIT BELUM DITERIMA'); err_count++; }
+##	
+##	if (err_count == 0) {
+##		if ( !window.confirm("Anda pasti?") ){
+##			return;
+##		}
+##		doDivAjaxCall$formname('divTab','doPenyediaanPerjanjian','');
+##	}
+##}
+
 function doPenyediaanPerjanjian(){
 	var err_count = 0;
 
@@ -362,12 +383,18 @@ function doPenyediaanPerjanjian(){
 	var deposit = $('deposit').value;
 	deposit = deposit * 1;
 	var idResit = $('idResit').value;
-	if ( idResit == "" && deposit > 0) { alert('BAYARAN DEPOSIT BELUM DITERIMA'); err_count++; }
 	
 	if (err_count == 0) {
-		if ( !window.confirm("Anda pasti?") ){
-			return;
+		if ( idResit == "" && deposit > 0) {
+			if ( !window.confirm("BAYARAN DEPOSIT BELUM DITERIMA. Anda pasti?") ){
+				return;
+			}		
+		} else {
+			if ( !window.confirm("Anda pasti?") ){
+				return;
+			}
 		}
+		
 		doDivAjaxCall$formname('divTab','doPenyediaanPerjanjian','');
 	}
 }
