@@ -31,7 +31,7 @@ public class RkMailer {
 	private void sendMail(String to, String subject, String body) {
 		//IF SERVER BUKAN LIVE - REDIRECT EMEL KE DEFAULT EMEL 
 		if (!ResourceBundle.getBundle("dbconnection").getString("SERVER_DEFINITION").equals("LIVE")) {
-			to = "mohdfaizal_hassan@hla-group.com";
+			to = "sbbph.bph@gmail.com";
 		}
 		
 		if ( enableMail ) {
@@ -48,7 +48,7 @@ public class RkMailer {
 			String bulanTunggakanDari, String bulanTunggakanHingga, int abt, ServletContext context) throws Exception {
 		
 		if (!ResourceBundle.getBundle("dbconnection").getString("SERVER_DEFINITION").equals("LIVE")) {
-			emel = "mohdfaizal_hassan@hla-group.com";
+			emel = "sbbph.bph@gmail.com";
 		}
 		
 		String to = emel;
