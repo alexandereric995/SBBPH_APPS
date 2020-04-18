@@ -149,6 +149,89 @@ public class RkMailer {
 		      bphService.sendEmailWithSingleAttachment(to, "", subject, body, namaAttachment, attachmentBytes);
 		}
 	}
+	
+public void emelSuratPengecualianBayaranSewa(String idFail, String emel, ServletContext context) throws Exception {
+		
+		if (!ResourceBundle.getBundle("dbconnection").getString("SERVER_DEFINITION").equals("LIVE")) {
+			emel = "sbbph.bph@gmail.com";
+		}
+		
+		String to = emel;
+		String subject = "SBBPH :: NOTIS PENGECUALIAN BAYARAN SEWAAN RUANG KOMERSIAL DI BANGUNAN GUNASAMA PERSEKUTUAN";
+	
+		String body = "<table width='100%' border='0' cellspacing='2' cellpadding='2'>"
+				+ "<tr><td colspan='3' valign='top'><strong>Salam Negaraku Sehati Sejiwa.</strong></td></tr>"
+				+ "<tr><td colspan='3' valign='top'>&nbsp;</td></tr>"
+		        + "<tr><td colspan='3' valign='top'>YBhg. Dato'/Datin/Tuan/Puan/Encik/Cik,</td></tr>"
+		        + "<tr><td colspan='3' valign='top'>&nbsp;</td></tr>"
+				+ "<tr><td colspan='3' valign='top'><strong>NOTIS PENGECUALIAN BAYARAN SEWAAN RUANG KOMERSIAL DI BANGUNAN GUNASAMA PERSEKUTUAN</strong></td></tr>"
+		        + "<tr><td colspan='3' valign='top'>&nbsp;</td></tr>"
+		        + "<tr><td colspan='3' valign='top'>Dengan segala hormatnya merujuk kepada perkara di atas.</td></tr>"
+		        + "<tr><td colspan='3' valign='top'>&nbsp;</td></tr>"
+		        + "<tr><td colspan='3' valign='top'>Sukacita bersama-sama ini dikemukakan <strong>NOTIS PENGECUALIAN BAYARAN SEWAAN RUANG KOMERSIAL DI BANGUNAN GUNASAMA PERSEKUTUAN</strong> seperti di lampiran.</td></tr>"
+				+ "<tr><td colspan='3' valign='top'>&nbsp;</td></tr>"
+				+ "<tr><td colspan='3' valign='top'>Sekian. Terima kasih.</td></tr>"
+				+ "<tr><td colspan='3' valign='top'>&nbsp;</td></tr>"
+				+ "</table>";		
+		
+		// ATTACHMENT
+		GetAttachment report = new GetAttachment();	
+		String baseDir = "";
+		String reportDir = "";
+		if (context != null) {
+			baseDir = context.getRealPath("/img/");
+			reportDir = context.getRealPath("/reports/");
+		} else {
+			String path = ResourceBundle.getBundle("dbconnection").getString("CONTEXT_PATH");
+			baseDir = path + "\\img";
+			reportDir = path + "\\reports";
+		}
+		
+		String folderName = "rk";
+		String fileName = "SuratPengecualianSewa";
+		    	
+		final Map<String, Object> myMap = new HashMap<String,Object>();
+		myMap.put("BaseDir", baseDir);  	
+		myMap.put("ReportDir", reportDir);  	
+		myMap.put("ID_FAIL", idFail);		
+		byte[] attachmentBytes = report.getReportBytes(folderName, fileName, context, myMap);
+		String namaAttachment = "Notis Pengecualian Bayaran Sewa";
+		
+		String emailType = ResourceBundle.getBundle("dbconnection").getString("emel");
+		if ("gmail".equals(emailType)) {
+			EmailProperty pro = EmailProperty.getInstance();
+			EmailSender email = EmailSender.getInstance();
+			email.FROM = pro.getFrom();
+			
+			if (emel != "" && emel.contains(",")) {
+				email.MULTIPLE_RECIEPIENT = emel.split(",");
+			} else if (emel != "") {
+				email.MULTIPLE_RECIEPIENT = new String[] { emel };
+			} else {
+				email.MULTIPLE_RECIEPIENT = new String[0];
+			}
+			
+			email.SUBJECT = subject;
+			email.MESSAGE = body;
+			email.ATTACHMENT_BYTES = new String[1];
+			email.ATTACHMENT_BYTES[0] = new String(attachmentBytes, "ISO-8859-1");;
+			email.ATTACHMENT_BYTES_NAME = new String[1];
+			email.ATTACHMENT_BYTES_NAME[0] = namaAttachment;//letak nama file bersesuaian
+			email.sendEmail();
+			
+		} else {
+			BPHServicesImplService service = new BPHServicesImplService();
+		      BPHServices bphService = (BPHServices)service.getPort(BPHServices.class);
+
+		      String WS_URL = ResourceBundle.getBundle("dbconnection").getString("WS_URL");
+
+		      BindingProvider p = (BindingProvider)bphService;
+		      p.getRequestContext().put("javax.xml.ws.service.endpoint.address", 
+		        WS_URL);
+
+		      bphService.sendEmailWithSingleAttachment(to, "", subject, body, namaAttachment, attachmentBytes);
+		}
+	}
 		
 	private String generateFooter(){
 		String f = "";
