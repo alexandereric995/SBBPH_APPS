@@ -105,7 +105,7 @@ public class KewBayaranResit {
 	@Column(name = "tarikh_daftar")
 	private Date tarikhDaftar;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 	

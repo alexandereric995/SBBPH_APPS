@@ -37,7 +37,7 @@ public class BgsPenghuni {
 	@Column(name = "kadar_sewa")
 	private double kadarSewa;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
 	

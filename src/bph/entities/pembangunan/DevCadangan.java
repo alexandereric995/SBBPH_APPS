@@ -76,7 +76,7 @@ public class DevCadangan {
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
 	
@@ -84,7 +84,7 @@ public class DevCadangan {
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 	

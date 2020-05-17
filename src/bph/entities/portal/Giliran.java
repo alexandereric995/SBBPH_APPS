@@ -45,7 +45,7 @@ public class Giliran {
 	@Column(name = "flag_manual")
 	private String flagManual;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;	
 	

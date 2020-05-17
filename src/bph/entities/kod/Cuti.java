@@ -45,11 +45,11 @@ public class Cuti {
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 	

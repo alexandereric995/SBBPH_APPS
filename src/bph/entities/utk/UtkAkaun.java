@@ -76,11 +76,11 @@ public class UtkAkaun {
 	@JoinColumn(name = "id_kemaskini")
 	private Users userKemaskini;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_daftar")
 	private Date tarikhDaftar = new Date();
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 	

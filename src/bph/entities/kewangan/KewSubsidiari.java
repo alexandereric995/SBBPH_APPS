@@ -85,7 +85,7 @@ public class KewSubsidiari {
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 	

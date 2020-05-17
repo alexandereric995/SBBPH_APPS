@@ -178,6 +178,7 @@ public class SelenggaraRppRecordModule extends LebahRecordTemplateModule<RppSele
 		context.put("userRole",userRole);
 		context.put("command", command);
 		context.put("uploadDir", ResourceBundle.getBundle("dbconnection").getString("folder"));
+		context.put("selectedTab", "1");
 	}
 	
 	@Command("filterJenisUnit")

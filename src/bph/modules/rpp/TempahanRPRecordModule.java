@@ -476,10 +476,6 @@ public class TempahanRPRecordModule extends
 
 		String userIdMohon = getUserIdMohon();
 
-		System.out.println("saveBooking...");
-		// String pemohonId = (String)
-		// request.getSession().getAttribute("_portal_login");
-
 		String permohonanId = UID.getUID();
 		boolean success = saveMainRecordInSql(permohonanId, userIdMohon);
 
