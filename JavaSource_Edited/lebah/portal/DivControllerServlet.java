@@ -17,11 +17,6 @@ import lebah.portal.velocity.VTemplate;
 
 public class DivControllerServlet extends VServlet {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		doPost(req, res);
@@ -30,6 +25,7 @@ public class DivControllerServlet extends VServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		res.setContentType("text/html");
+
 		PrintWriter out = res.getWriter();
 		HttpSession session = req.getSession();
 
@@ -40,7 +36,6 @@ public class DivControllerServlet extends VServlet {
 	private void doService(HttpServletRequest req, HttpServletResponse res,
 			PrintWriter out, HttpSession session) throws ServletException {
 
-		// synchronized(this) {
 		context = (org.apache.velocity.VelocityContext) session
 				.getAttribute("VELOCITY_CONTEXT");
 		engine = (org.apache.velocity.app.VelocityEngine) session
@@ -86,7 +81,6 @@ public class DivControllerServlet extends VServlet {
 			} catch (DbException e) {
 				e.printStackTrace();
 			}
-
 			try {
 				Object content = null;
 				try {
@@ -154,7 +148,6 @@ public class DivControllerServlet extends VServlet {
 			} catch (Exception ex) {
 				System.out.println(ex.getMessage());
 			} finally {
-
 			}
 
 		}
