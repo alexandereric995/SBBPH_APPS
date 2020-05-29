@@ -31,41 +31,41 @@ public class KodPusatTerima {
 
 	@Column(name = "kod_pusat_terima")
 	private String kodPusatTerima;
-	
+
 	@Column(name = "kod_penyata_pemungut")
 	private String kodPenyataPemungut;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
 
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
-	private Users kemaskiniOleh;	
+	private Users kemaskiniOleh;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="pusatTerima", fetch=FetchType.EAGER)
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pusatTerima", fetch = FetchType.EAGER)
 	private List<KodJuruwang> listJuruwang;
-	
+
 	public KodPusatTerima() {
 		setId(UID.getUID());
 		setFlagAktif("Y");
 		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getKeteranganFlagAktif() {
 		String status = "";
 		if (this.flagAktif != null) {

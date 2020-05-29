@@ -27,77 +27,78 @@ public class UtkAbt {
 	@ManyToOne
 	@JoinColumn(name = "id_penghuni")
 	private KuaPenghuni penghuni;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_akaun")
 	private KuaAkaun akaun;
-	
+
 	@Column(name = "amaun")
 	private Double amaun;
-	
+
 	@Column(name = "status")
 	private String status;
-	
+
 	@Column(name = "flag_status")
 	private String flagStatus;
 
 	@Column(name = "flag_bayaran")
 	private String flagBayaran;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "jumlah_tunggakan")
 	private Double jumlahTunggakan;
-	
+
 	@Column(name = "jumlah_bayaran")
 	private Double jumlahBayaran;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 
 	@Column(name = "no_fail")
 	private String noFail;
-	
+
 	@Column(name = "baki_tunggakan")
 	private Double bakiTunggakan;
-	
+
 	@Column(name = "beza_tunggakan")
 	private Double bezaTunggakan;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_mula_tunggakan")
 	private Date tarikhMulaTunggakan;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_tamat_tunggakan")
 	private Date tarikhTamatTunggakan;
-	
+
 	@Column(name = "bulan_tunggakan")
 	private int bulanTunggakan;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_bayaran")
 	private Date tarikhBayaran;
-	
+
 	@Column(name = "kadar_sewa_sebulan")
 	private Double kadarSewaSebulan;
-	
+
 	public UtkAbt() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -131,7 +132,7 @@ public class UtkAbt {
 	public void setFlagStatus(String flagStatus) {
 		this.flagStatus = flagStatus;
 	}
-	
+
 	public String getCatatan() {
 		return catatan;
 	}
@@ -275,5 +276,5 @@ public class UtkAbt {
 	public void setKadarSewa_sebulan(Double kadarSewa_sebulan) {
 		this.kadarSewaSebulan = kadarSewa_sebulan;
 	}
-	
+
 }

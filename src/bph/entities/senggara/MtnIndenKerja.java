@@ -1,6 +1,5 @@
 package bph.entities.senggara;
 
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -22,104 +21,120 @@ import bph.entities.kod.Status;
 @Table(name = "mtn_inden_kerja")
 public class MtnIndenKerja {
 
-	
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_lokasi")
 	private LokasiPermohonan lokasi;
-	
+
 	@Column(name = "vot")
 	private String vot;
-	
+
 	@Column(name = "no_inden")
 	private String noInden;
-	
+
 	@Column(name = "kerja")
-	private String kerja;	
+	private String kerja;
 
 	@Column(name = "tarikh_inden_kerja")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhIndenKerja;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kontraktor")
 	private MtnKontraktor kontraktor;
 
 	@Column(name = "jumlah")
 	private Double jumlah;
-	
+
 	@Column(name = "tarikh_tt_pengesyor")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTTPengesyor;
-	
+
 	@Column(name = "tarikh_tt_kpsu")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTTKPSU;
-	
+
 	@Column(name = "tarikh_tt_kew")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTTKew;
-	
+
 	@Column(name = "tarikh_tt_sub")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTTSUB;
-	
+
 	@Column(name = "tarikh_sst")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhSST;
-	
+
 	@Column(name = "tarikh_akhir_siap_kerja")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhAkhirSiapKerja;
-	
+
 	@Column(name = "no_rujukan_sst")
 	private String noRujukanSST;
-	
+
 	@Column(name = "tarikh_tt_sst")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTTSST;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_penyelia")
 	private Users penyelia;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_penilaian")
 	private MtnPenilaianKontraktor penilaian;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_tugasan")
-	private MtnAgihanTugas tugasan;	
-	
+	private MtnAgihanTugas tugasan;
+
 	@Column(name = "tarikh_tuntutan_bayaran")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTuntutanBayaran;
-	
+
 	@Column(name = "tarikh_hantar_kewangan")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhHantarKewangan;
-	
+
 	@Column(name = "tarikh_terima_kunci")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTerimaKunci;
-	
+
 	@Column(name = "tarikh_perakuan_siap_kerja")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhPerakuanSiapKerja;
-	
+
 	@Column(name = "tarikh_akhir_waranti")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhAkhirWaranti;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_status")
 	private Status status;
 
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users daftarOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users kemaskiniOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public MtnIndenKerja() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -320,5 +335,37 @@ public class MtnIndenKerja {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public Users getDaftarOleh() {
+		return daftarOleh;
+	}
+
+	public void setDaftarOleh(Users daftarOleh) {
+		this.daftarOleh = daftarOleh;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getKemaskiniOleh() {
+		return kemaskiniOleh;
+	}
+
+	public void setKemaskiniOleh(Users kemaskiniOleh) {
+		this.kemaskiniOleh = kemaskiniOleh;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

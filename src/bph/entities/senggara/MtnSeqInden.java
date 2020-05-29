@@ -16,17 +16,17 @@ public class MtnSeqInden {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_lokasi_permohonan")
 	private LokasiPermohonan lokasiPermohonan;
-	
+
 	@Column(name = "tahun")
 	private Integer tahun;
 
 	@Column(name = "bil")
-	private Integer bil;	
-	
+	private Integer bil;
+
 	public MtnSeqInden() {
 	}
 

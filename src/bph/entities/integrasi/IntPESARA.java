@@ -5,101 +5,120 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lebah.template.UID;
-
+import portal.module.entity.Users;
 
 @Entity
 @Table(name = "int_pesara")
 public class IntPESARA {
-	
+
 	@Id
 	@Column(name = "id")
-	private String id;	
-	
+	private String id;
+
 	@Column(name = "tarikh_hantar")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhHantar;
-	
+
 	@Column(name = "no_pengenalan")
 	private String noPengenalan;
-	
+
 	@Column(name = "tarikh_terima")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhTerima;
-	
+
 	@Column(name = "no_pengenalan_lama")
 	private String noPengenalanLama;
-	
+
 	@Column(name = "no_akaun_pencen")
 	private String noAkaunPencen;
-	
+
 	@Column(name = "tarikh_pencen")
 	@Temporal(TemporalType.DATE)
-	private Date tarikhPencen;	
-	
+	private Date tarikhPencen;
+
 	@Column(name = "id_jenis_persaraan")
 	private String idJenisPersaraan;
-	
+
 	@Column(name = "jenis_persaraan")
-	private String jenisPersaraan;	
-	
+	private String jenisPersaraan;
+
 	@Column(name = "nama")
-	private String nama;	
-	
+	private String nama;
+
 	@Column(name = "jawatan_terakhir")
 	private String jawatanTerakhir;
-	
+
 	@Column(name = "kod_jawatan")
 	private String kodJawatan;
-	
+
 	@Column(name = "kod_gaji_terakhir")
 	private String kodGajiTerakhir;
-	
+
 	@Column(name = "id_kelas_perkhidmatan")
 	private String kelasPerkhidmatan;
-	
+
 	@Column(name = "id_gred_perkhidmatan")
 	private String gredPerkhidmatan;
-	
+
 	@Column(name = "kod_cawangan")
 	private String kodCawangan;
-	
+
 	@Column(name = "cawangan")
 	private String cawangan;
-	
+
 	@Column(name = "alamat1")
 	private String alamat1;
-	
+
 	@Column(name = "alamat2")
 	private String alamat2;
-	
+
 	@Column(name = "alamat3")
 	private String alamat3;
-	
+
 	@Column(name = "poskod")
-	private String poskod;	
-	
+	private String poskod;
+
 	@Column(name = "kod_bandar")
 	private String kodBandar;
-	
+
 	@Column(name = "bandar")
 	private String bandar;
-	
+
 	@Column(name = "kod_negeri")
 	private String kodNegeri;
-	
+
 	@Column(name = "negeri")
 	private String negeri;
-	
+
 	@Column(name = "status_hidup")
 	private String statusHidup;
 
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public IntPESARA() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -308,5 +327,37 @@ public class IntPESARA {
 
 	public void setStatusHidup(String statusHidup) {
 		this.statusHidup = statusHidup;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

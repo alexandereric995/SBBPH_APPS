@@ -20,26 +20,26 @@ public class UtkSeqOperasi {
 	@Id
 	@Column(name = "id")
 	private String id;
-			
+
 	@ManyToOne
 	@JoinColumn(name = "id_zon")
 	private ZonUtk zon;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_kuarters")
 	private JenisKuartersUtk jenisKuarters;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kawasan")
 	private KawasanUtk kawasan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_operasi")
 	private JenisOperasiUtk jenisOperasi;
 
 	@Column(name = "bil")
 	private int bil;
-	
+
 	public UtkSeqOperasi() {
 		setId(UID.getUID());
 	}
@@ -91,5 +91,5 @@ public class UtkSeqOperasi {
 	public void setBil(int bil) {
 		this.bil = bil;
 	}
-				
+
 }

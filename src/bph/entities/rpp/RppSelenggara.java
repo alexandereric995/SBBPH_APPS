@@ -17,51 +17,52 @@ import portal.module.entity.Users;
 import db.persistence.MyPersistence;
 
 @Entity
-@Table(name="rpp_selenggara")
+@Table(name = "rpp_selenggara")
 public class RppSelenggara {
 
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "perkara")
-	private String perkara;  
-	  
+	private String perkara;
+
 	@Column(name = "catatan")
-	private String catatan;  
-	  
+	private String catatan;
+
 	@Column(name = "flag_jenis_selenggara")
 	private String flagJenisSelenggara; // 'UNIT / LOKASI'
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_mula")
 	private Date tarikhMula;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_tamat")
 	private Date tarikhTamat;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	@Column(name = "id_peranginan")
-	private String idPeranginan;  
-	
+	private String idPeranginan;
+
 	public RppSelenggara() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -143,27 +144,32 @@ public class RppSelenggara {
 	public void setTarikhKemaskini(Date tarikhKemaskini) {
 		this.tarikhKemaskini = tarikhKemaskini;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<RppSelenggaraUnitLokasi> getListSelenggaraLokasi() {
 		MyPersistence mp = null;
 		List<RppSelenggaraUnitLokasi> list = null;
 		try {
 			mp = new MyPersistence();
-			list = mp.list("select x from RppSelenggaraUnitLokasi x where x.rppSelenggara.id = '"+this.id+"' ");
+			list = mp
+					.list("select x from RppSelenggaraUnitLokasi x where x.rppSelenggara.id = '"
+							+ this.id + "' ");
 		} catch (Exception e) {
-			System.out.println("Error getListSelenggaraLokasi : "+e.getMessage());
-		}finally{
-			if (mp != null) { mp.close(); }
+			System.out.println("Error getListSelenggaraLokasi : "
+					+ e.getMessage());
+		} finally {
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return list;
 	}
 
 	public String getIdPeranginan() {
 		String str = idPeranginan;
-		if(this.getListSelenggaraLokasi() != null){
+		if (this.getListSelenggaraLokasi() != null) {
 			RppSelenggaraUnitLokasi obj = this.getListSelenggaraLokasi().get(0);
-			if(obj != null){
+			if (obj != null) {
 				str = obj.getRppPeranginan().getId();
 			}
 		}
@@ -173,12 +179,13 @@ public class RppSelenggara {
 	public void setIdPeranginan(String idPeranginan) {
 		this.idPeranginan = idPeranginan;
 	}
-	
-	public String keteranganJenisSelenggara(){
+
+	public String keteranganJenisSelenggara() {
 		String status = "";
-		if(this.flagJenisSelenggara !=null && this.flagJenisSelenggara.equalsIgnoreCase("LOKASI")){
+		if (this.flagJenisSelenggara != null
+				&& this.flagJenisSelenggara.equalsIgnoreCase("LOKASI")) {
 			status = "KESELURUHAN RPP";
-		}else{
+		} else {
 			status = "SEBILANGAN UNIT";
 		}
 		return status;

@@ -1,74 +1,96 @@
 package bph.entities.bil;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 import bph.entities.kod.Bandar;
 import bph.entities.kod.KodBil;
 import bph.entities.kod.Seksyen;
 import bph.entities.rpp.RppPeranginan;
 
 @Entity
-@Table(name="bil_maklumat_bil")
+@Table(name = "bil_maklumat_bil")
 public class DaftarBil {
 
 	@Id
-	@Column(name="id")
+	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_kod_bil")
+	@JoinColumn(name = "id_kod_bil")
 	private KodBil jenisBil;
-	
-	@Column(name="penerima_bayaran")
+
+	@Column(name = "penerima_bayaran")
 	private String penerimaBayaran;
-	
-	@Column(name="no_akaun")
+
+	@Column(name = "no_akaun")
 	private String noAkaun;
-	
-	@Column(name="alamat1")
+
+	@Column(name = "alamat1")
 	private String alamat1;
-	
-	@Column(name="alamat2")
+
+	@Column(name = "alamat2")
 	private String alamat2;
-	
-	@Column(name="alamat3")
+
+	@Column(name = "alamat3")
 	private String alamat3;
-	
-	@Column(name="poskod")
+
+	@Column(name = "poskod")
 	private String poskod;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "bandar")
 	private Bandar bandar;
-	
-	@Column(name="catatan")
+
+	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_seksyen")
+	@JoinColumn(name = "id_seksyen")
 	private Seksyen seksyen;
-	
-//	@Column(name="id_peranginan")
-//	private String idPeranginan;
+
+	// @Column(name="id_peranginan")
+	// private String idPeranginan;
 	@ManyToOne
-	@JoinColumn(name="id_peranginan")
+	@JoinColumn(name = "id_peranginan")
 	private RppPeranginan idPeranginan;
-	
-	@Column(name="nama_pegawai")
+
+	@Column(name = "nama_pegawai")
 	private String namaPegawai;
-	
-	@Column(name="status")
+
+	@Column(name = "status")
 	private String status;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public DaftarBil() {
 		// TODO Auto-generated constructor stub
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -151,7 +173,6 @@ public class DaftarBil {
 		this.catatan = catatan;
 	}
 
-
 	public Seksyen getSeksyen() {
 		return seksyen;
 	}
@@ -160,14 +181,14 @@ public class DaftarBil {
 		this.seksyen = seksyen;
 	}
 
-//	public String getIdPeranginan() {
-//		return idPeranginan;
-//	}
-//
-//	public void setIdPeranginan(String idPeranginan) {
-//		this.idPeranginan = idPeranginan;
-//	}
-	
+	// public String getIdPeranginan() {
+	// return idPeranginan;
+	// }
+	//
+	// public void setIdPeranginan(String idPeranginan) {
+	// this.idPeranginan = idPeranginan;
+	// }
+
 	public String getNamaPegawai() {
 		return namaPegawai;
 	}
@@ -190,6 +211,38 @@ public class DaftarBil {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 
 }

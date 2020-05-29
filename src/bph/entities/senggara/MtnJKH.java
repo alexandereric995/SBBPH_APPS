@@ -1,6 +1,5 @@
 package bph.entities.senggara;
 
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -19,88 +18,104 @@ import portal.module.entity.Users;
 @Table(name = "mtn_jkh")
 public class MtnJKH {
 
-	
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kuarters")
 	private MtnKuarters kuartersSenggara;
-	
+
 	@Column(name = "no_jkh")
 	private String noJKH;
-	
+
 	@Column(name = "tarikh_jkh")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhJKH;
-	
+
 	@Column(name = "jumlah")
 	private Double jumlah;
-	
+
 	@Column(name = "gst")
 	private Double gst;
-	
+
 	@Column(name = "jumlah_keseluruhan")
 	private Double jumlahKeseluruhan;
-	
+
 	@Column(name = "file_jkh")
 	private String fileJKH;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_penyedia")
 	private Users penyedia;
 
 	@Column(name = "catatan_penyedia")
 	private String catatanPenyedia;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_penyemak")
 	private Users penyemak;
-	
+
 	@Column(name = "tarikh_semakan")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhSemakan;
 
 	@Column(name = "catatan_penyemak")
 	private String catatanPenyemak;
-	
+
 	@Column(name = "flag_keputusan_penyemak")
 	private String flagKeputusanPenyemak;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pelulus")
 	private Users pelulus;
-	
+
 	@Column(name = "tarikh_kelulusan")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhKelulusan;
 
 	@Column(name = "catatan_pelulus")
 	private String catatanPelulus;
-	
+
 	@Column(name = "flag_keputusan_pelulus")
 	private String flagKeputusanPelulus;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_inden_kerja")
 	private MtnIndenKerja indenKerja;
-	
+
 	@Column(name = "status_pembaikan")
 	private String statusPembaikan;
-	
+
 	@Column(name = "catatan_pembaikan")
 	private String catatanPembaikan;
-	
+
 	@Column(name = "file_laporan_pembaikan")
-	private String fileLaporanPembaikan;	
-	
+	private String fileLaporanPembaikan;
+
 	@Column(name = "tarikh_selesai_pembaikan")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhSelesaiPembaikan;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users daftarOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users kemaskiniOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public MtnJKH() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -285,5 +300,37 @@ public class MtnJKH {
 
 	public void setTarikhSelesaiPembaikan(Date tarikhSelesaiPembaikan) {
 		this.tarikhSelesaiPembaikan = tarikhSelesaiPembaikan;
+	}
+
+	public Users getDaftarOleh() {
+		return daftarOleh;
+	}
+
+	public void setDaftarOleh(Users daftarOleh) {
+		this.daftarOleh = daftarOleh;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getKemaskiniOleh() {
+		return kemaskiniOleh;
+	}
+
+	public void setKemaskiniOleh(Users kemaskiniOleh) {
+		this.kemaskiniOleh = kemaskiniOleh;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

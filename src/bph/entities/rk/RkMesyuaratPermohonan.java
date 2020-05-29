@@ -21,36 +21,36 @@ public class RkMesyuaratPermohonan {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_mesyuarat")
 	private RkMesyuarat mesyuarat;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_permohonan")
 	private RkPermohonan permohonan;
-	
+
 	@Column(name = "flag_jenis_permohonan")
 	private String flagJenisPermohonan;
-	
+
 	@Column(name = "flag_keputusan")
 	private String flagKeputusan;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
@@ -59,11 +59,12 @@ public class RkMesyuaratPermohonan {
 		setId(UID.getUID());
 		setTarikhMasuk(new Date());
 		setFlagJenisPermohonan("B");
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getKeteranganKeputusan() {
 		String keputusan = "";
-		
+
 		if (this.getFlagKeputusan() != null) {
 			if ("L".equals(this.getFlagKeputusan())) {
 				keputusan = "LULUS";
@@ -75,7 +76,7 @@ public class RkMesyuaratPermohonan {
 				keputusan = "TOLAK";
 			}
 		}
-		
+
 		return keputusan;
 	}
 

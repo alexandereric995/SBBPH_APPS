@@ -21,34 +21,45 @@ public class RppCatatanPengguna {
 	@Id
 	@Column(name = "id")
 	private String id;
-	  
+
 	@ManyToOne
 	@JoinColumn(name = "id_pengguna")
 	private Users pengguna;
 
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "tarikh_daftar")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhDaftar;
-	
+
 	@Column(name = "tarikh_kemaskini")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhKemaskini;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_user_daftar")
 	private Users userDaftar;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_user_kemaskini")
 	private Users userKemaskini;
-	
-	
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
 	public RppCatatanPengguna() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -105,6 +116,30 @@ public class RppCatatanPengguna {
 
 	public void setUserKemaskini(Users userKemaskini) {
 		this.userKemaskini = userKemaskini;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
 	}
 
 }

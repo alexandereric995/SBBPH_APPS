@@ -12,9 +12,6 @@ import lebah.db.Db;
 
 import org.apache.log4j.Logger;
 
-import db.persistence.MyPersistence;
-
-import bph.entities.senggara.MtnJKH;
 import bph.laporan.ReportServlet;
 
 public class CetakNotaMinta extends ReportServlet {

@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 import bph.entities.kod.Bandar;
 import bph.entities.kod.Fasa;
 import bph.entities.kod.JenisKediaman;
@@ -31,91 +32,91 @@ public class KuaKuarters {
 	@ManyToOne
 	@JoinColumn(name = "id_lokasi_kuarters")
 	private LokasiKuarters lokasi;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kelas_kuarters")
 	private KelasKuarters kelas;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_kediaman")
 	private JenisKediaman jenisKediaman;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_kegunaan_kuarters")
 	private JenisKegunaanKuarters jenisKegunaanKuarters;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_status_kuarters")
 	private StatusKuarters statusKuarters;
-	
-//	@ManyToOne
-//	@JoinColumn(name = "id_lokasi_dibenar")
-//	private LokasiDibenar lokasiDibenar;
-	
+
+	// @ManyToOne
+	// @JoinColumn(name = "id_lokasi_dibenar")
+	// private LokasiDibenar lokasiDibenar;
+
 	@ManyToOne
 	@JoinColumn(name = "id_bandar")
 	private Bandar bandar;
-	
+
 	@Column(name = "no_rujukan")
 	private String noRujukan;
-	
+
 	@Column(name = "lot_no")
 	private String lotNo;
-	
+
 	@Column(name = "no_unit")
 	private String noUnit;
-	
+
 	@Column(name = "blok")
 	private String blok;
-	
+
 	@Column(name = "alamat_1")
 	private String alamat1;
-	
+
 	@Column(name = "alamat_2")
 	private String alamat2;
-	
+
 	@Column(name = "alamat_3")
 	private String alamat3;
-	
+
 	@Column(name = "kawasan")
 	private String kawasan;
-	
+
 	@Column(name = "poskod")
 	private String poskod;
-	
+
 	@Column(name = "kadar_sewa")
 	private Double sewa;
-	
+
 	@Column(name = "kadar_deposit")
 	private Double deposit;
-	
+
 	@Column(name = "caj_air")
 	private int cajAir;
-	
+
 	@Column(name = "kategori_penghuni")
 	private String kategoriPenghuni;
-	
+
 	@Column(name = "kapasiti")
 	private int kapasiti;
-	
+
 	@Column(name = "kapasiti_semasa")
 	private int kapasitiSemasa;
-	
+
 	@Column(name = "kekosongan")
 	private int kekosongan;
 
 	@Column(name = "flag_agihan")
 	private int flagAgihan;
-	
+
 	@Column(name = "flag_delete")
 	private int flagDelete;
-	
+
 	@Column(name = "flag_aktif")
 	private int flagAktif;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	public int getFlagDelete() {
 		return flagDelete;
 	}
@@ -127,13 +128,30 @@ public class KuaKuarters {
 	@ManyToOne
 	@JoinColumn(name = "id_fasa")
 	private Fasa fasa;
-	
+
 	@Column(name = "tarikh_serahan")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhSerahan;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public KuaKuarters() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -172,7 +190,8 @@ public class KuaKuarters {
 		return jenisKegunaanKuarters;
 	}
 
-	public void setJenisKegunaanKuarters(JenisKegunaanKuarters jenisKegunaanKuarters) {
+	public void setJenisKegunaanKuarters(
+			JenisKegunaanKuarters jenisKegunaanKuarters) {
 		this.jenisKegunaanKuarters = jenisKegunaanKuarters;
 	}
 
@@ -184,13 +203,13 @@ public class KuaKuarters {
 		this.statusKuarters = statusKuarters;
 	}
 
-//	public LokasiDibenar getLokasiDibenar() {
-//		return lokasiDibenar;
-//	}
+	// public LokasiDibenar getLokasiDibenar() {
+	// return lokasiDibenar;
+	// }
 
-//	public void setLokasiDibenar(LokasiDibenar lokasiDibenar) {
-//		this.lokasiDibenar = lokasiDibenar;
-//	}
+	// public void setLokasiDibenar(LokasiDibenar lokasiDibenar) {
+	// this.lokasiDibenar = lokasiDibenar;
+	// }
 
 	public Bandar getBandar() {
 		return bandar;
@@ -298,18 +317,18 @@ public class KuaKuarters {
 
 	public String getDetailCajAir() {
 		String detailCajAir = "TIADA";
-		
+
 		try {
 			if (getCajAir() == 1) {
 				detailCajAir = "ADA";
-			}		
+			}
 		} catch (Exception ex) {
-			
+
 		}
-		
+
 		return detailCajAir;
 	}
-	
+
 	public String getKategoriPenghuni() {
 		return kategoriPenghuni;
 	}
@@ -344,18 +363,18 @@ public class KuaKuarters {
 
 	public String getDetailKekosongan() {
 		String detailKekosongan = "KOSONG";
-		
+
 		try {
 			if (getCajAir() == 1) {
 				detailKekosongan = "BERPENGHUNI";
-			}		
+			}
 		} catch (Exception ex) {
-			
+
 		}
-		
+
 		return detailKekosongan;
 	}
-	
+
 	public int getFlagAgihan() {
 		return flagAgihan;
 	}
@@ -394,6 +413,38 @@ public class KuaKuarters {
 
 	public Date getTarikhSerahan() {
 		return tarikhSerahan;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 
 }

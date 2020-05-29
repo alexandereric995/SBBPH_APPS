@@ -30,102 +30,120 @@ public class RppRekodTempahanLondon {
 
 	@Column(name = "no_tempahan")
 	private String noTempahan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_unit_rpp")
 	private JenisUnitRPP jenisUnitRpp;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pemohon")
 	private Users pemohon;
-	
+
 	@Column(name = "tarikh_masuk_rpp")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhMasukRpp;
-	
+
 	@Column(name = "tarikh_keluar_rpp")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhKeluarRpp;
-	
+
 	@Column(name = "tarikh_daftar_rekod")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhDaftarRekod;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "id_status") //1425259713412 Status permohonan baru, 1430809277099 permohonan tidak diluluskan, 1430809277102 permohonan diluluskan
+	@JoinColumn(name = "id_status")
+	// 1425259713412 Status permohonan baru, 1430809277099 permohonan tidak
+	// diluluskan, 1430809277102 permohonan diluluskan
 	private Status status;
-	
+
 	@Column(name = "catatan_hq")
 	private String catatanHq;
-	
+
 	@Column(name = "debit")
 	private Double debit;
-	
+
 	@Column(name = "kredit")
 	private Double kredit;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_transaksi")
 	private Date tarikhTransaksi;
-	
+
 	@Column(name = "flag_bayar")
-	private String flagBayar; // Y = TELAH BAYAR / T = BELUM 
-	
-	
+	private String flagBayar; // Y = TELAH BAYAR / T = BELUM
+
 	/** BAGI PEMOHON YANG TIADA DALAM DB. * */
-	
-	@Column(name="nama_pemohon")
+
+	@Column(name = "nama_pemohon")
 	private String namaPemohon;
-	
-	@Column(name="no_kp")
+
+	@Column(name = "no_kp")
 	private String noKp;
-	
+
 	@Column(name = "no_telefon_pejabat")
 	private String noTelefonPejabat;
 
 	@Column(name = "no_telefon_bimbit")
 	private String noTelefonBimbit;
-	
+
 	@Column(name = "no_faks")
 	private String noFaks;
 
 	@Column(name = "emel")
 	private String emel;
-	
+
 	@Column(name = "jawatan_gred")
 	private String jawatanGred;
-	
+
 	@Column(name = "kementerian_jabatan")
 	private String kementerianJabatan;
-	
+
 	@Column(name = "alamat_pejabat_1")
 	private String alamatPejabat1;
-	
+
 	@Column(name = "alamat_pejabat_2")
 	private String alamatPejabat2;
-	
+
 	@Column(name = "alamat_pejabat_3")
 	private String alamatPejabat3;
-	
+
 	@Column(name = "flag_kelulusan_pmo")
 	private String flagKelulusanPmo;
-	
-	
-	//Direct get maklumat resit sewa & deposit.
-	//One to one sebab bayar sekali shj
+
+	// Direct get maklumat resit sewa & deposit.
+	// One to one sebab bayar sekali shj
 	@OneToOne
 	@JoinColumn(name = "id_resit_sewa")
 	private KewBayaranResit resitSewa;
-	
-	
-	/**TAK PAKAI LAGI
-	@OneToOne
-	@JoinColumn(name = "id_resit_deposit")
-	private KewBayaranResit resitDeposit;
-	*/
-	
+
+	/**
+	 * TAK PAKAI LAGI
+	 * 
+	 * @OneToOne
+	 * @JoinColumn(name = "id_resit_deposit") private KewBayaranResit
+	 *                  resitDeposit;
+	 */
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public RppRekodTempahanLondon() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -319,7 +337,7 @@ public class RppRekodTempahanLondon {
 	public void setNoKp(String noKp) {
 		this.noKp = noKp;
 	}
-	
+
 	public String getNoTempahan() {
 		return noTempahan;
 	}
@@ -330,17 +348,16 @@ public class RppRekodTempahanLondon {
 
 	public Integer getTotalBilMalam() {
 		Integer days = 0;
-		if(this.tarikhKeluarRpp != null && this.tarikhMasukRpp != null){
-			days = (int)( (tarikhKeluarRpp.getTime() - tarikhMasukRpp.getTime()) / (1000 * 60 * 60 * 24) );
+		if (this.tarikhKeluarRpp != null && this.tarikhMasukRpp != null) {
+			days = (int) ((tarikhKeluarRpp.getTime() - tarikhMasukRpp.getTime()) / (1000 * 60 * 60 * 24));
 		}
 		return days;
 	}
-	
-	
-	public Map<String, Object> getMaklumatPemohon(){
-		
+
+	public Map<String, Object> getMaklumatPemohon() {
+
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+
 		String nokp = "";
 		String nama = "";
 		String noTelPejabat = "";
@@ -352,20 +369,29 @@ public class RppRekodTempahanLondon {
 		String alamatPejabat1 = "";
 		String alamatPejabat2 = "";
 		String alamatPejabat3 = "";
-		
-		if( this.pemohon != null ){
-			nokp = this.pemohon.getNoKP()!=null?this.pemohon.getNoKP():"";
-			nama = this.pemohon.getUserName()!=null?this.pemohon.getUserName():"";
-			noTelPejabat = this.pemohon.getNoTelefonPejabat()!=null?this.pemohon.getNoTelefonPejabat():"";
-			noTelBimbit = this.pemohon.getNoTelefonBimbit()!=null?this.pemohon.getNoTelefonBimbit():"";
-			emel = this.pemohon.getEmel()!=null?this.pemohon.getEmel():"";
-			noFaks = this.pemohon.getNoFaks()!=null?this.pemohon.getNoFaks():"";
-			jawatanDanGred = this.pemohon.getGredPerkhidmatan()!=null?this.pemohon.getGredPerkhidmatan().getKeterangan():"";
-			kementerianJabatan = this.pemohon.getAgensi()!=null?this.pemohon.getAgensi().getKeterangan():"";
-			alamatPejabat1 = this.pemohon.getAlamat1()!=null?this.pemohon.getAlamat1():"";
-			alamatPejabat2 = this.pemohon.getAlamat2()!=null?this.pemohon.getAlamat2():"";
-			alamatPejabat3 = this.pemohon.getAlamat3()!=null?this.pemohon.getAlamat3():"";
-		}else{
+
+		if (this.pemohon != null) {
+			nokp = this.pemohon.getNoKP() != null ? this.pemohon.getNoKP() : "";
+			nama = this.pemohon.getUserName() != null ? this.pemohon
+					.getUserName() : "";
+			noTelPejabat = this.pemohon.getNoTelefonPejabat() != null ? this.pemohon
+					.getNoTelefonPejabat() : "";
+			noTelBimbit = this.pemohon.getNoTelefonBimbit() != null ? this.pemohon
+					.getNoTelefonBimbit() : "";
+			emel = this.pemohon.getEmel() != null ? this.pemohon.getEmel() : "";
+			noFaks = this.pemohon.getNoFaks() != null ? this.pemohon
+					.getNoFaks() : "";
+			jawatanDanGred = this.pemohon.getGredPerkhidmatan() != null ? this.pemohon
+					.getGredPerkhidmatan().getKeterangan() : "";
+			kementerianJabatan = this.pemohon.getAgensi() != null ? this.pemohon
+					.getAgensi().getKeterangan() : "";
+			alamatPejabat1 = this.pemohon.getAlamat1() != null ? this.pemohon
+					.getAlamat1() : "";
+			alamatPejabat2 = this.pemohon.getAlamat2() != null ? this.pemohon
+					.getAlamat2() : "";
+			alamatPejabat3 = this.pemohon.getAlamat3() != null ? this.pemohon
+					.getAlamat3() : "";
+		} else {
 			nokp = this.getNoKp();
 			nama = this.getNamaPemohon();
 			noTelPejabat = this.getNoTelefonPejabat();
@@ -378,27 +404,27 @@ public class RppRekodTempahanLondon {
 			alamatPejabat2 = this.getAlamatPejabat2();
 			alamatPejabat3 = this.getAlamatPejabat3();
 		}
-		
+
 		map.put("nokp", nokp);
 		map.put("nama", nama);
 		map.put("noTelPejabat", noTelPejabat);
 		map.put("noTelBimbit", noTelBimbit);
 		map.put("emel", emel);
-		map.put("noFaks",noFaks);
+		map.put("noFaks", noFaks);
 		map.put("jawatanDanGred", jawatanDanGred);
 		map.put("kementerianJabatan", kementerianJabatan);
 		map.put("alamatPejabat1", alamatPejabat1);
 		map.put("alamatPejabat2", alamatPejabat2);
 		map.put("alamatPejabat3", alamatPejabat3);
-		
+
 		return map;
 	}
-	
-	public String keteranganStatusBayaran(){
+
+	public String keteranganStatusBayaran() {
 		String status = "";
-		if(this.flagBayar !=null && this.flagBayar.equalsIgnoreCase("Y")){
+		if (this.flagBayar != null && this.flagBayar.equalsIgnoreCase("Y")) {
 			status = "TELAH BAYAR";
-		}else{
+		} else {
 			status = "BELUM BAYAR";
 		}
 		return status;
@@ -411,15 +437,49 @@ public class RppRekodTempahanLondon {
 	public void setFlagKelulusanPmo(String flagKelulusanPmo) {
 		this.flagKelulusanPmo = flagKelulusanPmo;
 	}
-	
-	public String keteranganKelulusanPmo(){
+
+	public String keteranganKelulusanPmo() {
 		String status = "";
-		if(this.flagKelulusanPmo !=null && this.flagKelulusanPmo.equalsIgnoreCase("Y")){
+		if (this.flagKelulusanPmo != null
+				&& this.flagKelulusanPmo.equalsIgnoreCase("Y")) {
 			status = "DILULUSKAN PMO";
-		}else if(this.flagKelulusanPmo !=null && this.flagKelulusanPmo.equalsIgnoreCase("T")){
+		} else if (this.flagKelulusanPmo != null
+				&& this.flagKelulusanPmo.equalsIgnoreCase("T")) {
 			status = "TIDAK DILULUSKAN PMO";
 		}
 		return status;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 
 }

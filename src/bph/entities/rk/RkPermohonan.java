@@ -23,9 +23,9 @@ import bph.entities.kod.Status;
 @Entity
 @Table(name = "rk_permohonan")
 public class RkPermohonan {
-	
+
 	private static String kodHasilDeposit = "79503"; // DEPOSIT PELBAGAI
-	
+
 	@Id
 	@Column(name = "id")
 	private String id;
@@ -33,101 +33,101 @@ public class RkPermohonan {
 	@ManyToOne
 	@JoinColumn(name = "id_fail")
 	private RkFail fail;
-	
+
 	@Column(name = "no_permohonan")
 	private String noPermohonan;
-	
+
 	@Column(name = "id_jenis_permohonan")
 	private String idJenisPermohonan;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_permohonan")
+	@Column(name = "tarikh_permohonan")
 	private Date tarikhPermohonan;
-	
+
 	@Column(name = "no_rujukan_permohonan")
 	private String noRujukanPermohonan;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_terima_permohonan")
+	@Column(name = "tarikh_terima_permohonan")
 	private Date tarikhTerimaPermohonan;
-	
+
 	@Column(name = "id_jenis_sewa")
 	private String idJenisSewa;
-	
+
 	@Column(name = "kadar_sewa_jpph")
 	private double kadarSewaJPPH;
-	
+
 	@Column(name = "harga_tawaran_sewa")
 	private double hargaTawaranSewa;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_mula_operasi")
-	private Date tarikhMulaOperasi;	
-	
+	@Column(name = "tarikh_mula_operasi")
+	private Date tarikhMulaOperasi;
+
 	@Column(name = "tempoh")
 	private int tempoh;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_tamat_operasi")
-	private Date tarikhTamatOperasi;		
-	
+	@Column(name = "tarikh_tamat_operasi")
+	private Date tarikhTamatOperasi;
+
 	@ManyToOne
 	@JoinColumn(name = "id_status")
 	private Status status;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
 
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "ulasan_kertas_pertimbangan")
 	private String ulasanKertasPertimbangan;
-	
+
 	@Column(name = "syor_kertas_pertimbangan")
 	private String syorKertasPertimbangan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_mesyuarat")
 	private RkMesyuarat mesyuarat;
-	
+
 	@Column(name = "flag_keputusan_mesyuarat")
 	private String flagKeputusanMesyuarat;
-	
+
 	@Column(name = "catatan_keputusan_mesyuarat")
 	private String catatanKeputusanMesyuarat;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pegawai_batal")
 	private Users batalOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="tarikh_batal")
+	@Column(name = "tarikh_batal")
 	private Date tarikhBatal;
-	
+
 	@Column(name = "catatan_batal")
-	private String catatanBatal;	
-	
+	private String catatanBatal;
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="tarikh_masuk")
+	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="tarikh_kemaskini")
+	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="permohonan", fetch=FetchType.EAGER)
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "permohonan", fetch = FetchType.EAGER)
 	private List<RkAkaun> listAkaun;
-	
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="permohonan", fetch=FetchType.EAGER)
+
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "permohonan", fetch = FetchType.EAGER)
 	private RkSST sst;
 
 	public RkPermohonan() {
@@ -135,30 +135,30 @@ public class RkPermohonan {
 		setTarikhMasuk(new Date());
 		setFlagAktif("Y");
 	}
-	
-	public String getJenisPermohonan(){
-		
+
+	public String getJenisPermohonan() {
+
 		String idJenisPermohonan = this.idJenisPermohonan;
 		String jenisPermohonan = "";
-		
-		if("1".equals(idJenisPermohonan)){
+
+		if ("1".equals(idJenisPermohonan)) {
 			jenisPermohonan = "PERMOHONAN BARU";
-		} else if("2".equals(idJenisPermohonan)){
+		} else if ("2".equals(idJenisPermohonan)) {
 			jenisPermohonan = "PERMOHONAN PERLANJUTAN";
-		} else if("3".equals(idJenisPermohonan)){
+		} else if ("3".equals(idJenisPermohonan)) {
 			jenisPermohonan = "PERMOHONAN PENGURANGAN KADAR SEWA";
-		} else if("4".equals(idJenisPermohonan)){
+		} else if ("4".equals(idJenisPermohonan)) {
 			jenisPermohonan = "PERMOHONAN PENGECUALIAN BAYARAN SEWA";
-		} else if("5".equals(idJenisPermohonan)){
+		} else if ("5".equals(idJenisPermohonan)) {
 			jenisPermohonan = "LAIN-LAIN";
 		}
-		
+
 		return jenisPermohonan;
 	}
-	
+
 	public String getKeteranganKeputusanMesyuarat() {
 		String keputusan = "";
-		
+
 		if (this.getFlagKeputusanMesyuarat() != null) {
 			if ("L".equals(this.getFlagKeputusanMesyuarat())) {
 				keputusan = "LULUS";
@@ -169,10 +169,10 @@ public class RkPermohonan {
 			} else if ("T".equals(this.getFlagKeputusanMesyuarat())) {
 				keputusan = "TOLAK";
 			}
-		}		
+		}
 		return keputusan;
 	}
-	
+
 	public String getStatusBayaranDeposit() {
 		String statusBayaran = "T";
 		try {
@@ -182,18 +182,19 @@ public class RkPermohonan {
 					if (listAkaun != null) {
 						for (RkAkaun akaun : listAkaun) {
 							if ("Y".equals(akaun.getFlagAktif())) {
-								if (kodHasilDeposit.equals(akaun.getKodHasil().getId())) {
+								if (kodHasilDeposit.equals(akaun.getKodHasil()
+										.getId())) {
 									statusBayaran = "Y";
 								}
-							} 
+							}
 						}
 					}
 				} else {
 					statusBayaran = "0";
 				}
 			}
-			
-		} catch (Exception ex){
+
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		return statusBayaran;

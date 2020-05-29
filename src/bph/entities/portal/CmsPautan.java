@@ -21,42 +21,43 @@ public class CmsPautan {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "tajuk")
 	private String tajuk;
-	
+
 	@Column(name = "url")
-	private String url;	
-	
+	private String url;
+
 	@Column(name = "file_name")
 	private String fileName;
-	
+
 	@Column(name = "avatar_name")
 	private String avatarName;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public CmsPautan() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getKeteranganFlagAktif() {
 		String status = "";
 		if (this.flagAktif != null) {

@@ -31,53 +31,53 @@ import bph.utils.UtilRpp;
 import db.persistence.MyPersistence;
 
 @Entity
-@Table(name="rpp_unit")
+@Table(name = "rpp_unit")
 public class RppUnit {
 
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_bangunan")
 	private DevBangunan bangunan;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_ruang")
 	private DevRuang ruang;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_unit")
 	private JenisUnitRPP jenisUnit;
-	
+
 	@Column(name = "nama_unit")
 	private String namaUnit;
-	
+
 	@Column(name = "no_unit")
 	private String noUnit;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "status")
 	private String status;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public RppUnit() {
 		setId(UID.getUID());
 		setTarikhMasuk(new Date());
@@ -146,123 +146,169 @@ public class RppUnit {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	/** 
+
+	/**
 	 * Untuk Blocking / Selenggara
 	 */
-	public String getCheckedFlag(String idSelenggara) throws Exception{
+	public String getCheckedFlag(String idSelenggara) throws Exception {
 		MyPersistence mp = null;
 		String str = "";
 		try {
 			mp = new MyPersistence();
-			
-			RppSelenggaraUnitLokasi obj =  null;
-			if(idSelenggara!=null && this.id!=null){
-				obj = (RppSelenggaraUnitLokasi) mp.get("select x from RppSelenggaraUnitLokasi x "+
-						" where x.rppSelenggara.id = '"+idSelenggara+"' and x.rppUnit.id = '"+this.id+"' ");
+
+			RppSelenggaraUnitLokasi obj = null;
+			if (idSelenggara != null && this.id != null) {
+				obj = (RppSelenggaraUnitLokasi) mp
+						.get("select x from RppSelenggaraUnitLokasi x "
+								+ " where x.rppSelenggara.id = '"
+								+ idSelenggara + "' and x.rppUnit.id = '"
+								+ this.id + "' ");
 			}
-			
-			if(obj!=null){
+
+			if (obj != null) {
 				str = "Y";
 			}
-			
+
 		} catch (Exception e) {
-			System.out.println("Error getCheckedFlag : "+e.getMessage());
-		}finally{
-			if (mp != null) { mp.close(); }
+			System.out.println("Error getCheckedFlag : " + e.getMessage());
+		} finally {
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return str;
 	}
-	
-	/** 
+
+	/**
 	 * Get status availabity for Blocking / Selenggara
 	 */
 	@SuppressWarnings("unchecked")
-	public List<RppJadualTempahan> getStatusUnit(String idSelenggara){
+	public List<RppJadualTempahan> getStatusUnit(String idSelenggara) {
 		MyPersistence mp = null;
 		List<RppJadualTempahan> list = null;
 		try {
 			mp = new MyPersistence();
-			RppSelenggara obj =  null;
-			if(idSelenggara!=null && this.id!=null){
-				obj = (RppSelenggara) mp.get("select x from RppSelenggara x where x.id = '"+idSelenggara+"' ");
+			RppSelenggara obj = null;
+			if (idSelenggara != null && this.id != null) {
+				obj = (RppSelenggara) mp
+						.get("select x from RppSelenggara x where x.id = '"
+								+ idSelenggara + "' ");
 			}
-			
-			if(this.id != null && obj != null){
-				String tarikhMula = new SimpleDateFormat("yyyy-MM-dd").format(obj.getTarikhMula());
-				String tarikhTamat = new SimpleDateFormat("yyyy-MM-dd").format(obj.getTarikhTamat());
-				list = mp.list("select x from RppJadualTempahan x where x.unit.id = '"+this.id+"' "+
-							   " and ((x.tarikhMula <= '"+tarikhMula+"' AND x.tarikhTamat > '"+tarikhMula+"') "
-							   + "	OR (x.tarikhMula < '"+tarikhTamat+"' AND x.tarikhTamat >= '"+tarikhTamat+"') "
-							   + " 	OR (x.tarikhMula >= '"+tarikhMula+"' AND x.tarikhTamat < '"+tarikhTamat+"')) ");
+
+			if (this.id != null && obj != null) {
+				String tarikhMula = new SimpleDateFormat("yyyy-MM-dd")
+						.format(obj.getTarikhMula());
+				String tarikhTamat = new SimpleDateFormat("yyyy-MM-dd")
+						.format(obj.getTarikhTamat());
+				list = mp
+						.list("select x from RppJadualTempahan x where x.unit.id = '"
+								+ this.id
+								+ "' "
+								+ " and ((x.tarikhMula <= '"
+								+ tarikhMula
+								+ "' AND x.tarikhTamat > '"
+								+ tarikhMula
+								+ "') "
+								+ "	OR (x.tarikhMula < '"
+								+ tarikhTamat
+								+ "' AND x.tarikhTamat >= '"
+								+ tarikhTamat
+								+ "') "
+								+ " 	OR (x.tarikhMula >= '"
+								+ tarikhMula
+								+ "' AND x.tarikhTamat < '"
+								+ tarikhTamat
+								+ "')) ");
 			}
-			
+
 		} catch (Exception e) {
-			System.out.println("Error getStatusUnit : "+e.getMessage());
-		}finally{
-			if (mp != null) { mp.close(); }
+			System.out.println("Error getStatusUnit : " + e.getMessage());
+		} finally {
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return list;
 	}
-	
-	/** 
+
+	/**
 	 * Checking bilik diselenggara
 	 */
-	public String getCheckedSelenggara(String strDateIn, String strDateOut) throws Exception{
+	public String getCheckedSelenggara(String strDateIn, String strDateOut)
+			throws Exception {
 		String selenggara = "T";
 		Db db1 = null;
 		String sql = "";
-		
-		try{
+
+		try {
 			db1 = new Db();
-			sql = "select a1.id_unit from rpp_selenggara_unit_lokasi a1, rpp_selenggara b " 
-					+" where a1.id_selenggara = b.id "
-					+" and b.flag_jenis_selenggara = 'UNIT' and a1.id_unit = "+this.id+" "
-					+" and ((b.tarikh_mula <= '"+strDateIn+"' AND b.tarikh_tamat > '"+strDateIn+"')  "
-					+" OR (b.tarikh_mula < '"+strDateOut+"' AND b.tarikh_tamat >= '"+strDateOut+"')   "
-					+" OR (b.tarikh_mula >= '"+strDateIn+"' AND b.tarikh_tamat < '"+strDateOut+"')) ";
-			
+			sql = "select a1.id_unit from rpp_selenggara_unit_lokasi a1, rpp_selenggara b "
+					+ " where a1.id_selenggara = b.id "
+					+ " and b.flag_jenis_selenggara = 'UNIT' and a1.id_unit = "
+					+ this.id
+					+ " "
+					+ " and ((b.tarikh_mula <= '"
+					+ strDateIn
+					+ "' AND b.tarikh_tamat > '"
+					+ strDateIn
+					+ "')  "
+					+ " OR (b.tarikh_mula < '"
+					+ strDateOut
+					+ "' AND b.tarikh_tamat >= '"
+					+ strDateOut
+					+ "')   "
+					+ " OR (b.tarikh_mula >= '"
+					+ strDateIn
+					+ "' AND b.tarikh_tamat < '" + strDateOut + "')) ";
+
 			ResultSet rs = db1.getStatement().executeQuery(sql);
-			
-			if (rs.next()){
+
+			if (rs.next()) {
 				selenggara = "Y";
 			}
-			
-		}catch(Exception e){
-			System.out.println("error getCheckedSelenggara : "+e.getMessage());
-		}finally { 
-			if ( db1 != null ) db1.close();
-		}	
-		
+
+		} catch (Exception e) {
+			System.out
+					.println("error getCheckedSelenggara : " + e.getMessage());
+		} finally {
+			if (db1 != null)
+				db1.close();
+		}
+
 		return selenggara;
 	}
-	
-	public List<Object> listKekosonganByUnit(Date dtIn, Date dtOut) throws Exception{
-		
-		//List<RppUnit> list = null;
+
+	public List<Object> listKekosonganByUnit(Date dtIn, Date dtOut)
+			throws Exception {
+
+		// List<RppUnit> list = null;
 		List<Object> list = new ArrayList<Object>();
-		
+
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(dtIn);
-		
-		while(calendar.getTime().before(dtOut) /*|| calendar.getTime().equals(dtOut)*/){
+
+		while (calendar.getTime().before(dtOut) /*
+												 * ||
+												 * calendar.getTime().equals(dtOut
+												 * )
+												 */) {
 			Date result = calendar.getTime();
 			calendar.add(Calendar.DATE, 1);
 			String strdate = Util.getDateTime(result, "yyyy-MM-dd");
 			String displaydate = Util.getDateTime(result, "dd/MM/yyyy");
-			
+
 			String available = "T";
-			if(UtilRpp.checkingAvailableAndSelenggaraDaily(this, strdate) == true){
+			if (UtilRpp.checkingAvailableAndSelenggaraDaily(this, strdate) == true) {
 				available = "Y";
 			}
-			
+
 			Map<String, Object> hmap = new HashMap<String, Object>();
 			hmap.put("tarikhLoop", displaydate);
 			hmap.put("flagAvailable", available);
-			
+
 			list.add(hmap);
 		}
-		
+
 		return list;
 	}
 
@@ -297,6 +343,5 @@ public class RppUnit {
 	public void setTarikhKemaskini(Date tarikhKemaskini) {
 		this.tarikhKemaskini = tarikhKemaskini;
 	}
-	
-	
+
 }

@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 
 @Entity
 @Table(name = "dev_eot")
@@ -20,37 +21,54 @@ public class DevEOT {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_cadangan")
 	private DevCadangan cadangan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_mohon")
 	private Date tarikhMohon;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_eot_mohon")
 	private Date tarikhEOTMohon;
 
 	@Column(name = "tempoh_eot_mohon")
 	private String tempohEOTMohon;
-	
+
 	@Column(name = "catatan_mohon")
 	private String catatanMohon;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_eot_lulus")
 	private Date tarikhEOTLulus;
 
 	@Column(name = "tempoh_eot_lulus")
 	private String tempohEOTLulus;
-	
+
 	@Column(name = "catatan_lulus")
 	private String catatanLulus;
 
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public DevEOT() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -123,5 +141,37 @@ public class DevEOT {
 
 	public void setCatatanLulus(String catatanLulus) {
 		this.catatanLulus = catatanLulus;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

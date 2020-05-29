@@ -20,189 +20,189 @@ import bph.entities.kod.Seksyen;
 @Entity
 @Table(name = "rk_ruang_komersil")
 public class RkRuangKomersil {
-	
+
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "id_ruang")
 	private String idRuang;
-	
+
 	@Column(name = "id_ruang_lama")
 	private String idRuangLama;
-	
+
 	@Column(name = "nama_ruang")
 	private String namaRuang;
-	
+
 	@Column(name = "alamat1")
 	private String alamat1;
-	
+
 	@Column(name = "alamat2")
 	private String alamat2;
-	
+
 	@Column(name = "alamat3")
 	private String alamat3;
-	
+
 	@Column(name = "poskod")
 	private String poskod;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_bandar")
 	private Bandar bandar;
-	
+
 	@Column(name = "lokasi")
 	private String lokasi;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_seksyen")
+	@JoinColumn(name = "id_seksyen")
 	private Seksyen seksyen;
-	
+
 	@Column(name = "nama_pegawai")
 	private String namaPegawai;
-	
+
 	@Column(name = "no_telefon_pegawai")
 	private String noTelefonPegawai;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_kegunaan_ruang")
 	private JenisKegunaanRuang jenisKegunaanRuang;
-	
+
 	@Column(name = "jenis_kegunaan_lain")
 	private String jenisKegunaanLain;
-	
+
 	@Column(name = "jenis_meter_air")
 	private String jenisMeterAir;
-	
+
 	@Column(name = "jenis_meter_elektrik")
 	private String jenisMeterElektrik;
-	
+
 	@Column(name = "jenis_meter_iwk")
 	private String jenisMeterIWK;
-	
+
 	@Column(name = "id_jenis_sewa")
 	private String idJenisSewa;
-		
+
 	@Column(name = "kadar_sewa")
 	private double kadarSewa;
-	
+
 	@Column(name = "luas_mps")
 	private double luasMps;
-	
+
 	@Column(name = "luas_kps")
 	private double luasKps;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "flag_sewa")
 	private String flagSewa;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@Column(name = "flag_syspintar")
 	private String flagSyspintar;
-	
+
 	@Column(name = "turutan")
 	private int turutan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="tarikh_masuk")
+	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="tarikh_kemaskini")
+	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public RkRuangKomersil() {
 		setId(UID.getUID());
 		setTarikhMasuk(new Date());
 		setFlagSyspintar("T");
 	}
-	
-	public String getKeteranganFlagSewa(){
-		
+
+	public String getKeteranganFlagSewa() {
+
 		String flagSewa = this.flagSewa;
 		String keterangan = "";
-		
-		if("Y".equals(flagSewa)){
+
+		if ("Y".equals(flagSewa)) {
 			keterangan = "DISEWA";
-		} else if("T".equals(flagSewa)){
+		} else if ("T".equals(flagSewa)) {
 			keterangan = "KOSONG";
 		}
-		
+
 		return keterangan;
 	}
-	
-	public String getKeteranganIdJenisSewa(){
-		
+
+	public String getKeteranganIdJenisSewa() {
+
 		String idJenisSewa = this.idJenisSewa;
 		String keterangan = "";
-		
-		if("H".equals(idJenisSewa)){
+
+		if ("H".equals(idJenisSewa)) {
 			keterangan = "HARIAN";
-		} else if("B".equals(idJenisSewa)){
+		} else if ("B".equals(idJenisSewa)) {
 			keterangan = "BULANAN";
-		} else if("T".equals(idJenisSewa)){
+		} else if ("T".equals(idJenisSewa)) {
 			keterangan = "TAHUNAN";
 		}
-		
+
 		return keterangan;
 	}
-	
-	public String getKeteranganJenisMeterAir(){
-		
+
+	public String getKeteranganJenisMeterAir() {
+
 		String jenisMeterAir = this.jenisMeterAir;
 		String keterangan = "";
-		
-		if("B".equals(jenisMeterAir)){
+
+		if ("B".equals(jenisMeterAir)) {
 			keterangan = "BERASINGAN";
-		} else if("P".equals(jenisMeterAir)){
+		} else if ("P".equals(jenisMeterAir)) {
 			keterangan = "PUKAL";
-		} else if("T".equals(jenisMeterAir)){
+		} else if ("T".equals(jenisMeterAir)) {
 			keterangan = "TIADA";
 		}
-		
+
 		return keterangan;
 	}
-	
-	public String getKeteranganJenisMeterElektrik(){
-		
+
+	public String getKeteranganJenisMeterElektrik() {
+
 		String jenisMeterElektrik = this.jenisMeterElektrik;
 		String keterangan = "";
-		
-		if("B".equals(jenisMeterElektrik)){
+
+		if ("B".equals(jenisMeterElektrik)) {
 			keterangan = "BERASINGAN";
-		} else if("P".equals(jenisMeterElektrik)){
+		} else if ("P".equals(jenisMeterElektrik)) {
 			keterangan = "PUKAL";
-		} else if("T".equals(jenisMeterElektrik)){
+		} else if ("T".equals(jenisMeterElektrik)) {
 			keterangan = "TIADA";
 		}
-		
+
 		return keterangan;
 	}
-	
-	public String getKeteranganJenisMeterIWK(){
-		
+
+	public String getKeteranganJenisMeterIWK() {
+
 		String jenismeterIWK = this.jenisMeterIWK;
 		String keterangan = "";
-		
-		if("B".equals(jenismeterIWK)){
+
+		if ("B".equals(jenismeterIWK)) {
 			keterangan = "BERASINGAN";
-		} else if("P".equals(jenismeterIWK)){
+		} else if ("P".equals(jenismeterIWK)) {
 			keterangan = "PUKAL";
-		} else if("T".equals(jenismeterIWK)){
+		} else if ("T".equals(jenismeterIWK)) {
 			keterangan = "TIADA";
 		}
-		
+
 		return keterangan;
 	}
 

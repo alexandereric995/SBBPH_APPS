@@ -23,143 +23,143 @@ public class KuaPermohonanNGO {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "no_fail")
 	private String noFail;
-	
+
 	@Column(name = "jenis_permohonan")
 	private String jenisPermohonan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_status")
 	private Status status;
-	
+
 	@Column(name = "no_rujukan_permohonan")
 	private String noRujukanPermohonan;
-	
+
 	@Column(name = "tarikh_permohonan")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhPermohonan;
-	
+
 	@Column(name = "tarikh_terima_permohonan")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTerimaPermohonan;
-	
+
 	@Column(name = "id_pemohon")
 	private String idPemohon;
-	
+
 	@Column(name = "nama_pemohon")
 	private String namaPemohon;
-	
+
 	@Column(name = "jawatan_pemohon")
 	private String jawatanPemohon;
-	
+
 	@Column(name = "alamat1_pemohon")
 	private String alamat1Pemohon;
-	
+
 	@Column(name = "alamat2_pemohon")
 	private String alamat2Pemohon;
-	
+
 	@Column(name = "alamat3_pemohon")
 	private String alamat3Pemohon;
-	
+
 	@Column(name = "poskod_pemohon")
 	private String poskodPemohon;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_bandar_pemohon")
 	private Bandar bandarPemohon;
-	
+
 	@Column(name = "no_telefon_bimbit")
 	private String noTelefonBimbit;
-	
+
 	@Column(name = "emel")
 	private String emel;
-	
+
 	@Column(name = "nama_agensi")
 	private String namaAgensi;
-	
+
 	@Column(name = "alamat1_agensi")
 	private String alamat1Agensi;
-	
+
 	@Column(name = "alamat2_agensi")
 	private String alamat2Agensi;
-	
+
 	@Column(name = "alamat3_agensi")
 	private String alamat3Agensi;
-	
+
 	@Column(name = "poskod_agensi")
 	private String poskodAgensi;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_bandar_agensi")
 	private Bandar bandarAgensi;
-	
+
 	@Column(name = "no_telefon")
 	private String noTelefon;
-	
+
 	@Column(name = "no_faks")
 	private String noFaks;
-	
+
 	@Column(name = "catatan_permohonan")
 	private String catatanPermohonan;
-	
+
 	@Column(name = "tarikh_hantar_sub")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhHantarSUB;
-	
+
 	@Column(name = "tarikh_terima_keputusan_sub")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTerimaKeputusanSUB;
-	
+
 	@Column(name = "flag_keputusan_sub")
 	private String flagKeputusanSUB;
-	
+
 	@Column(name = "catatan_sub")
 	private String catatanSUB;
-	
+
 	@Column(name = "tarikh_hantar_tksu")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhHantarTKSU;
-	
+
 	@Column(name = "tarikh_terima_keputusan_tksu")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTerimaKeputusanTKSU;
-	
+
 	@Column(name = "flag_keputusan_tksu")
 	private String flagKeputusanTKSU;
-	
+
 	@Column(name = "catatan_tksu")
 	private String catatanTKSU;
-	
+
 	@Column(name = "tarikh_hantar_tksuk")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhHantarTKSUK;
-	
+
 	@Column(name = "tarikh_terima_keputusan_tksuk")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTerimaKeputusanTKSUK;
-	
+
 	@Column(name = "flag_keputusan_tksuk")
 	private String flagKeputusanTKSUK;
-	
+
 	@Column(name = "catatan_tksuk")
 	private String catatanTKSUK;
-	
+
 	@Column(name = "tarikh_hantar_ksn")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhHantarKSN;
-	
+
 	@Column(name = "tarikh_terima_keputusan_ksn")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTerimaKeputusanKSN;
-	
+
 	@Column(name = "flag_keputusan_ksn")
 	private String flagKeputusanKSN;
-	
+
 	@Column(name = "catatan_ksn")
 	private String catatanKSN;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_batal_permohonan")
 	private Users batalOleh;
@@ -167,10 +167,10 @@ public class KuaPermohonanNGO {
 	@Column(name = "tarikh_batal")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhBatal;
-	
+
 	@Column(name = "catatan_batal")
 	private String catatanBatal;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
@@ -178,7 +178,7 @@ public class KuaPermohonanNGO {
 	@Column(name = "tarikh_masuk")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhDaftar;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
@@ -186,88 +186,88 @@ public class KuaPermohonanNGO {
 	@Column(name = "tarikh_kemaskini")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhKemaskini;
-	
+
 	public KuaPermohonanNGO() {
 		setId(UID.getUID());
 		setJenisPermohonan("1");
 		setTarikhDaftar(new Date());
 	}
-	
-	public String getKeteranganJenisPermohonan(){
-		
+
+	public String getKeteranganJenisPermohonan() {
+
 		String idJenisPermohonan = this.jenisPermohonan;
 		String jenisPermohonan = "";
-		
-		if("1".equals(idJenisPermohonan)){
+
+		if ("1".equals(idJenisPermohonan)) {
 			jenisPermohonan = "PERMOHONAN BARU";
-		} else if("2".equals(idJenisPermohonan)){
+		} else if ("2".equals(idJenisPermohonan)) {
 			jenisPermohonan = "PERMOHONAN PERLANJUTAN";
-		} else if("3".equals(idJenisPermohonan)){
+		} else if ("3".equals(idJenisPermohonan)) {
 			jenisPermohonan = "PERMOHONAN PENGURANGAN KADAR SEWA";
-		} else if("4".equals(idJenisPermohonan)){
+		} else if ("4".equals(idJenisPermohonan)) {
 			jenisPermohonan = "PERMOHONAN PENGECUALIAN BAYARAN SEWA";
-		} else if("5".equals(idJenisPermohonan)){
+		} else if ("5".equals(idJenisPermohonan)) {
 			jenisPermohonan = "PERMOHONAN PENAMATAN SEWA";
 		}
-		
+
 		return jenisPermohonan;
 	}
-	
-	public String getKeteranganSUB(){
-		
+
+	public String getKeteranganSUB() {
+
 		String flagKeputusanSUB = this.flagKeputusanSUB;
 		String keputusan = "";
-		
-		if("L".equals(flagKeputusanSUB)){
+
+		if ("L".equals(flagKeputusanSUB)) {
 			keputusan = "LULUS";
-		} else if("T".equals(flagKeputusanSUB)){
+		} else if ("T".equals(flagKeputusanSUB)) {
 			keputusan = "TOLAK";
-		} else if("S".equals(flagKeputusanSUB)){
+		} else if ("S".equals(flagKeputusanSUB)) {
 			keputusan = "SYOR TKSU";
 		}
-		
+
 		return keputusan;
 	}
-	
-	public String getKeteranganTKSU(){
-		
+
+	public String getKeteranganTKSU() {
+
 		String flagKeputusanTKSU = this.flagKeputusanTKSU;
 		String keputusan = "";
-		
-		if("L".equals(flagKeputusanTKSU)){
+
+		if ("L".equals(flagKeputusanTKSU)) {
 			keputusan = "SOKONG";
-		} else if("T".equals(flagKeputusanTKSU)){
+		} else if ("T".equals(flagKeputusanTKSU)) {
 			keputusan = "TIDAK SOKONG";
 		}
-		
+
 		return keputusan;
 	}
-	
-	public String getKeteranganTKSUK(){
-		
+
+	public String getKeteranganTKSUK() {
+
 		String flagKeputusanTKSUK = this.flagKeputusanTKSUK;
 		String keputusan = "";
-		
-		if("L".equals(flagKeputusanTKSUK)){
+
+		if ("L".equals(flagKeputusanTKSUK)) {
 			keputusan = "SOKONG";
-		} else if("T".equals(flagKeputusanTKSUK)){
+		} else if ("T".equals(flagKeputusanTKSUK)) {
 			keputusan = "TIDAK SOKONG";
 		}
-		
+
 		return keputusan;
 	}
-	
-	public String getKeteranganKSN(){
-		
+
+	public String getKeteranganKSN() {
+
 		String flagKeputusanKSN = this.flagKeputusanKSN;
 		String keputusan = "";
-		
-		if("L".equals(flagKeputusanKSN)){
+
+		if ("L".equals(flagKeputusanKSN)) {
 			keputusan = "SOKONG";
-		} else if("T".equals(flagKeputusanKSN)){
+		} else if ("T".equals(flagKeputusanKSN)) {
 			keputusan = "TIDAK SOKONG";
 		}
-		
+
 		return keputusan;
 	}
 

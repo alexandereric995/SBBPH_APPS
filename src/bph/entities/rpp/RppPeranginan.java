@@ -1,6 +1,5 @@
 package bph.entities.rpp;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -17,87 +16,105 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 import bph.entities.kod.Bandar;
 import bph.entities.kod.JenisBangunan;
 
 @Entity
-@Table(name="rpp_peranginan")
+@Table(name = "rpp_peranginan")
 public class RppPeranginan {
 
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "id_premis")
 	private String idPremis;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_peranginan")
 	private JenisBangunan jenisPeranginan;
-	
+
 	@Column(name = "nama_peranginan")
 	private String namaPeranginan;
-	
+
 	@Column(name = "kod_lokasi")
 	private String kodLokasi;
-	
+
 	@Column(name = "kod_unit")
 	private String kodUnit;
-	
+
 	@Column(name = "alamat_1")
 	private String alamat1;
-	
+
 	@Column(name = "alamat_2")
 	private String alamat2;
-	
+
 	@Column(name = "alamat_3")
 	private String alamat3;
-	
+
 	@Column(name = "poskod")
 	private String poskod;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_bandar")
 	private Bandar bandar;
-	
+
 	@Column(name = "no_telefon")
 	private String noTelefon;
-	
+
 	@Column(name = "no_faks")
 	private String noFaks;
-	
+
 	@Column(name = "emel")
 	private String emel;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_buka_tempahan")
 	private Date tarikhBukaTempahan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_tutup_tempahan")
 	private Date tarikhTutupTempahan;
-	
+
 	@Column(name = "flag_puncak")
 	private String flagPuncak;
-	
+
 	@Column(name = "flag_kelulusan_sub")
 	private String flagKelulusanSub;
-	
+
 	@Column(name = "flag_operator")
 	private String flagOperator;
-	
+
 	@Column(name = "flag_kelompok")
 	private String flagKelompok;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="peranginan", fetch=FetchType.EAGER)
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "peranginan", fetch = FetchType.EAGER)
 	private List<RppKemudahan> listKemudahan;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public RppPeranginan() {
 		setId(UID.getUID());
 		setFlagOperator("T");
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -267,12 +284,44 @@ public class RppPeranginan {
 	public void setFlagOperator(String flagOperator) {
 		this.flagOperator = flagOperator;
 	}
-	
+
 	public String getFlagKelompok() {
 		return flagKelompok;
 	}
 
 	public void setFlagKelompok(String flagKelompok) {
 		this.flagKelompok = flagKelompok;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

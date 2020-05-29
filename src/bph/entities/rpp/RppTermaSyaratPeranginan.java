@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,37 +22,37 @@ public class RppTermaSyaratPeranginan {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_terma_syarat_rpp")
 	private TermaSyaratRpp termaSyaratRpp;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_peranginan")
 	private RppPeranginan rppPeranginan;
-	
+
 	@Column(name = "flag_mandatori")
 	private String flagMandatori; // Y / T . default is Y
-	
-	@OneToOne
+
+	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
-	
-	@OneToOne
+
+	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
-	
+
 	public RppTermaSyaratPeranginan() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {

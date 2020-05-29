@@ -17,40 +17,40 @@ public class FPXRecordsRequest {
 
 	@Id
 	@Column(name = "id")
-	private String id;	
+	private String id;
 
 	@Column(name = "sellerId")
 	private String sellerId;
-	
+
 	@Column(name = "sellerExId")
 	private String sellerExId;
-	
+
 	@Column(name = "sellerOrderNo")
 	private String sellerOrderNo;
-	
+
 	@Column(name = "sellerExOrderNo")
 	private String sellerExOrderNo;
-	
+
 	@Column(name = "txnAmount")
 	private String txnAmount;
-	
+
 	@Column(name = "flagModul")
 	private String flagModul;
-	
+
 	@Column(name = "productDesc")
 	private String productDesc;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "requestDate")
 	private Date requestDate;
-	
+
 	@Column(name = "fpxTxnId")
 	private String fpxTxnId;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "respondDate")
 	private Date respondDate;
-	
+
 	public FPXRecordsRequest() {
 		setId(UID.getUID());
 	}

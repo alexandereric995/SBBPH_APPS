@@ -20,13 +20,13 @@ public class RppSeqPermohonan {
 
 	@Column(name = "lokasi")
 	private String lokasi;
-	
+
 	@Column(name = "bil")
 	private Integer bil;
-	
+
 	@Column(name = "jenis_permohonan")
 	private String jenisPermohonan;
-	
+
 	public RppSeqPermohonan() {
 		setId(UID.getUID());
 	}

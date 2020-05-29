@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 import bph.entities.kod.JenisJaminan;
 import bph.entities.kod.StatusBonKontrak;
 
@@ -22,7 +23,7 @@ public class KontrakBon {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kontrak")
 	private KontrakKontrak kontrak;
@@ -30,32 +31,49 @@ public class KontrakBon {
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_jaminan")
 	private JenisJaminan jaminan;
-	
+
 	@Column(name = "no_rujukan")
 	private String noRujukan;
-	
+
 	@Column(name = "nilai_bon")
 	private Double nilaiBon;
-	
+
 	@Column(name = "tarikh_luput")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhLuput;
-	
-//	@Column(name = "status_bon")
-//	private String statusBon;
+
+	// @Column(name = "status_bon")
+	// private String statusBon;
 	@ManyToOne
-	@JoinColumn(name ="status_bon")
+	@JoinColumn(name = "status_bon")
 	private StatusBonKontrak statusBon;
-	
+
 	@Column(name = "tarikh_release_bon")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhReleaseBon;
-	
+
 	@Column(name = "nama_bank")
 	private String namaBank;
-	
-	public KontrakBon(){
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
+	public KontrakBon() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -128,6 +146,38 @@ public class KontrakBon {
 
 	public void setNamaBank(String namaBank) {
 		this.namaBank = namaBank;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 
 }

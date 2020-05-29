@@ -24,93 +24,93 @@ public class RkPerjanjian {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_fail", nullable = false)
 	private RkFail fail;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_permohonan")
 	private RkPermohonan permohonan;
-	
+
 	@Column(name = "no_rujukan_sst")
 	private String noRujukanSST;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_mula_sst")
+	@Column(name = "tarikh_mula_sst")
 	private Date tarikhMulaSST;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_tamat_sst")
+	@Column(name = "tarikh_tamat_sst")
 	private Date tarikhTamatSST;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_akuan_terima_sst")
+	@Column(name = "tarikh_akuan_terima_sst")
 	private Date tarikhAkuanTerimaSST;
 
 	@Column(name = "no_rujukan")
 	private String noRujukan;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_mula")
+	@Column(name = "tarikh_mula")
 	private Date tarikhMula;
-	
+
 	@Column(name = "tempoh")
 	private Integer tempoh;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_tamat")
+	@Column(name = "tarikh_tamat")
 	private Date tarikhTamat;
-	
+
 	@Column(name = "kadar_sewa")
 	private Double kadarSewa;
-	
+
 	@Column(name = "deposit")
 	private Double deposit;
-	
+
 	@Column(name = "flag_caj_iwk")
 	private String flagCajIWK;
-	
+
 	@Column(name = "kadar_bayaran_iwk")
 	private Double kadarBayaranIWK;
-	
+
 	@Column(name = "id_jenis_sewa")
 	private String idJenisSewa;
-	
+
 	@Column(name = "id_jenis_perjanjian")
 	private String idJenisPerjanjian;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@Column(name = "flag_perjanjian_semasa")
 	private String flagPerjanjianSemasa;
-	
+
 	@Column(name = "flag_kutipan_data")
 	private String flagKutipanData;
-	
+
 	@Column(name = "id_status_perjanjian")
 	private String idStatusPerjanjian;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public RkPerjanjian() {
 		setId(UID.getUID());
 		setFlagAktif("T");
@@ -118,77 +118,79 @@ public class RkPerjanjian {
 		setIdStatusPerjanjian("1");
 		setTarikhMasuk(new Date());
 	}
-	
-	public String getKeteranganIdJenisSewa(){
-		
+
+	public String getKeteranganIdJenisSewa() {
+
 		String idJenisSewa = this.idJenisSewa;
 		String keterangan = "";
-		
-		if("H".equals(idJenisSewa)){
+
+		if ("H".equals(idJenisSewa)) {
 			keterangan = "HARIAN";
-		} else if("B".equals(idJenisSewa)){
+		} else if ("B".equals(idJenisSewa)) {
 			keterangan = "BULANAN";
-		} else if("T".equals(idJenisSewa)){
+		} else if ("T".equals(idJenisSewa)) {
 			keterangan = "TAHUNAN";
 		}
-		
+
 		return keterangan;
 	}
-	
-	public String getJenisPerjanjian(){
-		
+
+	public String getJenisPerjanjian() {
+
 		String idJenisPerjanjian = this.idJenisPerjanjian;
 		String jenisPerjanjian = "";
-		
-		if("1".equals(idJenisPerjanjian)){
+
+		if ("1".equals(idJenisPerjanjian)) {
 			jenisPerjanjian = "BARU";
-		} else if("2".equals(idJenisPerjanjian)){
+		} else if ("2".equals(idJenisPerjanjian)) {
 			jenisPerjanjian = "PERLANJUTAN";
-		} else if("3".equals(idJenisPerjanjian)){
+		} else if ("3".equals(idJenisPerjanjian)) {
 			jenisPerjanjian = "PENGURANGAN / PENAMBAHAN KADAR SEWA";
-		} else if("4".equals(idJenisPerjanjian)){
+		} else if ("4".equals(idJenisPerjanjian)) {
 			jenisPerjanjian = "PENGECUALIAN BAYARAN SEWA";
-		} else if("5".equals(idJenisPerjanjian)){
+		} else if ("5".equals(idJenisPerjanjian)) {
 			jenisPerjanjian = "PENGURANGAN / PENAMBAHAN CAJ IWK";
-		} else if("6".equals(idJenisPerjanjian)){
+		} else if ("6".equals(idJenisPerjanjian)) {
 			jenisPerjanjian = "PENGECUALIAN CAJ IWK";
 		}
-		
+
 		return jenisPerjanjian;
 	}
-	
-	public String getStatusPerjanjian(){
-		
+
+	public String getStatusPerjanjian() {
+
 		String idStatusPerjanjian = this.idStatusPerjanjian;
 		String statusPerjanjian = "";
-		
-		if("1".equals(idStatusPerjanjian)){
+
+		if ("1".equals(idStatusPerjanjian)) {
 			statusPerjanjian = "AKTIF";
-		} else if("2".equals(idStatusPerjanjian)){
+		} else if ("2".equals(idStatusPerjanjian)) {
 			statusPerjanjian = "TAMAT";
-		} else if("3".equals(idStatusPerjanjian)){
+		} else if ("3".equals(idStatusPerjanjian)) {
 			statusPerjanjian = "BATAL";
 		}
-		
+
 		return statusPerjanjian;
 	}
-	
-	public String getBilHariPerjanjianAkanTamat(){
+
+	public String getBilHariPerjanjianAkanTamat() {
 		String bilHari = "";
-		if (this.flagPerjanjianSemasa.equals("Y") && this.idStatusPerjanjian.equals("1")) {
+		if (this.flagPerjanjianSemasa.equals("Y")
+				&& this.idStatusPerjanjian.equals("1")) {
 			Calendar currentDate = Calendar.getInstance();
 			currentDate.setTime(new Date());
 			Calendar calTamat = Calendar.getInstance();
 			calTamat.setTime(this.tarikhTamat);
-			
+
 			if (currentDate.before(calTamat)) {
 				currentDate.add(Calendar.MONTH, 6);
 				if (currentDate.after(calTamat)) {
 					currentDate.setTime(new Date());
-					bilHari = String.valueOf(Util.daysBetween(currentDate.getTime(), calTamat.getTime()));
+					bilHari = String.valueOf(Util.daysBetween(
+							currentDate.getTime(), calTamat.getTime()));
 				}
-			}			
-		}		
+			}
+		}
 		return bilHari;
 	}
 

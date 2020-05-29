@@ -25,54 +25,54 @@ public class IntJANM {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "file_name")
 	private String fileName;
-	
+
 	@Column(name = "file_dir")
 	private String fileDir;
-	
+
 	@Column(name = "type")
 	private String type;
-	
+
 	@Column(name = "date")
 	private String date;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ag_branch_code")
 	private CawanganJANM agBranch;
-	
+
 	@Column(name = "total_record")
 	private int totalRecord;
-	
+
 	@Column(name = "total_amount")
 	private double totalAmount;
-	
+
 	@Column(name = "agency_name")
 	private String agencyName;
-	
+
 	@Column(name = "flag_migrate")
 	private String flagMigrate;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
-	private Date tarikhKemaskini;	
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="janm")
+	private Date tarikhKemaskini;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "janm")
 	private List<IntJANMRekod> listRekod;
-	
+
 	public IntJANM() {
 		setId(UID.getUID());
 		setTarikhMasuk(new Date());

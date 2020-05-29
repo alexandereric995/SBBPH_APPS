@@ -23,66 +23,67 @@ public class CmsDirektori {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_bahagian")
+	@JoinColumn(name = "id_bahagian")
 	private Bahagian bahagian;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_seksyen")
+	@JoinColumn(name = "id_seksyen")
 	private Seksyen seksyen;
-	
+
 	@Column(name = "nama")
 	private String nama;
-	
+
 	@Column(name = "jawatan")
-	private String jawatan;	
-	
+	private String jawatan;
+
 	@Column(name = "email")
 	private String email;
-	
+
 	@Column(name = "no_telefon")
 	private String noTelefon;
-	
+
 	@Column(name = "no_faks")
 	private String noFaks;
-	
+
 	@Column(name = "flag_ketua")
 	private String flagKetua;
-	
+
 	@Column(name = "file_name")
 	private String fileName;
-	
+
 	@Column(name = "avatar")
 	private String avatar;
-	
+
 	@Column(name = "turutan")
 	private int turutan;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public CmsDirektori() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 		setFlagAktif("Y");
 	}
-		
+
 	public String getKeteranganFlagKetua() {
 		String keterangan = "";
 		if (this.flagKetua != null) {
@@ -94,7 +95,7 @@ public class CmsDirektori {
 		}
 		return keterangan;
 	}
-	
+
 	public String getKeteranganFlagAktif() {
 		String status = "";
 		if (this.flagAktif != null) {

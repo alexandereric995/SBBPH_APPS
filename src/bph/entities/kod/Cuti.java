@@ -1,6 +1,5 @@
 package bph.entities.kod;
 
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,46 +15,46 @@ import lebah.template.UID;
 import portal.module.entity.Users;
 
 @Entity
-@Table(name="ruj_cuti")
+@Table(name = "ruj_cuti")
 public class Cuti {
 
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "perkara")
 	private String perkara;
-	
+
 	@Column(name = "keterangan")
 	private String keterangan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_dari")
 	private Date tarikhDari;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_hingga")
 	private Date tarikhHingga;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
-	
+
 	public Cuti() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -129,14 +128,14 @@ public class Cuti {
 	public void setTarikhKemaskini(Date tarikhKemaskini) {
 		this.tarikhKemaskini = tarikhKemaskini;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public Integer getTotalHariCuti() {
 		Integer days = 0;
-		if(this.tarikhHingga != null && this.tarikhDari != null){
+		if (this.tarikhHingga != null && this.tarikhDari != null) {
 			days = this.tarikhHingga.getDate() - this.tarikhDari.getDate();
 		}
 		return days;
 	}
-	
+
 }

@@ -21,27 +21,36 @@ public class CmsSubGaleri {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_galeri")
 	private CmsGaleri galeri;
-	
+
 	@Column(name = "file_name")
 	private String fileName;
-	
+
 	@Column(name = "thumb_file_name")
 	private String thumbFileName;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users kemaskiniOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public CmsSubGaleri() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -90,5 +99,21 @@ public class CmsSubGaleri {
 
 	public void setTarikhMasuk(Date tarikhMasuk) {
 		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getKemaskiniOleh() {
+		return kemaskiniOleh;
+	}
+
+	public void setKemaskiniOleh(Users kemaskiniOleh) {
+		this.kemaskiniOleh = kemaskiniOleh;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

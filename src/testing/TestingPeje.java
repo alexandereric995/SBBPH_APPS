@@ -21,23 +21,16 @@ import java.util.StringTokenizer;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import org.apache.commons.lang.StringUtils;
-
-import db.persistence.MyPersistence;
-
 import lebah.db.Db;
 import lebah.template.DbPersistence;
+
+import org.apache.commons.lang.StringUtils;
+
 import bph.entities.kewangan.KewBayaranResit;
 import bph.entities.kewangan.KewDeposit;
 import bph.entities.kewangan.KewInvois;
 import bph.entities.kewangan.KewResitSenaraiInvois;
-import bph.entities.kewangan.KewSubsidiari;
-import bph.entities.kewangan.KewSubsidiariAgihan;
 import bph.entities.kod.BankFPX;
-import bph.entities.rpp.RppAkaun;
-import bph.entities.rpp.RppPermohonan;
-import bph.entities.rpp.RppPermohonanBayaranBalik;
-import bph.entities.utiliti.UtilAkaun;
 import bph.integrasi.fpx.FPXPkiImplementation;
 
 /**

@@ -21,24 +21,33 @@ public class KuaCatatanPermohonan {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_permohonan")
 	private KuaPermohonan permohonan;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
 
-	@Column(name = "tarikh_masuk")
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
 	private Date tarikhDaftar;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public KuaCatatanPermohonan() {
 		setId(UID.getUID());
+		setTarikhDaftar(new Date());
 	}
 
 	public String getId() {
@@ -79,5 +88,21 @@ public class KuaCatatanPermohonan {
 
 	public void setTarikhDaftar(Date tarikhDaftar) {
 		this.tarikhDaftar = tarikhDaftar;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

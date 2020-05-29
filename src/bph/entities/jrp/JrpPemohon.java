@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import portal.module.entity.Users;
 import bph.entities.kod.Agensi;
 import bph.entities.kod.Bandar;
 
@@ -21,57 +22,74 @@ public class JrpPemohon {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "nama_pegawai")
 	private String namaPegawai;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_agensi")
 	private Agensi agensi;
-	
+
 	@Column(name = "nama_jabatan")
 	private String namaJabatan;
-	
+
 	@Column(name = "alamat1")
-	private String alamat1;	
-	
+	private String alamat1;
+
 	@Column(name = "alamat2")
-	private String alamat2;	
-	
+	private String alamat2;
+
 	@Column(name = "alamat3")
-	private String alamat3;	
-	
+	private String alamat3;
+
 	@Column(name = "poskod")
-	private String poskod;	
-	
+	private String poskod;
+
 	@ManyToOne
 	@JoinColumn(name = "id_bandar")
 	private Bandar bandar;
-	
+
 	@Column(name = "no_telefon")
 	private String noTelefon;
-	
+
 	@Column(name = "emel")
-	private String emel;	
-	
+	private String emel;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_daftar")
 	private Date tarikhDaftar;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_luput")
 	private Date tarikhLuput;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
 
 	@Column(name = "flag_hq")
 	private String flagHQ;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public JrpPemohon() {
 		setTarikhDaftar(new Date());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getKeteranganFlagAktif() {
 		String status = "";
 		if (this.flagAktif != null) {
@@ -202,5 +220,37 @@ public class JrpPemohon {
 
 	public void setFlagHQ(String flagHQ) {
 		this.flagHQ = flagHQ;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

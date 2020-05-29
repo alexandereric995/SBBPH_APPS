@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 import bph.entities.kod.JenisOperasiUtk;
 import bph.entities.kod.JenisPelanggaranSyaratUtk;
 import bph.entities.qtr.KuaPenghuni;
@@ -23,53 +24,70 @@ public class UtkKesalahan {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_operasi")
 	private UtkOperasi operasi;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_penghuni")
 	private KuaPenghuni penghuni;
 
 	@Column(name = "no_siri")
 	private String noSiri;
-	
+
 	@Column(name = "jenis_kenderaan")
 	private String jenisKenderaan;
-	
+
 	@Column(name = "no_plat")
 	private String noPlat;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
 
 	@Column(name = "status")
 	private String status;
-	
+
 	@Column(name = "status_penghuni")
 	private String statusPenghuni;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_operasi")
 	private JenisOperasiUtk jenisOperasi;
 
-	@Column(name = "id_jenis_operasi", insertable=false, updatable=false)
+	@Column(name = "id_jenis_operasi", insertable = false, updatable = false)
 	private String idJenisOperasi;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_pelanggaran_syarat")
 	private JenisPelanggaranSyaratUtk jenisPelanggaranSyarat;
 
-	@Column(name = "id_jenis_pelanggaran_syarat", insertable=false, updatable=false)
+	@Column(name = "id_jenis_pelanggaran_syarat", insertable = false, updatable = false)
 	private String idJenisPelanggaranSyarat;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh")
 	private Date tarikh;
 
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users daftarOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users kemaskiniOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public UtkKesalahan() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -183,6 +201,38 @@ public class UtkKesalahan {
 
 	public void setTarikh(Date tarikh) {
 		this.tarikh = tarikh;
+	}
+
+	public Users getDaftarOleh() {
+		return daftarOleh;
+	}
+
+	public void setDaftarOleh(Users daftarOleh) {
+		this.daftarOleh = daftarOleh;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getKemaskiniOleh() {
+		return kemaskiniOleh;
+	}
+
+	public void setKemaskiniOleh(Users kemaskiniOleh) {
+		this.kemaskiniOleh = kemaskiniOleh;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 
 }

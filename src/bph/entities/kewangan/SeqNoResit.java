@@ -20,20 +20,20 @@ public class SeqNoResit {
 
 	@Column(name = "day")
 	private Integer day;
-	
+
 	@Column(name = "month")
 	private Integer month;
-	
+
 	@Column(name = "year")
 	private Integer year;
 
 	@Column(name = "bil")
 	private Integer bil;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_kod_juruwang")
 	private KodJuruwang kodJuruwang;
-	
+
 	public SeqNoResit() {
 		setId(UID.getUID());
 	}

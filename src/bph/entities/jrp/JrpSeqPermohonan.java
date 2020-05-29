@@ -22,22 +22,22 @@ public class JrpSeqPermohonan {
 
 	@Column(name = "tahun")
 	private int tahun;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kementerian")
 	private Kementerian kementerian;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_agensi")
 	private Agensi agensi;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_negeri")
 	private Negeri negeri;
 
 	@Column(name = "bil")
 	private int bil;
-	
+
 	public JrpSeqPermohonan() {
 		setId(UID.getUID());
 	}
@@ -49,7 +49,7 @@ public class JrpSeqPermohonan {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
 	public int getBil() {
 		return bil;
 	}
@@ -89,5 +89,5 @@ public class JrpSeqPermohonan {
 	public void setKementerian(Kementerian kementerian) {
 		this.kementerian = kementerian;
 	}
-				
+
 }

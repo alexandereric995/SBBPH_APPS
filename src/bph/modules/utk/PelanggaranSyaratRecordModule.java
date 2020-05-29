@@ -14,7 +14,6 @@ import bph.entities.kod.Bandar;
 import bph.entities.utk.UtkKesPeguam;
 import bph.entities.utk.UtkKesalahan;
 import bph.entities.utk.UtkLanjutan;
-import bph.entities.utk.UtkLanjutanHK;
 import bph.entities.utk.UtkNotis;
 import bph.entities.utk.UtkRayuan;
 import bph.utils.DataUtil;

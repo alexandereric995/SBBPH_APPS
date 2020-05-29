@@ -30,7 +30,7 @@ public class RppAduanKerosakan {
 	@ManyToOne
 	@JoinColumn(name = "id_barang_deposit")
 	private RppTetapanBarangDeposit barangDeposit;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_permohonan")
 	private RppPermohonan permohonan;
@@ -38,60 +38,75 @@ public class RppAduanKerosakan {
 	@ManyToOne
 	@JoinColumn(name = "id_peranginan")
 	private RppPeranginan peranginan;
-	
+
 	@Column(name = "keterangan")
 	private String keterangan;
 
 	@Column(name = "tarikh_aduan")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhAduan;
-	
+
 	@Column(name = "kuantiti")
 	private Integer kuantiti;
-	
+
 	@Column(name = "harga")
 	private Double harga;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pengadu")
 	private Users pengadu;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_status")
 	private Status status;
-	
+
 	@Column(name = "tarikh_terima_aduan")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTerimaAduan;
-	
+
 	@Column(name = "tarikh_aduan_selesai")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhAduanSelesai;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="aduanKerosakan", fetch=FetchType.LAZY)
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "aduanKerosakan", fetch = FetchType.LAZY)
 	private List<RppGambarAduan> listGambar;
-	
+
 	@Column(name = "ulasan_hq")
 	private String ulasanHq;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pengulas_hq")
 	private Users pengulasHq;
-	
+
 	@Column(name = "tarikh_ulasan_hq")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhUlasanHq;
-	
+
 	@Column(name = "flag_selesai")
 	private String flagSelesai;
-	
+
 	@Column(name = "baucer_jurnal")
 	private String baucerJurnal;
-	
-	
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public RppAduanKerosakan() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -237,5 +252,37 @@ public class RppAduanKerosakan {
 	public void setBaucerJurnal(String baucerJurnal) {
 		this.baucerJurnal = baucerJurnal;
 	}
-	
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
+	}
+
 }

@@ -21,7 +21,7 @@ public class DevCadangan {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_hakmilik")
 	private DevHakmilik hakmilik;
@@ -37,57 +37,57 @@ public class DevCadangan {
 
 	@Column(name = "kontraktor")
 	private String kontraktor;
-	
+
 	@Column(name = "harga_kontrak")
 	private Double hargaKontrak;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_milik_tapak")
-	private Date tarikhMilikTapak;	
-	
+	private Date tarikhMilikTapak;
+
 	@Column(name = "tempoh_pelaksanaan")
 	private String tempohPelaksanaan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_siap_asal")
 	private Date tarikhSiapAsal;
-	
+
 	@Column(name = "tempoh_tanggungan")
 	private String tempohTanggungan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_siap_semasa")
 	private Date tarikhSiapSemasa;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_siap_sebenar")
 	private Date tarikhSiapSebenar;
-	
+
 	@Column(name = "catatan_pelaksanaan")
 	private String catatanPelaksanaan;
-	
+
 	@Column(name = "status_cadangan")
 	private String statusCadangan;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public DevCadangan() {
 		setId(UID.getUID());
 		setFlagAktif("Y");

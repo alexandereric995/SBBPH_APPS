@@ -10,8 +10,6 @@ import java.util.List;
 
 import lebah.db.Db;
 import lebah.template.DbPersistence;
-import bph.entities.kod.Status;
-import bph.entities.qtr.KuaKuarters;
 import bph.entities.qtr.KuaPenghuni;
 import bph.entities.qtr.KuaPermohonan;
 

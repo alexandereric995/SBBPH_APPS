@@ -24,185 +24,185 @@ public class KuaTemujanjiHistory {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_agihan")
 	private KuaAgihan agihan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_penghuni")
 	private KuaPenghuni penghuni;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kuarters")
 	private KuaKuarters kuarters;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pemohon")
 	private Users pemohon;
-	
+
 	@Column(name = "tarikh_mohon_temujanji")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhMohonTemujanji;
-	
+
 	@Column(name = "tarikh_temujanji")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTemujanji;
-	
+
 	@Column(name = "tarikh_mula_temujanji")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhMulaTemujanji;
-	
+
 	@Column(name = "tarikh_akhir_temujanji")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhAkhirTemujanji;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_sebab_bertukar")
+	@JoinColumn(name = "id_sebab_bertukar")
 	private SebabBertukar sebabBertukar;
-	
+
 	@Column(name = "keterangan")
 	private String keterangan;
-	
+
 	@Column(name = "alamat_1")
 	private String alamat1;
-	
+
 	@Column(name = "alamat_2")
 	private String alamat2;
-	
+
 	@Column(name = "alamat_3")
 	private String alamat3;
-	
+
 	@Column(name = "poskod")
 	private String poskod;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_bandar")
+	@JoinColumn(name = "id_bandar")
 	private Bandar bandar;
-	
+
 	@Column(name = "emel")
 	private String emel;
-	
+
 	@Column(name = "no_telefon_bimbit")
 	private String noTelefonBimbit;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_agensi")
 	private Agensi agensi;
-	
+
 	@Column(name = "bahagian")
 	private String bahagian;
 
 	@Column(name = "alamat_pejabat_1")
 	private String alamatPejabat1;
-	
+
 	@Column(name = "alamat_pejabat_2")
-	private String alamatPejabat2;	
+	private String alamatPejabat2;
 
 	@Column(name = "alamat_pejabat_3")
 	private String alamatPejabat3;
-	
+
 	@Column(name = "poskod_pejabat")
 	private String poskodPejabat;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_bandar_pejabat")
+	@JoinColumn(name = "id_bandar_pejabat")
 	private Bandar bandarPejabat;
 
 	@Column(name = "no_telefon_pejabat")
 	private String noTelefonPejabat;
-	
+
 	@Column(name = "flag_internal")
 	private int flagInternal;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "petugas")
 	private Users petugas;
-	
+
 	@Column(name = "kehadiran")
-	private int kehadiran;	
-	
+	private int kehadiran;
+
 	@Column(name = "tarikh_terima_kunci")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTerimaKunci;
-	
+
 	@Column(name = "tarikh_keluar_kuarters")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhKeluarKuarters;
-	
+
 	@Column(name = "tarikh_serah_kunci")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhSerahKunci;
-	
+
 	@Column(name = "memo_daripada")
 	private String memoDaripada;
-	
+
 	@Column(name = "memo_kepada")
 	private String memoKepada;
-	
+
 	@Column(name = "memo_perkara")
 	private String memoPerkara;
-	
+
 	@Column(name = "memo_rujukan")
 	private String memoRujukan;
-	
+
 	@Column(name = "memo_sk")
 	private String memoSk;
-	
+
 	@Column(name = "memo_tarikh")
 	@Temporal(TemporalType.DATE)
 	private Date memoTarikh;
-	
+
 	@Column(name = "status_temujanji")
 	private String statusTemujanji;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public KuaTemujanjiHistory() {
 		setId(UID.getUID());
 		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getDetailFlagInternal() {
-		String detailFlagInternal = "";		
+		String detailFlagInternal = "";
 		if (getFlagInternal() == 1) {
 			detailFlagInternal = "INTERNAL";
 		} else {
 			detailFlagInternal = "PUBLIC";
-		}		
+		}
 		return detailFlagInternal;
 	}
-	
+
 	public String getKeteranganStatusTemujanji() {
-		String keterangan = "";		
+		String keterangan = "";
 		if (this.getStatusTemujanji() != null) {
 			if (this.getStatusTemujanji().equals("0")) {
-				keterangan = "SELESAI";		
+				keterangan = "SELESAI";
 			} else if (this.getStatusTemujanji().equals("1")) {
-				keterangan = "BARU";		
+				keterangan = "BARU";
 			} else if (this.getStatusTemujanji().equals("2")) {
-				keterangan = "DALAM TINDAKAN PETUGAS";		
+				keterangan = "DALAM TINDAKAN PETUGAS";
 			} else if (this.getStatusTemujanji().equals("3")) {
-				keterangan = "BATAL";		
+				keterangan = "BATAL";
 			} else if (this.getStatusTemujanji().equals("4")) {
-				keterangan = "TIDAK SELESAI";		
+				keterangan = "TIDAK SELESAI";
 			}
 		}
 		return keterangan;

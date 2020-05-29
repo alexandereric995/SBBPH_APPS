@@ -26,63 +26,63 @@ public class RppAkaun {
 	@ManyToOne
 	@JoinColumn(name = "id_permohonan")
 	private RppPermohonan permohonan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kod_hasil")
-	private KodHasil kodHasil; //KOD HASIL KEWANGAN
-	
+	private KodHasil kodHasil; // KOD HASIL KEWANGAN
+
 	@Column(name = "no_invois")
-	private String noInvois; 
-	
+	private String noInvois;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_invois")
-	private Date tarikhInvois; //TARIKH BILA TEMPAHAN DIBUAT
-	
+	private Date tarikhInvois; // TARIKH BILA TEMPAHAN DIBUAT
+
 	@Column(name = "keterangan")
-	private String keterangan; //KETERANGAN BAYARAN
-	
+	private String keterangan; // KETERANGAN BAYARAN
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "amaun_bayaran_seunit")
 	private Double amaunBayaranSeunit;
-	
+
 	@Column(name = "bilangan_unit")
 	private Integer bilanganUnit;
-	
+
 	@Column(name = "debit")
 	private Double debit;
-	
+
 	@Column(name = "kredit")
 	private Double kredit;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_transaksi")
-	private Date tarikhTransaksi; //TARIKH BAYARAN DIBUAT
-	
+	private Date tarikhTransaksi; // TARIKH BAYARAN DIBUAT
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_void")
-	private Date tarikhVoid; //TARIKH BATAL BAYARAN
-	
+	private Date tarikhVoid; // TARIKH BATAL BAYARAN
+
 	@Column(name = "flag_void")
 	private String flagVoid; // Y / T
-	
+
 	@Column(name = "amaun_void")
 	private Double amaunVoid;
-	
+
 	@Column(name = "flag_bayar")
-	private String flagBayar; // Y = TELAH BAYAR / T = BELUM 
-	
+	private String flagBayar; // Y = TELAH BAYAR / T = BELUM
+
 	@Column(name = "no_lo_tempahan")
 	private String noLoTempahan;
-	
+
 	@Column(name = "no_resit")
 	private String noResit;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_resit")
 	private Date tarikhResit;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
@@ -101,16 +101,16 @@ public class RppAkaun {
 
 	@Column(name = "id_pembayar")
 	private String idPembayar;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_rekod_london")
 	private RppRekodTempahanLondon rekodTempahanLondon;
-	
-	
+
 	public RppAkaun() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -262,7 +262,7 @@ public class RppAkaun {
 	public void setTarikhKemaskini(Date tarikhKemaskini) {
 		this.tarikhKemaskini = tarikhKemaskini;
 	}
-	
+
 	public Double getAmaunBayaranSeunit() {
 		return amaunBayaranSeunit;
 	}
@@ -295,9 +295,9 @@ public class RppAkaun {
 		this.tarikhVoid = tarikhVoid;
 	}
 
-	public Double bakiBayaran(){
+	public Double bakiBayaran() {
 		Double baki = 0d;
-		if(this.debit!=null && this.kredit!=null){
+		if (this.debit != null && this.kredit != null) {
 			baki = this.debit - this.kredit;
 		}
 		return baki;
@@ -315,7 +315,8 @@ public class RppAkaun {
 		return rekodTempahanLondon;
 	}
 
-	public void setRekodTempahanLondon(RppRekodTempahanLondon rekodTempahanLondon) {
+	public void setRekodTempahanLondon(
+			RppRekodTempahanLondon rekodTempahanLondon) {
 		this.rekodTempahanLondon = rekodTempahanLondon;
 	}
 

@@ -1,7 +1,7 @@
 /**
-* AUTHOR : zufazdliabuas@gmail.com
-* Date : 14/6/2017
-*/
+ * AUTHOR : zufazdliabuas@gmail.com
+ * Date : 14/6/2017
+ */
 package bph.entities.portal;
 
 import java.util.Date;
@@ -25,44 +25,45 @@ public class CmsAkrabAktiviti {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_akrab")
 	private CmsAkrab akrab;
-	
+
 	@Column(name = "nama_aktiviti")
 	private String namaAktiviti;
-	
+
 	@Column(name = "keterangan")
 	private String keterangan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_aktiviti")
 	private Date tarikhAktiviti;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public CmsAkrabAktiviti() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getKeteranganFlagAktif() {
 		String status = "";
 		if (this.flagAktif != null) {

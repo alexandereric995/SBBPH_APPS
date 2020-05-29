@@ -21,133 +21,150 @@ import bph.entities.pembangunan.DevBangunan;
 @Entity
 @Table(name = "bgs_permohonan")
 public class BgsPermohonan {
-	
+
 	@Id
 	@Column(name = "id")
 	private String id;
 
 	@Column(name = "no_permohonan")
 	private String noPermohonan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_permohonan")
 	private Date tarikhPermohonan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pemohon")
 	private Users pemohon;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_surat")
 	private Date tarikhSurat;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_bangunan")
 	private DevBangunan bangunan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_agensi")
 	private Agensi agensi;
-	
+
 	@Column(name = "jabatan")
 	private String jabatan;
-	
+
 	@Column(name = "alamat1")
 	private String alamat1;
-	
+
 	@Column(name = "alamat2")
 	private String alamat2;
-	
+
 	@Column(name = "alamat3")
 	private String alamat3;
-	
+
 	@Column(name = "poskod")
 	private String poskod;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_bandar")
 	private Bandar bandar;
-	
+
 	@Column(name = "no_telefon")
 	private String noTelefon;
-	
+
 	@Column(name = "no_faks")
 	private String noFaks;
-	
+
 	@Column(name = "nama_pegawai")
 	private String namaPegawai;
-	
+
 	@Column(name = "emel_pegawai")
-	private String emelPegawai;	
-	
+	private String emelPegawai;
+
 	@Column(name = "jenis_perkhidmatan")
 	private String jenisPerkhidmatan;
-	
+
 	@Column(name = "status_ruang_pejabat")
 	private String statusRuangPejabat;
-	
+
 	@Column(name = "jumlah_perjawatan_semasa")
-	private String jumlahPerjawatanSemasa;	
-	
+	private String jumlahPerjawatanSemasa;
+
 	@Column(name = "jumlah_perjawatan_akan_datang")
-	private String jumlahPerjawatanAkanDatang;	
-	
+	private String jumlahPerjawatanAkanDatang;
+
 	@Column(name = "jumlah_keluasan_semasa")
-	private String jumlahKeluasanSemasa;	
-	
+	private String jumlahKeluasanSemasa;
+
 	@Column(name = "jumlah_keluasan_akan_datang")
 	private String jumlahKeluasanAkanDatang;
-	
+
 	@Column(name = "dokumen_pengerusi")
 	private String dokumenPengerusi;
-	
+
 	@Column(name = "dokumen_pengurus")
 	private String dokumenPengurus;
-	
+
 	@Column(name = "no_fail")
 	private String noFail;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pendaftar")
 	private Users pendaftar;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_daftar_fail")
 	private Date tarikhDaftarFail;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_keputusan")
 	private Date tarikhKeputusan;
-	
+
 	@Column(name = "flag_keputusan")
 	private String flagKeputusan;
-	
+
 	@Column(name = "catatan_keputusan")
 	private String catatanKeputusan;
-	
+
 	@Column(name = "ruang_diluluskan")
 	private String ruangDiluluskan;
-	
+
 	@Column(name = "luas_diluluskan")
 	private String luasDiluluskan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_status")
-	private Status status;	
-	
+	private Status status;
+
 	@ManyToOne
 	@JoinColumn(name = "id_pembatal")
-	private Users batalOleh;	
-	
+	private Users batalOleh;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_batal")
 	private Date tarikhBatal;
-	
+
 	@Column(name = "catatan_pembatalan")
 	private String catatanPembatalan;
 
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public BgsPermohonan() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -444,5 +461,37 @@ public class BgsPermohonan {
 
 	public void setCatatanPembatalan(String catatanPembatalan) {
 		this.catatanPembatalan = catatanPembatalan;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

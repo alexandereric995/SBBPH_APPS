@@ -14,6 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 import bph.entities.kod.JenisKontrak;
 import bph.entities.kod.KaedahPerolehan;
 import bph.entities.kod.KategoriKontrak;
@@ -30,86 +31,103 @@ public class KontrakKontrak {
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_kontrak")
 	private JenisKontrak jenisKontrak;
-		
+
 	@ManyToOne
 	@JoinColumn(name = "id_kategori_kontrak")
 	private KategoriKontrak kategoriKontrak;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kontraktor")
 	private KontrakKontraktor kontraktor;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kaedah_perolehan")
 	private KaedahPerolehan kaedahPerolehan;
-	
+
 	@Column(name = "no_daftar_kontrak")
 	private String noDaftarKontrak;
-	
+
 	@Column(name = "no_rujukan")
 	private String noRujukan;
-	
+
 	@Column(name = "perkhidmatan")
 	private String perkhidmatan;
-	
+
 	@Column(name = "kod_program")
 	private String kodProgram;
-	
+
 	@Column(name = "kod_objek")
 	private String kodObjek;
-	
+
 	@Column(name = "tarikh_mula")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhMula;
-	
+
 	@Column(name = "tempoh")
 	private int tempoh;
-	
+
 	@Column(name = "tarikh_tamat")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTamat;
-	
+
 	@Column(name = "tarikh_keluar_sst")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhKeluarSst;
-	
+
 	@Column(name = "tarikh_terima_sst")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTerimaSst;
-	
+
 	@Column(name = "amaun_ansuran")
 	private double amaunAnsuran;
-	
+
 	@Column(name = "mod_ansuran")
 	private String modAnsuran;
-	
+
 	@Column(name = "nilai_kontrak")
 	private double nilaiKontrak;
-	
+
 	@Column(name = "flag_gst")
 	private String flagGST;
-	
+
 	@Column(name = "nilai_kontrak_gst")
 	private double nilaiKontrakGST;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_seksyen")
 	private Seksyen seksyen;
 
 	@Column(name = "id_pelaksana")
 	private String idPelaksana;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "status")
 	private String status;
-	
+
 	@Column(name = "status_bayaran")
 	private String statusBayaran;
-		
-	public KontrakKontrak(){
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
+	public KontrakKontrak() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getKeteranganStatus() {
@@ -343,7 +361,7 @@ public class KontrakKontrak {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 	public String getStatusBayaran() {
 		return statusBayaran;
 	}
@@ -353,59 +371,94 @@ public class KontrakKontrak {
 	}
 
 	@SuppressWarnings("unused")
-	public String getTempohKontrak(){
-			
-		String tempohKontrak  = "";
+	public String getTempohKontrak() {
+
+		String tempohKontrak = "";
 		Date tarikhMula = this.tarikhMula;
 		Date tarikhTamat = this.tarikhTamat;
 		int bilHari = 0;
-		
-		if(tarikhMula != null && tarikhMula.toString().length() > 0){
-			
+
+		if (tarikhMula != null && tarikhMula.toString().length() > 0) {
+
 			Calendar calTarikhMula = new GregorianCalendar();
 			Date dateTarikhMula = tarikhMula;
 			calTarikhMula.setTime(dateTarikhMula);
-			
+
 			Calendar calTarikhTamat = new GregorianCalendar();
 			Date dateTarikhTamat = tarikhTamat;
 			calTarikhTamat.setTime(dateTarikhTamat);
-			
-//			Calendar calCurrent = new GregorianCalendar();
-//			Date dateCurrent = new Date();
-//			calCurrent.setTime(dateCurrent);
-					
-			int diffYear = calTarikhTamat.get(Calendar.YEAR) - calTarikhMula.get(Calendar.YEAR);
-//			System.out.println("PRINT diffYear YEAR ===" + diffYear);
-			
-			int diffMonth = diffYear * 12 + calTarikhTamat.get(Calendar.MONTH) - calTarikhMula.get(Calendar.MONTH);
-//			System.out.println("PRINT diffMonth MONTH ===" + diffMonth);
-			
-			bilHari = daysBetween(calTarikhMula.getTime(), calTarikhTamat.getTime());
-//			System.out.println("PRINT bilHari HARI ===" + bilHari);
-			
-			//BILANGAN HARI STATUS BELUM DIBAYAR
-			if (calTarikhTamat.getTime().after(calTarikhMula.getTime())) {   
-//				tempohKontrak = bilHari + " HARI";
-//				tempohKontrak = diffYear + " TAHUN ";
+
+			// Calendar calCurrent = new GregorianCalendar();
+			// Date dateCurrent = new Date();
+			// calCurrent.setTime(dateCurrent);
+
+			int diffYear = calTarikhTamat.get(Calendar.YEAR)
+					- calTarikhMula.get(Calendar.YEAR);
+			// System.out.println("PRINT diffYear YEAR ===" + diffYear);
+
+			int diffMonth = diffYear * 12 + calTarikhTamat.get(Calendar.MONTH)
+					- calTarikhMula.get(Calendar.MONTH);
+			// System.out.println("PRINT diffMonth MONTH ===" + diffMonth);
+
+			bilHari = daysBetween(calTarikhMula.getTime(),
+					calTarikhTamat.getTime());
+			// System.out.println("PRINT bilHari HARI ===" + bilHari);
+
+			// BILANGAN HARI STATUS BELUM DIBAYAR
+			if (calTarikhTamat.getTime().after(calTarikhMula.getTime())) {
+				// tempohKontrak = bilHari + " HARI";
+				// tempohKontrak = diffYear + " TAHUN ";
 				diffMonth = diffMonth + 1;
 				tempohKontrak = diffMonth + " BULAN";
-//				System.out.println("PRINT diffMonth HARI ===" + diffMonth);
-//				if(bilHari < 365){
-//					tempohKontrak = bilHari + " HARI";
-//				}
-//				else if (bilHari > 30 ) {
-//					tempohKontrak = diffMonth + " BULAN";
-//				}
-//				else if (diffMonth >= 12) {
-//					tempohKontrak = diffYear + " TAHUN";
-//				}
+				// System.out.println("PRINT diffMonth HARI ===" + diffMonth);
+				// if(bilHari < 365){
+				// tempohKontrak = bilHari + " HARI";
+				// }
+				// else if (bilHari > 30 ) {
+				// tempohKontrak = diffMonth + " BULAN";
+				// }
+				// else if (diffMonth >= 12) {
+				// tempohKontrak = diffYear + " TAHUN";
+				// }
 			}
 		}
 		return tempohKontrak;
 	}
-	
+
 	private int daysBetween(Date date1, Date date2) {
 		return (int) ((date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24));
 	}
-	
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
+	}
+
 }

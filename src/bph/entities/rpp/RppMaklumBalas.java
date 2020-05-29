@@ -27,14 +27,14 @@ public class RppMaklumBalas {
 	@Column(name = "no_maklumbalas")
 	private String noMaklumbalas;
 
-//	@ManyToOne
-//	@JoinColumn(name = "id_jenis_maklumbalas")
-//	private JenisMaklumbalas jenisMaklumBalas;
-	
+	// @ManyToOne
+	// @JoinColumn(name = "id_jenis_maklumbalas")
+	// private JenisMaklumbalas jenisMaklumBalas;
+
 	@ManyToOne
 	@JoinColumn(name = "id_permohonan")
 	private RppPermohonan permohonan;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_pemohon")
 	private Users pemohon;
@@ -48,7 +48,7 @@ public class RppMaklumBalas {
 
 	@Column(name = "ulasan_maklumbalas")
 	private String ulasanMaklumbalas;
-	
+
 	@Column(name = "tarikh_ulasan")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhUlasan;
@@ -60,32 +60,47 @@ public class RppMaklumBalas {
 	@OneToOne
 	@JoinColumn(name = "id_status")
 	private Status status;
-	
+
 	@Column(name = "tarikh_terima")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTerima;
-	
+
 	@Column(name = "tarikh_ulasan_hq")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhUlasanHq;
-	
+
 	@Column(name = "ulasan_hq")
 	private String ulasanHq;
-	
-	
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public RppMaklumBalas() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getId() {
 		return id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
-	}	
-	
+	}
+
 	public String getNoMaklumbalas() {
 		return noMaklumbalas;
 	}
@@ -94,13 +109,13 @@ public class RppMaklumBalas {
 		this.noMaklumbalas = noMaklumbalas;
 	}
 
-//	public JenisMaklumbalas getJenisMaklumBalas() {
-//		return jenisMaklumBalas;
-//	}
-//
-//	public void setJenisMaklumBalas(JenisMaklumbalas jenisMaklumBalas) {
-//		this.jenisMaklumBalas = jenisMaklumBalas;
-//	}
+	// public JenisMaklumbalas getJenisMaklumBalas() {
+	// return jenisMaklumBalas;
+	// }
+	//
+	// public void setJenisMaklumBalas(JenisMaklumbalas jenisMaklumBalas) {
+	// this.jenisMaklumBalas = jenisMaklumBalas;
+	// }
 
 	public RppPermohonan getPermohonan() {
 		return permohonan;
@@ -108,7 +123,7 @@ public class RppMaklumBalas {
 
 	public void setPermohonan(RppPermohonan permohonan) {
 		this.permohonan = permohonan;
-	}	
+	}
 
 	public Users getPemohon() {
 		return pemohon;
@@ -157,7 +172,7 @@ public class RppMaklumBalas {
 	public void setIdPengulas(Users idPengulas) {
 		this.idPengulas = idPengulas;
 	}
-	
+
 	public Status getStatus() {
 		return status;
 	}
@@ -190,17 +205,49 @@ public class RppMaklumBalas {
 		this.ulasanHq = ulasanHq;
 	}
 
-//	public String getKeteranganMaklumBalas() {
-//		if (this.jenisMaklumBalas.getId().equals("01")) {
-//			return "ADUAN";
-//		} else if (this.jenisMaklumBalas.getId().equals("02")) {
-//			return "PERMOHONAN";
-//		}else if (this.jenisMaklumBalas.getId().equals("03")) {
-//			return "PERTANYAAN";
-//		}else if (this.jenisMaklumBalas.getId().equals("04")){
-//			return "RAYUAN";
-//		}else {
-//			return jenisMaklumBalas.getId();
-//		}
-//	}
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
+	}
+
+	// public String getKeteranganMaklumBalas() {
+	// if (this.jenisMaklumBalas.getId().equals("01")) {
+	// return "ADUAN";
+	// } else if (this.jenisMaklumBalas.getId().equals("02")) {
+	// return "PERMOHONAN";
+	// }else if (this.jenisMaklumBalas.getId().equals("03")) {
+	// return "PERTANYAAN";
+	// }else if (this.jenisMaklumBalas.getId().equals("04")){
+	// return "RAYUAN";
+	// }else {
+	// return jenisMaklumBalas.getId();
+	// }
+	// }
 }

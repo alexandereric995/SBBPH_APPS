@@ -21,39 +21,40 @@ public class CmsGaleri {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "id_kategori")
 	private String kategori;
-	
+
 	@Column(name = "tajuk")
 	private String tajuk;
-	
+
 	@Column(name = "file_name")
 	private String fileName;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public CmsGaleri() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getKeteranganKategori() {
 		String status = "";
 		if (this.kategori != null) {
@@ -65,7 +66,7 @@ public class CmsGaleri {
 		}
 		return status;
 	}
-	
+
 	public String getKeteranganFlagAktif() {
 		String status = "";
 		if (this.flagAktif != null) {

@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,52 +15,53 @@ import lebah.template.UID;
 import portal.module.entity.Users;
 
 @Entity
-@Table(name="rpp_tetapan_buka_tempahan")
+@Table(name = "rpp_tetapan_buka_tempahan")
 public class RppTetapanBukaTempahan {
 
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "perkara")
 	private String perkara;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_buka_tempahan")
 	private Date tarikhBukaTempahan;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_menginap_dari")
 	private Date tarikhMenginapDari;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_menginap_hingga")
 	private Date tarikhMenginapHingga;
-	
-	@OneToOne
+
+	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
-	
-	@OneToOne
+
+	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	public RppTetapanBukaTempahan() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -150,22 +151,22 @@ public class RppTetapanBukaTempahan {
 	public void setFlagAktif(String flagAktif) {
 		this.flagAktif = flagAktif;
 	}
-	
-	public String keteranganFlagAktif(){
+
+	public String keteranganFlagAktif() {
 		String status = "";
-		if(this.flagAktif!=null && this.flagAktif.equalsIgnoreCase("Y")){
+		if (this.flagAktif != null && this.flagAktif.equalsIgnoreCase("Y")) {
 			status = "YA";
-		}else{
+		} else {
 			status = "TIDAK";
 		}
 		return status;
 	}
-	
-	public String statusFlagAktif(){
+
+	public String statusFlagAktif() {
 		String status = "";
-		if(this.flagAktif!=null && this.flagAktif.equalsIgnoreCase("Y")){
+		if (this.flagAktif != null && this.flagAktif.equalsIgnoreCase("Y")) {
 			status = "TELAH DIAKTIFKAN";
-		}else{
+		} else {
 			status = "BELUM DIAKTIFKAN";
 		}
 		return status;

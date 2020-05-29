@@ -42,85 +42,87 @@ public class KewDeposit {
 	@ManyToOne
 	@JoinColumn(name = "id_kod_hasil")
 	private KodHasil kodHasil;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_bayaran")
 	private KewJenisBayaran jenisBayaran;
-	
+
 	@Column(name = "id_lejar")
 	private String idLejar;
-	
+
 	@Column(name = "no_invois")
 	private String noInvois;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_dari")
 	private Date tarikhDari;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_hingga")
 	private Date tarikhHingga;
-	
+
 	@Column(name = "keterangan_deposit")
 	private String keteranganDeposit;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pendeposit")
 	private Users pendeposit;
-	
+
 	@Column(name = "jumlah_deposit")
 	private Double jumlahDeposit;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_deposit")
 	private Date tarikhDeposit;
-	
+
 	@Column(name = "flag_bayar")
-	private String flagBayar = "T"; // Y : TELAH BAYAR ; T : BELUM BAYAR ; BTL : BATAL
-	
+	private String flagBayar = "T"; // Y : TELAH BAYAR ; T : BELUM BAYAR ; BTL :
+									// BATAL
+
 	@Column(name = "flag_queue")
 	private String flagQueue = "T"; // Y: IN QUEUE ; T : NO
-	
+
 	@Column(name = "no_resit")
 	private String noResit;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_resit")
 	private Date tarikhResit;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_tuntutan_deposit")
 	private KewTuntutanDeposit tuntutanDeposit;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_penyedia")
-	private Users penyedia; //unit kewangan
-	
+	private Users penyedia; // unit kewangan
+
 	@OneToOne
 	@JoinColumn(name = "id_perakuan")
-	private Users perakuan; //PENYEDIA DEPOSIT. CTH : PENYELIA IR
-	
+	private Users perakuan; // PENYEDIA DEPOSIT. CTH : PENYELIA IR
+
 	@Column(name = "flag_pulang_deposit")
-	private String flagPulangDeposit; //'Y = TELAH DIPULANGKAN; T = BELUM DIPULANGKAN; BTL = BATAL'
-	
+	private String flagPulangDeposit; // 'Y = TELAH DIPULANGKAN; T = BELUM
+										// DIPULANGKAN; BTL = BATAL'
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_pulangan_deposit")
 	private Date tarikhPulanganDeposit;
-	
+
 	@Column(name = "catatan_pulangan_deposit")
-	private String catatanPulanganDeposit;	
-	
+	private String catatanPulanganDeposit;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_bayaran")
 	private Date tarikhBayaran;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_kaedah_bayaran")
 	private CaraBayar kaedahBayaran;
-	
+
 	@Column(name = "no_slip_bank")
 	private String noSlipBank;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_kutipan_dari")
 	private Date tarikhKutipanDari;
@@ -128,32 +130,32 @@ public class KewDeposit {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_kutipan_hingga")
 	private Date tarikhKutipanHingga;
-	
+
 	@Column(name = "no_statement_kutipan")
 	private String noStatementKutipan;
-	
+
 	@Column(name = "baki_deposit")
 	private Double bakiDeposit;
-	
+
 	@Column(name = "flag_warta")
 	private String flagWarta;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public KewDeposit() {
 		setId(UID.getUID());
 		setFlagBayar("T");
@@ -164,40 +166,44 @@ public class KewDeposit {
 		setBakiDeposit(0D);
 		setTarikhMasuk(new Date());
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<KewDepositWarta> getSenaraiDepositWarta() {
 		DbPersistence db = new DbPersistence();
 		List<KewDepositWarta> list = null;
-		if(this.id!=null){
-			list = db.list("select x from KewDepositWarta x where x.deposit.id = '"+this.id+"' ");
+		if (this.id != null) {
+			list = db
+					.list("select x from KewDepositWarta x where x.deposit.id = '"
+							+ this.id + "' ");
 		}
 		return list;
 	}
-	
+
 	public RppPermohonan getMaklumatPermohonanRPP() {
 		DbPersistence db = new DbPersistence();
 		RppPermohonan r = new RppPermohonan();
-		if(this.idLejar !=null && this.jenisBayaran !=null){
-			if(this.jenisBayaran.getId().equalsIgnoreCase("02")){
+		if (this.idLejar != null && this.jenisBayaran != null) {
+			if (this.jenisBayaran.getId().equalsIgnoreCase("02")) {
 				RppAkaun ak = db.find(RppAkaun.class, this.idLejar);
-				if(ak!=null){
+				if (ak != null) {
 					r = ak.getPermohonan();
 				}
 			}
 		}
 		return r;
 	}
-	
+
 	public KuaKuarters getMaklumatKuarters() {
 		DbPersistence db = new DbPersistence();
 		KuaKuarters r = new KuaKuarters();
-		if(this.idLejar !=null && this.jenisBayaran !=null){
-			if(this.jenisBayaran.getId().equalsIgnoreCase("01")){
+		if (this.idLejar != null && this.jenisBayaran != null) {
+			if (this.jenisBayaran.getId().equalsIgnoreCase("01")) {
 				KuaAkaun ak = db.find(KuaAkaun.class, this.idLejar);
-				if(ak!=null){
-					KuaPenghuni p = (KuaPenghuni)db.get("select x from KuaPenghuni x where x.pemohon.id = '"+ak.getIdPembayar()+"' ");
-					if(p!=null){
+				if (ak != null) {
+					KuaPenghuni p = (KuaPenghuni) db
+							.get("select x from KuaPenghuni x where x.pemohon.id = '"
+									+ ak.getIdPembayar() + "' ");
+					if (p != null) {
 						r = p.getKuarters();
 					}
 				}

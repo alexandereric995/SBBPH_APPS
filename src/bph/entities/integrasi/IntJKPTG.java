@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 import bph.entities.kod.Agensi;
 import bph.entities.kod.Daerah;
 import bph.entities.kod.JenisHakmilik;
@@ -30,17 +31,17 @@ public class IntJKPTG {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "pegangan_hakmilik")
 	private String peganganHakmilik;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_lot")
 	private Lot lot;
 
 	@Column(name = "no_lot")
 	private String noLot;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenishakmilik")
 	private JenisHakmilik jenisHakmilik;
@@ -75,7 +76,7 @@ public class IntJKPTG {
 
 	@ManyToOne
 	@JoinColumn(name = "id_negeri")
-	private Negeri negeri;	
+	private Negeri negeri;
 
 	@ManyToOne
 	@JoinColumn(name = "id_kementerian")
@@ -91,7 +92,7 @@ public class IntJKPTG {
 
 	@ManyToOne
 	@JoinColumn(name = "id_kategori")
-	private KategoriTanah kategoriTanah;	
+	private KategoriTanah kategoriTanah;
 
 	@Column(name = "no_fail")
 	private String noFail;
@@ -104,9 +105,9 @@ public class IntJKPTG {
 
 	@Column(name = "no_pu")
 	private String noPu;
-	
+
 	@Column(name = "status_daftar")
-	private String statusDaftar;	
+	private String statusDaftar;
 
 	@Column(name = "taraf_hakmilik")
 	private String tarafHakmilik;
@@ -121,13 +122,13 @@ public class IntJKPTG {
 
 	@Column(name = "no_warta")
 	private String noWarta;
-	
+
 	@Column(name = "syarat")
 	private String syarat;
 
 	@Column(name = "sekatan")
 	private String sekatan;
-	
+
 	@Column(name = "kegunaan_tanah")
 	private String kegunaanTanah;
 
@@ -136,28 +137,48 @@ public class IntJKPTG {
 
 	@Column(name = "cukai_terkini")
 	private Double cukaiTerkini;
-	
+
 	@Column(name = "hakmilik_asal")
 	private String hakmilikAsal;
 
 	@Column(name = "hakmilik_berikut")
 	private String hakmilikBerikut;
-	
-	/*
-	@Column(name = "catatan")
-	private String catatan;	
 
-	@Column(name = "pelan_file_name")
-	private String pelanFileName;
-	
-	@Column(name = "pelan_thumb_file")
-	private String pelanThumbFile;
-	
+	/*
+	 * @Column(name = "catatan") private String catatan;
+	 * 
+	 * @Column(name = "pelan_file_name") private String pelanFileName;
+	 * 
+	 * @Column(name = "pelan_thumb_file") private String pelanThumbFile;
+	 * 
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name ="id_masuk") private Users idMasuk;
+	 * 
+	 * @Temporal(TemporalType.DATE)
+	 * 
+	 * @Column(name = "tarikh_masuk") private Date tarikhMasuk;
+	 * 
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "id_kemaskini") private Users idKemaskini;
+	 * 
+	 * @Temporal(TemporalType.DATE)
+	 * 
+	 * @Column(name = "tarikh_kemaskini") private Date tarikhKemaskini;
+	 * 
+	 * @Temporal(TemporalType.DATE)
+	 * 
+	 * @Column(name = "tarikh_warta") private Date tarikhWarta;
+	 * 
+	 * @Column(name = "flag_aktif") private String flagAktif;
+	 */
+
 	@ManyToOne
-	@JoinColumn(name ="id_masuk")
+	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
-	
-	@Temporal(TemporalType.DATE)
+
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
 
@@ -165,20 +186,13 @@ public class IntJKPTG {
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
-	@Temporal(TemporalType.DATE)
-	@Column(name = "tarikh_warta")
-	private Date tarikhWarta;
-	
-	@Column(name = "flag_aktif")
-	private String flagAktif;
-	*/
-	
+
 	public IntJKPTG() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -452,30 +466,51 @@ public class IntJKPTG {
 	public void setHakmilikBerikut(String hakmilikBerikut) {
 		this.hakmilikBerikut = hakmilikBerikut;
 	}
+
 	/*
-	public String getCatatan() {
-		return catatan;
-	}
-
-	public void setCatatan(String catatan) {
-		this.catatan = catatan;
-	}
-
-	public String getPelanFileName() {
-		return pelanFileName;
-	}
-
-	public void setPelanFileName(String pelanFileName) {
-		this.pelanFileName = pelanFileName;
-	}
-
-	public String getPelanThumbFile() {
-		return pelanThumbFile;
-	}
-
-	public void setPelanThumbFile(String pelanThumbFile) {
-		this.pelanThumbFile = pelanThumbFile;
-	}
+	 * public String getCatatan() { return catatan; }
+	 * 
+	 * public void setCatatan(String catatan) { this.catatan = catatan; }
+	 * 
+	 * public String getPelanFileName() { return pelanFileName; }
+	 * 
+	 * public void setPelanFileName(String pelanFileName) { this.pelanFileName =
+	 * pelanFileName; }
+	 * 
+	 * public String getPelanThumbFile() { return pelanThumbFile; }
+	 * 
+	 * public void setPelanThumbFile(String pelanThumbFile) {
+	 * this.pelanThumbFile = pelanThumbFile; }
+	 * 
+	 * public Users getIdMasuk() { return idMasuk; }
+	 * 
+	 * public void setIdMasuk(Users idMasuk) { this.idMasuk = idMasuk; }
+	 * 
+	 * public Date getTarikhMasuk() { return tarikhMasuk; }
+	 * 
+	 * public void setTarikhMasuk(Date tarikhMasuk) { this.tarikhMasuk =
+	 * tarikhMasuk; }
+	 * 
+	 * public Users getIdKemaskini() { return idKemaskini; }
+	 * 
+	 * public void setIdKemaskini(Users idKemaskini) { this.idKemaskini =
+	 * idKemaskini; }
+	 * 
+	 * public Date getTarikhKemaskini() { return tarikhKemaskini; }
+	 * 
+	 * public void setTarikhKemaskini(Date tarikhKemaskini) {
+	 * this.tarikhKemaskini = tarikhKemaskini; }
+	 * 
+	 * public String getFlagAktif() { return flagAktif; }
+	 * 
+	 * public void setFlagAktif(String flagAktif) { this.flagAktif = flagAktif;
+	 * }
+	 * 
+	 * public Date getTarikhWarta() { return tarikhWarta; }
+	 * 
+	 * public void setTarikhWarta(Date tarikhWarta) { this.tarikhWarta =
+	 * tarikhWarta; }
+	 */
 
 	public Users getIdMasuk() {
 		return idMasuk;
@@ -508,21 +543,4 @@ public class IntJKPTG {
 	public void setTarikhKemaskini(Date tarikhKemaskini) {
 		this.tarikhKemaskini = tarikhKemaskini;
 	}
-
-	public String getFlagAktif() {
-		return flagAktif;
-	}
-
-	public void setFlagAktif(String flagAktif) {
-		this.flagAktif = flagAktif;
-	}
-
-	public Date getTarikhWarta() {
-		return tarikhWarta;
-	}
-
-	public void setTarikhWarta(Date tarikhWarta) {
-		this.tarikhWarta = tarikhWarta;
-	}
-	*/
 }

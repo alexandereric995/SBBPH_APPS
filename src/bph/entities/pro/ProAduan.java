@@ -30,214 +30,229 @@ public class ProAduan {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_sumber_aduan")
 	private SumberAduan sumberAduan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_aduan")
 	private JenisAduan jenisAduan;
-	
+
 	@Column(name = "no_aduan")
 	private String noAduan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_aduan")
 	private Date tarikhAduan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_status")
 	private Status status;
-	
+
 	@Column(name = "no_pengenalan")
 	private String noPengenalan;
-	
+
 	@Column(name = "nama")
 	private String nama;
 
 	@Column(name = "alamat1")
 	private String alamat1;
-	
+
 	@Column(name = "alamat2")
 	private String alamat2;
-	
+
 	@Column(name = "alamat3")
 	private String alamat3;
-	
+
 	@Column(name = "poskod")
 	private String poskod;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_bandar")
 	private Bandar bandar;
-	
+
 	@Column(name = "no_telefon")
 	private String noTelefon;
-	
+
 	@Column(name = "emel")
 	private String emel;
-	
+
 	@Column(name = "tajuk")
 	private String tajuk;
-	
+
 	@Column(name = "butiran")
 	private String butiran;
-	
+
 	@Column(name = "file_name")
 	private String fileName;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_urusetia")
 	private Users urusetia;
-	
+
 	@Column(name = "ulasan_urusetia")
 	private String ulasanUrusetia;
-	
+
 	@Column(name = "catatan_urusetia")
 	private String catatanUrusetia;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_terima_aduan")
-	private Date tarikhTerimaAduan;	
-	
+	private Date tarikhTerimaAduan;
+
 	@Column(name = "ulasan_selesai")
 	private String ulasanSelesai;
-	
+
 	@Column(name = "catatan_selesai")
 	private String catatanSelesai;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_selesai")
 	private Date tarikhSelesai;
-	
+
 	@Column(name = "flag_agihan")
 	private String flagAgihan;
-	
+
 	@Column(name = "keterangan_teknikal")
 	private String keteranganTeknikal;
-	
+
 	@Column(name = "email_fm")
 	private String emailFm;
-	
+
 	@Column(name = "email_cc")
 	private String emailCc;
-	
+
 	@Column(name = "ulasan_unit")
 	private String ulasanUnit;
-	
+
 	@Column(name = "catatan_unit")
 	private String catatanUnit;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_maklumbalas_unit")
 	private Date tarikhMaklumbalasUnit;
-	
+
 	@Column(name = "sequence")
 	private int sequence;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_urusetia_selesai_aduan")
 	private Users urusetiaSelesaiAduan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_urusetia_tolak_aduan")
 	private Users urusetiaTolakAduan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_urusetia_maklumbalas_unit")
 	private Users urusetiaMaklumbalasUnit;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_urusetia_fm")
 	private Users urusetiaFm;
-		
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_maklumbalas_fm")
 	private Date tarikhMaklumbalasFm;
-	
+
 	@Column(name = "email_penerima_aduan")
 	private String emailPenerimaAduan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="aduan")
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "aduan")
 	private List<ProKategoriTeknikal> listKategoriTeknikal;
-	
+
 	public ProAduan() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-		
-	public String getStatusPeringatan(){
-		
+
+	public String getStatusPeringatan() {
+
 		String statusPeringatan = "";
 		Status status = this.status;
 		Date tarikhAduan = this.tarikhAduan;
 		Date tarikhTerimaAduan = this.tarikhTerimaAduan;
 		int bilHari = 0;
-		
+
 		// BARU
-		if(("1434787994722").equals(status.getId())){
-			if(tarikhAduan != null && tarikhAduan.toString().length() > 0){
+		if (("1434787994722").equals(status.getId())) {
+			if (tarikhAduan != null && tarikhAduan.toString().length() > 0) {
 				Calendar calCurrent = new GregorianCalendar();
 				Date dateCurrent = new Date();
 				calCurrent.setTime(dateCurrent);
-				
+
 				Calendar calTerimaAduan = new GregorianCalendar();
 				Date dateTerimaAduan = tarikhAduan;
 				calTerimaAduan.setTime(dateTerimaAduan);
-			
-				int diffYear = calTerimaAduan.get(Calendar.YEAR) - calCurrent.get(Calendar.YEAR);
-				int diffMonth = diffYear * 12 + calTerimaAduan.get(Calendar.MONTH) - calCurrent.get(Calendar.MONTH);
-				bilHari = daysBetween(calTerimaAduan.getTime(), calCurrent.getTime());
-				
-				if (calCurrent.getTime().after(calTerimaAduan.getTime())) {   //BILANGAN HARI STATUS BARU
+
+				int diffYear = calTerimaAduan.get(Calendar.YEAR)
+						- calCurrent.get(Calendar.YEAR);
+				int diffMonth = diffYear * 12
+						+ calTerimaAduan.get(Calendar.MONTH)
+						- calCurrent.get(Calendar.MONTH);
+				bilHari = daysBetween(calTerimaAduan.getTime(),
+						calCurrent.getTime());
+
+				if (calCurrent.getTime().after(calTerimaAduan.getTime())) { // BILANGAN
+																			// HARI
+																			// STATUS
+																			// BARU
 					statusPeringatan = bilHari + " HARI";
 				}
-			} 
+			}
 		}
-		
-		//DALAM TINDAKAN
-		if(("1434787994725").equals(status.getId())){
-			if(tarikhAduan != null && tarikhAduan.toString().length() > 0){
+
+		// DALAM TINDAKAN
+		if (("1434787994725").equals(status.getId())) {
+			if (tarikhAduan != null && tarikhAduan.toString().length() > 0) {
 				Calendar calCurrent = new GregorianCalendar();
 				Date dateCurrent = new Date();
 				calCurrent.setTime(dateCurrent);
-				
+
 				Calendar calTerimaAduan = new GregorianCalendar();
 				Date dateTerimaAduan = tarikhAduan;
 				calTerimaAduan.setTime(dateTerimaAduan);
-			
-				int diffYear = calTerimaAduan.get(Calendar.YEAR) - calCurrent.get(Calendar.YEAR);
-				int diffMonth = diffYear * 12 + calTerimaAduan.get(Calendar.MONTH) - calCurrent.get(Calendar.MONTH);
-				bilHari = daysBetween(calTerimaAduan.getTime(), calCurrent.getTime());
-							
-				if (calCurrent.getTime().after(calTerimaAduan.getTime()) && bilHari >= 3) {    //BILANGAN HARI STATUS DALAM TINDAKAN
+
+				int diffYear = calTerimaAduan.get(Calendar.YEAR)
+						- calCurrent.get(Calendar.YEAR);
+				int diffMonth = diffYear * 12
+						+ calTerimaAduan.get(Calendar.MONTH)
+						- calCurrent.get(Calendar.MONTH);
+				bilHari = daysBetween(calTerimaAduan.getTime(),
+						calCurrent.getTime());
+
+				if (calCurrent.getTime().after(calTerimaAduan.getTime())
+						&& bilHari >= 3) { // BILANGAN HARI STATUS DALAM
+											// TINDAKAN
 					statusPeringatan = bilHari + " HARI";
 				}
-			} 
+			}
 		}
 		return statusPeringatan;
 	}
+
 	private int daysBetween(Date date1, Date date2) {
 		return (int) ((date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24));
 	}
 
-	// GENERATE GETTERS 
+	// GENERATE GETTERS
 	public String getId() {
 		return id;
 	}
@@ -589,6 +604,6 @@ public class ProAduan {
 
 	public void setTarikhKemaskini(Date tarikhKemaskini) {
 		this.tarikhKemaskini = tarikhKemaskini;
-	}	
-	
+	}
+
 }

@@ -1,26 +1,50 @@
 package bph.entities.kod;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import portal.module.entity.Users;
 
 @Entity
-@Table(name="ruj_negara")
+@Table(name = "ruj_negara")
 public class Negara {
 
 	@Id
-	@Column(name="id")
+	@Column(name = "id")
 	private String id;
-	
-	@Column(name="keterangan")
+
+	@Column(name = "keterangan")
 	private String keterangan;
 
-	@Column(name="kod_1")
+	@Column(name = "kod_1")
 	private String kod1;
-	
-	@Column(name="kod_2")
+
+	@Column(name = "kod_2")
 	private String kod2;
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
 
 	public String getId() {
 		return id;
@@ -53,5 +77,37 @@ public class Negara {
 	public void setKod2(String kod2) {
 		this.kod2 = kod2;
 	}
-	
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
+	}
+
 }

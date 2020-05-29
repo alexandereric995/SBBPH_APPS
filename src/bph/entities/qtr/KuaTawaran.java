@@ -24,69 +24,69 @@ public class KuaTawaran {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_agihan")
 	private KuaAgihan agihan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pegawai")
 	private Users pegawai;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_penolakan")
 	private JenisPenolakan jenisPenolakan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_sebab_penolakan")
 	private SebabPenolakan sebabPenolakan;
-	
+
 	@Column(name = "tarikh_masuk")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhMasuk;
-	
+
 	@Column(name = "tarikh_kemaskini")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhKemaskini;
-	
-//	@ManyToOne
-//	@JoinColumn(name = "nama_petugas")
-//	private Users petugas;
-	
+
+	// @ManyToOne
+	// @JoinColumn(name = "nama_petugas")
+	// private Users petugas;
+
 	@Column(name = "tarikh_surat")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhSurat;
-	
+
 	@Column(name = "no_fail")
 	private String noFail;
-	
+
 	@Column(name = "status_tawaran")
 	private String statusTawaran;
-	
+
 	@Column(name = "cetak_surat")
 	private String cetakSurat;
-	
+
 	@Column(name = "tarikh_surat_sebenar")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhSuratSebenar;
-	
+
 	@Column(name = "tarikh_surat_diterima")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhSuratDiterima;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "title_dalam_surat")
 	private GelaranDalamSurat titleDalamSurat;
-	
+
 	@Column(name = "kepada")
 	private String kepada;
-	
+
 	@Column(name = "bil")
 	private String bil;
-	
+
 	public int getFlagSelesai() {
 		return flagSelesai;
 	}
@@ -97,13 +97,13 @@ public class KuaTawaran {
 
 	@Column(name = "generate_email")
 	private String generateEmail;
-	
+
 	@Column(name = "flag_selesai")
 	private int flagSelesai;
-	
+
 	@Column(name = "flag_hantar")
 	private int flagHantar;
-	
+
 	public int getFlagHantar() {
 		return flagHantar;
 	}
@@ -114,10 +114,10 @@ public class KuaTawaran {
 
 	@Column(name = "flag_semakan_pelulus")
 	private int flagSemakanPelulus;
-	
+
 	@Column(name = "nama_kementerian")
 	private String namaKementerian;
-	
+
 	public int getFlagSemakanPelulus() {
 		return flagSemakanPelulus;
 	}
@@ -128,25 +128,25 @@ public class KuaTawaran {
 
 	@Column(name = "nama_jabatan")
 	private String namaJabatan;
-	
+
 	@Column(name = "nama_bahagian")
 	private String namaBahagian;
-	
+
 	@Column(name = "nama_alamat1")
 	private String namaAlamat1;
-	
+
 	@Column(name = "nama_alamat2")
 	private String namaAlamat2;
-	
+
 	@Column(name = "nama_alamat3")
 	private String namaAlamat3;
-	
+
 	@Column(name = "nama_poskod")
 	private String namaPoskod;
-	
+
 	@Column(name = "nama_negeri")
 	private String namaNegeri;
-	
+
 	public String getNamaKementerian() {
 		return namaKementerian;
 	}
@@ -221,9 +221,17 @@ public class KuaTawaran {
 
 	@Column(name = "nama_bandar")
 	private String namaBandar;
-	
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
 	public KuaTawaran() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -257,7 +265,7 @@ public class KuaTawaran {
 	public void setSebabPenolakan(SebabPenolakan sebabPenolakan) {
 		this.sebabPenolakan = sebabPenolakan;
 	}
-	
+
 	public Date getTarikhMasuk() {
 		return tarikhMasuk;
 	}
@@ -274,13 +282,13 @@ public class KuaTawaran {
 		this.tarikhKemaskini = tarikhKemaskini;
 	}
 
-//	public Users getPetugas() {
-//		return petugas;
-//	}
-//
-//	public void setPetugas(Users petugas) {
-//		this.petugas = petugas;
-//	}
+	// public Users getPetugas() {
+	// return petugas;
+	// }
+	//
+	// public void setPetugas(Users petugas) {
+	// this.petugas = petugas;
+	// }
 
 	public Date getTarikhSurat() {
 		return tarikhSurat;
@@ -372,13 +380,13 @@ public class KuaTawaran {
 
 	public String getDescGenEmail() {
 		String gE = "";
-		
-		if ( "Y".equals(getGenerateEmail()) ) {
+
+		if ("Y".equals(getGenerateEmail())) {
 			gE = "Ya";
 		} else {
 			gE = "Tidak";
 		}
-		
+
 		return gE;
 	}
 
@@ -389,7 +397,7 @@ public class KuaTawaran {
 	public Users getPegawai() {
 		return pegawai;
 	}
-	
+
 	@Column(name = "status_dalaman")
 	private String statusDalaman;
 
@@ -400,6 +408,21 @@ public class KuaTawaran {
 	public void setStatusDalaman(String statusDalaman) {
 		this.statusDalaman = statusDalaman;
 	}
-	
-	
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
 }

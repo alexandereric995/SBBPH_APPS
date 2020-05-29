@@ -17,7 +17,6 @@ import bph.entities.kod.Bandar;
 import bph.entities.kod.Status;
 import bph.entities.qtr.KuaPermohonanNGO;
 import bph.entities.qtr.KuaSequencePermohonan;
-import bph.entities.rk.RkPermohonan;
 import bph.utils.DataUtil;
 import bph.utils.Util;
 import db.persistence.MyPersistence;

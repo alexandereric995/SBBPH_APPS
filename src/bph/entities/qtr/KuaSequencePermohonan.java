@@ -11,8 +11,8 @@ public class KuaSequencePermohonan {
 
 	@Id
 	@Column(name = "id")
-	private String id;	
-	
+	private String id;
+
 	@Column(name = "bilangan")
 	private int bilangan;
 

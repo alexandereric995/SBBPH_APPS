@@ -22,58 +22,58 @@ public class JrpMesyuarat {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_permohonan")
 	private JrpPermohonan jrpPermohonan;
-	
+
 	@Column(name = "bil_mesyuarat")
 	private String bilMesyuarat;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_mesyuarat")
 	private Date tarikhMesyuarat;
-	
+
 	@Column(name = "ulasan")
 	private String ulasan;
-	
+
 	@Column(name = "flag_keputusan")
 	private String flagKeputusan;
-	
+
 	@OneToOne
 	@JoinColumn(name = "urusetia_penyedia")
 	private Users urusetiaPenyedia;
-	
+
 	@OneToOne
 	@JoinColumn(name = "urusetia_pengesah")
 	private Users urusetiaPengesah;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_sah")
 	private Date tarikhSah;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	@Column(name = "ulasan_urusetia_pengesah")
 	private String ulasanUrusetiaPengesah;
-	
-	
+
 	public JrpMesyuarat() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -187,5 +187,5 @@ public class JrpMesyuarat {
 	public void setUlasanUrusetiaPengesah(String ulasanUrusetiaPengesah) {
 		this.ulasanUrusetiaPengesah = ulasanUrusetiaPengesah;
 	}
-	
+
 }

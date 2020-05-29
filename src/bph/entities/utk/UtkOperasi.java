@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 import bph.entities.kod.BlokUtk;
 import bph.entities.kod.Fasa;
 import bph.entities.kod.JenisKenderaanUtk;
@@ -28,92 +29,109 @@ public class UtkOperasi {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "no_fail")
 	private String noFail;
 
 	@Column(name = "no_rujukan_operasi")
 	private String noRujukanOperasi;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_zon")
 	private ZonUtk zon;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_kuarters")
 	private JenisKuartersUtk jenisKuarters;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kawasan")
 	private KawasanUtk kawasan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_operasi")
 	private JenisOperasiUtk jenisOperasi;
 
-	@Column(name = "id_jenis_operasi", insertable=false, updatable=false)
+	@Column(name = "id_jenis_operasi", insertable = false, updatable = false)
 	private String idJenisOperasi;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_pelanggaran_syarat")
 	private JenisPelanggaranSyaratUtk jenisPelanggaranSyarat;
 
-	@Column(name = "id_jenis_pelanggaran_syarat", insertable=false, updatable=false)
+	@Column(name = "id_jenis_pelanggaran_syarat", insertable = false, updatable = false)
 	private String idJenisPelanggaranSyarat;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_operasi")
 	private Date tarikhOperasi;
-	
+
 	@Column(name = "masa_mula")
 	private String masaMula;
 
 	@Column(name = "masa_tamat")
 	private String masaTamat;
-	
+
 	@Column(name = "tajuk")
 	private String tajuk;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "flag_operasi")
 	private String flagOperasi;
 
 	@ManyToOne
 	@JoinColumn(name = "fasa")
 	private Fasa fasa;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "blok")
 	private BlokUtk blok;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_kenderaan")
 	private JenisKenderaanUtk jenisKenderaan;
-	
-	@Column(name ="no_plat_kenderaan")
+
+	@Column(name = "no_plat_kenderaan")
 	private String noPlatKenderaan;
-	
-	@Column(name ="model_kenderaan")
+
+	@Column(name = "model_kenderaan")
 	private String modelKenderaan;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_data")
 	private Date tarikhDataMasuk;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name ="tarikh_kemaskini_data")
+	@Column(name = "tarikh_kemaskini_data")
 	private Date tarikhKemaskiniData;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_aduan")
 	private Date tarikhAduan;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users daftarOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users kemaskiniOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public UtkOperasi() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -305,6 +323,38 @@ public class UtkOperasi {
 
 	public void setNoRujukanOperasi(String noRujukanOperasi) {
 		this.noRujukanOperasi = noRujukanOperasi;
+	}
+
+	public Users getDaftarOleh() {
+		return daftarOleh;
+	}
+
+	public void setDaftarOleh(Users daftarOleh) {
+		this.daftarOleh = daftarOleh;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getKemaskiniOleh() {
+		return kemaskiniOleh;
+	}
+
+	public void setKemaskiniOleh(Users kemaskiniOleh) {
+		this.kemaskiniOleh = kemaskiniOleh;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 
 }

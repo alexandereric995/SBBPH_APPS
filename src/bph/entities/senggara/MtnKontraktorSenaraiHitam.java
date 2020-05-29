@@ -37,7 +37,7 @@ public class MtnKontraktorSenaraiHitam {
 	@Column(name = "tarikh_bebas")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhBebas;
-	
+
 	@Column(name = "gred_prestasi")
 	private String gredPrestasi;
 
@@ -54,8 +54,26 @@ public class MtnKontraktorSenaraiHitam {
 	@JoinColumn(name = "id_pegawai_bebas")
 	private Users pegawaiBebas;
 
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users daftarOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users kemaskiniOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public MtnKontraktorSenaraiHitam() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
+
 	}
 
 	public String getKeteranganFlagAktif() {
@@ -144,5 +162,37 @@ public class MtnKontraktorSenaraiHitam {
 
 	public void setPegawaiBebas(Users pegawaiBebas) {
 		this.pegawaiBebas = pegawaiBebas;
+	}
+
+	public Users getDaftarOleh() {
+		return daftarOleh;
+	}
+
+	public void setDaftarOleh(Users daftarOleh) {
+		this.daftarOleh = daftarOleh;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getKemaskiniOleh() {
+		return kemaskiniOleh;
+	}
+
+	public void setKemaskiniOleh(Users kemaskiniOleh) {
+		this.kemaskiniOleh = kemaskiniOleh;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

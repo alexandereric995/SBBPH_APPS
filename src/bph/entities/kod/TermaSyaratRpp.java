@@ -29,28 +29,28 @@ public class TermaSyaratRpp {
 	@ManyToOne
 	@JoinColumn(name = "id_kategori_terma")
 	private JenisBangunan kategoriTerma;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
-	
+
 	public TermaSyaratRpp() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -107,14 +107,14 @@ public class TermaSyaratRpp {
 		this.kategoriTerma = kategoriTerma;
 	}
 
-	public String getKeteranganKategoriTerma(){
+	public String getKeteranganKategoriTerma() {
 		String strTerma = "";
-		if(this.kategoriTerma != null){
+		if (this.kategoriTerma != null) {
 			strTerma = this.kategoriTerma.getId().toUpperCase();
-		}else{
+		} else {
 			strTerma = "SEMUA";
 		}
 		return strTerma;
 	}
-	
+
 }

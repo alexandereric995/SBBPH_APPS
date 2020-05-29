@@ -1,4 +1,3 @@
-
 package bph.entities.bgs;
 
 import javax.persistence.Column;
@@ -13,19 +12,19 @@ public class BgsSeqPermohonan {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "id_zon")
 	private String idZon;
 
-	@Column(name="tahun")
+	@Column(name = "tahun")
 	private int tahun;
-	
-	@Column(name="bil_fail")
+
+	@Column(name = "bil_fail")
 	private int bilFail;
-	
-	@Column(name="bil_permohonan")
+
+	@Column(name = "bil_permohonan")
 	private int bilPermohonan;
-	
+
 	public BgsSeqPermohonan() {
 
 	}

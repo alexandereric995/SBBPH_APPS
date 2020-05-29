@@ -4,10 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,37 +25,37 @@ public class KewBayaranResit {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pembayar")
 	private Users pembayar;
-	
+
 	@Column(name = "flag_jenis_bayaran")
-	private String flagJenisBayaran; //'KAUNTER; MANUAL; ONLINE'
-	
+	private String flagJenisBayaran; // 'KAUNTER; MANUAL; ONLINE'
+
 	@ManyToOne
 	@JoinColumn(name = "id_juruwang")
 	private KodJuruwang kodJuruwang;
-	
+
 	@Column(name = "id_kod_pusat_terima")
 	private String kodPusatTerima;
-	
+
 	@Column(name = "no_resit")
 	private String noResit;
-	
+
 	@Column(name = "no_resit_lama")
 	private String noResitLama;
-	
+
 	@Column(name = "kod_mesin")
 	private String kodMesin;
-	
+
 	@Column(name = "jumlah_amaun_bayaran")
 	private Double jumlahAmaunBayaran;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_bayaran")
-	private Date tarikhBayaran; 
-	
+	private Date tarikhBayaran;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_resit")
 	private Date tarikhResit;
@@ -65,39 +63,62 @@ public class KewBayaranResit {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "masa_resit")
 	private Date masaResit;
-	
+
 	@Column(name = "flag_void")
-	private String flagVoid; // jika berlaku pembatalan resit. Next. update invois semula
-	
+	private String flagVoid; // jika berlaku pembatalan resit. Next. update
+								// invois semula
+
 	@Column(name = "amaun_void")
-	private Double amaunVoid; // jika berlaku pembatalan resit. Next. update invois semula
-	
+	private Double amaunVoid; // jika berlaku pembatalan resit. Next. update
+								// invois semula
+
 	@Column(name = "catatan_batal_resit")
 	private String catatanBatalResit;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_batal_resit")
 	private Date tarikhBatalResit;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_cetak_resit")
 	private Date tarikhCetakResit;
-	
+
 	@Column(name = "bil_cetak_resit")
 	private Integer bilCetakResit;
-	
+
 	@Column(name = "catatan_bayar_manual")
 	private String catatanBayarManual;
-	
+
 	@Column(name = "kod_juruwang")
 	private String juruwangKod; // kod fix bila kod juruwang berubah
-	
-	/**Auditrail*/
+
+	@Column(name = "no_pengenalan_pembayar")
+	private String noPengenalanPembayar;
+
+	@Column(name = "nama_pembayar")
+	private String namaPembayar; // juruwang masukkan nama pembayar untuk
+									// cetakan resit(bayaran oleh nama pembayar
+									// walaupun permohonan dibuat oleh orang
+									// lain)
+
+	@Column(name = "alamat_pembayar")
+	private String alamatPembayar;
+
+	@Column(name = "id_permohonan")
+	private String idPermohonan;
+
+	@Column(name = "id_transaksi_bank")
+	private String idTransaksiBank;
+
+	@Column(name = "flag_jenis_resit")
+	private String flagJenisResit;
+
+	/** Auditrail */
 	@ManyToOne
 	@JoinColumn(name = "id_pendaftar")
 	private Users userPendaftar;
 
-	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users userKemaskini;
 
@@ -108,25 +129,7 @@ public class KewBayaranResit {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
-	@Column(name = "no_pengenalan_pembayar")
-	private String noPengenalanPembayar;
-	
-	@Column(name = "nama_pembayar")
-	private String namaPembayar; //juruwang masukkan nama pembayar untuk cetakan resit(bayaran oleh nama pembayar walaupun permohonan dibuat oleh orang lain)
-	
-	@Column(name = "alamat_pembayar")
-	private String alamatPembayar;
-	
-	@Column(name = "id_permohonan")
-	private String idPermohonan;
-	
-	@Column(name = "id_transaksi_bank")
-	private String idTransaksiBank;
-	
-	@Column(name = "flag_jenis_resit")
-	private String flagJenisResit;
-	
+
 	public KewBayaranResit() {
 		setId(UID.getUID());
 		setTarikhBayaran(new Date());
@@ -138,7 +141,7 @@ public class KewBayaranResit {
 		setBilCetakResit(0);
 		setTarikhDaftar(new Date());
 	}
-	
+
 	public String getKeteranganFlagJenisResit() {
 		String keteranganFlagJenisResit = "";
 		if (this.flagJenisResit != null) {
@@ -150,16 +153,16 @@ public class KewBayaranResit {
 				keteranganFlagJenisResit = "DEPOSIT DAN SEWA";
 			}
 		}
-		
-		return keteranganFlagJenisResit;		
+
+		return keteranganFlagJenisResit;
 	}
-	
-	public Map<String, Object> getMaklumatPembayarLain(){
-		
+
+	public Map<String, Object> getMaklumatPembayarLain() {
+
 		MyPersistence mp = new MyPersistence();
-		String id = this.id;		
+		String id = this.id;
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+
 		String noInvois = "";
 		String flagJenisPembayarLain = "";
 		String nokpsm = "";
@@ -172,28 +175,37 @@ public class KewBayaranResit {
 		String negeri = "";
 		String bandarKeterangan = "";
 		String negeriKeterangan = "";
-		
+
 		try {
-			
-			KewResitSenaraiInvois senaraiInvois = (KewResitSenaraiInvois) mp.get("select x from KewResitSenaraiInvois x where x.resit.id='" + id + "'");
-			if(senaraiInvois != null){
-				KewInvois v = (KewInvois) mp.get("select x from KewInvois x where x.id ='" + senaraiInvois.getInvois().getId() + "'");
+
+			KewResitSenaraiInvois senaraiInvois = (KewResitSenaraiInvois) mp
+					.get("select x from KewResitSenaraiInvois x where x.resit.id='"
+							+ id + "'");
+			if (senaraiInvois != null) {
+				KewInvois v = (KewInvois) mp
+						.get("select x from KewInvois x where x.id ='"
+								+ senaraiInvois.getInvois().getId() + "'");
 				noInvois = v.getNoInvois();
 				flagJenisPembayarLain = v.getFlagJenisPembayarLain();
-				
-				PembayarLain obj = (PembayarLain) mp.get("select x from PembayarLain x where x.id='" + v.getPembayarLain().getId() + "'");
-				
+
+				PembayarLain obj = (PembayarLain) mp
+						.get("select x from PembayarLain x where x.id='"
+								+ v.getPembayarLain().getId() + "'");
+
 				nokpsm = obj.getId();
 				nama = obj.getNama();
 				alamat1 = obj.getAlamat1();
 				alamat2 = obj.getAlamat2();
 				alamat3 = obj.getAlamat3();
 				poskod = obj.getPoskod();
-				bandar = obj.getBandar()!=null?obj.getBandar().getId():"";
-				negeri = obj.getBandar()!=null?obj.getBandar().getNegeri().getId():"";
-				bandarKeterangan = obj.getBandar()!=null?obj.getBandar().getKeterangan():"";
-				negeriKeterangan = obj.getBandar()!=null?obj.getBandar().getNegeri().getKeterangan():"";
-			
+				bandar = obj.getBandar() != null ? obj.getBandar().getId() : "";
+				negeri = obj.getBandar() != null ? obj.getBandar().getNegeri()
+						.getId() : "";
+				bandarKeterangan = obj.getBandar() != null ? obj.getBandar()
+						.getKeterangan() : "";
+				negeriKeterangan = obj.getBandar() != null ? obj.getBandar()
+						.getNegeri().getKeterangan() : "";
+
 			}
 			map.put("noInvois", noInvois);
 			map.put("flagJenisPembayarLain", flagJenisPembayarLain);
@@ -202,16 +214,18 @@ public class KewBayaranResit {
 			map.put("alamat1", alamat1);
 			map.put("alamat2", alamat2);
 			map.put("alamat3", alamat3);
-			map.put("poskod",poskod);
+			map.put("poskod", poskod);
 			map.put("bandar", bandar);
 			map.put("negeri", negeri);
 			map.put("bandarKeterangan", bandarKeterangan);
 			map.put("negeriKeterangan", negeriKeterangan);
-			
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 
 		return map;
@@ -377,38 +391,6 @@ public class KewBayaranResit {
 		this.juruwangKod = juruwangKod;
 	}
 
-	public Users getUserPendaftar() {
-		return userPendaftar;
-	}
-
-	public void setUserPendaftar(Users userPendaftar) {
-		this.userPendaftar = userPendaftar;
-	}
-
-	public Users getUserKemaskini() {
-		return userKemaskini;
-	}
-
-	public void setUserKemaskini(Users userKemaskini) {
-		this.userKemaskini = userKemaskini;
-	}
-
-	public Date getTarikhDaftar() {
-		return tarikhDaftar;
-	}
-
-	public void setTarikhDaftar(Date tarikhDaftar) {
-		this.tarikhDaftar = tarikhDaftar;
-	}
-
-	public Date getTarikhKemaskini() {
-		return tarikhKemaskini;
-	}
-
-	public void setTarikhKemaskini(Date tarikhKemaskini) {
-		this.tarikhKemaskini = tarikhKemaskini;
-	}
-
 	public String getNoPengenalanPembayar() {
 		return noPengenalanPembayar;
 	}
@@ -455,5 +437,37 @@ public class KewBayaranResit {
 
 	public void setFlagJenisResit(String flagJenisResit) {
 		this.flagJenisResit = flagJenisResit;
+	}
+
+	public Users getUserPendaftar() {
+		return userPendaftar;
+	}
+
+	public void setUserPendaftar(Users userPendaftar) {
+		this.userPendaftar = userPendaftar;
+	}
+
+	public Users getUserKemaskini() {
+		return userKemaskini;
+	}
+
+	public void setUserKemaskini(Users userKemaskini) {
+		this.userKemaskini = userKemaskini;
+	}
+
+	public Date getTarikhDaftar() {
+		return tarikhDaftar;
+	}
+
+	public void setTarikhDaftar(Date tarikhDaftar) {
+		this.tarikhDaftar = tarikhDaftar;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

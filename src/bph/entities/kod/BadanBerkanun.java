@@ -1,11 +1,17 @@
 package bph.entities.kod;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import portal.module.entity.Users;
 
 @Entity
 @Table(name = "ruj_badan_berkanun")
@@ -21,9 +27,25 @@ public class BadanBerkanun {
 	@ManyToOne
 	@JoinColumn(name = "id_kementerian")
 	private Kementerian kementerian;
-	
+
 	@Column(name = "singkatan")
 	private String singkatan;
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
 
 	public String getId() {
 		return id;
@@ -57,6 +79,4 @@ public class BadanBerkanun {
 		this.singkatan = singkatan;
 	}
 
-	
-	
 }

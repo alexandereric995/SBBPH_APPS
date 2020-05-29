@@ -1,13 +1,18 @@
 package bph.entities.pembangunan;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 import bph.entities.kod.Agensi;
 import bph.entities.kod.Bandar;
 import bph.entities.kod.Mukim;
@@ -24,7 +29,7 @@ public class DevPremis {
 	@ManyToOne
 	@JoinColumn(name = "id_zon")
 	private Zon zon;
-	
+
 	@Column(name = "kod_dpa")
 	private String kodDPA;
 
@@ -38,61 +43,78 @@ public class DevPremis {
 	@ManyToOne
 	@JoinColumn(name = "id_agensi")
 	private Agensi agensi;
-	
+
 	@Column(name = "id_kategori_premis")
 	private String kategoriPremis;
-	
+
 	@Column(name = "id_subkategori_premis")
 	private String subkategoriPremis;
-	
+
 	@Column(name = "nama_premis")
 	private String namaPremis;
-	
+
 	@Column(name = "alamat1")
 	private String alamat1;
-		
+
 	@Column(name = "alamat2")
 	private String alamat2;
-	
+
 	@Column(name = "alamat3")
 	private String alamat3;
-	
+
 	@Column(name = "poskod")
 	private int poskod;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_bandar")
 	private Bandar bandar;
-	
+
 	@Column(name = "luas_premis")
 	private double luasPpremis;
-	
+
 	@Column(name = "luas_bangunan")
 	private double luasBangunan;
-	
+
 	@Column(name = "luas_binaan_luar")
 	private double luasBinaanLuar;
-	
+
 	@Column(name = "kos_asal")
 	private double kosAsal;
-	
+
 	@Column(name = "kos_tambahan")
 	private double kosTambahan;
-	
+
 	@Column(name = "jumlah_kos")
 	private double jumlahKos;
-	
+
 	@Column(name = "tahun_siap_bina")
 	private int tahunSiapBina;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
 
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public DevPremis() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -277,5 +299,37 @@ public class DevPremis {
 
 	public void setFlagAktif(String flagAktif) {
 		this.flagAktif = flagAktif;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

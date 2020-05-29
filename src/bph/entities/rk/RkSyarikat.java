@@ -17,71 +17,71 @@ import bph.entities.kod.Bandar;
 @Entity
 @Table(name = "rk_syarikat")
 public class RkSyarikat {
-	
+
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "nama")
 	private String nama;
-	
+
 	@Column(name = "id_jenis_pemilikan")
 	private String idJenisPemilikan;
-	
+
 	@Column(name = "jenis_pemilikan_lain")
 	private String jenisPemilikanLain;
-	
+
 	@Column(name = "taraf_bumiputera")
-	private String tarafBumiputera;	
-	
+	private String tarafBumiputera;
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_penubuhan")
+	@Column(name = "tarikh_penubuhan")
 	private Date tarikhPenubuhan;
-	
+
 	@Column(name = "bidang_syarikat")
 	private String bidangSyarikat;
-	
+
 	@Column(name = "alamat1")
 	private String alamat1;
-	
+
 	@Column(name = "alamat2")
 	private String alamat2;
-	
+
 	@Column(name = "alamat3")
 	private String alamat3;
-	
+
 	@Column(name = "poskod")
 	private String poskod;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_bandar")
 	private Bandar bandar;
-	
+
 	@Column(name = "no_telefon")
 	private String noTelefon;
-	
+
 	@Column(name = "no_faks")
 	private String noFaks;
-	
+
 	@Column(name = "emel")
 	private String emel;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public RkSyarikat() {
 		setTarikhMasuk(new Date());
 	}

@@ -23,37 +23,37 @@ public class KuaPermohonan {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pemohon")
 	private Users pemohon;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_lokasi_permohonan")
 	private LokasiPermohonan lokasi;
-	
+
 	@Column(name = "no_fail")
 	private String noFail;
-	
+
 	@Column(name = "no_permohonan")
 	private String noPermohonan;
-	
+
 	@Column(name = "tarikh_permohonan")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhPermohonan;
-	
+
 	@Column(name = "date_permohonan")
 	@Temporal(TemporalType.DATE)
 	private Date datePermohonan;
-	
+
 	@Column(name = "date_mohon_tukar")
 	@Temporal(TemporalType.DATE)
 	private Date dateMohonTukar;
-	
+
 	@Column(name = "date_mohon_upgrade")
 	@Temporal(TemporalType.DATE)
 	private Date dateMohonUpgrade;
-	
+
 	public Date getDateMohonTukar() {
 		return dateMohonTukar;
 	}
@@ -81,25 +81,25 @@ public class KuaPermohonan {
 	@Column(name = "date_mohon_downgrade")
 	@Temporal(TemporalType.DATE)
 	private Date dateMohonDowngrade;
-	
+
 	@Column(name = "tarikh_kemaskini")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhKemaskini;
-	
-//	@Column(name = "tarikh_masuk")
-//	@Temporal(TemporalType.TIMESTAMP)
-//	private Date tarikhMasuk;
-	
+
+	// @Column(name = "tarikh_masuk")
+	// @Temporal(TemporalType.TIMESTAMP)
+	// private Date tarikhMasuk;
+
 	@ManyToOne
 	@JoinColumn(name = "status")
 	private Status status;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "status_internal")
 	private String statusDalaman;
-	
+
 	public String getStatusDalaman() {
 		return statusDalaman;
 	}
@@ -110,16 +110,16 @@ public class KuaPermohonan {
 
 	@Column(name = "perakuan")
 	private int perakuan;
-	
+
 	@Column(name = "flag_agihan")
 	private String flagAgihan;
-	
+
 	@Column(name = "flag_rayuan")
 	private String flagRayuan;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	public String getFlagRayuan() {
 		return flagRayuan;
 	}
@@ -130,22 +130,22 @@ public class KuaPermohonan {
 
 	@Column(name = "flag_downgrade")
 	private String flagDowngrade;
-	
+
 	@Column(name = "flag_kemaskini")
 	private String flagKemaskini;
-	
+
 	@Column(name = "flag_mohon_downgrade")
 	private String flagMohonDowngrade;
-	
+
 	@Column(name = "flag_mohon_upgrade")
 	private String flagMohonUpgrade;
-	
+
 	@Column(name = "flag_mohon_tukar")
 	private String flagMohonTukar;
-	
+
 	@Column(name = "flag_hantar_menunggu")
 	private String flagHantarMenunggu;
-	
+
 	public String getFlagHantarMenunggu() {
 		return flagHantarMenunggu;
 	}
@@ -180,13 +180,13 @@ public class KuaPermohonan {
 
 	@Column(name = "flag_lulus_tukar")
 	private String flagLulusTukar;
-	
+
 	@Column(name = "flag_lulus_upgrade")
 	private String flagLulusUpgrade;
-	
+
 	@Column(name = "flag_lulus_downgrade")
 	private String flagLulusDowngrade;
-	
+
 	public String getFlagAgihan() {
 		return flagAgihan;
 	}
@@ -245,28 +245,28 @@ public class KuaPermohonan {
 
 	@Column(name = "flag_tawaran")
 	private String flagTawaran;
-	
+
 	@Column(name = "flag_tuntutan")
 	private String flagTuntutan;
-	
+
 	@Column(name = "kelulusan1")
 	private String kelulusan1;
-	
+
 	@Column(name = "kelulusan2")
 	private String kelulusan2;
-	
+
 	@Column(name = "kelulusan3")
 	private String kelulusan3;
-	
+
 	@Column(name = "pekerjaan")
 	private int pekerjaan;
-	
+
 	@Column(name = "peribadi")
 	private int peribadi;
-	
+
 	@Column(name = "pasangan")
 	private int pasangan;
-	
+
 	public String getKelasLayak() {
 		return kelasLayak;
 	}
@@ -285,18 +285,30 @@ public class KuaPermohonan {
 
 	@Column(name = "pinjaman")
 	private int pinjaman;
-	
+
 	@Column(name = "kelas_layak")
 	private String kelasLayak;
-	
+
 	@Column(name = "kelas_downgrade")
 	private String kelasDowngrade;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
 
 	public KuaPermohonan() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -353,13 +365,13 @@ public class KuaPermohonan {
 		this.tarikhKemaskini = tarikhKemaskini;
 	}
 
-//	public Date getTarikhMasuk() {
-//		return tarikhMasuk;
-//	}
+	// public Date getTarikhMasuk() {
+	// return tarikhMasuk;
+	// }
 
-//	public void setTarikhMasuk(Date tarikhMasuk) {
-//		this.tarikhMasuk = tarikhMasuk;
-//	}
+	// public void setTarikhMasuk(Date tarikhMasuk) {
+	// this.tarikhMasuk = tarikhMasuk;
+	// }
 
 	public Status getStatus() {
 		return status;
@@ -387,12 +399,12 @@ public class KuaPermohonan {
 
 	public String getPerakuanDesc() {
 		String perakuan = "TIDAK";
-		if ( getPerakuan() == 1 ) {
+		if (getPerakuan() == 1) {
 			perakuan = "YA";
 		}
 		return perakuan;
 	}
-	
+
 	public String getFlagDowngrade() {
 		return flagDowngrade;
 	}
@@ -403,12 +415,12 @@ public class KuaPermohonan {
 
 	public String getFlagDowngradeDesc() {
 		String flagDowngrade = "TIDAK";
-		if ( "1".equals(getFlagDowngrade()) ) {
+		if ("1".equals(getFlagDowngrade())) {
 			flagDowngrade = "YA";
 		}
 		return flagDowngrade;
 	}
-	
+
 	public String getFlagTuntutan() {
 		return flagTuntutan;
 	}
@@ -479,6 +491,30 @@ public class KuaPermohonan {
 
 	public Date getDatePermohonan() {
 		return datePermohonan;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
 	}
 
 }

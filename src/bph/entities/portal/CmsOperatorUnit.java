@@ -21,42 +21,43 @@ public class CmsOperatorUnit {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "unit")
 	private String unit;
-	
+
 	@Column(name = "nama")
-	private String nama;	
-	
+	private String nama;
+
 	@Column(name = "no_telefon")
 	private String noTelefon;
-	
+
 	@Column(name = "emel")
 	private String emel;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public CmsOperatorUnit() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getKeteranganFlagAktif() {
 		String status = "";
 		if (this.flagAktif != null) {

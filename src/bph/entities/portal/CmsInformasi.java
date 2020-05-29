@@ -21,39 +21,40 @@ public class CmsInformasi {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "tajuk")
 	private String tajuk;
-	
+
 	@Column(name = "butiran")
-	private String butiran;	
-	
+	private String butiran;
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@Column(name = "flag_baru")
 	private String flagBaru;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public CmsInformasi() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getKeteranganFlagAktif() {
 		String status = "";
 		if (this.flagAktif != null) {
@@ -65,7 +66,7 @@ public class CmsInformasi {
 		}
 		return status;
 	}
-	
+
 	public String getKeteranganFlagBaru() {
 		String status = "";
 		if (this.flagBaru != null) {

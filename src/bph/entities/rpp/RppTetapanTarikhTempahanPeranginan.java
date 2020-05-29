@@ -16,42 +16,43 @@ import lebah.template.UID;
 import portal.module.entity.Users;
 
 @Entity
-@Table(name="rpp_tetapan_tarikh_tempahan_peranginan")
+@Table(name = "rpp_tetapan_tarikh_tempahan_peranginan")
 public class RppTetapanTarikhTempahanPeranginan {
 
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_buka_tempahan")
 	private RppTetapanBukaTempahan tetapanBukaTempahan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_peranginan")
 	private RppPeranginan peranginan;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	public RppTetapanTarikhTempahanPeranginan() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -66,7 +67,8 @@ public class RppTetapanTarikhTempahanPeranginan {
 		return tetapanBukaTempahan;
 	}
 
-	public void setTetapanBukaTempahan(RppTetapanBukaTempahan tetapanBukaTempahan) {
+	public void setTetapanBukaTempahan(
+			RppTetapanBukaTempahan tetapanBukaTempahan) {
 		this.tetapanBukaTempahan = tetapanBukaTempahan;
 	}
 
@@ -117,5 +119,5 @@ public class RppTetapanTarikhTempahanPeranginan {
 	public void setFlagAktif(String flagAktif) {
 		this.flagAktif = flagAktif;
 	}
-	
+
 }

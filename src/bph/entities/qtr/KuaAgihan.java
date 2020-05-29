@@ -25,36 +25,36 @@ public class KuaAgihan {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_permohonan")
 	private KuaPermohonan permohonan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pekerjaan")
 	private UsersJob pekerjaan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pemohon")
 	private Users pemohon;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kuarters")
 	private KuaKuarters kuarters;
-		
+
 	@Column(name = "no_giliran")
 	private int noGiliran;
-	
+
 	@Column(name = "flag_menunggu_bersyarat")
 	private int flagMenungguBersyarat;
-	
+
 	@Column(name = "flag_semakan_pelulus")
 	private int flagSemakanPelulus;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "status")
 	private Status status;
-	
+
 	public int getFlagSemakanPelulus() {
 		return flagSemakanPelulus;
 	}
@@ -66,7 +66,7 @@ public class KuaAgihan {
 	@Column(name = "tarikh_agih")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhAgih;
-	
+
 	public Date getDateAgih() {
 		return dateAgih;
 	}
@@ -78,7 +78,7 @@ public class KuaAgihan {
 	@Column(name = "date_agih")
 	@Temporal(TemporalType.DATE)
 	private Date dateAgih;
-	
+
 	public int getFlagMenungguBersyarat() {
 		return flagMenungguBersyarat;
 	}
@@ -90,32 +90,32 @@ public class KuaAgihan {
 	@Column(name = "tarikh_kemaskini")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhKemaskini;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "nama_petugas")
 	private Users petugas;
-	
+
 	@Column(name = "kelas_kuarters")
 	private String kelasKuarters;
-	
+
 	@Column(name = "jenis_kelas_kuarters")
 	private String jenisKelasKuarters;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pengagih")
 	private Users pengagih;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_lokasi")
 	private LokasiPermohonan idLokasi;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "sebab_tolak")
 	private SebabPenolakan sebabTolak;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	public String getFlagAktif() {
 		return flagAktif;
 	}
@@ -126,11 +126,24 @@ public class KuaAgihan {
 
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
 	public KuaAgihan() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getCatatan() {
 		return catatan;
 	}
@@ -258,7 +271,7 @@ public class KuaAgihan {
 	public void setSebabTolak(SebabPenolakan sebabTolak) {
 		this.sebabTolak = sebabTolak;
 	}
-	
+
 	public String getStatusDalaman() {
 		return statusDalaman;
 	}
@@ -269,29 +282,56 @@ public class KuaAgihan {
 
 	@Column(name = "status_dalaman")
 	private String statusDalaman;
-	
-//	public int getNoGiliranBaru() {
-//		DbPersistence db = new DbPersistence();
-//		int i = 1;
-//		String kelasKuarters = getKelasKuarters();
-//		String idLokasi = "";
-//		//	if ("E1".equals(kelasKuarters)) kelasKuarters = "E";
-//		if ( getPermohonan() != null ) {
-//			if ( getPermohonan().getLokasi() != null ) {
-//				if ( getPermohonan().getLokasi().getId() != null ) {
-//					idLokasi = getPermohonan().getLokasi().getId();
-//				}
-//			}
-//		}
-//		
-//		VW_KuaAgihan agihan = (VW_KuaAgihan) db.get("SELECT x FROM VW_KuaAgihan x WHERE x.idLokasi = '" + idLokasi + "' AND x.kelasKuarters = '" + kelasKuarters + "'");
-//	
-//		if ( agihan != null ) {
-//			if ( agihan.getMinNoGiliran() > 0 ) i = i + (getNoGiliran() - agihan.getMinNoGiliran());
-//		} else {
-//			i = 0;
-//		}
-//		
-//	return i;
-//}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	// public int getNoGiliranBaru() {
+	// DbPersistence db = new DbPersistence();
+	// int i = 1;
+	// String kelasKuarters = getKelasKuarters();
+	// String idLokasi = "";
+	// // if ("E1".equals(kelasKuarters)) kelasKuarters = "E";
+	// if ( getPermohonan() != null ) {
+	// if ( getPermohonan().getLokasi() != null ) {
+	// if ( getPermohonan().getLokasi().getId() != null ) {
+	// idLokasi = getPermohonan().getLokasi().getId();
+	// }
+	// }
+	// }
+	//
+	// VW_KuaAgihan agihan = (VW_KuaAgihan)
+	// db.get("SELECT x FROM VW_KuaAgihan x WHERE x.idLokasi = '" + idLokasi +
+	// "' AND x.kelasKuarters = '" + kelasKuarters + "'");
+	//
+	// if ( agihan != null ) {
+	// if ( agihan.getMinNoGiliran() > 0 ) i = i + (getNoGiliran() -
+	// agihan.getMinNoGiliran());
+	// } else {
+	// i = 0;
+	// }
+	//
+	// return i;
+	// }
 }

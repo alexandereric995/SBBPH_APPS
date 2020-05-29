@@ -1,75 +1,95 @@
 package bph.entities.kewangan;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import portal.module.entity.Users;
 import bph.entities.kod.Bandar;
 import bph.entities.kod.Bank;
 
 @Entity
 @Table(name = "pembayar_lain")
 public class PembayarLain {
-	  
+
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "nama")
 	private String nama;
-	
+
 	@Column(name = "nama_pemilik")
 	private String namaPemilik;
-	
+
 	@Column(name = "no_kp")
 	private String noKp;
-	
+
 	@Column(name = "alamat1")
 	private String alamat1;
-	
+
 	@Column(name = "alamat2")
 	private String alamat2;
-	
+
 	@Column(name = "alamat3")
 	private String alamat3;
-	
+
 	@Column(name = "poskod")
 	private String poskod;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_bandar")
+	@JoinColumn(name = "id_bandar")
 	private Bandar bandar;
-	
+
 	@Column(name = "no_telefon")
 	private String noTelefon;
-	
+
 	@Column(name = "no_telefon_bimbit")
 	private String noTelefonBimbit;
-	
+
 	@Column(name = "no_faks")
 	private String noFaks;
-	
+
 	@Column(name = "emel")
 	private String emel;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_bank")
+	@JoinColumn(name = "id_bank")
 	private Bank bank;
-	
-	@Column(name="no_akaun")
+
+	@Column(name = "no_akaun")
 	private String noAkaun;
-	
-	@Column(name="flag_jenis_pembayar_lain")
+
+	@Column(name = "flag_jenis_pembayar_lain")
 	private String flagJenisPembayarLain;
 
-	
-//	public PembayarSyarikat() {
-//		setId(UID.getUID());
-//	}
-	
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
+	// public PembayarSyarikat() {
+	// setId(UID.getUID());setTarikhMasuk(new Date());
+	// }
+
 	public String getId() {
 		return id;
 	}
@@ -196,6 +216,38 @@ public class PembayarLain {
 
 	public void setFlagJenisPembayarLain(String flagJenisPembayarLain) {
 		this.flagJenisPembayarLain = flagJenisPembayarLain;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 
 }

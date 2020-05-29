@@ -16,67 +16,68 @@ import lebah.template.UID;
 import portal.module.entity.Users;
 
 @Entity
-@Table(name="rpp_pengurusan_bilik")
+@Table(name = "rpp_pengurusan_bilik")
 public class RppPengurusanBilik {
 
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_permohonan")
 	private RppPermohonan permohonan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_daftar_masuk")
 	private Date tarikhDaftarMasuk;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_daftar_keluar")
 	private Date tarikhDaftarKeluar;
-	
+
 	@Column(name = "catatan_masuk")
 	private String catatanMasuk;
-	
+
 	@Column(name = "catatan_keluar")
 	private String catatanKeluar;
-	
+
 	@Column(name = "masa_daftar_jam")
 	private int masaDaftarJam;
-	
+
 	@Column(name = "masa_daftar_minit")
 	private int masaDaftarMinit;
-	
+
 	@Column(name = "masa_daftar_ampm")
 	private String masaDaftarAmPm;
-	
+
 	@Column(name = "masa_keluar_jam")
 	private int masaKeluarJam;
-	
+
 	@Column(name = "masa_keluar_minit")
 	private int masaKeluarMinit;
-	
+
 	@Column(name = "masa_keluar_ampm")
 	private String masaKeluarAmPm;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users pegawaiDaftarMasuk;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users pegawaiDaftarKeluar;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public RppPengurusanBilik() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -142,7 +143,7 @@ public class RppPengurusanBilik {
 	public void setMasaDaftarMinit(int masaDaftarMinit) {
 		this.masaDaftarMinit = masaDaftarMinit;
 	}
-	
+
 	public String getMasaDaftarAmPm() {
 		return masaDaftarAmPm;
 	}
@@ -207,5 +208,4 @@ public class RppPengurusanBilik {
 		this.tarikhKemaskini = tarikhKemaskini;
 	}
 
-	
 }

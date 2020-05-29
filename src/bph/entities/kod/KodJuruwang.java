@@ -25,18 +25,18 @@ public class KodJuruwang {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kod_pusat_terima")
 	private KodPusatTerima pusatTerima;
-	
+
 	@Column(name = "kod_pusat_terima")
 	private String kodPusatTerima;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_juruwang")
 	private Users juruwang;
-	
+
 	@Column(name = "jawatan")
 	private String jawatan;
 
@@ -48,32 +48,32 @@ public class KodJuruwang {
 
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "flag_juruwang")
-	private String flagJuruwang; //KEWANGAN / IR
-	
+	private String flagJuruwang; // KEWANGAN / IR
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
 
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
-	private Users kemaskiniOleh;	
+	private Users kemaskiniOleh;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public KodJuruwang() {
 		setId(UID.getUID());
 		setFlagAktif("Y");
 		setTarikhMasuk(new Date());
-	}	
-	
+	}
+
 	public String getKeteranganFlagAktif() {
 		String status = "";
 		if (this.flagAktif != null) {
@@ -181,7 +181,7 @@ public class KodJuruwang {
 	public void setTarikhKemaskini(Date tarikhKemaskini) {
 		this.tarikhKemaskini = tarikhKemaskini;
 	}
-	
+
 	public String getFlagJuruwang() {
 		return flagJuruwang;
 	}

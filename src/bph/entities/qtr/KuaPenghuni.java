@@ -60,19 +60,19 @@ public class KuaPenghuni {
 
 	@Column(name = "no_rujukan_kuarters_syspintar")
 	private String noRujukanKuartersSyspintar;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
@@ -196,7 +196,7 @@ public class KuaPenghuni {
 	public void setNoRujukanKuartersSyspintar(String noRujukanKuartersSyspintar) {
 		this.noRujukanKuartersSyspintar = noRujukanKuartersSyspintar;
 	}
-	
+
 	public Users getDaftarOleh() {
 		return daftarOleh;
 	}

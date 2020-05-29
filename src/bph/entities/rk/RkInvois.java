@@ -22,80 +22,80 @@ public class RkInvois {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_fail")
 	private RkFail fail;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_permohonan")
 	private RkPermohonan permohonan;
-	
+
 	@Column(name = "tarikh_invois")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhInvois;
-	
+
 	@Column(name = "tarikh_mula")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhMula;
-	
+
 	@Column(name = "tarikh_akhir")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhAkhir;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kod_hasil")
 	private KodHasil kodHasil;
 
 	@Column(name = "no_invois")
 	private String noInvois;
-	
+
 	@Column(name = "keterangan")
 	private String keterangan;
-	
+
 	@Column(name = "amaun_semasa")
 	private double amaunSemasa;
-	
+
 	@Column(name = "amaun_tunggakan")
-	private double amaunTunggakan;	
-	
+	private double amaunTunggakan;
+
 	@Column(name = "abt")
 	private int abt;
-	
+
 	@Column(name = "amaun_semasa_iwk")
 	private double amaunSemasaIWK;
-	
+
 	@Column(name = "amaun_tunggakan_iwk")
-	private double amaunTunggakanIWK;	
-	
+	private double amaunTunggakanIWK;
+
 	@Column(name = "abt_iwk")
-	private int abtIWK;	
-	
+	private int abtIWK;
+
 	@Column(name = "bil_cetakan")
-	private int bilCetakan;	
-	
+	private int bilCetakan;
+
 	@Column(name = "catatan")
-	private String catatan;	
-	
+	private String catatan;
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="tarikh_masuk")
+	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public RkInvois() {
 		setId(UID.getUID());
 		setBilCetakan(0);

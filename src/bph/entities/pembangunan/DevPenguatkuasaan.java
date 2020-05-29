@@ -20,15 +20,15 @@ public class DevPenguatkuasaan {
 
 	@Id
 	@Column(name = "id")
-	private String id;	
-	
+	private String id;
+
 	@ManyToOne
 	@JoinColumn(name = "id_hakmilik")
 	private DevHakmilik hakmilik;
 
 	@Column(name = "tajuk")
 	private String tajuk;
-	
+
 	@Column(name = "no_rujukan")
 	private String noRujukan;
 
@@ -38,7 +38,7 @@ public class DevPenguatkuasaan {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_aduan")
 	private Date tarikhAduan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_siasatan")
 	private Date tarikhSiasatan;
@@ -53,7 +53,7 @@ public class DevPenguatkuasaan {
 
 	@Column(name = "tujuan_laporan")
 	private String tujuanLaporan;
-	
+
 	@Column(name = "lokasi_tanah")
 	private String lokasiTanah;
 
@@ -102,24 +102,33 @@ public class DevPenguatkuasaan {
 	@Column(name = "syor")
 	private String syor;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "tarikh_masuk")
-	private Date tarikhMasuk;
-	
 	@ManyToOne
 	@JoinColumn(name = "laporan_oleh")
 	private Users laporanOleh;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "tarikh_kemaskini")
-	private Date tarikhKemaskini;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "kemaskini_oleh")
 	private Users kemaskiniOleh;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public DevPenguatkuasaan() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -360,5 +369,21 @@ public class DevPenguatkuasaan {
 
 	public void setKemaskiniOleh(Users kemaskiniOleh) {
 		this.kemaskiniOleh = kemaskiniOleh;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
 	}
 }

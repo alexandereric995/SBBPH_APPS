@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lebah.template.LebahRecordTemplateModule;
+import lebah.template.OperatorEqualTo;
 import bph.entities.integrasi.IntJANMArkib;
 import bph.entities.integrasi.IntJANMRekodArkib;
 import bph.utils.DataUtil;
 import db.persistence.MyPersistence;
-import lebah.template.LebahRecordTemplateModule;
-import lebah.template.OperatorEqualTo;
 
 public class JANMArkibRecordModule extends LebahRecordTemplateModule<IntJANMArkib> {
 

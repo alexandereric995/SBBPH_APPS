@@ -17,13 +17,13 @@ public class KewSeqPenyataPemungut {
 
 	@Column(name = "kod")
 	private String kod;
-	
+
 	@Column(name = "tahun")
 	private int tahun;
 
 	@Column(name = "bil")
 	private int bil;
-	
+
 	public KewSeqPenyataPemungut() {
 		setId(UID.getUID());
 	}

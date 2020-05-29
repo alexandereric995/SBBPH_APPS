@@ -18,81 +18,81 @@ import bph.entities.kod.Warganegara;
 @Entity
 @Table(name = "rk_individu")
 public class RkIndividu {
-	
+
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "nama")
 	private String nama;
-	
+
 	@Column(name = "jawatan")
 	private String jawatan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_warganegara")
-	private Warganegara warganegara;	
-	
+	private Warganegara warganegara;
+
 	@Column(name = "alamat1")
 	private String alamat1;
-	
+
 	@Column(name = "alamat2")
 	private String alamat2;
-	
+
 	@Column(name = "alamat3")
 	private String alamat3;
-	
+
 	@Column(name = "poskod")
 	private String poskod;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_bandar")
 	private Bandar bandar;
-	
+
 	@Column(name = "alamat1_surat")
 	private String alamat1Surat;
-	
+
 	@Column(name = "alamat2_surat")
 	private String alamat2Surat;
-	
+
 	@Column(name = "alamat3_surat")
 	private String alamat3Surat;
-	
+
 	@Column(name = "poskod_surat")
 	private String poskodSurat;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_bandar_surat")
 	private Bandar bandarSurat;
-	
+
 	@Column(name = "no_telefon")
 	private String noTelefon;
-	
+
 	@Column(name = "no_telefon_bimbit")
 	private String noTelefonBimbit;
-	
+
 	@Column(name = "no_faks")
 	private String noFaks;
-	
+
 	@Column(name = "emel")
 	private String emel;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-		
+
 	public RkIndividu() {
 		setTarikhMasuk(new Date());
 	}

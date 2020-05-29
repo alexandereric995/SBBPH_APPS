@@ -20,12 +20,12 @@ public class DevLogSemakan {
 
 	@Id
 	@Column(name = "id")
-	private String id;	
-	
+	private String id;
+
 	@ManyToOne
 	@JoinColumn(name = "id_semakan")
-	private DevSemakan semakan;	
-	
+	private DevSemakan semakan;
+
 	@ManyToOne
 	@JoinColumn(name = "id_petugas")
 	private Users petugas;
@@ -33,21 +33,38 @@ public class DevLogSemakan {
 	@ManyToOne
 	@JoinColumn(name = "id_pegawai")
 	private Users pegawai;
-	
+
 	@Column(name = "catatan")
-	private String catatan;	
+	private String catatan;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh")
 	private Date tarikh;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public DevLogSemakan() {
 		setId(UID.getUID());
 		setTarikh(new Date());
 		setFlagAktif("Y");
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -104,5 +121,37 @@ public class DevLogSemakan {
 
 	public void setFlagAktif(String flagAktif) {
 		this.flagAktif = flagAktif;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

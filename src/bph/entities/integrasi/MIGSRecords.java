@@ -5,9 +5,13 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import portal.module.entity.Users;
 
 @Entity
 @Table(name = "migs_records")
@@ -15,71 +19,87 @@ public class MIGSRecords {
 
 	@Id
 	@Column(name = "id")
-	private String id;	
+	private String id;
 
 	@Column(name = "vpc_Amount")
 	private String vpcAmount;
-	
+
 	@Column(name = "vpc_Locale")
 	private String vpcLocale;
-	
+
 	@Column(name = "vpc_BatchNo")
 	private String vpcBatchNo;
-	
+
 	@Column(name = "vpc_Command")
 	private String vpcCommand;
-	
+
 	@Column(name = "vpc_Message")
 	private String vpcMessage;
-	
+
 	@Column(name = "vpc_Version")
 	private String vpcVersion;
-	
+
 	@Column(name = "vpc_Card")
 	private String vpcCard;
-	
+
 	@Column(name = "vpc_OrderInfo")
 	private String vpcOrderInfo;
-	
+
 	@Column(name = "vpc_ReceiptNo")
 	private String vpcReceiptNo;
-	
+
 	@Column(name = "vpc_Merchant")
 	private String vpcMerchant;
-	
+
 	@Column(name = "vpc_MerchTxnRef")
 	private String vpcMerchTxnRef;
-	
+
 	@Column(name = "vpc_AuthorizeId")
 	private String vpcAuthorizeId;
-	
+
 	@Column(name = "vpc_TransactionNo")
 	private String vpcTransactionNo;
-	
+
 	@Column(name = "vpc_AcqResponseCode")
 	private String vpcAcqResponseCode;
-	
+
 	@Column(name = "vpc_TxnResponseCode")
 	private String vpcTxnResponseCode;
-	
+
 	@Column(name = "idPermohonan")
 	private String idPermohonan;
-	
+
 	@Column(name = "flagModul")
-	private String flagModul;	
-	
+	private String flagModul;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "createdDate")
 	private Date createdDate;
-	
+
 	@Column(name = "flagManagePayment")
 	private String flagManagePayment;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public Double getAmaunBayaran() {
-		Double amaun = 0D;	
+		Double amaun = 0D;
 		if (this.vpcAmount != null) {
 			amaun = Double.valueOf(this.vpcAmount) / 100;
-		}	
+		}
 		return amaun;
 	}
 
@@ -242,5 +262,37 @@ public class MIGSRecords {
 	public void setFlagManagePayment(String flagManagePayment) {
 		this.flagManagePayment = flagManagePayment;
 	}
-	
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
+	}
+
 }

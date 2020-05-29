@@ -1,12 +1,17 @@
 package bph.entities.kontrak;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import portal.module.entity.Users;
 import bph.entities.kod.Bandar;
 
 @Entity
@@ -19,7 +24,7 @@ public class KontrakKontraktor {
 
 	@Column(name = "nama_kontraktor")
 	private String namaKontraktor;
-	
+
 	@Column(name = "kod_pembekal")
 	private String kodPembekal;
 
@@ -44,18 +49,34 @@ public class KontrakKontraktor {
 
 	@Column(name = "no_telefon")
 	private String noTelefon;
-	
+
 	@Column(name = "no_telefon_bimbit")
 	private String noTelefonBimbit;
 
 	@Column(name = "no_faks")
 	private String noFaks;
-	
+
 	@Column(name = "emel")
 	private String emel;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
 
 	public String getId() {
 		return id;
@@ -167,5 +188,37 @@ public class KontrakKontraktor {
 
 	public void setCatatan(String catatan) {
 		this.catatan = catatan;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

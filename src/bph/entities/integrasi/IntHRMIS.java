@@ -5,244 +5,264 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lebah.template.UID;
-
+import portal.module.entity.Users;
 
 @Entity
 @Table(name = "int_hrmis")
 public class IntHRMIS {
-	
+
 	@Id
 	@Column(name = "id")
-	private String id;	
-	
+	private String id;
+
 	@Column(name = "tarikh_hantar")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhHantar;
-	
+
 	@Column(name = "no_pengenalan")
 	private String noPengenalan;
-	
+
 	@Column(name = "tarikh_terima")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhTerima;
-	
+
 	@Column(name = "nama")
 	private String nama;
-	
+
 	@Column(name = "gelaran")
 	private String gelaran;
-	
+
 	@Column(name = "kod_gelaran")
 	private String kodGelaran;
-	
+
 	@Column(name = "tarikh_lahir")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhLahir;
-	
+
 	@Column(name = "jantina")
-	private String jantina;	
-	
+	private String jantina;
+
 	@Column(name = "kod_jantina")
 	private String kodJantina;
-	
+
 	@Column(name = "bangsa")
 	private String bangsa;
-	
+
 	@Column(name = "kod_bangsa")
 	private String kodBangsa;
-	
+
 	@Column(name = "etnik")
 	private String etnik;
-	
+
 	@Column(name = "kod_etnik")
 	private String kodEtnik;
-	
+
 	@Column(name = "agama")
 	private String agama;
-	
+
 	@Column(name = "kod_agama")
 	private String kodAgama;
-	
+
 	@Column(name = "status_perkahwinan")
 	private String statusPerkahwinan;
-	
+
 	@Column(name = "kod_status_perkahwinan")
 	private String kodStatusPerkahwinan;
-	
+
 	@Column(name = "no_telefon")
 	private String noTelefon;
 
 	@Column(name = "no_telefon_bimbit")
 	private String noTelefonBimbit;
-	
+
 	@Column(name = "emel")
-	private String emel;	
-	
+	private String emel;
+
 	@Column(name = "alamat_tetap1")
 	private String alamatTetap1;
-	
+
 	@Column(name = "alamat_tetap2")
 	private String alamatTetap2;
-	
+
 	@Column(name = "alamat_tetap3")
 	private String alamatTetap3;
-	
+
 	@Column(name = "poskod_tetap")
-	private String poskodTetap;	
-	
+	private String poskodTetap;
+
 	@Column(name = "bandar_tetap")
-	private String bandarTetap;	
-	
+	private String bandarTetap;
+
 	@Column(name = "kod_bandar_tetap")
-	private String kodBandarTetap;	
-	
+	private String kodBandarTetap;
+
 	@Column(name = "negeri_tetap")
 	private String negeriTetap;
-	
+
 	@Column(name = "kod_negeri_tetap")
 	private String kodNegeriTetap;
-	
+
 	@Column(name = "alamat_surat1")
 	private String alamatSurat1;
-	
+
 	@Column(name = "alamat_surat2")
 	private String alamatSurat2;
-	
+
 	@Column(name = "alamat_surat3")
 	private String alamatSurat3;
-	
+
 	@Column(name = "poskod_surat")
-	private String poskodSurat;	
-	
+	private String poskodSurat;
+
 	@Column(name = "bandar_surat")
-	private String bandarSurat;	
-	
+	private String bandarSurat;
+
 	@Column(name = "kod_bandar_surat")
-	private String kodBandarSurat;	
-	
+	private String kodBandarSurat;
+
 	@Column(name = "negeri_surat")
 	private String negeriSurat;
-	
+
 	@Column(name = "kod_negeri_surat")
-	private String kodNegeriSurat;		
-	
+	private String kodNegeriSurat;
+
 	@Column(name = "kelas_perkhidmatan")
 	private String kelasPerkhidmatan;
-	
+
 	@Column(name = "kod_kelas_perkhidmatan")
 	private String kodKelasPerkhidmatan;
-	
+
 	@Column(name = "gred_perkhidmatan")
 	private String gredPerkhidmatan;
-	
+
 	@Column(name = "kod_gred_perkhidmatan")
 	private String kodGredPerkhidmatan;
-	
+
 	@Column(name = "tarikh_mula_sandang")
 	@Temporal(TemporalType.DATE)
-	private Date tarikhMulaSandang;	
-	
+	private Date tarikhMulaSandang;
+
 	@Column(name = "tarikh_tamat_sandang")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTamatSandang;
-	
+
 	@Column(name = "umur_persaraan")
 	private String umurPersaraan;
-	
+
 	@Column(name = "kementerian")
 	private String kementerian;
-	
+
 	@Column(name = "kod_kementerian")
 	private String kodKementerian;
-	
+
 	@Column(name = "agensi")
 	private String agensi;
-	
+
 	@Column(name = "kod_agensi")
 	private String kodAgensi;
-	
+
 	@Column(name = "jabatan")
 	private String jabatan;
-	
+
 	@Column(name = "alamat_pejabat1")
 	private String alamatPejabat1;
-	
+
 	@Column(name = "alamat_pejabat2")
 	private String alamatPejabat2;
-	
+
 	@Column(name = "alamat_pejabat3")
 	private String alamatPejabat3;
-	
+
 	@Column(name = "poskod_pejabat")
-	private String poskodPejabat;	
-	
+	private String poskodPejabat;
+
 	@Column(name = "bandar_pejabat")
-	private String bandarPejabat;	
-	
+	private String bandarPejabat;
+
 	@Column(name = "kod_bandar_pejabat")
-	private String kodBandarPejabat;	
-	
+	private String kodBandarPejabat;
+
 	@Column(name = "negeri_pejabat")
 	private String negeriPejabat;
-	
+
 	@Column(name = "kod_negeri_pejabat")
-	private String kodNegeriPejabat;	
-	
+	private String kodNegeriPejabat;
+
 	@Column(name = "no_telefon_pejabat")
 	private String noTelefonPejabat;
-	
+
 	@Column(name = "status_lantikan")
 	private String statusLantikan;
-	
+
 	@Column(name = "kod_status_lantikan")
 	private String kodStatusLantikan;
-	
+
 	@Column(name = "no_pengenalan_pasangan")
 	private String noPengenalanPasangan;
-	
+
 	@Column(name = "nama_pasangan")
 	private String namaPasangan;
-	
+
 	@Column(name = "gelaran_pasangan")
 	private String gelaranPasangan;
-	
+
 	@Column(name = "kod_gelaran_pasangan")
 	private String kodGelaranPasangan;
-	
+
 	@Column(name = "no_telefon_pasangan")
 	private String noTelefonPasangan;
-	
+
 	@Column(name = "jenis_badan_korporat")
 	private String jenisBadanKorporat;
-	
+
 	@Column(name = "kod_jenis_badan_korporat")
 	private String kodJenisBadanKorporat;
-	
+
 	@Column(name = "pekerjaan_pasangan")
 	private String pekerjaanPasangan;
-	
+
 	@Column(name = "majikan_pasangan")
 	private String majikanPasangan;
-	
+
 	@Column(name = "hubungan_pasangan")
 	private String hubunganPasangan;
-	
+
 	@Column(name = "kod_hubungan_pasangan")
 	private String kodHubunganPasangan;
-	
+
 	@Column(name = "flag_penjawat_awam")
 	private String flagPenjawatAwam;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
 
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public IntHRMIS() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
+
 	}
 
 	public String getId() {
@@ -827,5 +847,37 @@ public class IntHRMIS {
 
 	public void setCatatan(String catatan) {
 		this.catatan = catatan;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

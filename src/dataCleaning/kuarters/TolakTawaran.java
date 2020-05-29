@@ -3,12 +3,12 @@ package dataCleaning.kuarters;
 import java.io.IOException;
 import java.util.List;
 
+import lebah.template.DbPersistence;
 import bph.entities.kod.Status;
 import bph.entities.portal.Giliran;
 import bph.entities.qtr.KuaAgihan;
 import bph.entities.qtr.KuaKuarters;
 import bph.entities.qtr.KuaPermohonan;
-import lebah.template.DbPersistence;
 
 /**
  * @author Mohd Faizal

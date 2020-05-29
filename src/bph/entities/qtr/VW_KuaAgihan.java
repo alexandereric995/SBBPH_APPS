@@ -12,19 +12,19 @@ public class VW_KuaAgihan {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "total_data")
 	private int totalData;
-	
+
 	@Column(name = "min_no_giliran")
 	private int minNoGiliran;
-	
+
 	@Column(name = "max_no_giliran")
 	private int maxNoGiliran;
-	
+
 	@Column(name = "kelas_kuarters")
 	private String kelasKuarters;
-	
+
 	@Column(name = "id_lokasi")
 	private String idLokasi;
 
@@ -75,5 +75,5 @@ public class VW_KuaAgihan {
 	public void setIdLokasi(String idLokasi) {
 		this.idLokasi = idLokasi;
 	}
-	
+
 }

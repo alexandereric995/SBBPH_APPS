@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lebah.template.UID;
+import portal.module.entity.Users;
 import bph.entities.kod.Bandar;
 import bph.entities.kod.Bank;
 import bph.entities.kod.LokasiPermohonan;
@@ -61,13 +63,13 @@ public class MtnKontraktor {
 
 	@Column(name = "no_telefon")
 	private String noTelefon;
-	
+
 	@Column(name = "no_telefon_bimbit")
 	private String noTelefonBimbit;
 
 	@Column(name = "no_faks")
 	private String noFaks;
-	
+
 	@Column(name = "emel")
 	private String emel;
 
@@ -102,75 +104,97 @@ public class MtnKontraktor {
 	@Column(name = "tarikh_tamat_st")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTamatST;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_bank")
 	private Bank bank;
 
 	@Column(name = "no_akaun")
 	private String noAkaun;
-	
+
 	@Column(name = "filename_profil")
 	private String filenameProfil;
-	
+
 	@Column(name = "filename_bank")
 	private String filenameBank;
-	
+
 	@Column(name = "filename_pp")
 	private String filenamePP;
-	
+
 	@Column(name = "filename_spkk")
 	private String filenameSPKK;
 
 	@Column(name = "filename_stb")
 	private String filenameSTB;
-	
+
 	@Column(name = "filename_st")
 	private String filenameST;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "no_pendaftaran_ssm")
 	private String noPendaftaranSSM;
-	
+
 	@Column(name = "no_pendaftaran_gst")
 	private String noPendaftaranGST;
-	
+
 	@Column(name = "gred_prestasi")
 	private String gredPrestasi;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="kontraktor")
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kontraktor")
 	private List<MtnDaftarKontraktor> listDaftarKontraktor;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="kontraktor")
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kontraktor")
 	private List<MtnDokumen> listDokumenKontraktor;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="kontraktor")
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kontraktor")
 	private List<MtnPengkhususanBidangKontraktor> listPengkhususanBidangKontraktor;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users daftarOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users kemaskiniOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public MtnKontraktor() {
-		
+		setId(UID.getUID());
+		setTarikhMasuk(new Date());
+
 	}
-	
+
 	public String getStatusSenaraiHitam() {
 		MyPersistence mp = null;
 		String statusSenaraiHitam = "T";
 		try {
-			mp = new MyPersistence();			
-			MtnKontraktorSenaraiHitam senaraiHitam = (MtnKontraktorSenaraiHitam) mp.get("select x from MtnKontraktorSenaraiHitam x where x.flagAktif = 'Y' and x.kontraktor.id = '" + this.getId() + "'");
+			mp = new MyPersistence();
+			MtnKontraktorSenaraiHitam senaraiHitam = (MtnKontraktorSenaraiHitam) mp
+					.get("select x from MtnKontraktorSenaraiHitam x where x.flagAktif = 'Y' and x.kontraktor.id = '"
+							+ this.getId() + "'");
 			if (senaraiHitam != null) {
 				statusSenaraiHitam = "Y";
 			}
-			
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return statusSenaraiHitam;
 	}
-	
+
 	public String getStatusPP() {
 		String statusPP = "T";
 		if (this.getFilenamePP() != null) {
@@ -182,7 +206,7 @@ public class MtnKontraktor {
 		}
 		return statusPP;
 	}
-	
+
 	public String getStatusSPKK() {
 		String statusSPKK = "T";
 		if (this.getFilenameSPKK() != null) {
@@ -194,7 +218,7 @@ public class MtnKontraktor {
 		}
 		return statusSPKK;
 	}
-	
+
 	public String getStatusSTB() {
 		String statusSTB = "T";
 		if (this.getFilenameSTB() != null) {
@@ -206,7 +230,7 @@ public class MtnKontraktor {
 		}
 		return statusSTB;
 	}
-	
+
 	public String getStatusST() {
 		String statusST = "T";
 		if (this.getFlagElektrik() != null) {
@@ -531,5 +555,37 @@ public class MtnKontraktor {
 	public void setListPengkhususanBidangKontraktor(
 			List<MtnPengkhususanBidangKontraktor> listPengkhususanBidangKontraktor) {
 		this.listPengkhususanBidangKontraktor = listPengkhususanBidangKontraktor;
+	}
+
+	public Users getDaftarOleh() {
+		return daftarOleh;
+	}
+
+	public void setDaftarOleh(Users daftarOleh) {
+		this.daftarOleh = daftarOleh;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getKemaskiniOleh() {
+		return kemaskiniOleh;
+	}
+
+	public void setKemaskiniOleh(Users kemaskiniOleh) {
+		this.kemaskiniOleh = kemaskiniOleh;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

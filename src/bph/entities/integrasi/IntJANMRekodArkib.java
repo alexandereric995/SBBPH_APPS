@@ -16,50 +16,50 @@ public class IntJANMRekodArkib {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_int_janm")
 	private IntJANMArkib janm;
-	
+
 	@Column(name = "type")
 	private String type;
-	
+
 	@Column(name = "department_code")
 	private String departmentCode;
-	
+
 	@Column(name = "department")
 	private String department;
-	
+
 	@Column(name = "pay_center_code")
 	private String payCenterCode;
-	
+
 	@Column(name = "pay_center")
 	private String payCenter;
-	
+
 	@Column(name = "region_code")
 	private String regionCode;
-	
+
 	@Column(name = "region")
 	private String region;
-	
+
 	@Column(name = "personnel_no")
 	private String personnelNo;
-	
+
 	@Column(name = "ic")
 	private String ic;
-	
+
 	@Column(name = "account_no")
 	private String accountNo;
-	
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "deduction_amount")
 	private double deductionAmount;
-	
+
 	@Column(name = "deduction_code")
 	private String deductionCode;
-	
+
 	public IntJANMRekodArkib() {
 		setId(UID.getUID());
 	}

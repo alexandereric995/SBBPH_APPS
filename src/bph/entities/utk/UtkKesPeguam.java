@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 import bph.entities.qtr.KuaPenghuni;
 
 @Entity
@@ -25,26 +26,43 @@ public class UtkKesPeguam {
 	@ManyToOne
 	@JoinColumn(name = "id_kesalahan")
 	private UtkKesalahan kesalahan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_penghuni")
 	private KuaPenghuni penghuni;
-	
+
 	@Column(name = "flag_keputusan")
 	private String flagKeputusan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_keputusan")
 	private Date tarikhKeputusan;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "status_jenis_kes")
 	private String statusJenisKes;
 
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users daftarOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users kemaskiniOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public UtkKesPeguam() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -101,6 +119,38 @@ public class UtkKesPeguam {
 
 	public void setStatusJenisKes(String statusJenisKes) {
 		this.statusJenisKes = statusJenisKes;
+	}
+
+	public Users getDaftarOleh() {
+		return daftarOleh;
+	}
+
+	public void setDaftarOleh(Users daftarOleh) {
+		this.daftarOleh = daftarOleh;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getKemaskiniOleh() {
+		return kemaskiniOleh;
+	}
+
+	public void setKemaskiniOleh(Users kemaskiniOleh) {
+		this.kemaskiniOleh = kemaskiniOleh;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 
 }

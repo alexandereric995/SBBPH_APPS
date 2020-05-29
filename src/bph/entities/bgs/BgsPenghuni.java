@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 import bph.entities.kod.Agensi;
 
 @Entity
@@ -20,16 +21,16 @@ public class BgsPenghuni {
 
 	@Id
 	@Column(name = "id")
-	private String id;	
+	private String id;
 
 	@ManyToOne
 	@JoinColumn(name = "id_aras")
 	private BgsAras aras;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_permohonan")
 	private BgsPermohonan permohonan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_agensi")
 	private Agensi agensi;
@@ -37,25 +38,38 @@ public class BgsPenghuni {
 	@Column(name = "kadar_sewa")
 	private double kadarSewa;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "tarikh_masuk")
-	private Date tarikhMasuk;
-	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_keluar")
 	private Date tarikhKeluar;
-	
+
 	@Column(name = "ruang")
 	private String ruang;
-	
+
 	@Column(name = "luas")
 	private String luas;
 
 	@Column(name = "catatan")
 	private String catatan;
 
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public BgsPenghuni() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -136,5 +150,29 @@ public class BgsPenghuni {
 
 	public void setCatatan(String catatan) {
 		this.catatan = catatan;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

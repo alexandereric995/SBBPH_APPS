@@ -14,7 +14,6 @@ import javax.persistence.TemporalType;
 import lebah.template.UID;
 import portal.module.entity.Users;
 
-
 @Entity
 @Table(name = "ict_aduan_internal")
 public class AduanInternal {
@@ -22,105 +21,101 @@ public class AduanInternal {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "butiran")
 	private String butiran;
 
-	@ManyToOne
-	@JoinColumn(name = "id_masuk")
-	private Users idMasuk;
-	
 	@ManyToOne
 	@JoinColumn(name = "id_selesai")
 	private Users idSelesai;
 
 	@Column(name = "status")
 	private String Status;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_selesai")
 	private Date tarikhSelesai;
-	
-	
+
 	@Column(name = "no_telefon")
 	private String noTelefon;
-	
-	
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_aduan")
 	private Date tarikhAduan;
-	
+
 	@Column(name = "no_pengenalan")
 	private String noPengenalan;
-	
+
 	@Column(name = "tajuk")
 	private String tajuk;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public String getCatatan() {
 		return catatan;
 	}
-
 
 	public void setCatatan(String catatan) {
 		this.catatan = catatan;
 	}
 
-
 	@Column(name = "catatan")
 	private String catatan;
-	
-	
-	
+
 	public AduanInternal() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
-	
+
 	public String getId() {
 		return id;
 	}
-
 
 	public void setId(String id) {
 		this.id = id;
 	}
 
-
 	public Date getTarikhAduan() {
 		return tarikhAduan;
 	}
-
 
 	public void setTarikhAduan(Date tarikhAduan) {
 		this.tarikhAduan = tarikhAduan;
 	}
 
-
 	public String getNoPengenalan() {
 		return noPengenalan;
 	}
-
 
 	public void setNoPengenalan(String noPengenalan) {
 		this.noPengenalan = noPengenalan;
 	}
 
-
 	public String getTajuk() {
 		return tajuk;
 	}
-
 
 	public void setTajuk(String tajuk) {
 		this.tajuk = tajuk;
 	}
 
-
 	public String getButiran() {
 		return butiran;
 	}
-
 
 	public void setButiran(String butiran) {
 		this.butiran = butiran;
@@ -130,13 +125,9 @@ public class AduanInternal {
 		return tarikhSelesai;
 	}
 
-
 	public void setTarikhSelesai(Date tarikhSelesai) {
 		this.tarikhSelesai = tarikhSelesai;
 	}
-
-
-
 
 	public String getNoTelefon() {
 		return noTelefon;
@@ -146,33 +137,51 @@ public class AduanInternal {
 		this.noTelefon = noTelefon;
 	}
 
-	
 	public String getStatus() {
 		return Status;
 	}
-
 
 	public void setStatus(String status) {
 		Status = status;
 	}
 
-
 	public Users getIdMasuk() {
 		return idMasuk;
 	}
-
 
 	public void setIdMasuk(Users idMasuk) {
 		this.idMasuk = idMasuk;
 	}
 
-
 	public Users getIdSelesai() {
 		return idSelesai;
 	}
 
-
 	public void setIdSelesai(Users idSelesai) {
 		this.idSelesai = idSelesai;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

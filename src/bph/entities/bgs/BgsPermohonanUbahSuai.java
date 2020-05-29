@@ -18,7 +18,7 @@ import bph.entities.kod.Status;
 @Entity
 @Table(name = "bgs_permohonan_ubahsuai")
 public class BgsPermohonanUbahSuai {
-	
+
 	@Id
 	@Column(name = "id")
 	private String id;
@@ -26,72 +26,89 @@ public class BgsPermohonanUbahSuai {
 	@ManyToOne
 	@JoinColumn(name = "id_permohonan")
 	private BgsPermohonan permohonan;
-	
+
 	@Column(name = "no_fail")
 	private String noFail;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_permohonan")
 	private Date tarikhPermohonan;
-	
+
 	@Column(name = "tujuan")
 	private String tujuan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_ulasan_pengurus_bangunan")
 	private Date tarikhUlasanPengurusBangunan;
-	
+
 	@Column(name = "ulasan_pengurus_bangunan")
 	private String ulasanPengurusBangunan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_ulasan_kkr")
 	private Date tarikhUlasanKKR;
-	
+
 	@Column(name = "ulasan_kkr")
 	private String ulasanKKR;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_penyedia")
-	private Users penyedia;	
-	
+	private Users penyedia;
+
 	@Column(name = "ulasan_penyedia")
 	private String ulasanPenyedia;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_penyemak")
 	private Users penyemak;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_semakan")
 	private Date tarikhSemakan;
-	
+
 	@Column(name = "ulasan_penyemak")
 	private String ulasanPenyemak;
-	
+
 	@Column(name = "flag_keputusan_penyemak")
 	private String flagKeputusanPenyemak;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pelulus")
 	private Users pelulus;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_kelulusan")
 	private Date tarikhKelulusan;
-	
+
 	@Column(name = "ulasan_pelulus")
 	private String ulasanPelulus;
-	
+
 	@Column(name = "flag_keputusan_pelulus")
 	private String flagKeputusanPelulus;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_status")
 	private Status status;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public BgsPermohonanUbahSuai() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -138,7 +155,8 @@ public class BgsPermohonanUbahSuai {
 		return tarikhUlasanPengurusBangunan;
 	}
 
-	public void setTarikhUlasanPengurusBangunan(Date tarikhUlasanPengurusBangunan) {
+	public void setTarikhUlasanPengurusBangunan(
+			Date tarikhUlasanPengurusBangunan) {
 		this.tarikhUlasanPengurusBangunan = tarikhUlasanPengurusBangunan;
 	}
 
@@ -252,5 +270,37 @@ public class BgsPermohonanUbahSuai {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

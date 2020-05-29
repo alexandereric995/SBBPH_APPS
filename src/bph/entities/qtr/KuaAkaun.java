@@ -26,67 +26,67 @@ public class KuaAkaun {
 	@ManyToOne
 	@JoinColumn(name = "id_permohonan")
 	private KuaPermohonan permohonan;
-	
+
 	@Column(name = "id_permohonan", insertable = false, updatable = false)
 	private String idPermohonan;
-//	private KuaPermohonan permohonan;
-	
+	// private KuaPermohonan permohonan;
+
 	@ManyToOne
 	@JoinColumn(name = "id_kod_hasil")
-	private KodHasil kodHasil; //KOD HASIL KEWANGAN
-	
+	private KodHasil kodHasil; // KOD HASIL KEWANGAN
+
 	@Column(name = "no_invois")
-	private String noInvois; 
-	
+	private String noInvois;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_invois")
-	private Date tarikhInvois; //TARIKH BILA TEMPAHAN DIBUAT
-	
+	private Date tarikhInvois; // TARIKH BILA TEMPAHAN DIBUAT
+
 	@Column(name = "keterangan")
-	private String keterangan; //KETERANGAN BAYARAN
-	
+	private String keterangan; // KETERANGAN BAYARAN
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "amaun_bayaran_seunit")
 	private Double amaunBayaranSeunit;
-	
+
 	@Column(name = "bilangan_unit")
 	private Integer bilanganUnit;
-	
+
 	@Column(name = "debit")
 	private Double debit;
-	
+
 	@Column(name = "kredit")
 	private Double kredit;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_transaksi")
-	private Date tarikhTransaksi; //TARIKH BAYARAN DIBUAT
-	
+	private Date tarikhTransaksi; // TARIKH BAYARAN DIBUAT
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_void")
-	private Date tarikhVoid; //TARIKH BATAL BAYARAN
-	
+	private Date tarikhVoid; // TARIKH BATAL BAYARAN
+
 	@Column(name = "flag_void")
 	private String flagVoid; // Y / T
-	
+
 	@Column(name = "amaun_void")
 	private Double amaunVoid;
-	
+
 	@Column(name = "flag_bayar")
-	private String flagBayar; // Y = TELAH BAYAR / T = BELUM 
-	
+	private String flagBayar; // Y = TELAH BAYAR / T = BELUM
+
 	@Column(name = "no_lo_tempahan")
 	private String noLoTempahan;
-	
+
 	@Column(name = "no_resit")
 	private String noResit;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_resit")
 	private Date tarikhResit;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
@@ -106,21 +106,22 @@ public class KuaAkaun {
 	@ManyToOne
 	@JoinColumn(name = "id_pembayar")
 	private Users pembayar;
-	
+
 	@Column(name = "id_pembayar", updatable = false, insertable = false)
 	private String idPembayar;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_penghuni")
 	private KuaPenghuni penghuni;
-	
+
 	@Column(name = "id_penghuni", insertable = false, updatable = false)
 	private String idPenghuni;
-	
+
 	public KuaAkaun() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -280,7 +281,7 @@ public class KuaAkaun {
 	public void setTarikhKemaskini(Date tarikhKemaskini) {
 		this.tarikhKemaskini = tarikhKemaskini;
 	}
-	
+
 	public Double getAmaunBayaranSeunit() {
 		return amaunBayaranSeunit;
 	}
@@ -313,9 +314,9 @@ public class KuaAkaun {
 		this.tarikhVoid = tarikhVoid;
 	}
 
-	public Double bakiBayaran(){
+	public Double bakiBayaran() {
 		Double baki = 0d;
-		if(this.debit!=null && this.kredit!=null){
+		if (this.debit != null && this.kredit != null) {
 			baki = this.debit - this.kredit;
 		}
 		return baki;
@@ -336,7 +337,7 @@ public class KuaAkaun {
 	public String getIdPembayar() {
 		return idPembayar;
 	}
-	
+
 	public KuaPenghuni getPenghuni() {
 		return penghuni;
 	}

@@ -17,124 +17,132 @@ public class FPXRecords {
 
 	@Id
 	@Column(name = "fpxTxnId")
-	private String id;	
+	private String id;
 
 	@Column(name = "buyerBankBranch")
 	private String buyerBankBranch;
-	
+
 	@Column(name = "buyerBankId")
 	private String buyerBankId;
-	
+
 	@Column(name = "buyerIban")
 	private String buyerIban;
-	
+
 	@Column(name = "buyerId")
 	private String buyerId;
-	
+
 	@Column(name = "buyerName")
 	private String buyerName;
-	
+
 	@Column(name = "creditAuthCode")
 	private String creditAuthCode;
-	
+
 	@Column(name = "creditAuthNo")
 	private String creditAuthNo;
-	
+
 	@Column(name = "debitAuthCode")
 	private String debitAuthCode;
-	
+
 	@Column(name = "debitAuthNo")
 	private String debitAuthNo;
-	
+
 	@Column(name = "fpxTxnTime")
 	private String fpxTxnTime;
-	
+
 	@Column(name = "makerName")
 	private String makerName;
-	
+
 	@Column(name = "msgToken")
 	private String msgToken;
-	
+
 	@Column(name = "msgType")
 	private String msgType;
-	
+
 	@Column(name = "sellerExId")
 	private String sellerExId;
-	
+
 	@Column(name = "sellerExOrderNo")
 	private String sellerExOrderNo;
-	
+
 	@Column(name = "sellerId")
 	private String sellerId;
-	
+
 	@Column(name = "sellerOrderNo")
 	private String sellerOrderNo;
-	
+
 	@Column(name = "sellerTxnTime")
 	private String sellerTxnTime;
-	
+
 	@Column(name = "txnAmount")
 	private String txnAmount;
-	
+
 	@Column(name = "txnCurrency")
 	private String txnCurrency;
-	
+
 	@Column(name = "flagModul")
-	private String flagModul;	
-	
+	private String flagModul;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "createdDate")
 	private Date createdDate;
-	
+
 	@Column(name = "flagManagePayment")
 	private String flagManagePayment;
-	
+
 	public FPXRecords() {
 		setFlagManagePayment("T");
 		setCreatedDate(new Date());
 	}
-	
+
 	public String getKeteranganCreditAuthCode() {
 		MyPersistence mp = null;
 		String keterangan = "";
-		
+
 		try {
 			mp = new MyPersistence();
-			if (this.creditAuthCode != null) {			
-				FPXCodes fpxCodes = (FPXCodes) mp.get("select x from FPXCodes x where x.code = '" + this.creditAuthCode + "'");
+			if (this.creditAuthCode != null) {
+				FPXCodes fpxCodes = (FPXCodes) mp
+						.get("select x from FPXCodes x where x.code = '"
+								+ this.creditAuthCode + "'");
 				if (fpxCodes != null) {
 					keterangan = fpxCodes.getDescription().toUpperCase();
 				}
 			}
-			
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
-		
+
 		return keterangan;
 	}
-	
+
 	public String getKeteranganDebitAuthCode() {
 		MyPersistence mp = null;
 		String keterangan = "";
-		
+
 		try {
 			mp = new MyPersistence();
-			if (this.debitAuthCode != null) {			
-				FPXCodes fpxCodes = (FPXCodes) mp.get("select x from FPXCodes x where x.code = '" + this.debitAuthCode + "'");
+			if (this.debitAuthCode != null) {
+				FPXCodes fpxCodes = (FPXCodes) mp
+						.get("select x from FPXCodes x where x.code = '"
+								+ this.debitAuthCode + "'");
 				if (fpxCodes != null) {
 					keterangan = fpxCodes.getDescription().toUpperCase();
 				}
 			}
-			
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
-		
+
 		return keterangan;
 	}
 

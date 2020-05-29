@@ -12,22 +12,22 @@ public class KuaAgihanSeq {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "id_lokasi")
 	private String idLokasi;
-	
+
 	@Column(name = "lokasi")
 	private String lokasi;
-	
+
 	@Column(name = "no_giliran_min")
 	private int noGiliranMin;
-	
+
 	@Column(name = "kelas_kuarters")
 	private String kelasKuarters;
-	
+
 	@Column(name = "jumlah_rekod")
 	private int jumlahRekod;
-	
+
 	public String getId() {
 		return id;
 	}

@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 import bph.entities.kod.Agensi;
 
 @Entity
@@ -21,140 +22,157 @@ public class JrpUlasanTeknikal {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_permohonan")
 	private JrpPermohonan jrpPermohonan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_agensi")
 	private Agensi agensi;
-	
+
 	@Column(name = "cawangan")
 	private String cawangan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_lawatan")
 	private Date tarikhLawatan;
-	
+
 	@Column(name = "flag_keputusan")
 	private String flagKeputusan;
-	
+
 	@Column(name = "nilaian_mp")
 	private Double nilaianMp;
-	
+
 	@Column(name = "luas_mp")
 	private String luasMp;
-	
+
 	@Column(name = "nilaian_kp")
 	private Double nilaianKp;
-	
+
 	@Column(name = "luas_kp")
 	private String luasKp;
-	
+
 	@Column(name = "flag_gst")
 	private String flagGst;
 
 	@Column(name = "nilaian_gst_mp")
 	private Double nilaianGstMp;
-	
+
 	@Column(name = "nilaian_gst_kp")
 	private Double nilaianGstKp;
-	
+
 	@Column(name = "nama_pegawai")
 	private String namaPegawai;
-	
+
 	@Column(name = "jawatan_pegawai")
 	private String jawatanPegawai;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_ulasan")
 	private Date tarikhUlasan;
-	
+
 	@Column(name = "ulasan")
 	private String ulasan;
-	
+
 	@Column(name = "syor")
 	private String syor;
 
 	@Column(name = "nama_pegawai_periksa")
 	private String namaPegawaiPeriksa;
-	
+
 	@Column(name = "syarat_sewa_1")
 	private String syaratSewa1;
-	
+
 	@Column(name = "syarat_sewa_2")
 	private String syaratSewa2;
-	
+
 	@Column(name = "syarat_sewa_3")
 	private String syaratSewa3;
-	
+
 	@Column(name = "syarat_sewa_4")
 	private String syaratSewa4;
-	
+
 	@Column(name = "syarat_sewa_5")
 	private String syaratSewa5;
 
 	@Column(name = "syarat_sewa_6")
 	private String syaratSewa6;
-	
+
 	@Column(name = "syarat_sewa_7")
 	private String syaratSewa7;
-	
+
 	@Column(name = "syarat_sewa_8")
 	private String syaratSewa8;
-	
+
 	@Column(name = "syarat_sewa_9")
 	private String syaratSewa9;
-	
+
 	@Column(name = "syarat_sewa_10")
 	private String syaratSewa10;
-	
+
 	@Column(name = "syarat_sewa_11")
 	private String syaratSewa11;
-	
+
 	@Column(name = "perakuan_sewa_bulanan")
 	private Double perakuanSewaBulanan;
-	
+
 	@Column(name = "tempoh_sewa")
 	private Integer tempohSewa;
-	
+
 	@Column(name = "flag_hantar")
 	private String flagHantar;
-	
+
 	@Column(name = "nilaian_jpph_mp")
 	private Double nilaianJpphMp;
-	
+
 	@Column(name = "luas_jpph_mp")
 	private String luasJpphMp;
-	
+
 	@Column(name = "nilaian_jpph_kp")
 	private Double nilaianJpphKp;
-	
+
 	@Column(name = "luas_jpph_kp")
 	private String luasJpphKp;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_hantar_ulasan")
 	private Date tarikhHantarUlasan;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@Column(name = "surat_file_name")
 	private String suratFileName;
-	
+
 	@Column(name = "surat_thumb_file")
 	private String suratThumbFile;
-	
+
 	@Column(name = "flag_nilaian")
 	private String flagNilaian;
-	
+
 	@Column(name = "flag_jenis_sewa")
 	private String flagJenisSewa;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public JrpUlasanTeknikal() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -500,5 +518,37 @@ public class JrpUlasanTeknikal {
 	public void setFlagJenisSewa(String flagJenisSewa) {
 		this.flagJenisSewa = flagJenisSewa;
 	}
-	
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
+	}
+
 }

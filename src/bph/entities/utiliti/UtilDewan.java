@@ -1,13 +1,18 @@
 package bph.entities.utiliti;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 import bph.entities.kod.Bandar;
 import bph.entities.kod.KodPusatTerima;
 import bph.entities.kod.Seksyen;
@@ -19,69 +24,86 @@ public class UtilDewan {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "nama")
 	private String nama;
-	
+
 	@Column(name = "alamat1")
 	private String alamat1;
-	
+
 	@Column(name = "alamat2")
 	private String alamat2;
-	
+
 	@Column(name = "alamat3")
 	private String alamat3;
-	
+
 	@Column(name = "poskod")
 	private String poskod;
-	
+
 	@Column(name = "lokasi")
 	private String lokasi;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "bandar")
 	private Bandar bandar;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "kadar_sewa")
 	private double kadarSewa;
-	
+
 	@Column(name = "kadar_sewa_awam")
 	private double kadarSewaAwam;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_seksyen")
 	private Seksyen seksyen;
-	
+
 	@Column(name = "waktu_buka")
 	private String waktuBuka;
 
 	@Column(name = "waktu_tutup")
 	private String waktuTutup;
-	
+
 	@Column(name = "nama_pegawai")
 	private String namaPegawai;
-	
+
 	@Column(name = "no_telefon_pegawai")
 	private String noTelefonPegawai;
-	
+
 	@Column(name = "status")
 	private String status;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@Column(name = "seq")
 	private Integer seq;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "kod_cawangan")
 	private KodPusatTerima kodCawangan;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users daftarOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users kemaskiniOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public UtilDewan() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -234,13 +256,45 @@ public class UtilDewan {
 
 	public void setKodCawangan(KodPusatTerima kodCawangan) {
 		this.kodCawangan = kodCawangan;
-	}	
-	
+	}
+
 	public String getFlagAktif() {
 		return flagAktif;
 	}
 
 	public void setFlagAktif(String flagAktif) {
 		this.flagAktif = flagAktif;
+	}
+
+	public Users getDaftarOleh() {
+		return daftarOleh;
+	}
+
+	public void setDaftarOleh(Users daftarOleh) {
+		this.daftarOleh = daftarOleh;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getKemaskiniOleh() {
+		return kemaskiniOleh;
+	}
+
+	public void setKemaskiniOleh(Users kemaskiniOleh) {
+		this.kemaskiniOleh = kemaskiniOleh;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

@@ -1,6 +1,5 @@
 package bph.entities.senggara;
 
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,16 +12,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 
 @Entity
 @Table(name = "mtn_lawatan_tapak")
 public class MtnLawatanTapak {
 
-	
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kuarters")
 	private MtnKuarters kuartersSenggara;
@@ -30,38 +29,55 @@ public class MtnLawatanTapak {
 	@Column(name = "tarikh_lawatan")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhLawatan;
-	
+
 	@Column(name = "ulasan_lawatan")
 	private String ulasanLawatan;
-	
+
 	@Column(name = "flag_pembaikan")
 	private String flagPembaikan;
-	
+
 	@Column(name = "kontraktor")
 	private String kontraktor;
-	
+
 	@Column(name = "kontraktor_lain")
 	private String kontraktorLain;
-	
+
 	@Column(name = "tarikh_serah_kontraktor")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhSerahKontraktor;
-	
+
 	@Column(name = "tarikh_terima_kontraktor")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTerimaKontraktor;
-	
+
 	@Column(name = "ulasan_pembaikan_major")
 	private String ulasanPembaikanMajor;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@Column(name = "file_laporan_kerosakan")
 	private String fileLaporanKerosakan;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users daftarOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users kemaskiniOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public MtnLawatanTapak() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -158,5 +174,37 @@ public class MtnLawatanTapak {
 
 	public void setFileLaporanKerosakan(String fileLaporanKerosakan) {
 		this.fileLaporanKerosakan = fileLaporanKerosakan;
+	}
+
+	public Users getDaftarOleh() {
+		return daftarOleh;
+	}
+
+	public void setDaftarOleh(Users daftarOleh) {
+		this.daftarOleh = daftarOleh;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getKemaskiniOleh() {
+		return kemaskiniOleh;
+	}
+
+	public void setKemaskiniOleh(Users kemaskiniOleh) {
+		this.kemaskiniOleh = kemaskiniOleh;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

@@ -31,29 +31,29 @@ public class DevHakmilik {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "pegangan_hakmilik")
 	private String peganganHakmilik;
-	
+
 	@Column(name = "hakmilik_asal")
 	private String hakmilikAsal;
 
 	@Column(name = "hakmilik_berikut")
 	private String hakmilikBerikut;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenishakmilik")
 	private JenisHakmilik jenisHakmilik;
 
 	@Column(name = "no_hakmilik")
 	private String noHakmilik;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_lot")
 	private Lot lot;
 
 	@Column(name = "no_lot")
-	private String noLot;	
+	private String noLot;
 
 	@ManyToOne
 	@JoinColumn(name = "id_luas")
@@ -68,11 +68,11 @@ public class DevHakmilik {
 
 	@Column(name = "luas_bersamaan")
 	private String luasBersamaan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_negeri")
-	private Negeri negeri;	
-	
+	private Negeri negeri;
+
 	@ManyToOne
 	@JoinColumn(name = "id_daerah")
 	private Daerah daerah;
@@ -82,7 +82,7 @@ public class DevHakmilik {
 	private Mukim mukim;
 
 	@Column(name = "lokasi")
-	private String lokasi;	
+	private String lokasi;
 
 	@ManyToOne
 	@JoinColumn(name = "id_kementerian")
@@ -91,14 +91,14 @@ public class DevHakmilik {
 	@ManyToOne
 	@JoinColumn(name = "id_agensi")
 	private Agensi agensi;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kategori")
-	private KategoriTanah kategoriTanah;	
+	private KategoriTanah kategoriTanah;
 
 	@ManyToOne
 	@JoinColumn(name = "id_subkategori")
-	private SubKategoriTanah subKategoriTanah;	
+	private SubKategoriTanah subKategoriTanah;
 
 	@Column(name = "no_fail")
 	private String noFail;
@@ -111,14 +111,14 @@ public class DevHakmilik {
 
 	@Column(name = "no_pu")
 	private String noPu;
-	
+
 	@Column(name = "status_daftar")
-	private String statusDaftar;	
-	
+	private String statusDaftar;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_daftar")
 	private Date tarikhDaftar;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_terima_hakmilik")
 	private Date tarikhTerimaHakmilik;
@@ -128,21 +128,21 @@ public class DevHakmilik {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_luput")
-	private Date tarikhLuput;	
+	private Date tarikhLuput;
 
 	@Column(name = "no_warta")
 	private String noWarta;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_warta")
 	private Date tarikhWarta;
-	
+
 	@Column(name = "syarat")
 	private String syarat;
 
 	@Column(name = "sekatan")
 	private String sekatan;
-	
+
 	@Column(name = "kegunaan_tanah")
 	private String kegunaanTanah;
 
@@ -150,24 +150,24 @@ public class DevHakmilik {
 	private Double cukai;
 
 	@Column(name = "cukai_terkini")
-	private Double cukaiTerkini;	
-	
+	private Double cukaiTerkini;
+
 	@Column(name = "catatan")
-	private String catatan;	
+	private String catatan;
 
 	@Column(name = "pelan_file_name")
 	private String pelanFileName;
-	
+
 	@Column(name = "pelan_thumb_file")
 	private String pelanThumbFile;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@ManyToOne
-	@JoinColumn(name ="id_masuk")
+	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
@@ -175,10 +175,10 @@ public class DevHakmilik {
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
-	private Date tarikhKemaskini;	
+	private Date tarikhKemaskini;
 
 	public DevHakmilik() {
 		setId(UID.getUID());

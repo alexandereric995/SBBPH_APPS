@@ -17,45 +17,45 @@ public class IntJANMRekod {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_int_janm")
 	private IntJANM janm;
-	
+
 	@Column(name = "type")
 	private String type;
-	
+
 	@Column(name = "department_code")
 	private String departmentCode;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "department")
 	private JabatanPembayarJANM department;
-	
+
 	@Column(name = "pay_center")
 	private String payCenter;
-	
+
 	@Column(name = "region")
 	private String region;
-	
+
 	@Column(name = "personnel_no")
 	private String personnelNo;
-	
+
 	@Column(name = "ic")
 	private String ic;
-	
+
 	@Column(name = "account_no")
 	private String accountNo;
-	
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "deduction_amount")
 	private double deductionAmount;
-	
+
 	@Column(name = "deduction_code")
 	private String deductionCode;
-	
+
 	public IntJANMRekod() {
 		setId(UID.getUID());
 	}

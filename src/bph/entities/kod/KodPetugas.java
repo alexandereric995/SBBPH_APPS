@@ -15,8 +15,7 @@ import lebah.template.UID;
 import portal.module.entity.Users;
 
 /**
- * @author roszaineza
- * untuk cawangan dewan dan gelanggang (17/7/2017)
+ * @author roszaineza untuk cawangan dewan dan gelanggang (17/7/2017)
  */
 
 @Entity
@@ -26,53 +25,53 @@ public class KodPetugas {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_cawangan")
 	private KodPusatTerima cawangan;
-	
+
 	@Column(name = "kod_cawangan")
 	private String kodCawangan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_petugas")
 	private Users petugas;
 
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
 
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
-	private Users kemaskiniOleh;	
+	private Users kemaskiniOleh;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public KodPetugas() {
 		setId(UID.getUID());
 		setTarikhMasuk(new Date());
-	}	
-	
-//	public String getKeteranganFlagAktif() {
-//		String status = "";
-//		if (this.flagAktif != null) {
-//			if (this.flagAktif.equals("Y")) {
-//				status = "AKTIF";
-//			} else if (this.flagAktif.equals("T")) {
-//				status = "TIDAK AKTIF";
-//			}
-//		}
-//		return status;
-//	}
+	}
+
+	// public String getKeteranganFlagAktif() {
+	// String status = "";
+	// if (this.flagAktif != null) {
+	// if (this.flagAktif.equals("Y")) {
+	// status = "AKTIF";
+	// } else if (this.flagAktif.equals("T")) {
+	// status = "TIDAK AKTIF";
+	// }
+	// }
+	// return status;
+	// }
 
 	public String getId() {
 		return id;

@@ -21,13 +21,13 @@ public class CmsSlideshow {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "tajuk")
 	private String tajuk;
 
 	@Column(name = "file_name")
 	private String fileName;
-	
+
 	@Column(name = "thumb_file_name")
 	private String thumbFileName;
 
@@ -36,33 +36,34 @@ public class CmsSlideshow {
 
 	@Column(name = "url_onclick")
 	private String onclick;
-	
+
 	@Column(name = "flag_aktif")
 	private String flagAktif;
-	
+
 	@Column(name = "turutan")
 	private int turutan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public CmsSlideshow() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getKeteranganFlagAktif() {
 		String status = "";
 		if (this.flagAktif != null) {

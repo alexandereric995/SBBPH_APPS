@@ -23,98 +23,114 @@ public class UtilPermohonan {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "id_tempahan")
-	private String  idTempahan;
-	
+	private String idTempahan;
+
 	@Column(name = "tarikh_permohonan")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhPermohonan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_dewan")
 	private UtilDewan dewan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_gelanggang")
 	private UtilGelanggang gelanggang;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_pemohon")
 	private Users pemohon;
-	
+
 	@Column(name = "tarikh_mula")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhMula;
-	
+
 	@Column(name = "tarikh_tamat")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTamat;
-	
+
 	@Column(name = "masa_mula")
 	private int masaMula;
-	
+
 	@Column(name = "masa_tamat")
 	private int masaTamat;
-	
+
 	@Column(name = "tujuan")
-	private String tujuan;	
-	
+	private String tujuan;
+
 	@Column(name = "jenis_permohonan")
 	private String jenisPermohonan;
-	
+
 	@Column(name = "jumlah_amaun")
 	private double amaun;
-	
+
 	@Column(name = "status_bayaran")
 	private String statusBayaran;
-	
+
 	@Column(name = "tarikh_bayaran")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhBayaran;
-	
+
 	@Column(name = "flag_awam")
 	private String flagAwam;
-	
+
 	@Column(name = "flag_swasta")
 	private String flagSwasta;
-	
+
 	@Column(name = "status_permohonan")
 	private String statusPermohonan;
-	
+
 	@Column(name = "status_aktif")
 	private String statusAktif;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_resit_sewa")
 	private KewBayaranResit resitSewa;
-	
+
 	@Column(name = "flag_syspintar")
 	private String flagSyspintar;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_pemohon_batal")
 	private Users pemohonBatal;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_batal")
 	private Date tarikhBatal;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "masa_batal")
-	private Date masaBatal;	
-	
+	private Date masaBatal;
+
 	@Column(name = "sebab_batal")
 	private String sebabBatal;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_pelulus")
 	private Users pelulus;
-	
+
 	@Column(name = "tarikh_kelulusan")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhKelulusan;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users daftarOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users kemaskiniOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public UtilPermohonan() {
 		setId(UID.getUID());
 		setIdTempahan(getId());
@@ -123,6 +139,7 @@ public class UtilPermohonan {
 		setStatusAktif("1");
 		setFlagAwam("N");
 		setFlagSwasta("N");
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -339,5 +356,37 @@ public class UtilPermohonan {
 
 	public void setTarikhKelulusan(Date tarikhKelulusan) {
 		this.tarikhKelulusan = tarikhKelulusan;
+	}
+
+	public Users getDaftarOleh() {
+		return daftarOleh;
+	}
+
+	public void setDaftarOleh(Users daftarOleh) {
+		this.daftarOleh = daftarOleh;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getKemaskiniOleh() {
+		return kemaskiniOleh;
+	}
+
+	public void setKemaskiniOleh(Users kemaskiniOleh) {
+		this.kemaskiniOleh = kemaskiniOleh;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }

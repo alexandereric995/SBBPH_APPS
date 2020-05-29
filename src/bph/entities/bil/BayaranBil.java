@@ -18,103 +18,120 @@ import portal.module.entity.Users;
 import bph.entities.kod.Status;
 
 @Entity
-@Table(name="bil_bayaran_bil")
+@Table(name = "bil_bayaran_bil")
 public class BayaranBil {
-	
+
 	@Id
-	@Column(name="id")
+	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_pendaftaran_bil")
+	@JoinColumn(name = "id_pendaftaran_bil")
 	private DaftarBil pendaftaranBil;
-	
-	@Column(name="bulan")
+
+	@Column(name = "bulan")
 	private String bulan;
-	
-	@Column(name="tahun")
+
+	@Column(name = "tahun")
 	private String tahun;
-	
-	@Column(name="no_bil")
+
+	@Column(name = "no_bil")
 	private String noBil;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_bil")
+	@Column(name = "tarikh_bil")
 	private Date tarikhBil;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_terima_bil")
+	@Column(name = "tarikh_terima_bil")
 	private Date tarikhTerimaBil;
-	
-	@Column(name="amaun_tunggakan")
+
+	@Column(name = "amaun_tunggakan")
 	private Double amaunTunggakan;
-	
-	@Column(name="amaun_semasa")
+
+	@Column(name = "amaun_semasa")
 	private Double amaunSemasa;
-	
-	@Column(name="jumlah_bil")
+
+	@Column(name = "jumlah_bil")
 	private Double jumlahBil;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_akhir_bayaran")
+	@Column(name = "tarikh_akhir_bayaran")
 	private Date tarikhAkhirBayaran;
-	
+
 	@ManyToOne
-	@JoinColumn(name="disemak_oleh")
+	@JoinColumn(name = "disemak_oleh")
 	private Users diSemakOleh;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_semakan")
+	@Column(name = "tarikh_semakan")
 	private Date tarikhSemakan;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_bayaran")
+	@Column(name = "tarikh_bayaran")
 	private Date tarikhBayaran;
-	
-	@Column(name="amaun_bayaran")
+
+	@Column(name = "amaun_bayaran")
 	private Double amaunBayaran;
-	
-	@Column(name="no_rujukan")
+
+	@Column(name = "no_rujukan")
 	private String noRujukan;
-	
-	@Column(name="no_eft_bayaran")
+
+	@Column(name = "no_eft_bayaran")
 	private String noEftBayaran;
-	
-	@Column(name="catatan")
+
+	@Column(name = "catatan")
 	private String catatan;
-	
-	@Column(name="status_bayaran")
+
+	@Column(name = "status_bayaran")
 	private String statusBayaran;
-	
-	@Column(name="status_lulus")
+
+	@Column(name = "status_lulus")
 	private String statusLulus;
-	
+
 	@ManyToOne
-	@JoinColumn(name="status_bil")
+	@JoinColumn(name = "status_bil")
 	private Status statusBil;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tempoh_bil_dari")
+	@Column(name = "tempoh_bil_dari")
 	private Date tempohBilDari;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tempoh_bil_hingga")
+	@Column(name = "tempoh_bil_hingga")
 	private Date tempohBilHingga;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_terima_bil_kewangan")
+	@Column(name = "tarikh_terima_bil_kewangan")
 	private Date tarikhTerimaBilKewangan;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_baucer")
+	@Column(name = "tarikh_baucer")
 	private Date tarikhBaucer;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh_eft")
+	@Column(name = "tarikh_eft")
 	private Date tarikhEft;
-	
-	public BayaranBil(){
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
+	public BayaranBil() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -324,48 +341,81 @@ public class BayaranBil {
 	public void setTarikhEft(Date tarikhEft) {
 		this.tarikhEft = tarikhEft;
 	}
-	
-	
-	public String getStatusNotifikasiTertunggak(){
-		
-		String statusNotifikasiTertunggak  = "";
-//		String statusBayaran  = "";
-//		Status status = this.status;
+
+	public String getStatusNotifikasiTertunggak() {
+
+		String statusNotifikasiTertunggak = "";
+		// String statusBayaran = "";
+		// Status status = this.status;
 		Date tarikhBil = this.tarikhBil;
-//		Date tarikhAkhirBayaran = this.tarikhAkhirBayaran;
+		// Date tarikhAkhirBayaran = this.tarikhAkhirBayaran;
 		int bilHari = 0;
-		
-		if(tarikhBil != null && tarikhBil.toString().length() > 0){
-			
+
+		if (tarikhBil != null && tarikhBil.toString().length() > 0) {
+
 			Calendar calTarikhBil = new GregorianCalendar();
 			Date dateTerimaAduan = tarikhBil;
 			calTarikhBil.setTime(dateTerimaAduan);
-			
+
 			Calendar calCurrent = new GregorianCalendar();
 			Date dateCurrent = new Date();
 			calCurrent.setTime(dateCurrent);
-			
-		
-			int diffYear = calTarikhBil.get(Calendar.YEAR) - calCurrent.get(Calendar.YEAR);
-//			System.out.println("PRINT YEAR ===" + diffYear);
-			
-			int diffMonth = diffYear * 12 + calTarikhBil.get(Calendar.MONTH) - calCurrent.get(Calendar.MONTH);
-//			System.out.println("PRINT MONTH ===" + diffMonth);
-			
+
+			int diffYear = calTarikhBil.get(Calendar.YEAR)
+					- calCurrent.get(Calendar.YEAR);
+			// System.out.println("PRINT YEAR ===" + diffYear);
+
+			int diffMonth = diffYear * 12 + calTarikhBil.get(Calendar.MONTH)
+					- calCurrent.get(Calendar.MONTH);
+			// System.out.println("PRINT MONTH ===" + diffMonth);
+
 			bilHari = daysBetween(calTarikhBil.getTime(), calCurrent.getTime());
-//			System.out.println("PRINT HARI ===" + bilHari);
-			
-			//BILANGAN HARI STATUS BELUM DIBAYAR
-			if (calCurrent.getTime().after(calTarikhBil.getTime())) {   
+			// System.out.println("PRINT HARI ===" + bilHari);
+
+			// BILANGAN HARI STATUS BELUM DIBAYAR
+			if (calCurrent.getTime().after(calTarikhBil.getTime())) {
 				statusNotifikasiTertunggak = bilHari + " HARI";
-//				statusNotifikasiTertunggak = bilHari + "HARI" + " " + diffMonth + " BULAN";
+				// statusNotifikasiTertunggak = bilHari + "HARI" + " " +
+				// diffMonth + " BULAN";
 			}
 		}
 		return statusNotifikasiTertunggak;
 	}
-	
+
 	private int daysBetween(Date date1, Date date2) {
 		return (int) ((date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24));
-	}	
-	
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
+	}
+
 }

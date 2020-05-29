@@ -21,39 +21,40 @@ public class MtnPemantauanKerja {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_inden_kerja")
 	private MtnIndenKerja indenKerja;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh")
 	private Date tarikh;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "peratusan_kerja")
 	private double peratusanKerja;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
-	@Temporal(TemporalType.TIMESTAMP) 
-	@Column(name="tarikh_masuk")
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
-	@Temporal(TemporalType.TIMESTAMP) 
-	@Column(name="tarikh_kemaskini")
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
+
 	public MtnPemantauanKerja() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {

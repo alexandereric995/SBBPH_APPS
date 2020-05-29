@@ -21,38 +21,38 @@ public class RkMesyuarat {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "tajuk")
 	private String tajuk;
-	
+
 	@Column(name = "bil")
 	private String bil;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="tarikh")
+	@Column(name = "tarikh")
 	private Date tarikh;
-	
+
 	@Column(name = "lokasi")
 	private String lokasi;
-	
+
 	@Column(name = "catatan")
 	private String catatan;
-	
+
 	@Column(name = "status")
 	private String status;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
@@ -62,18 +62,18 @@ public class RkMesyuarat {
 		setStatus("B");
 		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getKeteranganStatus() {
 		String status = "";
-		
+
 		if (this.getStatus() != null) {
 			if ("B".equals(this.getStatus())) {
 				status = "BARU";
 			} else if ("S".equals(this.getStatus())) {
 				status = "SELESAI";
-			} 
+			}
 		}
-		
+
 		return status;
 	}
 

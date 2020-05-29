@@ -24,15 +24,15 @@ public class DevSemakan {
 
 	@Id
 	@Column(name = "id")
-	private String id;	
-	
+	private String id;
+
 	@ManyToOne
 	@JoinColumn(name = "id_hakmilik")
 	private DevHakmilik hakmilik;
 
 	@Column(name = "perkara")
 	private String perkara;
-	
+
 	@Column(name = "keterangan")
 	private String keterangan;
 
@@ -43,61 +43,61 @@ public class DevSemakan {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_penyediaan")
 	private Date tarikhPenyediaan;
-	
+
 	@Column(name = "status")
 	private String status;
 
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users daftarOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users kemaskiniOleh;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="semakan", fetch=FetchType.EAGER)
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "semakan", fetch = FetchType.EAGER)
 	private List<DevLogSemakan> listLogSemakan;
-	
+
 	public DevSemakan() {
 		setId(UID.getUID());
 		setStatus("B");
 		setTarikhMasuk(new Date());
 	}
-	
-	public String getKeteranganStatus(){
-		
+
+	public String getKeteranganStatus() {
+
 		String status = this.status;
 		String keterangan = "";
-		
-		if("B".equals(status)){
+
+		if ("B".equals(status)) {
 			keterangan = "DALAM SEMAKAN";
-		} else if("P".equals(status)){
+		} else if ("P".equals(status)) {
 			keterangan = "PINDAAN";
-		} else if("S".equals(status)){
+		} else if ("S".equals(status)) {
 			keterangan = "SELESAI";
 		}
-		
+
 		return keterangan;
 	}
-	
-	public DevLogSemakan getLogSemakanSemasa(){
+
+	public DevLogSemakan getLogSemakanSemasa() {
 		DevLogSemakan logSemakan = null;
 		List<DevLogSemakan> listLogSemakan = this.listLogSemakan;
 		if (listLogSemakan != null) {
 			for (DevLogSemakan log : listLogSemakan) {
 				if (log.getFlagAktif().equals("Y")) {
 					logSemakan = log;
-				}			
+				}
 			}
-		}				
+		}
 		return logSemakan;
 	}
 

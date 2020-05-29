@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lebah.template.UID;
+import portal.module.entity.Users;
 import bph.entities.kod.Seksyen;
 
 @Entity
@@ -25,29 +26,46 @@ public class KontrakPerjanjian {
 	@ManyToOne
 	@JoinColumn(name = "id_seksyen")
 	private Seksyen seksyen;
-	
+
 	@Column(name = "no_perjanjian")
 	private String noPerjanjian;
-	
+
 	@Column(name = "perkara")
 	private String perkara;
-	
+
 	@Column(name = "tarikh_mula")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhMula;
-	
+
 	@Column(name = "tempoh")
 	private int tempoh;
-	
+
 	@Column(name = "tarikh_tamat")
 	@Temporal(TemporalType.DATE)
-	private Date tarikhTamat;	
-	
+	private Date tarikhTamat;
+
 	@Column(name = "status")
 	private String status;
-		
-	public KontrakPerjanjian(){
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
+	public KontrakPerjanjian() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -112,19 +130,37 @@ public class KontrakPerjanjian {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}	
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

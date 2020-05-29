@@ -5,24 +5,23 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "pro_sequence_aduan")
 public class ProSequenceAduan {
 
 	@Id
 	@Column(name = "id")
-	private String id;	
-	
+	private String id;
+
 	@Column(name = "bulan")
 	private int bulan;
-	
+
 	@Column(name = "tahun")
 	private int tahun;
-	
+
 	@Column(name = "bilangan")
 	private int bilangan;
-	
+
 	public String getId() {
 		return id;
 	}

@@ -1,9 +1,17 @@
 package bph.entities.kod;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import portal.module.entity.Users;
 
 @Entity
 @Table(name = "ruj_blok_utk")
@@ -12,9 +20,25 @@ public class BlokUtk {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
-	@Column(name ="keterangan")
+
+	@Column(name = "keterangan")
 	private String keterangan;
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
 
 	public String getId() {
 		return id;
@@ -31,7 +55,5 @@ public class BlokUtk {
 	public void setKeterangan(String keterangan) {
 		this.keterangan = keterangan;
 	}
-	
-	
-	
+
 }

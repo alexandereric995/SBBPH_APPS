@@ -24,7 +24,7 @@ import bph.entities.rpp.RppPermohonan;
 @Entity
 @Table(name = "kew_tuntutan_deposit")
 public class KewTuntutanDeposit {
-	
+
 	@Id
 	@Column(name = "id")
 	private String id;
@@ -32,88 +32,96 @@ public class KewTuntutanDeposit {
 	@OneToOne
 	@JoinColumn(name = "id_kew_deposit")
 	private KewDeposit deposit;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_tuntutan")
-	private KewJenisBayaran jenisTuntutan; /** 01=kua / 02=ir / dll */
-	
+	private KewJenisBayaran jenisTuntutan;
+	/** 01=kua / 02=ir / dll */
+
 	@ManyToOne
 	@JoinColumn(name = "id_penuntut")
 	private Users penuntut;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_status")
 	private Status status;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_agihan")
 	private KewDepositAgihan agihan;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_permohonan")
 	private Date tarikhPermohonan;
-	
-	/**Senarai semak*/
+
+	/** Senarai semak */
 	@Column(name = "resit_bayaran_deposit")
 	private String resitBayaranDeposit;
 
 	@Column(name = "sijil_akaun_masuk")
 	private String sijilAkaunMasuk;
-	
+
 	@Column(name = "sijil_akaun_keluar")
 	private String sijilAkaunKeluar;
-	
+
 	@Column(name = "salinan_akaun_bank")
 	private String salinanAkaunBank;
-	
+
 	@Column(name = "surat_pengesahan_deposit")
 	private String suratPengesahanDeposit;
-	
-	/**Senarai semak*/
-	
+
+	/** Senarai semak */
+
 	@Column(name = "no_baucer_pulangan_deposit")
 	private String noBaucerPulanganDeposit;
-	
+
 	@Column(name = "amaun_pelarasan_deposit")
 	private Double amaunPelarasanDeposit;
-	
+
 	@Column(name = "catatan_pelarasan_deposit")
 	private String catatanPelarasanDeposit;
-	
+
 	@Column(name = "no_eft")
 	private String noEft;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_eft")
 	private Date tarikhEft;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_baucer")
 	private Date tarikhBaucer;
-	
+
 	@Column(name = "catatan_penyelia_rpp")
 	private String catatanPenyeliaRpp;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_daftar")
 	private Users idDaftar;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_daftar")
 	private Date tarikhDaftar;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
-	
-	
-	
-	public KewTuntutanDeposit(){
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	public KewTuntutanDeposit() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -267,15 +275,17 @@ public class KewTuntutanDeposit {
 	public void setCatatanPenyeliaRpp(String catatanPenyeliaRpp) {
 		this.catatanPenyeliaRpp = catatanPenyeliaRpp;
 	}
-	
+
 	public RppPermohonan getDataPermohonan() {
 		RppPermohonan obj = null;
-		if(this.id != null){
+		if (this.id != null) {
 			DbPersistence db = new DbPersistence();
 			RppAkaun ak = null;
-			if(this.getDeposit().getIdLejar() != null){
-				ak = (RppAkaun)db.get("select x from RppAkaun x where x.id = '"+this.getDeposit().getIdLejar()+"' ");
-				if(ak != null){
+			if (this.getDeposit().getIdLejar() != null) {
+				ak = (RppAkaun) db
+						.get("select x from RppAkaun x where x.id = '"
+								+ this.getDeposit().getIdLejar() + "' ");
+				if (ak != null) {
 					obj = ak.getPermohonan();
 				}
 			}
@@ -313,6 +323,22 @@ public class KewTuntutanDeposit {
 
 	public void setTarikhKemaskini(Date tarikhKemaskini) {
 		this.tarikhKemaskini = tarikhKemaskini;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
 	}
 
 }

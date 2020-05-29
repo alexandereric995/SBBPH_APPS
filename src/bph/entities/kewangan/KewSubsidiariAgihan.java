@@ -22,31 +22,48 @@ public class KewSubsidiariAgihan {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_subsidiari")
 	private KewSubsidiari subsidiari;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_penyelia")
-	private Users penyelia; /** atau penyemak */
-	
+	private Users penyelia;
+	/** atau penyemak */
+
 	@ManyToOne
 	@JoinColumn(name = "id_penyedia")
 	private Users penyedia;
-	
+
 	@Column(name = "catatan_penyelia")
 	private String catatanPenyelia;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_agihan")
 	private Date tarikhAgihan;
-	
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public KewSubsidiariAgihan() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -94,5 +111,37 @@ public class KewSubsidiariAgihan {
 	public void setSubsidiari(KewSubsidiari subsidiari) {
 		this.subsidiari = subsidiari;
 	}
-	
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
+	}
+
 }

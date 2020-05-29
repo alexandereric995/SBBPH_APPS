@@ -22,24 +22,24 @@ public class KuaPinjamanPemohon {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_pemohon")
 	private Users users;
-	
+
 	@Column(name = "pinjaman_perumahan")
 	private int pinjamanPerumahan;
-	
+
 	@Column(name = "status_pembinaan")
 	private int statusPembinaan;
-	
+
 	@Column(name = "tarikh_jangka_siap")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhJangkaSiap;
-	
+
 	@Column(name = "alamat1")
 	private String alamat1;
-	
+
 	public String getAlamat1() {
 		return alamat1;
 	}
@@ -66,28 +66,45 @@ public class KuaPinjamanPemohon {
 
 	@Column(name = "alamat2")
 	private String alamat2;
-	
+
 	@Column(name = "alamat3")
 	private String alamat3;
-	
+
 	@Column(name = "poskod_pinjaman")
 	private String poskodPinjaman;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_bandar")
 	private Bandar bandar;
-	
+
 	@Column(name = "jenis_perumahan")
 	private String jenisPerumahan;
-	
+
 	@Column(name = "pembiayaan")
 	private String pembiayaan;
-	
+
 	@Column(name = "pembelian")
 	private String pembelian;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public KuaPinjamanPemohon() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -168,6 +185,38 @@ public class KuaPinjamanPemohon {
 
 	public void setPembelian(String pembelian) {
 		this.pembelian = pembelian;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 
 }

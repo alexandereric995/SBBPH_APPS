@@ -76,6 +76,7 @@ public class KewPerolehan {
 
 	public KewPerolehan() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {

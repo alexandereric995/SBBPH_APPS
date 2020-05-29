@@ -22,20 +22,20 @@ public class KewPenyataPemungut {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@Column(name = "no_penyata_pemungut")
 	private String noPenyataPemungut;
-	
+
 	@Column(name = "no_slip_bank")
 	private String noSlipBank;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_penyata_pemungut")
 	private Date tarikhPenyataPemungut;
-	
+
 	@Column(name = "no_akaun")
 	private String noAkaun;
-	
+
 	@Column(name = "nama_akaun")
 	private String namaAkaun;
 
@@ -46,54 +46,71 @@ public class KewPenyataPemungut {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_kutipan_hingga")
 	private Date tarikhKutipanHingga;
-	
+
 	@Column(name = "kod_jabatan")
 	private String kodJabatan;
 
 	@Column(name = "kod_pusat")
 	private String kodPusat;
-	
+
 	@Column(name = "jenis_kod")
 	private String jenisKod = "140";
 
 	@ManyToOne
 	@JoinColumn(name = "id_kaedah_bayaran")
 	private CaraBayar kaedahBayaran;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_penyedia")
-	private Users penyedia; //Disediakan oleh
+	private Users penyedia; // Disediakan oleh
 
 	@ManyToOne
 	@JoinColumn(name = "perakuan_1")
 	private Users perakuan1;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "perakuan_2")
 	private Users perakuan2;
-	
+
 	@Column(name = "jumlah_amaun")
 	private Double jumlahAmaun;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_perakuan_1")
 	private Date tarikhPerakuan1;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_perakuan_2")
 	private Date tarikhPerakuan2;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "tarikh_disediakan")
 	private Date tarikhDisediakan;
-	
+
 	@Column(name = "amaun_perkataan")
 	private String amaunPerkataan;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users idMasuk;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public KewPenyataPemungut() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -252,6 +269,38 @@ public class KewPenyataPemungut {
 
 	public void setAmaunPerkataan(String amaunPerkataan) {
 		this.amaunPerkataan = amaunPerkataan;
+	}
+
+	public Users getIdMasuk() {
+		return idMasuk;
+	}
+
+	public void setIdMasuk(Users idMasuk) {
+		this.idMasuk = idMasuk;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 
 }

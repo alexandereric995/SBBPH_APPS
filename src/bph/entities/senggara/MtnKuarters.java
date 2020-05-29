@@ -23,53 +23,70 @@ public class MtnKuarters {
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kuarters")
 	private KuaKuarters kuarters;
-	
+
 	@Column(name = "tarikh_terima_laporan")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhTerimaLaporan;
-	
+
 	@Column(name = "jenis_laporan")
 	private String jenisLaporan;
-	
+
 	@Column(name = "keterangan_laporan")
 	private String keteranganLaporan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_penerima_kunci")
 	private Users penerimaKunci;
-	
+
 	@Column(name = "tarikh_terima_kunci")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date tarikhTerimaKunci;	
+	private Date tarikhTerimaKunci;
 
 	@Column(name = "catatan_terimaan_kunci")
 	private String catatanTerimaanKunci;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_tugasan")
 	private MtnAgihanTugas tugasan;
-	
+
 	@Column(name = "tarikh_serah_kunci")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhSerahKunci;
 
 	@Column(name = "catatan_serahan_kunci")
 	private String catatanSerahanKunci;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_penyerah_kunci")
 	private Users penyerahKunci;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "status")
 	private Status status;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_masuk")
+	private Users daftarOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users kemaskiniOleh;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_kemaskini")
+	private Date tarikhKemaskini;
+
 	public MtnKuarters() {
 		setId(UID.getUID());
+		setTarikhMasuk(new Date());
 	}
 
 	public String getId() {
@@ -174,5 +191,37 @@ public class MtnKuarters {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public Users getDaftarOleh() {
+		return daftarOleh;
+	}
+
+	public void setDaftarOleh(Users daftarOleh) {
+		this.daftarOleh = daftarOleh;
+	}
+
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getKemaskiniOleh() {
+		return kemaskiniOleh;
+	}
+
+	public void setKemaskiniOleh(Users kemaskiniOleh) {
+		this.kemaskiniOleh = kemaskiniOleh;
+	}
+
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
 	}
 }
