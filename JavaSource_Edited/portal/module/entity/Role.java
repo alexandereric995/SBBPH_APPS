@@ -6,22 +6,22 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="role")
+@Table(name = "role")
 public class Role {
 
 	@Id
-	@Column(name="name")
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name="description")
+
+	@Column(name = "description")
 	private String description;
 
-	@Column(name="theme")
+	@Column(name = "theme")
 	private String theme;
-	
-	@Column(name="kategori")
+
+	@Column(name = "kategori")
 	private String kategori;
-	
+
 	public String getName() {
 		return name;
 	}
@@ -53,5 +53,5 @@ public class Role {
 	public void setKategori(String kategori) {
 		this.kategori = kategori;
 	}
-	
+
 }

@@ -10,18 +10,18 @@ import javax.persistence.LockModeType;
 import javax.persistence.Query;
 
 public class MyPersistence implements Serializable {
-	
+
 	private EntityManager em;
-	
-	public MyPersistence(){
+
+	public MyPersistence() {
 		this.em = PersistenceManager.getInstance().emf.createEntityManager();
 	}
-	
-	public void clear(){
+
+	public void clear() {
 		em.clear();
 	}
-	
-	public void begin(){
+
+	public void begin() {
 		em.getTransaction().begin();
 	}
 
@@ -29,15 +29,16 @@ public class MyPersistence implements Serializable {
 	public List list(String q) {
 		List list = null;
 		try {
-			//EntityManager em = PersistenceManager.getInstance().emf.createEntityManager();
-			//AZAM REMOVE THIS PART. use em that already been init
+			// EntityManager em =
+			// PersistenceManager.getInstance().emf.createEntityManager();
+			// AZAM REMOVE THIS PART. use em that already been init
 			list = em.createQuery(q).getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
-	
+
 	public List list(String q, Hashtable h) {
 		Query query = em.createQuery(q);
 		for (Enumeration e = h.keys(); e.hasMoreElements();) {
@@ -48,10 +49,10 @@ public class MyPersistence implements Serializable {
 		List list = query.getResultList();
 		return list;
 	}
-	
-	//AZAM ADD
+
+	// AZAM ADD
 	@SuppressWarnings("rawtypes")
-	public List list(EntityManager em,String q) {
+	public List list(EntityManager em, String q) {
 		List list = null;
 		try {
 			list = em.createQuery(q).getResultList();
@@ -62,11 +63,11 @@ public class MyPersistence implements Serializable {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public Object get(EntityManager em,String q) {
-		List l = list(em,q);
+	public Object get(EntityManager em, String q) {
+		List l = list(em, q);
 		return ((l.size() > 0) ? l.get(0) : null);
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public Object get(String q) {
 		List l = list(q);
@@ -76,11 +77,11 @@ public class MyPersistence implements Serializable {
 	public void persist(Object object) {
 		em.persist(object);
 	}
-	
-	public Object merge(Object object){
+
+	public Object merge(Object object) {
 		return em.merge(object);
 	}
-	
+
 	public void remove(Object object) {
 		em.remove(object);
 	}
@@ -88,13 +89,13 @@ public class MyPersistence implements Serializable {
 	public void executeUpdate(String ql) {
 		em.createQuery(ql).executeUpdate();
 	}
-	
-	public void isActive(){
-		if(em.getTransaction().isActive())
+
+	public void isActive() {
+		if (em.getTransaction().isActive())
 			em.getTransaction().rollback();
 	}
-	
-	public void commit() throws Exception{
+
+	public void commit() throws Exception {
 		try {
 			em.getTransaction().commit();
 		} catch (Exception e) {
@@ -103,8 +104,8 @@ public class MyPersistence implements Serializable {
 			throw e;
 		}
 	}
-	
-	public void close(){
+
+	public void close() {
 		isActive();
 		em.close();
 	}
@@ -120,12 +121,12 @@ public class MyPersistence implements Serializable {
 	public void flush() {
 		em.flush();
 	}
-	
+
 	public void refresh(Object o) {
 		em.refresh(o);
 	}
 
-	public int getRecordMax(String q,int limit) {
+	public int getRecordMax(String q, int limit) {
 		Query query = em.createQuery(q);
 		query.setMaxResults(limit);
 		return 0;

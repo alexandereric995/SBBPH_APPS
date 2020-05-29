@@ -35,425 +35,425 @@ import bph.entities.kod.StatusPerkahwinan;
 import bph.entities.kod.StatusPerkhidmatan;
 
 @Entity
-@Table(name="users_activity")
+@Table(name = "users_activity")
 public class UsersActivity {
-	
-	//1
+
+	// 1
 	@Id
-	@Column(name="id")
+	@Column(name = "id")
 	private String id;
-	
-	//2
-	@Column(name="user_login")
+
+	// 2
+	@Column(name = "user_login")
 	private String userLogin;
-	
-	//3
+
+	// 3
 	@ManyToOne
-	@JoinColumn(name="gelaran")
-	private Gelaran gelaran;	
-	
-	//4
-	@Column(name="user_name")
+	@JoinColumn(name = "gelaran")
+	private Gelaran gelaran;
+
+	// 4
+	@Column(name = "user_name")
 	private String userName;
-	
-	//5
-	@Column(name="user_address")
+
+	// 5
+	@Column(name = "user_address")
 	private String userAddress;
-	
-	//6
-	@Column(name="user_address2")
+
+	// 6
+	@Column(name = "user_address2")
 	private String userAddress2;
-	
-	//7
-	@Column(name="user_address3")
+
+	// 7
+	@Column(name = "user_address3")
 	private String userAddress3;
-	
-	//8
-	@Column(name="user_postcode")
+
+	// 8
+	@Column(name = "user_postcode")
 	private String userPostcode;
-	
-	//9
+
+	// 9
 	@ManyToOne
-	@JoinColumn(name="user_bandar")
+	@JoinColumn(name = "user_bandar")
 	private Bandar userBandar;
-	
-	//10
+
+	// 10
 	@ManyToOne
-	@JoinColumn(name="jenis_pengenalan")
+	@JoinColumn(name = "jenis_pengenalan")
 	private JenisPengenalan jenisPengenalan;
-	
-	//11
+
+	// 11
 	@Column(name = "no_kp")
 	private String noKP;
 
-	//12
+	// 12
 	@Column(name = "no_kp_2")
 	private String noKP2;
-	
-	//13
-	@Column(name = "no_telefon")
-	private String noTelefon;	
 
-	//14
+	// 13
+	@Column(name = "no_telefon")
+	private String noTelefon;
+
+	// 14
 	@Column(name = "no_telefon_bimbit")
 	private String noTelefonBimbit;
-	
-	//15
+
+	// 15
 	@Column(name = "no_telefon_pejabat")
 	private String noTelefonPejabat;
 
-	//16
+	// 16
 	@Column(name = "no_faks")
 	private String noFaks;
 
-	//17
+	// 17
 	@Column(name = "emel")
 	private String emel;
-	
-	//18
+
+	// 18
 	@ManyToOne
-	@JoinColumn(name="id_seksyen")
-	private Seksyen seksyen;	
-	
-	//19
+	@JoinColumn(name = "id_seksyen")
+	private Seksyen seksyen;
+
+	// 19
 	@ManyToOne
-	@JoinColumn(name="id_jawatan")
+	@JoinColumn(name = "id_jawatan")
 	private Jawatan jawatan;
-	
-	//20
+
+	// 20
 	@Column(name = "keterangan_jawatan")
 	private String keteranganJawatan;
-	
-	//21
+
+	// 21
 	@ManyToOne
-	@JoinColumn(name="id_kelas_perkhidmatan")
+	@JoinColumn(name = "id_kelas_perkhidmatan")
 	private KelasPerkhidmatan kelasPerkhidmatan;
-	
-	//22
+
+	// 22
 	@OneToOne
 	@JoinColumn(name = "id_gred_perkhidmatan")
 	private GredPerkhidmatan gredPerkhidmatan;
 
-	//23
+	// 23
 	@OneToOne
-	@JoinColumn(name="id_jenis_perkhidmatan")
+	@JoinColumn(name = "id_jenis_perkhidmatan")
 	private JenisPerkhidmatan jenisPerkhidmatan;
-	
-	//24
+
+	// 24
 	@ManyToOne
-	@JoinColumn(name="id_agensi")
+	@JoinColumn(name = "id_agensi")
 	private Agensi agensi;
-	
-	//25
+
+	// 25
 	@Column(name = "bahagian")
 	private String bahagian;
-	
-	//26
+
+	// 26
 	@ManyToOne
-	@JoinColumn(name="id_badan_berkanun")
+	@JoinColumn(name = "id_badan_berkanun")
 	private BadanBerkanun badanBerkanun;
-	
-	//27
+
+	// 27
 	@ManyToOne
-	@JoinColumn(name="jantina")
+	@JoinColumn(name = "jantina")
 	private Jantina jantina;
-	
-	//28
+
+	// 28
 	@ManyToOne
-	@JoinColumn(name="bangsa")
+	@JoinColumn(name = "bangsa")
 	private Bangsa bangsa;
-	
-	//29
+
+	// 29
 	@ManyToOne
-	@JoinColumn(name="etnik")
+	@JoinColumn(name = "etnik")
 	private Etnik etnik;
-	
-	//30
+
+	// 30
 	@ManyToOne
-	@JoinColumn(name="agama")
+	@JoinColumn(name = "agama")
 	private Agama agama;
-	
-	//31
-	@Temporal(TemporalType.DATE) 
-	@Column(name="tarikh_lahir")
+
+	// 31
+	@Temporal(TemporalType.DATE)
+	@Column(name = "tarikh_lahir")
 	private Date tarikhLahir;
-	
-	//32
+
+	// 32
 	@ManyToOne
-	@JoinColumn(name="status_perkahwinan")
+	@JoinColumn(name = "status_perkahwinan")
 	private StatusPerkahwinan statusPerkahwinan;
 
-	//34
+	// 34
 	@Column(name = "alamat_1")
 	private String alamat1;
-	
-	//35
+
+	// 35
 	@Column(name = "alamat_2")
 	private String alamat2;
-	
-	//36
+
+	// 36
 	@Column(name = "alamat_3")
 	private String alamat3;
-	
-	//37
+
+	// 37
 	@Column(name = "poskod")
 	private String poskod;
-	
-	//38
-	@ManyToOne
-	@JoinColumn(name="id_bandar")
-	private Bandar bandar;
-	
-	//39
-	@ManyToOne
-	@JoinColumn(name="jenis_pengguna")
-	private KategoriPengguna jenisPengguna;
-	
-	//40
-	@Column(name="flag_aktif")
-	private String flagAktif;
-	
-	//41
-	@Column(name="flag_anak")
-	private String flagAnak;
-	
-	//42
-	@Column(name="bil_anak")
-	private int bilAnak;
-		
-	//users job-------------------------------------------------------------------------------------
 
-	//43
+	// 38
+	@ManyToOne
+	@JoinColumn(name = "id_bandar")
+	private Bandar bandar;
+
+	// 39
+	@ManyToOne
+	@JoinColumn(name = "jenis_pengguna")
+	private KategoriPengguna jenisPengguna;
+
+	// 40
+	@Column(name = "flag_aktif")
+	private String flagAktif;
+
+	// 41
+	@Column(name = "flag_anak")
+	private String flagAnak;
+
+	// 42
+	@Column(name = "bil_anak")
+	private int bilAnak;
+
+	// users
+	// job-------------------------------------------------------------------------------------
+
+	// 43
 	@ManyToOne
 	@JoinColumn(name = "uj_id_jawatan")
 	private Jawatan ujJawatan;
-	
-	//44
+
+	// 44
 	@ManyToOne
 	@JoinColumn(name = "uj_id_gred_jawatan")
 	private GredPerkhidmatan ujGredJawatan;
-	
-	//46
+
+	// 46
 	@ManyToOne
 	@JoinColumn(name = "uj_id_jenis_perkhidmatan")
 	private JenisPerkhidmatan ujJenisPerkhidmatan;
-	
-	//47
+
+	// 47
 	@ManyToOne
 	@JoinColumn(name = "uj_id_kelas_perkhidmatan")
 	private KelasPerkhidmatan ujKelasPerkhidmatan;
-	
-	//48
+
+	// 48
 	@ManyToOne
 	@JoinColumn(name = "uj_id_status_perkhidmatan")
 	private StatusPerkhidmatan ujStatusPerkhidmatan;
-	
-	//49
+
+	// 49
 	@ManyToOne
 	@JoinColumn(name = "uj_id_agensi")
 	private Agensi ujAgensi;
-	
-	//50
+
+	// 50
 	@Column(name = "uj_bahagian")
 	private String ujBahagian;
-	
-	//51
+
+	// 51
 	@ManyToOne
 	@JoinColumn(name = "uj_id_badan_berkanun")
 	private BadanBerkanun ujBadanBerkanun;
-	
-	//52
+
+	// 52
 	@Column(name = "uj_tarikh_lantikan")
 	@Temporal(TemporalType.DATE)
 	private Date ujTarikhLantikan;
-	
-	//53
+
+	// 53
 	@Column(name = "uj_tarikh_tamat")
 	@Temporal(TemporalType.DATE)
 	private Date ujTarikhTamat;
-	
-	//54
+
+	// 54
 	@Column(name = "uj_no_gaji")
 	private String ujNoGaji;
-	
-	//55
+
+	// 55
 	@Column(name = "uj_gaji_pokok")
 	private Double ujGajiPokok;
-	
-	//56
+
+	// 56
 	@Column(name = "uj_alamat_1")
 	private String ujAlamat1;
-	
-	//57
+
+	// 57
 	@Column(name = "uj_alamat_2")
 	private String ujAlamat2;
-	
-	//58
+
+	// 58
 	@Column(name = "uj_alamat_3")
 	private String ujAlamat3;
-	
-	//59
+
+	// 59
 	@Column(name = "uj_poskod")
 	private String ujPoskod;
-	
-	//60
+
+	// 60
 	@ManyToOne
 	@JoinColumn(name = "uj_id_bandar")
-	private Bandar ujBandar;	
-	
-	//61
+	private Bandar ujBandar;
+
+	// 61
 	@Column(name = "uj_no_tel_pejabat")
 	private String ujNoTelPejabat;
-	
-	//62
+
+	// 62
 	@Column(name = "uj_no_faks")
 	private String ujNoFaks;
-	
-	//63
+
+	// 63
 	@Column(name = "uj_emel")
 	private String ujEmel;
-	
-	//64
+
+	// 64
 	@Column(name = "uj_flag_itp")
 	private int ujFlagITP;
-	
-	//65
-	@Column(name = "uj_flag_epw")
-	private int ujFlagEPW;	
 
-	//66
+	// 65
+	@Column(name = "uj_flag_epw")
+	private int ujFlagEPW;
+
+	// 66
 	@Column(name = "uj_flag_cola")
 	private int ujFlagCola;
-	
-	//67
+
+	// 67
 	@Column(name = "uj_tarikh_bersara")
 	@Temporal(TemporalType.DATE)
 	private Date ujTarikhBersara;
-	
-	
-	//users spouse-------------------------------------------------------------------------------
-	
-	//68
+
+	// users
+	// spouse-------------------------------------------------------------------------------
+
+	// 68
 	@Column(name = "us_nama_pasangan")
 	private String usNamaPasangan;
-	
-	//69
+
+	// 69
 	@ManyToOne
-	@JoinColumn(name="us_jenis_pengenalan")
+	@JoinColumn(name = "us_jenis_pengenalan")
 	private JenisPengenalan usJenisPengenalan;
-	
-	//70
+
+	// 70
 	@Column(name = "us_no_kp_pasangan")
 	private String usNoKPPasangan;
-	
-	//71
+
+	// 71
 	@ManyToOne
-	@JoinColumn(name="us_status_pekerjaan_pasangan")
+	@JoinColumn(name = "us_status_pekerjaan_pasangan")
 	private StatusPekerjaan usStatusPekerjaanPasangan;
-	
-	//72
+
+	// 72
 	@Column(name = "us_jenis_pekerjaan")
 	private String usJenisPekerjaan;
-	
-	//73
+
+	// 73
 	@Column(name = "us_gaji_pasangan")
 	private Double usGajiPasangan;
-	
-	//74
+
+	// 74
 	@Column(name = "us_nama_syarikat")
 	private String usNamaSyarikat;
-	
-	//75
+
+	// 75
 	@Column(name = "us_alamat_pejabat_1")
 	private String usAlamatPejabat1;
-	
-	//76
+
+	// 76
 	@Column(name = "us_alamat_pejabat_2")
 	private String usAlamatPejabat2;
-	
-	//77
+
+	// 77
 	@Column(name = "us_alamat_pejabat_3")
 	private String usAlamatPejabat3;
-	
-	//78
+
+	// 78
 	@Column(name = "us_poskod_pejabat")
 	private String usPoskodPejabat;
-	
-	//79
+
+	// 79
 	@ManyToOne
-	@JoinColumn(name="us_bandar_pejabat")
+	@JoinColumn(name = "us_bandar_pejabat")
 	private Bandar usBandarPejabat;
-	
-	//80
+
+	// 80
 	@Column(name = "us_no_tel_pejabat")
 	private String usNoTelPejabat;
-	
-	//81
+
+	// 81
 	@Column(name = "us_no_faks_pejabat")
 	private String usNoFaksPejabat;
-	
-	//82
+
+	// 82
 	@Column(name = "us_no_tel_bimbit")
 	private String usNoTelBimbit;
 
-	//83
+	// 83
 	@ManyToOne
 	@JoinColumn(name = "us_id_jawatan")
 	private Jawatan usJawatan;
-	
-	//84
+
+	// 84
 	@ManyToOne
 	@JoinColumn(name = "us_id_gred_jawatan")
 	private GredPerkhidmatan usGredJawatan;
-	
-	//85
+
+	// 85
 	@ManyToOne
 	@JoinColumn(name = "us_id_kelas_perkhidmatan")
 	private KelasPerkhidmatan usKelasPerkhidmatan;
-	
-	//86
+
+	// 86
 	@ManyToOne
 	@JoinColumn(name = "us_id_agensi")
 	private Agensi usAgensi;
-	
-	//87
+
+	// 87
 	@ManyToOne
 	@JoinColumn(name = "us_id_badan_berkanun")
 	private BadanBerkanun usBadanBerkanun;
-	
+
 	@Column(name = "reason")
 	private String reason;
-	
+
 	@Column(name = "message")
 	private String message;
-	
-	
-	//88
+
+	// 88
 	@Column(name = "tarikh_kemaskini")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhKemaskini;
-	
-	//89
+
+	// 89
 	@Column(name = "turutan")
 	private int turutan;
-	
+
 	@Column(name = "flag_downgrade")
 	private String flagDowngrade;
-	
+
 	@Column(name = "flag_tuntutan")
 	private String flagTuntutan;
-	
-	//88
+
+	// 88
 	@Column(name = "tarikh_permohonan")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date tarikhPermohonan;
-	
-	@JoinColumn (name = "id_lokasi_permohonan")
+
+	@JoinColumn(name = "id_lokasi_permohonan")
 	private LokasiPermohonan lokasiPermohonan;
-	
-	@JoinColumn (name = "status")
+
+	@JoinColumn(name = "status")
 	private Status status;
-	
+
 	public Users getKemaskiniOleh() {
 		return kemaskiniOleh;
 	}
@@ -470,12 +470,12 @@ public class UsersActivity {
 		this.catatan = catatan;
 	}
 
-	@JoinColumn (name = "kemaskini_oleh")
+	@JoinColumn(name = "kemaskini_oleh")
 	private Users kemaskiniOleh;
-	
-	@Column(name="catatan")
+
+	@Column(name = "catatan")
 	private String catatan;
-	
+
 	public String getFlagDowngrade() {
 		return flagDowngrade;
 	}
@@ -1232,6 +1232,5 @@ public class UsersActivity {
 	public Status getStatus() {
 		return status;
 	}
-	
-	
+
 }

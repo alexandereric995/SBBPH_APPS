@@ -18,85 +18,85 @@ import bph.entities.kod.KelasPerkhidmatan;
 import bph.entities.kod.StatusPekerjaan;
 
 @Entity
-@Table(name="users_spouse")
+@Table(name = "users_spouse")
 public class UsersSpouse {
 
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "user_login")
 	private Users users;
-	
+
 	@Column(name = "nama_pasangan")
 	private String namaPasangan;
-	
+
 	@ManyToOne
-	@JoinColumn(name="jenis_pengenalan")
+	@JoinColumn(name = "jenis_pengenalan")
 	private JenisPengenalan jenisPengenalan;
-	
+
 	@Column(name = "no_kp_pasangan")
 	private String noKPPasangan;
-	
+
 	@ManyToOne
-	@JoinColumn(name="status_pekerjaan_pasangan")
+	@JoinColumn(name = "status_pekerjaan_pasangan")
 	private StatusPekerjaan statusPekerjaanPasangan;
-	
+
 	@Column(name = "jenis_pekerjaan")
 	private String jenisPekerjaan;
-	
+
 	@Column(name = "gaji_pasangan")
 	private Double gajiPasangan;
-	
+
 	@Column(name = "nama_syarikat")
 	private String namaSyarikat;
-	
+
 	@Column(name = "alamat_pejabat_1")
 	private String alamatPejabat1;
-	
+
 	@Column(name = "alamat_pejabat_2")
 	private String alamatPejabat2;
-	
+
 	@Column(name = "alamat_pejabat_3")
 	private String alamatPejabat3;
-	
+
 	@Column(name = "poskod_pejabat")
 	private String poskodPejabat;
-	
+
 	@ManyToOne
-	@JoinColumn(name="bandar_pejabat")
+	@JoinColumn(name = "bandar_pejabat")
 	private Bandar bandarPejabat;
-	
+
 	@Column(name = "no_tel_pejabat")
 	private String noTelPejabat;
-	
+
 	@Column(name = "no_faks_pejabat")
 	private String noFaksPejabat;
-	
+
 	@Column(name = "no_tel_bimbit")
 	private String noTelBimbit;
 
 	@ManyToOne
 	@JoinColumn(name = "id_jawatan")
 	private Jawatan jawatan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_gred_jawatan")
 	private GredPerkhidmatan gredJawatan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kelas_perkhidmatan")
 	private KelasPerkhidmatan kelasPerkhidmatan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_agensi")
 	private Agensi agensi;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_badan_berkanun")
 	private BadanBerkanun badanBerkanun;
-	
+
 	public UsersSpouse() {
 		setId(UID.getUID());
 	}
@@ -145,7 +145,8 @@ public class UsersSpouse {
 		return statusPekerjaanPasangan;
 	}
 
-	public void setStatusPekerjaanPasangan(StatusPekerjaan statusPekerjaanPasangan) {
+	public void setStatusPekerjaanPasangan(
+			StatusPekerjaan statusPekerjaanPasangan) {
 		this.statusPekerjaanPasangan = statusPekerjaanPasangan;
 	}
 

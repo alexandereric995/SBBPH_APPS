@@ -1,4 +1,3 @@
-
 package sbbph.ws;
 
 import java.util.ArrayList;
@@ -9,11 +8,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for googleManager complex type.
+ * <p>
+ * Java class for googleManager complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="googleManager">
@@ -31,59 +32,56 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "googleManager", propOrder = {
-    "array",
-    "flagSemakanRadius"
-})
+@XmlType(name = "googleManager", propOrder = { "array", "flagSemakanRadius" })
 public class GoogleManager {
 
-    @XmlElement(nillable = true)
-    protected List<Object> array;
-    protected boolean flagSemakanRadius;
+	@XmlElement(nillable = true)
+	protected List<Object> array;
+	protected boolean flagSemakanRadius;
 
-    /**
-     * Gets the value of the array property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the array property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getArray().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Object }
-     * 
-     * 
-     */
-    public List<Object> getArray() {
-        if (array == null) {
-            array = new ArrayList<Object>();
-        }
-        return this.array;
-    }
+	/**
+	 * Gets the value of the array property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the array property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getArray().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list {@link Object }
+	 * 
+	 * 
+	 */
+	public List<Object> getArray() {
+		if (array == null) {
+			array = new ArrayList<Object>();
+		}
+		return this.array;
+	}
 
-    /**
-     * Gets the value of the flagSemakanRadius property.
-     * 
-     */
-    public boolean isFlagSemakanRadius() {
-        return flagSemakanRadius;
-    }
+	/**
+	 * Gets the value of the flagSemakanRadius property.
+	 * 
+	 */
+	public boolean isFlagSemakanRadius() {
+		return flagSemakanRadius;
+	}
 
-    /**
-     * Sets the value of the flagSemakanRadius property.
-     * 
-     */
-    public void setFlagSemakanRadius(boolean value) {
-        this.flagSemakanRadius = value;
-    }
+	/**
+	 * Sets the value of the flagSemakanRadius property.
+	 * 
+	 */
+	public void setFlagSemakanRadius(boolean value) {
+		this.flagSemakanRadius = value;
+	}
 
 }

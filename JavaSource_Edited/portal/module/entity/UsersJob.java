@@ -22,115 +22,115 @@ import bph.entities.kod.KelasPerkhidmatan;
 import bph.entities.kod.StatusPerkhidmatan;
 
 @Entity
-@Table(name="users_job")
+@Table(name = "users_job")
 public class UsersJob {
 
 	@Id
 	@Column(name = "id")
 	private String id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "user_login")
 	private Users users;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_jawatan")
 	private Jawatan jawatan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_gred_jawatan")
 	private GredPerkhidmatan gredJawatan;
-	
-//	@Column(name = "id_gred_jawatan", updatable = false, insertable = false)
-//	private String idGredJawatan;	
-	
+
+	// @Column(name = "id_gred_jawatan", updatable = false, insertable = false)
+	// private String idGredJawatan;
+
 	@ManyToOne
 	@JoinColumn(name = "id_jenis_perkhidmatan")
 	private JenisPerkhidmatan jenisPerkhidmatan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_kelas_perkhidmatan")
 	private KelasPerkhidmatan kelasPerkhidmatan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_status_perkhidmatan")
 	private StatusPerkhidmatan statusPerkhidmatan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_agensi")
 	private Agensi agensi;
-	
+
 	@Column(name = "bahagian")
 	private String bahagian;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_badan_berkanun")
 	private BadanBerkanun badanBerkanun;
-	
+
 	@Column(name = "tarikh_lantikan")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhLantikan;
-	
+
 	@Column(name = "tarikh_tamat")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhTamat;
-	
+
 	@Column(name = "no_gaji")
 	private String noGaji;
-	
+
 	@Column(name = "gaji_pokok")
 	private Double gajiPokok;
-	
+
 	@Column(name = "alamat_1")
 	private String alamat1;
-	
+
 	@Column(name = "alamat_2")
 	private String alamat2;
-	
+
 	@Column(name = "alamat_3")
 	private String alamat3;
-	
+
 	@Column(name = "poskod")
 	private String poskod;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_bandar")
-	private Bandar bandar;	
-	
+	private Bandar bandar;
+
 	@Column(name = "no_tel_pejabat")
 	private String noTelPejabat;
-	
+
 	@Column(name = "no_faks")
 	private String noFaks;
-	
+
 	@Column(name = "emel")
 	private String emel;
-	
+
 	@Column(name = "flag_itp")
 	private int flagITP;
-	
+
 	@Column(name = "flag_epw")
-	private int flagEPW;	
+	private int flagEPW;
 
 	@Column(name = "flag_cola")
 	private int flagCola;
-	
+
 	@Column(name = "tarikh_bersara")
 	@Temporal(TemporalType.DATE)
 	private Date tarikhBersara;
-	
+
 	public UsersJob() {
 		setId(UID.getUID());
 	}
-	
+
 	public String getDescCola() {
 		String x = "";
-		
-		if ( getFlagCola() == 0 ) {
+
+		if (getFlagCola() == 0) {
 			x = "Tidak";
 		} else {
 			x = "Ya";
-		}		
+		}
 		return x;
 	}
 
@@ -166,13 +166,13 @@ public class UsersJob {
 		this.gredJawatan = gredJawatan;
 	}
 
-//	public String getIdGredJawatan() {
-//		return idGredJawatan;
-//	}
-//
-//	public void setIdGredJawatan(String idGredJawatan) {
-//		this.idGredJawatan = idGredJawatan;
-//	}
+	// public String getIdGredJawatan() {
+	// return idGredJawatan;
+	// }
+	//
+	// public void setIdGredJawatan(String idGredJawatan) {
+	// this.idGredJawatan = idGredJawatan;
+	// }
 
 	public JenisPerkhidmatan getJenisPerkhidmatan() {
 		return jenisPerkhidmatan;

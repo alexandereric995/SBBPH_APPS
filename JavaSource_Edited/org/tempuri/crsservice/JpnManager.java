@@ -1,15 +1,16 @@
-
 package org.tempuri.crsservice;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for jpnManager complex type.
+ * <p>
+ * Java class for jpnManager complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="jpnManager">
@@ -28,71 +29,65 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "jpnManager", propOrder = {
-    "flagSemakanJPN",
-    "replyMsg",
-    "validIc"
-})
+@XmlType(name = "jpnManager", propOrder = { "flagSemakanJPN", "replyMsg",
+		"validIc" })
 public class JpnManager {
 
-    protected boolean flagSemakanJPN;
-    protected String replyMsg;
-    protected boolean validIc;
+	protected boolean flagSemakanJPN;
+	protected String replyMsg;
+	protected boolean validIc;
 
-    /**
-     * Gets the value of the flagSemakanJPN property.
-     * 
-     */
-    public boolean isFlagSemakanJPN() {
-        return flagSemakanJPN;
-    }
+	/**
+	 * Gets the value of the flagSemakanJPN property.
+	 * 
+	 */
+	public boolean isFlagSemakanJPN() {
+		return flagSemakanJPN;
+	}
 
-    /**
-     * Sets the value of the flagSemakanJPN property.
-     * 
-     */
-    public void setFlagSemakanJPN(boolean value) {
-        this.flagSemakanJPN = value;
-    }
+	/**
+	 * Sets the value of the flagSemakanJPN property.
+	 * 
+	 */
+	public void setFlagSemakanJPN(boolean value) {
+		this.flagSemakanJPN = value;
+	}
 
-    /**
-     * Gets the value of the replyMsg property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getReplyMsg() {
-        return replyMsg;
-    }
+	/**
+	 * Gets the value of the replyMsg property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getReplyMsg() {
+		return replyMsg;
+	}
 
-    /**
-     * Sets the value of the replyMsg property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setReplyMsg(String value) {
-        this.replyMsg = value;
-    }
+	/**
+	 * Sets the value of the replyMsg property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setReplyMsg(String value) {
+		this.replyMsg = value;
+	}
 
-    /**
-     * Gets the value of the validIc property.
-     * 
-     */
-    public boolean isValidIc() {
-        return validIc;
-    }
+	/**
+	 * Gets the value of the validIc property.
+	 * 
+	 */
+	public boolean isValidIc() {
+		return validIc;
+	}
 
-    /**
-     * Sets the value of the validIc property.
-     * 
-     */
-    public void setValidIc(boolean value) {
-        this.validIc = value;
-    }
+	/**
+	 * Sets the value of the validIc property.
+	 * 
+	 */
+	public void setValidIc(boolean value) {
+		this.validIc = value;
+	}
 
 }

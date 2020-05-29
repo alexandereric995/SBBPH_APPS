@@ -1,4 +1,3 @@
-
 package sbbph.ws;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -7,11 +6,13 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-
 /**
- * <p>Java class for users complex type.
+ * <p>
+ * Java class for users complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="users">
@@ -38,297 +39,254 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "users", propOrder = {
-    "avatar",
-    "css",
-    "dateRegistered",
-    "id",
-    "lastLoginDate",
-    "role",
-    "userAddress",
-    "userIPAddress",
-    "userLoginAlt",
-    "userName",
-    "userPassword"
-})
+@XmlType(name = "users", propOrder = { "avatar", "css", "dateRegistered", "id",
+		"lastLoginDate", "role", "userAddress", "userIPAddress",
+		"userLoginAlt", "userName", "userPassword" })
 public class Users {
 
-    protected String avatar;
-    protected Css css;
-    @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar dateRegistered;
-    protected String id;
-    @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar lastLoginDate;
-    protected Role role;
-    protected String userAddress;
-    protected String userIPAddress;
-    protected String userLoginAlt;
-    protected String userName;
-    protected String userPassword;
+	protected String avatar;
+	protected Css css;
+	@XmlSchemaType(name = "dateTime")
+	protected XMLGregorianCalendar dateRegistered;
+	protected String id;
+	@XmlSchemaType(name = "dateTime")
+	protected XMLGregorianCalendar lastLoginDate;
+	protected Role role;
+	protected String userAddress;
+	protected String userIPAddress;
+	protected String userLoginAlt;
+	protected String userName;
+	protected String userPassword;
 
-    /**
-     * Gets the value of the avatar property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getAvatar() {
-        return avatar;
-    }
+	/**
+	 * Gets the value of the avatar property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getAvatar() {
+		return avatar;
+	}
 
-    /**
-     * Sets the value of the avatar property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setAvatar(String value) {
-        this.avatar = value;
-    }
+	/**
+	 * Sets the value of the avatar property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setAvatar(String value) {
+		this.avatar = value;
+	}
 
-    /**
-     * Gets the value of the css property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Css }
-     *     
-     */
-    public Css getCss() {
-        return css;
-    }
+	/**
+	 * Gets the value of the css property.
+	 * 
+	 * @return possible object is {@link Css }
+	 * 
+	 */
+	public Css getCss() {
+		return css;
+	}
 
-    /**
-     * Sets the value of the css property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Css }
-     *     
-     */
-    public void setCss(Css value) {
-        this.css = value;
-    }
+	/**
+	 * Sets the value of the css property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Css }
+	 * 
+	 */
+	public void setCss(Css value) {
+		this.css = value;
+	}
 
-    /**
-     * Gets the value of the dateRegistered property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public XMLGregorianCalendar getDateRegistered() {
-        return dateRegistered;
-    }
+	/**
+	 * Gets the value of the dateRegistered property.
+	 * 
+	 * @return possible object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public XMLGregorianCalendar getDateRegistered() {
+		return dateRegistered;
+	}
 
-    /**
-     * Sets the value of the dateRegistered property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setDateRegistered(XMLGregorianCalendar value) {
-        this.dateRegistered = value;
-    }
+	/**
+	 * Sets the value of the dateRegistered property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public void setDateRegistered(XMLGregorianCalendar value) {
+		this.dateRegistered = value;
+	}
 
-    /**
-     * Gets the value of the id property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getId() {
-        return id;
-    }
+	/**
+	 * Gets the value of the id property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getId() {
+		return id;
+	}
 
-    /**
-     * Sets the value of the id property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setId(String value) {
-        this.id = value;
-    }
+	/**
+	 * Sets the value of the id property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setId(String value) {
+		this.id = value;
+	}
 
-    /**
-     * Gets the value of the lastLoginDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public XMLGregorianCalendar getLastLoginDate() {
-        return lastLoginDate;
-    }
+	/**
+	 * Gets the value of the lastLoginDate property.
+	 * 
+	 * @return possible object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public XMLGregorianCalendar getLastLoginDate() {
+		return lastLoginDate;
+	}
 
-    /**
-     * Sets the value of the lastLoginDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setLastLoginDate(XMLGregorianCalendar value) {
-        this.lastLoginDate = value;
-    }
+	/**
+	 * Sets the value of the lastLoginDate property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public void setLastLoginDate(XMLGregorianCalendar value) {
+		this.lastLoginDate = value;
+	}
 
-    /**
-     * Gets the value of the role property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Role }
-     *     
-     */
-    public Role getRole() {
-        return role;
-    }
+	/**
+	 * Gets the value of the role property.
+	 * 
+	 * @return possible object is {@link Role }
+	 * 
+	 */
+	public Role getRole() {
+		return role;
+	}
 
-    /**
-     * Sets the value of the role property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Role }
-     *     
-     */
-    public void setRole(Role value) {
-        this.role = value;
-    }
+	/**
+	 * Sets the value of the role property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Role }
+	 * 
+	 */
+	public void setRole(Role value) {
+		this.role = value;
+	}
 
-    /**
-     * Gets the value of the userAddress property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getUserAddress() {
-        return userAddress;
-    }
+	/**
+	 * Gets the value of the userAddress property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getUserAddress() {
+		return userAddress;
+	}
 
-    /**
-     * Sets the value of the userAddress property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setUserAddress(String value) {
-        this.userAddress = value;
-    }
+	/**
+	 * Sets the value of the userAddress property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setUserAddress(String value) {
+		this.userAddress = value;
+	}
 
-    /**
-     * Gets the value of the userIPAddress property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getUserIPAddress() {
-        return userIPAddress;
-    }
+	/**
+	 * Gets the value of the userIPAddress property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getUserIPAddress() {
+		return userIPAddress;
+	}
 
-    /**
-     * Sets the value of the userIPAddress property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setUserIPAddress(String value) {
-        this.userIPAddress = value;
-    }
+	/**
+	 * Sets the value of the userIPAddress property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setUserIPAddress(String value) {
+		this.userIPAddress = value;
+	}
 
-    /**
-     * Gets the value of the userLoginAlt property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getUserLoginAlt() {
-        return userLoginAlt;
-    }
+	/**
+	 * Gets the value of the userLoginAlt property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getUserLoginAlt() {
+		return userLoginAlt;
+	}
 
-    /**
-     * Sets the value of the userLoginAlt property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setUserLoginAlt(String value) {
-        this.userLoginAlt = value;
-    }
+	/**
+	 * Sets the value of the userLoginAlt property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setUserLoginAlt(String value) {
+		this.userLoginAlt = value;
+	}
 
-    /**
-     * Gets the value of the userName property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getUserName() {
-        return userName;
-    }
+	/**
+	 * Gets the value of the userName property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getUserName() {
+		return userName;
+	}
 
-    /**
-     * Sets the value of the userName property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setUserName(String value) {
-        this.userName = value;
-    }
+	/**
+	 * Sets the value of the userName property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setUserName(String value) {
+		this.userName = value;
+	}
 
-    /**
-     * Gets the value of the userPassword property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getUserPassword() {
-        return userPassword;
-    }
+	/**
+	 * Gets the value of the userPassword property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getUserPassword() {
+		return userPassword;
+	}
 
-    /**
-     * Sets the value of the userPassword property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setUserPassword(String value) {
-        this.userPassword = value;
-    }
+	/**
+	 * Sets the value of the userPassword property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setUserPassword(String value) {
+		this.userPassword = value;
+	}
 
 }

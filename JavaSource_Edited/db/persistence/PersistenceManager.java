@@ -6,7 +6,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- * This class will create singleton PersistenceManager specifically for Transaction
+ * This class will create singleton PersistenceManager specifically for
+ * Transaction
+ * 
  * @author tab
  */
 public class PersistenceManager {
