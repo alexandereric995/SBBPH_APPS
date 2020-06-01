@@ -11,6 +11,10 @@ import javax.persistence.Query;
 
 public class MyPersistence implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private EntityManager em;
 
 	public MyPersistence() {
@@ -29,9 +33,6 @@ public class MyPersistence implements Serializable {
 	public List list(String q) {
 		List list = null;
 		try {
-			// EntityManager em =
-			// PersistenceManager.getInstance().emf.createEntityManager();
-			// AZAM REMOVE THIS PART. use em that already been init
 			list = em.createQuery(q).getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
