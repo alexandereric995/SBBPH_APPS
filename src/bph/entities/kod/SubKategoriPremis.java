@@ -21,6 +21,13 @@ public class SubKategoriPremis {
 	@Column(name = "id")
 	private String id;
 
+	@Column(name = "id_subpremis")
+	private String idSubpremis;
+
+	@ManyToOne
+	@JoinColumn(name = "id_subpremis")
+	private SubPremis subPremis;
+
 	@Column(name = "keterangan")
 	private String keterangan;
 
@@ -40,12 +47,32 @@ public class SubKategoriPremis {
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 
+	public SubKategoriPremis() {
+		setTarikhMasuk(new Date());
+	}
+
 	public String getId() {
 		return id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getIdSubpremis() {
+		return idSubpremis;
+	}
+
+	public void setIdSubpremis(String idSubpremis) {
+		this.idSubpremis = idSubpremis;
+	}
+
+	public SubPremis getSubPremis() {
+		return subPremis;
+	}
+
+	public void setSubPremis(SubPremis subPremis) {
+		this.subPremis = subPremis;
 	}
 
 	public String getKeterangan() {

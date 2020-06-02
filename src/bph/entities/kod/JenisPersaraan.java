@@ -28,17 +28,21 @@ public class JenisPersaraan {
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_masuk")
+	private Date tarikhMasuk;
+
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "tarikh_masuk")
-	private Date tarikhMasuk;
-
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+
+	public JenisPersaraan() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;
@@ -64,20 +68,20 @@ public class JenisPersaraan {
 		this.idMasuk = idMasuk;
 	}
 
-	public Users getIdKemaskini() {
-		return idKemaskini;
-	}
-
-	public void setIdKemaskini(Users idKemaskini) {
-		this.idKemaskini = idKemaskini;
-	}
-
 	public Date getTarikhMasuk() {
 		return tarikhMasuk;
 	}
 
 	public void setTarikhMasuk(Date tarikhMasuk) {
 		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
 	}
 
 	public Date getTarikhKemaskini() {

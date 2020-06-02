@@ -28,13 +28,13 @@ public class KategoriAgensi {
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
 
-	@ManyToOne
-	@JoinColumn(name = "id_kemaskini")
-	private Users idKemaskini;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_masuk")
 	private Date tarikhMasuk;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kemaskini")
+	private Users idKemaskini;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
@@ -64,20 +64,20 @@ public class KategoriAgensi {
 		this.idMasuk = idMasuk;
 	}
 
-	public Users getIdKemaskini() {
-		return idKemaskini;
-	}
-
-	public void setIdKemaskini(Users idKemaskini) {
-		this.idKemaskini = idKemaskini;
-	}
-
 	public Date getTarikhMasuk() {
 		return tarikhMasuk;
 	}
 
 	public void setTarikhMasuk(Date tarikhMasuk) {
 		this.tarikhMasuk = tarikhMasuk;
+	}
+
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
 	}
 
 	public Date getTarikhKemaskini() {
@@ -87,4 +87,5 @@ public class KategoriAgensi {
 	public void setTarikhKemaskini(Date tarikhKemaskini) {
 		this.tarikhKemaskini = tarikhKemaskini;
 	}
+
 }

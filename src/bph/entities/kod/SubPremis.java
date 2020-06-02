@@ -25,6 +25,10 @@ public class SubPremis {
 	private String keterangan;
 
 	@ManyToOne
+	@JoinColumn(name = "id_premis")
+	private Premis premis;
+
+	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
 
@@ -40,6 +44,10 @@ public class SubPremis {
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 
+	public SubPremis() {
+		setTarikhMasuk(new Date());
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -54,6 +62,14 @@ public class SubPremis {
 
 	public void setKeterangan(String keterangan) {
 		this.keterangan = keterangan;
+	}
+
+	public Premis getPremis() {
+		return premis;
+	}
+
+	public void setPremis(Premis premis) {
+		this.premis = premis;
 	}
 
 	public Users getIdMasuk() {

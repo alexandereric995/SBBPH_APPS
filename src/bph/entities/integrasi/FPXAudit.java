@@ -5,13 +5,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import portal.module.entity.Users;
 
 @Entity
 @Table(name = "fpx_audit")
@@ -19,83 +15,69 @@ public class FPXAudit {
 
 	@Id
 	@Column(name = "id")
-	private String id;
+	private Integer id;
 
-	@Column(name = "code")
-	private String code;
+	@Column(name = "user_login")
+	private String userLogin;
 
-	@Column(name = "description")
-	private String description;
+	@Column(name = "fpxTxnId")
+	private String fpxTxnId;
 
-	@ManyToOne
-	@JoinColumn(name = "id_masuk")
-	private Users idMasuk;
+	@Column(name = "sellerOrderNo")
+	private String sellerOrderNo;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "tarikh_masuk")
-	private Date tarikhMasuk;
-
-	@ManyToOne
-	@JoinColumn(name = "id_kemaskini")
-	private Users idKemaskini;
+	@Column(name = "info_transaksi")
+	private String infoTransaksi;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "tarikh_kemaskini")
-	private Date tarikhKemaskini;
+	@Column(name = "tarikh_transaksi")
+	private Date tarikh_transaksi;
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public String getCode() {
-		return code;
+	public String getUserLogin() {
+		return userLogin;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setUserLogin(String userLogin) {
+		this.userLogin = userLogin;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getFpxTxnId() {
+		return fpxTxnId;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setFpxTxnId(String fpxTxnId) {
+		this.fpxTxnId = fpxTxnId;
 	}
 
-	public Users getIdMasuk() {
-		return idMasuk;
+	public String getSellerOrderNo() {
+		return sellerOrderNo;
 	}
 
-	public void setIdMasuk(Users idMasuk) {
-		this.idMasuk = idMasuk;
+	public void setSellerOrderNo(String sellerOrderNo) {
+		this.sellerOrderNo = sellerOrderNo;
 	}
 
-	public Date getTarikhMasuk() {
-		return tarikhMasuk;
+	public String getInfoTransaksi() {
+		return infoTransaksi;
 	}
 
-	public void setTarikhMasuk(Date tarikhMasuk) {
-		this.tarikhMasuk = tarikhMasuk;
+	public void setInfoTransaksi(String infoTransaksi) {
+		this.infoTransaksi = infoTransaksi;
 	}
 
-	public Users getIdKemaskini() {
-		return idKemaskini;
+	public Date getTarikh_transaksi() {
+		return tarikh_transaksi;
 	}
 
-	public void setIdKemaskini(Users idKemaskini) {
-		this.idKemaskini = idKemaskini;
-	}
-
-	public Date getTarikhKemaskini() {
-		return tarikhKemaskini;
-	}
-
-	public void setTarikhKemaskini(Date tarikhKemaskini) {
-		this.tarikhKemaskini = tarikhKemaskini;
+	public void setTarikh_transaksi(Date tarikh_transaksi) {
+		this.tarikh_transaksi = tarikh_transaksi;
 	}
 }
