@@ -21,9 +21,6 @@ public class SubKategoriPremis {
 	@Column(name = "id")
 	private String id;
 
-	@Column(name = "id_subpremis")
-	private String idSubpremis;
-
 	@ManyToOne
 	@JoinColumn(name = "id_subpremis")
 	private SubPremis subPremis;
@@ -57,14 +54,6 @@ public class SubKategoriPremis {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getIdSubpremis() {
-		return idSubpremis;
-	}
-
-	public void setIdSubpremis(String idSubpremis) {
-		this.idSubpremis = idSubpremis;
 	}
 
 	public SubPremis getSubPremis() {
