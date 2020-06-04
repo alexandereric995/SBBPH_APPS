@@ -115,6 +115,23 @@ public class KewTuntutanDeposit {
 		setId(UID.getUID());
 		setTarikhDaftar(new Date());
 	}
+	
+	public RppPermohonan getDataPermohonan() {
+		RppPermohonan obj = null;
+		if (this.id != null) {
+			DbPersistence db = new DbPersistence();
+			RppAkaun ak = null;
+			if (this.getDeposit().getIdLejar() != null) {
+				ak = (RppAkaun) db
+						.get("select x from RppAkaun x where x.id = '"
+								+ this.getDeposit().getIdLejar() + "' ");
+				if (ak != null) {
+					obj = ak.getPermohonan();
+				}
+			}
+		}
+		return obj;
+	}
 
 	public String getId() {
 		return id;
