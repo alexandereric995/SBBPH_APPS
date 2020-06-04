@@ -97,31 +97,23 @@ public class KewTuntutanDeposit {
 
 	@ManyToOne
 	@JoinColumn(name = "id_daftar")
-	private Users idDaftar;
+	private Users idDaftar;	
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "tarikh_daftar")
+	private Date tarikhDaftar;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "tarikh_daftar")
-	private Date tarikhDaftar;
-
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 
-	@ManyToOne
-	@JoinColumn(name = "id_masuk")
-	private Users idMasuk;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "tarikh_masuk")
-	private Date tarikhMasuk;
-
 	public KewTuntutanDeposit() {
 		setId(UID.getUID());
-		setTarikhMasuk(new Date());
+		setTarikhDaftar(new Date());
 	}
 
 	public String getId() {
@@ -164,6 +156,14 @@ public class KewTuntutanDeposit {
 		this.status = status;
 	}
 
+	public KewDepositAgihan getAgihan() {
+		return agihan;
+	}
+
+	public void setAgihan(KewDepositAgihan agihan) {
+		this.agihan = agihan;
+	}
+
 	public Date getTarikhPermohonan() {
 		return tarikhPermohonan;
 	}
@@ -204,12 +204,12 @@ public class KewTuntutanDeposit {
 		this.salinanAkaunBank = salinanAkaunBank;
 	}
 
-	public KewDepositAgihan getAgihan() {
-		return agihan;
+	public String getSuratPengesahanDeposit() {
+		return suratPengesahanDeposit;
 	}
 
-	public void setAgihan(KewDepositAgihan agihan) {
-		this.agihan = agihan;
+	public void setSuratPengesahanDeposit(String suratPengesahanDeposit) {
+		this.suratPengesahanDeposit = suratPengesahanDeposit;
 	}
 
 	public String getNoBaucerPulanganDeposit() {
@@ -234,14 +234,6 @@ public class KewTuntutanDeposit {
 
 	public void setCatatanPelarasanDeposit(String catatanPelarasanDeposit) {
 		this.catatanPelarasanDeposit = catatanPelarasanDeposit;
-	}
-
-	public String getSuratPengesahanDeposit() {
-		return suratPengesahanDeposit;
-	}
-
-	public void setSuratPengesahanDeposit(String suratPengesahanDeposit) {
-		this.suratPengesahanDeposit = suratPengesahanDeposit;
 	}
 
 	public String getNoEft() {
@@ -276,37 +268,12 @@ public class KewTuntutanDeposit {
 		this.catatanPenyeliaRpp = catatanPenyeliaRpp;
 	}
 
-	public RppPermohonan getDataPermohonan() {
-		RppPermohonan obj = null;
-		if (this.id != null) {
-			DbPersistence db = new DbPersistence();
-			RppAkaun ak = null;
-			if (this.getDeposit().getIdLejar() != null) {
-				ak = (RppAkaun) db
-						.get("select x from RppAkaun x where x.id = '"
-								+ this.getDeposit().getIdLejar() + "' ");
-				if (ak != null) {
-					obj = ak.getPermohonan();
-				}
-			}
-		}
-		return obj;
-	}
-
 	public Users getIdDaftar() {
 		return idDaftar;
 	}
 
 	public void setIdDaftar(Users idDaftar) {
 		this.idDaftar = idDaftar;
-	}
-
-	public Users getIdKemaskini() {
-		return idKemaskini;
-	}
-
-	public void setIdKemaskini(Users idKemaskini) {
-		this.idKemaskini = idKemaskini;
 	}
 
 	public Date getTarikhDaftar() {
@@ -317,6 +284,14 @@ public class KewTuntutanDeposit {
 		this.tarikhDaftar = tarikhDaftar;
 	}
 
+	public Users getIdKemaskini() {
+		return idKemaskini;
+	}
+
+	public void setIdKemaskini(Users idKemaskini) {
+		this.idKemaskini = idKemaskini;
+	}
+
 	public Date getTarikhKemaskini() {
 		return tarikhKemaskini;
 	}
@@ -324,21 +299,4 @@ public class KewTuntutanDeposit {
 	public void setTarikhKemaskini(Date tarikhKemaskini) {
 		this.tarikhKemaskini = tarikhKemaskini;
 	}
-
-	public Users getIdMasuk() {
-		return idMasuk;
-	}
-
-	public void setIdMasuk(Users idMasuk) {
-		this.idMasuk = idMasuk;
-	}
-
-	public Date getTarikhMasuk() {
-		return tarikhMasuk;
-	}
-
-	public void setTarikhMasuk(Date tarikhMasuk) {
-		this.tarikhMasuk = tarikhMasuk;
-	}
-
 }
