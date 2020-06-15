@@ -39,6 +39,10 @@ public class Agama {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public Agama() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

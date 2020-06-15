@@ -39,6 +39,10 @@ public class StatusPekerjaan {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public StatusPekerjaan() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

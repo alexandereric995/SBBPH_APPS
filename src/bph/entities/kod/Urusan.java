@@ -40,6 +40,10 @@ public class Urusan {
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 
+	public Urusan() {
+		setTarikhMasuk(new Date());
+	}
+	
 	public String getId() {
 		return id;
 	}

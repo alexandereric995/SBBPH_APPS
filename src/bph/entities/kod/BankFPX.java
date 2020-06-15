@@ -51,6 +51,10 @@ public class BankFPX {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public BankFPX() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

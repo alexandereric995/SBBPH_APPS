@@ -48,6 +48,10 @@ public class JawatanPDRM {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public JawatanPDRM() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

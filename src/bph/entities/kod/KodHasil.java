@@ -55,6 +55,10 @@ public class KodHasil {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public KodHasil() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

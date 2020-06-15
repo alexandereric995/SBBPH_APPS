@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lebah.template.UID;
+
 import portal.module.entity.Users;
 
 @Entity
@@ -42,6 +44,10 @@ public class FPXCodes {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public FPXCodes() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

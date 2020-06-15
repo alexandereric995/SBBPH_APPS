@@ -39,6 +39,10 @@ public class SebabBertukar {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public SebabBertukar() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

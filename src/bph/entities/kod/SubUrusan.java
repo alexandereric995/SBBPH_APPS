@@ -44,6 +44,10 @@ public class SubUrusan {
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 
+	public SubUrusan() {
+		setTarikhMasuk(new Date());
+	}
+	
 	public String getId() {
 		return id;
 	}

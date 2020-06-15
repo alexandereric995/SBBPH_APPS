@@ -42,6 +42,10 @@ public class LokasiDibenar {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public LokasiDibenar() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

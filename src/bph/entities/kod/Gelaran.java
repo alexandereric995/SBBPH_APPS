@@ -39,6 +39,10 @@ public class Gelaran {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public Gelaran() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

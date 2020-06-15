@@ -43,6 +43,10 @@ public class Daerah {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public Daerah() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

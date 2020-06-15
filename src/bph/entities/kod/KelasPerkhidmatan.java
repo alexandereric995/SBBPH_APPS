@@ -39,6 +39,10 @@ public class KelasPerkhidmatan {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public KelasPerkhidmatan() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

@@ -43,6 +43,10 @@ public class Agensi {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public Agensi() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

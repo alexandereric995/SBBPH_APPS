@@ -44,6 +44,10 @@ public class Mukim {
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 
+	public Mukim() {
+		setTarikhMasuk(new Date());
+	}
+	
 	public String getId() {
 		return id;
 	}

@@ -39,6 +39,10 @@ public class JenisPinjamanBPP {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public JenisPinjamanBPP() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

@@ -40,6 +40,10 @@ public class JenisPengenalan {
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 
+	public JenisPengenalan() {
+		setTarikhMasuk(new Date());
+	}
+	
 	public String getId() {
 		return id;
 	}

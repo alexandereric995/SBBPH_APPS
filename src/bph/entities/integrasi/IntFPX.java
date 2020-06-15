@@ -69,6 +69,10 @@ public class IntFPX {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public IntFPX() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;
