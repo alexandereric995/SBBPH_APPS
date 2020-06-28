@@ -39,6 +39,10 @@ public class Lot {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public Lot() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

@@ -39,6 +39,10 @@ public class Warganegara {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public Warganegara() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

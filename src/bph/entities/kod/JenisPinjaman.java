@@ -39,6 +39,10 @@ public class JenisPinjaman {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public JenisPinjaman() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

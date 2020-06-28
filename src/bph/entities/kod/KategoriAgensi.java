@@ -40,6 +40,10 @@ public class KategoriAgensi {
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 
+	public KategoriAgensi() {
+		setTarikhMasuk(new Date());
+	}
+	
 	public String getId() {
 		return id;
 	}

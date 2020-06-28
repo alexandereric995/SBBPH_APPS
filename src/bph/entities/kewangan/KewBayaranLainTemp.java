@@ -79,6 +79,10 @@ public class KewBayaranLainTemp {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public KewBayaranLainTemp() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

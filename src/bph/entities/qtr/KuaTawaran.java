@@ -39,19 +39,7 @@ public class KuaTawaran {
 
 	@ManyToOne
 	@JoinColumn(name = "id_sebab_penolakan")
-	private SebabPenolakan sebabPenolakan;
-
-	@Column(name = "tarikh_masuk")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date tarikhMasuk;
-
-	@Column(name = "tarikh_kemaskini")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date tarikhKemaskini;
-
-	// @ManyToOne
-	// @JoinColumn(name = "nama_petugas")
-	// private Users petugas;
+	private SebabPenolakan sebabPenolakan;	
 
 	@Column(name = "tarikh_surat")
 	@Temporal(TemporalType.DATE)
@@ -87,14 +75,6 @@ public class KuaTawaran {
 	@Column(name = "bil")
 	private String bil;
 
-	public int getFlagSelesai() {
-		return flagSelesai;
-	}
-
-	public void setFlagSelesai(int flagSelesai) {
-		this.flagSelesai = flagSelesai;
-	}
-
 	@Column(name = "generate_email")
 	private String generateEmail;
 
@@ -104,27 +84,11 @@ public class KuaTawaran {
 	@Column(name = "flag_hantar")
 	private int flagHantar;
 
-	public int getFlagHantar() {
-		return flagHantar;
-	}
-
-	public void setFlagHantar(int flagHantar) {
-		this.flagHantar = flagHantar;
-	}
-
 	@Column(name = "flag_semakan_pelulus")
 	private int flagSemakanPelulus;
 
 	@Column(name = "nama_kementerian")
 	private String namaKementerian;
-
-	public int getFlagSemakanPelulus() {
-		return flagSemakanPelulus;
-	}
-
-	public void setFlagSemakanPelulus(int flagSemakanPelulus) {
-		this.flagSemakanPelulus = flagSemakanPelulus;
-	}
 
 	@Column(name = "nama_jabatan")
 	private String namaJabatan;
@@ -147,91 +111,40 @@ public class KuaTawaran {
 	@Column(name = "nama_negeri")
 	private String namaNegeri;
 
-	public String getNamaKementerian() {
-		return namaKementerian;
-	}
-
-	public void setNamaKementerian(String namaKementerian) {
-		this.namaKementerian = namaKementerian;
-	}
-
-	public String getNamaJabatan() {
-		return namaJabatan;
-	}
-
-	public void setNamaJabatan(String namaJabatan) {
-		this.namaJabatan = namaJabatan;
-	}
-
-	public String getNamaBahagian() {
-		return namaBahagian;
-	}
-
-	public void setNamaBahagian(String namaBahagian) {
-		this.namaBahagian = namaBahagian;
-	}
-
-	public String getNamaAlamat1() {
-		return namaAlamat1;
-	}
-
-	public void setNamaAlamat1(String namaAlamat1) {
-		this.namaAlamat1 = namaAlamat1;
-	}
-
-	public String getNamaAlamat2() {
-		return namaAlamat2;
-	}
-
-	public void setNamaAlamat2(String namaAlamat2) {
-		this.namaAlamat2 = namaAlamat2;
-	}
-
-	public String getNamaAlamat3() {
-		return namaAlamat3;
-	}
-
-	public void setNamaAlamat3(String namaAlamat3) {
-		this.namaAlamat3 = namaAlamat3;
-	}
-
-	public String getNamaPoskod() {
-		return namaPoskod;
-	}
-
-	public void setNamaPoskod(String namaPoskod) {
-		this.namaPoskod = namaPoskod;
-	}
-
-	public String getNamaNegeri() {
-		return namaNegeri;
-	}
-
-	public void setNamaNegeri(String namaNegeri) {
-		this.namaNegeri = namaNegeri;
-	}
-
-	public String getNamaBandar() {
-		return namaBandar;
-	}
-
-	public void setNamaBandar(String namaBandar) {
-		this.namaBandar = namaBandar;
-	}
-
 	@Column(name = "nama_bandar")
 	private String namaBandar;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
 	private Users idMasuk;
-
+	
+	@Column(name = "tarikh_masuk")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date tarikhMasuk;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_kemaskini")
 	private Users idKemaskini;
 
+	@Column(name = "tarikh_kemaskini")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date tarikhKemaskini;	
+
 	public KuaTawaran() {
 		setId(UID.getUID());
 		setTarikhMasuk(new Date());
+	}
+
+	public String getDescGenEmail() {
+		String gE = "";
+
+		if ("Y".equals(getGenerateEmail())) {
+			gE = "Ya";
+		} else {
+			gE = "Tidak";
+		}
+
+		return gE;
 	}
 
 	public String getId() {
@@ -250,6 +163,14 @@ public class KuaTawaran {
 		this.agihan = agihan;
 	}
 
+	public Users getPegawai() {
+		return pegawai;
+	}
+
+	public void setPegawai(Users pegawai) {
+		this.pegawai = pegawai;
+	}
+
 	public JenisPenolakan getJenisPenolakan() {
 		return jenisPenolakan;
 	}
@@ -265,30 +186,6 @@ public class KuaTawaran {
 	public void setSebabPenolakan(SebabPenolakan sebabPenolakan) {
 		this.sebabPenolakan = sebabPenolakan;
 	}
-
-	public Date getTarikhMasuk() {
-		return tarikhMasuk;
-	}
-
-	public void setTarikhMasuk(Date tarikhMasuk) {
-		this.tarikhMasuk = tarikhMasuk;
-	}
-
-	public Date getTarikhKemaskini() {
-		return tarikhKemaskini;
-	}
-
-	public void setTarikhKemaskini(Date tarikhKemaskini) {
-		this.tarikhKemaskini = tarikhKemaskini;
-	}
-
-	// public Users getPetugas() {
-	// return petugas;
-	// }
-	//
-	// public void setPetugas(Users petugas) {
-	// this.petugas = petugas;
-	// }
 
 	public Date getTarikhSurat() {
 		return tarikhSurat;
@@ -378,35 +275,100 @@ public class KuaTawaran {
 		this.generateEmail = generateEmail;
 	}
 
-	public String getDescGenEmail() {
-		String gE = "";
-
-		if ("Y".equals(getGenerateEmail())) {
-			gE = "Ya";
-		} else {
-			gE = "Tidak";
-		}
-
-		return gE;
+	public int getFlagSelesai() {
+		return flagSelesai;
 	}
 
-	public void setPegawai(Users pegawai) {
-		this.pegawai = pegawai;
+	public void setFlagSelesai(int flagSelesai) {
+		this.flagSelesai = flagSelesai;
 	}
 
-	public Users getPegawai() {
-		return pegawai;
+	public int getFlagHantar() {
+		return flagHantar;
 	}
 
-	@Column(name = "status_dalaman")
-	private String statusDalaman;
-
-	public String getStatusDalaman() {
-		return statusDalaman;
+	public void setFlagHantar(int flagHantar) {
+		this.flagHantar = flagHantar;
 	}
 
-	public void setStatusDalaman(String statusDalaman) {
-		this.statusDalaman = statusDalaman;
+	public int getFlagSemakanPelulus() {
+		return flagSemakanPelulus;
+	}
+
+	public void setFlagSemakanPelulus(int flagSemakanPelulus) {
+		this.flagSemakanPelulus = flagSemakanPelulus;
+	}
+
+	public String getNamaKementerian() {
+		return namaKementerian;
+	}
+
+	public void setNamaKementerian(String namaKementerian) {
+		this.namaKementerian = namaKementerian;
+	}
+
+	public String getNamaJabatan() {
+		return namaJabatan;
+	}
+
+	public void setNamaJabatan(String namaJabatan) {
+		this.namaJabatan = namaJabatan;
+	}
+
+	public String getNamaBahagian() {
+		return namaBahagian;
+	}
+
+	public void setNamaBahagian(String namaBahagian) {
+		this.namaBahagian = namaBahagian;
+	}
+
+	public String getNamaAlamat1() {
+		return namaAlamat1;
+	}
+
+	public void setNamaAlamat1(String namaAlamat1) {
+		this.namaAlamat1 = namaAlamat1;
+	}
+
+	public String getNamaAlamat2() {
+		return namaAlamat2;
+	}
+
+	public void setNamaAlamat2(String namaAlamat2) {
+		this.namaAlamat2 = namaAlamat2;
+	}
+
+	public String getNamaAlamat3() {
+		return namaAlamat3;
+	}
+
+	public void setNamaAlamat3(String namaAlamat3) {
+		this.namaAlamat3 = namaAlamat3;
+	}
+
+	public String getNamaPoskod() {
+		return namaPoskod;
+	}
+
+	public void setNamaPoskod(String namaPoskod) {
+		this.namaPoskod = namaPoskod;
+	}
+
+	public String getNamaNegeri() {
+		return namaNegeri;
+	}
+
+	public void setNamaNegeri(String namaNegeri) {
+		this.namaNegeri = namaNegeri;
+	}
+
+	public String getNamaBandar() {
+		return namaBandar;
+	}
+
+	public void setNamaBandar(String namaBandar) {
+		this.namaBandar = namaBandar;
 	}
 
 	public Users getIdMasuk() {
@@ -417,6 +379,14 @@ public class KuaTawaran {
 		this.idMasuk = idMasuk;
 	}
 
+	public Date getTarikhMasuk() {
+		return tarikhMasuk;
+	}
+
+	public void setTarikhMasuk(Date tarikhMasuk) {
+		this.tarikhMasuk = tarikhMasuk;
+	}
+
 	public Users getIdKemaskini() {
 		return idKemaskini;
 	}
@@ -425,4 +395,11 @@ public class KuaTawaran {
 		this.idKemaskini = idKemaskini;
 	}
 
+	public Date getTarikhKemaskini() {
+		return tarikhKemaskini;
+	}
+
+	public void setTarikhKemaskini(Date tarikhKemaskini) {
+		this.tarikhKemaskini = tarikhKemaskini;
+	}
 }

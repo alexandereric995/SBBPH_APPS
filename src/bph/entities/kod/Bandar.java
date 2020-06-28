@@ -46,6 +46,10 @@ public class Bandar {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public Bandar() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

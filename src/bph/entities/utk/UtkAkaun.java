@@ -87,6 +87,7 @@ public class UtkAkaun {
 
 	public UtkAkaun() {
 		setId(UID.getUID());
+		setTarikhDaftar(new Date());
 	}
 
 	public String getId() {

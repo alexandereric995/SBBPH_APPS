@@ -45,6 +45,10 @@ public class KaedahPerolehan {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public KaedahPerolehan() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lebah.template.UID;
+
 import portal.module.entity.Users;
 
 @Entity
@@ -94,6 +96,10 @@ public class MIGSRecords {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public MIGSRecords() {
+		setTarikhMasuk(new Date());
+	}
 
 	public Double getAmaunBayaran() {
 		Double amaun = 0D;

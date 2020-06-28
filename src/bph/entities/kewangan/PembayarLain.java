@@ -86,9 +86,9 @@ public class PembayarLain {
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 
-	// public PembayarSyarikat() {
-	// setId(UID.getUID());setTarikhMasuk(new Date());
-	// }
+	public PembayarLain() {
+	setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

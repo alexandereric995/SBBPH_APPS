@@ -39,6 +39,10 @@ public class Luas {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public Luas() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

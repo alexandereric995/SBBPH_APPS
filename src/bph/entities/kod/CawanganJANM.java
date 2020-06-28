@@ -39,6 +39,10 @@ public class CawanganJANM {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public CawanganJANM() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

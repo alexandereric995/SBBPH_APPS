@@ -40,6 +40,10 @@ public class StatusPerkhidmatan {
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
 
+	public StatusPerkhidmatan() {
+		setTarikhMasuk(new Date());
+	}
+	
 	public String getId() {
 		return id;
 	}

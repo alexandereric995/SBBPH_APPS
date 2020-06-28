@@ -39,6 +39,10 @@ public class JenisKenderaanUtk {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public JenisKenderaanUtk() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

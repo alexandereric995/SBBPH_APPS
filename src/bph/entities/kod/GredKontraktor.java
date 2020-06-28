@@ -39,6 +39,10 @@ public class GredKontraktor {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public GredKontraktor() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

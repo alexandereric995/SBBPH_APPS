@@ -39,6 +39,10 @@ public class Etnik {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public Etnik() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

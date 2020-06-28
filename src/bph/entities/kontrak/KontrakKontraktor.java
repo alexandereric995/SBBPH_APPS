@@ -77,6 +77,10 @@ public class KontrakKontraktor {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public KontrakKontraktor() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

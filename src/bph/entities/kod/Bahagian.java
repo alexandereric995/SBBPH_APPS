@@ -42,6 +42,10 @@ public class Bahagian {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public Bahagian() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

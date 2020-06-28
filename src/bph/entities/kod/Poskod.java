@@ -48,6 +48,10 @@ public class Poskod {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public Poskod() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

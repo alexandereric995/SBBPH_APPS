@@ -45,6 +45,10 @@ public class Bulan {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public Bulan() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

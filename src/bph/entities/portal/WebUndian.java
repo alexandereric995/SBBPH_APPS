@@ -57,6 +57,10 @@ public class WebUndian {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public WebUndian() {
+		setTarikhMasuk(new Date());
+	}
 
 	public int getJumlahUndian() {
 		int jumlah = 0;

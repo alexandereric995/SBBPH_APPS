@@ -39,6 +39,10 @@ public class Bank {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public Bank() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

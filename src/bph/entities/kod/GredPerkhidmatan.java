@@ -48,6 +48,10 @@ public class GredPerkhidmatan {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public GredPerkhidmatan() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;

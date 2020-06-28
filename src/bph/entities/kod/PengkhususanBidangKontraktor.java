@@ -43,6 +43,10 @@ public class PengkhususanBidangKontraktor {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "tarikh_kemaskini")
 	private Date tarikhKemaskini;
+	
+	public PengkhususanBidangKontraktor() {
+		setTarikhMasuk(new Date());
+	}
 
 	public String getId() {
 		return id;
