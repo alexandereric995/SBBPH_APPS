@@ -25,8 +25,8 @@ public class PenutupanKeseluruhanDewanDanGelanggang {
 	 */
 	public static void main(String[] args) throws ParseException {
 		System.out.println("START JOB ON : " + new Date());		
-		String tarikhMula = "04-05-2019";		
-		String tarikhTamat = "17-06-2019";
+		String tarikhMula = "01-07-2020";		
+		String tarikhTamat = "31-07-2020";
 		int masaMula = 9;
 		int masaTamat = 23;
 		doJob(tarikhMula, tarikhTamat, masaMula, masaTamat);		
@@ -72,6 +72,7 @@ public class PenutupanKeseluruhanDewanDanGelanggang {
 					jadual.setMasaMula(masaMula);
 					jadual.setMasaTamat(masaTamat);
 					jadual.setStatus("C");
+					jadual.setCatatan("PENUTUPAN SEHINGGA SOP BARU BERKAITAN COVID19");
 					db.persist(jadual);
 					
 					insertTempahanRelated(jadual.getDewan().getId(), dateMula.getTime(), jadual.getMasaMula(),
