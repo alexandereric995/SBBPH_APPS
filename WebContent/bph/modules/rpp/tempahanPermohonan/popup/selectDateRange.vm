@@ -16,7 +16,8 @@
 		</tr>
 		
 		<tr><td colspan="3">&nbsp;</td></tr>
-				
+		
+		#if( $rangeDirection )
 		<tr>
 			<td colspan="4">
 				<span style="font-size:12px;font-weight:bold;color:#FF2A00">
@@ -64,7 +65,15 @@
 			</td>
 			
 		</tr>
-		
+		#else
+		<tr>
+			<td colspan="4">
+				<span style="font-size:12px;font-weight:bold;color:#FF2A00">
+					* Tiada Tarikh Tempahan yang dibuka.
+				</span>
+			</td>
+		</tr>
+		#end
     </table>
 	
 			
@@ -75,7 +84,9 @@
 		</tr>
 		<tr>
 			<td align="right">
-				<input id="btnPilihRP" type="button" value="SEMAK KEKOSONGAN" onClick="doPaparMaklumatPermohonanWithDateRange('$!idJenisUnit')">
+				#if( $rangeDirection )
+					<input id="btnPilihRP" type="button" value="SEMAK KEKOSONGAN" onClick="doPaparMaklumatPermohonanWithDateRange('$!idJenisUnit')">
+				#end
 				<input id="btnExit" type="button"  value="KELUAR" />
 			</td>
 		</tr>
