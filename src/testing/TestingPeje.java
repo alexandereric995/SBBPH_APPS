@@ -13,6 +13,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +50,8 @@ public class TestingPeje {
 	 */
 	public static void main(String[] args) {
 		System.out.println("START JOB ON : " + new Date());
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
 		
 		doJob();
 		
@@ -61,15 +64,7 @@ public class TestingPeje {
 			db = new DbPersistence();
 			lebahDb = new Db();
 			Statement stmt = lebahDb.getStatement();	
-			int i = 0;
-			List<KuaAkaun> listAkaun = db.list("select x from KuaAkaun x where x.kodHasil.id = '72310' and x.flagBayar = 'Y' and x.penghuni is null");
-			for (KuaAkaun akauan : listAkaun) {
-				KuaAgihan agihan = (KuaAgihan) db.get("select x from KuaAgihan x where x.pemohon.id = '" + akauan.getPembayar().getId() + "'");
-				if (agihan != null && agihan.getKuarters() != null) {
-					i++;
-				}
-			}
-			System.out.println(i);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

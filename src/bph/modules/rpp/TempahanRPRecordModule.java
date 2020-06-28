@@ -860,15 +860,18 @@ public class TempahanRPRecordModule extends
 
 			RppTetapanBukaTempahan tetapanBookingDate = (RppTetapanBukaTempahan) mp
 					.get("select x from RppTetapanBukaTempahan x where x.flagAktif = 'Y' ");
-			String dtto = Util.getDateTime(
-					tetapanBookingDate.getTarikhMenginapHingga(), "dd-MM-yyyy");
+			if (tetapanBookingDate != null) {
+				String dtto = Util.getDateTime(
+						tetapanBookingDate.getTarikhMenginapHingga(), "dd-MM-yyyy");
 
-			Date dateToday = new Date();
-			String dtfrom = Util.getDateTime(dateToday, "dd-MM-yyyy");
+				Date dateToday = new Date();
+				String dtfrom = Util.getDateTime(dateToday, "dd-MM-yyyy");
 
-			String rangeDirection = "['" + dtfrom + "','" + dtto + "']";
-			context.put("rangeDirection", rangeDirection);
-
+				String rangeDirection = "['" + dtfrom + "','" + dtto + "']";
+				context.put("rangeDirection", rangeDirection);
+			} else {
+				context.remove("rangeDirection");
+			}
 		} catch (Exception e) {
 			System.out.println("Error openPopupDateRange : " + e.getMessage());
 		} finally {
