@@ -1,4 +1,4 @@
-<input type="hidden" id="idMaklumatPeralatan" name="idMaklumatPeralatan" value="$rekod.id">
+<input type="hidden" id="idMaklumatPeralatan" name="idMaklumatPeralatan" value="$!rekod.id">
 <fieldset class="fieldset">
 <legend class="legend">Maklumat Peralatan</legend>
 <table cellpadding="5" cellspacing="0" border="0" width="100%">
@@ -7,20 +7,16 @@
     <td style="width:1%">&nbsp;</td>
     <td style="width:70%">&nbsp;</td>
   </tr>
-  		#input_required("nama" "Nama Peralatan" "$!rekod.nama")
-		#number_required("kuantiti" "Kuantiti" "$!rekod.kuantiti")
-		#textarea("catatan" "Catatan" "$!rekod.catatan")
-		#currency_required("kadarSewa" "Kadar Sewa (RM)" "$!rekod.kadarSewa")
+  #input_required("nama" "Nama Peralatan" "$!rekod.nama")
+  #number_required("kuantiti" "Kuantiti" "$!rekod.kuantiti")
+  #textarea("catatan" "Catatan" "$!rekod.catatan")
+  #currency_required("kadarSewa" "Kadar Sewa (RM)" "$!util.formatDecimal($!rekod.kadarSewa)")
   <tr>
     <td></td>
     <td></td>
-    <td> #if ( $command == "addMaklumatPeralatan")
-      <input type="button" id="saveMaklumatPeralatan" name="saveMaklumatPeralatan" value="Simpan">
+    <td><input type="button" id="saveMaklumatPeralatan" name="saveMaklumatPeralatan" value="Simpan">
       <input type="button" id="batalMaklumatPeralatan" name="batalMaklumatPeralatan" value="Keluar">
-      #elseif ( $command == "editMaklumatPeralatan")
-      <input type="button" id="saveExitMaklumatPeralatan" name="saveExitMaklumatPeralatan" value="Simpan">
-      <input type="button" id="batalMaklumatPeralatan" name="batalMaklumatPeralatan" value="Keluar">
-      #end </td>
+    </td>
   </tr>
 </table>
 <div id="statusMaklumatPeralatan"></div>
@@ -35,12 +31,7 @@ _jq('#saveMaklumatPeralatan').on('click', function(){
     saveMaklumatPeralatan();
 });
 
-_jq('#saveExitMaklumatPeralatan').on('click', function(){
-	saveMaklumatPeralatan();
-});
-
 </script>
-
 <script>
   _jq(function($) {
       $('.currency').autoNumeric('init'); 

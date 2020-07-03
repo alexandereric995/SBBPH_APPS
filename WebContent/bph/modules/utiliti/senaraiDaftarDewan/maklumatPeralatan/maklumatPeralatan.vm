@@ -22,7 +22,7 @@
 		    <td class="row_header" width="5%">Bil.</td>		    
 		    <td class="row_header" width="30%">Nama Peralatan</td>
 		    <td class="row_header" width="15%">Kuantiti</td>
-		    <td class="row_header" width="20%">Kadar Sewa</td>
+		    <td class="row_header" width="20%">Kadar Sewa (RM)</td>
 		    <td class="row_header" width="20%">Catatan</td>
 		    <td class="row_header" width="5%">Papar</td>
 		    <td class="row_header" width="5%">Hapus</td>
@@ -41,10 +41,10 @@
         #end
         <tr bgcolor="$rowcolor">
           	<td align="center">$count</td>			
-		    <td align="center">$c.nama</td>
-		    <td align="center">$c.kuantiti</td>
-		    <td align="center">$c.kadarSewa</td>
-		    <td align="center">$c.catatan</td>
+		    <td align="center">$!c.nama</td>
+		    <td align="center">$!c.kuantiti</td>
+		    <td align="center">$!util.formatDecimal($!c.kadarSewa)</td>
+		    <td align="center">$!c.catatan</td>
           	<td align="center"><a href="javascript:void()" id="link$c.id"> <img alt="edit" src="../img/edit_bak.gif" border="0"> </a> </td>
           	<td align="center"><a href="javascript:void()" onClick="deleteMaklumatPeralatan('$c.id')"> <img alt="hapus" src="../img/delete.gif" border="0"> </a> </td>
         </tr>
@@ -64,6 +64,15 @@
         </tr>
         #end
       </table></td>
+  </tr>
+</table>
+
+<br>
+<table width="100%">
+  <tr>
+    <td align="right">
+    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
   </tr>
 </table>
 
