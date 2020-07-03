@@ -62,13 +62,16 @@ import bph.utils.DataUtil;
 import bph.utils.Util;
 import db.persistence.MyPersistence;
 
-public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermohonan> {
+public class FrmKuaPermohonanRecord extends
+		LebahRecordTemplateModule<KuaPermohonan> {
 
 	private static final long serialVersionUID = 1816637883473727892L;
-	static Logger myLogger = Logger.getLogger("bph/modules/qtr/FrmKuaPermohonanRecord");
+	static Logger myLogger = Logger
+			.getLogger("bph/modules/qtr/FrmKuaPermohonanRecord");
 	private DataUtil dataUtil;
 	private KuartersUtils kuaUtil = new KuartersUtils();
-	private String uploadDir = ResourceBundle.getBundle("dbconnection").getString("folder");
+	private String uploadDir = ResourceBundle.getBundle("dbconnection")
+			.getString("folder");
 	private MyPersistence mp;
 
 	@SuppressWarnings("rawtypes")
@@ -100,7 +103,7 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		setDisableBackButton(true);
 		userRole = (String) request.getSession().getAttribute("_portal_role");
 		context.put("userRole", userRole);
-		
+
 		String[] role = userRole.split(" ");
 
 		for (int i = 0; i < role.length; i++) {
@@ -120,7 +123,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		context.put("findStatus", dataUtil.getListStatusKuarters());
 		context.put("selectNegeriPekerjaan", dataUtil.getListNegeri());
 		context.put("selectNegeriPinjaman", dataUtil.getListNegeri());
-		context.put("selectLokasiPermohonan", dataUtil.getListLokasiPermohonan());
+		context.put("selectLokasiPermohonan",
+				dataUtil.getListLokasiPermohonan());
 		context.put("overall", "tidak");
 		context.put("path", getPath());
 	}
@@ -143,7 +147,9 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		r.put("pemohon.userName", getParam("findNamaPemohon"));
 		r.put("pemohon.noKP", getParam("findNoKPPemohon"));
 		r.put("lokasi.id", getParam("findLokasiPermohonan"));
-		r.put("datePermohonan",new OperatorDateBetween(getDate("findTarikhPermohonan"), getDate("findTarikhPermohonan")));
+		r.put("datePermohonan", new OperatorDateBetween(
+				getDate("findTarikhPermohonan"),
+				getDate("findTarikhPermohonan")));
 		return r;
 	}
 
@@ -162,17 +168,21 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		userRole = (String) request.getSession().getAttribute("_portal_role");
 		try {
 			mp = new MyPersistence();
-			if ("(QTR) Penyedia".equalsIgnoreCase(userRole) || "(QTR) Pelulus".equalsIgnoreCase(userRole)) {
+			if ("(QTR) Penyedia".equalsIgnoreCase(userRole)
+					|| "(QTR) Pelulus".equalsIgnoreCase(userRole)) {
 				context.put("qtrstaff", "true");
 			} else {
 				context.put("qtrstaff", "false");
 			}
 			UsersJob uj = (UsersJob) mp
-					.get("SELECT uj FROM UsersJob uj WHERE uj.users.id = '" + r.getPemohon().getId() + "'");
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, r.getId());
+					.get("SELECT uj FROM UsersJob uj WHERE uj.users.id = '"
+							+ r.getPemohon().getId() + "'");
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					r.getId());
 			context.put("r", kp);
 
-			if ("true".equals(kp.getKelulusan1()) && "true".equals(kp.getKelulusan3())) {
+			if ("true".equals(kp.getKelulusan1())
+					&& "true".equals(kp.getKelulusan3())) {
 				context.put("disableAddNewRecordButton", true);
 				kelulusan = true;
 			}
@@ -180,21 +190,26 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			context.put("kelulusan", kelulusan);
 
 			context.remove("kpp");
-			KuaPinjamanPemohon kpp = (KuaPinjamanPemohon) mp.get(
-					"SELECT kpp FROM KuaPinjamanPemohon kpp WHERE kpp.users.id = '" + r.getPemohon().getId() + "'");
+			KuaPinjamanPemohon kpp = (KuaPinjamanPemohon) mp
+					.get("SELECT kpp FROM KuaPinjamanPemohon kpp WHERE kpp.users.id = '"
+							+ r.getPemohon().getId() + "'");
 
 			if (kpp != null) {
-				context.put("kpp", mp.find(KuaPinjamanPemohon.class, kpp.getId()));
+				context.put("kpp",
+						mp.find(KuaPinjamanPemohon.class, kpp.getId()));
 			}
 
-			context.put("resultPermohonanCompletion", getCompletionPermohonan(mp, r.getId()));
+			context.put("resultPermohonanCompletion",
+					getCompletionPermohonan(mp, r.getId()));
 
 			context.put("uj", uj);
 
 		} catch (Exception e) {
 			System.out.println("Error getRelatedData : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 	}
 
@@ -209,24 +224,30 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		boolean kelulusan = false;
 		try {
 			mp = new MyPersistence();
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, idPermohonan);
-			if ("true".equals(kp.getKelulusan1()) && "true".equals(kp.getKelulusan3())) {
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					idPermohonan);
+			if ("true".equals(kp.getKelulusan1())
+					&& "true".equals(kp.getKelulusan3())) {
 				context.put("disableAddNewRecordButton", true);
 				kelulusan = true;
 			}
 			context.put("kelulusan", kelulusan);
 			context.put("r", kp);
-			context.put("kpp", mp
-					.get("SELECT pp FROM KuaPinjamanPemohon pp WHERE pp.users.id = '" + kp.getPemohon().getId() + "'"));
+			context.put(
+					"kpp",
+					mp.get("SELECT pp FROM KuaPinjamanPemohon pp WHERE pp.users.id = '"
+							+ kp.getPemohon().getId() + "'"));
 		} catch (Exception e) {
 			System.out.println("Error getPermohonan : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return getPath() + "/entry_sub/entry_permohonan.vm";
 	}
 
-	//TODO
+	// TODO
 	@SuppressWarnings("unchecked")
 	@Command("hantarSemakan")
 	// butang hantar ke senarai menunggu
@@ -234,7 +255,7 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		boolean success = false;
 		boolean wujudKelasDowngrade = false;
 		String idPermohonan = getParam("idPermohonan");
-		String statusPermohonanAsal="";
+		String statusPermohonanAsal = "";
 		KelasKuarters k1 = null;
 		KelasKuarters k2 = null;
 		KuaAgihan agihan = null;
@@ -245,18 +266,24 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			mp = new MyPersistence();
 			mp.begin();
 			r = (KuaPermohonan) mp.find(KuaPermohonan.class, idPermohonan);
-			uj = (UsersJob) mp.get("SELECT uj FROM UsersJob uj WHERE uj.users.id = '" + r.getPemohon().getId() + "'");
-			agihan = (KuaAgihan) mp.get("SELECT a FROM KuaAgihan a WHERE a.permohonan.id = '" + idPermohonan + "'");
-			
-			// 17072018 - ADD BY PEJE - TO REMOVE CORRUPT DATA AGIHAN WHERE KELAS KUARTERS IS NULL
+			uj = (UsersJob) mp
+					.get("SELECT uj FROM UsersJob uj WHERE uj.users.id = '"
+							+ r.getPemohon().getId() + "'");
+			agihan = (KuaAgihan) mp
+					.get("SELECT a FROM KuaAgihan a WHERE a.permohonan.id = '"
+							+ idPermohonan + "'");
+
+			// 17072018 - ADD BY PEJE - TO REMOVE CORRUPT DATA AGIHAN WHERE
+			// KELAS KUARTERS IS NULL
 			if (agihan != null) {
 				if (agihan.getKelasKuarters() == null) {
 					mp.remove(agihan);
 					agihan = null;
 				}
-			}			
-			
-			lp = (LokasiPermohonan) mp.find(LokasiPermohonan.class, r.getLokasi().getId());
+			}
+
+			lp = (LokasiPermohonan) mp.find(LokasiPermohonan.class, r
+					.getLokasi().getId());
 
 			if (uj != null) {
 				String gredKelasKuarters = "";
@@ -264,108 +291,131 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 				String gredJawatan = "";
 				if (uj.getGredJawatan() != null) {
 					gredKelasKuarters = uj.getGredJawatan().getKelasKuarters();
-					
-					/*UNTUK KES BADAN BERUNIFORM*/
-					idPerkhidmatan=uj.getKelasPerkhidmatan().getId();
-					gredJawatan=uj.getGredJawatan().getKeterangan();
-					if(idPerkhidmatan.equalsIgnoreCase("XA") || 
-							idPerkhidmatan.equalsIgnoreCase("VUXA") ||
-							//idPerkhidmatan.equalsIgnoreCase("T") || 
-							//idPerkhidmatan.equalsIgnoreCase("VUT") || 
-							idPerkhidmatan.equalsIgnoreCase("YA") || 
-							idPerkhidmatan.equalsIgnoreCase("VUYA") ||
-							idPerkhidmatan.equalsIgnoreCase("ZA") ||
-							idPerkhidmatan.equalsIgnoreCase("VUZ"))
-					{
-						String gredUniform=idPerkhidmatan+gredJawatan;
-						if(idPerkhidmatan.equalsIgnoreCase("XA") || idPerkhidmatan.equalsIgnoreCase("VUXA")){
-							JawatanAPMM jawatan = (JawatanAPMM) mp.get("SELECT j FROM JawatanAPMM j WHERE j.id = '"+ gredUniform + "'");
-							if(jawatan!=null){
-								gredKelasKuarters=jawatan.getKelasLayak();
+
+					/* UNTUK KES BADAN BERUNIFORM */
+					idPerkhidmatan = uj.getKelasPerkhidmatan().getId();
+					gredJawatan = uj.getGredJawatan().getKeterangan();
+					if (idPerkhidmatan.equalsIgnoreCase("XA")
+							|| idPerkhidmatan.equalsIgnoreCase("VUXA")
+							||
+							// idPerkhidmatan.equalsIgnoreCase("T") ||
+							// idPerkhidmatan.equalsIgnoreCase("VUT") ||
+							idPerkhidmatan.equalsIgnoreCase("YA")
+							|| idPerkhidmatan.equalsIgnoreCase("VUYA")
+							|| idPerkhidmatan.equalsIgnoreCase("ZA")
+							|| idPerkhidmatan.equalsIgnoreCase("VUZ")) {
+						String gredUniform = idPerkhidmatan + gredJawatan;
+						if (idPerkhidmatan.equalsIgnoreCase("XA")
+								|| idPerkhidmatan.equalsIgnoreCase("VUXA")) {
+							JawatanAPMM jawatan = (JawatanAPMM) mp
+									.get("SELECT j FROM JawatanAPMM j WHERE j.id = '"
+											+ gredUniform + "'");
+							if (jawatan != null) {
+								gredKelasKuarters = jawatan.getKelasLayak();
 							}
-						}
-						else if (idPerkhidmatan.equalsIgnoreCase("YA") || idPerkhidmatan.equalsIgnoreCase("VUYA")){
-							JawatanPDRM jawatan = (JawatanPDRM) mp.get("SELECT j FROM JawatanPDRM j WHERE j.id = '"+ gredUniform + "'");
-							if(jawatan!=null){
-								gredKelasKuarters=jawatan.getKelasLayak();				
+						} else if (idPerkhidmatan.equalsIgnoreCase("YA")
+								|| idPerkhidmatan.equalsIgnoreCase("VUYA")) {
+							JawatanPDRM jawatan = (JawatanPDRM) mp
+									.get("SELECT j FROM JawatanPDRM j WHERE j.id = '"
+											+ gredUniform + "'");
+							if (jawatan != null) {
+								gredKelasKuarters = jawatan.getKelasLayak();
 							}
-						}
-						else if (idPerkhidmatan.equalsIgnoreCase("ZA") || idPerkhidmatan.equalsIgnoreCase("VUZ")){
-							JawatanATM jawatan = (JawatanATM) mp.get("SELECT j FROM JawatanATM j WHERE j.id = '"+ gredUniform + "'");
-							if(jawatan!=null){
-								gredKelasKuarters=jawatan.getKelasLayak();					
+						} else if (idPerkhidmatan.equalsIgnoreCase("ZA")
+								|| idPerkhidmatan.equalsIgnoreCase("VUZ")) {
+							JawatanATM jawatan = (JawatanATM) mp
+									.get("SELECT j FROM JawatanATM j WHERE j.id = '"
+											+ gredUniform + "'");
+							if (jawatan != null) {
+								gredKelasKuarters = jawatan.getKelasLayak();
 							}
 						}
 					}
-					/*END UNTUK KES BADAN BERUNIFORM*/
+					/* END UNTUK KES BADAN BERUNIFORM */
 				}
 				String gredKelasKuartersDowngrade = getKelasDowngrade(gredKelasKuarters);
-				
-				//KUARTERS PUTRAJAYA
-				if (r.getLokasi().getId().equalsIgnoreCase("01")){
+
+				// KUARTERS PUTRAJAYA
+				if (r.getLokasi().getId().equalsIgnoreCase("01")) {
 					gredKelasKuartersDowngrade = getKelasDowngrade(gredKelasKuarters);
 				}
-				
-				//KUARTERS KUALA LUMPUR/PETALING JAYA
-				if (r.getLokasi().getId().equalsIgnoreCase("02")){
+
+				// KUARTERS KUALA LUMPUR/PETALING JAYA
+				if (r.getLokasi().getId().equalsIgnoreCase("02")) {
 					gredKelasKuartersDowngrade = "";
 				}
-				
-				//KUARTERS KLIA
-				if (r.getLokasi().getId().equalsIgnoreCase("06")){
-					if(gredKelasKuarters.equalsIgnoreCase("A") || gredKelasKuarters.equalsIgnoreCase("B") ||gredKelasKuarters.equalsIgnoreCase("C") || gredKelasKuarters.equalsIgnoreCase("D") || gredKelasKuarters.equalsIgnoreCase("E")){
+
+				// KUARTERS KLIA
+				if (r.getLokasi().getId().equalsIgnoreCase("06")) {
+					if (gredKelasKuarters.equalsIgnoreCase("A")
+							|| gredKelasKuarters.equalsIgnoreCase("B")
+							|| gredKelasKuarters.equalsIgnoreCase("C")
+							|| gredKelasKuarters.equalsIgnoreCase("D")
+							|| gredKelasKuarters.equalsIgnoreCase("E")) {
 						gredKelasKuarters = "F";
 					}
 					gredKelasKuartersDowngrade = "";
 				}
-				
-				//KUARTERS TANJUNG KUPANG
-				if (r.getLokasi().getId().equalsIgnoreCase("04")){
-					
-					if(gredKelasKuarters.equalsIgnoreCase("A") || gredKelasKuarters.equalsIgnoreCase("B") ||gredKelasKuarters.equalsIgnoreCase("C")){
+
+				// KUARTERS TANJUNG KUPANG
+				if (r.getLokasi().getId().equalsIgnoreCase("04")) {
+
+					if (gredKelasKuarters.equalsIgnoreCase("A")
+							|| gredKelasKuarters.equalsIgnoreCase("B")
+							|| gredKelasKuarters.equalsIgnoreCase("C")) {
 						gredKelasKuarters = "D";
 					}
-					if(gredKelasKuarters.equalsIgnoreCase("F")){
+					if (gredKelasKuarters.equalsIgnoreCase("F")) {
 						gredKelasKuarters = "G";
 					}
 					gredKelasKuartersDowngrade = "";
 				}
-				
-				//KUARTERS LABUAN
-				if (r.getLokasi().getId().equalsIgnoreCase("03")){
-					if(gredKelasKuarters.equalsIgnoreCase("A") || gredKelasKuarters.equalsIgnoreCase("B") ||gredKelasKuarters.equalsIgnoreCase("C") ||gredKelasKuarters.equalsIgnoreCase("D")){
+
+				// KUARTERS LABUAN
+				if (r.getLokasi().getId().equalsIgnoreCase("03")) {
+					if (gredKelasKuarters.equalsIgnoreCase("A")
+							|| gredKelasKuarters.equalsIgnoreCase("B")
+							|| gredKelasKuarters.equalsIgnoreCase("C")
+							|| gredKelasKuarters.equalsIgnoreCase("D")) {
 						gredKelasKuarters = "E";
 					}
 					gredKelasKuartersDowngrade = "";
 				}
-				
-				k1 = (KelasKuarters) mp.find(KelasKuarters.class, gredKelasKuarters);
-				k2 = (KelasKuarters) mp.find(KelasKuarters.class, gredKelasKuartersDowngrade);
+
+				k1 = (KelasKuarters) mp.find(KelasKuarters.class,
+						gredKelasKuarters);
+				k2 = (KelasKuarters) mp.find(KelasKuarters.class,
+						gredKelasKuartersDowngrade);
 			}
-			
-//			if (uj != null) {
-//				String gredKelasKuarters = "";
-//				if (uj.getGredJawatan() != null) {
-//					gredKelasKuarters = uj.getGredJawatan().getKelasKuarters();
-//				}
-//				String gredKelasKuartersDowngrade = getKelasDowngrade(gredKelasKuarters);
-//				k1 = (KelasKuarters) mp.find(KelasKuarters.class, gredKelasKuarters);
-//				k2 = (KelasKuarters) mp.find(KelasKuarters.class, gredKelasKuartersDowngrade);
-//			}
-		
-			statusPermohonanAsal=r.getStatus().getId();
-			if(r.getStatus().getId().equalsIgnoreCase("1423101446117")==false){
+
+			// if (uj != null) {
+			// String gredKelasKuarters = "";
+			// if (uj.getGredJawatan() != null) {
+			// gredKelasKuarters = uj.getGredJawatan().getKelasKuarters();
+			// }
+			// String gredKelasKuartersDowngrade =
+			// getKelasDowngrade(gredKelasKuarters);
+			// k1 = (KelasKuarters) mp.find(KelasKuarters.class,
+			// gredKelasKuarters);
+			// k2 = (KelasKuarters) mp.find(KelasKuarters.class,
+			// gredKelasKuartersDowngrade);
+			// }
+
+			statusPermohonanAsal = r.getStatus().getId();
+			if (r.getStatus().getId().equalsIgnoreCase("1423101446117") == false) {
 				r.setStatus((Status) mp.find(Status.class, "1419601227590"));
-			}else{
+			} else {
 				r.setStatus((Status) mp.find(Status.class, "1423101446117"));
-			}		
+			}
 			mp.flush();
 			mp.commit();
 			success = true;
 		} catch (Exception e) {
 			System.out.println("Error hantarSemakan : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 
 		@SuppressWarnings("rawtypes")
@@ -375,8 +425,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 		if (agihan != null) {
 			if (k2 != null) {
-				//if (agihan.getKelasKuarters()!= k2.getId()) {
-				//if (agihan.getKelasKuarters()!= null) {
+				// if (agihan.getKelasKuarters()!= k2.getId()) {
+				// if (agihan.getKelasKuarters()!= null) {
 				if (agihan.getKelasKuarters().equals(k2.getId())) {
 					wujudKelasDowngrade = true;
 				}
@@ -394,14 +444,19 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			mp = new MyPersistence();
 			mp.begin();
 			for (int i = 0; i < kelasKuarters.size(); i++) {
-				
+
 				String jenisKelasKuarters = "";
-				
-				/*CHECK JIKA DAH ADA DALAM SENARAI MENUNGGU*/
-				KuaAgihan agihanLama = (KuaAgihan) mp.get("SELECT a FROM KuaAgihan a WHERE a.permohonan.id = '" + idPermohonan + "' and a.idLokasi.id='"+ lp.getId() +"' and a.kelasKuarters ='"+ kelasKuarters.get(i).toString() + "'" );
-			
-				if(agihanLama==null)
-				{
+
+				/* CHECK JIKA DAH ADA DALAM SENARAI MENUNGGU */
+				KuaAgihan agihanLama = (KuaAgihan) mp
+						.get("SELECT a FROM KuaAgihan a WHERE a.permohonan.id = '"
+								+ idPermohonan
+								+ "' and a.idLokasi.id='"
+								+ lp.getId()
+								+ "' and a.kelasKuarters ='"
+								+ kelasKuarters.get(i).toString() + "'");
+
+				if (agihanLama == null) {
 					KuaAgihan ka = new KuaAgihan();
 					if (k2 != null) {
 						if (k2.getId().equals(kelasKuarters.get(i).toString())) {
@@ -411,16 +466,18 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 						}
 					} else {
 						jenisKelasKuarters = "L";
-					}			
+					}
 					ka.setPermohonan(r);
 					ka.setPemohon(r.getPemohon());
 					ka.setPekerjaan(uj);
-					if(statusPermohonanAsal.equalsIgnoreCase("1431327994524")){
+					if (statusPermohonanAsal.equalsIgnoreCase("1431327994524")) {
 						ka.setNoGiliran(1);
-					}else{
-						ka.setNoGiliran(getNoGiliran(kelasKuarters.get(i).toString(), r.getLokasi().getId(),mp));
+					} else {
+						ka.setNoGiliran(getNoGiliran(kelasKuarters.get(i)
+								.toString(), r.getLokasi().getId(), mp));
 					}
-					ka.setStatus((Status) mp.find(Status.class, "1419601227590"));
+					ka.setStatus((Status) mp
+							.find(Status.class, "1419601227590"));
 					ka.setTarikhAgih(new Date());
 					ka.setTarikhKemaskini(new Date());
 					ka.setDateAgih(new Date());
@@ -430,77 +487,100 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 					ka.setIdLokasi(lp);
 					ka.setFlagAktif("Y");
 					mp.persist(ka);
-					
-					//rozai tambah 24/8/2017 sebab nak guna menunggu manual
+
+					// rozai tambah 24/8/2017 sebab nak guna menunggu manual
 					// 17072018 - EDIT BY PEJE - IF RECORD EXIST THEN LEAVE
-					Giliran giliran = (Giliran) mp.get("select x from Giliran x where x.lokasiPermohonan.id = '" + lp.getId() + "' and x.kelasKuarters = '" + kelasKuarters.get(i).toString() + "' and x.noKP = '" + r.getPemohon().getId() + "'");
+					Giliran giliran = (Giliran) mp
+							.get("select x from Giliran x where x.lokasiPermohonan.id = '"
+									+ lp.getId()
+									+ "' and x.kelasKuarters = '"
+									+ kelasKuarters.get(i).toString()
+									+ "' and x.noKP = '"
+									+ r.getPemohon().getId() + "'");
 					if (giliran == null) {
 						giliran = new Giliran();
 						giliran.setNoKP(r.getPemohon().getId());
 						giliran.setLokasiPermohonan(lp);
-						//giliran.setNoDaftar(r.getNoPermohonan());
-						Integer intGiliran=getNoGiliran(kelasKuarters.get(i).toString(), r.getLokasi().getId(),mp);
-						String noGiliran=intGiliran.toString();
+						// giliran.setNoDaftar(r.getNoPermohonan());
+						Integer intGiliran = getNoGiliran(kelasKuarters.get(i)
+								.toString(), r.getLokasi().getId(), mp);
+						String noGiliran = intGiliran.toString();
 						giliran.setNoGiliran(noGiliran);
-						giliran.setKelasKuarters(kelasKuarters.get(i).toString());
+						giliran.setKelasKuarters(kelasKuarters.get(i)
+								.toString());
 						giliran.setJenisKelasKuarters(jenisKelasKuarters);
 						giliran.setFlagManual("T");
 						mp.persist(giliran);
-					}									
+					}
 				} else {
-					Giliran giliran = (Giliran) mp.get("select x from Giliran x where x.lokasiPermohonan.id = '" + lp.getId() + "' and x.kelasKuarters = '" + kelasKuarters.get(i).toString() + "' and x.noKP = '" + r.getPemohon().getId() + "'");
+					Giliran giliran = (Giliran) mp
+							.get("select x from Giliran x where x.lokasiPermohonan.id = '"
+									+ lp.getId()
+									+ "' and x.kelasKuarters = '"
+									+ kelasKuarters.get(i).toString()
+									+ "' and x.noKP = '"
+									+ r.getPemohon().getId() + "'");
 					if (giliran == null) {
 						giliran = new Giliran();
 						giliran.setNoKP(r.getPemohon().getId());
 						giliran.setLokasiPermohonan(lp);
-						giliran.setNoGiliran(String.valueOf(agihanLama.getNoGiliran()));
-						giliran.setKelasKuarters(kelasKuarters.get(i).toString());
+						giliran.setNoGiliran(String.valueOf(agihanLama
+								.getNoGiliran()));
+						giliran.setKelasKuarters(kelasKuarters.get(i)
+								.toString());
 						giliran.setJenisKelasKuarters(jenisKelasKuarters);
 						giliran.setFlagManual("T");
 						giliran.setTarikhKemaskini(new Date());
 						mp.persist(giliran);
 					}
-				}				
+				}
 			}
 			mp.commit();
 			success = true;
 		} catch (Exception e) {
 			System.out.println("Error hantarSemakan : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		context.put("success", success);
 		return getPath() + "/result/hantarSemakan.vm";
 	}
-	
+
 	@Command("addCatatanPermohonan")
 	public String addCatatanPermohonan() {
 		context.remove("rekod");
-		return getPath() + "/sub_page/catatanPermohonan/popupCatatanPermohonan.vm";
+		return getPath()
+				+ "/sub_page/catatanPermohonan/popupCatatanPermohonan.vm";
 	}
-	
+
 	@Command("doSaveCatatanPermohonan")
 	public String doSaveCatatanPermohonan() {
 		userId = (String) request.getSession().getAttribute("_portal_login");
 		try {
 			mp = new MyPersistence();
-			KuaPermohonan permohonan = (KuaPermohonan) mp.find(KuaPermohonan.class, getParam("idPermohonan"));
+			KuaPermohonan permohonan = (KuaPermohonan) mp.find(
+					KuaPermohonan.class, getParam("idPermohonan"));
 			if (permohonan != null) {
 				mp.begin();
 				KuaCatatanPermohonan catatanPermohonan = new KuaCatatanPermohonan();
 				catatanPermohonan.setPermohonan(permohonan);
 				catatanPermohonan.setCatatan(getParam("catatan"));
-				catatanPermohonan.setDaftarOleh((Users) mp.find(Users.class, userId));
+				catatanPermohonan.setDaftarOleh((Users) mp.find(Users.class,
+						userId));
 				catatanPermohonan.setTarikhDaftar(new Date());
-				mp.persist(catatanPermohonan);				
+				mp.persist(catatanPermohonan);
 				mp.commit();
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
-		
+
 		simpanAuditTrail(getParam("idPermohonan"), "simpanCatatan");
 		return getPerakuan();
 	}
@@ -510,7 +590,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		userId = (String) request.getSession().getAttribute("_portal_login");
 		try {
 			mp = new MyPersistence();
-			KuaCatatanPermohonan catatanPermohonan = (KuaCatatanPermohonan) mp.find(KuaCatatanPermohonan.class, getParam("idCatatan"));
+			KuaCatatanPermohonan catatanPermohonan = (KuaCatatanPermohonan) mp
+					.find(KuaCatatanPermohonan.class, getParam("idCatatan"));
 			if (catatanPermohonan != null) {
 				mp.begin();
 				mp.remove(catatanPermohonan);
@@ -519,56 +600,58 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
-		
+
 		simpanAuditTrail(getParam("idPermohonan"), "hapusCatatan");
 		return getPerakuan();
 	}
 
-//	@Command("simpanCatatan")
-//	// butang simpan catatan
-//	public String simpanCatatan() {
-//		boolean success = false;
-//		String idPermohonan = getParam("idPermohonan");
-//		KuaPermohonan r = null;
-//		userId = (String) request.getSession().getAttribute("_portal_login");
-//		try {
-//			mp = new MyPersistence();
-//			//Users penyedia=((Users) mp.find(Users.class, userId));
-//			//String nama=penyedia.getUserName();
-//			r = (KuaPermohonan) mp.find(KuaPermohonan.class, idPermohonan);
-//			Date t = new Date();
-//			//Format formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss aa");
-//			Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-//			String s = formatter.format(t);
-//			String catatanDulu=r.getCatatan();
-//			if(catatanDulu!=null){
-//				//r.setCatatan(catatanDulu+"&#13;&#10;"+"&#13;&#10;"+getParam("catatan")+"&#13;&#10;"+"Dikemaskini oleh "+WordUtils.capitalize(nama)+" pada "+s);
-//				//r.setCatatan(catatanDulu+"&#13;&#10;"+"("+s+")"+getParam("catatan")+" ("+nama+")");
-//				//r.setCatatan(catatanDulu+"&#13;&#10;"+"&#13;&#10;"+getParam("catatan")+"&#13;&#10;"+"("+s+") oleh "+nama);
-//				r.setCatatan(catatanDulu+"&#13;&#10;"+"&#13;&#10;"+"("+s+") "+getParam("catatan"));
-//			}
-//			else
-//			{
-//				//r.setCatatan(getParam("catatan")+"&#13;&#10;"+"("+s+") oleh "+nama);
-//				//r.setCatatan(getParam("catatan")+"&#13;&#10;"+"("+s+") oleh "+nama);
-//				//r.setCatatan("("+s+") "+getParam("catatan")+" - "+nama);
-//				r.setCatatan("("+s+") "+getParam("catatan"));
-//			}
-//			mp.begin();
-//			mp.persist(r);
-//			mp.commit();
-//			success = true;
-//		} catch (Exception e) {
-//			System.out.println("Error simpanCatatan : " + e.getMessage());
-//		} finally {
-//			if (mp != null) { mp.close(); }
-//		}
-//		simpanAuditTrail(idPermohonan, "simpanCatatan");
-//		context.put("success", success);
-//		return getPath() + "/result/simpanCatatan.vm";
-//	}
+	// @Command("simpanCatatan")
+	// // butang simpan catatan
+	// public String simpanCatatan() {
+	// boolean success = false;
+	// String idPermohonan = getParam("idPermohonan");
+	// KuaPermohonan r = null;
+	// userId = (String) request.getSession().getAttribute("_portal_login");
+	// try {
+	// mp = new MyPersistence();
+	// //Users penyedia=((Users) mp.find(Users.class, userId));
+	// //String nama=penyedia.getUserName();
+	// r = (KuaPermohonan) mp.find(KuaPermohonan.class, idPermohonan);
+	// Date t = new Date();
+	// //Format formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss aa");
+	// Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+	// String s = formatter.format(t);
+	// String catatanDulu=r.getCatatan();
+	// if(catatanDulu!=null){
+	// //r.setCatatan(catatanDulu+"&#13;&#10;"+"&#13;&#10;"+getParam("catatan")+"&#13;&#10;"+"Dikemaskini oleh "+WordUtils.capitalize(nama)+" pada "+s);
+	// //r.setCatatan(catatanDulu+"&#13;&#10;"+"("+s+")"+getParam("catatan")+" ("+nama+")");
+	// //r.setCatatan(catatanDulu+"&#13;&#10;"+"&#13;&#10;"+getParam("catatan")+"&#13;&#10;"+"("+s+") oleh "+nama);
+	// r.setCatatan(catatanDulu+"&#13;&#10;"+"&#13;&#10;"+"("+s+") "+getParam("catatan"));
+	// }
+	// else
+	// {
+	// //r.setCatatan(getParam("catatan")+"&#13;&#10;"+"("+s+") oleh "+nama);
+	// //r.setCatatan(getParam("catatan")+"&#13;&#10;"+"("+s+") oleh "+nama);
+	// //r.setCatatan("("+s+") "+getParam("catatan")+" - "+nama);
+	// r.setCatatan("("+s+") "+getParam("catatan"));
+	// }
+	// mp.begin();
+	// mp.persist(r);
+	// mp.commit();
+	// success = true;
+	// } catch (Exception e) {
+	// System.out.println("Error simpanCatatan : " + e.getMessage());
+	// } finally {
+	// if (mp != null) { mp.close(); }
+	// }
+	// simpanAuditTrail(idPermohonan, "simpanCatatan");
+	// context.put("success", success);
+	// return getPath() + "/result/simpanCatatan.vm";
+	// }
 
 	@Command("tolakPermohonan")
 	// butang simpan catatan
@@ -580,9 +663,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		try {
 			mp = new MyPersistence();
 			r = (KuaPermohonan) mp.find(KuaPermohonan.class, idPermohonan);
-			if(r!=null)
-			{
-				r.setStatus((Status)mp.find(Status.class, "1419601227598"));
+			if (r != null) {
+				r.setStatus((Status) mp.find(Status.class, "1419601227598"));
 			}
 			mp.begin();
 			mp.commit();
@@ -590,13 +672,15 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		} catch (Exception e) {
 			System.out.println("Error batalPermohonan : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		simpanAuditTrail(idPermohonan, "tolakPermohonan");
 		context.put("success", success);
 		return getPath() + "/result/tolakPermohonan.vm";
 	}
-	
+
 	public String getKelasDowngrade(String kelas) {
 		String kelasDowngrade = "";
 		if ("A".equals(kelas)) {
@@ -605,9 +689,9 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			kelasDowngrade = "";
 		} else if ("D".equals(kelas)) {
 			kelasDowngrade = "F";
-		}else if ("E".equals(kelas)) {
+		} else if ("E".equals(kelas)) {
 			kelasDowngrade = "F";
-		} else  {
+		} else {
 			kelasDowngrade = "";
 		}
 		return kelasDowngrade;
@@ -620,7 +704,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		boolean success = false;
 		try {
 			mp = new MyPersistence();
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, getParam("idPermohonan"));
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					getParam("idPermohonan"));
 			kp.setStatus((Status) mp.find(Status.class, "1419601227595"));
 			kp.setTarikhKemaskini(new Date());
 			mp.begin();
@@ -629,7 +714,9 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		} catch (Exception e) {
 			System.out.println("Error begin : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		context.put("success", success);
 		return getPath() + "/result/lulusPermohonan.vm";
@@ -658,18 +745,21 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			mp = new MyPersistence();
 
 			// dapatkan lokasi permohonan dan lokasi kuarters
-			LokasiPermohonan lokasiPermohonan = (LokasiPermohonan) mp.find(LokasiPermohonan.class,
-					getParam("idLokasiPermohonan"));
-			Bandar bandarLokasi = (Bandar) mp.find(Bandar.class, getParam("idBandarPekerjaan"));
+			LokasiPermohonan lokasiPermohonan = (LokasiPermohonan) mp.find(
+					LokasiPermohonan.class, getParam("idLokasiPermohonan"));
+			Bandar bandarLokasi = (Bandar) mp.find(Bandar.class,
+					getParam("idBandarPekerjaan"));
 
 			// ------------------start rozai upgrade
 			// 18/11/2015--------------------------
-			if ("14".equals(lokasiPermohonan.getNegeri().getId()) || "15".equals(lokasiPermohonan.getNegeri().getId())
+			if ("14".equals(lokasiPermohonan.getNegeri().getId())
+					|| "15".equals(lokasiPermohonan.getNegeri().getId())
 					|| "16".equals(lokasiPermohonan.getNegeri().getId())
 					|| "01".equals(lokasiPermohonan.getNegeri().getId())
 					|| "10".equals(lokasiPermohonan.getNegeri().getId())) {
 
-				if (bandarLokasi.getNegeri().getId().equals(lokasiPermohonan.getNegeri().getId())) {
+				if (bandarLokasi.getNegeri().getId()
+						.equals(lokasiPermohonan.getNegeri().getId())) {
 					result = true;
 					kelulusan = true;
 					context.put("kelulusan", kelulusan);
@@ -679,14 +769,16 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 					context.put("kelulusan", kelulusan);
 				}
 
-				if ("16".equals(lokasiPermohonan.getNegeri().getId()) && bandarLokasi.getId().equals("1052")) {
+				if ("16".equals(lokasiPermohonan.getNegeri().getId())
+						&& bandarLokasi.getId().equals("1052")) {
 					// PUTRAJAYA--CYBERJAYA
 					result = true;
 					kelulusan = true;
 					context.put("kelulusan", kelulusan);
 				}
 
-				if ("10".equals(lokasiPermohonan.getNegeri().getId()) && bandarLokasi.getId().equals("1401")) {
+				if ("10".equals(lokasiPermohonan.getNegeri().getId())
+						&& bandarLokasi.getId().equals("1401")) {
 					// PETALING JAYA--KUALA LUMPUR
 					result = true;
 					kelulusan = true;
@@ -696,7 +788,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			} else if ("05".equals(lokasiPermohonan.getNegeri().getId())) { // KLIA
 
 				// NILAI //SEPANG //B.B.ENSTEK
-				if (bandarLokasi.getId().equals("0517") || bandarLokasi.getId().equals("1035")
+				if (bandarLokasi.getId().equals("0517")
+						|| bandarLokasi.getId().equals("1035")
 						|| bandarLokasi.getId().equals("0543")) {
 					result = true;
 					kelulusan = true;
@@ -758,13 +851,16 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 						} else if (statusRumah == 2) // checkPembinaan(dalam
 						// pembinaan)
 						{
-							String[] tarikhJangkaSiap = getParam("tarikhJangkaSiap").split(",");
-							String tarikhJangkaSiapBaru = "01-" + getMonth(tarikhJangkaSiap[0].trim()) + "-"
-									+ tarikhJangkaSiap[1].trim();
+							String[] tarikhJangkaSiap = getParam(
+									"tarikhJangkaSiap").split(",");
+							String tarikhJangkaSiapBaru = "01-"
+									+ getMonth(tarikhJangkaSiap[0].trim())
+									+ "-" + tarikhJangkaSiap[1].trim();
 							int days = 0;
 
 							try {
-								t = new SimpleDateFormat("dd-MM-yyyy").parse(tarikhJangkaSiapBaru);
+								t = new SimpleDateFormat("dd-MM-yyyy")
+										.parse(tarikhJangkaSiapBaru);
 								days = Util.daysBetween(new Date(), t);
 							} catch (ParseException e1) {
 								e1.printStackTrace();
@@ -868,13 +964,16 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 						} else if (statusRumah == 2) // checkPembinaan(dalam
 						// pembinaan)
 						{
-							String[] tarikhJangkaSiap = getParam("tarikhJangkaSiap").split(",");
-							String tarikhJangkaSiapBaru = "01-" + getMonth(tarikhJangkaSiap[0].trim()) + "-"
-									+ tarikhJangkaSiap[1].trim();
+							String[] tarikhJangkaSiap = getParam(
+									"tarikhJangkaSiap").split(",");
+							String tarikhJangkaSiapBaru = "01-"
+									+ getMonth(tarikhJangkaSiap[0].trim())
+									+ "-" + tarikhJangkaSiap[1].trim();
 							int days = 0;
 
 							try {
-								t = new SimpleDateFormat("dd-MM-yyyy").parse(tarikhJangkaSiapBaru);
+								t = new SimpleDateFormat("dd-MM-yyyy")
+										.parse(tarikhJangkaSiapBaru);
 								days = Util.daysBetween(new Date(), t);
 							} catch (ParseException e1) {
 								e1.printStackTrace();
@@ -982,13 +1081,16 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 					} else if (statusRumah == 2) // checkPembinaan(dalam
 					// pembinaan)
 					{
-						String[] tarikhJangkaSiap = getParam("tarikhJangkaSiap").split(",");
-						String tarikhJangkaSiapBaru = "01-" + getMonth(tarikhJangkaSiap[0].trim()) + "-"
+						String[] tarikhJangkaSiap = getParam("tarikhJangkaSiap")
+								.split(",");
+						String tarikhJangkaSiapBaru = "01-"
+								+ getMonth(tarikhJangkaSiap[0].trim()) + "-"
 								+ tarikhJangkaSiap[1].trim();
 						int days = 0;
 
 						try {
-							t = new SimpleDateFormat("dd-MM-yyyy").parse(tarikhJangkaSiapBaru);
+							t = new SimpleDateFormat("dd-MM-yyyy")
+									.parse(tarikhJangkaSiapBaru);
 							days = Util.daysBetween(new Date(), t);
 						} catch (ParseException e1) {
 							e1.printStackTrace();
@@ -1077,9 +1179,12 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 			KuaPermohonan kp = null;
 			kp = (KuaPermohonan) mp.find(KuaPermohonan.class, idPermohonan);
-			Users pemohon = (Users) mp.find(Users.class, kp.getPemohon().getId());
-			KuaPermohonan permohonan = (KuaPermohonan) mp.get("SELECT p FROM KuaPermohonan p WHERE p.pemohon.id = '"
-					+ kp.getPemohon().getId() + "' AND p.status.id = '1419483289675'");
+			Users pemohon = (Users) mp.find(Users.class, kp.getPemohon()
+					.getId());
+			KuaPermohonan permohonan = (KuaPermohonan) mp
+					.get("SELECT p FROM KuaPermohonan p WHERE p.pemohon.id = '"
+							+ kp.getPemohon().getId()
+							+ "' AND p.status.id = '1419483289675'");
 
 			mp.begin();
 			Status status = (Status) mp.find(Status.class, "1419483289675");
@@ -1088,7 +1193,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 				kp = (KuaPermohonan) mp.find(KuaPermohonan.class, idPermohonan);
 			} else {
 				if (permohonan != null) {
-					kp = (KuaPermohonan) mp.find(KuaPermohonan.class, permohonan.getId());
+					kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+							permohonan.getId());
 				}
 			}
 
@@ -1116,7 +1222,7 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 			kp.setPemohon(pemohon);
 			kp.setLokasi(lokasiPermohonan);
-			//kp.setTarikhMasuk(new Date());
+			// kp.setTarikhMasuk(new Date());
 			if (newRecord == false) {
 				kp.setTarikhKemaskini(new Date());
 			}
@@ -1143,13 +1249,16 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			context.put("idPermohonan", idPermohonan);
 
 			UsersJob uj = null;
-			UsersJob usersJob = (UsersJob) mp.get("SELECT usersJob FROM UsersJob usersJob WHERE usersJob.users.id = '"
-					+ kp.getPemohon().getId() + "'");
+			UsersJob usersJob = (UsersJob) mp
+					.get("SELECT usersJob FROM UsersJob usersJob WHERE usersJob.users.id = '"
+							+ kp.getPemohon().getId() + "'");
 			if (usersJob != null) {
-				uj = (UsersJob) mp.find(UsersJob.class, usersJob.getId() != null ? usersJob.getId() : "");
+				uj = (UsersJob) mp.find(UsersJob.class,
+						usersJob.getId() != null ? usersJob.getId() : "");
 			}
 
-			Bandar bandarPekerjaan = (Bandar) mp.find(Bandar.class, getParam("idBandarPekerjaan"));
+			Bandar bandarPekerjaan = (Bandar) mp.find(Bandar.class,
+					getParam("idBandarPekerjaan"));
 
 			if (uj == null) {
 				jenisAktivitiKerja = 1;
@@ -1176,12 +1285,14 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			KuaPinjamanPemohon kpp = null;
 
 			KuaPinjamanPemohon pinjaman = (KuaPinjamanPemohon) mp
-					.get("SELECT p FROM KuaPinjamanPemohon p WHERE p.users.id = '" + kp.getPemohon().getId() + "'");
+					.get("SELECT p FROM KuaPinjamanPemohon p WHERE p.users.id = '"
+							+ kp.getPemohon().getId() + "'");
 			if (pinjaman != null)
 				kpp = (KuaPinjamanPemohon) mp.find(KuaPinjamanPemohon.class,
 						pinjaman.getId() != null ? pinjaman.getId() : "");
 
-			Bandar bandarPinjaman = (Bandar) mp.find(Bandar.class, getParam("idBandarPinjaman"));
+			Bandar bandarPinjaman = (Bandar) mp.find(Bandar.class,
+					getParam("idBandarPinjaman"));
 
 			if (kpp == null) {
 				jenisAktivitiPinjaman = 1;
@@ -1217,11 +1328,14 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		} catch (Exception e) {
 			System.out.println("Error kelulusan1 : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		// rozai add 29/3/2016
 		// context.remove("resultPermohonanCompletion");
-		context.put("resultPermohonanCompletion", getCompletionPermohonan(mp, getParam("idPermohonan")));
+		context.put("resultPermohonanCompletion",
+				getCompletionPermohonan(mp, getParam("idPermohonan")));
 		return getPath() + "/result/kelulusan1.vm";
 	}
 
@@ -1229,25 +1343,29 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 	public String kelulusan1Retrieve() {
 		try {
 			mp = new MyPersistence();
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, getParam("idPermohonan"));
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					getParam("idPermohonan"));
 			context.put("kelulusan", Boolean.parseBoolean(kp.getKelulusan1()));
 			context.put("result", true);
 			context.put("result2", true);
 			context.remove("resultPermohonanCompletion");
-			context.put("resultPermohonanCompletion", getCompletionPermohonan(mp, getParam("idPermohonan")));
+			context.put("resultPermohonanCompletion",
+					getCompletionPermohonan(mp, getParam("idPermohonan")));
 			Users u = (Users) mp.find(Users.class, kp.getPemohon().getId());
 			context.put("users", u);
 
 		} catch (Exception e) {
 			System.out.println("Error kelulusan1Retrieve : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		getPeribadi();
 		return getPath() + "/result/kelulusan1.vm";
 
 	}
-	
+
 	@Command("getPerakuan")
 	public String getPerakuan() {
 		try {
@@ -1255,91 +1373,112 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 			String kelasLayak = "";
 			String kelasDowngrade = "";
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, getParam("idPermohonan"));
-			UsersJob pekerjaan = (UsersJob) mp.get("SELECT uj FROM UsersJob uj WHERE uj.users.id = '" + kp.getPemohon().getId() + "'");
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					getParam("idPermohonan"));
+			UsersJob pekerjaan = (UsersJob) mp
+					.get("SELECT uj FROM UsersJob uj WHERE uj.users.id = '"
+							+ kp.getPemohon().getId() + "'");
 
 			if (pekerjaan != null) {
 				String gredKelasKuarters = "";
 				String idPerkhidmatan = "";
 				String gredJawatan = "";
 				if (pekerjaan.getGredJawatan() != null) {
-					gredKelasKuarters = pekerjaan.getGredJawatan().getKelasKuarters();
-					
-					/*UNTUK KES BADAN BERUNIFORM*/
-					idPerkhidmatan=pekerjaan.getKelasPerkhidmatan().getId();
-					gredJawatan=pekerjaan.getGredJawatan().getKeterangan();
-					if(idPerkhidmatan.equalsIgnoreCase("XA") || 
-							idPerkhidmatan.equalsIgnoreCase("VUXA") ||
-							//idPerkhidmatan.equalsIgnoreCase("T") || 
-							//idPerkhidmatan.equalsIgnoreCase("VUT") || 
-							idPerkhidmatan.equalsIgnoreCase("YA") || 
-							idPerkhidmatan.equalsIgnoreCase("VUYA") ||
-							idPerkhidmatan.equalsIgnoreCase("ZA") ||
-							idPerkhidmatan.equalsIgnoreCase("VUZ"))
-					{
-						String gredUniform=idPerkhidmatan+gredJawatan;
-						if(idPerkhidmatan.equalsIgnoreCase("XA") || idPerkhidmatan.equalsIgnoreCase("VUXA")){
-							JawatanAPMM jawatan = (JawatanAPMM) mp.get("SELECT j FROM JawatanAPMM j WHERE j.id = '"+ gredUniform + "'");
-							if(jawatan!=null){
-								gredKelasKuarters=jawatan.getKelasLayak();
+					gredKelasKuarters = pekerjaan.getGredJawatan()
+							.getKelasKuarters();
+
+					/* UNTUK KES BADAN BERUNIFORM */
+					idPerkhidmatan = pekerjaan.getKelasPerkhidmatan().getId();
+					gredJawatan = pekerjaan.getGredJawatan().getKeterangan();
+					if (idPerkhidmatan.equalsIgnoreCase("XA")
+							|| idPerkhidmatan.equalsIgnoreCase("VUXA")
+							||
+							// idPerkhidmatan.equalsIgnoreCase("T") ||
+							// idPerkhidmatan.equalsIgnoreCase("VUT") ||
+							idPerkhidmatan.equalsIgnoreCase("YA")
+							|| idPerkhidmatan.equalsIgnoreCase("VUYA")
+							|| idPerkhidmatan.equalsIgnoreCase("ZA")
+							|| idPerkhidmatan.equalsIgnoreCase("VUZ")) {
+						String gredUniform = idPerkhidmatan + gredJawatan;
+						if (idPerkhidmatan.equalsIgnoreCase("XA")
+								|| idPerkhidmatan.equalsIgnoreCase("VUXA")) {
+							JawatanAPMM jawatan = (JawatanAPMM) mp
+									.get("SELECT j FROM JawatanAPMM j WHERE j.id = '"
+											+ gredUniform + "'");
+							if (jawatan != null) {
+								gredKelasKuarters = jawatan.getKelasLayak();
 							}
-						}
-						else if (idPerkhidmatan.equalsIgnoreCase("YA") || idPerkhidmatan.equalsIgnoreCase("VUYA")){
-							JawatanPDRM jawatan = (JawatanPDRM) mp.get("SELECT j FROM JawatanPDRM j WHERE j.id = '"+ gredUniform + "'");
-							if(jawatan!=null){
-								gredKelasKuarters=jawatan.getKelasLayak();				
+						} else if (idPerkhidmatan.equalsIgnoreCase("YA")
+								|| idPerkhidmatan.equalsIgnoreCase("VUYA")) {
+							JawatanPDRM jawatan = (JawatanPDRM) mp
+									.get("SELECT j FROM JawatanPDRM j WHERE j.id = '"
+											+ gredUniform + "'");
+							if (jawatan != null) {
+								gredKelasKuarters = jawatan.getKelasLayak();
 							}
-						}
-						else if (idPerkhidmatan.equalsIgnoreCase("ZA") || idPerkhidmatan.equalsIgnoreCase("VUZ")){
-							JawatanATM jawatan = (JawatanATM) mp.get("SELECT j FROM JawatanATM j WHERE j.id = '"+ gredUniform + "'");
-							if(jawatan!=null){
-								gredKelasKuarters=jawatan.getKelasLayak();					
+						} else if (idPerkhidmatan.equalsIgnoreCase("ZA")
+								|| idPerkhidmatan.equalsIgnoreCase("VUZ")) {
+							JawatanATM jawatan = (JawatanATM) mp
+									.get("SELECT j FROM JawatanATM j WHERE j.id = '"
+											+ gredUniform + "'");
+							if (jawatan != null) {
+								gredKelasKuarters = jawatan.getKelasLayak();
 							}
 						}
 					}
-					/*END UNTUK KES BADAN BERUNIFORM*/
+					/* END UNTUK KES BADAN BERUNIFORM */
 				}
 				kelasLayak = gredKelasKuarters;
-				
-				//KUARTERS KUALA LUMPUR/PETALING JAYA
-				if (kp.getLokasi().getId().equalsIgnoreCase("02")){
+
+				// KUARTERS KUALA LUMPUR/PETALING JAYA
+				if (kp.getLokasi().getId().equalsIgnoreCase("02")) {
 					kelasDowngrade = "";
-				}else{
+				} else {
 					kelasDowngrade = getKelasDowngrade(kelasLayak);
 				}
-				
-				//KUARTERS KLIA
-				if (kp.getLokasi().getId().equalsIgnoreCase("06")){
-					if(kelasLayak.equalsIgnoreCase("A") || kelasLayak.equalsIgnoreCase("B") ||kelasLayak.equalsIgnoreCase("C") || kelasLayak.equalsIgnoreCase("D") || kelasLayak.equalsIgnoreCase("E")){
+
+				// KUARTERS KLIA
+				if (kp.getLokasi().getId().equalsIgnoreCase("06")) {
+					if (kelasLayak.equalsIgnoreCase("A")
+							|| kelasLayak.equalsIgnoreCase("B")
+							|| kelasLayak.equalsIgnoreCase("C")
+							|| kelasLayak.equalsIgnoreCase("D")
+							|| kelasLayak.equalsIgnoreCase("E")) {
 						kelasLayak = "F";
 					}
 					kelasDowngrade = "";
 				}
-				
-				//KUARTERS TANJUNG KUPANG
-				if (kp.getLokasi().getId().equalsIgnoreCase("04")){
-					
-					if(kelasLayak.equalsIgnoreCase("A") || kelasLayak.equalsIgnoreCase("B") ||kelasLayak.equalsIgnoreCase("C")){
+
+				// KUARTERS TANJUNG KUPANG
+				if (kp.getLokasi().getId().equalsIgnoreCase("04")) {
+
+					if (kelasLayak.equalsIgnoreCase("A")
+							|| kelasLayak.equalsIgnoreCase("B")
+							|| kelasLayak.equalsIgnoreCase("C")) {
 						kelasLayak = "D";
 					}
-					if(kelasLayak.equalsIgnoreCase("F")){
+					if (kelasLayak.equalsIgnoreCase("F")) {
 						kelasLayak = "G";
 					}
 					kelasDowngrade = "";
 				}
-				
-				//KUARTERS LABUAN
-				if (kp.getLokasi().getId().equalsIgnoreCase("03")){
-					if(kelasLayak.equalsIgnoreCase("A") || kelasLayak.equalsIgnoreCase("B") ||kelasLayak.equalsIgnoreCase("C") ||kelasLayak.equalsIgnoreCase("D") ||kelasLayak.equalsIgnoreCase("E")){
+
+				// KUARTERS LABUAN
+				if (kp.getLokasi().getId().equalsIgnoreCase("03")) {
+					if (kelasLayak.equalsIgnoreCase("A")
+							|| kelasLayak.equalsIgnoreCase("B")
+							|| kelasLayak.equalsIgnoreCase("C")
+							|| kelasLayak.equalsIgnoreCase("D")
+							|| kelasLayak.equalsIgnoreCase("E")) {
 						kelasLayak = "E";
-					}else{
+					} else {
 						kelasLayak = "F";
 					}
 					kelasDowngrade = "";
 				}
 			}
 
-			String lokasi = "";			
+			String lokasi = "";
 			if (pekerjaan.getBandar() != null) {
 				if (pekerjaan.getBandar().getNegeri() != null) {
 					lokasi = pekerjaan.getBandar().getNegeri().getKeterangan();
@@ -1350,20 +1489,23 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			context.put("lokasi", lokasi);
 
 			//
-			kp = (KuaPermohonan) mp.find(KuaPermohonan.class, getParam("idPermohonan"));
+			kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					getParam("idPermohonan"));
 			kp.setKelasLayak(kelasLayak);
-			if(kelasLayak.equalsIgnoreCase("C")){
+			if (kelasLayak.equalsIgnoreCase("C")) {
 				kp.setFlagDowngrade("0");
 			}
 			kp.setKelasDowngrade(kelasDowngrade);
 			mp.begin();
 			mp.commit();
 			context.remove("resultPermohonanCompletion");
-			context.put("resultPermohonanCompletion", getCompletionPermohonan(mp, getParam("idPermohonan")));
+			context.put("resultPermohonanCompletion",
+					getCompletionPermohonan(mp, getParam("idPermohonan")));
 
 			// dapatkan KL area
 			String nogori = "";
-			kp = (KuaPermohonan) mp.find(KuaPermohonan.class, getParam("idPermohonan"));
+			kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					getParam("idPermohonan"));
 			if (kp.getLokasi().getBandar().getNegeri().getId().toString() != null) {
 				nogori = kp.getLokasi().getId().toString();
 			}
@@ -1376,7 +1518,9 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		} catch (Exception e) {
 			System.out.println("Error getPerakuan : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return getPath() + "/entry_sub/entry_page_sub_bottom.vm";
 	}
@@ -1390,16 +1534,19 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			mp = new MyPersistence();
 
 			context.put("selectGelaran", dataUtil.getListGelaranPeribadi());
-			context.put("selectJenisPengenalan", dataUtil.getListFewJenisPengenalan());
+			context.put("selectJenisPengenalan",
+					dataUtil.getListFewJenisPengenalan());
 			context.put("selectAgama", dataUtil.getListAgama());
 			context.put("selectJantina", dataUtil.getListJantina());
 			context.put("selectBangsa", dataUtil.getListBangsa());
 			context.put("selectEtnik", dataUtil.getListEtnik());
-			context.put("selectStatusPerkahwinan", dataUtil.getListStatusPerkahwinan());
+			context.put("selectStatusPerkahwinan",
+					dataUtil.getListStatusPerkahwinan());
 			context.put("selectNegeri", dataUtil.getListNegeri());
 			context.put("selectNegeriSemasa", dataUtil.getListNegeri());
 
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, getParam("idPermohonan"));
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					getParam("idPermohonan"));
 			Users u = (Users) mp.find(Users.class, kp.getPemohon().getId());
 			context.put("users", u);
 
@@ -1411,12 +1558,15 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 			context.put("activity", "peribadi");
 
-			context.put("dirUpload", uploadDir + "qtr/permohonan/" + getParam("idPermohonan") + "/");
+			context.put("dirUpload", uploadDir + "qtr/permohonan/"
+					+ getParam("idPermohonan") + "/");
 
 		} catch (Exception e) {
 			System.out.println("Error getPeribadi : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return getPath() + "/sub_page/peribadi.vm";
 	}
@@ -1442,7 +1592,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		if (get("idNegeriSemasa").trim().length() > 0)
 			idNegeriSemasa = get("idNegeriSemasa");
 
-		context.put("selectBandarSemasa", dataUtil.getListBandar(idNegeriSemasa));
+		context.put("selectBandarSemasa",
+				dataUtil.getListBandar(idNegeriSemasa));
 		return getPath() + "/sub_page/peribadi/selectBandarSemasa.vm";
 	}
 
@@ -1465,17 +1616,23 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 				}
 			}
 
-			Gelaran gelaran = (Gelaran) mp.find(Gelaran.class, getParam("idGelaran"));
-			JenisPengenalan jenisPengenalan = (JenisPengenalan) mp.find(JenisPengenalan.class,
-					getParam("idJenisPengenalan"));
-			Jantina jantina = (Jantina) mp.find(Jantina.class, getParam("idJantina"));
-			Bangsa bangsa = (Bangsa) mp.find(Bangsa.class, getParam("idBangsa"));
+			Gelaran gelaran = (Gelaran) mp.find(Gelaran.class,
+					getParam("idGelaran"));
+			JenisPengenalan jenisPengenalan = (JenisPengenalan) mp.find(
+					JenisPengenalan.class, getParam("idJenisPengenalan"));
+			Jantina jantina = (Jantina) mp.find(Jantina.class,
+					getParam("idJantina"));
+			Bangsa bangsa = (Bangsa) mp
+					.find(Bangsa.class, getParam("idBangsa"));
 			Etnik etnik = (Etnik) mp.find(Etnik.class, getParam("idEtnik"));
-			StatusPerkahwinan statusPerkahwinan = (StatusPerkahwinan) mp.find(StatusPerkahwinan.class,
-					getParam("idStatusPerkahwinan"));
-			Bandar bandar = (Bandar) mp.find(Bandar.class, getParam("idBandar"));
-			Bandar bandarSemasa = (Bandar) mp.find(Bandar.class, getParam("idBandarSemasa"));
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, getParam("idPermohonan"));
+			StatusPerkahwinan statusPerkahwinan = (StatusPerkahwinan) mp.find(
+					StatusPerkahwinan.class, getParam("idStatusPerkahwinan"));
+			Bandar bandar = (Bandar) mp
+					.find(Bandar.class, getParam("idBandar"));
+			Bandar bandarSemasa = (Bandar) mp.find(Bandar.class,
+					getParam("idBandarSemasa"));
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					getParam("idPermohonan"));
 
 			Users users = (Users) mp.find(Users.class, kp.getPemohon().getId());
 
@@ -1510,7 +1667,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 			kp.setPeribadi(1);
 			kp.setTarikhKemaskini(new Date());
-			kuaUtil.kuartersLog(2, "Users", (Users) mp.find(Users.class, userId), users.getId());
+			kuaUtil.kuartersLog(2, "Users",
+					(Users) mp.find(Users.class, userId), users.getId());
 
 			// db.commit(request, "PROCESSING FILE (Penghuni - Peribadi) : "+
 			// users.getId(), 2);
@@ -1521,19 +1679,23 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		} catch (Exception e) {
 			System.out.println("Error simpanPeribadi : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 
 		context.put("success", success);
 
 		context.remove("resultPermohonanCompletion");
-		context.put("resultPermohonanCompletion", getCompletionPermohonan(mp, getParam("idPermohonan")));
+		context.put("resultPermohonanCompletion",
+				getCompletionPermohonan(mp, getParam("idPermohonan")));
 		return getPath() + "/sub_page/result/simpanPeribadi.vm";
 	}
 
 	@Command("uploadGambar")
 	public String uploadGambar() throws Exception {
-		context.put("imgName", kuaUtil.uploadFile(request, "permohonan", getParam("idPermohonan")));
+		context.put("imgName", kuaUtil.uploadFile(request, "permohonan",
+				getParam("idPermohonan")));
 		return getPath() + "/sub_page/peribadi/uploaddoc.vm";
 	}
 
@@ -1568,10 +1730,13 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 	public String getPekerjaan() throws Exception {
 
 		context.put("selectJawatan", dataUtil.getListJawatan());
-		context.put("selectKelasPerkhidmatan", dataUtil.getListKelasPerkhidmatan());
+		context.put("selectKelasPerkhidmatan",
+				dataUtil.getListKelasPerkhidmatan());
 		context.put("selectGredJawatan", dataUtil.getListGredPerkhidmatan());
-		context.put("selectJenisPerkhidmatan", dataUtil.getListJenisPerkhidmatan());
-		context.put("selectStatusPerkhidmatan", dataUtil.getListStatusPerkhidmatan());
+		context.put("selectJenisPerkhidmatan",
+				dataUtil.getListJenisPerkhidmatan());
+		context.put("selectStatusPerkhidmatan",
+				dataUtil.getListStatusPerkhidmatan());
 		context.put("selectKementerian", dataUtil.getListKementerian());
 
 		context.put("activity", "pekerjaan");
@@ -1580,9 +1745,11 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 		try {
 			mp = new MyPersistence();
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, getParam("idPermohonan"));
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					getParam("idPermohonan"));
 			UsersJob usersJob = (UsersJob) mp
-					.get("SELECT uj FROM UsersJob uj WHERE uj.users.id = '" + kp.getPemohon().getId() + "'");
+					.get("SELECT uj FROM UsersJob uj WHERE uj.users.id = '"
+							+ kp.getPemohon().getId() + "'");
 
 			if (usersJob != null) {
 				context.put("uj", mp.find(UsersJob.class, usersJob.getId()));
@@ -1590,12 +1757,15 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 			context.put("users", mp.find(Users.class, kp.getPemohon().getId()));
 			context.remove("resultPermohonanCompletion");
-			context.put("resultPermohonanCompletion", getCompletionPermohonan(mp, getParam("idPermohonan")));
+			context.put("resultPermohonanCompletion",
+					getCompletionPermohonan(mp, getParam("idPermohonan")));
 
 		} catch (Exception e) {
 			System.out.println("Error getPekerjaan : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return getPath() + "/sub_page/pekerjaan.vm";
 	}
@@ -1653,7 +1823,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			idKelasPerkhidmatan = get("idKelasPerkhidmatan");
 			idKelasPerkhidmatan = idKelasPerkhidmatan.substring(0, 1);
 		}
-		context.put("selectJawatan", dataUtil.getListJawatan(idKelasPerkhidmatan));
+		context.put("selectJawatan",
+				dataUtil.getListJawatan(idKelasPerkhidmatan));
 		return getPath() + "/sub_page/pekerjaan/selectJawatan.vm";
 	}
 
@@ -1668,19 +1839,24 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		// String idPermohonan = getParam("idPermohonan");
 		try {
 			mp = new MyPersistence();
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, getParam("idPermohonan"));
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					getParam("idPermohonan"));
 			Users users = (Users) mp.find(Users.class, kp.getPemohon().getId());
-			KelasPerkhidmatan kelasPerkhidmatan = (KelasPerkhidmatan) mp.find(KelasPerkhidmatan.class,
-					getParam("idKelasPerkhidmatan"));
-			GredPerkhidmatan gredJawatan = (GredPerkhidmatan) mp.find(GredPerkhidmatan.class,
-					getParam("idGredJawatan"));
-			Jawatan jawatan = (Jawatan) mp.find(Jawatan.class, getParam("idJawatan"));
-			JenisPerkhidmatan jenisPerkhidmatan = (JenisPerkhidmatan) mp.find(JenisPerkhidmatan.class,
-					getParam("idJenisPerkhidmatan"));
-			StatusPerkhidmatan statusPerkhidmatan = (StatusPerkhidmatan) mp.find(StatusPerkhidmatan.class,
-					getParam("idStatusPerkhidmatan"));
-			Agensi agensi = (Agensi) mp.find(Agensi.class, getParam("idJabatan"));
-			BadanBerkanun badanBerkanun = (BadanBerkanun) mp.find(BadanBerkanun.class, getParam("idBadanBerkanun"));
+			KelasPerkhidmatan kelasPerkhidmatan = (KelasPerkhidmatan) mp.find(
+					KelasPerkhidmatan.class, getParam("idKelasPerkhidmatan"));
+			GredPerkhidmatan gredJawatan = (GredPerkhidmatan) mp.find(
+					GredPerkhidmatan.class, getParam("idGredJawatan"));
+			Jawatan jawatan = (Jawatan) mp.find(Jawatan.class,
+					getParam("idJawatan"));
+			JenisPerkhidmatan jenisPerkhidmatan = (JenisPerkhidmatan) mp.find(
+					JenisPerkhidmatan.class, getParam("idJenisPerkhidmatan"));
+			StatusPerkhidmatan statusPerkhidmatan = (StatusPerkhidmatan) mp
+					.find(StatusPerkhidmatan.class,
+							getParam("idStatusPerkhidmatan"));
+			Agensi agensi = (Agensi) mp.find(Agensi.class,
+					getParam("idJabatan"));
+			BadanBerkanun badanBerkanun = (BadanBerkanun) mp.find(
+					BadanBerkanun.class, getParam("idBadanBerkanun"));
 			// Bandar bandar = (Bandar) mp.find(Bandar.class,
 			// getParam("idBandarPekerjaan"));
 
@@ -1691,7 +1867,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 					result = false;
 				}
 
-				if (getParamAsInteger("valueFlagITP") == 0 && getParamAsInteger("valueFlagEPW") == 0) {
+				if (getParamAsInteger("valueFlagITP") == 0
+						&& getParamAsInteger("valueFlagEPW") == 0) {
 					result2 = false;
 				}
 			}
@@ -1699,7 +1876,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			UsersJob uj = null;
 
 			UsersJob usersJob = (UsersJob) mp
-					.get("SELECT uj FROM UsersJob uj WHERE uj.users.id = '" + kp.getPemohon().getId() + "'");
+					.get("SELECT uj FROM UsersJob uj WHERE uj.users.id = '"
+							+ kp.getPemohon().getId() + "'");
 			if (usersJob != null) {
 				uj = (UsersJob) mp.find(UsersJob.class, usersJob.getId());
 			}
@@ -1716,7 +1894,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			uj.setJawatan(jawatan);
 			uj.setTarikhLantikan(getDate("tarikhLantikan"));
 			uj.setNoGaji(getParam("noGaji"));
-			uj.setGajiPokok(Double.parseDouble(getParam("gajiPokok").replaceAll("RM", "").replaceAll(",", "")));
+			uj.setGajiPokok(Double.parseDouble(getParam("gajiPokok")
+					.replaceAll("RM", "").replaceAll(",", "")));
 			uj.setJenisPerkhidmatan(jenisPerkhidmatan);
 			uj.setStatusPerkhidmatan(statusPerkhidmatan);
 			uj.setTarikhTamat(getDate("tarikhTamat"));
@@ -1754,7 +1933,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 			kp.setPekerjaan(1);
 			kp.setTarikhKemaskini(new Date());
-			kuaUtil.kuartersLog(jenisAktiviti, "UsersJob", (Users) mp.find(Users.class, userId), uj.getId());
+			kuaUtil.kuartersLog(jenisAktiviti, "UsersJob",
+					(Users) mp.find(Users.class, userId), uj.getId());
 
 			// db.commit(request, "PROCESSING FILE (Pekerjaan Penghuni) : "+
 			// uj.getId(), jenisAktiviti);
@@ -1767,12 +1947,15 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			context.put("result2", result2);
 
 			context.remove("resultPermohonanCompletion");
-			context.put("resultPermohonanCompletion", getCompletionPermohonan(mp, getParam("idPermohonan")));
+			context.put("resultPermohonanCompletion",
+					getCompletionPermohonan(mp, getParam("idPermohonan")));
 
 		} catch (Exception e) {
 			System.out.println("Error simpanPekerjaan : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return getPath() + "/sub_page/result/simpanPekerjaan.vm";
 	}
@@ -1782,14 +1965,19 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 	@Command("getPasangan")
 	public String getPasangan() throws Exception {
 
-		context.put("selectJenisPengenalanPasangan", dataUtil.getListJenisPengenalan());
-		context.put("selectStatusPekerjaanPasangan", dataUtil.getListStatusPekerjaan());
+		context.put("selectJenisPengenalanPasangan",
+				dataUtil.getListJenisPengenalan());
+		context.put("selectStatusPekerjaanPasangan",
+				dataUtil.getListStatusPekerjaan());
 		context.put("selectNegeriPasangan", dataUtil.getListNegeri());
-		context.put("selectKelasPerkhidmatanPasangan", dataUtil.getListKelasPerkhidmatan());
-		context.put("selectGredJawatanPasangan", dataUtil.getListGredPerkhidmatan());
+		context.put("selectKelasPerkhidmatanPasangan",
+				dataUtil.getListKelasPerkhidmatan());
+		context.put("selectGredJawatanPasangan",
+				dataUtil.getListGredPerkhidmatan());
 		context.put("selectKementerianPasangan", dataUtil.getListKementerian());
 		context.put("selectJawatanPasangan", dataUtil.getListJawatan());
-		context.put("selectBadanBerkanunPasangan", dataUtil.getListBadanBerkanun());
+		context.put("selectBadanBerkanunPasangan",
+				dataUtil.getListBadanBerkanun());
 
 		context.put("activity", "pasangan");
 
@@ -1797,23 +1985,29 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 		try {
 			mp = new MyPersistence();
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, getParam("idPermohonan"));
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					getParam("idPermohonan"));
 			UsersSpouse usersSpouse = (UsersSpouse) mp
-					.get("SELECT us FROM UsersSpouse us WHERE us.users.id = '" + kp.getPemohon().getId() + "'");
+					.get("SELECT us FROM UsersSpouse us WHERE us.users.id = '"
+							+ kp.getPemohon().getId() + "'");
 
 			if (usersSpouse != null) {
-				context.put("us", mp.find(UsersSpouse.class, usersSpouse.getId()));
+				context.put("us",
+						mp.find(UsersSpouse.class, usersSpouse.getId()));
 			}
 
 			context.put("users", mp.find(Users.class, kp.getPemohon().getId()));
 
 			context.remove("resultPermohonanCompletion");
-			context.put("resultPermohonanCompletion", getCompletionPermohonan(mp, getParam("idPermohonan")));
+			context.put("resultPermohonanCompletion",
+					getCompletionPermohonan(mp, getParam("idPermohonan")));
 
 		} catch (Exception e) {
 			System.out.println("Error getPasangan : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return getPath() + "/sub_page/pasangan.vm";
 	}
@@ -1840,7 +2034,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			idKementerian = get("idKementerianPasangan");
 		}
 
-		context.put("selectJabatanPasangan", dataUtil.getListAgensi(idKementerian));
+		context.put("selectJabatanPasangan",
+				dataUtil.getListAgensi(idKementerian));
 
 		return getPath() + "/sub_page/pasangan/selectJabatanPasangan.vm";
 	}
@@ -1855,29 +2050,38 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 		try {
 			mp = new MyPersistence();
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, getParam("idPermohonan"));
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					getParam("idPermohonan"));
 			Users users = (Users) mp.find(Users.class, kp.getPemohon().getId());
-			JenisPengenalan jenisPengenalan = (JenisPengenalan) mp.find(JenisPengenalan.class,
+			JenisPengenalan jenisPengenalan = (JenisPengenalan) mp.find(
+					JenisPengenalan.class,
 					getParam("idJenisPengenalanPasangan"));
-			StatusPekerjaan statusPekerjaan = (StatusPekerjaan) mp.find(StatusPekerjaan.class,
+			StatusPekerjaan statusPekerjaan = (StatusPekerjaan) mp.find(
+					StatusPekerjaan.class,
 					getParam("idStatusPekerjaanPasangan"));
-			KelasPerkhidmatan kelasPerkhidmatan = (KelasPerkhidmatan) mp.find(KelasPerkhidmatan.class,
+			KelasPerkhidmatan kelasPerkhidmatan = (KelasPerkhidmatan) mp.find(
+					KelasPerkhidmatan.class,
 					getParam("idKelasPerkhidmatanPasangan"));
-			GredPerkhidmatan gredJawatan = (GredPerkhidmatan) mp.find(GredPerkhidmatan.class,
-					getParam("idGredJawatanPasangan"));
-			Jawatan jawatan = (Jawatan) mp.find(Jawatan.class, getParam("idJawatanPasangan"));
-			Agensi agensi = (Agensi) mp.find(Agensi.class, getParam("idJabatanPasangan"));
-			BadanBerkanun badanBerkanun = (BadanBerkanun) mp.find(BadanBerkanun.class,
-					getParam("idBadanBerkanunPasangan"));
-			Bandar bandar = (Bandar) mp.find(Bandar.class, getParam("idBandarPasangan"));
+			GredPerkhidmatan gredJawatan = (GredPerkhidmatan) mp.find(
+					GredPerkhidmatan.class, getParam("idGredJawatanPasangan"));
+			Jawatan jawatan = (Jawatan) mp.find(Jawatan.class,
+					getParam("idJawatanPasangan"));
+			Agensi agensi = (Agensi) mp.find(Agensi.class,
+					getParam("idJabatanPasangan"));
+			BadanBerkanun badanBerkanun = (BadanBerkanun) mp.find(
+					BadanBerkanun.class, getParam("idBadanBerkanunPasangan"));
+			Bandar bandar = (Bandar) mp.find(Bandar.class,
+					getParam("idBandarPasangan"));
 
 			UsersSpouse us = null;
 
 			UsersSpouse usersSpouse = (UsersSpouse) mp
-					.get("SELECT us FROM UsersSpouse us WHERE us.users.id = '" + kp.getPemohon().getId() + "'");
+					.get("SELECT us FROM UsersSpouse us WHERE us.users.id = '"
+							+ kp.getPemohon().getId() + "'");
 
 			if (usersSpouse != null) {
-				us = (UsersSpouse) mp.find(UsersSpouse.class, usersSpouse.getId());
+				us = (UsersSpouse) mp.find(UsersSpouse.class,
+						usersSpouse.getId());
 			}
 
 			if (us == null) {
@@ -1893,8 +2097,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			us.setStatusPekerjaanPasangan(statusPekerjaan);
 			us.setJenisPekerjaan(getParam("pasanganJenisPekerjaan"));
 			if (!"".equals(getParam("pasanganGaji"))) {
-				us.setGajiPasangan(
-						Double.parseDouble(getParam("pasanganGaji").replaceAll("RM", "").replaceAll(",", "")));
+				us.setGajiPasangan(Double.parseDouble(getParam("pasanganGaji")
+						.replaceAll("RM", "").replaceAll(",", "")));
 			}
 			us.setNamaSyarikat(getParam("pasanganSyarikat"));
 			us.setAlamatPejabat1(getParam("pasanganAlamatKerja1"));
@@ -1919,7 +2123,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 			kp.setPasangan(1);
 			kp.setTarikhKemaskini(new Date());
-			kuaUtil.kuartersLog(jenisAktiviti, "UsersSpouse", (Users) mp.find(Users.class, userId), us.getId());
+			kuaUtil.kuartersLog(jenisAktiviti, "UsersSpouse",
+					(Users) mp.find(Users.class, userId), us.getId());
 
 			// db.commit(request, "PROCESSING FILE (Pasangan Penghuni) : "+
 			// us.getId(), jenisAktiviti);
@@ -1930,13 +2135,16 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		} catch (Exception e) {
 			System.out.println("Error simpanPasangan : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 
 		context.put("success", success);
 
 		context.remove("resultPermohonanCompletion");
-		context.put("resultPermohonanCompletion", getCompletionPermohonan(mp, getParam("idPermohonan")));
+		context.put("resultPermohonanCompletion",
+				getCompletionPermohonan(mp, getParam("idPermohonan")));
 		return getPath() + "/sub_page/result/simpanPasangan.vm";
 	}
 
@@ -1953,23 +2161,29 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 		try {
 			mp = new MyPersistence();
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, getParam("idPermohonan"));
-			KuaPinjamanPemohon kpp = (KuaPinjamanPemohon) mp.get(
-					"SELECT kpp FROM KuaPinjamanPemohon kpp WHERE kpp.users.id = '" + kp.getPemohon().getId() + "'");
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					getParam("idPermohonan"));
+			KuaPinjamanPemohon kpp = (KuaPinjamanPemohon) mp
+					.get("SELECT kpp FROM KuaPinjamanPemohon kpp WHERE kpp.users.id = '"
+							+ kp.getPemohon().getId() + "'");
 
 			if (kpp != null) {
-				context.put("kpp", mp.find(KuaPinjamanPemohon.class, kpp.getId()));
+				context.put("kpp",
+						mp.find(KuaPinjamanPemohon.class, kpp.getId()));
 			}
 
 			context.put("users", mp.find(Users.class, kp.getPemohon().getId()));
 
 			context.remove("resultPermohonanCompletion");
-			context.put("resultPermohonanCompletion", getCompletionPermohonan(mp, getParam("idPermohonan")));
+			context.put("resultPermohonanCompletion",
+					getCompletionPermohonan(mp, getParam("idPermohonan")));
 
 		} catch (Exception e) {
 			System.out.println("Error getPinjaman : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return getPath() + "/sub_page/pinjaman.vm";
 	}
@@ -1997,17 +2211,21 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 		try {
 			mp = new MyPersistence();
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, idPermohonan);
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					idPermohonan);
 			Users users = (Users) mp.find(Users.class, kp.getPemohon().getId());
-			Bandar bandar = (Bandar) mp.find(Bandar.class, getParam("idBandarPinjaman"));
+			Bandar bandar = (Bandar) mp.find(Bandar.class,
+					getParam("idBandarPinjaman"));
 
 			KuaPinjamanPemohon kpp = null;
 
 			KuaPinjamanPemohon pinjamanPemohon = (KuaPinjamanPemohon) mp
-					.get("SELECT p FROM KuaPinjamanPemohon p WHERE p.users.id = '" + kp.getPemohon().getId() + "'");
+					.get("SELECT p FROM KuaPinjamanPemohon p WHERE p.users.id = '"
+							+ kp.getPemohon().getId() + "'");
 
 			if (pinjamanPemohon != null) {
-				kpp = (KuaPinjamanPemohon) mp.find(KuaPinjamanPemohon.class, pinjamanPemohon.getId());
+				kpp = (KuaPinjamanPemohon) mp.find(KuaPinjamanPemohon.class,
+						pinjamanPemohon.getId());
 			}
 
 			if (kpp == null) {
@@ -2018,7 +2236,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 			Date t = null;
 			String[] tarikhJangkaSiap = getParam("tarikhJangkaSiap").split(",");
-			String tarikhJangkaSiapBaru = "01-" + getMonth(tarikhJangkaSiap[0].trim()) + "-"
+			String tarikhJangkaSiapBaru = "01-"
+					+ getMonth(tarikhJangkaSiap[0].trim()) + "-"
 					+ tarikhJangkaSiap[1].trim();
 
 			t = new SimpleDateFormat("dd-MM-yyyy").parse(tarikhJangkaSiapBaru);
@@ -2049,7 +2268,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			kp.setPinjaman(1);
 			kp.setTarikhKemaskini(new Date());
 			kuaUtil.kuartersLog(jenisAktiviti, "KuaPinjamanPemohon",
-					(Users) mp.find(Users.class, kp.getPemohon().getId()), kpp.getId());
+					(Users) mp.find(Users.class, kp.getPemohon().getId()),
+					kpp.getId());
 
 			// db.commit(request, "PROCESSING FILE (Pinjaman Penghuni) : "+
 			// kpp.getId(), jenisAktiviti);
@@ -2060,13 +2280,16 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		} catch (Exception e) {
 			System.out.println("Error simpanPinjaman : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 
 		context.put("success", success);
 
 		context.remove("resultPermohonanCompletion");
-		context.put("resultPermohonanCompletion", getCompletionPermohonan(mp, getParam("idPermohonan")));
+		context.put("resultPermohonanCompletion",
+				getCompletionPermohonan(mp, getParam("idPermohonan")));
 		return getPath() + "/sub_page/result/simpanPinjaman.vm";
 	}
 
@@ -2077,15 +2300,19 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 		try {
 			mp = new MyPersistence();
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, getParam("idPermohonan"));
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					getParam("idPermohonan"));
 			context.put("users", mp.find(Users.class, kp.getPemohon().getId()));
 			context.remove("resultPermohonanCompletion");
-			context.put("resultPermohonanCompletion", getCompletionPermohonan(mp, getParam("idPermohonan")));
+			context.put("resultPermohonanCompletion",
+					getCompletionPermohonan(mp, getParam("idPermohonan")));
 
 		} catch (Exception e) {
 			System.out.println("Error getKelainanUpaya : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return getPath() + "/sub_page/kelainanUpaya.vm";
 	}
@@ -2096,14 +2323,18 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		try {
 			mp = new MyPersistence();
 
-			List<KuaKelainanUpaya> kku = mp.list(
-					"SELECT ku FROM KuaKelainanUpaya ku WHERE ku.permohonan.id = '" + getParam("idPermohonan") + "'");
+			List<KuaKelainanUpaya> kku = mp
+					.list("SELECT ku FROM KuaKelainanUpaya ku WHERE ku.permohonan.id = '"
+							+ getParam("idPermohonan") + "'");
 			context.put("kku", kku);
 
 		} catch (Exception e) {
-			System.out.println("Error getRecordKelainanUpaya : " + e.getMessage());
+			System.out.println("Error getRecordKelainanUpaya : "
+					+ e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return getPath() + "/sub_page/kelainanUpaya/record.vm";
 	}
@@ -2120,14 +2351,16 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		try {
 			mp = new MyPersistence();
 
-			KuaKelainanUpaya kku = (KuaKelainanUpaya) mp.find(KuaKelainanUpaya.class, getParam("idKelainanUpaya"));
+			KuaKelainanUpaya kku = (KuaKelainanUpaya) mp.find(
+					KuaKelainanUpaya.class, getParam("idKelainanUpaya"));
 
 			mp.begin();
 			if (kku != null) {
 				mp.remove(kku);
 			}
 
-			kuaUtil.kuartersLog(3, "KuaKelainanUpaya", (Users) mp.find(Users.class, userId), kku.getId());
+			kuaUtil.kuartersLog(3, "KuaKelainanUpaya",
+					(Users) mp.find(Users.class, userId), kku.getId());
 
 			// db.commit(request,
 			// "PROCESSING FILE (Kelainan Upaya Penghuni) : "+ kku.getId(), 3);
@@ -2138,7 +2371,9 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		} catch (Exception e) {
 			System.out.println("Error deleteKelainanUpaya : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 
 		context.put("success", success);
@@ -2153,7 +2388,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		try {
 			mp = new MyPersistence();
 
-			KuaPermohonan permohonan = (KuaPermohonan) mp.find(KuaPermohonan.class, getParam("idPermohonan"));
+			KuaPermohonan permohonan = (KuaPermohonan) mp.find(
+					KuaPermohonan.class, getParam("idPermohonan"));
 			KuaKelainanUpaya kku = new KuaKelainanUpaya();
 
 			kku.setNoKad(getParam("kelainanUpayaNoKad"));
@@ -2166,7 +2402,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			mp.begin();
 			mp.persist(kku);
 
-			kuaUtil.kuartersLog(1, "KuaKelainanUpaya", (Users) mp.find(Users.class, userId), kku.getId());
+			kuaUtil.kuartersLog(1, "KuaKelainanUpaya",
+					(Users) mp.find(Users.class, userId), kku.getId());
 
 			// db.commit(request,
 			// "PROCESSING FILE (Kelainan Upaya Penghuni) : "+ kku.getId(), 1);
@@ -2177,7 +2414,9 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		} catch (Exception e) {
 			System.out.println("Error simpanKelainanUpaya : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 
 		context.put("success", success);
@@ -2187,10 +2426,12 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 
 	@Command("uploadDoc")
 	public String uploadDoc() throws Exception {
-		String imgName = kuaUtil.uploadFile(request, "kelainanUpaya", getParam("idPermohonan"));
+		String imgName = kuaUtil.uploadFile(request, "kelainanUpaya",
+				getParam("idPermohonan"));
 		context.put("imgName", imgName);
-		context.put("avatarName", imgName.substring(0, imgName.lastIndexOf(".")) + "_thumbnail"
-				+ imgName.substring(imgName.lastIndexOf(".")));
+		context.put("avatarName",
+				imgName.substring(0, imgName.lastIndexOf(".")) + "_thumbnail"
+						+ imgName.substring(imgName.lastIndexOf(".")));
 
 		return getPath() + "/sub_page/kelainanUpaya/uploaddoc.vm";
 	}
@@ -2206,11 +2447,16 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		return getPath() + "/sub_page/kelainanUpaya/listDokumen.vm";
 	}
 
-	public int getNoGiliran(String kelasKuarters, String lokasi,MyPersistence mp) {
+	public int getNoGiliran(String kelasKuarters, String lokasi,
+			MyPersistence mp) {
 		// buat semula
 		int i = 1;
-		VW_KuaAgihan ka = (VW_KuaAgihan) mp.get("SELECT ka FROM VW_KuaAgihan ka WHERE ka.kelasKuarters = '"
-				+ kelasKuarters + "' AND ka.idLokasi = '" + lokasi + "'");
+		VW_KuaAgihan ka = (VW_KuaAgihan) mp
+				.get("SELECT ka FROM VW_KuaAgihan ka WHERE ka.kelasKuarters = '"
+						+ kelasKuarters
+						+ "' AND ka.idLokasi = '"
+						+ lokasi
+						+ "'");
 		if (ka != null) {
 			i = ka.getMaxNoGiliran() + 1;
 		}
@@ -2223,7 +2469,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		boolean result = false;
 		try {
 			mp = new MyPersistence();
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, idPermohonan);
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					idPermohonan);
 			if (kp != null) {
 				if ("true".equals(kp.getKelulusan1())) {
 					if ("true".equals(kp.getKelulusan2())) {
@@ -2232,8 +2479,11 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 								if (kp.getPeribadi() == 1) {
 									if (kp.getPinjaman() == 1) {
 										result = true;
-										if (kp.getPemohon().getStatusPerkahwinan() != null) {
-											if ("02".equals(kp.getPemohon().getStatusPerkahwinan().getId())) {
+										if (kp.getPemohon()
+												.getStatusPerkahwinan() != null) {
+											if ("02".equals(kp.getPemohon()
+													.getStatusPerkahwinan()
+													.getId())) {
 												if (kp.getPasangan() == 1) {
 													result = true;
 												} else {
@@ -2265,45 +2515,39 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		} catch (Exception e) {
 			System.out.println("Error begin : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return result;
 	}
 
-	public boolean getStatusPerkahwinanPemohon(MyPersistence mp, String idPermohonan) {
+	public boolean getStatusPerkahwinanPemohon(MyPersistence mp,
+			String idPermohonan) {
 		boolean result = false;
 		try {
 			mp = new MyPersistence();
-			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, idPermohonan);
-			if (kp != null) 
-			{
-				if (kp.getPemohon().getStatusPerkahwinan() != null) 
-				{
-					if ("02".equals(kp.getPemohon().getStatusPerkahwinan().getId())) 
-					{
-						if (kp.getPasangan() == 1) 
-						{
-							result = true;
-						} 
-						else 
-						{
-							result = false;
-						}
+			KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+					idPermohonan);
+			if (kp != null && kp.getPemohon() != null
+					&& kp.getPemohon().getStatusPerkahwinan() != null) {
+				if ("02".equals(kp.getPemohon().getStatusPerkahwinan().getId())) {
+					if (kp.getPasangan() == 1) {
+						result = true;
 					}
 				}
-			} 
-			else 
-			{
-				result = false;
-			}						
+			}
 		} catch (Exception e) {
-			System.out.println("Error getStatusPerkahwinan : " + e.getMessage());
+			System.out
+					.println("Error getStatusPerkahwinan : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return result;
 	}
-	
+
 	public String getMonth(String month) {
 		String result = "";
 		if ("Jan".equals(month))
@@ -2350,35 +2594,46 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		alamat3 = alamat3.trim().toLowerCase().replaceAll(" ", "+");
 		alamatRumah = alamat1 + "+" + alamat2 + "+" + alamat3 + "+" + poskod;
 
-		Bandar bandarPinjaman = (Bandar) mp.find(Bandar.class, getParam("idBandarPinjaman"));
+		Bandar bandarPinjaman = (Bandar) mp.find(Bandar.class,
+				getParam("idBandarPinjaman"));
 		if (bandarPinjaman != null) {
-			alamatRumah = alamatRumah + "+" + bandarPinjaman.getKeterangan().trim().toLowerCase().replaceAll(" ", "+");
+			alamatRumah = alamatRumah
+					+ "+"
+					+ bandarPinjaman.getKeterangan().trim().toLowerCase()
+							.replaceAll(" ", "+");
 		}
 
-		Negeri negeri = (Negeri) mp.find(Negeri.class, getParam("idNegeriPinjaman"));
+		Negeri negeri = (Negeri) mp.find(Negeri.class,
+				getParam("idNegeriPinjaman"));
 		if (negeri != null) {
-			alamatRumah = alamatRumah + "+" + negeri.getKeterangan().trim().toLowerCase().replaceAll(" ", "+");
+			alamatRumah = alamatRumah
+					+ "+"
+					+ negeri.getKeterangan().trim().toLowerCase()
+							.replaceAll(" ", "+");
 		}
 
 		try {
-			/*START SETTING FOR DEVELOPMENT/LOCAL*/
-//			array=KuartersUtils.getDistanceBetweenLocation(alamatRumah,mercuTanda);
-			/*END SETTING FOR DEVELOPMENT/LOCAL*/
-			
-			/*START SETTING FOR LIVE/STAGING/PAT*/
+			/* START SETTING FOR DEVELOPMENT/LOCAL */
+			// array=KuartersUtils.getDistanceBetweenLocation(alamatRumah,mercuTanda);
+			/* END SETTING FOR DEVELOPMENT/LOCAL */
+
+			/* START SETTING FOR LIVE/STAGING/PAT */
 			BPHServicesImplService service = new BPHServicesImplService();
 			BPHServices bphService = service.getPort(BPHServices.class);
 
-			String WS_URL = ResourceBundle.getBundle("dbconnection").getString("WS_URL");
+			String WS_URL = ResourceBundle.getBundle("dbconnection").getString(
+					"WS_URL");
 			// int connectionTimeOutInMs = 10000;// 10 Second
 			BindingProvider p = (BindingProvider) bphService;
-			p.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, WS_URL);
+			p.getRequestContext().put(
+					BindingProvider.ENDPOINT_ADDRESS_PROPERTY, WS_URL);
 
 			sbbph.ws.GoogleManager googleManagerService = null;
-			googleManagerService = bphService.getDistanceBetweenLocation(alamatRumah, mercuTanda);
+			googleManagerService = bphService.getDistanceBetweenLocation(
+					alamatRumah, mercuTanda);
 			array = googleManagerService.getArray();
-			/*END SETTING FOR LIVE/STAGING/PAT*/
-			
+			/* END SETTING FOR LIVE/STAGING/PAT */
+
 		} catch (Exception ex) {
 			myLogger.debug("ERROR (getListRangeMap) :::: " + ex.getMessage());
 		}
@@ -2388,12 +2643,14 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 				Double lat1 = Double.parseDouble(array.get(0).toString());
 				Double lon1 = Double.parseDouble(array.get(1).toString());
 				// mercutanda
-				LokasiPermohonan lokasiPermohonan = (LokasiPermohonan) mp.find(LokasiPermohonan.class,
-						getParam("idLokasiPermohonan"));
+				LokasiPermohonan lokasiPermohonan = (LokasiPermohonan) mp.find(
+						LokasiPermohonan.class, getParam("idLokasiPermohonan"));
 				Double lat2 = lokasiPermohonan.getLat();
 				Double lon2 = lokasiPermohonan.getLon();
-				// Double minRange=getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2);
-				Double minRange = getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2);
+				// Double
+				// minRange=getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2);
+				Double minRange = getDistanceFromLatLonInKm(lat1, lon1, lat2,
+						lon2);
 				// Double minRange =
 				// Double.parseDouble(Collections.min(array).toString());
 				if (minRange > 25) {
@@ -2407,16 +2664,19 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			}
 		}
 		// context.put("result2", result2);
-		//resultRadius = "true";
+		// resultRadius = "true";
 		return resultRadius;
 	}
 
-	public Double getDistanceFromLatLonInKm(Double lat1, Double lon1, Double lat2, Double lon2) {
+	public Double getDistanceFromLatLonInKm(Double lat1, Double lon1,
+			Double lat2, Double lon2) {
 		int R = 6371; // Radius of the earth in km
 		double dLat = (lat2 - lat1) * (Math.PI / 180); // deg2rad below
 		double dLon = (lon2 - lon1) * (Math.PI / 180);
-		double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * (Math.PI / 180))
-				* Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+		double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+				+ Math.cos(lat1 * (Math.PI / 180))
+				* Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2)
+				* Math.sin(dLon / 2);
 		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 		double d = R * c; // Distance in km
 		return d;
@@ -2425,16 +2685,21 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 	public void simpanAuditTrail(String idPermohonan, String flagProses) {
 		mp = new MyPersistence();
 		UsersActivity activity = new UsersActivity();
-		KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class, idPermohonan);
-		Users u=null;
-		UsersJob uj=null;
-		UsersSpouse us=null;
-		
-		if(kp!=null){
+		KuaPermohonan kp = (KuaPermohonan) mp.find(KuaPermohonan.class,
+				idPermohonan);
+		Users u = null;
+		UsersJob uj = null;
+		UsersSpouse us = null;
+
+		if (kp != null) {
 			u = (Users) mp.find(Users.class, kp.getPemohon().getId());
-			uj = (UsersJob) mp.get("SELECT uj FROM UsersJob uj WHERE uj.users.id = '" + kp.getPemohon().getId() + "'");
-			us = (UsersSpouse) mp.get("SELECT us FROM UsersSpouse us WHERE us.users.id = '" + kp.getPemohon().getId() + "'");
-			
+			uj = (UsersJob) mp
+					.get("SELECT uj FROM UsersJob uj WHERE uj.users.id = '"
+							+ kp.getPemohon().getId() + "'");
+			us = (UsersSpouse) mp
+					.get("SELECT us FROM UsersSpouse us WHERE us.users.id = '"
+							+ kp.getPemohon().getId() + "'");
+
 			if (u != null) {
 				activity.setUserLogin(u.getId());
 				activity.setGelaran(u.getGelaran());
@@ -2507,7 +2772,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 				activity.setUsNamaPasangan(us.getNamaPasangan());
 				activity.setUsJenisPengenalan(us.getJenisPengenalan());
 				activity.setUsNoKPPasangan(us.getNoKPPasangan());
-				activity.setUsStatusPekerjaanPasangan(us.getStatusPekerjaanPasangan());
+				activity.setUsStatusPekerjaanPasangan(us
+						.getStatusPekerjaanPasangan());
 				activity.setUsJenisPekerjaan(us.getJenisPekerjaan());
 				activity.setUsGajiPasangan(us.getGajiPasangan());
 				activity.setUsNamaSyarikat(us.getNamaSyarikat());
@@ -2585,20 +2851,22 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 				activity.setReason("tolakPermohonan");
 				activity.setMessage("Permohonan kuarters ditolak");
 			}
-			
+
 			if (flagProses == "simpanCatatan") {
 				activity.setReason("simpanCatatan");
 				activity.setMessage("simpanCatatan");
 			}
-			
+
 			if (flagProses == "hapusCatatan") {
 				activity.setReason("hapusCatatan");
 				activity.setMessage("hapusCatatan");
 			}
 
 			activity.setTarikhKemaskini(new Date());
-			UsersActivity ua = (UsersActivity) mp.get("SELECT ua FROM UsersActivity ua WHERE ua.userLogin = '"
-					+ kp.getPemohon().getId() + "' ORDER BY ua.turutan DESC");
+			UsersActivity ua = (UsersActivity) mp
+					.get("SELECT ua FROM UsersActivity ua WHERE ua.userLogin = '"
+							+ kp.getPemohon().getId()
+							+ "' ORDER BY ua.turutan DESC");
 			if (ua != null) {
 				int turutan = ua.getTurutan() + 1;
 				activity.setTurutan(turutan);
@@ -2616,9 +2884,12 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 			try {
 				mp.commit();
 			} catch (Exception e) {
-				System.out.println("Error kemaskiniPermohonan : " + e.getMessage());
+				System.out.println("Error kemaskiniPermohonan : "
+						+ e.getMessage());
 			} finally {
-				if (mp != null) { mp.close(); }
+				if (mp != null) {
+					mp.close();
+				}
 			}
 		}
 	}
@@ -2635,7 +2906,8 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		String key = year + month;
 
 		KuaSequencePermohonan seq = (KuaSequencePermohonan) mp
-				.get("select x from KuaSequencePermohonan x where x.id = '" + key + "'");
+				.get("select x from KuaSequencePermohonan x where x.id = '"
+						+ key + "'");
 
 		// mp.begin();
 		if (seq != null) {
@@ -2657,21 +2929,26 @@ public class FrmKuaPermohonanRecord extends LebahRecordTemplateModule<KuaPermoho
 		String noPermohonan = key + formatserial;
 		return noPermohonan;
 	}
-	
+
 	@Command("getMaklumatKuarters")
 	public String getMaklumatKuarters() throws Exception {
 		String idPenghuni = get("idPenghuni").trim();
 		try {
 			mp = new MyPersistence();
-			KuaPenghuni penghuni = (KuaPenghuni) mp.get("SELECT ua FROM KuaPenghuni ua WHERE ua.pemohon.id = '"+ idPenghuni + "' and ua.tarikhKeluar is null");
+			KuaPenghuni penghuni = (KuaPenghuni) mp
+					.get("SELECT ua FROM KuaPenghuni ua WHERE ua.pemohon.id = '"
+							+ idPenghuni + "' and ua.tarikhKeluar is null");
 			if (penghuni != null) {
-				KuaKuarters kuarters = (KuaKuarters) mp.find(KuaKuarters.class, penghuni.getKuarters().getId());
+				KuaKuarters kuarters = (KuaKuarters) mp.find(KuaKuarters.class,
+						penghuni.getKuarters().getId());
 				context.put("kuarters", kuarters);
 			}
 		} catch (Exception e) {
-			System.out.println("Error getMaklumatKuarters : "+ e.getMessage());
+			System.out.println("Error getMaklumatKuarters : " + e.getMessage());
 		} finally {
-			if (mp != null) { mp.close(); }
+			if (mp != null) {
+				mp.close();
+			}
 		}
 		return getPath() + "/entry_page.vm";
 	}
