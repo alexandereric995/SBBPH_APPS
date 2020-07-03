@@ -71,19 +71,16 @@ public class UtilDewan {
 
 	@Column(name = "no_telefon_pegawai")
 	private String noTelefonPegawai;
-
-	@Column(name = "status")
-	private String status;
+	
+	@ManyToOne
+	@JoinColumn(name = "kod_cawangan")
+	private KodPusatTerima kodCawangan;
 
 	@Column(name = "flag_aktif")
 	private String flagAktif;
 
 	@Column(name = "seq")
-	private Integer seq;
-
-	@ManyToOne
-	@JoinColumn(name = "kod_cawangan")
-	private KodPusatTerima kodCawangan;
+	private Integer seq;	
 
 	@ManyToOne
 	@JoinColumn(name = "id_masuk")
@@ -103,6 +100,9 @@ public class UtilDewan {
 
 	public UtilDewan() {
 		setId(UID.getUID());
+		setKadarSewa(0D);
+		setKadarSewaAwam(0D);
+		setFlagAktif("Y");
 		setTarikhMasuk(new Date());
 	}
 
@@ -234,22 +234,6 @@ public class UtilDewan {
 		this.noTelefonPegawai = noTelefonPegawai;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public Integer getSeq() {
-		return seq;
-	}
-
-	public void setSeq(Integer seq) {
-		this.seq = seq;
-	}
-
 	public KodPusatTerima getKodCawangan() {
 		return kodCawangan;
 	}
@@ -264,6 +248,14 @@ public class UtilDewan {
 
 	public void setFlagAktif(String flagAktif) {
 		this.flagAktif = flagAktif;
+	}
+
+	public Integer getSeq() {
+		return seq;
+	}
+
+	public void setSeq(Integer seq) {
+		this.seq = seq;
 	}
 
 	public Users getDaftarOleh() {

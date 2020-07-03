@@ -2,17 +2,66 @@ function validate() {
 
 	var err_count = 0;
 
-	var kadarSewa = $('kadarSewa').value;
-	if ( kadarSewa == "" ) {$('err_kadarSewa').innerHTML = "Kadar sewa swasta adalah mandatori!"; err_count++;  }
+	var nama = $('nama').value;
+	if ( nama == "" ) {$('err_nama').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var alamat1 = $('alamat1').value;
+	if ( alamat1 == "" ) {$('err_alamat1').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var lokasi = $('lokasi').value;
+	if ( lokasi == "" ) {$('err_lokasi').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var poskod = $('poskod').value;
+	if ( poskod == "" ) {$('err_poskod').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idNegeri = $('idNegeri').value;
+	if ( idNegeri == "" ) {$('err_idNegeri').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idBandar = $('idBandar').value;
+	if ( idBandar == "" ) {$('err_idBandar').innerHTML = "** mandatori!"; err_count++;  }
 	
 	var kadarSewaAwam = $('kadarSewaAwam').value;
-	if ( kadarSewaAwam == "" ) {$('err_kadarSewaAwam').innerHTML = "Kadar sewa awam adalah mandatori!"; err_count++;  }
+	if ( kadarSewaAwam == "" ) {$('err_kadarSewaAwam').innerHTML = "** mandatori!"; err_count++;  }
 	
-	var masaMula = $('waktuBuka').value;
-	if ( masaMula == "" ) {$('err_masaMula').innerHTML = "Masa mula adalah mandatori!"; err_count++;  }
+	var kadarSewa = $('kadarSewa').value;
+	if ( kadarSewa == "" ) {$('err_kadarSewa').innerHTML = "** mandatori!"; err_count++;  }	
 	
-	var masaTamat = $('waktuTutup').value;
-	if ( masaTamat == "" ) {$('err_masaTamat').innerHTML = "Masa tamat adalah mandatori!"; err_count++;  }
+	var masaMula = $('masaMula').value;
+	if ( masaMula == "" ) {$('err_masaMula').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var masaTamat = $('masaTamat').value;
+	if ( masaTamat == "" ) {$('err_masaTamat').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var idSeksyen = $('idSeksyen').value;
+	if ( idSeksyen == "" ) {$('err_idSeksyen').innerHTML = "** mandatori!"; err_count++;  }
+		
+	if (err_count == 0) {
+		if ( !window.confirm("Anda pasti?") ){
+			return;
+		}
+	}
+	
+	return err_count == 0;
+}
+
+function doSaveMaklumatDewan() {
+	if ( validate() ){
+		doDivAjaxCall$formname('divTab','saveMaklumatDewan','');
+	}
+}
+
+function validateMaklumatPeralatan() {
+
+	var err_count = 0;
+
+	var nama = $('nama').value;
+	if ( nama == "" ) {$('err_nama').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var kuantiti = $('kuantiti').value;
+	if ( kuantiti == "" ) {$('err_kuantiti').innerHTML = "** mandatori!"; err_count++;  }
+	
+	var kadarSewa = $('kadarSewa').value;
+	if ( kadarSewa == "" ) {$('err_kadarSewa').innerHTML = "** mandatori!"; err_count++;  }
 	
 	if (err_count == 0) {
 		if ( !window.confirm("Anda pasti?") ){
@@ -24,9 +73,9 @@ function validate() {
 }
 
 function saveMaklumatPeralatan() {
-	##if (validateMaklumatPeralatan()){
+	if (validateMaklumatPeralatan()){
 		doDivAjaxCall$formname('divTab','saveMaklumatPeralatan','');
-	##}
+	}
 }
 
 function deleteMaklumatPeralatan(id) {

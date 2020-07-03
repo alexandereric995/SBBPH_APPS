@@ -1,94 +1,79 @@
 <fieldset>
-<legend class="legend">MAKLUMAT REKOD</legend>
+<legend class="legend">MAKLUMAT DEWAN</legend>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
         <tr>
-          <td style="width:150px"></td>
-          <td style="width:10px"></td>
+          <td style="width:30%"></td>
+          <td style="width:1%"></td>
           <td></td>
         </tr>
-		  #input("nama" "Nama" "$!r.nama")
-		  #input("alamat1" "Alamat" "$!r.alamat1")
-		  #input("alamat2" "" "$!r.alamat2")
-		  #input("alamat3" "" "$!r.alamat3")
+        #input_required("nama" "Nama" "$!r.nama")
+        #input_required("alamat1" "Alamat" "$!r.alamat1")
+        #input("alamat2" "" "$!r.alamat2")
+        #input("alamat3" "" "$!r.alamat3")
+        #input_required("lokasi" "Lokasi" "$!r.lokasi")
       </table></td>
     <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
         <tr>
-          <td style="width:150px"></td>
-          <td style="width:10px"></td>
+          <td style="width:30%"></td>
+          <td style="width:1%"></td>
           <td></td>
         </tr>
+        #postcode_required("poskod" "Poskod" "$!r.poskod")
         <tr>
-          <td class="label" valign="top">Cawangan &nbsp;<span style="color:#FF2A00">*</span></td>
-          <td valign="top">:</td>
-          <td>#parse("$path/selectCawangan.vm")
-            <div id="err_negeri" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
-        </tr>
-		#input("lokasi" "Lokasi" "$!r.lokasi")
-		#input("poskod" "Poskod" "$!r.poskod")
-##		#input_normal("lokasi" "Lokasi" "$!r.lokasi")
-##		#input_normal("poskod" "Poskod" "$!r.poskod")
-##		#input_normal("negeri" "Negeri" "$!r.bandar.negeri.keterangan")
-##		#input_normal("bandar" "Bandar" "$!r.bandar.keterangan")
-		<tr>
           <td class="label" valign="top">Negeri &nbsp;<span style="color:#FF2A00">*</span></td>
           <td valign="top">:</td>
           <td>#parse("$path/selectNegeri.vm")
-            <div id="err_negeri" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+            <div id="err_idNegeri" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
         </tr>
         <tr>
           <td class="label" valign="top">Bandar &nbsp;<span style="color:#FF2A00">*</span></td>
           <td valign="top">:</td>
           <td><div id="selectBandar">
             #parse("$path/selectBandar.vm")
-            <div id="err_bandar" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+            <div id="err_idBandar" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Cawangan</td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectCawangan.vm")
+            <div id="err_idCawangan" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
         </tr>
       </table></td>
   </tr>
 </table>
 </fieldset>
-
 <fieldset>
-<legend class="legend">MAKLUMAT REKOD</legend>
+<legend class="legend">MAKLUMAT SEWAAN</legend>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
         <tr>
-          <td style="width:150px"></td>
-          <td style="width:10px"></td>
-          <td style="width:150px"></td>
-          <td style="width:10px"></td>
+          <td style="width:30%"></td>
+          <td style="width:1%"></td>
+          <td></td>
         </tr>
-		  
-		  ##currency_required("kadarSewa" "Sewaan Swasta (RM)" "$!r.kadarSewa")
-		  <tr>
-			<td class="label" valign="top">Sewaan Swasta (RM) &nbsp;<span style="color:#FF2A00">*</span></td>
-			<td class="label" valign="top">:</td>
-			<td valign="top">
-			<input class="currency" type="text" id="kadarSewa" name="kadarSewa" value="$!r.kadarSewa" onKeyUp=" $('err_kadarSewa').innerHTML=''; at(this, event);">
-			<div id="err_kadarSewa" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
-			</td>
-			<td style="color:#FF2A00"><b>/jam</b></td>
-		</tr>
-		  ##currency_required("kadarSewaAwam" "Sewaan Awam (RM)" "$!r.kadarSewaAwam")
-		  <tr>
-			<td class="label" valign="top">Sewaan Awam (RM) &nbsp;<span style="color:#FF2A00">*</span></td>
-			<td class="label" valign="top">:</td>
-			<td valign="top">
-			<input class="currency" type="text" id="kadarSewaAwam" name="kadarSewaAwam" value="$!r.kadarSewaAwam" onKeyUp=" $('err_kadarSewaAwam').innerHTML=''; at(this, event);">
-			<div id="err_kadarSewaAwam" style="color:#CC0000;font-weight:bold;border:2px #000"></div>
-			</td>
-			<td style="color:#FF2A00"><b>/hari</b></td>
-		</tr>
-		  #textarea("catatan" "Catatan" "$!r.catatan")
-		  	  
-		 
+        <tr>
+          <td class="label" valign="top">Sewaan Swasta (RM) &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td class="label" valign="top">:</td>
+          <td valign="top"><input class="currency" type="text" id="kadarSewa" name="kadarSewa" value="$!r.kadarSewa" onKeyUp=" $('err_kadarSewa').innerHTML=''; at(this, event);">
+            <div id="err_kadarSewa" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td style="color:#FF2A00"><b>/jam</b></td>
+        </tr>
+        <tr>
+          <td class="label" valign="top">Sewaan Awam (RM) &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td class="label" valign="top">:</td>
+          <td valign="top"><input class="currency" type="text" id="kadarSewaAwam" name="kadarSewaAwam" value="$!r.kadarSewaAwam" onKeyUp=" $('err_kadarSewaAwam').innerHTML=''; at(this, event);">
+            <div id="err_kadarSewaAwam" style="color:#CC0000;font-weight:bold;border:2px #000"></div></td>
+          <td style="color:#FF2A00"><b>/hari</b></td>
+        </tr>
+        #textarea("catatan" "Catatan" "$!r.catatan")
       </table></td>
     <td width="50%" valign="top"><table cellpadding="3" cellspacing="0" border="0" width="100%" style="padding: 0px 25px;">
         <tr>
-          <td style="width:150px"></td>
-          <td style="width:10px"></td>
+          <td style="width:30%"></td>
+          <td style="width:1%"></td>
           <td></td>
         </tr>
         <tr>
@@ -97,27 +82,43 @@
           <td><div id="selectMasaMula">
             #parse("$path/selectMasaMula.vm")
             <div id="err_masaMula" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
-         </tr>
-        
-		 <tr>
+        </tr>
+        <tr>
           <td class="label" valign="top">Masa Tamat &nbsp;<span style="color:#FF2A00">*</span></td>
           <td valign="top">:</td>
           <td><div id="selectMasaTamat">
             #parse("$path/selectMasaTamat.vm")
             <div id="err_masaTamat" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
         </tr>
-         <tr>
+        <tr>
           <td class="label" valign="top">Unit Seksyen &nbsp;<span style="color:#FF2A00">*</span></td>
           <td valign="top">:</td>
           <td>#parse("$path/selectSeksyen.vm")
-            <div id="err_seksyen" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+            <div id="err_idSeksyen" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
         </tr>
+        #if ($!command != "add_new_record")
+        <tr>
+          <td class="label" valign="top">Status &nbsp;<span style="color:#FF2A00">*</span></td>
+          <td valign="top">:</td>
+          <td>#parse("$path/selectStatus.vm")
+            <div id="err_flagAktif" style="color:#CC0000;font-weight:bold;border:2px #000"></td>
+        </tr>
+        #end
       </table></td>
   </tr>
 </table>
 </fieldset>
 
-
+#if ($!command != "add_new_record")
+<table width="100%">
+  <tr>
+    <td align="right">
+    	<input id="simpan" name="simpan" type="button" value="Simpan" onClick="javascript:doSaveMaklumatDewan();"/>
+    	<input id="btnBack" type="button" value="Kembali" onClick="$('div_main_entry').style.display='none';$('div_main').style.display='block';doDivAjaxCall$formname('div_list','list_page','page_num=$!current_page_num')">
+    </td>
+  </tr>
+</table>
+#end 
 
 <script>
   _jq(function($) {
