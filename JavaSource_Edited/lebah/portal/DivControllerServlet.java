@@ -67,20 +67,22 @@ public class DivControllerServlet extends VServlet {
 			String module = pathInfo != null ? pathInfo : "";
 
 			// ****** SECURITY CHECK HERE
-			String role = (String) session.getAttribute("_portal_role");
-
-			try {
-				String name = CustomClass.getName(module, role);
-				if (name == null) {
-					try {
-						res.sendRedirect("../access_denied.html");
-					} catch (IOException e) {
-						e.printStackTrace();
+			if (!"bph.portal.FrmLupaKataLaluan".equals(module)) {
+				String role = (String) session.getAttribute("_portal_role");
+				try {
+					String name = CustomClass.getName(module, role);
+					if (name == null) {
+						try {
+							res.sendRedirect("../access_denied.html");
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
+				} catch (DbException e) {
+					e.printStackTrace();
 				}
-			} catch (DbException e) {
-				e.printStackTrace();
-			}
+			}			
+			
 			try {
 				Object content = null;
 				try {
