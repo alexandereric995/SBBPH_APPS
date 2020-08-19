@@ -73,7 +73,7 @@ public class DivControllerServlet extends VServlet {
 					String name = CustomClass.getName(module, role);
 					if (name == null) {
 						try {
-							res.sendRedirect("../access_denied.html");
+							res.sendRedirect("../accessdenied.jsp");
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
