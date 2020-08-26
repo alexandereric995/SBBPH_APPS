@@ -38,6 +38,7 @@ FROM kew_bayaran_resit a, kew_resit_kaedah_bayaran b, users c
 WHERE     a.id = b.id_bayaran_resit
       AND a.id_pembayar = c.user_login
       AND b.id_mod_bayaran IN ('FPX', 'MIGS')
+      AND a.flag_void != "Y"
       AND a.tarikh_bayaran BETWEEN str_to_date('$P!{tarikhMula}', '%d-%m-%Y')
                                AND str_to_date('$P!{tarikhHingga}',
                                                '%d-%m-%Y')
