@@ -25,16 +25,31 @@
 
 	<parameter name="ReportDir" isForPrompting="true" class="java.lang.String"/>
 	<parameter name="idPermohonan" isForPrompting="true" class="java.lang.String"/>
-	<queryString><![CDATA[SELECT users.no_kp, users.user_name, ruj_gelaran.keterangan gelaran, users.alamat_1, users.alamat_2, users.alamat_3, users.poskod,
-ruj_bandar.keterangan bandar, ruj_negeri.keterangan negeri, users.no_telefon_bimbit, users.no_telefon, users.no_faks,
-users.emel, users.no_akaun_bank, users.nama_bank, users.id_bank, ruj_bank.keterangan bank
-FROM users
-JOIN ruj_bandar ON (users.id_bandar = ruj_bandar.id)
-JOIN ruj_negeri ON (ruj_bandar.id_negeri = ruj_negeri.id)
-LEFT OUTER JOIN ruj_bank ON (users.id_bank = ruj_bank.id)
-LEFT OUTER JOIN ruj_gelaran ON (users.gelaran = ruj_gelaran.id)
-LEFT OUTER JOIN rpp_permohonan ON (rpp_permohonan.id_pemohon = users.user_login)
-WHERE rpp_permohonan.id = '$P!{idPermohonan}']]></queryString>
+	<queryString><![CDATA[SELECT users.no_kp,
+       users.user_name,
+       ruj_gelaran.keterangan gelaran,
+       users.alamat_1,
+       users.alamat_2,
+       users.alamat_3,
+       users.poskod,
+       ruj_bandar.keterangan bandar,
+       ruj_negeri.keterangan negeri,
+       users.no_telefon_bimbit,
+       users.no_telefon,
+       users.no_faks,
+       users.emel,
+       users.no_akaun_bank,
+       users.nama_bank,
+       users.id_bank,
+       ruj_bank.keterangan bank
+  FROM users
+       LEFT OUTER JOIN ruj_bandar ON (users.id_bandar = ruj_bandar.id)
+       LEFT OUTER JOIN ruj_negeri ON (ruj_bandar.id_negeri = ruj_negeri.id)
+       LEFT OUTER JOIN ruj_bank ON (users.id_bank = ruj_bank.id)
+       LEFT OUTER JOIN ruj_gelaran ON (users.gelaran = ruj_gelaran.id)
+       LEFT OUTER JOIN rpp_permohonan
+          ON (rpp_permohonan.id_pemohon = users.user_login)
+ WHERE rpp_permohonan.id = '$P!{idPermohonan}']]></queryString>
 
 	<field name="no_kp" class="java.lang.String"/>
 	<field name="user_name" class="java.lang.String"/>
